@@ -1,0 +1,17 @@
+# Core dependencies
+torch
+torchvision
+numpy
+opencv-python
+matplotlib
+pandas
+scikit-learn
+PyYAML
+tqdm
+
+# Development dependencies
+pytest
+ruff
+black
+mypy
+types-PyYAML

@@ -1,0 +1,10 @@
+# FCS-VMamba — root config template
+# Paper-specific overrides live in configs/config.yaml
+
+model:
+  name: fcs_vmamba
+  task: classification
+
+experiment:
+  seed: 42
+  output_dir: runs/vmamba

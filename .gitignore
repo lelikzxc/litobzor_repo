@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Model checkpoints and weights
+*.pth
+*.pt
+*.ckpt
+
+# Experiment tracking and logs
+wandb/
+logs/
+runs/
+checkpoints/
+
+# Data directories
+data/
+datasets/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing and type checking
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db

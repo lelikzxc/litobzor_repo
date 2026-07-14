@@ -1,0 +1,29 @@
+# Default project configuration
+# Override per-paper configs in papers/<model_name>/configs/
+
+project:
+  name: litobzor
+  seed: 42
+  device: cuda
+
+paths:
+  data_dir: data/
+  checkpoints_dir: checkpoints/
+  logs_dir: logs/
+
+training:
+  batch_size: 16
+  num_epochs: 100
+  learning_rate: 0.001
+  num_workers: 4
+
+evaluation:
+  batch_size: 32
+  metrics:
+    - accuracy
+    - f1
+    - iou
+
+logging:
+  level: INFO
+  log_dir: logs/

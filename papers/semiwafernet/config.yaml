@@ -1,0 +1,10 @@
+# SemiWaferNet — root config template
+# Paper-specific overrides live in configs/config.yaml
+
+model:
+  name: semiwafernet
+  task: semi_supervised_detection
+
+experiment:
+  seed: 42
+  output_dir: runs/semiwafernet

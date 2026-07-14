@@ -1,0 +1,10 @@
+# SegFormer + Atrous — root config template
+# Paper-specific overrides live in configs/config.yaml
+
+model:
+  name: segformer_atrous
+  task: segmentation
+
+experiment:
+  seed: 42
+  output_dir: runs/transformer_segmentation

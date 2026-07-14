@@ -1,0 +1,10 @@
+# CTM-YOLOv10 — root config template
+# Paper-specific overrides live in configs/config.yaml
+
+model:
+  name: ctm_yolov10
+  task: detection
+
+experiment:
+  seed: 42
+  output_dir: runs/ctm_yolov10

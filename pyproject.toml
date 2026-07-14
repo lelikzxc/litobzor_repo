@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "litobzor"
+version = "0.1.0"
+description = "Research repository for reproducing CV models for silicon wafer defect detection"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "Litobzor Team" }]
+keywords = ["computer-vision", "defect-detection", "wafer", "deep-learning", "research"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = [
+    "torch",
+    "torchvision",
+    "numpy",
+    "opencv-python",
+    "matplotlib",
+    "pandas",
+    "scikit-learn",
+    "PyYAML",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+    "black",
+    "mypy",
+    "types-PyYAML",
+]
+
+[project.urls]
+Repository = "https://github.com/niime/litobzor_repo"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["common*", "papers*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "papers"]
+pythonpath = ["."]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["."]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["common", "papers"]
+
+[tool.black]
+target-version = ["py311"]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+packages = ["common", "papers"]

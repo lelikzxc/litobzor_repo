@@ -1,0 +1,35 @@
+# CTM-YOLOv10 experiment configuration
+
+model:
+  name: ctm_yolov10
+  task: detection
+  # architecture params will be added during implementation
+
+data:
+  dataset: wafer_defects
+  image_size: 640
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+
+training:
+  batch_size: 16
+  num_epochs: 300
+  learning_rate: 0.001
+  weight_decay: 0.0005
+  optimizer: sgd
+  scheduler: multistep
+
+evaluation:
+  batch_size: 32
+  metrics:
+    - map
+    - map50
+    - map75
+    - precision
+    - recall
+
+logging:
+  level: INFO
+  save_checkpoints: true
+  checkpoint_interval: 10
