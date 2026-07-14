@@ -2,9 +2,11 @@
 
 Reproduction of Tiny Vision Transformer for silicon wafer defect detection.
 
+Reference: *Semiconductor Wafer Map Defect Classification with Tiny Vision Transformers*
+
 ## Status
 
-Not implemented.
+Implementation in progress.
 
 ## Configuration
 
@@ -14,6 +16,9 @@ See `configs/config.yaml` for experiment hyperparameters.
 
 - `configs/` — YAML experiment configurations
 - `models/` — model architecture and weights
-- `data/` — dataset loaders and preprocessing
+- `data_utils/` — dataset loaders and preprocessing
 - `utils/` — paper-specific utilities
 - `tests/` — unit and integration tests
+- `train.py` — training entry point
+- `evaluate.py` — evaluation entry point
+- `predict.py` — inference entry point

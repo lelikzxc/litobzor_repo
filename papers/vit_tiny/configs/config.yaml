@@ -3,11 +3,21 @@
 model:
   name: vit_tiny
   task: classification
-  # architecture params will be added during implementation
+  arch:
+    image_size: 32
+    patch_size: 4
+    in_channels: 1
+    num_classes: 8
+    embed_dim: 192
+    num_layers: 4
+    num_heads: 3
+    mlp_ratio: 4
+    dropout: 0.1
+    emb_dropout: 0.1
 
 data:
   dataset: wafer_defects
-  image_size: 224
+  image_size: 32
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
