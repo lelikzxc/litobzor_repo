@@ -3,11 +3,17 @@
 model:
   name: ctm_yolov10
   task: detection
-  # architecture params will be added during implementation
+
+  backbone:
+    name: yolov10
+
+  ctm:
+    enabled: true
 
 data:
   dataset: wafer_defects
   image_size: 640
+  num_classes: 8
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
