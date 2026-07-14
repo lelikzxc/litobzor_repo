@@ -5,10 +5,15 @@ model:
   task: detection
 
   backbone:
-    name: yolov10
+    name: yolov10n
+    pretrained: false
 
   ctm:
     enabled: true
+
+  input:
+    image_size: 640
+    channels: 3
 
 data:
   dataset: wafer_defects
@@ -19,6 +24,7 @@ data:
   test_split: 0.1
 
 training:
+  num_classes: 8
   batch_size: 16
   num_epochs: 300
   learning_rate: 0.001
