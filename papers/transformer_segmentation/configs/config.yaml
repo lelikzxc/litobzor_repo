@@ -3,11 +3,31 @@
 model:
   name: segformer_atrous
   task: segmentation
-  # architecture params will be added during implementation
+
+  backbone:
+    name: mix_transformer  # MiT-B0 / MiT-B1 / MiT-B2 / MiT-B3 / MiT-B4 / MiT-B5
+    variant: B0            # B0 (smallest) through B5 (largest)
+    qkv_bias: false
+    qk_scale: null
+
+  decoder:
+    name: mlp_decoder      # lightweight all-MLP decoder
+    decoder_dim: 256       # common projection dimension
+    dropout: 0.0
+
+  atrous:
+    enabled: true
+    rates: [1, 6, 12, 18]  # dilation rates for atrous conv
+    reduction: 4            # channel reduction ratio
+
+  input:
+    image_size: 512
+    channels: 3
 
 data:
   dataset: wafer_defects
   image_size: 512
+  num_classes: 8
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
