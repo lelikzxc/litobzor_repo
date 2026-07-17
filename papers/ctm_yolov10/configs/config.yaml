@@ -1,8 +1,10 @@
 # CTM-YOLOv10 experiment configuration
+# Compatible with common.engine.EngineConfig and common.engine.Builder.
 
 model:
   name: ctm_yolov10
   task: detection
+  num_classes: 8
 
   backbone:
     name: yolov10n
@@ -19,6 +21,14 @@ model:
     image_size: 640
     channels: 3
 
+dataset:
+  name: wafer_defects
+  image_size: 640
+  num_classes: 8
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+
 data:
   dataset: wafer_defects
   image_size: 640
@@ -33,8 +43,15 @@ training:
   num_epochs: 300
   learning_rate: 0.001
   weight_decay: 0.0005
-  optimizer: sgd
-  scheduler: multistep
+  optimizer:
+    name: sgd
+    lr: 0.001
+    weight_decay: 0.0005
+  scheduler:
+    name: multistep
+    milestones: [200, 260]
+  loss:
+    name: cross_entropy
 
 evaluation:
   batch_size: 32
