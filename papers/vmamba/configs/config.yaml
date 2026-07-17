@@ -1,7 +1,9 @@
 # FCS-VMamba experiment configuration
+# Compatible with both FCSVMamba.from_config() and common.engine.EngineConfig.
 
 model:
   name: fcs_vmamba
+  num_classes: 8
   task: classification
 
   backbone:
@@ -45,8 +47,20 @@ training:
   num_epochs: 100
   learning_rate: 0.0001
   weight_decay: 0.05
-  optimizer: adamw
-  scheduler: cosine
+
+  # Engine-compatible optimizer config (dict format)
+  optimizer:
+    name: adamw
+    lr: 0.0001
+    weight_decay: 0.05
+
+  # Engine-compatible scheduler config (dict format)
+  scheduler:
+    name: cosine
+
+  # Engine-compatible loss config (dict format)
+  loss:
+    name: cross_entropy
 
 evaluation:
   batch_size: 64
@@ -60,3 +74,9 @@ logging:
   level: INFO
   save_checkpoints: true
   checkpoint_interval: 10
+
+# Engine-compatible dataset section
+dataset:
+  name: wafer_defects
+  image_size: 224
+  num_classes: 8

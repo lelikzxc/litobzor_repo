@@ -5,6 +5,9 @@ Creates the FCS-VMamba model, runs a dummy forward pass, and prints
 architecture details including stage dimensions, output shape, and
 parameter count comparison between backbone-only and full FCS-VMamba.
 
+Also demonstrates integration with the common engine infrastructure:
+registry, EngineConfig, Predictor, and Engine.
+
 This is the final research validation demo.
 """
 
@@ -207,6 +210,7 @@ def main() -> None:
     print(f"    ✅ Classification head — GAP → LayerNorm → Linear")
     print(f"    ✅ Ablation support — All 8 configurations supported")
     print(f"    ✅ Config-driven — All params from YAML")
+    print(f"    ✅ Engine integration — Registry, EngineConfig, Predictor, Engine")
     print(f"    ⚠️ FA implementation — Approximation (paper lacks detail)")
     print(f"    ⚠️ SFS implementation — Approximation (paper lacks detail)")
     print(f"    ⚠️ CLCA implementation — Approximation (paper lacks detail)")
@@ -220,6 +224,102 @@ def main() -> None:
 
     print(f"\n{'=' * 56}")
     print("  FCS-VMamba Research Validation — Complete.")
+    print(f"{'=' * 56}")
+
+    # ═══════════════════════════════════════════════════════════════════
+    #  Engine Integration Demo
+    # ═══════════════════════════════════════════════════════════════════
+    print(f"\n{'=' * 56}")
+    print("  Engine Integration Demo")
+    print(f"{'=' * 56}")
+
+    # ── 1. Registry construction ──────────────────────────────────────
+    print(f"\n[E1] Registry construction:")
+    from common.engine.registry import build_model, is_registered, list_registered
+
+    assert is_registered("models", "fcs_vmamba"), "fcs_vmamba should be registered"
+    registered_models = list_registered("models")
+    print(f"    Registered models: {registered_models}")
+    print(f"    fcs_vmamba in registry: {'fcs_vmamba' in registered_models}")
+
+    # ── 2. EngineConfig loading ───────────────────────────────────────
+    print(f"\n[E2] EngineConfig loading:")
+    from common.engine.config import EngineConfig
+
+    config = EngineConfig.from_yaml("papers/vmamba/configs/config.yaml")
+    print(f"    model.name:           {config.get('model.name')}")
+    print(f"    model.num_classes:    {config.get('model.num_classes')}")
+    print(f"    model.backbone.embed_dim: {config.get('model.backbone.embed_dim')}")
+    print(f"    training.optimizer:   {config.get('training.optimizer')}")
+    print(f"    training.scheduler:   {config.get('training.scheduler')}")
+    print(f"    training.loss:        {config.get('training.loss')}")
+    print(f"    dataset.name:         {config.get('dataset.name')}")
+
+    # ── 3. build_model() by registered name ───────────────────────────
+    print(f"\n[E3] build_model() by registered name:")
+    model_from_registry = build_model(
+        "fcs_vmamba",
+        in_channels=3,
+        image_size=IMAGE_SIZE,
+        num_classes=NUM_CLASSES,
+    )
+    model_from_registry.eval()
+    print(f"    Model type: {type(model_from_registry).__name__}")
+    print(f"    num_classes: {model_from_registry.num_classes}")
+
+    # ── 4. from_config() with EngineConfig ────────────────────────────
+    print(f"\n[E4] from_config() with EngineConfig:")
+    model_from_cfg = FCSVMamba.from_config(config)
+    model_from_cfg.eval()
+    print(f"    Model type: {type(model_from_cfg).__name__}")
+    print(f"    num_classes: {model_from_cfg.num_classes}")
+    print(f"    embed_dim: {model_from_cfg.embed_dim}")
+
+    # ── 5. Predictor inference ────────────────────────────────────────
+    print(f"\n[E5] Predictor inference:")
+    from common.inference.predictor import Predictor
+
+    predictor = Predictor(model_full, device="cpu")
+    x_single = torch.randn(3, IMAGE_SIZE, IMAGE_SIZE)
+    result = predictor.predict_single(x_single)
+    print(f"    logits shape:    {list(result['logits'].shape)}")
+    print(f"    probs shape:     {list(result['probs'].shape)}")
+    print(f"    prediction:      {result['prediction'].item()}")
+    print(f"    probs sum:       {result['probs'].sum().item():.4f}")
+
+    # ── 6. Batch inference via Predictor ──────────────────────────────
+    print(f"\n[E6] Batch inference via Predictor:")
+    x_batch = torch.randn(BATCH_SIZE, 3, IMAGE_SIZE, IMAGE_SIZE)
+    batch_result = predictor.predict_batch(x_batch)
+    print(f"    batch logits shape: {list(batch_result['logits'].shape)}")
+    print(f"    batch predictions:  {batch_result['prediction'].tolist()}")
+
+    # ── 7. Engine instantiation ───────────────────────────────────────
+    print(f"\n[E7] Engine instantiation:")
+    from common.engine.engine import Engine
+
+    engine = Engine(model_full, config, device="cpu")
+    summary = engine.summary()
+    print(f"    Engine model: {summary['model']}")
+    print(f"    Engine device: {summary['device']}")
+
+    # ── 8. Engine predict_single ──────────────────────────────────────
+    print(f"\n[E8] Engine predict_single:")
+    engine_result = engine.predict_single(x_single)
+    print(f"    logits shape:    {list(engine_result['logits'].shape)}")
+    print(f"    probs shape:     {list(engine_result['probs'].shape)}")
+    print(f"    prediction:      {engine_result['prediction'].item()}")
+
+    # ── 9. Forward pass output shapes ─────────────────────────────────
+    print(f"\n[E9] Forward pass output shapes:")
+    with torch.no_grad():
+        logits = model_full(x_batch)
+    print(f"    Input:  [{BATCH_SIZE}, 3, {IMAGE_SIZE}, {IMAGE_SIZE}]")
+    print(f"    Output: {list(logits.shape)}  (logits, no Softmax)")
+    print(f"    Expected: [{BATCH_SIZE}, {NUM_CLASSES}]")
+
+    print(f"\n{'=' * 56}")
+    print("  Engine Integration Demo — Complete.")
     print(f"{'=' * 56}")
 
 

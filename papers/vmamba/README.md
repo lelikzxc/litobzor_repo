@@ -189,6 +189,99 @@ papers/vmamba/
     └── test_vmamba.py       — 30+ tests
 ```
 
+## Engine Compatibility
+
+The FCS-VMamba model is fully integrated with the canonical repository engine infrastructure (`common.engine.*`, `common.inference.*`).
+
+### Model Registration
+
+`FCSVMamba` is automatically registered with the engine registry when `papers.vmamba` is imported:
+
+```python
+from common.engine.registry import build_model, is_registered, list_registered
+
+# Check registration
+assert is_registered("models", "fcs_vmamba")
+
+# List all registered models
+print(list_registered("models"))
+
+# Instantiate by registered name — no manual imports needed
+model = build_model("fcs_vmamba", in_channels=3, image_size=224, num_classes=8)
+```
+
+Registration happens in [`papers/vmamba/__init__.py`](__init__.py) via `register_model("fcs_vmamba", FCSVMamba)` with `try/except ValueError` to handle re-imports gracefully.
+
+### EngineConfig Support
+
+The paper config at [`configs/config.yaml`](configs/config.yaml) is compatible with `EngineConfig`:
+
+```python
+from common.engine.config import EngineConfig
+
+config = EngineConfig.from_yaml("papers/vmamba/configs/config.yaml")
+assert config.get("model.name") == "fcs_vmamba"
+assert config.get("model.num_classes") == 8
+assert config.get("model.backbone.embed_dim") == 96
+```
+
+Engine-compatible fields added to the config:
+- `model.num_classes` — number of output classes
+- `training.optimizer` — dict with `name`, `lr`, `weight_decay`
+- `training.scheduler` — dict with `name`
+- `training.loss` — dict with `name`
+- `dataset` — section with `name`, `image_size`, `num_classes`
+
+### Builder Compatibility
+
+`FCSVMamba` can be instantiated via `common.engine.Builder`:
+
+```python
+from common.engine.builder import Builder
+from common.engine.config import EngineConfig
+
+config = EngineConfig.from_yaml("papers/vmamba/configs/config.yaml")
+builder = Builder(config)
+model = builder.build_model()  # reads model.name → "fcs_vmamba"
+```
+
+### Predictor Compatibility
+
+FCS-VMamba returns a logits tensor `[B, num_classes]` (no Softmax), which is fully compatible with the canonical `Predictor`'s default postprocessing (softmax + argmax):
+
+```python
+from common.inference.predictor import Predictor
+
+predictor = Predictor(model, device="cpu")
+result = predictor.predict_single(image_tensor)
+# result = {"logits": ..., "probs": ..., "prediction": ...}
+```
+
+No custom postprocessing function is needed — unlike detection models (e.g. YOLOv10) which return tuples.
+
+### Engine Usage
+
+```python
+from common.engine.engine import Engine
+from common.engine.config import EngineConfig
+from papers.vmamba.models.vmamba import FCSVMamba
+
+# Create model and config
+model = FCSVMamba(num_classes=8)
+config = EngineConfig.from_yaml("papers/vmamba/configs/config.yaml")
+
+# Create engine
+engine = Engine(model, config, device="cpu")
+print(engine.summary())
+
+# Single-image inference
+x = torch.randn(3, 224, 224)
+result = engine.predict_single(x)
+# result["logits"].shape → [1, 8]
+# result["probs"].shape  → [1, 8]
+# result["prediction"]   → argmax class index
+```
+
 ## References
 
 - FCS-VMamba: A Frequency-Compressed State Space Model for Silicon Wafer
