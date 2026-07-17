@@ -1,12 +1,7 @@
-"""YAML-based configuration with dot-separated nested access.
+"""Configuration helpers for the engine.
 
-``EngineConfig`` wraps a raw ``dict`` and provides:
-
-- ``from_yaml()`` / ``from_dict()`` class methods
-- ``get(key, default)`` with dot-separated key support
-- ``__getitem__`` / ``__contains__`` for dict-like access
-- ``merge()`` / ``merge_deep()`` for combining configs
-- ``to_dict()`` / ``to_yaml()`` for serialisation
+Supports loading YAML, nested dictionary access, default values,
+and merging user overrides. No CLI support.
 """
 
 from __future__ import annotations
@@ -18,16 +13,18 @@ import yaml
 
 
 class EngineConfig:
-    """Configuration container with dot-separated nested access.
+    """Configuration container with nested access, defaults, and merging.
 
     Args:
-        raw: Nested dictionary of configuration values.
+        data: Raw configuration dictionary.
     """
 
-    def __init__(self, raw: dict[str, Any]) -> None:
-        self._raw: dict[str, Any] = raw
+    def __init__(self, data: dict[str, Any] | None = None) -> None:
+        self._data: dict[str, Any] = dict(data) if data else {}
 
-    # ── Constructors ──────────────────────────────────────────────────────
+    # ------------------------------------------------------------------
+    # Loading
+    # ------------------------------------------------------------------
 
     @classmethod
     def from_yaml(cls, path: str | Path) -> EngineConfig:
@@ -37,11 +34,11 @@ class EngineConfig:
             path: Path to the YAML configuration file.
 
         Returns:
-            Parsed ``EngineConfig`` instance.
+            A new ``EngineConfig`` instance.
 
         Raises:
             FileNotFoundError: If the file does not exist.
-            TypeError: If the YAML root is not a mapping.
+            yaml.YAMLError: If the file contains invalid YAML.
         """
         config_path = Path(path)
         if not config_path.is_file():
@@ -53,36 +50,37 @@ class EngineConfig:
         if data is None:
             data = {}
         if not isinstance(data, dict):
-            raise TypeError(
-                f"Expected YAML mapping at root, got {type(data).__name__}"
-            )
-        return cls(raw=data)
+            raise TypeError(f"Expected YAML mapping at root, got {type(data).__name__}")
+
+        return cls(data=data)
 
     @classmethod
-    def from_dict(cls, d: dict[str, Any]) -> EngineConfig:
-        """Create an ``EngineConfig`` from an existing dictionary.
+    def from_dict(cls, data: dict[str, Any]) -> EngineConfig:
+        """Create configuration from a dictionary.
 
         Args:
-            d: Nested configuration dictionary.
+            data: Configuration dictionary.
 
         Returns:
-            New ``EngineConfig`` instance.
+            A new ``EngineConfig`` instance.
         """
-        return cls(raw=d.copy())
+        return cls(data=dict(data))
 
-    # ── Accessors ─────────────────────────────────────────────────────────
+    # ------------------------------------------------------------------
+    # Access
+    # ------------------------------------------------------------------
 
     def get(self, key: str, default: Any = None) -> Any:
         """Retrieve a value by dot-separated key.
 
         Args:
-            key: Dot-separated path (e.g. ``"training.batch_size"``).
+            key: Dot-separated key (e.g. ``"training.batch_size"``).
             default: Value returned when the key is missing.
 
         Returns:
-            The configuration value or *default*.
+            The configuration value, or ``default``.
         """
-        node: Any = self._raw
+        node: Any = self._data
         for part in key.split("."):
             if not isinstance(node, dict) or part not in node:
                 return default
@@ -90,94 +88,133 @@ class EngineConfig:
         return node
 
     def __getitem__(self, key: str) -> Any:
-        """Dict-style access via ``config["training.batch_size"]``.
+        """Dictionary-style access via dot-separated key.
+
+        Args:
+            key: Dot-separated key.
+
+        Returns:
+            The configuration value.
 
         Raises:
             KeyError: If the key is not found.
         """
-        value = self.get(key, _sentinel := object())
-        if value is _sentinel:
-            raise KeyError(f"Key {key!r} not found in config")
+        value = self.get(key, _MISSING)
+        if value is _MISSING:
+            raise KeyError(f"Key not found: '{key}'")
         return value
 
     def __contains__(self, key: str) -> bool:
-        """Check if a key exists (``"key" in config``)."""
-        return self.get(key, _sentinel := object()) is not _sentinel
+        """Check if a key exists."""
+        return self.get(key, _MISSING) is not _MISSING
 
-    # ── Mutation ──────────────────────────────────────────────────────────
+    # ------------------------------------------------------------------
+    # Merging
+    # ------------------------------------------------------------------
 
-    def merge(self, other: dict[str, Any] | EngineConfig) -> EngineConfig:
-        """Shallow-merge *other* into this config (top-level keys only).
+    def merge(self, overrides: dict[str, Any] | EngineConfig) -> EngineConfig:
+        """Merge overrides into this configuration (shallow merge).
 
         Args:
-            other: Dictionary or ``EngineConfig`` to merge in.
+            overrides: Dictionary or ``EngineConfig`` with override values.
 
         Returns:
             ``self`` for chaining.
         """
-        if isinstance(other, EngineConfig):
-            other = other._raw
-        self._raw.update(other)
+        if isinstance(overrides, EngineConfig):
+            overrides = overrides._data
+        self._data.update(overrides)
         return self
 
-    def merge_deep(self, other: dict[str, Any] | EngineConfig) -> EngineConfig:
-        """Deep-merge *other* into this config (recursive dict update).
+    def merge_deep(self, overrides: dict[str, Any] | EngineConfig) -> EngineConfig:
+        """Deep-merge overrides into this configuration.
+
+        Nested dictionaries are merged recursively rather than replaced.
 
         Args:
-            other: Dictionary or ``EngineConfig`` to merge in.
+            overrides: Dictionary or ``EngineConfig`` with override values.
 
         Returns:
             ``self`` for chaining.
         """
-        if isinstance(other, EngineConfig):
-            other = other._raw
-        self._deep_merge(self._raw, other)
+        if isinstance(overrides, EngineConfig):
+            overrides = overrides._data
+        self._data = _deep_merge(self._data, dict(overrides))
         return self
 
-    @staticmethod
-    def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> None:
-        """Recursively merge *override* into *base*."""
-        for key, value in override.items():
-            if key in base and isinstance(base[key], dict) and isinstance(value, dict):
-                EngineConfig._deep_merge(base[key], value)
-            else:
-                base[key] = value
-
-    # ── Serialisation ─────────────────────────────────────────────────────
+    # ------------------------------------------------------------------
+    # Serialization
+    # ------------------------------------------------------------------
 
     def to_dict(self) -> dict[str, Any]:
-        """Return a deep copy of the raw configuration dictionary."""
-        return _deep_copy(self._raw)
-
-    def to_yaml(self, path: str | Path | None = None) -> str | None:
-        """Serialise config to YAML string or file.
-
-        Args:
-            path: Optional file path. If provided, writes to file.
+        """Return a copy of the raw configuration dictionary.
 
         Returns:
-            YAML string if *path* is ``None``, otherwise ``None``.
+            Deep copy of the internal data.
         """
-        yaml_str = yaml.dump(
-            self._raw, default_flow_style=False, sort_keys=False, allow_unicode=True
-        )
-        if path is not None:
-            Path(path).write_text(yaml_str, encoding="utf-8")
-            return None
-        return yaml_str
+        return _deep_copy(self._data)
+
+    def to_yaml(self, path: str | Path) -> None:
+        """Write configuration to a YAML file.
+
+        Args:
+            path: Output file path.
+        """
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("w", encoding="utf-8") as handle:
+            yaml.dump(self._data, handle, default_flow_style=False)
 
     def __repr__(self) -> str:
-        return f"EngineConfig({self._raw!r})"
+        return f"EngineConfig({self._data!r})"
 
 
-def _deep_copy(d: dict[str, Any]) -> dict[str, Any]:
-    """Recursively copy a nested dictionary."""
-    out: dict[str, Any] = {}
-    for key, value in d.items():
-        if isinstance(value, dict):
-            out[key] = _deep_copy(value)
-        elif isinstance(value, list):
-            out[key] = [v.copy() if isinstance(v, dict) else v for v in value]
+# ---------------------------------------------------------------------------
+# Sentinel
+# ---------------------------------------------------------------------------
+
+class _MISSING_TYPE:
+    """Sentinel for missing values."""
+    _instance: _MISSING_TYPE | None = None
+
+    def __new__(cls) -> _MISSING_TYPE:
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __repr__(self) -> str:
+        return "<MISSING>"
+
+
+_MISSING = _MISSING_TYPE()
+
+
+# ---------------------------------------------------------------------------
+# Internal helpers
+# ---------------------------------------------------------------------------
+
+
+def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
+    """Recursively merge two dictionaries."""
+    result = {}
+    all_keys = set(base) | set(override)
+    for key in all_keys:
+        if key in base and key in override:
+            if isinstance(base[key], dict) and isinstance(override[key], dict):
+                result[key] = _deep_merge(base[key], override[key])
+            else:
+                result[key] = override[key]
+        elif key in base:
+            result[key] = _deep_copy(base[key])
         else:
-            out[key] = value
-    return out
+            result[key] = _deep_copy(override[key])
+    return result
+
+
+def _deep_copy(value: Any) -> Any:
+    """Deep-copy a value (handles nested dicts)."""
+    if isinstance(value, dict):
+        return {k: _deep_copy(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_deep_copy(v) for v in value]
+    return value

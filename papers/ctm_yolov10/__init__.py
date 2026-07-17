@@ -11,8 +11,16 @@ from papers.ctm_yolov10.models.yolov10 import CTMYOLOv10, YOLOv10Baseline
 
 # Register with the common engine registry.
 # After this import, build_model("ctm_yolov10", ...) works without manual imports.
-register_model("ctm_yolov10", CTMYOLOv10)
-register_model("yolov10_baseline", YOLOv10Baseline)
+# Use try/except to handle re-registration gracefully (e.g. during test discovery).
+try:
+    register_model("ctm_yolov10", CTMYOLOv10)
+except ValueError:
+    pass
+
+try:
+    register_model("yolov10_baseline", YOLOv10Baseline)
+except ValueError:
+    pass
 
 __all__ = [
     "CTMYOLOv10",
