@@ -31,6 +31,13 @@ COMMON_MODULES = [
     "common.losses",
     "common.datasets",
     "common.visualization",
+    "common.engine",
+    "common.engine.registry",
+    "common.engine.config",
+    "common.engine.builder",
+    "common.engine.engine",
+    "common.inference",
+    "common.inference.predictor",
 ]
 
 
