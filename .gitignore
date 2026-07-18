@@ -15,8 +15,8 @@ runs/
 checkpoints/
 
 # Data directories
-data/
-datasets/
+#data/
+#datasets/
 
 # Virtual environments
 venv/
