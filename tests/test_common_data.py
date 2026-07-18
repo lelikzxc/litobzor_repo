@@ -1,4 +1,4 @@
-"""Comprehensive tests for common.data infrastructure.
+"""Comprehensive tests for common.datasets infrastructure.
 
 Uses synthetic tensors and temporary files only. No datasets downloaded. No GPU required.
 """
@@ -14,7 +14,7 @@ import torch
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset
 
-from common.data import (
+from common.datasets import (
     BaseDataset,
     DatasetType,
     DataModule,
@@ -32,8 +32,8 @@ from common.data import (
     verify_dataset,
     count_classes,
 )
-from common.data.augmentation import build_augmentations
-from common.data.collate import build_collate_fn
+from common.datasets.augmentation import build_augmentations
+from common.datasets.collate import build_collate_fn
 
 
 # ---------------------------------------------------------------------------
