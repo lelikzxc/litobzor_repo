@@ -1,3 +1,5 @@
 """Model definitions for FCS-VMamba."""
 
-__all__: list[str] = []
+from papers.vmamba.models.vmamba import FCSVMamba
+
+__all__ = ["FCSVMamba"]
