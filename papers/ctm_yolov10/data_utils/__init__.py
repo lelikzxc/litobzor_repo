@@ -1,3 +1,12 @@
-"""Data loading utilities for CTM-YOLOv10."""
+"""Data loading utilities for CTM-YOLOv10.
 
-__all__: list[str] = []
+Provides dataset adapters built on top of ``common.datasets``.
+"""
+
+from __future__ import annotations
+
+from papers.ctm_yolov10.data_utils.dataset import DetectionDataset
+
+__all__ = [
+    "DetectionDataset",
+]
