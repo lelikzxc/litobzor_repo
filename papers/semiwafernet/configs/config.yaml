@@ -2,6 +2,7 @@
 
 model:
   name: semiwafernet
+  num_classes: 6             # Number of classification classes
   backbone:
     type: cnn               # CNN backbone type (e.g., resnet, efficientnet, custom)
     in_channels: 3           # Input image channels (RGB)
@@ -17,8 +18,6 @@ model:
     dropout: 0.1             # Dropout rate
   decoder:
     embed_dim: 256           # Fusion / decoder embedding dimension
-    num_classes: 6           # Number of segmentation classes
-  num_classes: 6             # Number of classification classes
   input:
     in_channels: 3           # Input image channels
     image_size: 512          # Input image size
@@ -43,10 +42,16 @@ training:
   batch_size: 16
   learning_rate: 0.0001
   weight_decay: 0.0001
-  optimizer: adam
-  scheduler: step
-  scheduler_step_size: 50
-  scheduler_gamma: 0.5
+  optimizer:
+    name: adam
+    lr: 0.0001
+    weight_decay: 0.0001
+  scheduler:
+    name: step
+    step_size: 50
+    gamma: 0.5
+  loss:
+    name: cross_entropy
 
 evaluation:
   metrics:

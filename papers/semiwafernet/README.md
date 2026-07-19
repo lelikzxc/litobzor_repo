@@ -81,16 +81,121 @@ The repository implements the **complete SemiWaferNet pipeline**:
 | Training pipeline tests | ✅ Implemented |
 | Experiment utilities | ✅ Implemented |
 | Architecture audit | ✅ Documented |
+| Engine integration | ✅ Complete |
 
 ## Configuration
 
 See `configs/config.yaml` for experiment hyperparameters.
 
+## Engine Compatibility
+
+SemiWaferNet is fully integrated with the canonical repository engine
+infrastructure (`common.engine.*`, `common.inference.*`).
+
+### Model Registration
+
+`SemiWaferNet` is automatically registered with the engine registry when
+`papers.semiwafernet` is imported:
+
+```python
+from common.engine.registry import build_model, is_registered, list_registered
+
+# Check registration
+assert is_registered("models", "semiwafernet")
+
+# List all registered models
+print(list_registered("models"))
+
+# Instantiate by registered name — no manual imports needed
+model = build_model("semiwafernet", num_classes=6)
+```
+
+Registration happens in [`papers/semiwafernet/__init__.py`](__init__.py) via
+`register_model("semiwafernet", SemiWaferNet)` with `try/except ValueError` to handle
+re-imports gracefully.
+
+### EngineConfig Support
+
+The paper config at [`configs/config.yaml`](configs/config.yaml) is compatible
+with `EngineConfig`:
+
+```python
+from common.engine.config import EngineConfig
+
+config = EngineConfig.from_yaml("papers/semiwafernet/configs/config.yaml")
+assert config.get("model.name") == "semiwafernet"
+assert config.get("model.num_classes") == 6
+assert config.get("model.backbone.channels") == [64, 128, 256, 512]
+assert config.get("model.transformer.embed_dim") == 256
+```
+
+Engine-compatible fields added to the config:
+- `model.num_classes` — number of output classes
+- `training.optimizer` — dict with `name`, `lr`, `weight_decay`
+- `training.scheduler` — dict with `name`, `step_size`, `gamma`
+- `training.loss` — dict with `name`
+- `dataset` — section with `name`, `image_size`, `num_classes`
+
+### Builder Compatibility
+
+`SemiWaferNet` can be instantiated via `common.engine.Builder`:
+
+```python
+from common.engine.builder import Builder
+from common.engine.config import EngineConfig
+
+config = EngineConfig.from_yaml("papers/semiwafernet/configs/config.yaml")
+builder = Builder(config)
+model = builder.build_model()  # reads model.name → "semiwafernet"
+```
+
+### Predictor Compatibility
+
+SemiWaferNet returns a dict with `"classification"` logits `[B, num_classes]`
+and `"segmentation"` logits `[B, num_classes, H, W]`. The canonical Predictor
+expects a single tensor output, so a custom postprocessing function is needed
+to handle the multitask output:
+
+```python
+from common.inference.predictor import Predictor
+
+def semiwafernet_postprocess(logits: dict) -> dict:
+    """Extract classification logits for Predictor compatibility."""
+    return logits["classification"]
+
+predictor = Predictor(model, device="cpu", postprocess_fn=semiwafernet_postprocess)
+result = predictor.predict_single(image_tensor)
+# result = {"logits": ..., "probs": ..., "prediction": ...}
+```
+
+### Engine Usage
+
+```python
+from common.engine.engine import Engine
+from common.engine.config import EngineConfig
+from papers.semiwafernet.models.semiwafernet import SemiWaferNet
+
+# Create model and config
+model = SemiWaferNet(num_classes=6)
+config = EngineConfig.from_yaml("papers/semiwafernet/configs/config.yaml")
+
+# Create engine
+engine = Engine(model, config, device="cpu")
+print(engine.summary())
+
+# Single-image inference
+x = torch.randn(3, 512, 512)
+result = engine.predict_single(x)
+# result["logits"].shape → [1, 6]
+# result["probs"].shape  → [1, 6]
+# result["prediction"]   → argmax class index
+```
+
 ## Structure
 
 ```
 papers/semiwafernet/
-├── __init__.py                  # Package init
+├── __init__.py                  # Package init + engine registration
 ├── README.md                    # This file
 ├── config.yaml                  # Root config template
 ├── demo.py                      # Architecture demo
@@ -128,7 +233,8 @@ papers/semiwafernet/
 │   ├── test_semiwafernet.py     # Architecture tests (23)
 │   ├── test_training.py         # Training component tests (34)
 │   ├── test_training_pipeline.py# Pipeline tests (76)
-│   └── test_experiment.py       # Experiment utility tests (24)
+│   ├── test_experiment.py       # Experiment utility tests (24)
+│   └── test_engine_integration.py  # Engine integration tests
 ```
 
 ## References
