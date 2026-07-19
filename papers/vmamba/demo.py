@@ -322,6 +322,77 @@ def main() -> None:
     print("  Engine Integration Demo — Complete.")
     print(f"{'=' * 56}")
 
+    # ═══════════════════════════════════════════════════════════════════
+    #  Dataset Integration Demo
+    # ═══════════════════════════════════════════════════════════════════
+    print(f"\n{'=' * 56}")
+    print("  Dataset Integration Demo")
+    print(f"{'=' * 56}")
+
+    from common.datasets import (
+        DataModule,
+        build_transforms,
+        classification_collate,
+        split_dataset,
+    )
+    from papers.vmamba.data_utils import VMambaDataset
+
+    # ── 1. Synthetic dataset ─────────────────────────────────────────
+    print(f"\n[D1] Synthetic dataset creation:")
+    ds_synthetic = VMambaDataset(synthetic_size=100, image_size=IMAGE_SIZE, num_classes=NUM_CLASSES)
+    print(f"    Dataset: {repr(ds_synthetic)}")
+    sample = ds_synthetic[0]
+    print(f"    Sample keys: {list(sample.keys())}")
+    print(f"    Image shape: {list(sample['image'].shape)}")
+    print(f"    Label:       {sample['label']}")
+
+    # ── 2. Transforms ────────────────────────────────────────────────
+    print(f"\n[D2] Transforms via common.datasets.build_transforms:")
+    transform = build_transforms(resize_size=(IMAGE_SIZE, IMAGE_SIZE))
+    ds_transformed = VMambaDataset(
+        synthetic_size=10,
+        image_size=IMAGE_SIZE,
+        num_classes=NUM_CLASSES,
+        transform=transform,
+    )
+    sample_t = ds_transformed[0]
+    print(f"    Transform applied: {sample_t['image'].shape}")
+
+    # ── 3. Collation ─────────────────────────────────────────────────
+    print(f"\n[D3] Collation via common.datasets.classification_collate:")
+    batch = [ds_synthetic[i] for i in range(4)]
+    collated = classification_collate(batch)
+    print(f"    Batched image shape: {list(collated['image'].shape)}")
+    print(f"    Batched label shape: {list(collated['label'].shape)}")
+    print(f"    Labels:              {collated['label'].tolist()}")
+
+    # ── 4. Splitting ─────────────────────────────────────────────────
+    print(f"\n[D4] Splitting via common.datasets.split_dataset:")
+    splits = split_dataset(ds_synthetic, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+    print(f"    Train size: {len(splits['train'])}")
+    print(f"    Val size:   {len(splits['val'])}")
+    print(f"    Test size:  {len(splits['test'])}")
+
+    # ── 5. DataModule ────────────────────────────────────────────────
+    print(f"\n[D5] DataModule integration:")
+    dm = DataModule(
+        dataset_type="classification",
+        train_dataset=splits["train"],
+        val_dataset=splits["val"],
+        test_dataset=splits["test"],
+        batch_size=8,
+        collate_fn=classification_collate,
+    )
+    train_loader = dm.train_dataloader()
+    batch = next(iter(train_loader))
+    print(f"    Batch image shape: {list(batch['image'].shape)}")
+    print(f"    Batch label shape: {list(batch['label'].shape)}")
+    print(f"    Batch size:        {batch['image'].shape[0]}")
+
+    print(f"\n{'=' * 56}")
+    print("  Dataset Integration Demo — Complete.")
+    print(f"{'=' * 56}")
+
 
 if __name__ == "__main__":
     main()

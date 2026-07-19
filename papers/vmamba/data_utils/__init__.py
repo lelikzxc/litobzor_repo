@@ -1,6 +1,12 @@
-"""Data loading and preprocessing utilities for FCS-VMamba.
+"""Data loading utilities for FCS-VMamba.
 
-Dataset loaders and augmentations will be implemented in a future stage.
+Provides dataset adapters built on top of ``common.datasets``.
 """
 
-__all__: list[str] = []
+from __future__ import annotations
+
+from papers.vmamba.data_utils.dataset import VMambaDataset
+
+__all__ = [
+    "VMambaDataset",
+]
