@@ -5,6 +5,8 @@ Creates both models, runs dummy forward passes, and prints a structured
 comparison including parameter counts, CTM insertion details, and output
 shapes. Uses ``experiment.py`` for metadata formatting.
 
+Also demonstrates dataset integration with ``common.datasets``.
+
 Usage:
     python papers/ctm_yolov10/demo.py
 """
@@ -20,7 +22,14 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 import torch
+from torch.utils.data._utils.collate import default_collate
 
+from common.datasets import (
+    DataModule,
+    build_transforms,
+    split_dataset,
+)
+from papers.ctm_yolov10.data_utils import DetectionDataset
 from papers.ctm_yolov10.models.yolov10 import CTMYOLOv10, YOLOv10Baseline
 from papers.ctm_yolov10.utils.experiment import (
     build_experiment_info,
@@ -130,6 +139,39 @@ def main() -> None:
     print(f"    CTM can be disabled via ``ctm_enabled=False``")
     print(f"    Disabled CTM → params match baseline exactly")
     print(f"    Enables fair comparison of CTM contribution")
+
+    # ── Dataset integration demo ──────────────────────────────────────
+    print(f"\n[8] Dataset integration (common.datasets):")
+    print(f"    Creating synthetic DetectionDataset (100 samples)...")
+    dataset = DetectionDataset(synthetic_size=100, image_size=640, num_classes=80)
+    print(f"    Dataset type:  {dataset.dataset_type.value}")
+    print(f"    Dataset len:   {len(dataset)}")
+    sample = dataset[0]
+    print(f"    Sample keys:   {list(sample.keys())}")
+    print(f"    Image shape:   {list(sample['image'].shape)}")
+    print(f"    Label shape:   {list(sample['label'].shape)}")
+
+    print(f"\n    Building transforms...")
+    transform = build_transforms(resize_size=(640, 640))
+    print(f"    Transform:     {type(transform).__name__}")
+
+    print(f"\n    Splitting dataset...")
+    splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+    print(f"    Train: {len(splits['train'])}, Val: {len(splits['val'])}, Test: {len(splits['test'])}")
+
+    print(f"\n    Creating DataModule...")
+    dm = DataModule(
+        dataset_type="classification",
+        train_dataset=splits["train"],
+        val_dataset=splits["val"],
+        test_dataset=splits["test"],
+        batch_size=8,
+        collate_fn=default_collate,
+    )
+    train_loader = dm.train_dataloader()
+    batch = next(iter(train_loader))
+    print(f"    Batch image shape: {list(batch['image'].shape)}")
+    print(f"    Batch label shape: {list(batch['label'].shape)}")
 
     print(f"\n{'=' * 60}")
     print("  Demo completed successfully.")

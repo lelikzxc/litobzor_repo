@@ -119,12 +119,92 @@ engine.build_all()
 print(engine.summary())
 ```
 
+## Dataset Integration
+
+CTM-YOLOv10 uses the canonical ``common.datasets`` infrastructure for data loading.
+
+### DetectionDataset
+
+The paper-specific ``DetectionDataset`` extends ``common.datasets.BaseDataset``
+and provides a detection-oriented interface:
+
+```python
+from papers.ctm_yolov10.data_utils import DetectionDataset
+
+# Synthetic data (for testing / demos)
+dataset = DetectionDataset(synthetic_size=100, image_size=640, num_classes=80)
+sample = dataset[0]
+# sample = {"image": torch.Tensor [3, 640, 640], "label": torch.Tensor [N, 5]}
+
+# Real data from directories
+dataset = DetectionDataset(
+    image_dir="path/to/images",
+    label_dir="path/to/labels",
+    image_size=640,
+)
+```
+
+### Transforms
+
+Use ``common.datasets.build_transforms`` for standard preprocessing:
+
+```python
+from common.datasets import build_transforms
+
+transform = build_transforms(resize_size=(640, 640))
+dataset = DetectionDataset(
+    synthetic_size=100,
+    image_size=640,
+    transform=transform,
+)
+```
+
+### Collation
+
+Use ``common.datasets.classification_collate`` for batching:
+
+```python
+from common.datasets import classification_collate
+from torch.utils.data import DataLoader
+
+loader = DataLoader(dataset, batch_size=8, collate_fn=classification_collate)
+batch = next(iter(loader))
+# batch = {"image": [B, 3, 640, 640], "label": [B, ...]}
+```
+
+### Splitting
+
+Use ``common.datasets.split_dataset`` for train/val/test splits:
+
+```python
+from common.datasets import split_dataset
+
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+```
+
+### DataModule
+
+Use ``common.datasets.DataModule`` for a unified DataLoader factory:
+
+```python
+from common.datasets import DataModule
+
+dm = DataModule(
+    dataset_type="classification",
+    train_dataset=splits["train"],
+    val_dataset=splits["val"],
+    test_dataset=splits["test"],
+    batch_size=16,
+)
+train_loader = dm.train_dataloader()
+```
+
 ## Structure
 
 - `configs/` — YAML experiment configurations
 - `models/` — model architecture and weights
 - `modules/` — reusable building blocks (CTM, C2f, SCDown, etc.)
-- `data_utils/` — dataset loaders and preprocessing
+- `data_utils/` — dataset loaders and preprocessing (built on ``common.datasets``)
 - `utils/` — paper-specific utilities
 - `tests/` — unit and integration tests
 
