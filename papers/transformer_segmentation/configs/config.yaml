@@ -1,7 +1,9 @@
 # SegFormer + Atrous experiment configuration
+# Compatible with both SegFormer.from_config() and common.engine.EngineConfig.
 
 model:
   name: segformer_atrous
+  num_classes: 8
   task: segmentation
 
   backbone:
@@ -37,8 +39,20 @@ training:
   num_epochs: 150
   learning_rate: 0.00006
   weight_decay: 0.01
-  optimizer: adamw
-  scheduler: poly
+
+  # Engine-compatible optimizer config (dict format)
+  optimizer:
+    name: adamw
+    lr: 0.00006
+    weight_decay: 0.01
+
+  # Engine-compatible scheduler config (dict format)
+  scheduler:
+    name: poly
+
+  # Engine-compatible loss config (dict format)
+  loss:
+    name: cross_entropy
 
 evaluation:
   batch_size: 16
@@ -52,3 +66,9 @@ logging:
   level: INFO
   save_checkpoints: true
   checkpoint_interval: 10
+
+# Engine-compatible dataset section
+dataset:
+  name: wafer_defects
+  image_size: 512
+  num_classes: 8

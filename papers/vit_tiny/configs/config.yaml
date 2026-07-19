@@ -1,13 +1,25 @@
 # Tiny Vision Transformer experiment configuration
+# Compatible with both ViTTiny.from_config() and common.engine.EngineConfig.
 
 model:
   name: vit_tiny
+  num_classes: 8
   task: classification
-  # architecture params will be added during implementation
+  arch:
+    image_size: 32
+    patch_size: 4
+    in_channels: 1
+    num_classes: 8
+    embed_dim: 192
+    num_layers: 4
+    num_heads: 3
+    mlp_ratio: 4
+    dropout: 0.1
+    emb_dropout: 0.1
 
 data:
   dataset: wafer_defects
-  image_size: 224
+  image_size: 32
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
@@ -17,8 +29,20 @@ training:
   num_epochs: 100
   learning_rate: 0.0001
   weight_decay: 0.05
-  optimizer: adamw
-  scheduler: cosine
+
+  # Engine-compatible optimizer config (dict format)
+  optimizer:
+    name: adamw
+    lr: 0.0001
+    weight_decay: 0.05
+
+  # Engine-compatible scheduler config (dict format)
+  scheduler:
+    name: cosine
+
+  # Engine-compatible loss config (dict format)
+  loss:
+    name: cross_entropy
 
 evaluation:
   batch_size: 64
@@ -32,3 +56,9 @@ logging:
   level: INFO
   save_checkpoints: true
   checkpoint_interval: 10
+
+# Engine-compatible dataset section
+dataset:
+  name: wafer_defects
+  image_size: 32
+  num_classes: 8
