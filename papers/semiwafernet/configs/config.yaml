@@ -2,36 +2,71 @@
 
 model:
   name: semiwafernet
-  task: semi_supervised_detection
-  # architecture params will be added during implementation
+  num_classes: 6             # Number of classification classes
+  backbone:
+    type: cnn               # CNN backbone type (e.g., resnet, efficientnet, custom)
+    in_channels: 3           # Input image channels (RGB)
+    channels: [64, 128, 256, 512]  # Output channels per stage
+    depths: [2, 2, 6, 2]    # Number of blocks per stage
+    norm: bn                 # Normalization: bn or ln
+    activation: relu         # Activation: relu or gelu
+  transformer:
+    embed_dim: 256           # Transformer embedding dimension
+    num_heads: 8             # Number of attention heads
+    num_layers: 4            # Number of transformer encoder layers
+    mlp_ratio: 4             # MLP hidden dimension ratio
+    dropout: 0.1             # Dropout rate
+  decoder:
+    embed_dim: 256           # Fusion / decoder embedding dimension
+  input:
+    in_channels: 3           # Input image channels
+    image_size: 512          # Input image size
 
-data:
-  dataset: wafer_defects
+semi_supervised:
+  enabled: false             # Enable semi-supervised learning
+  ema_decay: 0.999           # EMA decay rate for teacher model
+  confidence_threshold: 0.9  # Base confidence threshold for pseudo-label filtering
+  consistency_weight: 0.1    # Weight for consistency loss term
+  unlabeled_ratio: 0.9       # Ratio of unlabeled data in training set
+  pseudo_label_update_interval: 1  # Epochs between pseudo-label updates
+  mc_passes: 20              # Number of Monte Carlo Dropout passes
+  base_threshold: 0.9        # Base threshold for adaptive thresholding
+  alpha: 0.1                 # Weight for coefficient of variation term
+  beta: 0.05                 # Weight for entropy bonus term
+  entropy_threshold: 0.5     # Maximum allowed predictive entropy
+  mutual_information_threshold: 0.3  # Maximum allowed mutual information
+
+training:
+  epochs: 200
+  stages: 3                  # Number of training stages
+  batch_size: 16
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  optimizer:
+    name: adam
+    lr: 0.0001
+    weight_decay: 0.0001
+  scheduler:
+    name: step
+    step_size: 50
+    gamma: 0.5
+  loss:
+    name: cross_entropy
+
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1
+    - iou
+    - dice
+
+dataset:
+  name: wafer_defects
+  num_classes: 6
   image_size: 512
   labeled_ratio: 0.1
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
-
-training:
-  batch_size: 16
-  num_epochs: 200
-  learning_rate: 0.0001
-  weight_decay: 0.0001
-  optimizer: adam
-  scheduler: step
-  pseudo_label_threshold: 0.9
-
-evaluation:
-  batch_size: 32
-  metrics:
-    - map
-    - map50
-    - f1
-    - precision
-    - recall
-
-logging:
-  level: INFO
-  save_checkpoints: true
-  checkpoint_interval: 10
