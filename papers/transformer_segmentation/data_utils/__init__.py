@@ -1,9 +1,12 @@
-"""Dataset loaders for SegFormer + Atrous.
+"""Data loading utilities for SegFormer + Atrous.
 
-Placeholder for future implementation of:
-- Wafer defect segmentation dataset
-- Data augmentation pipeline
-- Train/val/test splits
+Provides dataset adapters built on top of ``common.datasets``.
 """
 
-__all__: list[str] = []
+from __future__ import annotations
+
+from papers.transformer_segmentation.data_utils.dataset import SegFormerDataset
+
+__all__ = [
+    "SegFormerDataset",
+]
