@@ -24,8 +24,9 @@ the paper does not provide low-level module details.
 | Config-driven creation (from YAML) | ✅ Complete | `from_config()` tests |
 | Experiment metadata | ✅ Complete | `ExperimentInfo` dataclass |
 | Architecture audit | ✅ Complete | `docs/architecture_audit.md` |
+| Dataset integration | ✅ Complete | `VMambaDataset` via `common.datasets` |
 | Pretrained weights | ❌ Not available | Training from scratch required |
-| Training pipeline | ❌ Not implemented | `data_utils/` is a placeholder |
+| Training pipeline | ❌ Not implemented | |
 
 ## Architecture
 
@@ -125,7 +126,7 @@ per-component architecture audit.
 ### Missing
 
 - ❌ Pretrained weights — Not available (training from scratch required)
-- ❌ Training pipeline — Not implemented (`data_utils/` is a placeholder)
+- ❌ Training pipeline — Not implemented
 
 ## Configuration
 
@@ -280,6 +281,88 @@ result = engine.predict_single(x)
 # result["logits"].shape → [1, 8]
 # result["probs"].shape  → [1, 8]
 # result["prediction"]   → argmax class index
+```
+
+## Dataset Integration
+
+The FCS-VMamba model is fully integrated with the canonical repository dataset infrastructure (`common.datasets`).
+
+### VMambaDataset
+
+[`VMambaDataset`](data_utils/dataset.py) extends [`common.datasets.BaseDataset`](../../common/datasets/base_dataset.py) with a classification-specific interface. Each sample is a dict with `"image"` (`torch.Tensor [3, H, W]`) and `"label"` (`int`), directly compatible with `common.datasets.classification_collate`.
+
+```python
+from papers.vmamba.data_utils import VMambaDataset
+
+# Synthetic data (for testing / demos)
+dataset = VMambaDataset(synthetic_size=100, image_size=224, num_classes=8)
+sample = dataset[0]
+# sample["image"].shape → [3, 224, 224]
+# sample["label"]       → int (0–7)
+
+# Real data from directories
+dataset = VMambaDataset(image_dir="path/to/images", image_size=224)
+```
+
+### Transforms
+
+Use [`common.datasets.build_transforms`](../../common/datasets/transforms.py) to create torchvision transform pipelines:
+
+```python
+from common.datasets import build_transforms
+
+transform = build_transforms(resize_size=(224, 224))
+dataset = VMambaDataset(synthetic_size=100, image_size=224, transform=transform)
+```
+
+### Collation
+
+Use [`common.datasets.classification_collate`](../../common/datasets/collate.py) to batch samples:
+
+```python
+from common.datasets import classification_collate
+
+batch = [dataset[i] for i in range(4)]
+collated = classification_collate(batch)
+# collated["image"].shape → [4, 3, 224, 224]
+# collated["label"].shape → [4]
+```
+
+### Splitting
+
+Use [`common.datasets.split_dataset`](../../common/datasets/splits.py) for train/val/test splits:
+
+```python
+from common.datasets import split_dataset
+
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+# splits["train"], splits["val"], splits["test"]
+```
+
+### DataModule
+
+Use [`common.datasets.DataModule`](../../common/datasets/datamodule.py) to create DataLoaders:
+
+```python
+from common.datasets import DataModule, classification_collate, split_dataset
+
+dataset = VMambaDataset(synthetic_size=100, image_size=224, num_classes=8)
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+
+dm = DataModule(
+    dataset_type="classification",
+    train_dataset=splits["train"],
+    val_dataset=splits["val"],
+    test_dataset=splits["test"],
+    batch_size=32,
+    collate_fn=classification_collate,
+)
+
+train_loader = dm.train_dataloader()
+for batch in train_loader:
+    # batch["image"].shape → [32, 3, 224, 224]
+    # batch["label"].shape → [32]
+    ...
 ```
 
 ## References
