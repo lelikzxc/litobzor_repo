@@ -230,6 +230,92 @@ result = engine.predict_single(x)
 # result["prediction"]   → [1, 512, 512] (argmax class per pixel)
 ```
 
+## Dataset Integration
+
+The SegFormer model is fully integrated with the canonical repository dataset infrastructure (`common.datasets`).
+
+### SegFormerDataset
+
+[`SegFormerDataset`](data_utils/dataset.py) extends [`common.datasets.BaseDataset`](../../common/datasets/base_dataset.py) with a segmentation-specific interface. Each sample is a dict with `"image"` (`torch.Tensor [3, H, W]` RGB) and `"mask"` (`torch.Tensor [H, W]` with integer class indices), directly compatible with `common.datasets.segmentation_collate`.
+
+```python
+from papers.transformer_segmentation.data_utils import SegFormerDataset
+
+# Synthetic data (for testing / demos)
+dataset = SegFormerDataset(synthetic_size=50, image_size=512, num_classes=8)
+sample = dataset[0]
+# sample["image"].shape → [3, 512, 512]
+# sample["mask"].shape  → [512, 512]  (integer class indices)
+
+# Real data from directories
+dataset = SegFormerDataset(
+    image_dir="path/to/images",
+    mask_dir="path/to/masks",
+    image_size=512,
+)
+```
+
+### Transforms
+
+Use [`common.datasets.build_transforms`](../../common/datasets/transforms.py) to create torchvision transform pipelines:
+
+```python
+from common.datasets import build_transforms
+
+transform = build_transforms(resize_size=(512, 512))
+dataset = SegFormerDataset(synthetic_size=50, image_size=512, transform=transform)
+```
+
+### Collation
+
+Use [`common.datasets.segmentation_collate`](../../common/datasets/collate.py) to batch samples:
+
+```python
+from common.datasets import segmentation_collate
+
+batch = [dataset[i] for i in range(4)]
+collated = segmentation_collate(batch)
+# collated["image"].shape → [4, 3, 512, 512]
+# collated["mask"].shape  → [4, 512, 512]
+```
+
+### Splitting
+
+Use [`common.datasets.split_dataset`](../../common/datasets/splits.py) for train/val/test splits:
+
+```python
+from common.datasets import split_dataset
+
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+# splits["train"], splits["val"], splits["test"]
+```
+
+### DataModule
+
+Use [`common.datasets.DataModule`](../../common/datasets/datamodule.py) to create DataLoaders:
+
+```python
+from common.datasets import DataModule, segmentation_collate, split_dataset
+
+dataset = SegFormerDataset(synthetic_size=100, image_size=512, num_classes=8)
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+
+dm = DataModule(
+    dataset_type="segmentation",
+    train_dataset=splits["train"],
+    val_dataset=splits["val"],
+    test_dataset=splits["test"],
+    batch_size=8,
+    collate_fn=segmentation_collate,
+)
+
+train_loader = dm.train_dataloader()
+for batch in train_loader:
+    # batch["image"].shape → [8, 3, 512, 512]
+    # batch["mask"].shape  → [8, 512, 512]
+    ...
+```
+
 ## Structure
 
 ```
@@ -248,13 +334,15 @@ papers/transformer_segmentation/
 │   ├── mit.py               — MiT backbone (PatchEmbed, Attention, FFN, Blocks)
 │   └── atrous.py            — Atrous Enhancement module
 ├── data_utils/
-│   └── __init__.py          — dataset loaders (placeholder)
+│   ├── __init__.py          — dataset exports
+│   └── dataset.py           — SegFormerDataset (built on common.datasets)
 ├── utils/
 │   └── __init__.py          — paper-specific utilities (placeholder)
 ├── tests/
 │   ├── __init__.py
 │   ├── test_segformer.py    — 18 tests
-│   └── test_atrous.py       — 11 tests
+│   ├── test_atrous.py       — 11 tests
+│   └── test_dataset_integration.py — dataset integration tests
 └── demo.py                  — comparison demo
 ```
 
