@@ -82,6 +82,8 @@ The repository implements the **complete SemiWaferNet pipeline**:
 | Experiment utilities | ✅ Implemented |
 | Architecture audit | ✅ Documented |
 | Engine integration | ✅ Complete |
+| Dataset integration | ✅ Complete |
+| Training integration | ✅ Complete |
 
 ## Configuration
 
@@ -334,6 +336,293 @@ for labeled_batch, unlabeled_batch in zip(dm_labeled.train_dataloader(),
     ...
 ```
 
+## Training Integration
+
+SemiWaferNet is fully integrated with the canonical repository training infrastructure (`common.training`).
+
+### Forward Output Format
+
+SemiWaferNet's `forward()` returns a **dict** with two keys:
+
+```python
+output = model(inputs)
+# output = {
+#     "classification": torch.Tensor [B, num_classes],     # logits
+#     "segmentation":   torch.Tensor [B, num_classes, H, W],  # logits
+# }
+```
+
+This is a **multitask output** — the model produces both classification and segmentation logits in a single forward pass. The canonical `Trainer` expects a single tensor from `self.model(inputs)`, so an adapter is needed.
+
+### MultiTaskLoss Adapter
+
+[`MultiTaskLoss`](tests/test_training_integration.py) wraps two separate loss functions (one for classification, one for segmentation) and combines them into a weighted sum:
+
+```python
+from torch import nn
+from common.training import build_loss
+
+class MultiTaskLoss(nn.Module):
+    def __init__(self, cls_loss_fn, seg_loss_fn,
+                 cls_weight=1.0, seg_weight=1.0):
+        super().__init__()
+        self.cls_loss_fn = cls_loss_fn
+        self.seg_loss_fn = seg_loss_fn
+        self.cls_weight = cls_weight
+        self.seg_weight = seg_weight
+
+    def forward(self, logits, targets):
+        # logits:  {"classification": [B, C], "segmentation": [B, C, H, W]}
+        # targets: {"label": [B], "mask": [B, H, W]}
+        cls_loss = self.cls_loss_fn(logits["classification"], targets["label"])
+        seg_loss = self.seg_loss_fn(logits["segmentation"], targets["mask"])
+        return self.cls_weight * cls_loss + self.seg_weight * seg_loss
+```
+
+Both classification and segmentation use `nn.CrossEntropyLoss` by default, which handles `[B, num_classes]` logits with `[B]` integer targets for classification, and `[B, num_classes, H, W]` logits with `[B, H, W]` integer targets for segmentation.
+
+```python
+# Create the multitask loss
+cls_loss = build_loss("cross_entropy")
+seg_loss = build_loss("cross_entropy")
+loss_fn = MultiTaskLoss(
+    cls_loss_fn=cls_loss,
+    seg_loss_fn=seg_loss,
+    cls_weight=1.0,
+    seg_weight=1.0,
+)
+```
+
+### Training Collate Adapter
+
+The [`multitask_collate`](../../common/datasets/collate.py) function from `common.datasets` returns `{"image": ..., "label": ..., "mask": ...}`. The canonical `Trainer._unpack_batch()` expects `{"inputs": ..., "targets": ...}`. A training collate adapter bridges this gap:
+
+```python
+from common.datasets import multitask_collate
+
+def _training_collate(batch):
+    collated = multitask_collate(batch)
+    return {
+        "inputs": collated["image"],
+        "targets": {
+            "label": collated["label"],
+            "mask": collated["mask"],
+        },
+    }
+```
+
+The `"targets"` value is itself a dict so that `MultiTaskLoss` can extract the individual classification label and segmentation mask.
+
+### Trainer
+
+Create a `Trainer` with the model, optimizer, and multitask loss:
+
+```python
+from common.training import Trainer, build_optimizer, build_scheduler
+from torch.utils.data import DataLoader
+
+# Create model
+model = SemiWaferNet(num_classes=6)
+
+# Create optimizer and loss
+optimizer = build_optimizer(model, name="adamw", lr=1e-3, weight_decay=0.05)
+loss_fn = MultiTaskLoss(
+    cls_loss_fn=build_loss("cross_entropy"),
+    seg_loss_fn=build_loss("cross_entropy"),
+)
+
+# Create DataLoader with training collate
+train_loader = DataLoader(
+    dataset,
+    batch_size=16,
+    collate_fn=_training_collate,
+    shuffle=True,
+)
+
+# Create Trainer
+trainer = Trainer(
+    model=model,
+    optimizer=optimizer,
+    loss_fn=loss_fn,
+    device="cpu",
+)
+
+# Train for one epoch
+metrics = trainer.train_one_epoch(train_loader)
+print(f"Train loss: {metrics['loss']:.4f}")
+```
+
+### Full Training Loop
+
+```python
+# Dataset → DataLoader → Trainer → Forward → Loss → Backward → Optimizer → Scheduler
+from common.training import (
+    Trainer, build_optimizer, build_scheduler,
+    CheckpointManager, EarlyStopping, TrainingLogger, NativeScaler,
+)
+
+# Components
+optimizer = build_optimizer(model, name="adamw", lr=1e-3, weight_decay=0.05)
+scheduler = build_scheduler(optimizer, name="cosine", T_max=50)
+checkpoint_mgr = CheckpointManager(save_dir="./checkpoints", monitor="val_loss", mode="min")
+early_stopping = EarlyStopping(patience=10, min_delta=1e-4)
+logger = TrainingLogger()
+scaler = NativeScaler(enabled=True)
+
+# Trainer with all components
+trainer = Trainer(
+    model=model,
+    optimizer=optimizer,
+    scheduler=scheduler,
+    loss_fn=loss_fn,
+    metric_fns={"accuracy": accuracy, "f1": f1},
+    checkpoint_manager=checkpoint_mgr,
+    early_stopping=early_stopping,
+    logger=logger,
+    scaler=scaler,
+    device="cuda" if torch.cuda.is_available() else "cpu",
+    grad_max_norm=1.0,
+    verbose=True,
+)
+
+# Train
+trainer.fit(train_loader, val_loader, epochs=50)
+```
+
+### Checkpointing
+
+Save and load checkpoints with the canonical [`CheckpointManager`](../../common/training/checkpoint.py):
+
+```python
+from common.training import CheckpointManager
+
+# Save best model based on validation loss
+ckpt_mgr = CheckpointManager(save_dir="./checkpoints", monitor="val_loss", mode="min")
+ckpt_mgr.save_best(model, optimizer, epoch=10, val_loss=0.5)
+
+# Load checkpoint
+ckpt_mgr.load(model, optimizer, path="./checkpoints/best.pt")
+
+# Resume training
+trainer.load_checkpoint("./checkpoints/last.pt")
+```
+
+### Supported Optimizers
+
+| Name | Factory Call |
+|------|-------------|
+| AdamW | `build_optimizer(model, name="adamw", lr=1e-3, weight_decay=0.05)` |
+| Adam | `build_optimizer(model, name="adam", lr=1e-3)` |
+| SGD | `build_optimizer(model, name="sgd", lr=1e-2, momentum=0.9)` |
+
+### Supported Schedulers
+
+| Name | Factory Call |
+|------|-------------|
+| CosineAnnealingLR | `build_scheduler(optimizer, name="cosine", T_max=50)` |
+| StepLR | `build_scheduler(optimizer, name="step", step_size=10, gamma=0.5)` |
+| ReduceLROnPlateau | `build_scheduler(optimizer, name="plateau", patience=5)` |
+| OneCycleLR | `build_scheduler(optimizer, name="onecycle", max_lr=1e-2, steps_per_epoch=N, epochs=E)` |
+
+### Mixed Precision
+
+Enable automatic mixed precision (AMP) via [`NativeScaler`](../../common/training/utils.py):
+
+```python
+from common.training import NativeScaler
+
+scaler = NativeScaler(enabled=True)  # enabled=False disables AMP
+trainer = Trainer(model=model, optimizer=opt, loss_fn=loss_fn, scaler=scaler)
+```
+
+### Early Stopping
+
+Stop training when validation loss plateaus:
+
+```python
+from common.training import EarlyStopping
+
+early_stopping = EarlyStopping(patience=10, min_delta=1e-4, mode="min", restore_best_weights=True)
+trainer = Trainer(model=model, optimizer=opt, loss_fn=loss_fn, early_stopping=early_stopping)
+```
+
+### Gradient Clipping
+
+Clip gradients by norm or value:
+
+```python
+# By norm (recommended)
+trainer = Trainer(model=model, optimizer=opt, loss_fn=loss_fn, grad_max_norm=1.0)
+
+# By value
+trainer = Trainer(model=model, optimizer=opt, loss_fn=loss_fn, grad_max_norm=None, grad_max_value=0.5)
+```
+
+### Metrics
+
+Use canonical metrics from `common.training`:
+
+```python
+from common.training import accuracy, f1, precision, recall
+
+metric_fns = {
+    "accuracy": accuracy,
+    "f1": f1,
+    "precision": precision,
+    "recall": recall,
+}
+trainer = Trainer(model=model, optimizer=opt, loss_fn=loss_fn, metric_fns=metric_fns)
+```
+
+**Note:** Metrics are computed on the **classification** output only (the Trainer concatenates `logits` across batches, and for SemiWaferNet the `logits` is a dict — metrics are applied to the classification logits).
+
+### DataModule Integration
+
+Use [`DataModule`](../../common/datasets/datamodule.py) with the training collate adapter:
+
+```python
+from common.datasets import DataModule, multitask_collate, split_dataset
+from papers.semiwafernet.data_utils import LabeledWaferDataset
+
+dataset = LabeledWaferDataset(synthetic_size=100, image_size=512, num_classes=6)
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+
+dm = DataModule(
+    dataset_type="multitask",
+    train_dataset=splits["train"],
+    val_dataset=splits["val"],
+    test_dataset=splits["test"],
+    batch_size=16,
+    collate_fn=_training_collate,  # Use the training collate adapter
+)
+
+train_loader = dm.train_dataloader()
+val_loader = dm.val_dataloader()
+
+trainer.fit(train_loader, val_loader, epochs=10)
+```
+
+### Test Coverage
+
+Training integration is verified in [`tests/test_training_integration.py`](tests/test_training_integration.py):
+
+| Test Class | Coverage |
+|-----------|----------|
+| `TestMultiTaskLoss` | Creation, forward with classification/segmentation/both, identical inputs, gradient flow |
+| `TestTrainerCreation` | Minimal, full, device auto, model on device |
+| `TestTrainingStep` | Train one epoch, with metrics, loss decreases, backward, optimizer step |
+| `TestValidationStep` | Validate, with metrics, no grad |
+| `TestSchedulerStep` | LR reduction, finite LR, scheduler in fit |
+| `TestCheckpoint` | Save, load, resume, checkpoint manager in fit |
+| `TestHardwareCompatibility` | CPU, AMP |
+| `TestGradientFlow` | Gradients flow, gradient clipping |
+| `TestBatchSize` | Batch size 1 and 4 |
+| `TestDataPipeline` | Synthetic dataset, full pipeline, pipeline with scheduler |
+| `TestEngineCompatibility` | Engine with trained model, predict after training |
+| `TestFullTrainingLoop` | Fit with train only, train+val, early stopping, all components |
+| `TestDataModuleIntegration` | DataModule with trainer, with transforms |
+| `TestFactoryCompatibility` | Optimizer, scheduler, loss, metric factories |
+
 ## Structure
 
 ```
@@ -379,7 +668,8 @@ papers/semiwafernet/
 │   ├── test_training_pipeline.py# Pipeline tests (76)
 │   ├── test_experiment.py       # Experiment utility tests (24)
 │   ├── test_engine_integration.py  # Engine integration tests
-│   └── test_dataset_integration.py # Dataset integration tests
+│   ├── test_dataset_integration.py # Dataset integration tests
+│   └── test_training_integration.py # Training integration tests
 ```
 
 ## References
