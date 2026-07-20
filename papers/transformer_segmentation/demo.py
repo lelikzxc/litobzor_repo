@@ -331,6 +331,197 @@ def main() -> None:
     print("  Dataset Integration Demo — Complete.")
     print(f"{'=' * 56}")
 
+    # ═══════════════════════════════════════════════════════════════════
+    #  Training Integration Demo
+    # ═══════════════════════════════════════════════════════════════════
+    print(f"\n{'=' * 56}")
+    print("  Training Integration Demo")
+    print(f"{'=' * 56}")
+
+    from common.training import (
+        Trainer,
+        CheckpointManager,
+        EarlyStopping,
+        NativeScaler,
+        build_loss,
+        build_metric,
+        build_optimizer,
+        build_scheduler,
+    )
+
+    # ── 1. Model, loss, optimizer, scheduler ─────────────────────────
+    print(f"\n[T1] Creating model, loss, optimizer, scheduler...")
+    model_train = SegFormer(
+        in_channels=3,
+        variant=VARIANT,
+        num_classes=NUM_CLASSES,
+        decoder_dim=256,
+        atrous_enabled=False,
+    )
+    loss_fn = build_loss("cross_entropy")
+    optimizer = build_optimizer(
+        model_train, name="adamw", lr=1e-4, weight_decay=0.01
+    )
+    scheduler = build_scheduler(optimizer, name="cosine", T_max=10)
+    print(f"    Loss:      {type(loss_fn).__name__}")
+    print(f"    Optimizer: {type(optimizer).__name__}")
+    print(f"    Scheduler: {type(scheduler).__name__}")
+
+    # ── 2. Training collate adapter ──────────────────────────────────
+    print(f"\n[T2] Creating training DataLoader with collate adapter...")
+
+    def _training_collate(batch):
+        from common.datasets import segmentation_collate
+        collated = segmentation_collate(batch)
+        return {"inputs": collated["image"], "targets": collated["mask"]}
+
+    train_dataset = SegFormerDataset(
+        synthetic_size=50, image_size=IMAGE_SIZE, num_classes=NUM_CLASSES
+    )
+    from torch.utils.data import DataLoader
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=4,
+        collate_fn=_training_collate,
+        shuffle=True,
+    )
+    batch = next(iter(train_loader))
+    print(f"    Batch inputs shape:  {list(batch['inputs'].shape)}")
+    print(f"    Batch targets shape: {list(batch['targets'].shape)}")
+
+    # ── 3. Trainer creation ──────────────────────────────────────────
+    print(f"\n[T3] Creating Trainer...")
+    trainer = Trainer(
+        model=model_train,
+        optimizer=optimizer,
+        loss_fn=loss_fn,
+        scheduler=scheduler,
+        device="cpu",
+        verbose=False,
+    )
+    print(f"    Trainer device: {trainer.device}")
+
+    # ── 4. Training ──────────────────────────────────────────────────
+    print(f"\n[T4] Running 2 training epochs...")
+    log = trainer.fit(train_loader, epochs=2)
+    latest = log.latest()
+    print(f"    Final train loss: {latest.get('train_loss', 'N/A'):.4f}")
+    print(f"    Final LR:         {latest.get('lr', 'N/A'):.2e}")
+
+    # ── 5. Validation ────────────────────────────────────────────────
+    print(f"\n[T5] Validating...")
+    val_loader = DataLoader(
+        train_dataset,
+        batch_size=4,
+        collate_fn=_training_collate,
+        shuffle=False,
+    )
+    val_metrics = trainer.validate(val_loader)
+    print(f"    Val loss: {val_metrics.get('loss', 'N/A'):.4f}")
+
+    # ── 6. Gradient flow ─────────────────────────────────────────────
+    print(f"\n[T6] Gradient flow check...")
+    total_grad_norm = 0.0
+    for name, param in model_train.named_parameters():
+        if param.grad is not None:
+            total_grad_norm += param.grad.norm().item() ** 2
+    total_grad_norm = total_grad_norm ** 0.5
+    print(f"    Total grad norm: {total_grad_norm:.4f}")
+    print(f"    Gradients flow:  {'YES' if total_grad_norm > 0 else 'NO'}")
+
+    # ── 7. Checkpoint save/load ──────────────────────────────────────
+    print(f"\n[T7] Checkpoint save/load...")
+    import tempfile
+    with tempfile.NamedTemporaryFile(suffix=".pt", delete=False) as f:
+        ckpt_path = f.name
+    trainer.save_checkpoint(ckpt_path)
+    print(f"    Checkpoint saved: {ckpt_path}")
+    loaded_epoch = trainer.load_checkpoint(ckpt_path)
+    print(f"    Checkpoint loaded (epoch {loaded_epoch})")
+    Path(ckpt_path).unlink(missing_ok=True)
+
+    # ── 8. Mixed precision ───────────────────────────────────────────
+    print(f"\n[T8] Mixed precision (AMP) compatibility...")
+    scaler = NativeScaler(enabled=True)
+    trainer_amp = Trainer(
+        model=SegFormer(variant=VARIANT, num_classes=NUM_CLASSES),
+        optimizer=build_optimizer(
+            SegFormer(variant=VARIANT, num_classes=NUM_CLASSES),
+            name="adamw", lr=1e-4,
+        ),
+        loss_fn=build_loss("cross_entropy"),
+        scaler=scaler,
+        device="cpu",
+        verbose=False,
+    )
+    amp_loader = DataLoader(
+        SegFormerDataset(synthetic_size=10, image_size=128, num_classes=NUM_CLASSES),
+        batch_size=2,
+        collate_fn=_training_collate,
+    )
+    amp_metrics = trainer_amp.train_one_epoch(amp_loader)
+    print(f"    AMP train loss: {amp_metrics.get('loss', 'N/A'):.4f}")
+
+    # ── 9. Early stopping ────────────────────────────────────────────
+    print(f"\n[T9] Early stopping...")
+    es = EarlyStopping(patience=1, min_delta=100.0)
+    trainer_es = Trainer(
+        model=SegFormer(variant=VARIANT, num_classes=NUM_CLASSES),
+        optimizer=build_optimizer(
+            SegFormer(variant=VARIANT, num_classes=NUM_CLASSES),
+            name="adamw", lr=1e-4,
+        ),
+        loss_fn=build_loss("cross_entropy"),
+        early_stopping=es,
+        device="cpu",
+        verbose=False,
+    )
+    es_loader = DataLoader(
+        SegFormerDataset(synthetic_size=10, image_size=128, num_classes=NUM_CLASSES),
+        batch_size=2,
+        collate_fn=_training_collate,
+    )
+    trainer_es.fit(es_loader, es_loader, epochs=10)
+    print(f"    Stopped at epoch: {trainer_es.current_epoch} (< 10 = early stopping triggered)")
+
+    # ── 10. CheckpointManager with DataModule ────────────────────────
+    print(f"\n[T10] CheckpointManager with DataModule...")
+    from common.datasets import DataModule, split_dataset
+    dm_dataset = SegFormerDataset(
+        synthetic_size=30, image_size=128, num_classes=NUM_CLASSES
+    )
+    splits = split_dataset(
+        dm_dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15
+    )
+    dm = DataModule(
+        dataset_type="segmentation",
+        train_dataset=splits["train"],
+        val_dataset=splits["val"],
+        test_dataset=splits["test"],
+        batch_size=4,
+        collate_fn=_training_collate,
+    )
+    with tempfile.TemporaryDirectory() as tmpdir:
+        ckpt_mgr = CheckpointManager(save_dir=tmpdir)
+        trainer_dm = Trainer(
+            model=SegFormer(variant=VARIANT, num_classes=NUM_CLASSES),
+            optimizer=build_optimizer(
+                SegFormer(variant=VARIANT, num_classes=NUM_CLASSES),
+                name="adamw", lr=1e-4,
+            ),
+            loss_fn=build_loss("cross_entropy"),
+            checkpoint_manager=ckpt_mgr,
+            device="cpu",
+            verbose=False,
+        )
+        trainer_dm.fit(dm.train_dataloader(), dm.val_dataloader(), epochs=2)
+        saved = list(Path(tmpdir).glob("*.pt"))
+        print(f"    Checkpoints saved: {len(saved)}")
+
+    print(f"\n{'=' * 56}")
+    print("  Training Integration Demo — Complete.")
+    print(f"{'=' * 56}")
+
 
 if __name__ == "__main__":
     main()

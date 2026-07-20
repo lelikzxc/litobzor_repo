@@ -316,6 +316,181 @@ for batch in train_loader:
     ...
 ```
 
+## Training Integration
+
+SegFormer is fully integrated with the canonical ``common.training.Trainer``.
+All 44 training integration tests pass.
+
+### Forward Output Format
+
+``SegFormer.forward()`` returns a single logits tensor of shape
+``[B, num_classes, H, W]`` (no Softmax), which is directly compatible with
+``nn.CrossEntropyLoss`` and other segmentation losses from the canonical
+loss factory.
+
+### Loss Functions
+
+SegFormer works with any loss from ``common.training.build_loss``:
+
+- ``cross_entropy`` — standard pixel-wise cross-entropy
+- ``dice`` — Dice loss for segmentation
+- ``iou`` — IoU (Jaccard) loss
+- ``bce_dice`` — combined BCE + Dice
+
+```python
+from common.training import build_loss
+
+loss_fn = build_loss("cross_entropy")  # recommended for SegFormer
+```
+
+### Training Collate Adapter
+
+``SegFormerDataset`` returns ``{"image": ..., "mask": ...}``.
+``Trainer._unpack_batch`` expects ``{"inputs": ..., "targets": ...}``.
+Use the ``_training_collate`` adapter to remap keys:
+
+```python
+from torch.utils.data import DataLoader
+from common.datasets import segmentation_collate
+from papers.transformer_segmentation.data_utils import SegFormerDataset
+
+def training_collate(batch):
+    collated = segmentation_collate(batch)
+    return {"inputs": collated["image"], "targets": collated["mask"]}
+
+dataset = SegFormerDataset(synthetic_size=100, image_size=512, num_classes=8)
+loader = DataLoader(dataset, batch_size=4, collate_fn=training_collate)
+```
+
+### Full Training Loop
+
+```python
+from common.training import Trainer, build_optimizer, build_scheduler
+from papers.transformer_segmentation.models.segformer import SegFormer
+
+model = SegFormer(variant="B0", num_classes=8)
+optimizer = build_optimizer(model, name="adamw", lr=1e-4, weight_decay=0.01)
+loss_fn = build_loss("cross_entropy")
+scheduler = build_scheduler(optimizer, name="cosine", T_max=300)
+
+trainer = Trainer(
+    model=model,
+    optimizer=optimizer,
+    loss_fn=loss_fn,
+    scheduler=scheduler,
+    device="cpu",
+)
+
+# Dataset → DataLoader → Trainer → Forward → Loss → Backward → Optimizer → Scheduler
+trainer.fit(train_loader, epochs=50)
+```
+
+### Checkpointing
+
+```python
+from common.training import CheckpointManager
+
+ckpt = CheckpointManager(save_dir="runs/segformer/checkpoints")
+trainer = Trainer(model, optimizer, loss_fn, checkpoint_manager=ckpt)
+trainer.fit(loader, epochs=50)
+```
+
+### Supported Optimizers
+
+- AdamW (recommended for SegFormer)
+- Adam
+- SGD (with momentum)
+
+### Supported Schedulers
+
+- CosineAnnealingLR
+- StepLR
+- ReduceLROnPlateau
+
+### Mixed Precision
+
+```python
+from common.training import NativeScaler
+
+scaler = NativeScaler(enabled=True)
+trainer = Trainer(model, optimizer, loss_fn, scaler=scaler)
+```
+
+### Early Stopping
+
+```python
+from common.training import EarlyStopping
+
+early_stopping = EarlyStopping(patience=10, min_delta=0.001)
+trainer = Trainer(model, optimizer, loss_fn, early_stopping=early_stopping)
+```
+
+### Gradient Clipping
+
+```python
+trainer = Trainer(model, optimizer, loss_fn, grad_max_norm=1.0)
+```
+
+### Metrics
+
+SegFormer supports segmentation metrics from ``common.training``:
+
+```python
+from common.training import build_metric
+
+metric_fns = {
+    "iou": build_metric("iou"),
+    "dice": build_metric("dice"),
+    "pixel_accuracy": build_metric("pixel_accuracy"),
+}
+trainer = Trainer(model, optimizer, loss_fn, metric_fns=metric_fns)
+```
+
+### DataModule Integration
+
+```python
+from common.datasets import DataModule, segmentation_collate, split_dataset
+from papers.transformer_segmentation.data_utils import SegFormerDataset
+
+dataset = SegFormerDataset(synthetic_size=100, image_size=512, num_classes=8)
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+dm = DataModule(
+    dataset_type="segmentation",
+    train_dataset=splits["train"],
+    val_dataset=splits["val"],
+    test_dataset=splits["test"],
+    batch_size=4,
+    collate_fn=training_collate,
+)
+trainer.fit(dm.train_dataloader(), dm.val_dataloader(), epochs=50)
+```
+
+### Test Coverage
+
+Run the training integration tests:
+
+```bash
+pytest papers/transformer_segmentation/tests/test_training_integration.py -v
+```
+
+The test suite (44 tests) covers:
+- Trainer creation with SegFormer (baseline and Atrous-enhanced)
+- Segmentation loss (CrossEntropyLoss, DiceLoss)
+- Optimizer, scheduler factory compatibility
+- Segmentation batch handling via training collate adapter
+- Training step (forward, loss, backward, optimizer step)
+- Validation step
+- Scheduler step (cosine, step, plateau)
+- Checkpoint save / load / resume
+- Gradient flow through all parameters
+- Gradient clipping
+- CPU and AMP (mixed precision) compatibility
+- Batch size 1 and >1
+- Synthetic segmentation dataset + DataLoader pipeline
+- DataModule integration
+- Trainer + Engine compatibility
+- Full pipeline: Dataset → DataLoader → Trainer → Forward → Loss → Backward → Optimizer → Scheduler
+
 ## Structure
 
 ```
