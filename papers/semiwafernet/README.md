@@ -191,6 +191,149 @@ result = engine.predict_single(x)
 # result["prediction"]   → argmax class index
 ```
 
+## Dataset Integration
+
+SemiWaferNet is fully integrated with the canonical repository dataset infrastructure (`common.datasets`).
+
+### LabeledWaferDataset
+
+[`LabeledWaferDataset`](data_utils/dataset.py) extends [`common.datasets.BaseDataset`](../../common/datasets/base_dataset.py) with a multitask interface. Each sample is a dict with `"image"` (`torch.Tensor [3, H, W]` RGB), `"label"` (`int`), and `"mask"` (`torch.Tensor [H, W]` with integer class indices), directly compatible with `common.datasets.multitask_collate`.
+
+```python
+from papers.semiwafernet.data_utils import LabeledWaferDataset
+
+# Synthetic data (for testing / demos)
+dataset = LabeledWaferDataset(synthetic_size=50, image_size=512, num_classes=6)
+sample = dataset[0]
+# sample["image"].shape → [3, 512, 512]
+# sample["label"]       → int (0–5)
+# sample["mask"].shape  → [512, 512]  (integer class indices)
+
+# Real data from directories
+dataset = LabeledWaferDataset(
+    image_dir="path/to/images",
+    mask_dir="path/to/masks",
+    image_size=512,
+)
+```
+
+### UnlabeledWaferDataset
+
+[`UnlabeledWaferDataset`](data_utils/dataset.py) extends [`common.datasets.BaseDataset`](../../common/datasets/base_dataset.py) for semi-supervised training. Each sample is a dict with only `"image"` — no labels or masks, since targets are generated as pseudo-labels during training.
+
+```python
+from papers.semiwafernet.data_utils import UnlabeledWaferDataset
+
+# Synthetic unlabeled data
+dataset = UnlabeledWaferDataset(synthetic_size=100, image_size=512)
+sample = dataset[0]
+# sample["image"].shape → [3, 512, 512]
+
+# Real data from directories
+dataset = UnlabeledWaferDataset(image_dir="path/to/unlabeled_images", image_size=512)
+```
+
+### Transforms
+
+Use [`common.datasets.build_transforms`](../../common/datasets/transforms.py) to create torchvision transform pipelines:
+
+```python
+from common.datasets import build_transforms
+
+transform = build_transforms(resize_size=(512, 512))
+dataset = LabeledWaferDataset(synthetic_size=50, image_size=512, transform=transform)
+```
+
+### Collation
+
+Use [`common.datasets.multitask_collate`](../../common/datasets/collate.py) to batch labeled samples:
+
+```python
+from common.datasets import multitask_collate
+
+batch = [dataset[i] for i in range(4)]
+collated = multitask_collate(batch)
+# collated["image"].shape → [4, 3, 512, 512]
+# collated["label"].shape → [4]
+# collated["mask"].shape  → [4, 512, 512]
+```
+
+### Splitting
+
+Use [`common.datasets.split_dataset`](../../common/datasets/splits.py) for train/val/test splits:
+
+```python
+from common.datasets import split_dataset
+
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+# splits["train"], splits["val"], splits["test"]
+```
+
+### DataModule
+
+Use [`common.datasets.DataModule`](../../common/datasets/datamodule.py) to create DataLoaders:
+
+```python
+from common.datasets import DataModule, multitask_collate, split_dataset
+
+dataset = LabeledWaferDataset(synthetic_size=100, image_size=512, num_classes=6)
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+
+dm = DataModule(
+    dataset_type="multitask",
+    train_dataset=splits["train"],
+    val_dataset=splits["val"],
+    test_dataset=splits["test"],
+    batch_size=16,
+    collate_fn=multitask_collate,
+)
+
+train_loader = dm.train_dataloader()
+for batch in train_loader:
+    # batch["image"].shape → [16, 3, 512, 512]
+    # batch["label"].shape → [16]
+    # batch["mask"].shape  → [16, 512, 512]
+    ...
+```
+
+### Semi-supervised Pipeline
+
+For semi-supervised training, create separate DataModules for labeled and unlabeled data:
+
+```python
+from common.datasets import DataModule, multitask_collate, split_dataset
+
+# Labeled data
+labeled = LabeledWaferDataset(synthetic_size=30, image_size=512, num_classes=6)
+splits_l = split_dataset(labeled, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1)
+dm_labeled = DataModule(
+    dataset_type="multitask",
+    train_dataset=splits_l["train"],
+    val_dataset=splits_l["val"],
+    test_dataset=splits_l["test"],
+    batch_size=8,
+    collate_fn=multitask_collate,
+)
+
+# Unlabeled data
+unlabeled = UnlabeledWaferDataset(synthetic_size=70, image_size=512)
+splits_u = split_dataset(unlabeled, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1)
+dm_unlabeled = DataModule(
+    dataset_type="classification",
+    train_dataset=splits_u["train"],
+    val_dataset=splits_u["val"],
+    test_dataset=splits_u["test"],
+    batch_size=8,
+)
+
+# Training loop
+for labeled_batch, unlabeled_batch in zip(dm_labeled.train_dataloader(),
+                                           dm_unlabeled.train_dataloader()):
+    # labeled_batch: {"image": ..., "label": ..., "mask": ...}
+    # unlabeled_batch: {"image": ...}
+    ...
+```
+
 ## Structure
 
 ```
@@ -222,7 +365,8 @@ papers/semiwafernet/
 │   ├── stage_manager.py         # Three-stage training schedule
 │   └── trainer.py               # High-level training orchestrator
 ├── data_utils/
-│   └── __init__.py              # Data utility stubs
+│   ├── __init__.py              # Dataset exports
+│   └── dataset.py               # LabeledWaferDataset + UnlabeledWaferDataset
 ├── utils/
 │   ├── __init__.py              # Utility exports
 │   └── experiment.py            # Experiment metadata utilities
@@ -234,7 +378,8 @@ papers/semiwafernet/
 │   ├── test_training.py         # Training component tests (34)
 │   ├── test_training_pipeline.py# Pipeline tests (76)
 │   ├── test_experiment.py       # Experiment utility tests (24)
-│   └── test_engine_integration.py  # Engine integration tests
+│   ├── test_engine_integration.py  # Engine integration tests
+│   └── test_dataset_integration.py # Dataset integration tests
 ```
 
 ## References

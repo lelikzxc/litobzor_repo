@@ -1,9 +1,16 @@
-"""Data loading and preprocessing utilities for SemiWaferNet.
+"""Data loading utilities for SemiWaferNet.
 
-Future components to be implemented:
-- Wafer defect dataset loaders (labeled + unlabeled splits)
-- Data augmentation pipelines (geometric, photometric)
-- Semi-supervised data samplers (batch composition)
+Provides dataset adapters built on top of ``common.datasets``:
+
+- ``LabeledWaferDataset`` — multitask dataset returning images, labels, and masks
+- ``UnlabeledWaferDataset`` — image-only dataset for semi-supervised training
 """
 
-__all__: list[str] = []
+from __future__ import annotations
+
+from papers.semiwafernet.data_utils.dataset import LabeledWaferDataset, UnlabeledWaferDataset
+
+__all__ = [
+    "LabeledWaferDataset",
+    "UnlabeledWaferDataset",
+]
