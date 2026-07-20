@@ -22,6 +22,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 import torch
+from torch.utils.data import DataLoader
 from torch.utils.data._utils.collate import default_collate
 
 from common.datasets import (
@@ -172,6 +173,149 @@ def main() -> None:
     batch = next(iter(train_loader))
     print(f"    Batch image shape: {list(batch['image'].shape)}")
     print(f"    Batch label shape: {list(batch['label'].shape)}")
+
+    # ── Training integration demo ────────────────────────────────────────
+    print(f"\n[9] Training integration (common.training):")
+    from papers.ctm_yolov10.utils.training import (
+        YOLOLoss,
+        patch_eval,
+        training_collate,
+    )
+    from common.training import (
+        Trainer,
+        build_optimizer,
+        build_scheduler,
+        CheckpointManager,
+        EarlyStopping,
+        NativeScaler,
+    )
+
+    # Patch eval to keep model in train mode (YOLO eval triggers _inference)
+    print(f"    Patching model.eval() for Trainer compatibility...")
+    training_model = patch_eval(baseline)
+
+    print(f"    Creating YOLOLoss adapter...")
+    loss_fn = YOLOLoss(training_model)
+    print(f"    Loss adapter: {type(loss_fn).__name__}")
+
+    print(f"\n    Building optimizer (SGD, lr=1e-3, momentum=0.9)...")
+    optimizer = build_optimizer(
+        training_model, name="sgd", lr=1e-3, momentum=0.9, weight_decay=0.0005
+    )
+    print(f"    Optimizer: {type(optimizer).__name__}")
+
+    print(f"\n    Building scheduler (cosine, T_max=10)...")
+    scheduler = build_scheduler(optimizer, name="cosine", T_max=10)
+    print(f"    Scheduler: {type(scheduler).__name__}")
+
+    print(f"\n    Creating training DataLoader with training_collate...")
+    train_loader = DataLoader(
+        dataset,
+        batch_size=4,
+        collate_fn=training_collate,
+        shuffle=True,
+    )
+    batch = next(iter(train_loader))
+    print(f"    Batch inputs shape:  {list(batch['inputs'].shape)}")
+    print(f"    Batch targets keys:  {list(batch['targets'].keys())}")
+
+    print(f"\n    Creating Trainer...")
+    trainer = Trainer(
+        model=training_model,
+        optimizer=optimizer,
+        loss_fn=loss_fn,
+        scheduler=scheduler,
+        device="cpu",
+        verbose=False,
+    )
+    print(f"    Trainer device: {trainer.device}")
+
+    print(f"\n    Running 2 training epochs...")
+    log = trainer.fit(train_loader, epochs=2)
+    latest = log.latest()
+    print(f"    Final train loss: {latest.get('train_loss', 'N/A'):.4f}")
+    print(f"    Final LR:         {latest.get('lr', 'N/A'):.2e}")
+
+    print(f"\n    Validating...")
+    val_loader = DataLoader(
+        dataset,
+        batch_size=4,
+        collate_fn=training_collate,
+        shuffle=False,
+    )
+    val_metrics = trainer.validate(val_loader)
+    print(f"    Val loss: {val_metrics.get('loss', 'N/A'):.4f}")
+
+    print(f"\n    Gradient flow check...")
+    total_grad_norm = 0.0
+    for name, param in training_model.named_parameters():
+        if param.grad is not None:
+            total_grad_norm += param.grad.norm().item() ** 2
+    total_grad_norm = total_grad_norm ** 0.5
+    print(f"    Total grad norm: {total_grad_norm:.4f}")
+    print(f"    Gradients flow:  {'YES' if total_grad_norm > 0 else 'NO'}")
+
+    print(f"\n    Checkpoint save/load...")
+    import tempfile
+    with tempfile.NamedTemporaryFile(suffix=".pt", delete=False) as f:
+        ckpt_path = f.name
+    trainer.save_checkpoint(ckpt_path)
+    print(f"    Checkpoint saved: {ckpt_path}")
+    loaded_epoch = trainer.load_checkpoint(ckpt_path)
+    print(f"    Checkpoint loaded (epoch {loaded_epoch})")
+    Path(ckpt_path).unlink(missing_ok=True)
+
+    print(f"\n    Mixed precision (AMP) compatibility...")
+    scaler = NativeScaler(enabled=True)
+    trainer_amp = Trainer(
+        model=training_model,
+        optimizer=build_optimizer(training_model, name="adamw", lr=1e-3),
+        loss_fn=YOLOLoss(training_model),
+        scaler=scaler,
+        device="cpu",
+        verbose=False,
+    )
+    amp_metrics = trainer_amp.train_one_epoch(train_loader)
+    print(f"    AMP train loss: {amp_metrics.get('loss', 'N/A'):.4f}")
+
+    print(f"\n    Early stopping...")
+    es = EarlyStopping(patience=3, min_delta=100.0)
+    trainer_es = Trainer(
+        model=training_model,
+        optimizer=build_optimizer(training_model, name="sgd", lr=1e-3),
+        loss_fn=YOLOLoss(training_model),
+        early_stopping=es,
+        device="cpu",
+        verbose=False,
+    )
+    trainer_es.fit(train_loader, val_loader, epochs=10)
+    print(f"    Stopped at epoch: {trainer_es.current_epoch} (< 10 = early stopping triggered)")
+
+    print(f"\n    CheckpointManager with DataModule...")
+    from common.datasets import DataModule as _DataModule
+    from common.datasets import split_dataset as _split_dataset
+    splits = _split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+    dm = _DataModule(
+        dataset_type="classification",
+        train_dataset=splits["train"],
+        val_dataset=splits["val"],
+        test_dataset=splits["test"],
+        batch_size=4,
+        collate_fn=training_collate,
+    )
+    with tempfile.TemporaryDirectory() as tmpdir:
+        ckpt_mgr = CheckpointManager(save_dir=tmpdir)
+        trainer_dm = Trainer(
+            model=training_model,
+            optimizer=build_optimizer(training_model, name="sgd", lr=1e-3),
+            loss_fn=YOLOLoss(training_model),
+            checkpoint_manager=ckpt_mgr,
+            device="cpu",
+            verbose=False,
+        )
+        trainer_dm.fit(dm.train_dataloader(), dm.val_dataloader(), epochs=2)
+        saved = list(Path(tmpdir).glob("*.pt"))
+        print(f"    Checkpoints saved: {len(saved)}")
 
     print(f"\n{'=' * 60}")
     print("  Demo completed successfully.")

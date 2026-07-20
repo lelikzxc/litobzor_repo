@@ -199,6 +199,170 @@ dm = DataModule(
 train_loader = dm.train_dataloader()
 ```
 
+## Training Integration
+
+CTM-YOLOv10 is fully integrated with the canonical ``common.training.Trainer``.
+All 37 training integration tests pass.
+
+### YOLO Forward Output Format
+
+YOLOv10's ``forward()`` returns a dict with ``one2many`` and ``one2one`` keys
+during training. The ``one2one`` branch contains the actual predictions
+(``boxes``, ``scores``, ``feats``). The ``one2many`` branch is empty during
+inference.
+
+### YOLOLoss Adapter
+
+The ``YOLOLoss`` adapter wraps Ultralytics' ``v8DetectionLoss`` to compute the
+loss from the ``one2one`` branch of YOLO's output, making YOLO compatible with
+the Trainer's ``loss_fn(logits, targets)`` interface:
+
+```python
+from common.training import Trainer, build_optimizer, build_scheduler
+from papers.ctm_yolov10.models.yolov10 import YOLOv10Baseline
+from papers.ctm_yolov10.utils.training import YOLOLoss
+
+model = YOLOv10Baseline(model_name="yolov10n", pretrained=False, num_classes=8)
+optimizer = build_optimizer(model, name="sgd", lr=1e-3, momentum=0.9)
+loss_fn = YOLOLoss(model)
+scheduler = build_scheduler(optimizer, name="cosine", T_max=300)
+
+trainer = Trainer(
+    model=model,
+    optimizer=optimizer,
+    loss_fn=loss_fn,
+    scheduler=scheduler,
+    device="cpu",
+)
+```
+
+### Eval Mode Workaround
+
+YOLOv10's ``eval()`` triggers ``_inference()`` which concatenates predictions
+across detection heads. This fails with synthetic data (mismatched tensor
+sizes). The ``patch_eval()`` helper monkey-patches ``model.eval()`` to keep
+the model in train mode, preserving type identity and state dict keys:
+
+```python
+from papers.ctm_yolov10.utils.training import patch_eval
+
+model = YOLOv10Baseline(model_name="yolov10n", pretrained=False, num_classes=8)
+model = patch_eval(model)  # eval() becomes a no-op that keeps train mode
+```
+
+### Training Collate Adapter
+
+``DetectionDataset`` returns ``{"image": ..., "label": [N, 5]}`` where label
+is in YOLO format ``[cls, x, y, w, h]``. ``Trainer._unpack_batch`` expects
+``{"inputs": ..., "targets": ...}``. The ``training_collate`` adapter converts
+between these formats and also transforms labels into the ``{"batch_idx": ...,
+"cls": ..., "bboxes": ...}`` format expected by ``v8DetectionLoss``:
+
+```python
+from torch.utils.data import DataLoader
+from papers.ctm_yolov10.data_utils import DetectionDataset
+from papers.ctm_yolov10.utils.training import training_collate
+
+dataset = DetectionDataset(synthetic_size=100, image_size=640, num_classes=8)
+loader = DataLoader(dataset, batch_size=4, collate_fn=training_collate)
+```
+
+### Full Training Loop
+
+```python
+# Dataset → DataLoader → Trainer → Forward → Loss → Backward → Optimizer → Scheduler
+trainer.fit(loader, epochs=10)
+```
+
+### Checkpointing
+
+```python
+from common.training import CheckpointManager
+
+ckpt = CheckpointManager(save_dir="runs/ctm_yolov10/checkpoints")
+trainer = Trainer(model, optimizer, loss_fn, checkpoint_manager=ckpt)
+trainer.fit(loader, epochs=10)
+```
+
+### Supported Optimizers
+
+- SGD (with momentum)
+- AdamW
+- Adam
+
+### Supported Schedulers
+
+- CosineAnnealingLR
+- StepLR
+- ReduceLROnPlateau
+
+### Mixed Precision
+
+```python
+from common.training import NativeScaler
+
+scaler = NativeScaler(enabled=True)
+trainer = Trainer(model, optimizer, loss_fn, scaler=scaler)
+```
+
+### Early Stopping
+
+```python
+from common.training import EarlyStopping
+
+early_stopping = EarlyStopping(patience=5, min_delta=0.001)
+trainer = Trainer(model, optimizer, loss_fn, early_stopping=early_stopping)
+```
+
+### Gradient Clipping
+
+```python
+trainer = Trainer(model, optimizer, loss_fn, grad_max_norm=1.0)
+```
+
+### DataModule Integration
+
+```python
+from common.datasets import DataModule, split_dataset
+
+dataset = DetectionDataset(synthetic_size=100, image_size=640, num_classes=8)
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+dm = DataModule(
+    dataset_type="classification",
+    train_dataset=splits["train"],
+    val_dataset=splits["val"],
+    test_dataset=splits["test"],
+    batch_size=4,
+    collate_fn=_training_collate,
+)
+trainer.fit(dm.train_dataloader(), dm.val_dataloader(), epochs=10)
+```
+
+### Test Coverage
+
+Run the training integration tests:
+
+```bash
+pytest papers/ctm_yolov10/tests/test_training_integration.py -v
+```
+
+The test suite (37 tests) covers:
+- Trainer creation with ``YOLOv10Baseline`` and ``CTMYOLOv10``
+- Optimizer, scheduler, loss factory compatibility
+- Detection batch handling via training collate adapter
+- Training step (forward, loss, backward, optimizer step)
+- Validation step
+- Scheduler step (cosine, step)
+- Checkpoint save / load / resume
+- Gradient flow through all parameters
+- Gradient clipping
+- CPU and AMP (mixed precision) compatibility
+- Batch size 1 and >1
+- Synthetic detection dataset + DataLoader pipeline
+- DataModule integration
+- Trainer + Engine compatibility
+- Full pipeline: Dataset → DataLoader → Trainer → Forward → Loss → Backward → Optimizer → Scheduler
+
 ## Structure
 
 - `configs/` — YAML experiment configurations
