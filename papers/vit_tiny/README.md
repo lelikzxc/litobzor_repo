@@ -138,11 +138,93 @@ result = engine.predict_single(x)
 # result["prediction"]   → argmax class index
 ```
 
+## Dataset Integration
+
+The ViT-Tiny model is fully integrated with the canonical repository dataset infrastructure (`common.datasets`).
+
+### ViTTinyDataset
+
+[`ViTTinyDataset`](data_utils/dataset.py) extends [`common.datasets.BaseDataset`](../../common/datasets/base_dataset.py) with a classification-specific interface. Each sample is a dict with `"image"` (`torch.Tensor [1, H, W]` grayscale) and `"label"` (`int`), directly compatible with `common.datasets.classification_collate`.
+
+```python
+from papers.vit_tiny.data_utils import ViTTinyDataset
+
+# Synthetic data (for testing / demos)
+dataset = ViTTinyDataset(synthetic_size=100, image_size=32, num_classes=8)
+sample = dataset[0]
+# sample["image"].shape → [1, 32, 32]
+# sample["label"]       → int (0–7)
+
+# Real data from directories
+dataset = ViTTinyDataset(image_dir="path/to/images", image_size=32)
+```
+
+### Transforms
+
+Use [`common.datasets.build_transforms`](../../common/datasets/transforms.py) to create torchvision transform pipelines:
+
+```python
+from common.datasets import build_transforms
+
+transform = build_transforms(resize_size=(32, 32))
+dataset = ViTTinyDataset(synthetic_size=100, image_size=32, transform=transform)
+```
+
+### Collation
+
+Use [`common.datasets.classification_collate`](../../common/datasets/collate.py) to batch samples:
+
+```python
+from common.datasets import classification_collate
+
+batch = [dataset[i] for i in range(4)]
+collated = classification_collate(batch)
+# collated["image"].shape → [4, 1, 32, 32]
+# collated["label"].shape → [4]
+```
+
+### Splitting
+
+Use [`common.datasets.split_dataset`](../../common/datasets/splits.py) for train/val/test splits:
+
+```python
+from common.datasets import split_dataset
+
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+# splits["train"], splits["val"], splits["test"]
+```
+
+### DataModule
+
+Use [`common.datasets.DataModule`](../../common/datasets/datamodule.py) to create DataLoaders:
+
+```python
+from common.datasets import DataModule, classification_collate, split_dataset
+
+dataset = ViTTinyDataset(synthetic_size=100, image_size=32, num_classes=8)
+splits = split_dataset(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+
+dm = DataModule(
+    dataset_type="classification",
+    train_dataset=splits["train"],
+    val_dataset=splits["val"],
+    test_dataset=splits["test"],
+    batch_size=32,
+    collate_fn=classification_collate,
+)
+
+train_loader = dm.train_dataloader()
+for batch in train_loader:
+    # batch["image"].shape → [32, 1, 32, 32]
+    # batch["label"].shape → [32]
+    ...
+```
+
 ## Structure
 
 - `configs/` — YAML experiment configurations
 - `models/` — model architecture and weights
-- `data_utils/` — dataset loaders and preprocessing
+- `data_utils/` — dataset loaders and preprocessing (built on `common.datasets`)
 - `utils/` — paper-specific utilities
 - `tests/` — unit and integration tests
 - `train.py` — training entry point
