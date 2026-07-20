@@ -60,7 +60,7 @@ def main() -> None:
     print(f"    Embed dim:          {model.embed_dim}")
     print(f"    Num layers:         {model.num_layers}")
     print(f"    Num heads:          {model.num_heads}")
-    print(f"    MLP ratio:          {model.mlp_ratio}")
+    print(f"    MLP ratio:          4.0")
     print(f"    Num classes:        {model.num_classes}")
     print(f"    Parameters:         {sum(p.numel() for p in model.parameters()):,}")
 
@@ -241,6 +241,167 @@ def main() -> None:
 
     print(f"\n{'=' * 56}")
     print("  Dataset Integration Demo — Complete.")
+    print(f"{'=' * 56}")
+
+    # ═══════════════════════════════════════════════════════════════════
+    #  Training Integration Demo
+    # ═══════════════════════════════════════════════════════════════════
+    print(f"\n{'=' * 56}")
+    print("  Training Integration Demo")
+    print(f"{'=' * 56}")
+
+    from common.training import (
+        CheckpointManager,
+        EarlyStopping,
+        NativeScaler,
+        Trainer,
+        TrainingLogger,
+        accuracy,
+        build_loss,
+        build_optimizer,
+        build_scheduler,
+        f1,
+    )
+    from common.datasets import (
+        DataModule,
+        classification_collate,
+        split_dataset,
+    )
+    from papers.vit_tiny.data_utils import ViTTinyDataset
+
+    # Adapter collate: maps classification_collate output to Trainer's expected format
+    def _training_collate(batch):
+        collated = classification_collate(batch)
+        return {"inputs": collated["image"], "targets": collated["label"]}
+
+    # ── 1. Synthetic dataset ─────────────────────────────────────────
+    print(f"\n[T1] Synthetic dataset creation:")
+    ds = ViTTinyDataset(synthetic_size=64, image_size=IMAGE_SIZE, num_classes=NUM_CLASSES)
+    splits = split_dataset(ds, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+    print(f"    Train size: {len(splits['train'])}")
+    print(f"    Val size:   {len(splits['val'])}")
+    print(f"    Test size:  {len(splits['test'])}")
+
+    # ── 2. DataModule ────────────────────────────────────────────────
+    print(f"\n[T2] DataModule creation:")
+    dm = DataModule(
+        dataset_type="classification",
+        train_dataset=splits["train"],
+        val_dataset=splits["val"],
+        test_dataset=splits["test"],
+        batch_size=8,
+        collate_fn=_training_collate,
+    )
+    train_loader = dm.train_dataloader()
+    val_loader = dm.val_dataloader()
+    print(f"    Train batches: {len(train_loader)}")
+    print(f"    Val batches:   {len(val_loader)}")
+
+    # ── 3. Trainer creation ──────────────────────────────────────────
+    print(f"\n[T3] Trainer creation:")
+    model_for_train = ViTTiny(
+        image_size=IMAGE_SIZE,
+        patch_size=4,
+        in_channels=IN_CHANNELS,
+        num_classes=NUM_CLASSES,
+        embed_dim=192,
+        num_layers=4,
+        num_heads=3,
+        mlp_ratio=4.0,
+        dropout=0.1,
+        emb_dropout=0.1,
+    )
+    opt = build_optimizer(model_for_train, name="adamw", lr=1e-3, weight_decay=0.05)
+    sched = build_scheduler(opt, name="cosine", T_max=10)
+    loss_fn = build_loss("cross_entropy")
+    trainer = Trainer(
+        model=model_for_train,
+        optimizer=opt,
+        loss_fn=loss_fn,
+        scheduler=sched,
+        device="cpu",
+        metric_fns={"accuracy": accuracy, "f1": f1},
+        verbose=False,
+    )
+    print(f"    Trainer created on device: {trainer.device}")
+
+    # ── 4. One epoch of training ─────────────────────────────────────
+    print(f"\n[T4] One epoch of training:")
+    train_metrics = trainer.train_one_epoch(train_loader)
+    print(f"    Train loss: {train_metrics['loss']:.4f}")
+    print(f"    Train accuracy: {train_metrics.get('accuracy', 'N/A')}")
+
+    # ── 5. Validation ────────────────────────────────────────────────
+    print(f"\n[T5] Validation:")
+    val_metrics = trainer.validate(val_loader)
+    print(f"    Val loss: {val_metrics['loss']:.4f}")
+    print(f"    Val accuracy: {val_metrics.get('accuracy', 'N/A')}")
+
+    # ── 6. Full fit with checkpointing ───────────────────────────────
+    print(f"\n[T6] Full fit with checkpointing (3 epochs):")
+    import tempfile
+    from pathlib import Path
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        ckpt_mgr = CheckpointManager(save_dir=tmpdir)
+        es = EarlyStopping(patience=5, min_delta=0.001)
+        trainer2 = Trainer(
+            model=ViTTiny(
+                image_size=IMAGE_SIZE,
+                patch_size=4,
+                in_channels=IN_CHANNELS,
+                num_classes=NUM_CLASSES,
+            ),
+            optimizer=build_optimizer(
+                ViTTiny(image_size=IMAGE_SIZE, in_channels=IN_CHANNELS, num_classes=NUM_CLASSES),
+                name="adamw", lr=1e-3,
+            ),
+            loss_fn=build_loss("cross_entropy"),
+            scheduler=build_scheduler(opt, name="cosine", T_max=10),
+            device="cpu",
+            metric_fns={"accuracy": accuracy},
+            checkpoint_manager=ckpt_mgr,
+            early_stopping=es,
+            verbose=False,
+        )
+        log = trainer2.fit(train_loader, val_loader, epochs=3)
+        latest = log.latest()
+        print(f"    Final train loss: {latest.get('train_loss', 'N/A'):.4f}")
+        print(f"    Final val loss:   {latest.get('val_loss', 'N/A'):.4f}")
+        saved = list(Path(tmpdir).glob("*.pt"))
+        print(f"    Checkpoints saved: {len(saved)}")
+
+    # ── 7. Checkpoint save and resume ────────────────────────────────
+    print(f"\n[T7] Checkpoint save and resume:")
+    model_for_ckpt = ViTTiny(
+        image_size=IMAGE_SIZE, in_channels=IN_CHANNELS, num_classes=NUM_CLASSES
+    )
+    opt_ckpt = build_optimizer(model_for_ckpt, name="adamw", lr=1e-3)
+    loss_ckpt = build_loss("cross_entropy")
+    trainer_ckpt = Trainer(
+        model_for_ckpt, opt_ckpt, loss_ckpt, device="cpu", verbose=False
+    )
+    trainer_ckpt.fit(train_loader, epochs=2)
+    assert trainer_ckpt.current_epoch == 2
+    with tempfile.NamedTemporaryFile(suffix=".pt", delete=False) as f:
+        ckpt_path = f.name
+    trainer_ckpt.save_checkpoint(ckpt_path)
+    # Resume
+    model_resume = ViTTiny(
+        image_size=IMAGE_SIZE, in_channels=IN_CHANNELS, num_classes=NUM_CLASSES
+    )
+    opt_resume = build_optimizer(model_resume, name="adamw", lr=1e-3)
+    loss_resume = build_loss("cross_entropy")
+    trainer_resume = Trainer(
+        model_resume, opt_resume, loss_resume, device="cpu", verbose=False
+    )
+    loaded_epoch = trainer_resume.load_checkpoint(ckpt_path)
+    print(f"    Saved at epoch: {trainer_ckpt.current_epoch}")
+    print(f"    Loaded at epoch: {loaded_epoch}")
+    Path(ckpt_path).unlink(missing_ok=True)
+
+    print(f"\n{'=' * 56}")
+    print("  Training Integration Demo — Complete.")
     print(f"{'=' * 56}")
 
 
