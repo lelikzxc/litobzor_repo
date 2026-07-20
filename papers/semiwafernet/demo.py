@@ -309,6 +309,184 @@ def main() -> None:
     print("Dataset Integration Demo — Complete.")
     print("─" * 60)
 
+    # ═══════════════════════════════════════════════════════════════════
+    #  Training Integration Demo
+    # ═══════════════════════════════════════════════════════════════════
+    print()
+    print("=" * 60)
+    print("Training Integration Demo")
+    print("=" * 60)
+    print()
+
+    from common.training import (
+        CheckpointManager,
+        Trainer,
+        TrainingLogger,
+        accuracy,
+        build_loss,
+        build_optimizer,
+        build_scheduler,
+        f1,
+    )
+    from torch.utils.data import DataLoader
+
+    # ── MultiTaskLoss adapter ────────────────────────────────────────
+    class MultiTaskLoss(torch.nn.Module):
+        """Loss adapter for SemiWaferNet's dict output."""
+
+        def __init__(self, cls_loss_fn, seg_loss_fn,
+                     cls_weight=1.0, seg_weight=1.0):
+            super().__init__()
+            self.cls_loss_fn = cls_loss_fn
+            self.seg_loss_fn = seg_loss_fn
+            self.cls_weight = cls_weight
+            self.seg_weight = seg_weight
+
+        def forward(self, logits, targets):
+            cls_loss = self.cls_loss_fn(logits["classification"], targets["label"])
+            seg_loss = self.seg_loss_fn(logits["segmentation"], targets["mask"])
+            return self.cls_weight * cls_loss + self.seg_weight * seg_loss
+
+    # ── Training collate adapter ─────────────────────────────────────
+    def _training_collate(batch):
+        collated = multitask_collate(batch)
+        return {
+            "inputs": collated["image"],
+            "targets": {"label": collated["label"], "mask": collated["mask"]},
+        }
+
+    # ── Create a small model for training demo ───────────────────────
+    TRAIN_IMG_SIZE = 64
+    train_model = SemiWaferNet(
+        in_channels=3,
+        backbone_channels=[16, 32, 64, 128],
+        backbone_depths=[1, 1, 1, 1],
+        embed_dim=64,
+        num_heads=4,
+        num_layers=2,
+        mlp_ratio=2,
+        dropout=0.0,
+        fusion_dim=64,
+        num_classes=6,
+    )
+
+    # ── Synthetic dataset ────────────────────────────────────────────
+    print("1. Synthetic dataset:")
+    train_ds = LabeledWaferDataset(
+        synthetic_size=32, image_size=TRAIN_IMG_SIZE, num_classes=6,
+    )
+    val_ds = LabeledWaferDataset(
+        synthetic_size=16, image_size=TRAIN_IMG_SIZE, num_classes=6,
+    )
+    train_loader = DataLoader(
+        train_ds, batch_size=8, collate_fn=_training_collate, shuffle=True,
+    )
+    val_loader = DataLoader(
+        val_ds, batch_size=8, collate_fn=_training_collate, shuffle=False,
+    )
+    print(f"   Train samples: {len(train_ds)}")
+    print(f"   Val samples:   {len(val_ds)}")
+    print()
+
+    # ── Training components ──────────────────────────────────────────
+    print("2. Training components:")
+    opt = build_optimizer(train_model, name="adamw", lr=1e-3, weight_decay=0.05)
+    sched = build_scheduler(opt, name="cosine", T_max=5)
+    loss_fn = MultiTaskLoss(
+        cls_loss_fn=build_loss("cross_entropy"),
+        seg_loss_fn=build_loss("cross_entropy"),
+        cls_weight=1.0,
+        seg_weight=1.0,
+    )
+    metric_fns = {"accuracy": accuracy, "f1": f1}
+    print(f"   Optimizer: AdamW (lr=1e-3, weight_decay=0.05)")
+    print(f"   Scheduler: CosineAnnealingLR (T_max=5)")
+    print(f"   Loss:      MultiTaskLoss (cls_weight=1.0, seg_weight=1.0)")
+    print(f"   Metrics:   accuracy, f1")
+    print()
+
+    # ── Trainer ──────────────────────────────────────────────────────
+    print("3. Trainer:")
+    trainer = Trainer(
+        model=train_model,
+        optimizer=opt,
+        scheduler=sched,
+        loss_fn=loss_fn,
+        metric_fns=metric_fns,
+        device="cpu",
+        verbose=False,
+    )
+    print(f"   Device: {trainer.device}")
+    print()
+
+    # ── Train one epoch ──────────────────────────────────────────────
+    print("4. Training (1 epoch):")
+    train_metrics = trainer.train_one_epoch(train_loader)
+    print(f"   Train loss: {train_metrics['loss']:.4f}")
+    print(f"   Accuracy:   {train_metrics.get('accuracy', 'N/A')}")
+    print(f"   F1:         {train_metrics.get('f1', 'N/A')}")
+    print()
+
+    # ── Validate ─────────────────────────────────────────────────────
+    print("5. Validation:")
+    val_metrics = trainer.validate(val_loader)
+    print(f"   Val loss: {val_metrics['loss']:.4f}")
+    print(f"   Accuracy: {val_metrics.get('accuracy', 'N/A')}")
+    print()
+
+    # ── Checkpoint ───────────────────────────────────────────────────
+    print("6. Checkpoint save/load:")
+    with tempfile.TemporaryDirectory() as tmpdir:
+        ckpt_path = Path(tmpdir) / "semiwafernet_demo.pt"
+        trainer.save_checkpoint(ckpt_path)
+        print(f"   Checkpoint saved: {ckpt_path.exists()}")
+
+        # Modify weights and restore
+        for p in train_model.parameters():
+            p.data.add_(0.1)
+        trainer.load_checkpoint(ckpt_path)
+        print(f"   Checkpoint loaded: weights restored")
+    print()
+
+    # ── Full training loop ───────────────────────────────────────────
+    print("7. Full training loop (3 epochs):")
+    # Reset model
+    train_model = SemiWaferNet(
+        in_channels=3,
+        backbone_channels=[16, 32, 64, 128],
+        backbone_depths=[1, 1, 1, 1],
+        embed_dim=64,
+        num_heads=4,
+        num_layers=2,
+        mlp_ratio=2,
+        dropout=0.0,
+        fusion_dim=64,
+        num_classes=6,
+    )
+    opt = build_optimizer(train_model, name="adamw", lr=1e-3)
+    sched = build_scheduler(opt, name="cosine", T_max=5)
+    logger = TrainingLogger()
+    trainer = Trainer(
+        model=train_model,
+        optimizer=opt,
+        scheduler=sched,
+        loss_fn=loss_fn,
+        metric_fns=metric_fns,
+        logger=logger,
+        device="cpu",
+        verbose=False,
+    )
+    trainer.fit(train_loader, val_loader, epochs=3)
+    print(f"   Epochs completed: {trainer.current_epoch}")
+    latest = logger.latest()
+    print(f"   Final train loss: {latest.get('train_loss', 'N/A'):.4f}")
+    print(f"   Final val loss:   {latest.get('val_loss', 'N/A'):.4f}")
+    print()
+
+    print("─" * 60)
+    print("Training Integration Demo — Complete.")
+    print("─" * 60)
+
 
 if __name__ == "__main__":
     main()
