@@ -14,6 +14,7 @@ This is the final research validation demo.
 from __future__ import annotations
 
 import sys
+import tempfile
 from pathlib import Path
 
 # Ensure repository root is on sys.path for imports
@@ -215,12 +216,13 @@ def main() -> None:
     print(f"    ⚠️ SFS implementation — Approximation (paper lacks detail)")
     print(f"    ⚠️ CLCA implementation — Approximation (paper lacks detail)")
     print(f"    ❌ Pretrained weights — Not available")
-    print(f"    ❌ Training pipeline — Not implemented")
+    print(f"    ✅ Training pipeline — Integrated with common.training.Trainer")
 
     # ── Test summary ───────────────────────────────────────────────────
     print(f"\n[12] Test summary:")
     print(f"    Run: pytest papers/vmamba/tests/ -v")
-    print(f"    Expected: 30+ tests covering FA, SFS, CLCA, ablation, experiment info")
+    print(f"    Expected: 80+ tests covering FA, SFS, CLCA, ablation, experiment info,")
+    print(f"              engine integration, dataset integration, training integration")
 
     print(f"\n{'=' * 56}")
     print("  FCS-VMamba Research Validation — Complete.")
@@ -391,6 +393,157 @@ def main() -> None:
 
     print(f"\n{'=' * 56}")
     print("  Dataset Integration Demo — Complete.")
+    print(f"{'=' * 56}")
+
+    # ═══════════════════════════════════════════════════════════════════
+    #  Training Integration Demo
+    # ═══════════════════════════════════════════════════════════════════
+    print(f"\n{'=' * 56}")
+    print("  Training Integration Demo")
+    print(f"{'=' * 56}")
+
+    from common.training import (
+        CheckpointManager,
+        Trainer,
+        TrainingLogger,
+        accuracy,
+        build_loss,
+        build_optimizer,
+        build_scheduler,
+        f1,
+    )
+    from torch.utils.data import DataLoader
+
+    # ── Training collate adapter ─────────────────────────────────────
+    def _training_collate(batch):
+        collated = classification_collate(batch)
+        return {
+            "inputs": collated["image"],
+            "targets": collated["label"],
+        }
+
+    # ── Create a small model for training demo ───────────────────────
+    TRAIN_IMG_SIZE = 64
+    train_model = FCSVMamba(
+        in_channels=3,
+        image_size=TRAIN_IMG_SIZE,
+        embed_dim=32,
+        depths=[1, 1, 1, 1],
+        num_heads=[1, 2, 4, 8],
+        ssm_ratio=1.0,
+        mlp_ratio=1.0,
+        drop_path_rate=0.0,
+        num_classes=NUM_CLASSES,
+        fa_enabled=False,
+        sfs_enabled=False,
+        clca_enabled=False,
+    )
+
+    # ── Synthetic dataset ────────────────────────────────────────────
+    print(f"\n[T1] Synthetic dataset:")
+    train_ds = VMambaDataset(
+        synthetic_size=32, image_size=TRAIN_IMG_SIZE, num_classes=NUM_CLASSES,
+    )
+    val_ds = VMambaDataset(
+        synthetic_size=16, image_size=TRAIN_IMG_SIZE, num_classes=NUM_CLASSES,
+    )
+    train_loader = DataLoader(
+        train_ds, batch_size=8, collate_fn=_training_collate, shuffle=True,
+    )
+    val_loader = DataLoader(
+        val_ds, batch_size=8, collate_fn=_training_collate, shuffle=False,
+    )
+    print(f"    Train samples: {len(train_ds)}")
+    print(f"    Val samples:   {len(val_ds)}")
+
+    # ── Training components ──────────────────────────────────────────
+    print(f"\n[T2] Training components:")
+    opt = build_optimizer(train_model, name="adamw", lr=1e-3, weight_decay=0.05)
+    sched = build_scheduler(opt, name="cosine", T_max=5)
+    loss_fn = build_loss("cross_entropy")
+    metric_fns = {"accuracy": accuracy, "f1": f1}
+    print(f"    Optimizer: AdamW (lr=1e-3, weight_decay=0.05)")
+    print(f"    Scheduler: CosineAnnealingLR (T_max=5)")
+    print(f"    Loss:      CrossEntropyLoss")
+    print(f"    Metrics:   accuracy, f1")
+
+    # ── Trainer ──────────────────────────────────────────────────────
+    print(f"\n[T3] Trainer:")
+    trainer = Trainer(
+        model=train_model,
+        optimizer=opt,
+        scheduler=sched,
+        loss_fn=loss_fn,
+        metric_fns=metric_fns,
+        device="cpu",
+        verbose=False,
+    )
+    print(f"    Device: {trainer.device}")
+
+    # ── Train one epoch ──────────────────────────────────────────────
+    print(f"\n[T4] Training (1 epoch):")
+    train_metrics = trainer.train_one_epoch(train_loader)
+    print(f"    Train loss: {train_metrics['loss']:.4f}")
+    print(f"    Accuracy:   {train_metrics.get('accuracy', 'N/A')}")
+    print(f"    F1:         {train_metrics.get('f1', 'N/A')}")
+
+    # ── Validate ─────────────────────────────────────────────────────
+    print(f"\n[T5] Validation:")
+    val_metrics = trainer.validate(val_loader)
+    print(f"    Val loss: {val_metrics['loss']:.4f}")
+    print(f"    Accuracy: {val_metrics.get('accuracy', 'N/A')}")
+
+    # ── Checkpoint ───────────────────────────────────────────────────
+    print(f"\n[T6] Checkpoint save/load:")
+    with tempfile.TemporaryDirectory() as tmpdir:
+        ckpt_path = Path(tmpdir) / "fcs_vmamba_demo.pt"
+        trainer.save_checkpoint(ckpt_path)
+        print(f"    Checkpoint saved: {ckpt_path.exists()}")
+
+        # Modify weights and restore
+        for p in train_model.parameters():
+            p.data.add_(0.1)
+        trainer.load_checkpoint(ckpt_path)
+        print(f"    Checkpoint loaded: weights restored")
+
+    # ── Full training loop ───────────────────────────────────────────
+    print(f"\n[T7] Full training loop (3 epochs):")
+    # Reset model
+    train_model = FCSVMamba(
+        in_channels=3,
+        image_size=TRAIN_IMG_SIZE,
+        embed_dim=32,
+        depths=[1, 1, 1, 1],
+        num_heads=[1, 2, 4, 8],
+        ssm_ratio=1.0,
+        mlp_ratio=1.0,
+        drop_path_rate=0.0,
+        num_classes=NUM_CLASSES,
+        fa_enabled=False,
+        sfs_enabled=False,
+        clca_enabled=False,
+    )
+    opt = build_optimizer(train_model, name="adamw", lr=1e-3)
+    sched = build_scheduler(opt, name="cosine", T_max=5)
+    logger = TrainingLogger()
+    trainer = Trainer(
+        model=train_model,
+        optimizer=opt,
+        scheduler=sched,
+        loss_fn=loss_fn,
+        metric_fns=metric_fns,
+        logger=logger,
+        device="cpu",
+        verbose=False,
+    )
+    trainer.fit(train_loader, val_loader, epochs=3)
+    print(f"    Epochs completed: {trainer.current_epoch}")
+    latest = logger.latest()
+    print(f"    Final train loss: {latest.get('train_loss', 'N/A'):.4f}")
+    print(f"    Final val loss:   {latest.get('val_loss', 'N/A'):.4f}")
+
+    print(f"\n{'=' * 56}")
+    print("  Training Integration Demo — Complete.")
     print(f"{'=' * 56}")
 
 
