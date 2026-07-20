@@ -191,6 +191,124 @@ def main() -> None:
     print("Status: ✅ Baseline architecture implemented with engine integration")
     print()
 
+    # ═══════════════════════════════════════════════════════════════════
+    #  Dataset Integration Demo
+    # ═══════════════════════════════════════════════════════════════════
+    print("─" * 60)
+    print("Dataset Integration Demo")
+    print("─" * 60)
+    print()
+
+    from common.datasets import (
+        DataModule,
+        build_transforms,
+        multitask_collate,
+        split_dataset,
+    )
+    from papers.semiwafernet.data_utils import LabeledWaferDataset, UnlabeledWaferDataset
+
+    IMG_SIZE = 128  # smaller for demo speed
+
+    # ── 1. Labeled dataset ──────────────────────────────────────────
+    print("1. LabeledWaferDataset (synthetic):")
+    ds_labeled = LabeledWaferDataset(synthetic_size=50, image_size=IMG_SIZE, num_classes=6)
+    print(f"   Dataset: {repr(ds_labeled)}")
+    sample = ds_labeled[0]
+    print(f"   Keys: {list(sample.keys())}")
+    print(f"   Image shape: {list(sample['image'].shape)}")
+    print(f"   Label:       {sample['label']}")
+    print(f"   Mask shape:  {list(sample['mask'].shape)}")
+    print(f"   Mask dtype:  {sample['mask'].dtype}")
+    print()
+
+    # ── 2. Unlabeled dataset ────────────────────────────────────────
+    print("2. UnlabeledWaferDataset (synthetic):")
+    ds_unlabeled = UnlabeledWaferDataset(synthetic_size=100, image_size=IMG_SIZE)
+    print(f"   Dataset: {repr(ds_unlabeled)}")
+    u_sample = ds_unlabeled[0]
+    print(f"   Keys: {list(u_sample.keys())}")
+    print(f"   Image shape: {list(u_sample['image'].shape)}")
+    print()
+
+    # ── 3. Transforms ───────────────────────────────────────────────
+    print("3. Transforms via common.datasets.build_transforms:")
+    transform = build_transforms(resize_size=(IMG_SIZE, IMG_SIZE))
+    ds_transformed = LabeledWaferDataset(
+        synthetic_size=10, image_size=IMG_SIZE, num_classes=6, transform=transform,
+    )
+    t_sample = ds_transformed[0]
+    print(f"   Transform applied: {t_sample['image'].shape}")
+    print()
+
+    # ── 4. Collation ────────────────────────────────────────────────
+    print("4. Collation via common.datasets.multitask_collate:")
+    batch = [ds_labeled[i] for i in range(4)]
+    collated = multitask_collate(batch)
+    print(f"   Batched image shape: {list(collated['image'].shape)}")
+    print(f"   Batched label shape: {list(collated['label'].shape)}")
+    print(f"   Batched mask shape:  {list(collated['mask'].shape)}")
+    print(f"   Labels:              {collated['label'].tolist()}")
+    print()
+
+    # ── 5. Splitting ────────────────────────────────────────────────
+    print("5. Splitting via common.datasets.split_dataset:")
+    splits = split_dataset(ds_labeled, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15)
+    print(f"   Train size: {len(splits['train'])}")
+    print(f"   Val size:   {len(splits['val'])}")
+    print(f"   Test size:  {len(splits['test'])}")
+    print()
+
+    # ── 6. DataModule ───────────────────────────────────────────────
+    print("6. DataModule integration:")
+    dm = DataModule(
+        dataset_type="multitask",
+        train_dataset=splits["train"],
+        val_dataset=splits["val"],
+        test_dataset=splits["test"],
+        batch_size=8,
+        collate_fn=multitask_collate,
+    )
+    loader = dm.train_dataloader()
+    batch = next(iter(loader))
+    print(f"   Batch image shape: {list(batch['image'].shape)}")
+    print(f"   Batch label shape: {list(batch['label'].shape)}")
+    print(f"   Batch mask shape:  {list(batch['mask'].shape)}")
+    print(f"   Batch size:        {batch['image'].shape[0]}")
+    print()
+
+    # ── 7. Semi-supervised pipeline ─────────────────────────────────
+    print("7. Semi-supervised pipeline (labeled + unlabeled):")
+    ds_labeled_full = LabeledWaferDataset(synthetic_size=30, image_size=IMG_SIZE, num_classes=6)
+    ds_unlabeled_full = UnlabeledWaferDataset(synthetic_size=70, image_size=IMG_SIZE)
+    splits_l = split_dataset(ds_labeled_full, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1)
+    splits_u = split_dataset(ds_unlabeled_full, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1)
+    dm_l = DataModule(
+        dataset_type="multitask",
+        train_dataset=splits_l["train"],
+        val_dataset=splits_l["val"],
+        test_dataset=splits_l["test"],
+        batch_size=4,
+        collate_fn=multitask_collate,
+    )
+    dm_u = DataModule(
+        dataset_type="classification",
+        train_dataset=splits_u["train"],
+        val_dataset=splits_u["val"],
+        test_dataset=splits_u["test"],
+        batch_size=4,
+    )
+    labeled_batch = next(iter(dm_l.train_dataloader()))
+    unlabeled_batch = next(iter(dm_u.train_dataloader()))
+    print(f"   Labeled batch:   image {list(labeled_batch['image'].shape)}, "
+          f"label {list(labeled_batch['label'].shape)}, "
+          f"mask {list(labeled_batch['mask'].shape)}")
+    print(f"   Unlabeled batch: image {list(unlabeled_batch['image'].shape)}")
+    print()
+
+    print("─" * 60)
+    print("Dataset Integration Demo — Complete.")
+    print("─" * 60)
+
 
 if __name__ == "__main__":
     main()
