@@ -64,6 +64,8 @@ evaluation:
 
 dataset:
   name: wafer_defects
+  image_dir: datasets/wm811k/images
+  mask_dir: datasets/wm811k/masks
   num_classes: 6
   image_size: 512
   labeled_ratio: 0.1

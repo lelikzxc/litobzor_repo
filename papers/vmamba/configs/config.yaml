@@ -78,5 +78,6 @@ logging:
 # Engine-compatible dataset section
 dataset:
   name: wafer_defects
+  image_dir: datasets/wm811k/images
   image_size: 224
   num_classes: 8
