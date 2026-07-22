@@ -1,74 +1,61 @@
-# SemiWaferNet experiment configuration
+# SemiWaferNet experiment configuration for WM-811K dataset
 
 model:
   name: semiwafernet
-  num_classes: 6             # Number of classification classes
+  num_classes: 9               # WM-811K has 9 classes
   backbone:
-    type: cnn               # CNN backbone type (e.g., resnet, efficientnet, custom)
-    in_channels: 3           # Input image channels (RGB)
-    channels: [64, 128, 256, 512]  # Output channels per stage
-    depths: [2, 2, 6, 2]    # Number of blocks per stage
-    norm: bn                 # Normalization: bn or ln
-    activation: relu         # Activation: relu or gelu
+    type: cnn
+    in_channels: 3
+    channels: [64, 128, 256, 512]
+    depths: [2, 2, 6, 2]
+    norm: bn
+    activation: relu
   transformer:
-    embed_dim: 256           # Transformer embedding dimension
-    num_heads: 8             # Number of attention heads
-    num_layers: 4            # Number of transformer encoder layers
-    mlp_ratio: 4             # MLP hidden dimension ratio
-    dropout: 0.1             # Dropout rate
+    embed_dim: 256
+    num_heads: 8
+    num_layers: 4
+    mlp_ratio: 4
+    dropout: 0.1
   decoder:
-    embed_dim: 256           # Fusion / decoder embedding dimension
+    embed_dim: 256
   input:
-    in_channels: 3           # Input image channels
-    image_size: 512          # Input image size
-
-semi_supervised:
-  enabled: false             # Enable semi-supervised learning
-  ema_decay: 0.999           # EMA decay rate for teacher model
-  confidence_threshold: 0.9  # Base confidence threshold for pseudo-label filtering
-  consistency_weight: 0.1    # Weight for consistency loss term
-  unlabeled_ratio: 0.9       # Ratio of unlabeled data in training set
-  pseudo_label_update_interval: 1  # Epochs between pseudo-label updates
-  mc_passes: 20              # Number of Monte Carlo Dropout passes
-  base_threshold: 0.9        # Base threshold for adaptive thresholding
-  alpha: 0.1                 # Weight for coefficient of variation term
-  beta: 0.05                 # Weight for entropy bonus term
-  entropy_threshold: 0.5     # Maximum allowed predictive entropy
-  mutual_information_threshold: 0.3  # Maximum allowed mutual information
+    in_channels: 3
+    image_size: 128            # WM-811K native resolution
 
 training:
-  epochs: 200
-  stages: 3                  # Number of training stages
-  batch_size: 16
+  num_epochs: 50
+  batch_size: 32
   learning_rate: 0.0001
   weight_decay: 0.0001
-  optimizer:
-    name: adam
-    lr: 0.0001
-    weight_decay: 0.0001
-  scheduler:
-    name: step
-    step_size: 50
-    gamma: 0.5
-  loss:
-    name: cross_entropy
+  grad_max_norm: 1.0
+
+# Top-level fields for Builder compatibility
+optimizer:
+  name: adamw
+  lr: 0.0001
+  weight_decay: 0.0001
+
+scheduler:
+  name: cosine
+  kwargs:
+    T_max: 50
+    eta_min: 0.000001
+
+loss:
+  name: cross_entropy
+
+metrics:
+  - accuracy
+  - f1
+  - precision
+  - recall
 
 evaluation:
-  metrics:
-    - accuracy
-    - precision
-    - recall
-    - f1
-    - iou
-    - dice
+  batch_size: 64
 
-dataset:
-  name: wafer_defects
-  image_dir: datasets/wm811k/images
-  mask_dir: datasets/wm811k/masks
-  num_classes: 6
-  image_size: 512
-  labeled_ratio: 0.1
+data:
+  data_root: datasets/wm811k
+  image_size: 128
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1

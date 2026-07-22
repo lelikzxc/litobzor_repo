@@ -1,9 +1,10 @@
 # FCS-VMamba experiment configuration
+# Trained on WM-811K wafer map dataset (9 classes)
 # Compatible with both FCSVMamba.from_config() and common.engine.EngineConfig.
 
 model:
   name: fcs_vmamba
-  num_classes: 8
+  num_classes: 9
   task: classification
 
   backbone:
@@ -30,40 +31,52 @@ model:
     reduction: 16
 
   input:
-    image_size: 224
+    image_size: 128
     channels: 3
 
 data:
   dataset: wafer_defects
-  image_size: 224
-  num_classes: 8
+  data_root: datasets/wm811k
+  image_size: 128
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
 
 training:
-  num_classes: 8
+  num_classes: 9
   batch_size: 32
-  num_epochs: 100
+  num_epochs: 50
   learning_rate: 0.0001
   weight_decay: 0.05
+  device: cuda
+  amp: true
+  grad_max_norm: 1.0
 
-  # Engine-compatible optimizer config (dict format)
-  optimizer:
-    name: adamw
-    lr: 0.0001
-    weight_decay: 0.05
+# Engine-compatible optimizer config (top-level, as expected by Builder)
+optimizer:
+  name: adamw
+  lr: 0.0001
+  weight_decay: 0.05
 
-  # Engine-compatible scheduler config (dict format)
-  scheduler:
-    name: cosine
+# Engine-compatible scheduler config (top-level, as expected by Builder)
+scheduler:
+  name: cosine
+  kwargs:
+    T_max: 50
 
-  # Engine-compatible loss config (dict format)
-  loss:
-    name: cross_entropy
+# Engine-compatible loss config (top-level, as expected by Builder)
+loss:
+  name: cross_entropy
+
+# Engine-compatible metrics list (top-level, as expected by Builder)
+metrics:
+  - accuracy
+  - f1
+  - recall
+  - precision
 
 evaluation:
-  batch_size: 64
+  batch_size: 128
   metrics:
     - accuracy
     - f1
@@ -73,11 +86,15 @@ evaluation:
 logging:
   level: INFO
   save_checkpoints: true
-  checkpoint_interval: 10
+  checkpoint_interval: 5
+
+checkpoint:
+  save_dir: checkpoints/vmamba_wm811k
+  metric_name: val_loss
+  mode: min
 
 # Engine-compatible dataset section
 dataset:
   name: wafer_defects
-  image_dir: datasets/wm811k/images
   image_size: 224
-  num_classes: 8
+  num_classes: 9

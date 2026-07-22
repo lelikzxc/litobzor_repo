@@ -1,16 +1,12 @@
 """Data loading utilities for SemiWaferNet.
 
-Provides dataset adapters built on top of ``common.datasets``:
-
-- ``LabeledWaferDataset`` — multitask dataset returning images, labels, and masks
-- ``UnlabeledWaferDataset`` — image-only dataset for semi-supervised training
+Provides ``WaferWM811KDataset`` for loading the WM-811K wafer map dataset.
 """
 
 from __future__ import annotations
 
-from papers.semiwafernet.data_utils.dataset import LabeledWaferDataset, UnlabeledWaferDataset
+from papers.semiwafernet.data_utils.wafer_dataset import WaferWM811KDataset
 
 __all__ = [
-    "LabeledWaferDataset",
-    "UnlabeledWaferDataset",
+    "WaferWM811KDataset",
 ]
