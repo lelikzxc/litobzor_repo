@@ -1,12 +1,11 @@
-"""Classification dataset adapter for ViT-Tiny built on common.datasets.
+"""Classification dataset adapter for ViT-Tiny.
 
-Provides a ``ViTTinyDataset`` that extends ``common.datasets.BaseDataset``
-and returns synthetic / real classification samples compatible with the
-ViT-Tiny classification pipeline.
+Provides ``ViTTinyDataset`` that extends ``BaseDataset`` and returns
+synthetic / real classification samples compatible with the ViT-Tiny
+classification pipeline.
 
 Each sample is a dict with ``"image"`` (``torch.Tensor [1, H, W]`` grayscale)
-and ``"label"`` (``int``), which is directly compatible with
-``common.datasets.classification_collate``.
+and ``"label"`` (``int``).
 """
 
 from __future__ import annotations
@@ -18,14 +17,14 @@ import numpy as np
 import torch
 from PIL import Image
 
-from common.datasets import BaseDataset, DatasetType
+from papers.vit_tiny.data_utils.base import BaseDataset, DatasetType
 
 
 class ViTTinyDataset(BaseDataset):
     """Classification dataset adapter for ViT-Tiny.
 
-    Extends ``common.datasets.BaseDataset`` with a classification-specific
-    interface. Each sample is a dict with ``"image"`` (``torch.Tensor``)
+    Extends ``BaseDataset`` with a classification-specific interface.
+    Each sample is a dict with ``"image"`` (``torch.Tensor``)
     and ``"label"`` (``int``).
 
     ViT-Tiny operates on **grayscale** (1-channel) images of size 32×32
