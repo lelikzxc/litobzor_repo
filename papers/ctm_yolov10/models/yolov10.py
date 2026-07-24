@@ -304,7 +304,12 @@ class CTMYOLOv10(nn.Module):
 
 
 def _adjust_num_classes(model: nn.Module, num_classes: int) -> None:
-    """Adjust the detection head for a custom number of classes."""
+    """Adjust the detection head for a custom number of classes.
+
+    For v10Detect, this fully re-initialises the classification heads
+    (cv3, one2one_cv3) with the correct number of output channels.
+    The box heads (cv2, one2one_cv2) are independent of nc and are kept.
+    """
     if hasattr(model, "model"):
         head = model.model[-1] if hasattr(model.model, "__getitem__") else None
     else:
@@ -318,8 +323,36 @@ def _adjust_num_classes(model: nn.Module, num_classes: int) -> None:
                 break
 
     if head is not None and hasattr(head, "nc"):
+        old_nc = head.nc
         head.nc = num_classes
-        if hasattr(head, "cv2"):
-            head.cv2 = None
-        if hasattr(head, "cv3"):
-            head.cv3 = None
+
+        # For v10Detect, rebuild the classification heads with new nc
+        head_type = type(head).__name__
+        if head_type == "v10Detect":
+            # Rebuild cv3 (cls head) — the last conv layer's out_channels must match nc
+            import copy
+            from ultralytics.nn.modules import Conv
+
+            c3 = max(head.cv3[0][0][0].conv.out_channels if hasattr(head.cv3[0][0][0], 'conv') else 64, min(num_classes, 100))
+            ch = [head.cv3[i][0][0].conv.in_channels if hasattr(head.cv3[i][0][0], 'conv') else 64 for i in range(len(head.cv3))]
+
+            head.cv3 = nn.ModuleList(
+                nn.Sequential(
+                    nn.Sequential(Conv(x, x, 3, g=x), Conv(x, c3, 1)),
+                    nn.Sequential(Conv(c3, c3, 3, g=c3), Conv(c3, c3, 1)),
+                    nn.Conv2d(c3, num_classes, 1),
+                )
+                for x in ch
+            )
+            head.one2one_cv3 = copy.deepcopy(head.cv3)
+            # Keep cv2 / one2one_cv2 as-is (box head is class-agnostic)
+            if hasattr(head, 'cv2') and head.cv2 is not None:
+                pass  # box head stays
+            if hasattr(head, 'one2one_cv2') and head.one2one_cv2 is not None:
+                pass  # box head stays
+        else:
+            # Original logic for non-v10Detect heads
+            if hasattr(head, "cv2"):
+                head.cv2 = None
+            if hasattr(head, "cv3"):
+                head.cv3 = None

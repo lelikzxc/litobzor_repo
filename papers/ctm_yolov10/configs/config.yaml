@@ -1,14 +1,13 @@
-# CTM-YOLOv10 experiment configuration
-# Compatible with common.engine.EngineConfig and common.engine.Builder.
+# CTM-YOLOv10 experiment configuration for Magnetic Tile dataset
 
 model:
   name: ctm_yolov10
   task: detection
-  num_classes: 8
+  num_classes: 3                  # Magnetic tile: Blowhole, Crack, Fray
 
   backbone:
     name: yolov10n
-    pretrained: false
+    pretrained: true
 
   ctm:
     enabled: true
@@ -21,48 +20,40 @@ model:
     image_size: 640
     channels: 3
 
-dataset:
-  name: wafer_defects
-  image_size: 640
-  num_classes: 8
-  train_split: 0.8
-  val_split: 0.1
-  test_split: 0.1
-
-data:
-  dataset: wafer_defects
-  image_size: 640
-  num_classes: 8
-  train_split: 0.8
-  val_split: 0.1
-  test_split: 0.1
-
 training:
-  num_classes: 8
+  num_classes: 3
   batch_size: 16
-  num_epochs: 300
+  num_epochs: 100
   learning_rate: 0.001
   weight_decay: 0.0005
-  optimizer:
-    name: sgd
-    lr: 0.001
-    weight_decay: 0.0005
-  scheduler:
-    name: multistep
-    milestones: [200, 260]
-  loss:
-    name: cross_entropy
+
+# Top-level fields for Builder compatibility
+optimizer:
+  name: sgd
+  lr: 0.001
+  weight_decay: 0.0005
+  kwargs:
+    momentum: 0.937
+    nesterov: true
+
+scheduler:
+  name: cosine
+  kwargs:
+    T_max: 100
+    eta_min: 0.00001
+
+loss:
+  name: cross_entropy
+
+metrics:
+  - accuracy
+  - precision
+  - recall
 
 evaluation:
   batch_size: 32
-  metrics:
-    - map
-    - map50
-    - map75
-    - precision
-    - recall
 
-logging:
-  level: INFO
-  save_checkpoints: true
-  checkpoint_interval: 10
+data:
+  data_root: datasets/magnetic_tile
+  image_size: 640
+  num_classes: 1
