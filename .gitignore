@@ -45,7 +45,6 @@ htmlcov/
 Thumbs.db
 
 datasets/
-checkpoints/
 outputs/
 logs/
 

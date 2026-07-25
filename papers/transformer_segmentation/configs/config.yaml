@@ -1,9 +1,10 @@
-# SegFormer + Atrous experiment configuration
+# SegFormer + Atrous experiment configuration for WM-811K segmentation
+# Binary segmentation: 0 = background, 1 = defect
 # Compatible with both SegFormer.from_config() and common.engine.EngineConfig.
 
 model:
   name: segformer_atrous
-  num_classes: 8
+  num_classes: 2
   task: segmentation
 
   backbone:
@@ -23,36 +24,48 @@ model:
     reduction: 4            # channel reduction ratio
 
   input:
-    image_size: 512
+    image_size: 128
     channels: 3
 
 data:
-  dataset: wafer_defects
-  image_size: 512
-  num_classes: 8
+  dataset: wm811k_seg
+  data_root: datasets/wm811k_seg
+  image_size: 128
+  num_classes: 2
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
 
 training:
-  batch_size: 8
-  num_epochs: 150
+  batch_size: 16
+  num_epochs: 100
   learning_rate: 0.00006
   weight_decay: 0.01
+  device: cuda
+  amp: true
 
-  # Engine-compatible optimizer config (dict format)
-  optimizer:
-    name: adamw
-    lr: 0.00006
-    weight_decay: 0.01
+# Engine-compatible optimizer config (top-level, as expected by Builder)
+optimizer:
+  name: adamw
+  lr: 0.00006
+  weight_decay: 0.01
 
-  # Engine-compatible scheduler config (dict format)
-  scheduler:
-    name: poly
+# Engine-compatible scheduler config (top-level, as expected by Builder)
+scheduler:
+  name: cosine
+  kwargs:
+    T_max: 100
 
-  # Engine-compatible loss config (dict format)
-  loss:
-    name: cross_entropy
+# Engine-compatible loss config (top-level, as expected by Builder)
+loss:
+  name: cross_entropy
+
+# Engine-compatible metrics list (top-level, as expected by Builder)
+metrics:
+  - iou
+  - dice
+  - pixel_accuracy
+  - f1
 
 evaluation:
   batch_size: 16
@@ -67,8 +80,13 @@ logging:
   save_checkpoints: true
   checkpoint_interval: 10
 
+checkpoint:
+  save_dir: checkpoints/transformer_segmentation_wm811k
+  metric_name: val_loss
+  mode: min
+
 # Engine-compatible dataset section
 dataset:
-  name: wafer_defects
-  image_size: 512
-  num_classes: 8
+  name: wm811k_seg
+  image_size: 128
+  num_classes: 2

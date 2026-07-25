@@ -97,6 +97,9 @@ class SegFormerDataset(BaseDataset):
             if mask_path.exists():
                 mask_pil = Image.open(mask_path)
                 mask = torch.from_numpy(np.array(mask_pil, dtype=np.int64))
+                # Normalize mask values: if max > 1, assume 255-format and scale to {0, 1}
+                if mask.numel() > 0 and mask.max() > 1:
+                    mask = (mask > 0).long()
             else:
                 # Fallback: zero mask
                 mask = torch.zeros(self.image_size, self.image_size, dtype=torch.long)
