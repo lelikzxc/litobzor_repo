@@ -1,0 +1,11 @@
+{
+  "epoch": 5,
+  "best_metric": null,
+  "best_metric_name": "val_loss",
+  "current_metric": null,
+  "global_step": 0,
+  "training_finished": true,
+  "checkpoint_path": null,
+  "mode": "min",
+  "extra": {}
+}

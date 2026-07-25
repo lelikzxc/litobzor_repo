@@ -12,7 +12,6 @@ __pycache__/
 wandb/
 logs/
 runs/
-checkpoints/
 
 # Data directories
 #data/

@@ -50,6 +50,11 @@ metrics:
   - precision
   - recall
 
+checkpoint:
+  save_dir: checkpoints/semiwafernet
+  metric_name: val_loss
+  mode: min
+
 evaluation:
   batch_size: 64
 
