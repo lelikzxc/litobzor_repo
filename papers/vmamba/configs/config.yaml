@@ -1,4 +1,5 @@
-# FCS-VMamba experiment configuration
+# FCS-VMamba experiment configuration — VMamba-Nano
+# Reduced model size for 8GB VRAM (was 46.6M params, now ~3-5M)
 # Trained on WM-811K wafer map dataset (9 classes)
 # Compatible with both FCSVMamba.from_config() and common.engine.EngineConfig.
 
@@ -8,18 +9,18 @@ model:
   task: classification
 
   backbone:
-    name: vmamba_tiny
+    name: vmamba_nano
     pretrained: false
-    embed_dim: 96
-    depths: [2, 2, 6, 2]
-    num_heads: [3, 6, 12, 24]
-    ssm_ratio: 2.0
-    mlp_ratio: 4.0
-    drop_path_rate: 0.2
+    embed_dim: 48            # was 96 — базовая размерность уменьшена в 2 раза
+    depths: [1, 1, 3, 1]     # was [2, 2, 6, 2] — всего 6 блоков вместо 12
+    num_heads: [2, 4, 8, 16] # was [3, 6, 12, 24] — меньше голов внимания
+    ssm_ratio: 1.0           # was 2.0 — меньше SSM hidden state
+    mlp_ratio: 2.0           # was 4.0 — меньше MLP hidden dim
+    drop_path_rate: 0.1      # was 0.2 — меньше dropout для маленькой модели
 
   fa:
-    enabled: true
-    reduction: 16
+    enabled: false           # FFT даёт ComplexHalf -> NaN в AMP, отключено
+    reduction: 8
     fft_norm: ortho
 
   sfs:
@@ -28,7 +29,7 @@ model:
 
   clca:
     enabled: true
-    reduction: 16
+    reduction: 8             # was 16 — больше сжатие для маленькой модели
 
   input:
     image_size: 128
@@ -44,25 +45,25 @@ data:
 
 training:
   num_classes: 9
-  batch_size: 32
-  num_epochs: 50
+  batch_size: 64
+  num_epochs: 100
   learning_rate: 0.0001
   weight_decay: 0.05
   device: cuda
-  amp: true
+  amp: false                # pure-PyTorch SS2D медленнее в AMP из-за кастов
   grad_max_norm: 1.0
 
 # Engine-compatible optimizer config (top-level, as expected by Builder)
 optimizer:
   name: adamw
-  lr: 0.0001
+  lr: 0.0001                # синхронизировано с training.learning_rate
   weight_decay: 0.05
 
 # Engine-compatible scheduler config (top-level, as expected by Builder)
 scheduler:
   name: cosine
   kwargs:
-    T_max: 50
+    T_max: 100               # was 50 — синхронизировано с num_epochs
 
 # Engine-compatible loss config (top-level, as expected by Builder)
 loss:
@@ -86,7 +87,7 @@ evaluation:
 logging:
   level: INFO
   save_checkpoints: true
-  checkpoint_interval: 5
+  checkpoint_interval: 10    # was 5 — реже, т.к. эпох больше
 
 checkpoint:
   save_dir: checkpoints/vmamba_wm811k
@@ -96,5 +97,5 @@ checkpoint:
 # Engine-compatible dataset section
 dataset:
   name: wafer_defects
-  image_size: 224
+  image_size: 128            # was 224 — исправлено, т.к. данные 128x128
   num_classes: 9

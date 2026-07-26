@@ -13,8 +13,10 @@ import argparse
 import sys
 from pathlib import Path
 
+import numpy as np
 import torch
-from torch.utils.data import DataLoader, random_split
+from sklearn.model_selection import StratifiedShuffleSplit
+from torch.utils.data import DataLoader, Subset, random_split
 
 # Ensure the project root is on sys.path for imports
 _project_root = Path(__file__).resolve().parent.parent.parent
@@ -63,7 +65,48 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Override learning rate from config",
     )
+    parser.add_argument(
+        "--subset",
+        type=float,
+        default=None,
+        help="Use only a fraction of the training dataset (e.g. 0.2 = 20%%), "
+             "with stratified sampling to preserve class balance",
+    )
     return parser.parse_args()
+
+
+def _stratified_subset(
+    dataset: Subset,
+    subset_ratio: float,
+    seed: int = 42,
+) -> Subset:
+    """Create a stratified subset of a ``Subset`` (from ``random_split``).
+
+    Uses ``StratifiedShuffleSplit`` to preserve class distribution,
+    which is critical for imbalanced datasets like WM-811K.
+
+    Args:
+        dataset: A ``Subset`` wrapping the original ``WaferWM811KDataset``.
+        subset_ratio: Fraction of the dataset to keep (0, 1].
+        seed: Random seed for reproducibility.
+
+    Returns:
+        A new ``Subset`` with stratified sampling.
+    """
+    # Get labels from the underlying full dataset via the Subset indices
+    full_dataset = dataset.dataset  # type: ignore[union-attr]
+    labels = np.array([full_dataset._samples[i][1] for i in dataset.indices])
+
+    sss = StratifiedShuffleSplit(
+        n_splits=1,
+        train_size=subset_ratio,
+        random_state=seed,
+    )
+    subset_idx, _ = next(sss.split(np.zeros(len(labels)), labels))
+
+    # Map back to original dataset indices
+    original_indices = [dataset.indices[i] for i in subset_idx]
+    return Subset(full_dataset, original_indices)
 
 
 def main() -> None:
@@ -123,6 +166,15 @@ def main() -> None:
         [train_len, val_len, test_len],
         generator=torch.Generator().manual_seed(42),
     )
+
+    # ── Apply stratified subset for faster iteration ────────────────────
+    if args.subset is not None:
+        subset_ratio = float(args.subset)
+        if subset_ratio <= 0.0 or subset_ratio > 1.0:
+            print(f"Error: --subset must be in (0, 1], got {subset_ratio}")
+            sys.exit(1)
+        train_dataset = _stratified_subset(train_dataset, subset_ratio, seed=42)
+        print(f"  Using stratified subset: {len(train_dataset)} train samples ({subset_ratio*100:.0f}%)")
 
     print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
 

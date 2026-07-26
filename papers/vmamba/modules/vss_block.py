@@ -215,17 +215,18 @@ class FCSVSSBlock(nn.Module):
         x = self.norm(x)
         x = x.permute(0, 3, 1, 2).contiguous()  # [B, H, W, C] → [B, C, H, W]
         x = self.op(x)  # SS2D (channel-first)
-        x = identity + self.drop_path(x)
 
         # ── FA: Frequency Attention ─────────────────────────────────────
-        # Applied after SS2D residual, before MLP
-        # Operates on [B, C, H, W]
+        # Applied INSIDE the SS2D residual path, before DropPath
+        # This matches the FCS-VMamba paper: LN → SS2D → FA → SFS → + residual
         x = self.fa(x)
 
         # ── SFS: Saliency Feature Suppression ───────────────────────────
-        # Applied after FA, before MLP
-        # Operates on [B, C, H, W]
+        # Applied after FA, before DropPath + residual
         x = self.sfs(x)
+
+        # DropPath + residual (FA and SFS are inside this residual path)
+        x = identity + self.drop_path(x)
 
         # ── MLP path ────────────────────────────────────────────────────
         # MLP with channels_first=True uses Linear2d (1×1 conv equivalent)
