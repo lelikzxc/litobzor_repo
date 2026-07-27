@@ -1,8 +1,8 @@
 """Training integration tests for SegFormer + Atrous with the canonical common Trainer.
 
 Verifies:
-- Trainer creation with SegFormer (baseline and Atrous-enhanced)
-- Segmentation loss (CrossEntropyLoss, DiceLoss)
+- Trainer creation with SegFormer (hybrid encoder)
+- Segmentation loss (CrossEntropyLoss, DiceLoss, FocalLoss)
 - Optimizer, scheduler factory compatibility
 - Segmentation batch handling via training collate adapter
 - Training step (forward, loss, backward, optimizer step)
@@ -83,29 +83,15 @@ def model() -> SegFormer:
     return SegFormer(
         in_channels=3,
         variant="B0",
-        num_classes=8,
+        num_classes=7,
         decoder_dim=256,
-        atrous_enabled=False,
-    )
-
-
-@pytest.fixture
-def model_atrous() -> SegFormer:
-    return SegFormer(
-        in_channels=3,
-        variant="B0",
-        num_classes=8,
-        decoder_dim=256,
-        atrous_enabled=True,
-        atrous_rates=[1, 6, 12, 18],
-        atrous_reduction=4,
     )
 
 
 @pytest.fixture
 def synthetic_dataset() -> SegFormerDataset:
     return SegFormerDataset(
-        synthetic_size=32, image_size=128, num_classes=8
+        synthetic_size=32, image_size=128, num_classes=7
     )
 
 
@@ -236,19 +222,6 @@ class TestTrainerCreation:
         loss = build_loss("cross_entropy")
         trainer = Trainer(model, opt, loss, device="cpu", verbose=False)
         assert next(trainer.model.parameters()).device.type == "cpu"
-
-    def test_trainer_with_atrous_model(
-        self, model_atrous: SegFormer
-    ) -> None:
-        """Trainer can be created with Atrous-enhanced SegFormer."""
-        opt = build_optimizer(model_atrous, name="adamw", lr=1e-4)
-        loss = build_loss("cross_entropy")
-        trainer = Trainer(
-            model_atrous, opt, loss, device="cpu", verbose=False
-        )
-        assert isinstance(trainer, Trainer)
-        assert isinstance(trainer.model, SegFormer)
-        assert trainer.model.atrous_enabled
 
 
 # ---------------------------------------------------------------------------
@@ -485,7 +458,7 @@ class TestCheckpoint:
             model2 = SegFormer(
                 in_channels=3,
                 variant="B0",
-                num_classes=8,
+                num_classes=7,
                 decoder_dim=256,
             )
             opt2 = build_optimizer(model2, name="adamw", lr=1e-4)
@@ -643,7 +616,7 @@ class TestBatchSize:
     ) -> None:
         """Training works with batch size 1 and >1."""
         dataset = SegFormerDataset(
-            synthetic_size=16, image_size=128, num_classes=8
+            synthetic_size=16, image_size=128, num_classes=7
         )
         loader = DataLoader(
             dataset,
@@ -772,7 +745,7 @@ class TestEngineCompatibility:
         x = torch.randn(3, 128, 128)
         result = engine.predict_single(x)
         assert "logits" in result
-        assert result["logits"].shape == (1, 8, 128, 128)
+        assert result["logits"].shape == (1, 7, 128, 128)
 
 
 # ---------------------------------------------------------------------------
@@ -887,7 +860,7 @@ class TestDataModuleIntegration:
     ) -> None:
         """Trainer works with DataModule-created DataLoaders."""
         dataset = SegFormerDataset(
-            synthetic_size=32, image_size=128, num_classes=8
+            synthetic_size=32, image_size=128, num_classes=7
         )
         splits = split_dataset(
             dataset,
@@ -967,6 +940,11 @@ class TestFactoryCompatibility:
         loss = build_loss("cross_entropy")
         assert isinstance(loss, nn.CrossEntropyLoss)
 
+    def test_build_loss_focal(self) -> None:
+        """build_loss with focal works."""
+        loss = build_loss("focal")
+        assert loss is not None
+
     def test_build_loss_dice(self) -> None:
         """build_loss with dice works (segmentation loss)."""
         loss = build_loss("dice")
@@ -989,7 +967,7 @@ class TestFactoryCompatibility:
         model.train()
         x = torch.randn(2, 3, 128, 128)
         logits = model(x)
-        assert logits.shape == (2, 8, 128, 128)
+        assert logits.shape == (2, 7, 128, 128)
 
     def test_segformer_loss_computation(
         self, model: SegFormer
@@ -998,7 +976,7 @@ class TestFactoryCompatibility:
         model.train()
         x = torch.randn(2, 3, 128, 128)
         logits = model(x)
-        targets = torch.randint(0, 8, (2, 128, 128), dtype=torch.long)
+        targets = torch.randint(0, 7, (2, 128, 128), dtype=torch.long)
         loss_fn = build_loss("cross_entropy")
         loss = loss_fn(logits, targets)
         assert isinstance(loss, torch.Tensor)

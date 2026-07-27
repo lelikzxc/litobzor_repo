@@ -1,7 +1,15 @@
 """Lightweight CNN feature extraction backbone for SemiWaferNet.
 
-Produces multi-scale feature maps at 4 stages with progressive
-downsampling (×4, ×8, ×16, ×32) and channel expansion.
+Implements the HybridCNN-ViT CNN module from the paper (Section 2.1):
+
+    Stage 1: Conv3×3(64) → BN → ReLU → MaxPool(k=2,s=2) → 64×H/2×W/2
+    Stage 2: ResBlock(64→128, stride=2) → 128×H/4×W/4
+
+The residual block uses a projection shortcut (1×1 conv + BN) when dimensions
+change, and identity mapping otherwise.
+
+For segmentation (ConvoFormer-UNet), the backbone is not used — the encoder
+uses convolution-enhanced patch embedding directly on the input.
 """
 
 from __future__ import annotations
@@ -13,7 +21,11 @@ from torch import nn
 
 
 class ConvBlock(nn.Module):
-    """Basic convolutional block: Conv2d → BN → Activation."""
+    """Basic convolutional block: Conv2d → BN → Activation → (optional MaxPool).
+
+    Matches Equation (1) from the paper:
+        F1 = MaxPool(ReLU(BN(Conv3×3_64(X))))
+    """
 
     def __init__(
         self,
@@ -24,6 +36,8 @@ class ConvBlock(nn.Module):
         padding: int | str = 1,
         norm: str = "bn",
         activation: str = "relu",
+        use_pool: bool = False,
+        pool_kernel: int = 2,
     ) -> None:
         super().__init__()
         self.conv = nn.Conv2d(
@@ -37,7 +51,7 @@ class ConvBlock(nn.Module):
         if norm == "bn":
             self.norm = nn.BatchNorm2d(out_channels)
         elif norm == "ln":
-            self.norm = nn.GroupNorm(1, out_channels)  # equivalent to LayerNorm for 2D
+            self.norm = nn.GroupNorm(1, out_channels)
         else:
             raise ValueError(f"Unsupported norm: {norm}")
 
@@ -48,115 +62,129 @@ class ConvBlock(nn.Module):
         else:
             raise ValueError(f"Unsupported activation: {activation}")
 
+        self.pool = nn.MaxPool2d(kernel_size=pool_kernel, stride=pool_kernel) if use_pool else nn.Identity()
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.act(self.norm(self.conv(x)))
+        x = self.conv(x)
+        x = self.norm(x)
+        x = self.act(x)
+        x = self.pool(x)
+        return x
 
 
-class CNNStage(nn.Module):
-    """A single stage of the CNN backbone with downsampling + N ConvBlocks."""
+class ResidualBlock(nn.Module):
+    """Residual block with optional projection shortcut.
+
+    Matches Equation (2)-(3) from the paper:
+        y = F(x, Wi) + T(x)
+
+    When input and output dimensions differ, T(x) is a 1×1 conv + BN projection.
+    Otherwise, T(x) is identity mapping.
+
+    The block performs channel expansion (e.g. 64→128) with stride=2.
+    """
 
     def __init__(
         self,
         in_channels: int,
         out_channels: int,
-        depth: int,
-        stride: int = 2,
+        stride: int = 1,
         norm: str = "bn",
         activation: str = "relu",
     ) -> None:
         super().__init__()
-        layers: list[nn.Module] = []
 
-        # First block may downsample
-        layers.append(
-            ConvBlock(
-                in_channels=in_channels,
-                out_channels=out_channels,
-                kernel_size=3 if stride > 1 else 3,
-                stride=stride,
-                padding=1,
-                norm=norm,
-                activation=activation,
+        # Main path: two 3×3 convolutions
+        self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=stride, padding=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(out_channels) if norm == "bn" else nn.GroupNorm(1, out_channels)
+
+        self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn2 = nn.BatchNorm2d(out_channels) if norm == "bn" else nn.GroupNorm(1, out_channels)
+
+        if activation == "relu":
+            self.act = nn.ReLU(inplace=True)
+        elif activation == "gelu":
+            self.act = nn.GELU()
+        else:
+            raise ValueError(f"Unsupported activation: {activation}")
+
+        # Shortcut path: projection if dimensions change
+        if stride != 1 or in_channels != out_channels:
+            self.shortcut = nn.Sequential(
+                nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=stride, bias=False),
+                nn.BatchNorm2d(out_channels) if norm == "bn" else nn.GroupNorm(1, out_channels),
             )
-        )
-
-        # Remaining blocks at same resolution
-        for _ in range(1, depth):
-            layers.append(
-                ConvBlock(
-                    in_channels=out_channels,
-                    out_channels=out_channels,
-                    kernel_size=3,
-                    stride=1,
-                    padding=1,
-                    norm=norm,
-                    activation=activation,
-                )
-            )
-
-        self.blocks = nn.Sequential(*layers)
+        else:
+            self.shortcut = nn.Identity()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.blocks(x)
+        identity = self.shortcut(x)
+
+        out = self.conv1(x)
+        out = self.bn1(out)
+        out = self.act(out)
+
+        out = self.conv2(out)
+        out = self.bn2(out)
+
+        out = out + identity
+        out = self.act(out)
+
+        return out
 
 
 class CNNBackbone(nn.Module):
-    """Lightweight multi-scale CNN feature extractor.
+    """Lightweight 2-stage CNN feature extractor for HybridCNN-ViT.
 
-    Produces 4 stages of feature maps at resolutions:
-        stage1: [B, C1, H/4,  W/4]
-        stage2: [B, C2, H/8,  W/8]
-        stage3: [B, C3, H/16, W/16]
-        stage4: [B, C4, H/32, W/32]
+    Produces feature maps at 2 stages:
+        stage1: [B, 64,  H/2, W/2]  — after Conv3×3 + BN + ReLU + MaxPool
+        stage2: [B, 128, H/4, W/4]  — after ResBlock(64→128, stride=2)
 
-    The first stage uses stride=4 (e.g. 7×7 conv) for aggressive
-    early downsampling; subsequent stages use stride=2.
+    After the backbone, AdaptiveAvgPool is applied to obtain a fixed-size
+    feature map (8×8 at 32×32 input), which is then fed to the Transformer.
+
+    For segmentation (ConvoFormer-UNet), this backbone is NOT used.
     """
 
     def __init__(
         self,
-        in_channels: int = 3,
+        in_channels: int = 1,
         channels: list[int] | None = None,
-        depths: list[int] | None = None,
         norm: str = "bn",
         activation: str = "relu",
     ) -> None:
         super().__init__()
         if channels is None:
-            channels = [64, 128, 256, 512]
-        if depths is None:
-            depths = [2, 2, 6, 2]
+            channels = [64, 128]
 
-        self.stages = nn.ModuleList()
-
-        # Stage 1: stride-4 downsampling (e.g. 7×7 conv)
-        self.stem = nn.Sequential(
-            nn.Conv2d(in_channels, channels[0], kernel_size=7, stride=4, padding=3, bias=False),
-            nn.BatchNorm2d(channels[0]) if norm == "bn" else nn.GroupNorm(1, channels[0]),
-            nn.ReLU(inplace=True) if activation == "relu" else nn.GELU(),
+        # Stage 1: Conv3×3(64) → BN → ReLU → MaxPool(k=2,s=2)
+        # Matches Equation (1) from the paper
+        self.stage1 = ConvBlock(
+            in_channels=in_channels,
+            out_channels=channels[0],
+            kernel_size=3,
+            stride=1,
+            padding=1,
+            norm=norm,
+            activation=activation,
+            use_pool=True,
+            pool_kernel=2,
         )
 
-        # Stage 1 refinement blocks
-        stage1_blocks: list[nn.Module] = []
-        for _ in range(1, depths[0]):
-            stage1_blocks.append(
-                ConvBlock(channels[0], channels[0], kernel_size=3, stride=1, padding=1, norm=norm, activation=activation)
-            )
-        self.stage1_refine = nn.Sequential(*stage1_blocks)
+        # Stage 2: ResBlock(64→128, stride=2)
+        # Matches Equation (3) from the paper
+        self.stage2 = ResidualBlock(
+            in_channels=channels[0],
+            out_channels=channels[1],
+            stride=2,
+            norm=norm,
+            activation=activation,
+        )
 
-        # Stages 2-4: stride-2 downsampling
-        prev_ch = channels[0]
-        for i in range(1, 4):
-            stage = CNNStage(
-                in_channels=prev_ch,
-                out_channels=channels[i],
-                depth=depths[i],
-                stride=2,
-                norm=norm,
-                activation=activation,
-            )
-            self.stages.append(stage)
-            prev_ch = channels[i]
+        # Adaptive average pooling to fixed spatial size
+        # At 32×32 input: stage2 output is 8×8, so pooling is identity
+        # At other sizes: pools to 8×8
+        self.adaptive_pool = nn.AdaptiveAvgPool2d((8, 8))
 
         self._out_channels = channels
 
@@ -165,16 +193,31 @@ class CNNBackbone(nn.Module):
         return self._out_channels
 
     def forward(self, x: torch.Tensor) -> list[torch.Tensor]:
+        """Forward pass.
+
+        Args:
+            x: Input tensor [B, C, H, W].
+
+        Returns:
+            List of 2 feature maps: [stage1, stage2].
+            stage1: [B, 64,  H/2, W/2]
+            stage2: [B, 128, H/4, W/4]
+        """
         features: list[torch.Tensor] = []
 
-        # Stem + stage 1
-        x = self.stem(x)  # [B, C1, H/4, W/4]
-        x = self.stage1_refine(x)
+        # Stage 1
+        x = self.stage1(x)  # [B, 64, H/2, W/2]
         features.append(x)
 
-        # Stages 2-4
-        for stage in self.stages:
-            x = stage(x)
-            features.append(x)
+        # Stage 2
+        x = self.stage2(x)  # [B, 128, H/4, W/4]
+        features.append(x)
 
-        return features  # [stage1, stage2, stage3, stage4]
+        return features  # [stage1, stage2]
+
+
+__all__ = [
+    "ConvBlock",
+    "ResidualBlock",
+    "CNNBackbone",
+]

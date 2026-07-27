@@ -1,39 +1,50 @@
 # SemiWaferNet experiment configuration for WM-811K dataset
+# Based on Electronics 2026, 15, 1437
 
 model:
   name: semiwafernet
-  num_classes: 9               # WM-811K has 9 classes
+  mode: classification           # "classification" (HybridCNN-ViT) or "segmentation" (ConvoFormer-UNet)
+  num_classes: 9                 # WM-811K has 9 classes
+  seg_classes: 1                 # Binary segmentation (defect vs background)
   backbone:
     type: cnn
-    in_channels: 3
-    channels: [64, 128, 256, 512]
-    depths: [2, 2, 6, 2]
+    in_channels: 1               # WM-811K is grayscale
+    channels: [64, 128]          # 2-stage: 64 (stage1) → 128 (stage2)
+    depths: [1, 1]               # 1 ConvBlock + 1 ResidualBlock per stage
     norm: bn
     activation: relu
   transformer:
-    embed_dim: 256
-    num_heads: 8
-    num_layers: 4
-    mlp_ratio: 4
-    dropout: 0.1
+    embed_dim: 128               # D=128 from paper
+    num_heads: 8                 # 8 heads
+    num_layers: 4                # L=4 layers
+    mlp_ratio: 2                 # FF=256 = 2*128
+    dropout: 0.2                 # dropout=0.2 for transformer
+    dropout_cls: 0.5             # dropout=0.5 before class token
   decoder:
-    embed_dim: 256
+    embed_dim: 128
   input:
-    in_channels: 3
-    image_size: 128            # WM-811K native resolution
+    in_channels: 1
+    image_size: 32               # 32×32 for classification (HybridCNN-ViT)
 
 training:
   num_epochs: 50
-  batch_size: 32
-  learning_rate: 0.0001
-  weight_decay: 0.0001
+  batch_size: 256                # Paper: batch_size=256 for classification
+  learning_rate: 0.00005         # Paper: lr=5e-5 for classification
+  weight_decay: 0.0004           # Paper: weight_decay=4e-4 for classification
   grad_max_norm: 1.0
+
+# Segmentation-specific training params (used when model.mode=segmentation)
+seg_training:
+  num_epochs: 50
+  batch_size: 32                 # Paper: batch_size=32 for segmentation
+  learning_rate: 0.0001          # Paper: lr=1e-4 for segmentation
+  weight_decay: 0.01             # Paper: weight_decay=0.01 for segmentation
 
 # Top-level fields for Builder compatibility
 optimizer:
   name: adamw
-  lr: 0.0001
-  weight_decay: 0.0001
+  lr: 0.00005
+  weight_decay: 0.0004
 
 scheduler:
   name: cosine
@@ -42,7 +53,7 @@ scheduler:
     eta_min: 0.000001
 
 loss:
-  name: cross_entropy
+  name: cross_entropy            # Weighted CE for classification; Dice+Focal for segmentation
 
 metrics:
   - accuracy
@@ -60,7 +71,20 @@ evaluation:
 
 data:
   data_root: datasets/wm811k
-  image_size: 128
+  image_size: 32                 # 32×32 for classification
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
+
+# Semi-supervised learning (Section 2.2)
+semi_supervised:
+  enabled: false
+  stages: 3                      # 3-stage progressive pseudo-labeling
+  ema_decay: 0.999
+  confidence_threshold: 0.94     # τ_base = 0.94
+  alpha: 0.08                    # α = 0.08
+  beta: 0.02                     # β = 0.02
+  entropy_threshold: 0.08        # ε_entropy = 0.08
+  mutual_information_threshold: 0.12  # ε_MI = 0.12
+  mc_passes: 20                  # M = 20 for MC Dropout
+  consistency_weight: 0.1

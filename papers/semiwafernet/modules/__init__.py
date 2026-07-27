@@ -8,10 +8,12 @@ Components:
 
 from __future__ import annotations
 
-from papers.semiwafernet.modules.cnn_backbone import CNNBackbone, ConvBlock, CNNStage
+from papers.semiwafernet.modules.cnn_backbone import CNNBackbone, ConvBlock, ResidualBlock
 from papers.semiwafernet.modules.transformer import (
     TransformerEncoder,
     TransformerEncoderBlock,
+    ConvoFormerBlock,
+    ConvEmbed,
     PatchProjection,
     MultiHeadSelfAttention,
     TransformerMLP,
@@ -21,9 +23,11 @@ from papers.semiwafernet.modules.fusion import FeatureFusion, ChannelAlign
 __all__ = [
     "CNNBackbone",
     "ConvBlock",
-    "CNNStage",
+    "ResidualBlock",
     "TransformerEncoder",
     "TransformerEncoderBlock",
+    "ConvoFormerBlock",
+    "ConvEmbed",
     "PatchProjection",
     "MultiHeadSelfAttention",
     "TransformerMLP",

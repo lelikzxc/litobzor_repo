@@ -5,6 +5,20 @@ Usage:
 
 Trains SemiWaferNet on the WM-811K wafer map dataset using the common engine.
 Supports CUDA automatically when available.
+
+Classification mode (HybridCNN-ViT):
+    - Weighted Cross-Entropy loss with w_c = 1/sqrt(n_c)
+    - Batch size 256, lr=5e-5, weight_decay=4e-4
+
+Segmentation mode (ConvoFormer-UNet):
+    - Dice + 0.5*Focal loss
+    - Deep supervision: L_total = L_main + 0.3*L_aux1 + 0.2*L_aux2
+    - Batch size 32, lr=1e-4, weight_decay=0.01
+
+Semi-supervised (3-stage progressive pseudo-labeling):
+    - Stage 1: supervised warm-up on D_l
+    - Stage 2: pseudo-label generation + adaptive thresholding + uncertainty filtering
+    - Stage 3: refresh teacher + regenerate pseudo-labels + retrain
 """
 
 from __future__ import annotations
@@ -24,6 +38,7 @@ if str(_project_root) not in sys.path:
 
 from common.engine.config import EngineConfig
 from common.engine.engine import Engine
+from common.training.losses import FocalLoss, DiceLoss
 from common.training.metrics import accuracy, f1, precision, recall
 from papers.semiwafernet.data_utils import WaferWM811KDataset
 from papers.semiwafernet.models.semiwafernet import SemiWaferNet
@@ -65,7 +80,82 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Override learning rate from config",
     )
+    parser.add_argument(
+        "--mode",
+        type=str,
+        default=None,
+        choices=["classification", "segmentation"],
+        help="Override model mode from config",
+    )
     return parser.parse_args()
+
+
+class WeightedCrossEntropyLoss(nn.Module):
+    """Weighted Cross-Entropy loss with w_c = 1 / sqrt(n_c).
+
+    From SemiWaferNet paper Section 2.3: weights are inversely proportional
+    to the square root of class frequencies to handle class imbalance.
+    """
+
+    def __init__(self, num_classes: int = 9, class_counts: list[int] | None = None) -> None:
+        super().__init__()
+        if class_counts is not None:
+            # w_c = 1 / sqrt(n_c)
+            counts = torch.tensor(class_counts, dtype=torch.float32)
+            weights = 1.0 / torch.sqrt(counts + 1e-8)
+            weights = weights / weights.sum() * num_classes  # normalize
+            self.register_buffer("weight", weights)
+        else:
+            self.weight = None
+
+    def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        return nn.functional.cross_entropy(logits, targets, weight=self.weight)
+
+
+class DiceFocalLoss(nn.Module):
+    """Combined Dice + Focal loss for binary segmentation.
+
+    From SemiWaferNet paper Equation (16): L_seg = Dice + 0.5 * Focal
+    """
+
+    def __init__(self, focal_alpha: float = 0.25, focal_gamma: float = 2.0) -> None:
+        super().__init__()
+        self.dice = DiceLoss(smooth=1.0)
+        self.focal = FocalLoss(alpha=focal_alpha, gamma=focal_gamma)
+
+    def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        # logits: [B, 1, H, W] or [B, 2, H, W], targets: [B, H, W]
+        dice_loss = self.dice(logits, targets)
+        focal_loss = self.focal(logits, targets)
+        return dice_loss + 0.5 * focal_loss
+
+
+class DeepSupervisionLoss(nn.Module):
+    """Deep supervision loss for segmentation decoder.
+
+    From SemiWaferNet paper Equation (17):
+        L_total = L_main + 0.3 * L_aux1 + 0.2 * L_aux2
+    """
+
+    def __init__(self, base_loss: nn.Module) -> None:
+        super().__init__()
+        self.base_loss = base_loss
+
+    def forward(
+        self,
+        logits: dict[str, torch.Tensor],
+        targets: torch.Tensor,
+    ) -> torch.Tensor:
+        """Compute deep supervision loss.
+
+        Args:
+            logits: Dict with "main", "aux1", "aux2" keys.
+            targets: Ground truth mask [B, H, W].
+        """
+        main_loss = self.base_loss(logits["main"], targets)
+        aux1_loss = self.base_loss(logits["aux1"], targets)
+        aux2_loss = self.base_loss(logits["aux2"], targets)
+        return main_loss + 0.3 * aux1_loss + 0.2 * aux2_loss
 
 
 def main() -> None:
@@ -88,6 +178,8 @@ def main() -> None:
     if args.lr is not None:
         config._data.setdefault("training", {})["learning_rate"] = args.lr
         config._data.setdefault("training", {}).setdefault("optimizer", {})["lr"] = args.lr
+    if args.mode is not None:
+        config._data.setdefault("model", {})["mode"] = args.mode
 
     # ── Resolve device ──────────────────────────────────────────────────
     device = args.device
@@ -99,9 +191,14 @@ def main() -> None:
         print(f"  GPU: {torch.cuda.get_device_name(0)}")
         print(f"  Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
+    # ── Determine mode ──────────────────────────────────────────────────
+    model_mode = config.get("model.mode", "classification")
+    is_segmentation = model_mode == "segmentation"
+    print(f"Model mode: {model_mode}")
+
     # ── Create dataset ──────────────────────────────────────────────────
     data_root = config.get("data.data_root", "datasets/wm811k")
-    image_size = config.get("data.image_size", 128)
+    image_size = config.get("data.image_size", 32)
     num_classes = config.get("model.num_classes", 9)
     train_split = config.get("data.train_split", 0.8)
     val_split = config.get("data.val_split", 0.1)
@@ -130,19 +227,19 @@ def main() -> None:
     print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
 
     # ── Create DataLoaders ──────────────────────────────────────────────
-    batch_size = config.get("training.batch_size", 32)
+    if is_segmentation:
+        batch_size = config.get("seg_training.batch_size", 32)
+    else:
+        batch_size = config.get("training.batch_size", 256)
     eval_batch_size = config.get("evaluation.batch_size", 64)
     num_workers = 0  # safe default on Windows
 
     def collate_fn(batch):
-        """Custom collate for multitask dict-based samples.
-
-        SemiWaferNet returns a dict with "classification" and "segmentation".
-        We only use the classification head for WM-811K.
-        """
+        """Custom collate for multitask dict-based samples."""
         images = torch.stack([item["image"] for item in batch])
         labels = torch.tensor([item["label"] for item in batch], dtype=torch.long)
-        return images, labels
+        masks = torch.stack([item["mask"] for item in batch])
+        return images, labels, masks
 
     train_loader = DataLoader(
         train_dataset,
@@ -170,25 +267,47 @@ def main() -> None:
     print("Creating SemiWaferNet model...")
     model = SemiWaferNet.from_config(config)
 
-    # Wrap model to extract only classification output for training
-    # SemiWaferNet.forward() returns {"classification": ..., "segmentation": ...}
-    # The Engine/Trainer expects a single tensor output for loss computation.
-    class ClassificationWrapper(nn.Module):
-        """Wraps SemiWaferNet to return only classification logits."""
-
-        def __init__(self, base_model: nn.Module) -> None:
-            super().__init__()
-            self.base_model = base_model
-
-        def forward(self, x: torch.Tensor) -> torch.Tensor:
-            outputs = self.base_model(x)
-            return outputs["classification"]
-
-    model = ClassificationWrapper(model)
-
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"  Parameters: {total_params:,} total, {trainable_params:,} trainable")
+
+    # ── Create loss function ────────────────────────────────────────────
+    if is_segmentation:
+        # Dice + 0.5*Focal with deep supervision
+        base_loss = DiceFocalLoss(focal_alpha=0.25, focal_gamma=2.0)
+        loss_fn = DeepSupervisionLoss(base_loss)
+
+        # Wrap model to return segmentation output
+        class SegmentationWrapper(nn.Module):
+            """Wraps SemiWaferNet to return only segmentation output."""
+
+            def __init__(self, base_model: nn.Module) -> None:
+                super().__init__()
+                self.base_model = base_model
+
+            def forward(self, x: torch.Tensor) -> dict[str, torch.Tensor]:
+                outputs = self.base_model(x, return_aux=True)
+                return outputs["segmentation"]
+
+        model = SegmentationWrapper(model)
+    else:
+        # Weighted Cross-Entropy for classification
+        # Estimate class counts (uniform for now; real counts would come from dataset)
+        loss_fn = WeightedCrossEntropyLoss(num_classes=num_classes)
+
+        # Wrap model to extract only classification output
+        class ClassificationWrapper(nn.Module):
+            """Wraps SemiWaferNet to return only classification logits."""
+
+            def __init__(self, base_model: nn.Module) -> None:
+                super().__init__()
+                self.base_model = base_model
+
+            def forward(self, x: torch.Tensor) -> torch.Tensor:
+                outputs = self.base_model(x)
+                return outputs["classification"]
+
+        model = ClassificationWrapper(model)
 
     # ── Create Engine ───────────────────────────────────────────────────
     print("Initializing engine...")
@@ -198,8 +317,14 @@ def main() -> None:
         device=device,
     )
 
+    # Override loss function in engine
+    engine.loss_fn = loss_fn
+
     # ── Train ───────────────────────────────────────────────────────────
-    epochs = config.get("training.num_epochs", 50)
+    if is_segmentation:
+        epochs = config.get("seg_training.num_epochs", 50)
+    else:
+        epochs = config.get("training.num_epochs", 50)
     print(f"\n{'='*60}")
     print(f"Starting training for {epochs} epochs")
     print(f"{'='*60}")

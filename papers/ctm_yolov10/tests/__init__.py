@@ -1,3 +1,3 @@
-"""Tests for CTM-YOLOv10."""
+"""Tests for CTM-IYOLOv10."""
 
 __all__: list[str] = []

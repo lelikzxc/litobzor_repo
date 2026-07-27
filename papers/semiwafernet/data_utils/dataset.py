@@ -3,11 +3,13 @@
 Provides ``LabeledWaferDataset`` and ``UnlabeledWaferDataset`` that extend
 ``common.datasets.BaseDataset`` for the SemiWaferNet semi-supervised pipeline.
 
-Labeled samples return ``{"image": [3, H, W], "label": int, "mask": [H, W]}``
+Labeled samples return ``{"image": [1, H, W], "label": int, "mask": [H, W]}``
 — compatible with ``common.datasets.multitask_collate``.
 
-Unlabeled samples return ``{"image": [3, H, W]}`` — for semi-supervised
+Unlabeled samples return ``{"image": [1, H, W]}`` — for semi-supervised
 training where targets are generated as pseudo-labels.
+
+SemiWaferNet operates on **grayscale** (1-channel) images per the paper.
 """
 
 from __future__ import annotations
@@ -26,11 +28,11 @@ class LabeledWaferDataset(BaseDataset):
     """Labeled multitask dataset for SemiWaferNet.
 
     Extends ``common.datasets.BaseDataset`` with a multitask interface.
-    Each sample is a dict with ``"image"`` (``torch.Tensor [3, H, W]``),
+    Each sample is a dict with ``"image"`` (``torch.Tensor [1, H, W]``),
     ``"label"`` (``int``), and ``"mask"`` (``torch.Tensor [H, W]``).
 
-    SemiWaferNet operates on **RGB** (3-channel) images. Synthetic samples
-    are generated as ``[3, H, W]`` tensors for images, ``[H, W]`` for masks
+    SemiWaferNet operates on **grayscale** (1-channel) images. Synthetic samples
+    are generated as ``[1, H, W]`` tensors for images, ``[H, W]`` for masks
     (integer class indices), and ``int`` for labels.
 
     For synthetic / test usage, pass ``synthetic_size`` to generate random
@@ -39,23 +41,23 @@ class LabeledWaferDataset(BaseDataset):
     Args:
         image_dir: Directory containing input images.
         mask_dir: Directory containing segmentation mask files.
-        image_size: Target image size (assumed square, default 512).
+        image_size: Target image size (assumed square, default 32).
         transform: Optional transform to apply to images.
         target_transform: Optional transform to apply to masks.
         synthetic_size: If set, generate this many synthetic samples
             instead of reading from disk.
-        num_classes: Number of classes (default 6).
+        num_classes: Number of classes (default 9).
     """
 
     def __init__(
         self,
         image_dir: str | Path | None = None,
         mask_dir: str | Path | None = None,
-        image_size: int = 512,
+        image_size: int = 32,
         transform: callable | None = None,
         target_transform: callable | None = None,
         synthetic_size: int | None = None,
-        num_classes: int = 6,
+        num_classes: int = 9,
     ) -> None:
         super().__init__(
             dataset_type=DatasetType.MULTITASK,
@@ -88,7 +90,7 @@ class LabeledWaferDataset(BaseDataset):
             return self._synthetic_sample()
 
         image_path = self._image_paths[index]
-        image = Image.open(image_path).convert("RGB")
+        image = Image.open(image_path).convert("L")  # grayscale
 
         # Load corresponding mask if available
         mask: torch.Tensor | None = None
@@ -104,7 +106,7 @@ class LabeledWaferDataset(BaseDataset):
         if self.transform is not None:
             image = self.transform(image)
         else:
-            image = torch.from_numpy(np.array(image, dtype=np.float32).transpose(2, 0, 1)) / 255.0
+            image = torch.from_numpy(np.array(image, dtype=np.float32)).unsqueeze(0) / 255.0
 
         if mask is not None and self.target_transform is not None:
             mask = self.target_transform(mask)
@@ -124,7 +126,7 @@ class LabeledWaferDataset(BaseDataset):
     def _synthetic_sample(self) -> dict[str, Any]:
         """Generate a synthetic multitask sample."""
         return {
-            "image": torch.randn(3, self.image_size, self.image_size),
+            "image": torch.randn(1, self.image_size, self.image_size),
             "label": torch.randint(0, self.num_classes, (1,)).item(),
             "mask": torch.randint(
                 0, self.num_classes, (self.image_size, self.image_size), dtype=torch.long
@@ -136,7 +138,7 @@ class UnlabeledWaferDataset(BaseDataset):
     """Unlabeled dataset for SemiWaferNet semi-supervised training.
 
     Extends ``common.datasets.BaseDataset``. Each sample is a dict with
-    only ``"image"`` (``torch.Tensor [3, H, W]``) — no labels or masks,
+    only ``"image"`` (``torch.Tensor [1, H, W]``) — no labels or masks,
     since targets are generated as pseudo-labels during training.
 
     For synthetic / test usage, pass ``synthetic_size`` to generate random
@@ -144,7 +146,7 @@ class UnlabeledWaferDataset(BaseDataset):
 
     Args:
         image_dir: Directory containing input images.
-        image_size: Target image size (assumed square, default 512).
+        image_size: Target image size (assumed square, default 32).
         transform: Optional transform to apply to images.
         synthetic_size: If set, generate this many synthetic samples
             instead of reading from disk.
@@ -153,7 +155,7 @@ class UnlabeledWaferDataset(BaseDataset):
     def __init__(
         self,
         image_dir: str | Path | None = None,
-        image_size: int = 512,
+        image_size: int = 32,
         transform: callable | None = None,
         synthetic_size: int | None = None,
     ) -> None:
@@ -185,17 +187,17 @@ class UnlabeledWaferDataset(BaseDataset):
             return self._synthetic_sample()
 
         image_path = self._image_paths[index]
-        image = Image.open(image_path).convert("RGB")
+        image = Image.open(image_path).convert("L")  # grayscale
 
         if self.transform is not None:
             image = self.transform(image)
         else:
-            image = torch.from_numpy(np.array(image, dtype=np.float32).transpose(2, 0, 1)) / 255.0
+            image = torch.from_numpy(np.array(image, dtype=np.float32)).unsqueeze(0) / 255.0
 
         return {"image": image}
 
     def _synthetic_sample(self) -> dict[str, Any]:
         """Generate a synthetic unlabeled sample (image only)."""
         return {
-            "image": torch.randn(3, self.image_size, self.image_size),
+            "image": torch.randn(1, self.image_size, self.image_size),
         }

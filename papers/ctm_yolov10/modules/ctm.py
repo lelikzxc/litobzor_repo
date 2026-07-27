@@ -1,204 +1,251 @@
-"""Context Transformer Module (CTM) for wafer defect detection.
+"""Clustering–Template Matching (CTM) module for wafer die segmentation.
 
-Implements the CTM module described in:
+Implements the CTM preprocessing strategy described in:
 
     "Wafer Defect Detection Technology Based on CTM-IYOLOv10 Network"
+    (Section 2.1, Figure 2)
 
-The module receives convolutional feature maps [B, C, H, W], applies a
-lightweight self-attention + feed-forward block with residual connections,
-and returns [B, C_out, H, W] preserving spatial dimensions.
+The CTM module:
+    1. Takes a wafer grayscale image containing multiple dies in the field of view.
+    2. Applies template matching (normalized cross-correlation) to find
+       candidate die positions.
+    3. Uses Affinity Propagation (AP) clustering to group redundant matches
+       and select the best match per cluster.
+    4. Extracts individual die images for downstream defect detection.
 
-Architecture:
-    1. Feature projection: Conv2d(C→C) + BatchNorm + Activation
-    2. Flatten spatial dims → tokens [B, N, C] where N = H*W
-    3. Self-attention block (ContextAttention)
-    4. Feed-forward block (ContextMLP)
-    5. Restore spatial dims → [B, C, H, W]
-    6. Final projection: Conv2d + BatchNorm
-    7. Residual addition: output = input + transformed_features
+This module is used as a preprocessing step BEFORE the improved YOLOv10
+detector, not as a network layer.
+
+Reference:
+    Frey & Dueck, "Clustering by Passing Messages Between Data Points",
+    Science 2007.
 """
 
 from __future__ import annotations
 
-import torch
-from torch import nn
+import warnings
+from typing import Any
+
+import numpy as np
 
 
-class ContextAttention(nn.Module):
-    """Lightweight multi-head self-attention for context tokens.
+def normalized_cross_correlation(
+    image: np.ndarray,
+    template: np.ndarray,
+) -> np.ndarray:
+    """Compute normalized cross-correlation (NCC) between image and template.
 
-    Projects input tokens to Q, K, V, computes scaled dot-product attention,
-    and returns the attended representation.
+    Uses ``cv2.TM_CCOEFF_NORMED`` which implements Equation (1) from the paper:
+
+        R(i,j) = sum(S^{i,j}(m,n) * T(m,n)) /
+                 (sqrt(sum(S^{i,j}(i,j)^2)) * sqrt(sum(T(i,j)^2)))
 
     Args:
-        dim: Token embedding dimension.
-        num_heads: Number of attention heads (must divide ``dim``).
-        dropout: Dropout rate applied after attention.
+        image: Grayscale search image [H, W].
+        template: Grayscale template image [M, M].
+
+    Returns:
+        Correlation map of shape [H-M+1, W-M+1] with values in [-1, 1].
     """
-
-    def __init__(self, dim: int, num_heads: int = 4, dropout: float = 0.1) -> None:
-        super().__init__()
-        assert dim % num_heads == 0, f"dim ({dim}) must be divisible by num_heads ({num_heads})"
-
-        self.dim = dim
-        self.num_heads = num_heads
-        self.head_dim = dim // num_heads
-        self.scale = self.head_dim**-0.5
-
-        self.q_proj = nn.Linear(dim, dim)
-        self.k_proj = nn.Linear(dim, dim)
-        self.v_proj = nn.Linear(dim, dim)
-        self.out_proj = nn.Linear(dim, dim)
-        self.dropout = nn.Dropout(dropout)
-
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Forward pass.
-
-        Args:
-            x: Input tensor of shape [B, N, dim].
-
-        Returns:
-            Attended tensor of shape [B, N, dim].
-        """
-        B, N, D = x.shape
-
-        # Project to Q, K, V and reshape for multi-head attention
-        q = self.q_proj(x).reshape(B, N, self.num_heads, self.head_dim).permute(0, 2, 1, 3)  # [B, H, N, d]
-        k = self.k_proj(x).reshape(B, N, self.num_heads, self.head_dim).permute(0, 2, 1, 3)  # [B, H, N, d]
-        v = self.v_proj(x).reshape(B, N, self.num_heads, self.head_dim).permute(0, 2, 1, 3)  # [B, H, N, d]
-
-        # Scaled dot-product attention
-        attn = (q @ k.transpose(-2, -1)) * self.scale  # [B, H, N, N]
-        attn = attn.softmax(dim=-1)
-        attn = self.dropout(attn)
-
-        out = attn @ v  # [B, H, N, d]
-        out = out.permute(0, 2, 1, 3).reshape(B, N, D)  # [B, N, dim]
-        out = self.out_proj(out)
-
-        return out
+    import cv2
+    result = cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
+    return result
 
 
-class ContextMLP(nn.Module):
-    """Two-layer feed-forward network with GELU activation.
+def affinity_propagation_clustering(
+    matches: np.ndarray,
+    preference: float | None = None,
+    damping: float = 0.5,
+    max_iter: int = 200,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Cluster template matching results using Affinity Propagation.
+
+    AP clustering does not require a pre-specified number of clusters,
+    making it suitable for variable numbers of dies per field of view.
 
     Args:
-        dim: Input/output dimension.
-        hidden_dim: Hidden layer dimension.
-        dropout: Dropout rate.
+        matches: Array of match bounding boxes [N, 4] in (x1, y1, x2, y2) format.
+        preference: Input preference for AP (lower → fewer clusters).
+            If ``None``, uses the median of similarities.
+        damping: Damping factor for AP (0.5-1.0).
+        max_iter: Maximum number of AP iterations.
+
+    Returns:
+        Tuple of (cluster_labels, exemplar_indices):
+            - cluster_labels: [N] array of cluster assignments.
+            - exemplar_indices: [K] indices of exemplar (best) matches.
     """
+    try:
+        from sklearn.cluster import AffinityPropagation
+    except ImportError:
+        raise ImportError(
+            "scikit-learn is required for Affinity Propagation clustering. "
+            "Install it with: pip install scikit-learn"
+        )
 
-    def __init__(self, dim: int, hidden_dim: int, dropout: float = 0.1) -> None:
-        super().__init__()
-        self.fc1 = nn.Linear(dim, hidden_dim)
-        self.gelu = nn.GELU()
-        self.fc2 = nn.Linear(hidden_dim, dim)
-        self.dropout = nn.Dropout(dropout)
+    if len(matches) == 0:
+        return np.array([], dtype=int), np.array([], dtype=int)
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Forward pass.
+    # Use bounding box centers as features for clustering
+    centers = np.column_stack([
+        (matches[:, 0] + matches[:, 2]) / 2,  # cx
+        (matches[:, 1] + matches[:, 3]) / 2,  # cy
+    ])
 
-        Args:
-            x: Input tensor of shape [B, N, dim].
+    # Compute similarity matrix (negative squared Euclidean distance)
+    # as described in Equations (2)-(3) of the paper
+    ap = AffinityPropagation(
+        preference=preference,
+        damping=damping,
+        max_iter=max_iter,
+        random_state=42,
+    )
+    labels = ap.fit_predict(centers)
 
-        Returns:
-            Output tensor of shape [B, N, dim].
-        """
-        x = self.fc1(x)
-        x = self.gelu(x)
-        x = self.dropout(x)
-        x = self.fc2(x)
-        return x
+    # Select exemplar (best match) per cluster: the one with highest
+    # correlation score (closest to cluster center)
+    exemplar_indices = []
+    for cluster_id in range(labels.max() + 1):
+        cluster_mask = labels == cluster_id
+        cluster_centers = centers[cluster_mask]
+        # Find the point closest to the cluster center (exemplar)
+        cluster_center = cluster_centers.mean(axis=0)
+        distances = np.linalg.norm(cluster_centers - cluster_center, axis=1)
+        local_idx = int(np.argmin(distances))
+        # Map back to global index
+        global_indices = np.where(cluster_mask)[0]
+        exemplar_indices.append(global_indices[local_idx])
+
+    return labels, np.array(exemplar_indices)
 
 
-class CTM(nn.Module):
-    """Context Transformer Module.
+def match_template_with_clustering(
+    image: np.ndarray,
+    template: np.ndarray,
+    threshold: float = 0.7,
+    preference: float | None = None,
+    damping: float = 0.5,
+) -> list[dict[str, Any]]:
+    """Apply clustering–template matching to locate dies in a wafer image.
 
-    Enhances convolutional feature maps with contextual self-attention.
-
-    The module:
-        1. Projects input features with Conv2d + BN + SiLU
-        2. Flattens to token sequence [B, N, C]
-        3. Applies self-attention with residual connection
-        4. Applies MLP with residual connection
-        5. Restores spatial structure [B, C, H, W]
-        6. Final Conv2d + BN projection
-        7. Residual addition with input
+    This implements the full CTM algorithm from Section 2.1:
+        1. Compute NCC between image and template.
+        2. Find all matches above ``threshold``.
+        3. Cluster matches using AP to eliminate redundancy.
+        4. Return one best match per cluster.
 
     Args:
-        dim: Input/output channel dimension.
-        num_heads: Number of attention heads.
-        mlp_ratio: MLP hidden dimension = ``dim * mlp_ratio``.
-        dropout: Dropout rate.
+        image: Grayscale wafer image [H, W].
+        template: Grayscale die template [M, M].
+        threshold: NCC threshold for candidate matches (default 0.7).
+        preference: AP preference parameter (``None`` = auto).
+        damping: AP damping factor.
+
+    Returns:
+        List of match dicts, each with:
+            - ``bbox``: (x1, y1, x2, y2) bounding box of the matched die.
+            - ``score``: NCC correlation score.
+            - ``die_image``: Extracted die image patch.
+    """
+    # Step 1: Compute NCC
+    correlation = normalized_cross_correlation(image, template)
+    h, w = correlation.shape
+    th, tw = template.shape
+
+    # Step 2: Find all matches above threshold
+    match_locations = np.where(correlation >= threshold)
+    if len(match_locations[0]) == 0:
+        return []
+
+    boxes = []
+    scores = []
+    for y, x in zip(*match_locations):
+        x1, y1 = x, y
+        x2, y2 = x + tw, y + th
+        boxes.append([x1, y1, x2, y2])
+        scores.append(correlation[y, x])
+
+    boxes = np.array(boxes)
+    scores = np.array(scores)
+
+    # Step 3: Cluster matches using AP
+    labels, exemplar_idx = affinity_propagation_clustering(
+        boxes, preference=preference, damping=damping,
+    )
+
+    # Step 4: Return one best match per cluster
+    results = []
+    for idx in exemplar_idx:
+        x1, y1, x2, y2 = boxes[idx]
+        die_image = image[y1:y2, x1:x2]
+        results.append({
+            "bbox": (int(x1), int(y1), int(x2), int(y2)),
+            "score": float(scores[idx]),
+            "die_image": die_image,
+        })
+
+    return results
+
+
+class CTM:
+    """Clustering–Template Matching module for wafer die segmentation.
+
+    This is a preprocessing module that extracts individual die images
+    from a wafer field-of-view image before feeding them to the improved
+    YOLOv10 detector.
+
+    Args:
+        template: Die template image (grayscale). If ``None``, must be
+            provided at runtime via ``set_template()``.
+        threshold: NCC threshold for candidate matches.
+        preference: AP preference parameter.
+        damping: AP damping factor.
     """
 
     def __init__(
         self,
-        dim: int = 256,
-        num_heads: int = 4,
-        mlp_ratio: float = 4.0,
-        dropout: float = 0.1,
+        template: np.ndarray | None = None,
+        threshold: float = 0.7,
+        preference: float | None = None,
+        damping: float = 0.5,
     ) -> None:
-        super().__init__()
-        self.dim = dim
-        self.num_heads = num_heads
-        self.mlp_ratio = mlp_ratio
-        self.dropout = dropout
+        self.template = template
+        self.threshold = threshold
+        self.preference = preference
+        self.damping = damping
 
-        # 1. Feature projection
-        self.feature_proj = nn.Sequential(
-            nn.Conv2d(dim, dim, kernel_size=1, bias=False),
-            nn.BatchNorm2d(dim),
-            nn.SiLU(inplace=True),
-        )
+    def set_template(self, template: np.ndarray) -> None:
+        """Set or update the die template image."""
+        self.template = template
 
-        # 3. Self-attention block
-        self.norm1 = nn.LayerNorm(dim)
-        self.attention = ContextAttention(dim, num_heads=num_heads, dropout=dropout)
-
-        # 4. Feed-forward block
-        self.norm2 = nn.LayerNorm(dim)
-        self.mlp = ContextMLP(dim, hidden_dim=int(dim * mlp_ratio), dropout=dropout)
-
-        # 6. Final projection
-        self.final_proj = nn.Sequential(
-            nn.Conv2d(dim, dim, kernel_size=1, bias=False),
-            nn.BatchNorm2d(dim),
-        )
-
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Forward pass.
+    def __call__(self, image: np.ndarray) -> list[dict[str, Any]]:
+        """Run CTM preprocessing on a wafer image.
 
         Args:
-            x: Input tensor of shape [B, C, H, W].
+            image: Grayscale wafer image [H, W] or RGB [H, W, 3].
 
         Returns:
-            Output tensor of shape [B, C, H, W] (same spatial resolution).
+            List of matched die dicts with ``bbox``, ``score``, ``die_image``.
         """
-        identity = x
+        import cv2
 
-        # 1. Feature projection
-        x = self.feature_proj(x)  # [B, C, H, W]
+        if self.template is None:
+            raise ValueError("CTM template not set. Call set_template() first.")
 
-        # 2. Flatten to tokens
-        B, C, H, W = x.shape
-        x = x.flatten(2).transpose(1, 2)  # [B, N, C] where N = H*W
+        # Convert to grayscale if needed
+        if image.ndim == 3:
+            gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        else:
+            gray = image
 
-        # 3. Self-attention with residual
-        attn_out = self.attention(self.norm1(x))
-        x = x + attn_out
+        # Convert template to grayscale if needed
+        templ = self.template
+        if templ.ndim == 3:
+            templ = cv2.cvtColor(templ, cv2.COLOR_RGB2GRAY)
 
-        # 4. MLP with residual
-        mlp_out = self.mlp(self.norm2(x))
-        x = x + mlp_out
-
-        # 5. Restore spatial structure
-        x = x.transpose(1, 2).reshape(B, C, H, W)  # [B, C, H, W]
-
-        # 6. Final projection
-        x = self.final_proj(x)
-
-        # 7. Residual addition with input
-        out = identity + x
-
-        return out
+        return match_template_with_clustering(
+            gray, templ,
+            threshold=self.threshold,
+            preference=self.preference,
+            damping=self.damping,
+        )

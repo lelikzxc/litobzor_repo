@@ -1,4 +1,4 @@
-"""Tests for YOLOv10 baseline model and CTM integration preparation."""
+"""Tests for YOLOv10 baseline model and CTM-IYOLOv10 integration."""
 
 from __future__ import annotations
 
@@ -69,7 +69,7 @@ def test_model_name_configurability() -> None:
         assert model.model_name == variant
 
 
-# ── CTM placeholder tests ───────────────────────────────────────────────
+# ── CTM (Clustering-Template Matching) tests ────────────────────────────
 
 
 def test_ctm_import() -> None:
@@ -80,29 +80,20 @@ def test_ctm_import() -> None:
 
 
 def test_ctm_creation() -> None:
-    """Verify CTM can be instantiated."""
-    ctm = CTM(dim=256, num_heads=4)
+    """Verify CTM can be instantiated with a template."""
+    import numpy as np
+    template = np.ones((20, 20), dtype=np.uint8) * 255
+    ctm = CTM(template=template, threshold=0.7)
     assert isinstance(ctm, CTM)
-    assert ctm.dim == 256
-    assert ctm.num_heads == 4
+    assert ctm.threshold == 0.7
 
 
-def test_ctm_forward_transforms_input() -> None:
-    """Verify CTM transforms the input (no longer a placeholder)."""
+def test_ctm_call_no_template_raises() -> None:
+    """Verify CTM raises ValueError when no template is set."""
     ctm = CTM()
-    x = torch.randn(2, 256, 20, 20)
-    out = ctm(x)
-    assert out.shape == x.shape, f"Expected {x.shape}, got {out.shape}"
-    # The output should be different from input (CTM applies transformations)
-    assert not torch.allclose(out, x), "CTM should transform the input"
-
-
-def test_ctm_forward_shape() -> None:
-    """Verify CTM preserves input shape."""
-    ctm = CTM()
-    x = torch.randn(2, 256, 20, 20)
-    out = ctm(x)
-    assert out.shape == x.shape
+    import numpy as np
+    with pytest.raises(ValueError, match="template not set"):
+        ctm(np.zeros((100, 100), dtype=np.uint8))
 
 
 # ── Documentation tests ─────────────────────────────────────────────────

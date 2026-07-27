@@ -9,6 +9,9 @@ Exports:
     - MiTBackbone: Full 4-stage MiT encoder
     - MIT_CONFIGS: Pre-defined variant configurations (B0-B5)
     - AtrousEnhancement: Multi-scale atrous convolution enhancement
+    - DilatedConvBlock: Dilated convolution block for hybrid encoder
+    - HybridEncoder: Hybrid conv + transformer encoder
+    - HYBRID_CONFIGS: Hybrid encoder variant configurations
 """
 
 from papers.transformer_segmentation.modules.mit import (
@@ -21,6 +24,8 @@ from papers.transformer_segmentation.modules.mit import (
     MIT_CONFIGS,
 )
 from papers.transformer_segmentation.modules.atrous import AtrousEnhancement
+from papers.transformer_segmentation.modules.dilated_conv import DilatedConvBlock
+from papers.transformer_segmentation.modules.hybrid_encoder import HybridEncoder, HYBRID_CONFIGS
 
 __all__ = [
     "OverlapPatchEmbed",
@@ -31,4 +36,7 @@ __all__ = [
     "MiTBackbone",
     "MIT_CONFIGS",
     "AtrousEnhancement",
+    "DilatedConvBlock",
+    "HybridEncoder",
+    "HYBRID_CONFIGS",
 ]

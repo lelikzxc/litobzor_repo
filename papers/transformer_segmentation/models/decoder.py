@@ -4,12 +4,18 @@ Implements the lightweight all-MLP decoder from:
     SegFormer: Simple and Efficient Design for Semantic Segmentation
     with Transformers (NeurIPS 2021)
 
-The decoder aggregates multi-scale features from the MiT backbone:
+With the Post-fusion Block from:
+    "Region Segmentation for Efficient Semiconductor Inspection:
+     A Deep Learning Approach with Transformers and Atrous Convolution"
+     (Electronics 2025, Section 3.1.2)
+
+The decoder aggregates multi-scale features from the hybrid encoder:
     1. Project each stage feature to a common dimension C via MLP
     2. Upsample all features to 1/4 resolution
     3. Concatenate all features
     4. Fuse channels via another MLP
-    5. Produce the final decoder feature map
+    5. Post-fusion Block: BatchNorm → ReLU → Dropout → 1×1 conv (4C → num_classes)
+    6. Upsample to original input resolution
 
 This is a lightweight decoder with no attention or complex operations.
 """
@@ -24,13 +30,14 @@ import torch.nn.functional as F
 
 
 class MLPDecoder(nn.Module):
-    """Lightweight all-MLP decoder for SegFormer.
+    """Lightweight all-MLP decoder for SegFormer with Post-fusion Block.
 
-    Aggregates multi-scale features from the MiT backbone stages into a
-    single feature map at 1/4 resolution.
+    Aggregates multi-scale features from the hybrid encoder stages into a
+    single feature map at 1/4 resolution, then applies a Post-fusion Block
+    (BatchNorm → ReLU → Dropout → 1×1 conv) to produce the final logits.
 
     Args:
-        embed_dims: Channel dimensions of the 4 MiT stages (list of 4 ints).
+        embed_dims: Channel dimensions of the 4 encoder stages (list of 4 ints).
         decoder_dim: Common projection dimension for all stages.
         num_classes: Number of output classes (for the segmentation head).
         dropout: Dropout rate.
@@ -40,7 +47,7 @@ class MLPDecoder(nn.Module):
         self,
         embed_dims: list[int] | tuple[int, ...],
         decoder_dim: int = 256,
-        num_classes: int = 8,
+        num_classes: int = 7,
         dropout: float = 0.0,
     ) -> None:
         super().__init__()
@@ -63,10 +70,13 @@ class MLPDecoder(nn.Module):
             nn.Dropout(dropout),
         )
 
-        # Segmentation head: decoder_dim → num_classes
-        self.head = nn.Sequential(
-            nn.Conv2d(decoder_dim, decoder_dim, kernel_size=1),
-            nn.GELU(),
+        # Post-fusion Block (Section 3.1.2):
+        # BatchNorm → ReLU → Dropout → 1×1 conv (4C → num_classes)
+        # Note: 4C here means decoder_dim * 4 (the concatenated feature dim)
+        # The paper uses 4C → N_cls where C is the decoder_dim
+        self.post_fusion = nn.Sequential(
+            nn.BatchNorm2d(decoder_dim),
+            nn.ReLU(inplace=True),
             nn.Dropout(dropout),
             nn.Conv2d(decoder_dim, num_classes, kernel_size=1),
         )
@@ -75,8 +85,8 @@ class MLPDecoder(nn.Module):
         """Forward pass.
 
         Args:
-            features: List of 4 feature maps from MiT backbone
-                ``[stage1, stage2, stage3, stage4]`` at resolutions
+            features: List of 4 feature maps from hybrid encoder
+                ``[conv1, conv2, trans3, trans4]`` at resolutions
                 1/4, 1/8, 1/16, 1/32 of input.
 
         Returns:
@@ -101,11 +111,10 @@ class MLPDecoder(nn.Module):
         # Fuse channels
         x = self.fusion(x)  # [B, decoder_dim, H4, W4]
 
-        # Segmentation head
-        x = self.head(x)  # [B, num_classes, H4, W4]
+        # Post-fusion Block: BN → ReLU → Dropout → 1×1 conv
+        x = self.post_fusion(x)  # [B, num_classes, H4, W4]
 
         # Upsample to original input resolution
-        # (The caller should provide target size; we upsample to 4× H4, W4)
         x = F.interpolate(x, scale_factor=4.0, mode="bilinear", align_corners=False)
 
         return x

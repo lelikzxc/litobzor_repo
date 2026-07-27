@@ -1,7 +1,7 @@
-"""Training integration tests for CTM-YOLOv10 with the canonical common Trainer.
+"""Training integration tests for CTM-IYOLOv10 with the canonical common Trainer.
 
 Verifies:
-- Trainer creation with YOLOv10Baseline and CTMYOLOv10
+- Trainer creation with YOLOv10Baseline and CTMIYOLOv10
 - Optimizer, scheduler, loss factory compatibility
 - Detection batch handling via training collate adapter
 - Training step (forward, loss, backward, optimizer step)
@@ -50,7 +50,7 @@ from common.training import (
     build_scheduler,
 )
 from papers.ctm_yolov10.data_utils import DetectionDataset
-from papers.ctm_yolov10.models.yolov10 import CTMYOLOv10, YOLOv10Baseline
+from papers.ctm_yolov10.models.yolov10 import CTMIYOLOv10, YOLOv10Baseline
 from papers.ctm_yolov10.utils.training import YOLOLoss, patch_eval, training_collate
 
 CONFIG_PATH = "papers/ctm_yolov10/configs/config.yaml"
@@ -77,17 +77,14 @@ def baseline_model() -> YOLOv10Baseline:
 
 
 @pytest.fixture
-def ctm_model() -> CTMYOLOv10:
-    """CTMYOLOv10 with eval() patched to keep train mode."""
-    model = CTMYOLOv10(
+def ctm_model() -> CTMIYOLOv10:
+    """CTMIYOLOv10 with eval() patched to keep train mode."""
+    model = CTMIYOLOv10(
         model_name="yolov10n",
         pretrained=False,
         num_classes=8,
-        ctm_enabled=True,
-        dim=256,
-        num_heads=4,
-        mlp_ratio=4.0,
-        dropout=0.1,
+        ghost_conv=True,
+        bifpn=True,
     )
     return patch_eval(model)
 
@@ -243,16 +240,16 @@ class TestTrainerCreation:
         assert next(trainer.model.parameters()).device.type == "cpu"
 
     def test_trainer_with_ctm_model(
-        self, ctm_model: CTMYOLOv10
+        self, ctm_model: CTMIYOLOv10
     ) -> None:
-        """Trainer can be created with CTMYOLOv10."""
+        """Trainer can be created with CTMIYOLOv10."""
         opt = build_optimizer(ctm_model, name="sgd", lr=1e-3)
         loss = YOLOLoss(ctm_model)
         trainer = Trainer(
             ctm_model, opt, loss, device="cpu", verbose=False
         )
         assert isinstance(trainer, Trainer)
-        assert isinstance(trainer.model, CTMYOLOv10)
+        assert isinstance(trainer.model, CTMIYOLOv10)
 
 
 # ---------------------------------------------------------------------------

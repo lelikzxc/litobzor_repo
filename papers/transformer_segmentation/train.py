@@ -3,7 +3,7 @@
 Usage:
     python papers/transformer_segmentation/train.py --config papers/transformer_segmentation/configs/config.yaml
 
-Trains SegFormer on the WM-811K binary segmentation dataset using the common engine.
+Trains SegFormer on the WM-811K 7-class segmentation dataset using the common engine.
 Supports CUDA automatically when available.
 """
 
@@ -110,8 +110,8 @@ def main() -> None:
 
     # ── Create datasets ─────────────────────────────────────────────────
     data_root = config.get("data.data_root", "datasets/wm811k_seg")
-    image_size = config.get("data.image_size", 128)
-    num_classes = config.get("model.num_classes", 2)
+    image_size = config.get("data.image_size", 512)
+    num_classes = config.get("model.num_classes", 7)
 
     train_image_dir = Path(data_root) / "train" / "images"
     train_mask_dir = Path(data_root) / "train" / "masks"
@@ -122,7 +122,7 @@ def main() -> None:
 
     print(f"\nLoading WM-811K segmentation dataset from: {data_root}")
     print(f"  Image size: {image_size}x{image_size}")
-    print(f"  Num classes: {num_classes} (binary: background=0, defect=1)")
+    print(f"  Num classes: {num_classes} (6 defect types + background)")
 
     train_dataset = SegFormerDataset(
         image_dir=train_image_dir,
@@ -148,8 +148,8 @@ def main() -> None:
     print(f"  Test samples:  {len(test_dataset)}")
 
     # ── Create DataLoaders ──────────────────────────────────────────────
-    batch_size = config.get("training.batch_size", 32)
-    eval_batch_size = config.get("evaluation.batch_size", 64)
+    batch_size = config.get("training.batch_size", 10)
+    eval_batch_size = config.get("evaluation.batch_size", 10)
     num_workers = 0  # safe default on Windows
 
     train_loader = DataLoader(
@@ -182,7 +182,7 @@ def main() -> None:
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"  Parameters: {total_params:,} total, {trainable_params:,} trainable")
     print(f"  Variant: {model.variant}")
-    print(f"  Atrous enabled: {model.atrous_enabled}")
+    print(f"  Encoder: Hybrid (conv stages 1-2 + transformer stages 3-4)")
 
     # ── Create Engine ───────────────────────────────────────────────────
     print("Initializing engine...")

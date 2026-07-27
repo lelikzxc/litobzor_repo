@@ -45,7 +45,7 @@ def test_list_registered_includes_vit_tiny() -> None:
 
 def test_build_model_by_name() -> None:
     """Verify build_model('vit_tiny') returns a ViTTiny instance."""
-    model = build_model("vit_tiny", image_size=32, in_channels=1, num_classes=8)
+    model = build_model("vit_tiny", image_size=64, in_channels=1, num_classes=8)
     assert isinstance(model, ViTTiny)
     assert model.num_classes == 8
     assert model.embed_dim == 192
@@ -85,17 +85,17 @@ def test_engine_config_from_yaml() -> None:
     config = EngineConfig.from_yaml("papers/vit_tiny/configs/config.yaml")
     assert config is not None
     assert config.get("model.name") == "vit_tiny"
-    assert config.get("model.num_classes") == 8
+    assert config.get("model.num_classes") == 9
 
 
 def test_engine_config_dot_access() -> None:
     """Verify dot-separated key access works."""
     config = EngineConfig.from_yaml("papers/vit_tiny/configs/config.yaml")
-    assert config.get("model.arch.image_size") == 32
-    assert config.get("model.arch.patch_size") == 4
+    assert config.get("model.arch.image_size") == 64
+    assert config.get("model.arch.patch_size") == 16
     assert config.get("model.arch.in_channels") == 1
     assert config.get("model.arch.embed_dim") == 192
-    assert config.get("model.arch.num_layers") == 4
+    assert config.get("model.arch.num_layers") == 12
     assert config.get("model.arch.num_heads") == 3
 
 
@@ -105,7 +105,7 @@ def test_engine_config_engine_fields() -> None:
 
     # model section
     assert config.get("model.name") == "vit_tiny"
-    assert config.get("model.num_classes") == 8
+    assert config.get("model.num_classes") == 9
 
     # training.optimizer as dict
     opt = config.get("training.optimizer")
@@ -144,11 +144,11 @@ def test_from_config_with_engine_config() -> None:
     config = EngineConfig.from_yaml("papers/vit_tiny/configs/config.yaml")
     model = ViTTiny.from_config(config)
     assert isinstance(model, ViTTiny)
-    assert model.num_classes == 8
-    assert model.image_size == 32
-    assert model.patch_size == 4
+    assert model.num_classes == 9
+    assert model.image_size == 64
+    assert model.patch_size == 16
     assert model.embed_dim == 192
-    assert model.num_layers == 4
+    assert model.num_layers == 12
     assert model.num_heads == 3
 
 
@@ -173,7 +173,7 @@ def test_predictor_single_inference() -> None:
     model.eval()
     predictor = Predictor(model, device="cpu")
 
-    x = torch.randn(1, 32, 32)  # grayscale HWC
+    x = torch.randn(1, 64, 64)  # grayscale HWC
     with torch.no_grad():
         result = predictor.predict_single(x)
 
@@ -193,7 +193,7 @@ def test_predictor_batch_inference() -> None:
     model.eval()
     predictor = Predictor(model, device="cpu")
 
-    x = torch.randn(2, 1, 32, 32)  # NCHW
+    x = torch.randn(2, 1, 64, 64)  # NCHW
     with torch.no_grad():
         result = predictor.predict_batch(x)
 
@@ -236,7 +236,7 @@ def test_engine_predict_single() -> None:
     config = EngineConfig.from_yaml("papers/vit_tiny/configs/config.yaml")
     engine = Engine(model, config, device="cpu")
 
-    x = torch.randn(1, 32, 32)  # grayscale HWC
+    x = torch.randn(1, 64, 64)  # grayscale HWC
     with torch.no_grad():
         result = engine.predict_single(x)
 
@@ -256,7 +256,7 @@ def test_output_shape_with_synthetic_input() -> None:
     model = ViTTiny(num_classes=8)
     model.eval()
 
-    x = torch.randn(1, 1, 32, 32)
+    x = torch.randn(1, 1, 64, 64)
     with torch.no_grad():
         output = model(x)
 
@@ -268,8 +268,8 @@ def test_output_consistency_across_batches() -> None:
     model = ViTTiny(num_classes=8)
     model.eval()
 
-    x1 = torch.randn(1, 1, 32, 32)
-    x2 = torch.randn(4, 1, 32, 32)
+    x1 = torch.randn(1, 1, 64, 64)
+    x2 = torch.randn(4, 1, 64, 64)
 
     with torch.no_grad():
         out1 = model(x1)
@@ -284,7 +284,7 @@ def test_output_is_logits_not_probs() -> None:
     model = ViTTiny(num_classes=8)
     model.eval()
 
-    x = torch.randn(2, 1, 32, 32)
+    x = torch.randn(2, 1, 64, 64)
     with torch.no_grad():
         output = model(x)
 

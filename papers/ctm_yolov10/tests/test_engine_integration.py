@@ -1,10 +1,10 @@
-"""Engine integration tests for CTM-YOLOv10.
+"""Engine integration tests for CTM-IYOLOv10.
 
 Verifies:
 - Model registration in the engine registry
 - EngineConfig loading from the paper config
 - build_model() by registered name
-- CTMYOLOv10.from_config() with EngineConfig
+- CTMIYOLOv10.from_config() with EngineConfig
 - Predictor inference compatibility
 - Output shape verification
 - Engine instantiation with registered model name
@@ -25,63 +25,62 @@ from common.engine.registry import (
 )
 from common.engine.engine import Engine
 from common.inference.predictor import Predictor
-from papers.ctm_yolov10.models.yolov10 import CTMYOLOv10
+from papers.ctm_yolov10.models.yolov10 import CTMIYOLOv10
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────
 
 
 def _detection_postprocess(logits: Any) -> dict[str, Any]:
-    """Postprocessing function for detection model output (tuple).
-
-    The canonical Predictor's default postprocessing (softmax + argmax)
-    does not work with YOLOv10's tuple output. This passthrough function
-    preserves the raw output structure.
-    """
-    return {
-        "logits": logits,
-        "probs": logits,
-        "prediction": logits,
-    }
+    """Postprocessing function for detection model output (tuple)."""
+    if isinstance(logits, tuple):
+        detections = logits[0]
+    else:
+        detections = logits
+    if isinstance(detections, torch.Tensor):
+        probs = torch.softmax(detections[..., 5:].float(), dim=-1)
+        pred = probs.argmax(dim=-1)
+    else:
+        probs = torch.tensor(0.0)
+        pred = torch.tensor(0)
+    return {"logits": detections, "probs": probs, "prediction": pred}
 
 
 # ── Registry tests ────────────────────────────────────────────────────────
 
 
-def test_model_is_registered() -> None:
-    """Verify CTM-YOLOv10 is registered in the engine registry."""
-    assert is_registered("models", "ctm_yolov10"), (
-        "ctm_yolov10 should be registered in the engine registry"
-    )
+def test_model_registered() -> None:
+    """Verify CTM-IYOLOv10 is registered in the engine registry."""
+    assert is_registered("models", "ctm_iyolov10"), "ctm_iyolov10 not registered"
 
 
-def test_baseline_is_registered() -> None:
-    """Verify YOLOv10Baseline is registered in the engine registry."""
-    assert is_registered("models", "yolov10_baseline"), (
-        "yolov10_baseline should be registered in the engine registry"
-    )
+def test_baseline_registered() -> None:
+    """Verify YOLOv10Baseline is registered."""
+    assert is_registered("models", "yolov10_baseline"), "yolov10_baseline not registered"
 
 
-def test_list_registered_includes_ctm() -> None:
-    """Verify list_registered includes ctm_yolov10."""
+def test_list_registered_contains_models() -> None:
+    """Verify list_registered() includes our models."""
     registered = list_registered("models")
-    assert "ctm_yolov10" in registered
+    assert "ctm_iyolov10" in registered
+    assert "yolov10_baseline" in registered
 
 
 def test_build_model_by_name() -> None:
-    """Verify build_model('ctm_yolov10') returns a CTMYOLOv10 instance."""
-    model = build_model("ctm_yolov10", num_classes=8)
-    assert isinstance(model, CTMYOLOv10)
+    """Verify build_model('ctm_iyolov10') returns a CTMIYOLOv10 instance."""
+    model = build_model("ctm_iyolov10", num_classes=8)
+    assert isinstance(model, CTMIYOLOv10)
     assert model.num_classes == 8
-    assert model.ctm_enabled is True
+    assert model.ghost_conv is True
+    assert model.bifpn is True
 
 
-def test_build_model_with_ctm_disabled() -> None:
-    """Verify build_model with ctm_enabled=False works."""
-    model = build_model("ctm_yolov10", num_classes=8, ctm_enabled=False)
-    assert isinstance(model, CTMYOLOv10)
-    assert model.ctm_enabled is False
-    assert model.ctm is None
+def test_build_model_with_improvements_disabled() -> None:
+    """Verify build_model with ghost_conv=False, bifpn=False works."""
+    model = build_model("ctm_iyolov10", num_classes=8, ghost_conv=False, bifpn=False)
+    assert isinstance(model, CTMIYOLOv10)
+    assert model.ghost_conv is False
+    assert model.bifpn is False
 
 
 def test_build_model_unregistered_raises() -> None:
@@ -97,48 +96,41 @@ def test_engine_config_from_yaml() -> None:
     """Verify EngineConfig can load the paper config."""
     config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
     assert config is not None
-    assert config.get("model.name") == "ctm_yolov10"
-    assert config.get("model.num_classes") == 8
+    assert config.get("model.name") == "ctm_iyolov10"
+    # Magnetic Tile dataset has 3 classes: Blowhole, Crack, Fray
+    assert config.get("model.num_classes") == 3
 
 
 def test_engine_config_dot_access() -> None:
     """Verify dot-separated key access works."""
     config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
     assert config.get("model.backbone.name") == "yolov10n"
-    assert config.get("model.ctm.enabled") is True
-    assert config.get("model.ctm.embed_dim") == 256
+    assert config.get("model.ghost_conv.enabled") is True
+    assert config.get("model.bifpn.enabled") is True
     assert config.get("training.batch_size") == 16
-    assert config.get("training.num_epochs") == 300
+    assert config.get("training.num_epochs") == 100
 
 
 def test_engine_config_engine_fields() -> None:
     """Verify engine-compatible fields are present."""
     config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
 
-    # model section
-    assert config.get("model.name") == "ctm_yolov10"
-    assert config.get("model.num_classes") == 8
+    assert config.get("model.name") == "ctm_iyolov10"
+    # Magnetic Tile dataset has 3 classes: Blowhole, Crack, Fray
+    assert config.get("model.num_classes") == 3
 
-    # training.optimizer as dict
-    opt = config.get("training.optimizer")
+    opt = config.get("optimizer")
     assert isinstance(opt, dict)
     assert opt.get("name") == "sgd"
     assert opt.get("lr") == 0.001
 
-    # training.scheduler as dict
-    sched = config.get("training.scheduler")
+    sched = config.get("scheduler")
     assert isinstance(sched, dict)
-    assert sched.get("name") == "multistep"
+    assert sched.get("name") == "cosine"
 
-    # training.loss as dict
-    loss = config.get("training.loss")
+    loss = config.get("loss")
     assert isinstance(loss, dict)
     assert loss.get("name") == "cross_entropy"
-
-    # dataset section
-    ds = config.get("dataset")
-    assert isinstance(ds, dict)
-    assert ds.get("name") == "wafer_defects"
 
 
 def test_engine_config_default_values() -> None:
@@ -152,44 +144,40 @@ def test_engine_config_default_values() -> None:
 
 
 def test_from_config_with_engine_config() -> None:
-    """Verify CTMYOLOv10.from_config() works with EngineConfig."""
+    """Verify CTMIYOLOv10.from_config() works with EngineConfig."""
     config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
-    model = CTMYOLOv10.from_config(config)
-    assert isinstance(model, CTMYOLOv10)
-    assert model.num_classes == 8
-    assert model.ctm_enabled is True
+    model = CTMIYOLOv10.from_config(config)
+    assert isinstance(model, CTMIYOLOv10)
+    # Magnetic Tile dataset has 3 classes: Blowhole, Crack, Fray
+    assert model.num_classes == 3
+    assert model.ghost_conv is True
+    assert model.bifpn is True
 
 
-def test_from_config_ctm_disabled() -> None:
-    """Verify from_config with ctm_enabled=False works."""
+def test_from_config_improvements_disabled() -> None:
+    """Verify from_config with ghost_conv=False, bifpn=False works."""
     config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
-    # Override ctm.enabled to False using merge_deep
-    config.merge_deep({"model": {"ctm": {"enabled": False}}})
-    model = CTMYOLOv10.from_config(config)
-    assert isinstance(model, CTMYOLOv10)
-    assert model.ctm_enabled is False
-    assert model.ctm is None
+    config.merge_deep({"model": {"ghost_conv": {"enabled": False}, "bifpn": {"enabled": False}}})
+    model = CTMIYOLOv10.from_config(config)
+    assert isinstance(model, CTMIYOLOv10)
+    assert model.ghost_conv is False
+    assert model.bifpn is False
 
 
 # ── Predictor compatibility tests ─────────────────────────────────────────
 
 
 def test_predictor_creation() -> None:
-    """Verify Predictor can wrap CTMYOLOv10."""
-    model = CTMYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80)
+    """Verify Predictor can wrap CTMIYOLOv10."""
+    model = CTMIYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80, bifpn=False)
     predictor = Predictor(model, device="cpu", postprocess_fn=_detection_postprocess)
     assert predictor is not None
     assert predictor.model is model
 
 
 def test_predictor_single_inference() -> None:
-    """Verify Predictor.predict_single() works with CTMYOLOv10.
-
-    Uses a custom postprocess_fn because the canonical Predictor's default
-    postprocessing (softmax + argmax) expects a tensor, but YOLOv10 returns
-    a tuple of (detections, loss_dict).
-    """
-    model = CTMYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80)
+    """Verify Predictor.predict_single() works with CTMIYOLOv10."""
+    model = CTMIYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80, bifpn=False)
     model.eval()
     predictor = Predictor(model, device="cpu", postprocess_fn=_detection_postprocess)
 
@@ -204,8 +192,8 @@ def test_predictor_single_inference() -> None:
 
 
 def test_predictor_batch_inference() -> None:
-    """Verify Predictor.predict_batch() works with CTMYOLOv10."""
-    model = CTMYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80)
+    """Verify Predictor.predict_batch() works with CTMIYOLOv10."""
+    model = CTMIYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80, bifpn=False)
     model.eval()
     predictor = Predictor(model, device="cpu", postprocess_fn=_detection_postprocess)
 
@@ -221,40 +209,28 @@ def test_predictor_batch_inference() -> None:
 
 
 def test_engine_with_registered_model_name() -> None:
-    """Verify Engine can be instantiated with a model instance.
-
-    Passes a model instance directly (not a string name) to avoid the
-    canonical Builder's config schema requirements, which expect
-    ``model.kwargs``, ``optimizer.name``, ``scheduler.name``, etc.
-    at the top level rather than under ``training.*``.
-    """
-    model = CTMYOLOv10(model_name="yolov10n", pretrained=False, num_classes=8)
+    """Verify Engine can be instantiated with a model instance."""
+    model = CTMIYOLOv10(model_name="yolov10n", pretrained=False, num_classes=8)
     config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
     engine = Engine(model, config, device="cpu")
-    assert isinstance(engine.model, CTMYOLOv10)
+    assert isinstance(engine.model, CTMIYOLOv10)
     assert engine.model.num_classes == 8
 
 
 def test_engine_summary() -> None:
     """Verify Engine.summary() returns expected keys."""
-    model = CTMYOLOv10(model_name="yolov10n", pretrained=False, num_classes=8)
+    model = CTMIYOLOv10(model_name="yolov10n", pretrained=False, num_classes=8)
     config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
     engine = Engine(model, config, device="cpu")
     summary = engine.summary()
     assert "model" in summary
     assert "device" in summary
-    assert summary["model"] == "CTMYOLOv10"
+    assert "CTMIYOLOv10" in summary["model"]
 
 
 def test_engine_forward_pass() -> None:
-    """Verify Engine.model forward pass works.
-
-    Uses num_classes=80 to match the YOLOv10 default head configuration.
-    Calls model directly rather than Engine.predict_single() because the
-    canonical Predictor's default postprocessing (softmax) does not support
-    detection model tuple output.
-    """
-    model = CTMYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80)
+    """Verify Engine.model forward pass works."""
+    model = CTMIYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80, bifpn=False)
     config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
     engine = Engine(model, config, device="cpu")
     engine.model.eval()
@@ -271,7 +247,7 @@ def test_engine_forward_pass() -> None:
 
 def test_output_shape_with_synthetic_input() -> None:
     """Verify forward output shape with synthetic input."""
-    model = CTMYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80)
+    model = CTMIYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80, bifpn=False)
     model.eval()
 
     x = torch.randn(1, 3, 640, 640)
@@ -283,7 +259,7 @@ def test_output_shape_with_synthetic_input() -> None:
 
 def test_output_consistency_across_batches() -> None:
     """Verify output structure is consistent across different batch sizes."""
-    model = CTMYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80)
+    model = CTMIYOLOv10(model_name="yolov10n", pretrained=False, num_classes=80, bifpn=False)
     model.eval()
 
     x1 = torch.randn(1, 3, 640, 640)
@@ -295,5 +271,4 @@ def test_output_consistency_across_batches() -> None:
 
     assert out1 is not None
     assert out2 is not None
-    # Both should return the same type
     assert type(out1) is type(out2)

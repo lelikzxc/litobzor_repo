@@ -38,10 +38,10 @@ class ExperimentInfo:
     """
 
     model_name: str = "semiwafernet"
-    num_classes: int = 6
-    image_size: int = 512
-    backbone_channels: list[int] = field(default_factory=lambda: [64, 128, 256, 512])
-    transformer_embed_dim: int = 256
+    num_classes: int = 9
+    image_size: int = 32
+    backbone_channels: list[int] = field(default_factory=lambda: [64, 128])
+    transformer_embed_dim: int = 128
     transformer_layers: int = 4
     total_params: int = 0
     backbone_params: int = 0
@@ -111,10 +111,10 @@ def build_experiment_info(
     decoder_params = _count_module_params(model, "SegmentationDecoder")
 
     # Read attributes from model
-    backbone_channels = getattr(model, "backbone_channels", [64, 128, 256, 512])
-    embed_dim = getattr(model.transformer, "embed_dim", 256) if hasattr(model, "transformer") else 256
+    backbone_channels = getattr(model, "backbone_channels", [64, 128])
+    embed_dim = getattr(model.transformer, "embed_dim", 128) if hasattr(model, "transformer") else 128
     num_layers = len(getattr(model.transformer, "blocks", [])) if hasattr(model, "transformer") else 4
-    num_classes = getattr(model.classifier, "num_classes", 6) if hasattr(model, "classifier") else 6
+    num_classes = getattr(model.classifier, "num_classes", 9) if hasattr(model, "classifier") else 9
 
     # Build architecture summary
     parts: list[str] = [
@@ -128,7 +128,7 @@ def build_experiment_info(
     return ExperimentInfo(
         model_name="semiwafernet",
         num_classes=num_classes,
-        image_size=512,
+        image_size=32,
         backbone_channels=backbone_channels,
         transformer_embed_dim=embed_dim,
         transformer_layers=num_layers,

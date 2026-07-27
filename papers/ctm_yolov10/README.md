@@ -1,14 +1,15 @@
-# CTM-YOLOv10
+# CTM-IYOLOv10
 
-Reproduction of CTM-YOLOv10 for silicon wafer defect detection.
+Reproduction of CTM-IYOLOv10 for silicon wafer defect detection.
 
 Base architecture: YOLOv10 (Real-Time End-to-End Object Detection).
 
 Reference paper: *Wafer Defect Detection Technology Based on CTM-IYOLOv10 Network*
+(J. Imaging 2025, 11, 408)
 
 ## Status
 
-YOLOv10 baseline implemented. CTM integration complete.
+YOLOv10 baseline implemented. CTM-IYOLOv10 improvements (GhostConv, BiFPN, CTM preprocessing) complete.
 
 **Engine integration**: Fully compatible with `common.engine.Engine`, `common.engine.Builder`,
 `common.engine.EngineConfig`, and `common.inference.Predictor`.
@@ -19,24 +20,55 @@ The model uses the official Ultralytics YOLOv10 detection model as its backbone.
 The current implementation wraps `YOLOv10Baseline` as a `torch.nn.Module`:
 
 - Backbone: YOLOv10 (CSPDarknet + SPPF + PSA)
-- Neck: PAN-FPN with C2f and SCDown
+- Neck: PAN-FPN with C2f and SCDown (replaced by BiFPN when `bifpn=True`)
 - Head: v10Detect (one-to-many + one-to-one label assignment)
 
-### CTM Integration
+### CTM-IYOLOv10 Improvements
 
-The `CTM` (Context Transformer Module) is located in `modules/ctm.py`. It is
-inserted after PSA (layer 10) at [B, 256, 20, 20] resolution to enhance feature
-extraction for wafer defect detection. The CTM can be disabled via the
-`ctm_enabled` flag for ablation studies.
+Three improvements from the paper:
+
+1. **GhostConv** — lightweight convolution replacing standard Conv in early backbone stages (layers 1, 3).
+   Splits output channels: half via standard convolution, half via depthwise convolution (Figure 5).
+
+2. **BiFPN** — weighted bidirectional feature pyramid network replacing PAN-FPN in the neck.
+   Uses fast normalized fusion with learnable weights (Figure 6c, formulas 4-5).
+
+3. **CTM (Clustering–Template Matching)** — preprocessing module for wafer die segmentation.
+   Uses Normalized Cross-Correlation (NCC) + Affinity Propagation clustering to detect
+   and segment individual wafer dies before feeding to YOLOv10 (Section 2.1).
+
+All improvements can be disabled via `ghost_conv`, `bifpn`, and `ctm_enabled` flags for ablation studies.
 
 ## Configuration
 
 See `configs/config.yaml` for experiment hyperparameters. The config is fully
 compatible with `common.engine.EngineConfig`.
 
+```yaml
+model:
+  name: ctm_iyolov10
+  num_classes: 8
+  ghost_conv: true
+  bifpn: true
+  ctm_enabled: false  # CTM is preprocessing, applied before model forward
+
+ctm:
+  template_dir: "datasets/magnetic_tile/templates"
+  ncc_threshold: 0.7
+  preference: -50
+  damping: 0.5
+
+ghost_conv:
+  ratio: 2
+
+bifpn:
+  num_repeats: 2
+  epsilon: 0.0001
+```
+
 ## Engine Compatibility
 
-The CTM-YOLOv10 module is fully integrated with the common engine infrastructure.
+The CTM-IYOLOv10 module is fully integrated with the common engine infrastructure.
 
 ### Model Registration
 
@@ -47,13 +79,13 @@ is imported:
 from common.engine.registry import build_model
 
 # Instantiate by registered name — no manual imports needed
-model = build_model("ctm_yolov10", num_classes=8)
+model = build_model("ctm_iyolov10", num_classes=8)
 ```
 
 Registration happens in `papers/ctm_yolov10/__init__.py`:
 
 ```python
-register_model("ctm_yolov10", CTMYOLOv10)
+register_model("ctm_iyolov10", CTMIYOLOv10)
 register_model("yolov10_baseline", YOLOv10Baseline)
 ```
 
@@ -64,7 +96,7 @@ The config at `configs/config.yaml` exposes all fields required by
 
 ```yaml
 model:
-  name: ctm_yolov10
+  name: ctm_iyolov10
   num_classes: 8
 
 training:
@@ -83,14 +115,14 @@ dataset:
 
 ### Builder Compatibility
 
-`CTMYOLOv10.from_config()` works directly with `EngineConfig`:
+`CTMIYOLOv10.from_config()` works directly with `EngineConfig`:
 
 ```python
 from common.engine.config import EngineConfig
-from papers.ctm_yolov10.models.yolov10 import CTMYOLOv10
+from papers.ctm_yolov10.models.yolov10 import CTMIYOLOv10
 
 config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
-model = CTMYOLOv10.from_config(config)
+model = CTMIYOLOv10.from_config(config)
 ```
 
 ### Predictor Compatibility
@@ -114,14 +146,14 @@ Predictor passes these through as-is under the `"logits"` key.
 from common.engine import Engine, EngineConfig
 
 config = EngineConfig.from_yaml("papers/ctm_yolov10/configs/config.yaml")
-engine = Engine("ctm_yolov10", config, device="cpu")
+engine = Engine("ctm_iyolov10", config, device="cpu")
 engine.build_all()
 print(engine.summary())
 ```
 
 ## Dataset Integration
 
-CTM-YOLOv10 uses the canonical ``common.datasets`` infrastructure for data loading.
+CTM-IYOLOv10 uses the canonical ``common.datasets`` infrastructure for data loading.
 
 ### DetectionDataset
 
@@ -201,8 +233,8 @@ train_loader = dm.train_dataloader()
 
 ## Training Integration
 
-CTM-YOLOv10 is fully integrated with the canonical ``common.training.Trainer``.
-All 37 training integration tests pass.
+CTM-IYOLOv10 is fully integrated with the canonical ``common.training.Trainer``.
+All training integration tests pass.
 
 ### YOLO Forward Output Format
 
@@ -279,7 +311,7 @@ trainer.fit(loader, epochs=10)
 ```python
 from common.training import CheckpointManager
 
-ckpt = CheckpointManager(save_dir="runs/ctm_yolov10/checkpoints")
+ckpt = CheckpointManager(save_dir="runs/ctm_iyolov10/checkpoints")
 trainer = Trainer(model, optimizer, loss_fn, checkpoint_manager=ckpt)
 trainer.fit(loader, epochs=10)
 ```
@@ -346,8 +378,8 @@ Run the training integration tests:
 pytest papers/ctm_yolov10/tests/test_training_integration.py -v
 ```
 
-The test suite (37 tests) covers:
-- Trainer creation with ``YOLOv10Baseline`` and ``CTMYOLOv10``
+The test suite covers:
+- Trainer creation with ``YOLOv10Baseline`` and ``CTMIYOLOv10``
 - Optimizer, scheduler, loss factory compatibility
 - Detection batch handling via training collate adapter
 - Training step (forward, loss, backward, optimizer step)
@@ -367,7 +399,7 @@ The test suite (37 tests) covers:
 
 - `configs/` — YAML experiment configurations
 - `models/` — model architecture and weights
-- `modules/` — reusable building blocks (CTM, C2f, SCDown, etc.)
+- `modules/` — reusable building blocks (GhostConv, BiFPN, CTM, etc.)
 - `data_utils/` — dataset loaders and preprocessing (built on ``common.datasets``)
 - `utils/` — paper-specific utilities
 - `tests/` — unit and integration tests

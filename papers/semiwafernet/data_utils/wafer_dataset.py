@@ -2,9 +2,9 @@
 
 Loads wafer map images from the WM-811K dataset (labels.csv + PNG images)
 and returns multitask samples compatible with SemiWaferNet:
-    ``{"image": [3, H, W], "label": int, "mask": [H, W]}``
+    ``{"image": [1, H, W], "label": int, "mask": [H, W]}``
 
-SemiWaferNet operates on **RGB** (3-channel) images.
+SemiWaferNet operates on **grayscale** (1-channel) images per the paper.
 """
 
 from __future__ import annotations
@@ -41,14 +41,14 @@ class WaferWM811KDataset(BaseDataset):
 
     Args:
         data_root: Root directory containing ``labels.csv`` and ``images/``.
-        image_size: Target image size (assumed square, default 128).
+        image_size: Target image size (assumed square, default 32 for classification).
         num_classes: Number of classes (default 9 for WM-811K).
     """
 
     def __init__(
         self,
         data_root: str | Path,
-        image_size: int = 128,
+        image_size: int = 32,
         num_classes: int = 9,
     ) -> None:
         super().__init__(dataset_type=DatasetType.MULTITASK)
@@ -106,28 +106,28 @@ class WaferWM811KDataset(BaseDataset):
         filename, label = self._samples[index]
         image_path = self.images_dir / filename
 
-        # Load image as RGB (3 channels)
+        # Load image as grayscale (1 channel) — WM-811K is grayscale
         if image_path.exists():
-            image = Image.open(image_path).convert("RGB")
+            image = Image.open(image_path).convert("L")
         else:
             # Fallback: try with .png extension
             png_path = self.images_dir / f"{Path(filename).stem}.png"
             if png_path.exists():
-                image = Image.open(png_path).convert("RGB")
+                image = Image.open(png_path).convert("L")
             else:
                 raise FileNotFoundError(f"Image not found: {image_path} or {png_path}")
 
         # Resize to target size
         image = image.resize((self.image_size, self.image_size), Image.BILINEAR)
 
-        # Convert to tensor [3, H, W], normalize to [0, 1]
-        image = torch.from_numpy(np.array(image, dtype=np.float32).transpose(2, 0, 1)) / 255.0
+        # Convert to tensor [1, H, W], normalize to [0, 1]
+        image = torch.from_numpy(np.array(image, dtype=np.float32)).unsqueeze(0) / 255.0
 
         # Dummy mask (zeros) — WM-811K has no segmentation masks
         mask = torch.zeros(self.image_size, self.image_size, dtype=torch.long)
 
         return {
-            "image": image,      # [3, H, W]
+            "image": image,      # [1, H, W]
             "label": label,      # int
             "mask": mask,        # [H, W] dummy
         }

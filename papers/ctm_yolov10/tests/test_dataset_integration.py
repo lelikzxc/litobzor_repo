@@ -1,4 +1,4 @@
-"""Tests for CTM-YOLOv10 dataset integration with common.datasets.
+"""Tests for CTM-IYOLOv10 dataset integration with common.datasets.
 
 Verifies:
 - DetectionDataset creation (synthetic and from directories)

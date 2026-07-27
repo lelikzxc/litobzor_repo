@@ -1,4 +1,4 @@
-"""Detection dataset adapter for CTM-YOLOv10 built on common.datasets.
+"""Detection dataset adapter for CTM-IYOLOv10 built on common.datasets.
 
 Provides a ``DetectionDataset`` that extends ``common.datasets.BaseDataset``
 and returns synthetic / real detection samples compatible with the YOLOv10
@@ -17,7 +17,7 @@ from common.datasets import BaseDataset, DatasetType
 
 
 class DetectionDataset(BaseDataset):
-    """Detection dataset adapter for CTM-YOLOv10.
+    """Detection dataset adapter for CTM-IYOLOv10.
 
     Extends ``common.datasets.BaseDataset`` with a detection-specific
     interface. Each sample is a dict with ``"image"`` (``torch.Tensor``)

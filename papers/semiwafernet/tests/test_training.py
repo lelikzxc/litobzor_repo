@@ -26,7 +26,7 @@ CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "config.yaml"
 
 @pytest.fixture
 def student() -> SemiWaferNet:
-    return SemiWaferNet(num_classes=6)
+    return SemiWaferNet(mode="classification", num_classes=9)
 
 
 @pytest.fixture
@@ -117,18 +117,18 @@ class TestEMATeacher:
     def test_teacher_forward_shape(self, student: SemiWaferNet) -> None:
         """Teacher forward produces correct output shapes."""
         teacher = EMATeacher(student)
-        x = torch.randn(2, 3, 128, 128)
+        x = torch.randn(2, 1, 32, 32)
         output = teacher(x)
-        assert output["classification"].shape == (2, 6)
-        assert output["segmentation"].shape == (2, 6, 128, 128)
+        assert output["classification"].shape == (2, 9)
+        assert output["segmentation"].shape == (2, 1, 32, 32)
 
     def test_teacher_no_grad_forward(self, student: SemiWaferNet) -> None:
         """Teacher forward does not require gradients."""
         teacher = EMATeacher(student)
-        x = torch.randn(2, 3, 64, 64)
+        x = torch.randn(2, 1, 32, 32)
         with torch.no_grad():
             output = teacher(x)
-        assert output["classification"].shape == (2, 6)
+        assert output["classification"].shape == (2, 9)
 
     def test_multiple_updates(self, student: SemiWaferNet) -> None:
         """Multiple EMA updates converge teacher toward student."""
@@ -168,7 +168,7 @@ class TestPseudoLabelGenerator:
 
     def test_classification_output_shapes(self, pseudo_label_gen: PseudoLabelGenerator) -> None:
         """Classification pseudo-labels have correct shapes."""
-        logits = torch.randn(4, 6)
+        logits = torch.randn(4, 9)
         labels, mask = pseudo_label_gen.generate_classification(logits)
         assert labels.shape == (4,)
         assert mask.shape == (4,)
@@ -177,29 +177,29 @@ class TestPseudoLabelGenerator:
 
     def test_classification_high_confidence(self, pseudo_label_gen: PseudoLabelGenerator) -> None:
         """High-confidence predictions are kept."""
-        logits = torch.tensor([[10.0, 0.0, 0.0, 0.0, 0.0, 0.0]])  # very confident class 0
+        logits = torch.tensor([[10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])  # very confident class 0
         labels, mask = pseudo_label_gen.generate_classification(logits)
         assert labels[0] == 0
         assert mask[0] == True
 
     def test_classification_low_confidence(self, pseudo_label_gen: PseudoLabelGenerator) -> None:
         """Low-confidence predictions are masked out."""
-        logits = torch.tensor([[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]])  # uniform = low confidence
+        logits = torch.tensor([[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]])  # uniform = low confidence
         labels, mask = pseudo_label_gen.generate_classification(logits)
         assert mask[0] == False
 
     def test_classification_confidence_threshold(self) -> None:
         """Predictions above the threshold are kept."""
         gen = PseudoLabelGenerator(confidence_threshold=0.5)
-        # softmax([5, 0, 0, 0, 0, 0]) ≈ [0.993, 0.001, ...] — well above 0.5
-        logits = torch.tensor([[5.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
+        # softmax([5, 0, 0, ...]) ≈ [0.993, 0.001, ...] — well above 0.5
+        logits = torch.tensor([[5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
         labels, mask = gen.generate_classification(logits)
         assert mask[0] == True
         assert labels[0] == 0
 
     def test_segmentation_output_shapes(self, pseudo_label_gen: PseudoLabelGenerator) -> None:
         """Segmentation pseudo-labels have correct shapes."""
-        logits = torch.randn(2, 6, 16, 16)
+        logits = torch.randn(2, 1, 16, 16)
         labels, mask = pseudo_label_gen.generate_segmentation(logits)
         assert labels.shape == (2, 16, 16)
         assert mask.shape == (2, 16, 16)
@@ -208,7 +208,7 @@ class TestPseudoLabelGenerator:
 
     def test_segmentation_high_confidence(self, pseudo_label_gen: PseudoLabelGenerator) -> None:
         """High-confidence segmentation pixels are kept."""
-        logits = torch.randn(2, 6, 8, 8)
+        logits = torch.randn(2, 1, 8, 8)
         # Make one pixel very confident
         logits[0, :, 0, 0] = 0.0
         logits[0, 0, 0, 0] = 100.0
@@ -217,8 +217,8 @@ class TestPseudoLabelGenerator:
 
     def test_forward_dict(self, pseudo_label_gen: PseudoLabelGenerator) -> None:
         """Forward returns dict with both tasks."""
-        class_logits = torch.randn(4, 6)
-        seg_logits = torch.randn(4, 6, 16, 16)
+        class_logits = torch.randn(4, 9)
+        seg_logits = torch.randn(4, 1, 16, 16)
         result = pseudo_label_gen(class_logits, seg_logits)
         assert "classification" in result
         assert "segmentation" in result
@@ -230,7 +230,7 @@ class TestPseudoLabelGenerator:
     def test_custom_threshold(self) -> None:
         """Custom confidence threshold is respected."""
         gen = PseudoLabelGenerator(confidence_threshold=0.99)
-        logits = torch.tensor([[5.0, 1.0, 0.0, 0.0, 0.0, 0.0]])  # high but not 0.99
+        logits = torch.tensor([[5.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])  # high but not 0.99
         labels, mask = gen.generate_classification(logits)
         assert mask[0] == False  # below 0.99 threshold
 
@@ -248,28 +248,28 @@ class TestConsistencyLoss:
 
     def test_classification_loss_shape(self, consistency_loss: ConsistencyLoss) -> None:
         """Classification consistency loss returns a scalar."""
-        student_logits = torch.randn(4, 6)
-        teacher_logits = torch.randn(4, 6)
+        student_logits = torch.randn(4, 9)
+        teacher_logits = torch.randn(4, 9)
         loss = consistency_loss.classification_loss(student_logits, teacher_logits)
         assert loss.ndim == 0, "Loss should be a scalar tensor"
 
     def test_classification_loss_value(self, consistency_loss: ConsistencyLoss) -> None:
         """Identical student and teacher give zero loss."""
-        logits = torch.randn(4, 6)
+        logits = torch.randn(4, 9)
         loss = consistency_loss.classification_loss(logits, logits)
         assert loss.item() == 0.0
 
     def test_classification_loss_positive(self, consistency_loss: ConsistencyLoss) -> None:
         """Different student and teacher give positive loss."""
-        student = torch.randn(4, 6)
-        teacher = torch.randn(4, 6)
+        student = torch.randn(4, 9)
+        teacher = torch.randn(4, 9)
         loss = consistency_loss.classification_loss(student, teacher)
         assert loss.item() > 0.0
 
     def test_classification_loss_masked(self, consistency_loss: ConsistencyLoss) -> None:
         """Masked classification loss only considers selected samples."""
-        student = torch.randn(4, 6)
-        teacher = torch.randn(4, 6)
+        student = torch.randn(4, 9)
+        teacher = torch.randn(4, 9)
         mask = torch.tensor([True, False, True, False])
         loss_masked = consistency_loss.classification_loss(student, teacher, mask=mask)
         loss_full = consistency_loss.classification_loss(student, teacher)
@@ -278,29 +278,29 @@ class TestConsistencyLoss:
 
     def test_classification_loss_empty_mask(self, consistency_loss: ConsistencyLoss) -> None:
         """Empty mask returns zero loss."""
-        student = torch.randn(4, 6)
-        teacher = torch.randn(4, 6)
+        student = torch.randn(4, 9)
+        teacher = torch.randn(4, 9)
         mask = torch.tensor([False, False, False, False])
         loss = consistency_loss.classification_loss(student, teacher, mask=mask)
         assert loss.item() == 0.0
 
     def test_segmentation_loss_shape(self, consistency_loss: ConsistencyLoss) -> None:
         """Segmentation consistency loss returns a scalar."""
-        student = torch.randn(2, 6, 16, 16)
-        teacher = torch.randn(2, 6, 16, 16)
+        student = torch.randn(2, 1, 16, 16)
+        teacher = torch.randn(2, 1, 16, 16)
         loss = consistency_loss.segmentation_loss(student, teacher)
         assert loss.ndim == 0
 
     def test_segmentation_loss_identical(self, consistency_loss: ConsistencyLoss) -> None:
         """Identical segmentation logits give zero loss."""
-        logits = torch.randn(2, 6, 16, 16)
+        logits = torch.randn(2, 1, 16, 16)
         loss = consistency_loss.segmentation_loss(logits, logits)
         assert loss.item() == 0.0
 
     def test_segmentation_loss_masked(self, consistency_loss: ConsistencyLoss) -> None:
         """Masked segmentation loss only considers selected pixels."""
-        student = torch.randn(2, 6, 8, 8)
-        teacher = torch.randn(2, 6, 8, 8)
+        student = torch.randn(2, 1, 8, 8)
+        teacher = torch.randn(2, 1, 8, 8)
         mask = torch.zeros(2, 8, 8, dtype=torch.bool)
         mask[0, :, :] = True  # only first sample
         loss = consistency_loss.segmentation_loss(student, teacher, mask=mask)
@@ -309,12 +309,12 @@ class TestConsistencyLoss:
     def test_forward_dict(self, consistency_loss: ConsistencyLoss) -> None:
         """Forward returns dict with both task losses."""
         student_out = {
-            "classification": torch.randn(4, 6),
-            "segmentation": torch.randn(4, 6, 16, 16),
+            "classification": torch.randn(4, 9),
+            "segmentation": torch.randn(4, 1, 16, 16),
         }
         teacher_out = {
-            "classification": torch.randn(4, 6),
-            "segmentation": torch.randn(4, 6, 16, 16),
+            "classification": torch.randn(4, 9),
+            "segmentation": torch.randn(4, 1, 16, 16),
         }
         losses = consistency_loss(student_out, teacher_out)
         assert "classification" in losses
@@ -324,8 +324,8 @@ class TestConsistencyLoss:
 
     def test_teacher_detached(self, consistency_loss: ConsistencyLoss) -> None:
         """Teacher logits are detached from computation graph."""
-        student = torch.randn(4, 6, requires_grad=True)
-        teacher = torch.randn(4, 6, requires_grad=True)
+        student = torch.randn(4, 9, requires_grad=True)
+        teacher = torch.randn(4, 9, requires_grad=True)
         loss = consistency_loss.classification_loss(student, teacher)
         loss.backward()
         # Student should have grad, teacher should not (detached)
@@ -352,7 +352,7 @@ def test_config_semi_supervised_values() -> None:
     config = Config.from_yaml(CONFIG_PATH)
     assert config.get("semi_supervised.enabled") is False
     assert 0.0 < config.get("semi_supervised.ema_decay", 0.999) < 1.0
-    assert 0.0 < config.get("semi_supervised.confidence_threshold", 0.9) <= 1.0
+    assert 0.0 < config.get("semi_supervised.confidence_threshold", 0.94) <= 1.0
     assert config.get("semi_supervised.consistency_weight", 0.1) >= 0.0
 
 

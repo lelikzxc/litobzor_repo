@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Reproducible demo script for YOLOv10 baseline and CTM-YOLOv10.
+"""Reproducible demo script for YOLOv10 baseline and CTM-IYOLOv10.
 
 Creates both models, runs dummy forward passes, and prints a structured
-comparison including parameter counts, CTM insertion details, and output
+comparison including parameter counts, GhostConv/BiFPN details, and output
 shapes. Uses ``experiment.py`` for metadata formatting.
 
 Also demonstrates dataset integration with ``common.datasets``.
@@ -31,7 +31,7 @@ from common.datasets import (
     split_dataset,
 )
 from papers.ctm_yolov10.data_utils import DetectionDataset
-from papers.ctm_yolov10.models.yolov10 import CTMYOLOv10, YOLOv10Baseline
+from papers.ctm_yolov10.models.yolov10 import CTMIYOLOv10, YOLOv10Baseline
 from papers.ctm_yolov10.utils.experiment import (
     build_experiment_info,
     format_experiment_info,
@@ -39,9 +39,9 @@ from papers.ctm_yolov10.utils.experiment import (
 
 
 def main() -> None:
-    """Run YOLOv10 baseline and CTM-YOLOv10 comparison demo."""
+    """Run YOLOv10 baseline and CTM-IYOLOv10 comparison demo."""
     print("=" * 60)
-    print("  YOLOv10 Baseline  vs  CTM-YOLOv10  —  Reproducible Demo")
+    print("  YOLOv10 Baseline  vs  CTM-IYOLOv10  —  Reproducible Demo")
     print("=" * 60)
 
     # ── Configuration ──────────────────────────────────────────────────
@@ -51,11 +51,9 @@ def main() -> None:
     BATCH_SIZE = 1
     IMAGE_SIZE = 640
 
-    CTM_CONFIG = {
-        "dim": 256,
-        "num_heads": 4,
-        "mlp_ratio": 4.0,
-        "dropout": 0.1,
+    MODEL_CONFIG = {
+        "ghost_conv": True,
+        "bifpn": True,
     }
 
     # ── Create models ──────────────────────────────────────────────────
@@ -65,12 +63,11 @@ def main() -> None:
         pretrained=PRETRAINED,
         num_classes=NUM_CLASSES,
     )
-    ctm_model = CTMYOLOv10(
+    ctm_model = CTMIYOLOv10(
         model_name=MODEL_NAME,
         pretrained=PRETRAINED,
         num_classes=NUM_CLASSES,
-        ctm_enabled=True,
-        **CTM_CONFIG,
+        **MODEL_CONFIG,
     )
     baseline.eval()
     ctm_model.eval()
@@ -82,17 +79,16 @@ def main() -> None:
     print(f"\n[2] Baseline metadata:")
     print(format_experiment_info(baseline_info))
 
-    print(f"\n[3] CTM-YOLOv10 metadata:")
+    print(f"\n[3] CTM-IYOLOv10 metadata:")
     print(format_experiment_info(ctm_info))
 
     # ── Parameter comparison ───────────────────────────────────────────
     added_params = ctm_info.total_params - baseline_info.total_params
     print(f"\n[4] Parameter comparison:")
     print(f"    Baseline params:       {baseline_info.total_params:>10,}")
-    print(f"    CTM-YOLOv10 params:    {ctm_info.total_params:>10,}")
-    print(f"    CTM module params:     {ctm_info.ctm_params:>10,}")
-    print(f"    Added by CTM:          {added_params:>10,}")
-    print(f"    Relative increase:     {added_params / baseline_info.total_params * 100:>9.2f}%")
+    print(f"    CTM-IYOLOv10 params:   {ctm_info.total_params:>10,}")
+    print(f"    Added by improv.:      {added_params:>10,}")
+    print(f"    Relative change:       {added_params / baseline_info.total_params * 100:>9.2f}%")
 
     # ── Forward pass comparison ────────────────────────────────────────
     x = torch.randn(BATCH_SIZE, 3, IMAGE_SIZE, IMAGE_SIZE)
@@ -120,26 +116,19 @@ def main() -> None:
                     print(f"      [{i}]    {type(o).__name__}")
 
     describe_output(baseline_out, "YOLOv10Baseline")
-    describe_output(ctm_out, "CTMYOLOv10")
+    describe_output(ctm_out, "CTMIYOLOv10")
 
     # ── Architecture summary ───────────────────────────────────────────
-    print(f"\n[6] CTM insertion point:")
-    print(f"    YOLOv10n backbone layers: 0-10")
-    print(f"      [0-8]   Conv → C2f → SCDown (backbone)")
-    print(f"      [9]     SPPF (multi-scale pooling)")
-    print(f"      [10]    PSA (position-sensitive attention)")
-    print(f"    CTM inserted:             after PSA (layer 10), before neck (layer 11)")
-    print(f"    CTM input resolution:     [B, {CTM_CONFIG['dim']}, 20, 20] (P5 feature map)")
-    print(f"    CTM output resolution:    [B, {CTM_CONFIG['dim']}, 20, 20] (preserved)")
-    print(f"    CTM tokens:               400 (20 × 20)")
-    print(f"    CTM attention heads:      {CTM_CONFIG['num_heads']}")
-    print(f"    CTM head dimension:       {CTM_CONFIG['dim'] // CTM_CONFIG['num_heads']}")
+    print(f"\n[6] Improvements:")
+    print(f"    GhostConv: replaces Conv(k=3,s=2) in backbone stages 1-2")
+    print(f"    BiFPN:     replaces PAN-FPN in neck with weighted bidirectional fusion")
+    print(f"    CTM:       Clustering-Template Matching preprocessing (applied externally)")
 
     # ── Ablation note ──────────────────────────────────────────────────
     print(f"\n[7] Ablation support:")
-    print(f"    CTM can be disabled via ``ctm_enabled=False``")
-    print(f"    Disabled CTM → params match baseline exactly")
-    print(f"    Enables fair comparison of CTM contribution")
+    print(f"    GhostConv can be disabled via ``ghost_conv=False``")
+    print(f"    BiFPN can be disabled via ``bifpn=False``")
+    print(f"    Enables fair comparison of each improvement's contribution")
 
     # ── Dataset integration demo ──────────────────────────────────────
     print(f"\n[8] Dataset integration (common.datasets):")

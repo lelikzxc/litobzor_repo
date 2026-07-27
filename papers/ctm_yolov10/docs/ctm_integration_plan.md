@@ -1,132 +1,112 @@
-# CTM Integration Plan
+# CTM-IYOLOv10 Integration Plan
 
 ## Paper Reference
 
 *"Wafer Defect Detection Technology Based on CTM-IYOLOv10 Network"*
+(J. Imaging 2025, 11, 408)
 
-## What CTM Enhances
+## Three Improvements from the Paper
 
-The Context Transformer Module (CTM) enhances **spatial feature extraction**
-by combining:
+The paper introduces three key improvements over baseline YOLOv10:
 
-1. **Local context** — convolutional feature extraction at the current resolution
-2. **Global context** — self-attention across the spatial dimension to capture
-   long-range dependencies between wafer defect regions
+### 1. GhostConv — Lightweight Convolution (Section 2.2.1, Figure 5)
 
-Wafer defects can be small, sparse, and distributed across the wafer surface.
-Standard convolutions have limited receptive fields, making it hard to relate
-distant defect patterns. CTM addresses this by adding global attention.
+**What:** Replaces standard convolution in early backbone stages with GhostConv,
+which splits output channels into two halves:
+- **Y** — standard convolution (half the channels)
+- **Y'** — depthwise convolution (half the channels)
+- **Output** = concatenation of Y and Y'
+
+**Where:** Layers 1 and 3 of the backbone (first two CSPDarknet stages).
+
+**Why:** Reduces parameters and FLOPs while maintaining accuracy. The paper reports
+a 52.3% reduction in model weight.
+
+**Implementation:** `modules/ghost_conv.py` — `GhostConv` class.
+
+### 2. BiFPN — Bidirectional Feature Pyramid Network (Section 2.2.2, Figure 6c)
+
+**What:** Replaces PAN-FPN in the neck with a weighted bidirectional feature
+pyramid network using fast normalized fusion:
+
+```
+P6_out = Conv(w1 * P6_in + w2 * Resize(P5_out)) / (w1 + w2 + eps)
+P5_out = Conv(w1' * P5_in + w2' * P6_out + w3' * Resize(P4_out)) / (w1' + w2' + w3' + eps)
+P4_out = Conv(w1'' * P4_in + w2'' * P5_out) / (w1'' + w2'' + eps)
+```
+
+**Where:** Replaces layers 11-22 (PAN-FPN neck) in the YOLOv10 model.
+
+**Why:** Improves multi-scale feature fusion with learnable weights, enabling
+better detection of defects at different scales.
+
+**Implementation:** `modules/bifpn.py` — `BiFPN` and `BiFPNBlock` classes.
+
+### 3. CTM — Clustering–Template Matching (Section 2.1)
+
+**What:** Preprocessing module for wafer die segmentation that:
+1. Uses **Normalized Cross-Correlation (NCC)** via `cv2.matchTemplate` to locate
+   wafer dies in the input image
+2. Applies **Affinity Propagation (AP) clustering** to group detected die positions
+3. Returns bounding boxes for individual wafer dies
+
+**Where:** Applied as preprocessing before YOLOv10 detection (not inserted into
+the network itself).
+
+**Why:** Segregates individual wafer dies before defect detection, improving
+localization accuracy.
+
+**Implementation:** `modules/ctm.py` — `CTM` class (numpy/cv2-based preprocessing).
 
 ---
 
-## CTM Insertion Point Analysis
+## Architecture Comparison
 
-### Candidate Locations
+### Baseline YOLOv10:
+```
+Input → Backbone (CSPDarknet + SPPF + PSA) → PAN-FPN Neck → v10Detect Head → Output
+```
 
-| Location | Layer | Shape | Pros | Cons |
-|----------|-------|-------|------|------|
-| **A. After backbone stage 4 (P5)** | After layer 10 (PSA) | `[B,256,20,20]` | Highest semantic features; small spatial size (cheap attention) | Low resolution may miss small defects |
-| **B. After backbone stage 3 (P4)** | After layer 6 (C2f) | `[B,128,40,40]` | Good balance of semantics and resolution | Medium cost |
-| **C. Replace C2f blocks in neck** | Layers 13, 16, 19, 22 | Various | Directly affects all detection scales | High cost; multiple insertions |
-| **D. After SPPF (layer 9)** | Before PSA | `[B,256,20,20]` | Multi-scale context from SPPF feeds into CTM | PSA already provides attention |
+### CTM-IYOLOv10:
+```
+Input → [CTM Preprocessing] → Backbone (GhostConv in stages 1,3) → BiFPN Neck → v10Detect Head → Output
+```
 
-### Recommended: **Location A — After SPPF (layer 9), before PSA (layer 10)**
+### Layer Details
 
-**Reasoning:**
-
-1. **SPPF output** (`[B,256,20,20]`) contains multi-scale pooled features —
-   the ideal input for a context module that needs both local and global information.
-
-2. **20×20 spatial size** keeps the attention computation affordable
-   (400 tokens, 256 dim → ~100K params for attention).
-
-3. **Before PSA** — CTM can replace or augment PSA's role, providing
-   wafer-specific contextual attention that PSA (designed for natural images)
-   may not capture.
-
-4. **Single insertion point** — minimal changes to the backbone, easy to
-   ablate in experiments.
-
-### Alternative: **Location B — After backbone stage 3 (layer 6)**
-
-If wafer defects are predominantly small, CTM at 40×40 resolution
-(128 dim) provides better spatial detail at the cost of 4× more tokens.
+| Stage | Baseline YOLOv10 | CTM-IYOLOv10 |
+|-------|------------------|--------------|
+| Preprocessing | — | CTM (NCC + AP clustering) |
+| Backbone layer 1 | Conv | GhostConv |
+| Backbone layer 2 | C2f | C2f |
+| Backbone layer 3 | Conv | GhostConv |
+| Backbone layers 4-10 | C2f, SPPF, PSA | C2f, SPPF, PSA |
+| Neck layers 11-22 | PAN-FPN (C2f, Upsample, Concat, SCDown) | BiFPN (weighted bidirectional fusion) |
+| Head | v10Detect | v10Detect |
 
 ---
 
-## Proposed Architecture
+## Ablation Studies
 
-### Current YOLOv10 (layers 8–11):
+All improvements can be independently disabled via config flags:
 
-```
-layer_8:  C2f(256→256)     → [B, 256, 20, 20]
-layer_9:  SPPF(256→256)    → [B, 256, 20, 20]
-layer_10: PSA(256→256)     → [B, 256, 20, 20]
-layer_11: Upsample(256→128) → [B, 128, 40, 40]
-```
-
-### Proposed CTM-IYOLOv10:
-
-```
-layer_8:  C2f(256→256)     → [B, 256, 20, 20]
-layer_9:  SPPF(256→256)    → [B, 256, 20, 20]
-          │
-          ↓
-       [CTM]               → [B, 256, 20, 20]   ← NEW
-          │
-          ↓
-layer_10: PSA(256→256)     → [B, 256, 20, 20]
-layer_11: Upsample(256→128) → [B, 128, 40, 40]
-```
-
-CTM is inserted **between SPPF and PSA**, receiving multi-scale pooled
-features and passing context-enhanced features to PSA.
+| `ghost_conv` | `bifpn` | Description |
+|:---:|:---:|---|
+| false | false | Baseline YOLOv10 |
+| true | false | YOLOv10 + GhostConv only |
+| false | true | YOLOv10 + BiFPN only |
+| true | true | Full CTM-IYOLOv10 |
 
 ---
 
-## CTM Module Interface
+## Implementation Files
 
-```python
-class CTM(nn.Module):
-    """Context Transformer Module.
-
-    Args:
-        dim: Input/output channel dimension.
-        num_heads: Number of attention heads.
-        mlp_ratio: MLP hidden dimension ratio.
-        dropout: Dropout rate.
-    """
-
-    def forward(self, x: Tensor) -> Tensor:
-        """Forward pass.
-
-        Args:
-            x: Input tensor [B, C, H, W].
-
-        Returns:
-            Context-enhanced tensor [B, C, H, W].
-        """
-```
-
----
-
-## Implementation Strategy
-
-1. **Subclass `YOLOv10Baseline`** → `CTMYOLOv10`
-2. **Override model construction** to insert CTM after SPPF
-3. **CTM implementation** (next stage):
-   - Conv → LayerNorm → Multi-head Self-Attention → MLP → residual
-   - Preserves spatial dimensions: `[B, C, H, W]` → `[B, C, H, W]`
-4. **Config-driven** — CTM parameters from `configs/config.yaml`
-
----
-
-## Files to Modify (Next Stage)
-
-| File | Change |
-|------|--------|
-| `modules/ctm.py` | Implement real CTM |
-| `models/yolov10.py` | Add `CTMYOLOv10` class |
-| `models/__init__.py` | Export `CTMYOLOv10` |
-| `configs/config.yaml` | Add CTM hyperparameters |
-| `tests/test_yolov10.py` | Add CTM tests |
+| File | Description |
+|------|-------------|
+| `modules/ghost_conv.py` | GhostConv module (lightweight convolution) |
+| `modules/bifpn.py` | BiFPN module (weighted bidirectional feature pyramid) |
+| `modules/ctm.py` | CTM preprocessing (NCC + Affinity Propagation clustering) |
+| `models/yolov10.py` | `CTMIYOLOv10` and `YOLOv10Baseline` classes |
+| `models/__init__.py` | Export `CTMIYOLOv10`, `YOLOv10Baseline` |
+| `configs/config.yaml` | Hyperparameters for all improvements |
+| `tests/test_ctm.py` | Unit tests for GhostConv, BiFPN, CTM, CTMIYOLOv10 |

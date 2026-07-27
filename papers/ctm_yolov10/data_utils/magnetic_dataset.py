@@ -1,4 +1,4 @@
-"""Magnetic tile defect detection dataset for CTM-YOLOv10.
+"""Magnetic tile defect detection dataset for CTM-IYOLOv10.
 
 Loads images and YOLO-format labels from the magnetic_tile dataset
 (pre-split into train/valid/test by Roboflow).
@@ -37,11 +37,13 @@ class MagneticTileDataset(BaseDataset):
         split: str = "train",
         image_size: int = 640,
         transform: callable | None = None,
+        augment: bool = False,
     ) -> None:
         super().__init__(dataset_type=DatasetType.CLASSIFICATION, transform=transform)
         self.data_root = Path(data_root)
         self.split = split
         self.image_size = image_size
+        self.augment = augment and split == "train"
 
         self.image_dir = self.data_root / split / "images"
         self.label_dir = self.data_root / split / "labels"
@@ -53,6 +55,33 @@ class MagneticTileDataset(BaseDataset):
             p for p in self.image_dir.iterdir()
             if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".bmp", ".tiff"}
         )
+
+        # Build augmentation pipeline for training
+        if self.augment:
+            try:
+                import albumentations as A
+                self._aug = A.Compose([
+                    A.HorizontalFlip(p=0.5),
+                    A.VerticalFlip(p=0.1),
+                    A.RandomBrightnessContrast(p=0.5),
+                    A.HueSaturationValue(p=0.3),
+                    A.Blur(blur_limit=3, p=0.2),
+                    A.Affine(
+                        scale=(0.8, 1.2),
+                        translate_percent=(-0.1, 0.1),
+                        rotate=(-15, 15),
+                        p=0.5,
+                    ),
+                ], bbox_params=A.BboxParams(
+                    format="yolo",
+                    min_visibility=0.3,
+                    label_fields=["class_labels"],
+                ))
+            except ImportError:
+                print("  Warning: albumentations not installed, skipping augmentation")
+                self._aug = None
+        else:
+            self._aug = None
 
     def __len__(self) -> int:
         return len(self._image_paths)

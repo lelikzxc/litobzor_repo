@@ -45,9 +45,9 @@ def test_list_registered_includes_segformer() -> None:
 
 def test_build_model_by_name() -> None:
     """Verify build_model('segformer_atrous') returns a SegFormer instance."""
-    model = build_model("segformer_atrous", in_channels=3, variant="B0", num_classes=8)
+    model = build_model("segformer_atrous", in_channels=3, variant="B0", num_classes=7)
     assert isinstance(model, SegFormer)
-    assert model.num_classes == 8
+    assert model.num_classes == 7
     assert model.variant == "B0"
 
 
@@ -56,16 +56,14 @@ def test_build_model_custom_params() -> None:
     model = build_model(
         "segformer_atrous",
         in_channels=3,
-        variant="B2",
+        variant="B1",
         num_classes=10,
         decoder_dim=128,
-        atrous_enabled=False,
     )
     assert isinstance(model, SegFormer)
-    assert model.variant == "B2"
+    assert model.variant == "B1"
     assert model.num_classes == 10
     assert model.decoder_dim == 128
-    assert model.atrous_enabled is False
 
 
 def test_build_model_unregistered_raises() -> None:
@@ -82,17 +80,15 @@ def test_engine_config_from_yaml() -> None:
     config = EngineConfig.from_yaml("papers/transformer_segmentation/configs/config.yaml")
     assert config is not None
     assert config.get("model.name") == "segformer_atrous"
-    assert config.get("model.num_classes") == 8
+    assert config.get("model.num_classes") == 7
 
 
 def test_engine_config_dot_access() -> None:
     """Verify dot-separated key access works."""
     config = EngineConfig.from_yaml("papers/transformer_segmentation/configs/config.yaml")
-    assert config.get("model.backbone.variant") == "B0"
-    assert config.get("model.backbone.qkv_bias") is False
+    assert config.get("model.encoder.variant") == "B0"
+    assert config.get("model.encoder.qkv_bias") is False
     assert config.get("model.decoder.decoder_dim") == 256
-    assert config.get("model.atrous.enabled") is True
-    assert config.get("model.atrous.rates") == [1, 6, 12, 18]
     assert config.get("model.input.image_size") == 512
     assert config.get("model.input.channels") == 3
 
@@ -103,28 +99,28 @@ def test_engine_config_engine_fields() -> None:
 
     # model section
     assert config.get("model.name") == "segformer_atrous"
-    assert config.get("model.num_classes") == 8
+    assert config.get("model.num_classes") == 7
 
-    # training.optimizer as dict
-    opt = config.get("training.optimizer")
+    # top-level optimizer (as expected by EngineConfig)
+    opt = config.get("optimizer")
     assert isinstance(opt, dict)
     assert opt.get("name") == "adamw"
     assert opt.get("lr") == 0.00006
 
-    # training.scheduler as dict
-    sched = config.get("training.scheduler")
+    # top-level scheduler
+    sched = config.get("scheduler")
     assert isinstance(sched, dict)
-    assert sched.get("name") == "poly"
+    assert sched.get("name") == "cosine"
 
-    # training.loss as dict
-    loss = config.get("training.loss")
+    # top-level loss
+    loss = config.get("loss")
     assert isinstance(loss, dict)
-    assert loss.get("name") == "cross_entropy"
+    assert loss.get("name") == "focal"
 
     # dataset section
     ds = config.get("dataset")
     assert isinstance(ds, dict)
-    assert ds.get("name") == "wafer_defects"
+    assert ds.get("name") == "wm811k_seg"
 
 
 def test_engine_config_default_values() -> None:
@@ -142,23 +138,10 @@ def test_from_config_with_engine_config() -> None:
     config = EngineConfig.from_yaml("papers/transformer_segmentation/configs/config.yaml")
     model = SegFormer.from_config(config)
     assert isinstance(model, SegFormer)
-    assert model.num_classes == 8
+    assert model.num_classes == 7
     assert model.variant == "B0"
     assert model.embed_dims == [32, 64, 160, 256]
-    assert model.depths == [2, 2, 2, 2]
     assert model.decoder_dim == 256
-    assert model.atrous_enabled is True
-
-
-def test_from_config_atrous_disabled() -> None:
-    """Verify from_config with atrous_enabled=False works."""
-    config = EngineConfig.from_yaml("papers/transformer_segmentation/configs/config.yaml")
-    # Override atrous.enabled to False using merge_deep
-    config.merge_deep({"model": {"atrous": {"enabled": False}}})
-    model = SegFormer.from_config(config)
-    assert isinstance(model, SegFormer)
-    assert model.atrous_enabled is False
-    assert isinstance(model.atrous, torch.nn.Identity)
 
 
 # ── Predictor compatibility tests ─────────────────────────────────────────
@@ -166,7 +149,7 @@ def test_from_config_atrous_disabled() -> None:
 
 def test_predictor_creation() -> None:
     """Verify Predictor can wrap SegFormer."""
-    model = SegFormer(num_classes=8)
+    model = SegFormer(num_classes=7)
     predictor = Predictor(model, device="cpu")
     assert predictor is not None
     assert predictor.model is model
@@ -179,7 +162,7 @@ def test_predictor_single_inference() -> None:
     which is compatible with the canonical Predictor's default postprocessing
     (softmax + argmax).
     """
-    model = SegFormer(num_classes=8)
+    model = SegFormer(num_classes=7)
     model.eval()
     predictor = Predictor(model, device="cpu")
 
@@ -191,14 +174,14 @@ def test_predictor_single_inference() -> None:
     assert "logits" in result
     assert "probs" in result
     assert "prediction" in result
-    assert result["logits"].shape == (1, 8, 64, 64)
-    assert result["probs"].shape == (1, 8, 64, 64)
+    assert result["logits"].shape == (1, 7, 64, 64)
+    assert result["probs"].shape == (1, 7, 64, 64)
     assert result["prediction"].shape == (1, 64, 64)
 
 
 def test_predictor_batch_inference() -> None:
     """Verify Predictor.predict_batch() works with SegFormer."""
-    model = SegFormer(num_classes=8)
+    model = SegFormer(num_classes=7)
     model.eval()
     predictor = Predictor(model, device="cpu")
 
@@ -210,8 +193,8 @@ def test_predictor_batch_inference() -> None:
     assert "logits" in result
     assert "probs" in result
     assert "prediction" in result
-    assert result["logits"].shape == (2, 8, 64, 64)
-    assert result["probs"].shape == (2, 8, 64, 64)
+    assert result["logits"].shape == (2, 7, 64, 64)
+    assert result["probs"].shape == (2, 7, 64, 64)
     assert result["prediction"].shape == (2, 64, 64)
 
 
@@ -220,16 +203,16 @@ def test_predictor_batch_inference() -> None:
 
 def test_engine_with_model_instance() -> None:
     """Verify Engine can be instantiated with a SegFormer model instance."""
-    model = SegFormer(num_classes=8)
+    model = SegFormer(num_classes=7)
     config = EngineConfig.from_yaml("papers/transformer_segmentation/configs/config.yaml")
     engine = Engine(model, config, device="cpu")
     assert isinstance(engine.model, SegFormer)
-    assert engine.model.num_classes == 8
+    assert engine.model.num_classes == 7
 
 
 def test_engine_summary() -> None:
     """Verify Engine.summary() returns expected keys."""
-    model = SegFormer(num_classes=8)
+    model = SegFormer(num_classes=7)
     config = EngineConfig.from_yaml("papers/transformer_segmentation/configs/config.yaml")
     engine = Engine(model, config, device="cpu")
     summary = engine.summary()
@@ -240,7 +223,7 @@ def test_engine_summary() -> None:
 
 def test_engine_predict_single() -> None:
     """Verify Engine.predict_single() works with SegFormer."""
-    model = SegFormer(num_classes=8)
+    model = SegFormer(num_classes=7)
     model.eval()
     config = EngineConfig.from_yaml("papers/transformer_segmentation/configs/config.yaml")
     engine = Engine(model, config, device="cpu")
@@ -253,8 +236,8 @@ def test_engine_predict_single() -> None:
     assert "logits" in result
     assert "probs" in result
     assert "prediction" in result
-    assert result["logits"].shape == (1, 8, 64, 64)
-    assert result["probs"].shape == (1, 8, 64, 64)
+    assert result["logits"].shape == (1, 7, 64, 64)
+    assert result["probs"].shape == (1, 7, 64, 64)
 
 
 # ── Output shape tests ────────────────────────────────────────────────────
@@ -262,19 +245,19 @@ def test_engine_predict_single() -> None:
 
 def test_output_shape_with_synthetic_input() -> None:
     """Verify forward output shape with synthetic input."""
-    model = SegFormer(num_classes=8)
+    model = SegFormer(num_classes=7)
     model.eval()
 
     x = torch.randn(1, 3, 64, 64)  # smaller size for speed
     with torch.no_grad():
         output = model(x)
 
-    assert output.shape == (1, 8, 64, 64)
+    assert output.shape == (1, 7, 64, 64)
 
 
 def test_output_consistency_across_batches() -> None:
     """Verify output shape is consistent across different batch sizes."""
-    model = SegFormer(num_classes=8)
+    model = SegFormer(num_classes=7)
     model.eval()
 
     x1 = torch.randn(1, 3, 64, 64)
@@ -284,13 +267,13 @@ def test_output_consistency_across_batches() -> None:
         out1 = model(x1)
         out2 = model(x2)
 
-    assert out1.shape == (1, 8, 64, 64)
-    assert out2.shape == (4, 8, 64, 64)
+    assert out1.shape == (1, 7, 64, 64)
+    assert out2.shape == (4, 7, 64, 64)
 
 
 def test_output_is_logits_not_probs() -> None:
     """Verify forward output is raw logits (not softmax-applied)."""
-    model = SegFormer(num_classes=8)
+    model = SegFormer(num_classes=7)
     model.eval()
 
     x = torch.randn(2, 3, 64, 64)
@@ -298,7 +281,7 @@ def test_output_is_logits_not_probs() -> None:
         output = model(x)
 
     # Logits can be any value, not bounded to [0, 1]
-    assert output.shape == (2, 8, 64, 64)
+    assert output.shape == (2, 7, 64, 64)
     # At least some values should be outside [0, 1] (raw logits)
     assert (output > 1.0).any() or (output < 0.0).any(), (
         "Output should be raw logits, not probabilities"

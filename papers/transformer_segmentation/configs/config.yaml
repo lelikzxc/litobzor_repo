@@ -1,43 +1,38 @@
 # SegFormer + Atrous experiment configuration for WM-811K segmentation
-# Binary segmentation: 0 = background, 1 = defect
+# 7-class segmentation: AA, LF, QR, AP, CA, IC, background
 # Compatible with both SegFormer.from_config() and common.engine.EngineConfig.
 
 model:
   name: segformer_atrous
-  num_classes: 2
+  num_classes: 7
   task: segmentation
 
-  backbone:
-    name: mix_transformer  # MiT-B0 / MiT-B1 / MiT-B2 / MiT-B3 / MiT-B4 / MiT-B5
-    variant: B0            # B0 (smallest) through B5 (largest)
+  encoder:
+    name: hybrid_encoder     # Hybrid conv + transformer encoder
+    variant: B0              # B0 (smallest) or B1
     qkv_bias: false
     qk_scale: null
 
   decoder:
-    name: mlp_decoder      # lightweight all-MLP decoder
-    decoder_dim: 256       # common projection dimension
+    name: mlp_decoder        # lightweight all-MLP decoder with Post-fusion Block
+    decoder_dim: 256         # common projection dimension
     dropout: 0.0
 
-  atrous:
-    enabled: true
-    rates: [1, 6, 12, 18]  # dilation rates for atrous conv
-    reduction: 4            # channel reduction ratio
-
   input:
-    image_size: 128
+    image_size: 512
     channels: 3
 
 data:
   dataset: wm811k_seg
   data_root: datasets/wm811k_seg
-  image_size: 128
-  num_classes: 2
+  image_size: 512
+  num_classes: 7
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
 
 training:
-  batch_size: 16
+  batch_size: 10
   num_epochs: 100
   learning_rate: 0.00006
   weight_decay: 0.01
@@ -58,7 +53,7 @@ scheduler:
 
 # Engine-compatible loss config (top-level, as expected by Builder)
 loss:
-  name: cross_entropy
+  name: focal
 
 # Engine-compatible metrics list (top-level, as expected by Builder)
 metrics:
@@ -68,7 +63,7 @@ metrics:
   - f1
 
 evaluation:
-  batch_size: 16
+  batch_size: 10
   metrics:
     - iou
     - dice
@@ -88,5 +83,5 @@ checkpoint:
 # Engine-compatible dataset section
 dataset:
   name: wm811k_seg
-  image_size: 128
-  num_classes: 2
+  image_size: 512
+  num_classes: 7

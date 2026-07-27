@@ -1,7 +1,10 @@
 """SemiWaferNet: Hybrid CNN–Transformer model for wafer defect analysis.
 
-Combines a CNN backbone, transformer encoder, feature fusion,
-classification head, and segmentation decoder into a single model.
+Supports two modes:
+    1. Classification (HybridCNN-ViT): CNN backbone → Transformer → fusion → head
+    2. Segmentation (ConvoFormer-UNet): ConvEmbed → ConvoFormer → decoder
+
+Architecture matches the SemiWaferNet paper (Electronics 2026, 15, 1437).
 """
 
 from __future__ import annotations
@@ -24,79 +27,137 @@ class SemiWaferNet(nn.Module):
     Forward returns a dictionary:
         {
             "classification": [B, num_classes] logits,
-            "segmentation":   [B, num_classes, H, W] logits,
+            "segmentation":   [B, 1, H, W] logits,
         }
+
+    Args:
+        in_channels: Number of input image channels (1 for WM-811K).
+        backbone_channels: Channel dimensions for CNN stages.
+        embed_dim: Transformer embedding dimension.
+        num_heads: Number of attention heads.
+        num_layers: Number of transformer encoder layers.
+        mlp_ratio: MLP hidden dimension ratio.
+        dropout: Dropout rate.
+        fusion_dim: Feature fusion dimension.
+        num_classes: Number of classification classes (9 for WM-811K).
+        seg_classes: Number of segmentation classes (1 for binary).
+        norm: Normalization type ("bn" or "ln").
+        activation: Activation type ("relu" or "gelu").
+        mode: "classification" (HybridCNN-ViT) or "segmentation" (ConvoFormer-UNet).
     """
 
     def __init__(
         self,
-        in_channels: int = 3,
+        in_channels: int = 1,
         backbone_channels: list[int] | None = None,
-        backbone_depths: list[int] | None = None,
-        embed_dim: int = 256,
+        embed_dim: int = 128,
         num_heads: int = 8,
         num_layers: int = 4,
-        mlp_ratio: int = 4,
-        dropout: float = 0.1,
-        fusion_dim: int = 256,
-        num_classes: int = 6,
+        mlp_ratio: int = 2,
+        dropout: float = 0.2,
+        fusion_dim: int = 128,
+        num_classes: int = 9,
+        seg_classes: int = 1,
         norm: str = "bn",
         activation: str = "relu",
+        mode: str = "classification",
     ) -> None:
         super().__init__()
+        self.mode = mode
 
         if backbone_channels is None:
-            backbone_channels = [64, 128, 256, 512]
-        if backbone_depths is None:
-            backbone_depths = [2, 2, 6, 2]
+            backbone_channels = [64, 128]
 
-        self.backbone = CNNBackbone(
-            in_channels=in_channels,
-            channels=backbone_channels,
-            depths=backbone_depths,
-            norm=norm,
-            activation=activation,
-        )
+        # CNN backbone (HybridCNN-ViT only)
+        if mode == "classification":
+            self.backbone = CNNBackbone(
+                in_channels=in_channels,
+                channels=backbone_channels,
+                norm=norm,
+                activation=activation,
+            )
 
+            # Transformer takes CNN stage 2 features (128ch → 8×8 at 32×32 input)
+            transformer_in_channels = backbone_channels[-1]  # 128
+        else:
+            self.backbone = nn.Identity()
+            # For segmentation, ConvEmbed takes raw input (1ch)
+            transformer_in_channels = in_channels  # 1
+
+        # Transformer encoder
+        # Classification: PatchProjection + standard blocks
+        # Segmentation: ConvEmbed + ConvoFormer blocks
         self.transformer = TransformerEncoder(
-            in_channels=backbone_channels[-1],  # Stage 4 output channels
+            in_channels=transformer_in_channels,
             embed_dim=embed_dim,
             num_heads=num_heads,
             num_layers=num_layers,
             mlp_ratio=mlp_ratio,
             dropout=dropout,
+            use_conv_embed=(mode == "segmentation"),
         )
 
-        self.fusion = FeatureFusion(
-            cnn_channels=backbone_channels,
-            transformer_dim=embed_dim,
-            fusion_dim=fusion_dim,
-            num_classes=num_classes,
-        )
+        # Feature fusion (classification only)
+        if mode == "classification":
+            self.fusion = FeatureFusion(
+                cnn_channels=backbone_channels,
+                transformer_dim=embed_dim,
+                fusion_dim=fusion_dim,
+                num_classes=num_classes,
+            )
 
-        self.classifier = ClassifierHead(
-            in_channels=fusion_dim,
-            num_classes=num_classes,
-        )
+            self.classifier = ClassifierHead(
+                in_channels=fusion_dim,
+                num_classes=num_classes,
+            )
 
-        self.decoder = SegmentationDecoder(
-            in_channels=fusion_dim,
-            num_classes=num_classes,
-        )
+            # Segmentation head for classification mode (dummy)
+            self.decoder = nn.Identity()
+        else:
+            # Segmentation mode: no fusion, direct decoder
+            self.fusion = nn.Identity()
+            self.classifier = nn.Identity()
+
+            self.decoder = SegmentationDecoder(
+                in_channels=embed_dim,
+                num_classes=seg_classes,
+            )
 
     def forward(self, x: torch.Tensor) -> dict[str, torch.Tensor]:
-        # CNN backbone: multi-scale features
-        cnn_features = self.backbone(x)  # list of 4 tensors
+        """Forward pass.
 
-        # Transformer: global context from stage 4 features
-        transformer_tokens, transformer_spatial = self.transformer(cnn_features[-1])
+        Args:
+            x: Input tensor [B, C, H, W].
 
-        # Feature fusion
-        class_features, seg_features = self.fusion(cnn_features, transformer_tokens, transformer_spatial)
+        Returns:
+            Dictionary with "classification" and "segmentation" logits.
+        """
+        if self.mode == "classification":
+            # CNN backbone: multi-scale features
+            cnn_features = self.backbone(x)  # list of 2 tensors
 
-        # Task heads
-        class_logits = self.classifier(class_features)
-        seg_logits = self.decoder(seg_features)
+            # Transformer: global context from stage 2 features
+            transformer_tokens, transformer_spatial = self.transformer(cnn_features[-1])
+
+            # Feature fusion
+            class_features, seg_features = self.fusion(cnn_features, transformer_tokens, transformer_spatial)
+
+            # Task heads
+            class_logits = self.classifier(class_features)
+            seg_logits = torch.zeros(x.shape[0], 1, x.shape[2], x.shape[3], device=x.device)
+
+        else:  # segmentation
+            # ConvEmbed + ConvoFormer
+            transformer_tokens, transformer_spatial = self.transformer(x)
+
+            # Reshape tokens to spatial feature map for decoder
+            H, W = transformer_spatial
+            B, N, D = transformer_tokens.shape
+            seg_features = transformer_tokens.transpose(1, 2).reshape(B, D, H, W)
+
+            # Decoder
+            seg_logits = self.decoder(seg_features)
+            class_logits = torch.zeros(x.shape[0], 1, device=x.device)
 
         return {
             "classification": class_logits,
@@ -121,16 +182,20 @@ class SemiWaferNet(nn.Module):
         model_cfg = config.get("model", {})
 
         return cls(
-            in_channels=input_cfg.get("in_channels", 3),
-            backbone_channels=backbone_cfg.get("channels", [64, 128, 256, 512]),
-            backbone_depths=backbone_cfg.get("depths", [2, 2, 6, 2]),
-            embed_dim=transformer_cfg.get("embed_dim", 256),
+            in_channels=input_cfg.get("in_channels", 1),
+            backbone_channels=backbone_cfg.get("channels", [64, 128]),
+            embed_dim=transformer_cfg.get("embed_dim", 128),
             num_heads=transformer_cfg.get("num_heads", 8),
             num_layers=transformer_cfg.get("num_layers", 4),
-            mlp_ratio=transformer_cfg.get("mlp_ratio", 4),
-            dropout=transformer_cfg.get("dropout", 0.1),
-            fusion_dim=decoder_cfg.get("embed_dim", 256),
-            num_classes=model_cfg.get("num_classes", 6),
+            mlp_ratio=transformer_cfg.get("mlp_ratio", 2),
+            dropout=transformer_cfg.get("dropout", 0.2),
+            fusion_dim=decoder_cfg.get("embed_dim", 128),
+            num_classes=model_cfg.get("num_classes", 9),
+            seg_classes=model_cfg.get("seg_classes", 1),
             norm=backbone_cfg.get("norm", "bn"),
             activation=backbone_cfg.get("activation", "relu"),
+            mode=model_cfg.get("mode", "classification"),
         )
+
+
+__all__ = ["SemiWaferNet"]

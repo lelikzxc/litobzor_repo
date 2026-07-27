@@ -1,4 +1,4 @@
-"""Runtime utilities for training CTM-YOLOv10 with the canonical common Trainer.
+"""Runtime utilities for training CTM-IYOLOv10 with the canonical common Trainer.
 
 Provides:
 - ``YOLOLoss`` — Adapter wrapping Ultralytics ``v8DetectionLoss`` for YOLO's
@@ -68,7 +68,7 @@ class YOLOLoss(nn.Module):
 
         from ultralytics.utils.loss import v8DetectionLoss
 
-        # Get the DetectionModel inside YOLOv10Baseline/CTMYOLOv10
+        # Get the DetectionModel inside YOLOv10Baseline/CTMIYOLOv10
         detection_model = getattr(self.model, "model", self.model)
         detect_head = detection_model.model[-1]
 

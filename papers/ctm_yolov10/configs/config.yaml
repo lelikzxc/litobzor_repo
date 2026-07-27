@@ -1,7 +1,8 @@
-# CTM-YOLOv10 experiment configuration for Magnetic Tile dataset
+# CTM-IYOLOv10 experiment configuration for Magnetic Tile dataset
+# Based on: "Wafer Defect Detection Technology Based on CTM-IYOLOv10 Network"
 
 model:
-  name: ctm_yolov10
+  name: ctm_iyolov10
   task: detection
   num_classes: 3                  # Magnetic tile: Blowhole, Crack, Fray
 
@@ -9,12 +10,23 @@ model:
     name: yolov10n
     pretrained: true
 
+  # GhostConv: lightweight convolution replacing Conv in backbone stages 1-2
+  ghost_conv:
+    enabled: true
+
+  # BiFPN: weighted bidirectional feature pyramid replacing PAN-FPN in neck
+  bifpn:
+    enabled: true
+    channels: 256
+    num_levels: 3
+    num_repeats: 2
+
+  # CTM (Clustering-Template Matching): preprocessing for die segmentation
+  # Applied externally before model inference (not a network layer)
   ctm:
     enabled: true
-    embed_dim: 256
-    num_heads: 4
-    mlp_ratio: 4.0
-    dropout: 0.1
+    threshold: 0.7
+    damping: 0.5
 
   input:
     image_size: 640
@@ -56,4 +68,4 @@ evaluation:
 data:
   data_root: datasets/magnetic_tile
   image_size: 640
-  num_classes: 1
+  num_classes: 3

@@ -33,25 +33,25 @@ CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "config.yaml"
 
 @pytest.fixture(scope="module")
 def model() -> SemiWaferNet:
-    """Default SemiWaferNet model for testing."""
+    """Default SemiWaferNet model for testing (classification mode)."""
     return SemiWaferNet(
-        in_channels=3,
-        backbone_channels=[64, 128, 256, 512],
-        backbone_depths=[2, 2, 6, 2],
-        embed_dim=256,
+        mode="classification",
+        in_channels=1,
+        backbone_channels=[64, 128],
+        embed_dim=128,
         num_heads=8,
         num_layers=4,
-        mlp_ratio=4,
+        mlp_ratio=2,
         dropout=0.1,
-        fusion_dim=256,
-        num_classes=6,
+        fusion_dim=128,
+        num_classes=9,
     )
 
 
 @pytest.fixture
 def small_input() -> torch.Tensor:
-    """Small input tensor for fast tests."""
-    return torch.randn(2, 3, 64, 64)
+    """Small input tensor for fast tests (grayscale, 32x32)."""
+    return torch.randn(2, 1, 32, 32)
 
 
 @pytest.fixture
@@ -63,7 +63,7 @@ def mc_dropout() -> MonteCarloDropout:
 @pytest.fixture
 def adaptive_threshold() -> AdaptiveThreshold:
     """Default AdaptiveThreshold instance."""
-    return AdaptiveThreshold(num_classes=6, base_threshold=0.9, alpha=0.1, beta=0.05)
+    return AdaptiveThreshold(num_classes=9, base_threshold=0.9, alpha=0.1, beta=0.05)
 
 
 @pytest.fixture
@@ -77,7 +77,7 @@ def stage_manager(model: SemiWaferNet) -> StageManager:
     """Default StageManager instance."""
     return StageManager(
         student=model,
-        num_classes=6,
+        num_classes=9,
         ema_decay=0.999,
         base_threshold=0.9,
         alpha=0.1,
@@ -127,13 +127,13 @@ class TestMonteCarloDropout:
         """mean_probs_class has shape [B, num_classes]."""
         model.eval()
         result = mc_dropout(model, small_input)
-        assert result["mean_probs_class"].shape == (2, 6)
+        assert result["mean_probs_class"].shape == (2, 9)
 
     def test_mean_probs_seg_shape(self, mc_dropout: MonteCarloDropout, model: SemiWaferNet, small_input: torch.Tensor) -> None:
-        """mean_probs_seg has shape [B, num_classes, H, W]."""
+        """mean_probs_seg has shape [B, seg_classes, H, W]."""
         model.eval()
         result = mc_dropout(model, small_input)
-        assert result["mean_probs_seg"].shape == (2, 6, 64, 64)
+        assert result["mean_probs_seg"].shape == (2, 1, 32, 32)
 
     def test_entropy_class_shape(self, mc_dropout: MonteCarloDropout, model: SemiWaferNet, small_input: torch.Tensor) -> None:
         """entropy_class has shape [B]."""
@@ -145,7 +145,7 @@ class TestMonteCarloDropout:
         """entropy_seg has shape [B, H, W]."""
         model.eval()
         result = mc_dropout(model, small_input)
-        assert result["entropy_seg"].shape == (2, 64, 64)
+        assert result["entropy_seg"].shape == (2, 32, 32)
 
     def test_mutual_info_class_shape(self, mc_dropout: MonteCarloDropout, model: SemiWaferNet, small_input: torch.Tensor) -> None:
         """mutual_info_class has shape [B]."""
@@ -157,7 +157,7 @@ class TestMonteCarloDropout:
         """mutual_info_seg has shape [B, H, W]."""
         model.eval()
         result = mc_dropout(model, small_input)
-        assert result["mutual_info_seg"].shape == (2, 64, 64)
+        assert result["mutual_info_seg"].shape == (2, 32, 32)
 
     def test_mean_probs_sum_to_one(self, mc_dropout: MonteCarloDropout, model: SemiWaferNet, small_input: torch.Tensor) -> None:
         """Mean probabilities sum to 1 along class dimension."""
@@ -204,8 +204,8 @@ class TestAdaptiveThreshold:
 
     def test_creation(self) -> None:
         """AdaptiveThreshold can be created with default params."""
-        at = AdaptiveThreshold(num_classes=6)
-        assert at.num_classes == 6
+        at = AdaptiveThreshold(num_classes=9)
+        assert at.num_classes == 9
         assert at.base_threshold == 0.9
         assert at.alpha == 0.1
         assert at.beta == 0.05
@@ -426,7 +426,7 @@ class TestStageManager:
     def test_creation(self, stage_manager: StageManager) -> None:
         """StageManager can be created with default params."""
         assert stage_manager.current_stage == 1
-        assert stage_manager.num_classes == 6
+        assert stage_manager.num_classes == 9
         assert stage_manager.teacher is not None
         assert stage_manager.adaptive_threshold is not None
         assert stage_manager.mc_dropout is not None
@@ -480,9 +480,9 @@ class TestStageManager:
         assert "confidence_seg" in result
         assert "adaptive_threshold" in result
         assert result["pseudo_labels_class"].shape == (2,)
-        assert result["pseudo_labels_seg"].shape == (2, 64, 64)
+        assert result["pseudo_labels_seg"].shape == (2, 32, 32)
         assert result["mask_class"].shape == (2,)
-        assert result["mask_seg"].shape == (2, 64, 64)
+        assert result["mask_seg"].shape == (2, 32, 32)
         assert isinstance(result["adaptive_threshold"], float)
 
     def test_generate_pseudo_labels_adaptive_threshold_range(self, stage_manager: StageManager, small_input: torch.Tensor) -> None:
@@ -508,7 +508,7 @@ class TestStageManager:
         student_output = stage_manager.student(small_input)
         teacher_output = stage_manager.teacher(small_input)
         class_mask = torch.tensor([True, False])
-        seg_mask = torch.ones(2, 64, 64, dtype=torch.bool)
+        seg_mask = torch.ones(2, 32, 32, dtype=torch.bool)
         losses = stage_manager.compute_consistency_loss(
             student_output, teacher_output,
             class_mask=class_mask, seg_mask=seg_mask,
@@ -535,8 +535,8 @@ class TestStageManager:
         output = stage_manager.teacher(small_input)
         assert "classification" in output
         assert "segmentation" in output
-        assert output["classification"].shape == (2, 6)
-        assert output["segmentation"].shape == (2, 6, 64, 64)
+        assert output["classification"].shape == (2, 9)
+        assert output["segmentation"].shape == (2, 1, 32, 32)
 
 
 # ── Trainer ────────────────────────────────────────────────────────────────────
@@ -591,7 +591,7 @@ class TestTrainer:
         opt = torch.optim.SGD(trainer.student.parameters(), lr=0.01)
         trainer.set_optimizer(opt)
         trainer.set_supervised_loss(lambda o, t: {"loss": torch.tensor(0.0, requires_grad=True)})
-        trainer.train_stage1(labeled_data=[(torch.randn(2, 3, 64, 64), {"classification": torch.randn(2, 6), "segmentation": torch.randn(2, 6, 64, 64)})])
+        trainer.train_stage1(labeled_data=[(torch.randn(2, 1, 32, 32), {"classification": torch.randn(2, 9), "segmentation": torch.randn(2, 1, 32, 32)})])
         assert trainer.stage_manager.current_stage == 1
 
     def test_train_stage1_returns_metrics(self, trainer: Trainer) -> None:
@@ -600,7 +600,7 @@ class TestTrainer:
         trainer.set_optimizer(opt)
         trainer.set_supervised_loss(lambda o, t: {"loss": torch.tensor(0.0, requires_grad=True)})
         metrics = trainer.train_stage1(
-            labeled_data=[(torch.randn(2, 3, 64, 64), {"classification": torch.randn(2, 6), "segmentation": torch.randn(2, 6, 64, 64)})],
+            labeled_data=[(torch.randn(2, 1, 32, 32), {"classification": torch.randn(2, 9), "segmentation": torch.randn(2, 1, 32, 32)})],
             num_epochs=1,
         )
         assert "loss" in metrics
@@ -624,8 +624,8 @@ class TestTrainer:
         trainer.set_optimizer(opt)
         trainer.set_supervised_loss(lambda o, t: {"loss": torch.tensor(0.0, requires_grad=True)})
         trainer.train_stage2(
-            labeled_data=[(torch.randn(2, 3, 64, 64), {"classification": torch.randn(2, 6), "segmentation": torch.randn(2, 6, 64, 64)})],
-            unlabeled_data=[torch.randn(2, 3, 64, 64)],
+            labeled_data=[(torch.randn(2, 1, 32, 32), {"classification": torch.randn(2, 9), "segmentation": torch.randn(2, 1, 32, 32)})],
+            unlabeled_data=[torch.randn(2, 1, 32, 32)],
         )
         assert trainer.stage_manager.current_stage == 2
 
@@ -635,8 +635,8 @@ class TestTrainer:
         trainer.set_optimizer(opt)
         trainer.set_supervised_loss(lambda o, t: {"loss": torch.tensor(0.0, requires_grad=True)})
         metrics = trainer.train_stage2(
-            labeled_data=[(torch.randn(2, 3, 64, 64), {"classification": torch.randn(2, 6), "segmentation": torch.randn(2, 6, 64, 64)})],
-            unlabeled_data=[torch.randn(2, 3, 64, 64)],
+            labeled_data=[(torch.randn(2, 1, 32, 32), {"classification": torch.randn(2, 9), "segmentation": torch.randn(2, 1, 32, 32)})],
+            unlabeled_data=[torch.randn(2, 1, 32, 32)],
         )
         assert "loss" in metrics
         assert "supervised_loss" in metrics
@@ -648,14 +648,17 @@ class TestTrainer:
         trainer.set_optimizer(opt)
         trainer.set_supervised_loss(lambda o, t: {"loss": torch.tensor(0.0, requires_grad=True)})
         trainer.train_stage3(
-            labeled_data=[(torch.randn(2, 3, 64, 64), {"classification": torch.randn(2, 6), "segmentation": torch.randn(2, 6, 64, 64)})],
-            unlabeled_data=[torch.randn(2, 3, 64, 64)],
+            labeled_data=[(torch.randn(2, 1, 32, 32), {"classification": torch.randn(2, 9), "segmentation": torch.randn(2, 1, 32, 32)})],
+            unlabeled_data=[torch.randn(2, 1, 32, 32)],
         )
         assert trainer.stage_manager.current_stage == 2
 
     def test_generate_pseudo_labels(self, trainer: Trainer, small_input: torch.Tensor) -> None:
         """generate_pseudo_labels delegates to StageManager."""
-        result = trainer.generate_pseudo_labels(small_input)
+        # Ensure input is on the same device as the model
+        device = next(trainer.student.parameters()).device
+        x = small_input.to(device)
+        result = trainer.generate_pseudo_labels(x)
         assert "pseudo_labels_class" in result
         assert "pseudo_labels_seg" in result
 
@@ -675,7 +678,7 @@ class TestConfig:
     def test_config_has_stages(self) -> None:
         """Config has training.stages."""
         config = Config.from_yaml(CONFIG_PATH)
-        stages = config.get("training.stages")
+        stages = config.get("semi_supervised.stages")
         assert stages is not None
         assert stages == 3
 
@@ -687,47 +690,47 @@ class TestConfig:
         assert mc_passes == 20
 
     def test_config_has_base_threshold(self) -> None:
-        """Config has semi_supervised.base_threshold."""
+        """Config has semi_supervised.confidence_threshold (= base_threshold in paper)."""
         config = Config.from_yaml(CONFIG_PATH)
-        bt = config.get("semi_supervised.base_threshold")
+        bt = config.get("semi_supervised.confidence_threshold")
         assert bt is not None
-        assert bt == 0.9
+        assert bt == 0.94
 
     def test_config_has_alpha(self) -> None:
         """Config has semi_supervised.alpha."""
         config = Config.from_yaml(CONFIG_PATH)
         alpha = config.get("semi_supervised.alpha")
         assert alpha is not None
-        assert alpha == 0.1
+        assert alpha == 0.08
 
     def test_config_has_beta(self) -> None:
         """Config has semi_supervised.beta."""
         config = Config.from_yaml(CONFIG_PATH)
         beta = config.get("semi_supervised.beta")
         assert beta is not None
-        assert beta == 0.05
+        assert beta == 0.02
 
     def test_config_has_entropy_threshold(self) -> None:
         """Config has semi_supervised.entropy_threshold."""
         config = Config.from_yaml(CONFIG_PATH)
         et = config.get("semi_supervised.entropy_threshold")
         assert et is not None
-        assert et == 0.5
+        assert et == 0.08
 
     def test_config_has_mi_threshold(self) -> None:
         """Config has semi_supervised.mutual_information_threshold."""
         config = Config.from_yaml(CONFIG_PATH)
         mi = config.get("semi_supervised.mutual_information_threshold")
         assert mi is not None
-        assert mi == 0.3
+        assert mi == 0.12
 
     def test_config_values_reasonable(self) -> None:
         """Config values are within reasonable ranges."""
         config = Config.from_yaml(CONFIG_PATH)
         assert 0 < config.get("semi_supervised.mc_passes", 0) <= 100
-        assert 0 <= config.get("semi_supervised.base_threshold", -1) <= 1
+        assert 0 <= config.get("semi_supervised.confidence_threshold", -1) <= 1
         assert 0 <= config.get("semi_supervised.alpha", -1) <= 10
         assert 0 <= config.get("semi_supervised.beta", -1) <= 10
         assert 0 <= config.get("semi_supervised.entropy_threshold", -1) <= 10
         assert 0 <= config.get("semi_supervised.mutual_information_threshold", -1) <= 10
-        assert config.get("training.stages", 0) in (1, 2, 3)
+        assert config.get("semi_supervised.stages", 0) in (1, 2, 3)

@@ -156,13 +156,26 @@ class TransformerBlock(nn.Module):
 class ViTTiny(nn.Module):
     """Tiny Vision Transformer for wafer map defect classification.
 
+    Implements the ViT-Tiny architecture described in:
+        "Semiconductor Wafer Map Defect Classification with
+         Tiny Vision Transformers" (arXiv:2504.02494)
+
+    Architecture per the paper (Table II, Section III-A):
+        - Layers: 12
+        - Hidden size (embed_dim): 192
+        - Attention heads: 3
+        - MLP size: 768 (mlp_ratio=4.0)
+        - Patch size: 16
+        - Image size: 64×64 (Section III-B: N=16 patches, 4×4 grid)
+        - Grayscale→RGB conversion via 1×1 Conv (Section III-A.4)
+
     The model returns logits only. Softmax is applied externally
     during inference (e.g., in predict.py).
 
     Args:
         image_size: Input image spatial dimension (H == W).
         patch_size: Size of each patch.
-        in_channels: Number of input channels (1 for grayscale).
+        in_channels: Number of input channels (1 for grayscale wafer maps).
         num_classes: Number of output classes.
         embed_dim: Embedding dimension.
         num_layers: Number of transformer encoder blocks.
@@ -174,12 +187,12 @@ class ViTTiny(nn.Module):
 
     def __init__(
         self,
-        image_size: int = 32,
-        patch_size: int = 4,
+        image_size: int = 64,
+        patch_size: int = 16,
         in_channels: int = 1,
         num_classes: int = 8,
         embed_dim: int = 192,
-        num_layers: int = 4,
+        num_layers: int = 12,
         num_heads: int = 3,
         mlp_ratio: float = 4.0,
         dropout: float = 0.1,
@@ -201,8 +214,13 @@ class ViTTiny(nn.Module):
 
         num_patches = (image_size // patch_size) ** 2
 
-        # Patch embedding
-        self.patch_embed = PatchEmbedding(in_channels, embed_dim, patch_size)
+        # Grayscale → RGB conversion via 1×1 Conv (Section III-A.4)
+        # "a 1×1 convolutional layer was used to convert single-channel
+        #  grayscale images into 3-channel RGB images"
+        self.grayscale_to_rgb = nn.Conv2d(1, 3, kernel_size=1)
+
+        # Patch embedding (operates on 3-channel RGB)
+        self.patch_embed = PatchEmbedding(3, embed_dim, patch_size)
 
         # CLS token
         self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
@@ -211,7 +229,7 @@ class ViTTiny(nn.Module):
         self.pos_embed = nn.Parameter(torch.zeros(1, num_patches + 1, embed_dim))
         self.pos_drop = nn.Dropout(emb_dropout)
 
-        # Transformer encoder blocks
+        # Transformer encoder blocks (12 layers per Table II)
         self.blocks = nn.ModuleList([
             TransformerBlock(embed_dim, num_heads, mlp_ratio, dropout)
             for _ in range(num_layers)
@@ -246,6 +264,9 @@ class ViTTiny(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass.
 
+        Accepts grayscale (1-channel) or RGB (3-channel) input.
+        Grayscale input is converted to RGB via 1×1 Conv (Section III-A.4).
+
         Args:
             x: Input tensor of shape [B, C, H, W].
 
@@ -260,9 +281,9 @@ class ViTTiny(nn.Module):
                 f"Expected 4D input [B, C, H, W], got {x.dim()}D tensor "
                 f"with shape {list(x.shape)}"
             )
-        if x.shape[1] != self.patch_embed.proj.in_channels:
+        if x.shape[1] not in (1, 3):
             raise ValueError(
-                f"Expected {self.patch_embed.proj.in_channels} input channels, "
+                f"Expected 1 (grayscale) or 3 (RGB) input channels, "
                 f"got {x.shape[1]}"
             )
         if x.shape[2] != self.image_size or x.shape[3] != self.image_size:
@@ -272,6 +293,10 @@ class ViTTiny(nn.Module):
             )
 
         B = x.shape[0]
+
+        # Grayscale → RGB conversion via 1×1 Conv (Section III-A.4)
+        if x.shape[1] == 1:
+            x = self.grayscale_to_rgb(x)  # [B, 3, H, W]
 
         # Patch embedding: [B, num_patches, embed_dim]
         x = self.patch_embed(x)
@@ -311,12 +336,12 @@ class ViTTiny(nn.Module):
             Configured ViTTiny instance.
         """
         return cls(
-            image_size=config.get("model.arch.image_size", 32),
-            patch_size=config.get("model.arch.patch_size", 4),
+            image_size=config.get("model.arch.image_size", 64),
+            patch_size=config.get("model.arch.patch_size", 16),
             in_channels=config.get("model.arch.in_channels", 1),
             num_classes=config.get("model.arch.num_classes", 8),
             embed_dim=config.get("model.arch.embed_dim", 192),
-            num_layers=config.get("model.arch.num_layers", 4),
+            num_layers=config.get("model.arch.num_layers", 12),
             num_heads=config.get("model.arch.num_heads", 3),
             mlp_ratio=config.get("model.arch.mlp_ratio", 4.0),
             dropout=config.get("model.arch.dropout", 0.1),

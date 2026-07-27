@@ -1,4 +1,4 @@
-"""Base dataset class and dataset type enum for CTM-YOLOv10.
+"""Base dataset class and dataset type enum for CTM-IYOLOv10.
 
 Provides ``BaseDataset`` (abstract base for all datasets) and ``DatasetType``
 (enum for classification / segmentation / multitask).

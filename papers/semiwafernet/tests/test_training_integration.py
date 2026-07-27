@@ -85,11 +85,14 @@ class MultiTaskLoss(nn.Module):
     - Extracts ``"label"`` and ``"mask"`` from ``targets``
     - Computes separate losses and returns a weighted sum
 
+    Segmentation uses BCEWithLogitsLoss (binary segmentation, 1 output channel).
+    Mask targets are thresholded to binary (0/1) before computing loss.
+
     Args:
         cls_loss_fn: Loss module for classification (logits ``[B, num_classes]``,
             targets ``[B]``).
-        seg_loss_fn: Loss module for segmentation (logits ``[B, num_classes, H, W]``,
-            targets ``[B, H, W]``).
+        seg_loss_fn: Loss module for segmentation (logits ``[B, 1, H, W]``,
+            targets ``[B, H, W]``). Default: BCEWithLogitsLoss.
         cls_weight: Weight for the classification loss term.
         seg_weight: Weight for the segmentation loss term.
     """
@@ -97,13 +100,13 @@ class MultiTaskLoss(nn.Module):
     def __init__(
         self,
         cls_loss_fn: nn.Module,
-        seg_loss_fn: nn.Module,
+        seg_loss_fn: nn.Module | None = None,
         cls_weight: float = 1.0,
         seg_weight: float = 1.0,
     ) -> None:
         super().__init__()
         self.cls_loss_fn = cls_loss_fn
-        self.seg_loss_fn = seg_loss_fn
+        self.seg_loss_fn = seg_loss_fn or nn.BCEWithLogitsLoss()
         self.cls_weight = cls_weight
         self.seg_weight = seg_weight
 
@@ -116,7 +119,7 @@ class MultiTaskLoss(nn.Module):
 
         Args:
             logits: Dict with ``"classification"`` ``[B, num_classes]`` and
-                ``"segmentation"`` ``[B, num_classes, H, W]`` tensors.
+                ``"segmentation"`` ``[B, 1, H, W]`` tensors.
             targets: Dict with ``"label"`` ``[B]`` and ``"mask"`` ``[B, H, W]``
                 tensors.
 
@@ -124,7 +127,10 @@ class MultiTaskLoss(nn.Module):
             Scalar loss tensor.
         """
         cls_loss = self.cls_loss_fn(logits["classification"], targets["label"])
-        seg_loss = self.seg_loss_fn(logits["segmentation"], targets["mask"])
+        # Binary segmentation: convert mask to float, threshold to 0/1,
+        # and add channel dimension to match logits shape [B, 1, H, W]
+        mask_binary = (targets["mask"] > 0).float().unsqueeze(1)
+        seg_loss = self.seg_loss_fn(logits["segmentation"], mask_binary)
         return self.cls_weight * cls_loss + self.seg_weight * seg_loss
 
 
@@ -153,8 +159,8 @@ def _training_collate(batch: list[dict]) -> dict[str, torch.Tensor]:
 # Fixtures
 # ---------------------------------------------------------------------------
 
-# Use image_size=64 (divisible by 4, fast for tests) and num_classes=4
-_IMG_SIZE = 64
+# Use image_size=32 (paper default for classification) and num_classes=4
+_IMG_SIZE = 32
 _NUM_CLASSES = 4
 _BATCH_SIZE = 8
 _DATASET_SIZE = 64
@@ -163,15 +169,15 @@ _DATASET_SIZE = 64
 @pytest.fixture
 def model() -> SemiWaferNet:
     return SemiWaferNet(
-        in_channels=3,
-        backbone_channels=[16, 32, 64, 128],
-        backbone_depths=[1, 1, 1, 1],
-        embed_dim=64,
+        mode="classification",
+        in_channels=1,
+        backbone_channels=[16, 32],
+        embed_dim=32,
         num_heads=4,
         num_layers=2,
         mlp_ratio=2,
         dropout=0.0,
-        fusion_dim=64,
+        fusion_dim=32,
         num_classes=_NUM_CLASSES,
     )
 
@@ -218,10 +224,8 @@ def scheduler(optimizer: torch.optim.Optimizer) -> object:
 @pytest.fixture
 def loss_fn() -> MultiTaskLoss:
     cls_loss = build_loss("cross_entropy")
-    seg_loss = build_loss("cross_entropy")
     return MultiTaskLoss(
         cls_loss_fn=cls_loss,
-        seg_loss_fn=seg_loss,
         cls_weight=1.0,
         seg_weight=1.0,
     )
@@ -263,29 +267,30 @@ def scaler() -> NativeScaler:
 
 
 class TestMultiTaskLoss:
-    """Verify MultiTaskLoss adapter works correctly."""
+    """Verify MultiTaskLoss adapter works correctly.
+
+    Segmentation uses BCEWithLogitsLoss (binary, 1 channel).
+    """
 
     def test_creation(self) -> None:
-        """MultiTaskLoss can be created with two loss functions."""
+        """MultiTaskLoss can be created with classification loss only."""
         cls_loss = build_loss("cross_entropy")
-        seg_loss = build_loss("cross_entropy")
-        mtl = MultiTaskLoss(cls_loss_fn=cls_loss, seg_loss_fn=seg_loss)
+        mtl = MultiTaskLoss(cls_loss_fn=cls_loss)
         assert isinstance(mtl, nn.Module)
 
     def test_forward_classification_only(self, model: SemiWaferNet) -> None:
         """MultiTaskLoss forward with classification targets."""
         mtl = MultiTaskLoss(
             cls_loss_fn=build_loss("cross_entropy"),
-            seg_loss_fn=build_loss("cross_entropy"),
             seg_weight=0.0,  # zero out segmentation
         )
         logits = {
             "classification": torch.randn(4, _NUM_CLASSES),
-            "segmentation": torch.randn(4, _NUM_CLASSES, 16, 16),
+            "segmentation": torch.randn(4, 1, 16, 16),  # binary: 1 channel
         }
         targets = {
             "label": torch.randint(0, _NUM_CLASSES, (4,)),
-            "mask": torch.randint(0, _NUM_CLASSES, (4, 16, 16)),
+            "mask": torch.randint(0, 2, (4, 16, 16)),  # binary mask
         }
         loss = mtl(logits, targets)
         assert isinstance(loss, torch.Tensor)
@@ -296,16 +301,15 @@ class TestMultiTaskLoss:
         """MultiTaskLoss forward with segmentation targets."""
         mtl = MultiTaskLoss(
             cls_loss_fn=build_loss("cross_entropy"),
-            seg_loss_fn=build_loss("cross_entropy"),
             cls_weight=0.0,  # zero out classification
         )
         logits = {
             "classification": torch.randn(4, _NUM_CLASSES),
-            "segmentation": torch.randn(4, _NUM_CLASSES, 16, 16),
+            "segmentation": torch.randn(4, 1, 16, 16),  # binary: 1 channel
         }
         targets = {
             "label": torch.randint(0, _NUM_CLASSES, (4,)),
-            "mask": torch.randint(0, _NUM_CLASSES, (4, 16, 16)),
+            "mask": torch.randint(0, 2, (4, 16, 16)),  # binary mask
         }
         loss = mtl(logits, targets)
         assert isinstance(loss, torch.Tensor)
@@ -316,17 +320,16 @@ class TestMultiTaskLoss:
         """MultiTaskLoss forward with both tasks active."""
         mtl = MultiTaskLoss(
             cls_loss_fn=build_loss("cross_entropy"),
-            seg_loss_fn=build_loss("cross_entropy"),
             cls_weight=1.0,
             seg_weight=2.0,
         )
         logits = {
             "classification": torch.randn(4, _NUM_CLASSES),
-            "segmentation": torch.randn(4, _NUM_CLASSES, 16, 16),
+            "segmentation": torch.randn(4, 1, 16, 16),  # binary: 1 channel
         }
         targets = {
             "label": torch.randint(0, _NUM_CLASSES, (4,)),
-            "mask": torch.randint(0, _NUM_CLASSES, (4, 16, 16)),
+            "mask": torch.randint(0, 2, (4, 16, 16)),  # binary mask
         }
         loss = mtl(logits, targets)
         assert isinstance(loss, torch.Tensor)
@@ -337,17 +340,16 @@ class TestMultiTaskLoss:
         """MultiTaskLoss with identical logits/targets gives near-zero loss."""
         mtl = MultiTaskLoss(
             cls_loss_fn=build_loss("cross_entropy"),
-            seg_loss_fn=build_loss("cross_entropy"),
         )
         # Create logits that strongly favor class 0
         cls_logits = torch.full((4, _NUM_CLASSES), -100.0)
         cls_logits[:, 0] = 100.0
-        seg_logits = torch.full((4, _NUM_CLASSES, 16, 16), -100.0)
-        seg_logits[:, 0] = 100.0
+        seg_logits = torch.full((4, 1, 16, 16), -100.0)  # binary: 1 channel
+        seg_logits[:, :, :, :] = 100.0  # strongly positive → class 1
         logits = {"classification": cls_logits, "segmentation": seg_logits}
         targets = {
             "label": torch.zeros(4, dtype=torch.long),
-            "mask": torch.zeros(4, 16, 16, dtype=torch.long),
+            "mask": torch.ones(4, 16, 16, dtype=torch.long),  # binary: all 1s
         }
         loss = mtl(logits, targets)
         assert loss.item() < 0.1, f"Expected near-zero loss, got {loss.item()}"
@@ -356,14 +358,13 @@ class TestMultiTaskLoss:
         """Gradients flow through MultiTaskLoss to input logits."""
         mtl = MultiTaskLoss(
             cls_loss_fn=build_loss("cross_entropy"),
-            seg_loss_fn=build_loss("cross_entropy"),
         )
         cls_logits = torch.randn(4, _NUM_CLASSES, requires_grad=True)
-        seg_logits = torch.randn(4, _NUM_CLASSES, 16, 16, requires_grad=True)
+        seg_logits = torch.randn(4, 1, 16, 16, requires_grad=True)  # binary: 1 channel
         logits = {"classification": cls_logits, "segmentation": seg_logits}
         targets = {
             "label": torch.randint(0, _NUM_CLASSES, (4,)),
-            "mask": torch.randint(0, _NUM_CLASSES, (4, 16, 16)),
+            "mask": torch.randint(0, 2, (4, 16, 16)),  # binary mask
         }
         loss = mtl(logits, targets)
         loss.backward()
@@ -990,7 +991,7 @@ class TestDataPipeline:
         assert isinstance(batch["targets"], dict)
         assert "label" in batch["targets"]
         assert "mask" in batch["targets"]
-        assert batch["inputs"].shape == (_BATCH_SIZE, 3, _IMG_SIZE, _IMG_SIZE)
+        assert batch["inputs"].shape == (_BATCH_SIZE, 1, _IMG_SIZE, _IMG_SIZE)
         assert batch["targets"]["label"].shape == (_BATCH_SIZE,)
         assert batch["targets"]["mask"].shape == (_BATCH_SIZE, _IMG_SIZE, _IMG_SIZE)
 
@@ -1103,7 +1104,7 @@ class TestEngineCompatibility:
         # Override predictor's postprocess_fn for multitask output
         from common.inference.predictor import Predictor
         engine.predictor = Predictor(model, device="cpu", postprocess_fn=_postprocess)
-        x = torch.randn(3, _IMG_SIZE, _IMG_SIZE)
+        x = torch.randn(1, _IMG_SIZE, _IMG_SIZE)
         result = engine.predict_single(x)
         assert "logits" in result
         assert "probs" in result

@@ -1,10 +1,10 @@
-"""Training entry point for CTM-YOLOv10 on Magnetic Tile dataset.
+"""Training entry point for CTM-IYOLOv10 on Magnetic Tile dataset.
 
 Usage:
     python papers/ctm_yolov10/train.py --config papers/ctm_yolov10/configs/config.yaml
 
-Trains CTM-YOLOv10 on the Magnetic Tile defect detection dataset.
-Uses the common Engine with proper YOLO loss handling.
+Trains CTM-IYOLOv10 (GhostConv + BiFPN) on the Magnetic Tile defect
+detection dataset. Shows mAP@0.5 on validation set every epoch.
 """
 
 from __future__ import annotations
@@ -24,16 +24,15 @@ if str(_project_root) not in sys.path:
     sys.path.insert(0, str(_project_root))
 
 from common.engine.config import EngineConfig
-from common.engine.engine import Engine
 from common.training.utils import move_batch_to_device
 from papers.ctm_yolov10.data_utils import MagneticTileDataset
-from papers.ctm_yolov10.models.yolov10 import CTMYOLOv10
+from papers.ctm_yolov10.models.yolov10 import CTMIYOLOv10
 
 
 def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="Train CTM-YOLOv10 on Magnetic Tile dataset"
+        description="Train CTM-IYOLOv10 on Magnetic Tile dataset"
     )
     parser.add_argument(
         "--config",
@@ -84,8 +83,6 @@ def collate_fn(batch):
         bboxes: (N, 4) [x1, y1, x2, y2] concatenated (xyxy format, normalized)
         cls: (N, 1) class indices
         batch_idx: (N,) image indices for each object
-        inputs: alias for img (for common Trainer._unpack_batch compatibility)
-        targets: dummy tensor (for common Trainer._unpack_batch compatibility)
     """
     images = torch.stack([item["image"] for item in batch])
     all_bboxes = []
@@ -113,8 +110,6 @@ def collate_fn(batch):
 
     batch_dict = {
         "img": images,
-        "inputs": images,
-        "targets": torch.zeros(1),
     }
     if all_bboxes:
         batch_dict["bboxes"] = torch.cat(all_bboxes, dim=0)
@@ -126,64 +121,6 @@ def collate_fn(batch):
         batch_dict["batch_idx"] = torch.zeros(0, dtype=torch.long)
 
     return batch_dict
-
-
-class IdentityLoss(nn.Module):
-    """Loss function that returns the first argument as-is."""
-
-    def forward(self, logits: torch.Tensor, targets: torch.Tensor | None = None) -> torch.Tensor:
-        return logits
-
-
-class YOLOWrapper(nn.Module):
-    """Wraps CTMYOLOv10 to return only the loss tensor."""
-
-    def __init__(self, model: CTMYOLOv10) -> None:
-        super().__init__()
-        self.model = model
-        self._batch_dict: dict | None = None
-        self._last_loss_details: dict[str, torch.Tensor] | None = None
-        self._last_preds: torch.Tensor | None = None  # saved for mAP
-        # YOLO's v8DetectionLoss needs model.args (hyperparameters)
-        from types import SimpleNamespace
-        self.model.base_model.args = SimpleNamespace(
-            box=7.5,
-            cls=0.5,
-            dfl=1.5,
-        )
-
-    @property
-    def batch_dict(self) -> dict | None:
-        return self._batch_dict
-
-    @batch_dict.setter
-    def batch_dict(self, value: dict | None) -> None:
-        self._batch_dict = value
-
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # 1. Run CTM-enhanced forward to get predictions
-        preds = self.model(x)
-
-        # 2. Compute loss using base_model.loss() with CTM-enhanced preds
-        if self._batch_dict is not None:
-            base = self.model.base_model
-            try:
-                loss_output = base.loss(self._batch_dict, preds=preds)
-                if isinstance(loss_output, (tuple, list)):
-                    raw_details = loss_output[1]
-                    self._last_loss_details = {
-                        'box': raw_details.get('box_loss', 0),
-                        'cls': raw_details.get('cls_loss', 0),
-                        'dfl': raw_details.get('dfl_loss', 0),
-                    }
-                    return loss_output[0].sum()
-                return loss_output.sum()
-            except Exception as e:
-                print(f"  [YOLOWrapper] error: {e}", flush=True)
-                import traceback
-                traceback.print_exc()
-
-        return x.sum() * 0.0
 
 
 def compute_map(
@@ -259,6 +196,71 @@ def compute_map(
         ap_per_class.append(ap)
     map50 = sum(ap_per_class) / max(len(ap_per_class), 1) * 100.0
     return {"mAP@0.5": map50, "AP_per_class": [ap * 100.0 for ap in ap_per_class]}
+
+
+@torch.no_grad()
+def compute_map_on_loader(
+    model: nn.Module,
+    loader: DataLoader,
+    num_classes: int,
+    device: torch.device,
+    conf_threshold: float = 0.001,
+    iou_threshold: float = 0.5,
+) -> dict[str, float]:
+    """Compute mAP@0.5 over a DataLoader.
+
+    Runs model in eval mode so v10Detect returns decoded predictions.
+    """
+    model.eval()
+    all_pred_boxes: list[torch.Tensor] = []
+    all_pred_scores: list[torch.Tensor] = []
+    all_pred_classes: list[torch.Tensor] = []
+    all_gt_boxes: list[torch.Tensor] = []
+    all_gt_classes: list[torch.Tensor] = []
+
+    for batch in loader:
+        images = batch["img"].to(device)
+        _, _, H, W = images.shape
+        norm_factor = torch.tensor([W, H, W, H], device=device).view(1, 1, 4)
+
+        # Forward through base_model in eval mode
+        raw_out = model(images)
+        if isinstance(raw_out, (tuple, list)):
+            preds_tensor = raw_out[0]
+        else:
+            preds_tensor = raw_out
+
+        for b in range(preds_tensor.shape[0]):
+            preds_img = preds_tensor[b]
+            conf_mask = preds_img[:, 4] > conf_threshold
+            if conf_mask.any():
+                boxes_pixel = preds_img[conf_mask, :4]
+                boxes_norm = boxes_pixel / norm_factor[0]
+                all_pred_boxes.append(boxes_norm.cpu())
+                all_pred_scores.append(preds_img[conf_mask, 4].cpu())
+                all_pred_classes.append(preds_img[conf_mask, 5].long().cpu())
+            else:
+                all_pred_boxes.append(torch.zeros(0, 4))
+                all_pred_scores.append(torch.zeros(0))
+                all_pred_classes.append(torch.zeros(0, dtype=torch.long))
+
+            img_batch_idx = (batch["batch_idx"] == b)
+            if img_batch_idx.any():
+                all_gt_boxes.append(batch["bboxes"][img_batch_idx].cpu())
+                all_gt_classes.append(batch["cls"][img_batch_idx, 0].long().cpu())
+            else:
+                all_gt_boxes.append(torch.zeros(0, 4))
+                all_gt_classes.append(torch.zeros(0, dtype=torch.long))
+
+    if not all_pred_boxes:
+        return {"mAP@0.5": 0.0}
+
+    return compute_map(
+        all_pred_boxes, all_pred_scores, all_pred_classes,
+        all_gt_boxes, all_gt_classes,
+        num_classes=num_classes,
+        iou_threshold=iou_threshold,
+    )
 
 
 def main() -> None:
@@ -347,256 +349,203 @@ def main() -> None:
     )
 
     # ── Create model ────────────────────────────────────────────────────
-    print("Creating CTM-YOLOv10 model...")
+    print("Creating CTM-IYOLOv10 model...")
     if args.pretrained is not None:
         config._data.setdefault("model", {}).setdefault("backbone", {})["pretrained"] = args.pretrained == "true"
-    base_model = CTMYOLOv10.from_config(config)
-    model = YOLOWrapper(base_model)
+    model = CTMIYOLOv10.from_config(config)
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"  Parameters: {total_params:,} total, {trainable_params:,} trainable")
+    print(f"  GhostConv: {model.ghost_conv}")
+    print(f"  BiFPN: {model.bifpn}")
 
-    # ── Create Engine ───────────────────────────────────────────────────
-    print("Initializing engine...")
-    engine = Engine(
-        model=model,
-        config=config,
-        device=device,
+    model = model.to(device)
+
+    # ── Optimizer ───────────────────────────────────────────────────────
+    lr = config.get("training.learning_rate", 0.001)
+    weight_decay = config.get("training.weight_decay", 0.0005)
+    momentum = config.get("optimizer.kwargs.momentum", 0.937)
+    optimizer = torch.optim.SGD(
+        model.parameters(),
+        lr=lr,
+        momentum=momentum,
+        weight_decay=weight_decay,
+        nesterov=True,
     )
-    identity_loss = IdentityLoss()
-    engine.loss_fn = identity_loss
-    engine.trainer.loss_fn = identity_loss
-    engine.trainer.scaler.enabled = False
 
-    # ── Train ───────────────────────────────────────────────────────────
+    # ── Scheduler ───────────────────────────────────────────────────────
     epochs = config.get("training.num_epochs", 100)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer,
+        T_max=epochs,
+        eta_min=0.00001,
+    )
+
+    # ── Training loop ───────────────────────────────────────────────────
     print(f"\n{'='*60}")
     print(f"Starting training for {epochs} epochs")
     print(f"{'='*60}")
 
-    from common.training.logger import TrainingLogger
+    best_map = 0.0
+    from tqdm import tqdm
 
-    def yolov10_fit(
-        train_loader: DataLoader,
-        val_loader: DataLoader | None = None,
-        epochs: int = 10,
-    ) -> TrainingLogger:
-        """Custom fit that injects batch dict into YOLOWrapper before each batch."""
-        engine.state.training_finished = False
-        engine.state.epoch = 0
+    for epoch in range(1, epochs + 1):
+        # ── Train one epoch ─────────────────────────────────────────────
+        model.train()
+        total_loss = 0.0
+        total_box = 0.0
+        total_cls = 0.0
+        total_dfl = 0.0
+        num_batches = 0
 
-        trainer = engine.trainer
-        original_train_one_epoch = trainer.train_one_epoch
-        original_validate = trainer.validate
+        iterator = tqdm(train_loader, desc=f"Epoch {epoch}/{epochs} [Train]")
+        for batch in iterator:
+            images = batch["img"].to(device)
 
-        def yolov10_train_one_epoch(loader: DataLoader) -> dict[str, float]:
-            """Custom train_one_epoch that injects batch dict into YOLOWrapper."""
-            trainer.model.train()
-            total_loss = 0.0
-            num_batches = 0
+            # Build YOLO-format batch dict
+            batch_dict = {
+                "img": images,
+            }
+            if "bboxes" in batch:
+                batch_dict["bboxes"] = batch["bboxes"].to(device)
+                batch_dict["cls"] = batch["cls"].to(device)
+                batch_dict["batch_idx"] = batch["batch_idx"].to(device)
 
-            from tqdm import tqdm
-            iterator = tqdm(loader, desc="Train", disable=not trainer.verbose)
-            for batch in iterator:
-                inputs, targets = trainer._unpack_batch(batch)
-                inputs = move_batch_to_device(inputs, trainer.device)
-                targets = move_batch_to_device(targets, trainer.device)
+            optimizer.zero_grad()
 
-                batch_dict = {k: move_batch_to_device(v, trainer.device) if isinstance(v, torch.Tensor) else v
-                              for k, v in batch.items()}
-                if hasattr(trainer.model, 'batch_dict'):
-                    trainer.model.batch_dict = batch_dict
+            # Forward through CTM model in train mode
+            # CTMIYOLOv10.forward() accepts dict → calls self.loss() which
+            # runs CTM-enhanced forward + criterion
+            loss_output = model(batch_dict)
+            if isinstance(loss_output, (tuple, list)):
+                loss = loss_output[0].sum()
+                details = loss_output[1]
+                box_loss = details.get('box_loss', 0)
+                cls_loss = details.get('cls_loss', 0)
+                dfl_loss = details.get('dfl_loss', 0)
+            else:
+                loss = loss_output.sum()
+                box_loss = cls_loss = dfl_loss = 0.0
 
-                trainer.optimizer.zero_grad()
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 10.0)
+            optimizer.step()
 
-                with trainer.scaler.autocast():
-                    logits = trainer.model(inputs)
-                    loss = trainer.loss_fn(logits, targets)
+            total_loss += loss.item()
+            total_box += box_loss if isinstance(box_loss, float) else box_loss.item()
+            total_cls += cls_loss if isinstance(cls_loss, float) else cls_loss.item()
+            total_dfl += dfl_loss if isinstance(dfl_loss, float) else dfl_loss.item()
+            num_batches += 1
 
-                trainer.scaler.backward(loss, trainer.optimizer)
+            iterator.set_postfix({
+                "loss": f"{loss.item():.1f}",
+                "box": f"{box_loss:.1f}" if isinstance(box_loss, float) else f"{box_loss.item():.1f}",
+                "cls": f"{cls_loss:.2f}" if isinstance(cls_loss, float) else f"{cls_loss.item():.2f}",
+            })
 
-                if trainer.grad_max_norm is not None:
-                    torch.nn.utils.clip_grad_norm_(
-                        trainer.model.parameters(),
-                        trainer.grad_max_norm,
-                    )
+        avg_loss = total_loss / max(num_batches, 1)
+        avg_box = total_box / max(num_batches, 1)
+        avg_cls = total_cls / max(num_batches, 1)
+        avg_dfl = total_dfl / max(num_batches, 1)
 
-                trainer.optimizer.step()
+        # ── Validate ────────────────────────────────────────────────────
+        model.eval()
+        val_loss = 0.0
+        val_box = 0.0
+        val_cls = 0.0
+        val_dfl = 0.0
+        val_batches = 0
 
-                total_loss += loss.item()
-                num_batches += 1
+        with torch.no_grad():
+            for batch in tqdm(val_loader, desc=f"Epoch {epoch}/{epochs} [Val]"):
+                images = batch["img"].to(device)
+                batch_dict = {
+                    "img": images,
+                }
+                if "bboxes" in batch:
+                    batch_dict["bboxes"] = batch["bboxes"].to(device)
+                    batch_dict["cls"] = batch["cls"].to(device)
+                    batch_dict["batch_idx"] = batch["batch_idx"].to(device)
 
-                postfix = {"loss": f"{loss.item():.1f}"}
-                if hasattr(trainer.model, '_last_loss_details') and trainer.model._last_loss_details is not None:
-                    det = trainer.model._last_loss_details
-                    postfix["box"] = f"{det.get('box', 0):.1f}"
-                    postfix["cls"] = f"{det.get('cls', 0):.1f}"
-                    postfix["dfl"] = f"{det.get('dfl', 0):.1f}"
-                iterator.set_postfix(**postfix)
+                # Compute loss via CTMIYOLOv10.loss() (handles CTM + criterion)
+                # Use a temporary train-mode forward for loss computation
+                model.train()
+                loss_output = model(batch_dict)
+                if isinstance(loss_output, (tuple, list)):
+                    vloss = loss_output[0].sum()
+                    vdetails = loss_output[1]
+                    val_box += vdetails.get('box_loss', 0)
+                    val_cls += vdetails.get('cls_loss', 0)
+                    val_dfl += vdetails.get('dfl_loss', 0)
+                else:
+                    vloss = loss_output.sum()
+                model.eval()
 
-            avg_loss = total_loss / max(num_batches, 1)
-            metrics: dict[str, float] = {"loss": avg_loss}
-            return metrics
+                val_loss += vloss.item()
+                val_batches += 1
 
-        def yolov10_validate(loader: DataLoader) -> dict[str, float]:
-            """Custom validate that injects batch dict into YOLOWrapper and computes loss."""
-            from tqdm import tqdm
-            # NOTE: Do NOT call trainer.model.eval() here!
-            # YOLO's DetectionModel needs train mode for v10Detect to return
-            # loss_dict format that base.loss() expects. eval mode makes
-            # v10Detect return tuple(preds, dict) which breaks base.loss().
-            # torch.no_grad() is sufficient to prevent gradient computation.
-            total_loss = 0.0
-            total_box = 0.0
-            total_cls = 0.0
-            total_dfl = 0.0
-            num_batches = 0
+        avg_val_loss = val_loss / max(val_batches, 1)
+        avg_val_box = val_box / max(val_batches, 1)
+        avg_val_cls = val_cls / max(val_batches, 1)
+        avg_val_dfl = val_dfl / max(val_batches, 1)
 
-            with torch.no_grad():
-                iterator = tqdm(loader, desc="Val", disable=not trainer.verbose)
-                for batch in iterator:
-                    inputs, targets = trainer._unpack_batch(batch)
-                    inputs = move_batch_to_device(inputs, trainer.device)
-                    targets = move_batch_to_device(targets, trainer.device)
-
-                    batch_dict = {k: move_batch_to_device(v, trainer.device) if isinstance(v, torch.Tensor) else v
-                                  for k, v in batch.items()}
-                    if hasattr(trainer.model, 'batch_dict'):
-                        trainer.model.batch_dict = batch_dict
-
-                    logits = trainer.model(inputs)
-                    loss = trainer.loss_fn(logits, targets)
-
-                    total_loss += loss.item()
-                    num_batches += 1
-
-                    if hasattr(trainer.model, '_last_loss_details') and trainer.model._last_loss_details is not None:
-                        det = trainer.model._last_loss_details
-                        total_box += det.get('box', 0)
-                        total_cls += det.get('cls', 0)
-                        total_dfl += det.get('dfl', 0)
-
-            metrics: dict[str, float] = {"loss": total_loss / max(num_batches, 1)}
-            if num_batches > 0:
-                metrics["box_loss"] = total_box / num_batches
-                metrics["cls_loss"] = total_cls / num_batches
-                metrics["dfl_loss"] = total_dfl / num_batches
-            return metrics
-
-        trainer.train_one_epoch = yolov10_train_one_epoch  # type: ignore[method-assign]
-        trainer.validate = yolov10_validate  # type: ignore[method-assign]
-
-        result = trainer.fit(
-            train_loader=train_loader,
-            val_loader=val_loader,
-            epochs=epochs,
+        # ── Compute mAP@0.5 on validation set ───────────────────────────
+        map_results = compute_map_on_loader(
+            model, val_loader, num_classes, device,
+            conf_threshold=0.001, iou_threshold=0.5,
         )
+        current_map = map_results["mAP@0.5"]
 
-        trainer.train_one_epoch = original_train_one_epoch
-        trainer.validate = original_validate
+        # ── Print epoch summary ─────────────────────────────────────────
+        print(f"\nEpoch {epoch}/{epochs} | "
+              f"Train Loss: {avg_loss:.2f} (box={avg_box:.1f}, cls={avg_cls:.2f}, dfl={avg_dfl:.2f}) | "
+              f"Val Loss: {avg_val_loss:.2f} (box={avg_val_box:.1f}, cls={avg_val_cls:.2f}, dfl={avg_val_dfl:.2f}) | "
+              f"mAP@0.5: {current_map:.2f}% | "
+              f"LR: {scheduler.get_last_lr()[0]:.2e}")
 
-        return result
+        scheduler.step()
 
-    logger = yolov10_fit(
-        train_loader=train_loader,
-        val_loader=val_loader,
-        epochs=epochs,
-    )
+        # ── Save best model ─────────────────────────────────────────────
+        if current_map > best_map:
+            best_map = current_map
+            save_dir = Path(config.get("checkpoint.save_dir", "checkpoints/ctm_yolov10"))
+            save_dir.mkdir(parents=True, exist_ok=True)
+            torch.save({
+                "epoch": epoch,
+                "model_state_dict": model.state_dict(),
+                "optimizer_state_dict": optimizer.state_dict(),
+                "best_map": best_map,
+                "config": config._data,
+            }, save_dir / "best.pt")
+            print(f"  -> New best model saved! mAP@0.5: {best_map:.2f}%")
 
-    # ── Final metrics ───────────────────────────────────────────────────
+    # ── Final evaluation on test set ────────────────────────────────────
     print(f"\n{'='*60}")
     print("Training complete!")
     print(f"{'='*60}")
+    print(f"Best validation mAP@0.5: {best_map:.2f}%")
 
-    history = logger.history
-    if history:
-        final = history[-1]
-        print(f"\nFinal training metrics:")
-        if "train_loss" in final:
-            print(f"  Train Loss: {final['train_loss']:.4f}")
-        if "val_loss" in final:
-            print(f"  Val Loss:   {final['val_loss']:.4f}")
-        if "val_box_loss" in final:
-            print(f"  Val Box Loss: {final['val_box_loss']:.2f} | Cls Loss: {final['val_cls_loss']:.2f} | DFL Loss: {final['val_dfl_loss']:.2f}")
-
-    # ── Compute mAP on test set ────────────────────────────────────────
-    print(f"\n{'='*60}")
-    print("Computing mAP@0.5 on test set...")
-    print(f"{'='*60}")
-
-    # Switch base_model to eval mode so v10Detect returns decoded predictions
-    base_model = engine.trainer.model.model.base_model
-    base_model.eval()
-
-    from torchvision.ops import box_iou
-
-    all_pred_boxes: list[torch.Tensor] = []
-    all_pred_scores: list[torch.Tensor] = []
-    all_pred_classes: list[torch.Tensor] = []
-    all_gt_boxes: list[torch.Tensor] = []
-    all_gt_classes: list[torch.Tensor] = []
-
-    with torch.no_grad():
-        for batch in test_loader:
-            inputs, targets = engine.trainer._unpack_batch(batch)
-            inputs = move_batch_to_device(inputs, engine.trainer.device)
-
-            batch_dict = {k: move_batch_to_device(v, engine.trainer.device) if isinstance(v, torch.Tensor) else v
-                          for k, v in batch.items()}
-
-            # Forward through CTM (base_model in eval mode → v10Detect returns tuple)
-            raw_out = base_model(inputs)
-            if isinstance(raw_out, (tuple, list)):
-                preds_tensor = raw_out[0]  # [B, 300, 6]
-            else:
-                preds_tensor = raw_out
-
-            # Normalize from pixel coords to [0,1]
-            _, _, H, W = inputs.shape
-            norm_factor = torch.tensor([W, H, W, H], device=preds_tensor.device).view(1, 1, 4)
-
-            for b in range(preds_tensor.shape[0]):
-                preds_img = preds_tensor[b]
-                conf_mask = preds_img[:, 4] > 0.0001
-                if conf_mask.any():
-                    boxes_pixel = preds_img[conf_mask, :4]
-                    boxes_norm = boxes_pixel / norm_factor[0]
-                    all_pred_boxes.append(boxes_norm.cpu())
-                    all_pred_scores.append(preds_img[conf_mask, 4].cpu())
-                    all_pred_classes.append(preds_img[conf_mask, 5].long().cpu())
-                else:
-                    all_pred_boxes.append(torch.zeros(0, 4))
-                    all_pred_scores.append(torch.zeros(0))
-                    all_pred_classes.append(torch.zeros(0, dtype=torch.long))
-
-                img_batch_idx = (batch_dict["batch_idx"] == b)
-                if img_batch_idx.any():
-                    all_gt_boxes.append(batch_dict["bboxes"][img_batch_idx].cpu())
-                    all_gt_classes.append(batch_dict["cls"][img_batch_idx, 0].long().cpu())
-                else:
-                    all_gt_boxes.append(torch.zeros(0, 4))
-                    all_gt_classes.append(torch.zeros(0, dtype=torch.long))
-
-    if all_pred_boxes:
-        map_results = compute_map(
-            all_pred_boxes, all_pred_scores, all_pred_classes,
-            all_gt_boxes, all_gt_classes,
-            num_classes=num_classes,
-            iou_threshold=0.5,
-        )
-        print(f"\nTest mAP@0.5: {map_results['mAP@0.5']:.2f}%")
-        for c, ap in enumerate(map_results["AP_per_class"]):
-            print(f"  Class {c} AP: {ap:.2f}%")
-    else:
-        print(f"\nNo predictions to evaluate")
+    print(f"\nEvaluating on test set...")
+    test_map = compute_map_on_loader(
+        model, test_loader, num_classes, device,
+        conf_threshold=0.001, iou_threshold=0.5,
+    )
+    print(f"Test mAP@0.5: {test_map['mAP@0.5']:.2f}%")
+    for c, ap in enumerate(test_map["AP_per_class"]):
+        print(f"  Class {c} AP: {ap:.2f}%")
 
     # ── Save final checkpoint ───────────────────────────────────────────
-    checkpoint_path = engine.save()
-    print(f"\nCheckpoint saved to: {checkpoint_path}")
-
-    if engine.state.best_metric is not None:
-        print(f"Best validation metric: {engine.state.best_metric:.4f}")
-
+    save_dir = Path(config.get("checkpoint.save_dir", "checkpoints/ctm_yolov10"))
+    save_dir.mkdir(parents=True, exist_ok=True)
+    torch.save({
+        "epoch": epochs,
+        "model_state_dict": model.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict(),
+        "best_map": best_map,
+        "test_map": test_map["mAP@0.5"],
+        "config": config._data,
+    }, save_dir / "last.pt")
+    print(f"\nFinal checkpoint saved to: {save_dir / 'last.pt'}")
     print(f"\nDone!")
 
 

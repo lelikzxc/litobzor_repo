@@ -18,32 +18,24 @@ class ExperimentInfo:
 
     Attributes:
         model_name: Model name (e.g. ``"segformer_atrous"``).
-        backbone: Backbone variant (e.g. ``"MiT-B0"``).
+        backbone: Encoder variant (e.g. ``"Hybrid-B0"``).
         num_classes: Number of output segmentation classes.
         input_size: Input image size (assumed square).
         decoder_dim: Common projection dimension for the MLP decoder.
-        atrous_enabled: Whether Atrous Enhancement is active.
-        atrous_rates: Dilation rates for atrous convolutions (``None`` if disabled).
-        atrous_reduction: Channel reduction ratio for atrous bottleneck (``None`` if disabled).
         total_params: Total trainable parameters.
-        backbone_params: Parameters in the MiT backbone.
+        encoder_params: Parameters in the hybrid encoder.
         decoder_params: Parameters in the MLP decoder.
-        atrous_params: Parameters in the Atrous module (0 if disabled).
         architecture_summary: Human-readable architecture description.
     """
 
     model_name: str = "segformer_atrous"
-    backbone: str = "MiT-B0"
-    num_classes: int = 8
+    backbone: str = "Hybrid-B0"
+    num_classes: int = 7
     input_size: int = 512
     decoder_dim: int = 256
-    atrous_enabled: bool = False
-    atrous_rates: list[int] | None = None
-    atrous_reduction: int | None = None
     total_params: int = 0
-    backbone_params: int = 0
+    encoder_params: int = 0
     decoder_params: int = 0
-    atrous_params: int = 0
     architecture_summary: str = ""
 
 
@@ -64,7 +56,7 @@ def _count_module_params(model: torch.nn.Module, class_name: str) -> int:
 
     Args:
         model: A PyTorch module.
-        class_name: Class name to match (e.g. ``"AtrousEnhancement"``).
+        class_name: Class name to match (e.g. ``"MLPDecoder"``).
 
     Returns:
         Number of trainable parameters in matching sub-modules.
@@ -79,7 +71,7 @@ def _count_module_params(model: torch.nn.Module, class_name: str) -> int:
 def build_experiment_info(model: torch.nn.Module) -> ExperimentInfo:
     """Build an ``ExperimentInfo`` snapshot from a model instance.
 
-    Works with ``SegFormer`` instances (both baseline and Atrous-enhanced).
+    Works with ``SegFormer`` instances (hybrid encoder).
 
     Args:
         model: A SegFormer instance.
@@ -90,43 +82,30 @@ def build_experiment_info(model: torch.nn.Module) -> ExperimentInfo:
     total = count_params(model)
 
     # Count parameters by component
-    atrous_params = _count_module_params(model, "AtrousEnhancement")
     decoder_params = _count_module_params(model, "MLPDecoder")
-    backbone_params = total - atrous_params - decoder_params
+    encoder_params = total - decoder_params
 
     # Read attributes from model
     variant = getattr(model, "variant", "B0")
-    num_classes = getattr(model, "num_classes", 8)
-    input_size = getattr(model, "in_channels", 3)  # not image_size, but we use 512 default
+    num_classes = getattr(model, "num_classes", 7)
     decoder_dim = getattr(model, "decoder_dim", 256)
-    atrous_enabled = getattr(model, "atrous_enabled", False)
-    atrous_rates = getattr(model, "atrous_rates", None) if atrous_enabled else None
-    atrous_reduction = getattr(model, "atrous_reduction", None) if atrous_enabled else None
 
     # Build architecture summary
     parts: list[str] = [
-        f"SegFormer ({variant})",
+        f"SegFormer Hybrid-{variant}",
+        f"classes={num_classes}",
     ]
-    if atrous_enabled:
-        parts.append(f"+ Atrous(rates={atrous_rates}, r={atrous_reduction})")
-    else:
-        parts.append("baseline (no Atrous)")
-    parts.append(f"classes={num_classes}")
     arch_summary = " | ".join(parts)
 
     return ExperimentInfo(
         model_name="segformer_atrous",
-        backbone=f"MiT-{variant}",
+        backbone=f"Hybrid-{variant}",
         num_classes=num_classes,
         input_size=512,
         decoder_dim=decoder_dim,
-        atrous_enabled=atrous_enabled,
-        atrous_rates=list(atrous_rates) if atrous_rates else None,
-        atrous_reduction=atrous_reduction,
         total_params=total,
-        backbone_params=backbone_params,
+        encoder_params=encoder_params,
         decoder_params=decoder_params,
-        atrous_params=atrous_params,
         architecture_summary=arch_summary,
     )
 
@@ -149,21 +128,10 @@ def format_experiment_info(info: ExperimentInfo) -> str:
         f"  Input size:         {info.input_size}×{info.input_size}",
         f"  Decoder dim:        {info.decoder_dim}",
         "",
-        "  Atrous module:",
-        f"    Enabled:          {info.atrous_enabled}",
-    ]
-    if info.atrous_enabled and info.atrous_rates is not None:
-        lines += [
-            f"    Rates:            {info.atrous_rates}",
-            f"    Reduction:        {info.atrous_reduction}",
-        ]
-    lines += [
-        "",
         "  Parameters:",
         f"    Total:            {info.total_params:>10,}",
-        f"    Backbone:         {info.backbone_params:>10,}",
+        f"    Encoder:          {info.encoder_params:>10,}",
         f"    Decoder:          {info.decoder_params:>10,}",
-        f"    Atrous:           {info.atrous_params:>10,}",
         f"  Architecture:       {info.architecture_summary}",
         "=" * 56,
     ]
