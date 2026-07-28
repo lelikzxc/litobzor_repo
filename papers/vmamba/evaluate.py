@@ -1,8 +1,7 @@
-"""Evaluate a trained ViT-Tiny model on WM-811K test set.
+"""Evaluate a trained FCS-VMamba model on WM-811K test set.
 
 Usage:
-    python papers/vit_tiny/evaluate.py --checkpoint checkpoints/vit_tiny_wm811k/best.pt
-    python papers/vit_tiny/evaluate.py --checkpoint checkpoints/vit_tiny_wm811k/last.pt
+    python papers/vmamba/evaluate.py --checkpoint checkpoints/vmamba_wm811k/best.pt
 """
 
 from __future__ import annotations
@@ -19,26 +18,25 @@ if str(_project_root) not in sys.path:
     sys.path.insert(0, str(_project_root))
 
 from common.engine.config import EngineConfig
-from common.engine.engine import Engine
 from common.training.metrics import accuracy, f1, precision, recall
-from papers.vit_tiny.data_utils import WaferWM811KDataset
-from papers.vit_tiny.models.vit_tiny import ViTTiny
+from papers.vmamba.data_utils import WaferWM811KDataset
+from papers.vmamba.models.vmamba import FCSVMamba
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Evaluate ViT-Tiny on WM-811K test set"
+        description="Evaluate FCS-VMamba on WM-811K test set"
     )
     parser.add_argument(
         "--checkpoint",
         type=str,
-        default="checkpoints/vit_tiny_wm811k/best.pt",
+        default="checkpoints/vmamba_wm811k/best.pt",
         help="Path to checkpoint .pt file",
     )
     parser.add_argument(
         "--config",
         type=str,
-        default="papers/vit_tiny/configs/config.yaml",
+        default="papers/vmamba/configs/config.yaml",
         help="Path to YAML configuration file",
     )
     parser.add_argument(
@@ -54,7 +52,6 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    # ── Resolve device ──────────────────────────────────────────────────
     device = args.device
     if device == "auto":
         device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -69,7 +66,7 @@ def main() -> None:
 
     # ── Create dataset ──────────────────────────────────────────────────
     data_root = config.get("data.data_root", "datasets/wm811k")
-    image_size = config.get("data.image_size", 64)
+    image_size = config.get("data.image_size", 128)
     train_split = config.get("data.train_split", 0.8)
     val_split = config.get("data.val_split", 0.1)
 
@@ -107,8 +104,8 @@ def main() -> None:
     )
 
     # ── Create model ────────────────────────────────────────────────────
-    print("Creating ViT-Tiny model...")
-    model = ViTTiny.from_config(config)
+    print("Creating FCS-VMamba model...")
+    model = FCSVMamba.from_config(config)
     model = model.to(device)
 
     # ── Load checkpoint ─────────────────────────────────────────────────
@@ -120,7 +117,6 @@ def main() -> None:
     print(f"Loading checkpoint: {checkpoint_path}")
     state = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
 
-    # Checkpoint from Engine has key "model", from raw save has "model_state_dict"
     if "model" in state:
         model.load_state_dict(state["model"])
         epoch = state.get("epoch", 0)
@@ -130,7 +126,6 @@ def main() -> None:
         model.load_state_dict(state["model_state_dict"])
         print(f"  Loaded from epoch {state.get('epoch', 0)}")
     else:
-        # Try loading state_dict directly
         model.load_state_dict(state)
         print("  Loaded state_dict directly")
 
@@ -163,10 +158,11 @@ def main() -> None:
     targets = torch.cat(all_targets)
 
     avg_loss = total_loss / max(num_batches, 1)
+    num_classes = config.get("model.num_classes", 9)
     acc = accuracy(logits, targets)
-    f1_score = f1(logits, targets, num_classes=config.get("model.num_classes", 9))
-    prec = precision(logits, targets, num_classes=config.get("model.num_classes", 9))
-    rec = recall(logits, targets, num_classes=config.get("model.num_classes", 9))
+    f1_score = f1(logits, targets, num_classes=num_classes)
+    prec = precision(logits, targets, num_classes=num_classes)
+    rec = recall(logits, targets, num_classes=num_classes)
 
     print(f"\nTest Results:")
     print(f"  Loss:      {avg_loss:.4f}")
@@ -175,10 +171,9 @@ def main() -> None:
     print(f"  Precision: {prec:.4f}")
     print(f"  Recall:    {rec:.4f}")
 
-    # Per-class accuracy
     preds = logits.argmax(dim=1)
     print(f"\nPer-class accuracy:")
-    for c in range(config.get("model.num_classes", 9)):
+    for c in range(num_classes):
         mask = targets == c
         if mask.any():
             class_acc = (preds[mask] == targets[mask]).float().mean().item()

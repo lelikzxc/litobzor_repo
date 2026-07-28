@@ -1,10 +1,10 @@
 # SegFormer + Atrous experiment configuration for WM-811K segmentation
-# 7-class segmentation: AA, LF, QR, AP, CA, IC, background
+# Binary segmentation: background (0) and defect (1)
 # Compatible with both SegFormer.from_config() and common.engine.EngineConfig.
 
 model:
   name: segformer_atrous
-  num_classes: 7
+  num_classes: 2
   task: segmentation
 
   encoder:
@@ -26,7 +26,7 @@ data:
   dataset: wm811k_seg
   data_root: datasets/wm811k_seg
   image_size: 512
-  num_classes: 7
+  num_classes: 2
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
@@ -84,4 +84,4 @@ checkpoint:
 dataset:
   name: wm811k_seg
   image_size: 512
-  num_classes: 7
+  num_classes: 2
