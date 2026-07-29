@@ -216,7 +216,15 @@ class CTMIYOLOv10(nn.Module):
             1. Run backbone layers (0-10) manually, collecting P3 (layer 4),
                P4 (layer 6), P5 (layer 10) feature maps.
             2. Pass [P3, P4, P5] through BiFPN for weighted multi-scale fusion.
-            3. Feed BiFPN outputs directly to the detection head (layer 23).
+            3. **Replace** the backbone feature maps in the output list ``y``
+               with the BiFPN-enhanced versions (same shapes, same positions).
+            4. Continue standard iteration through neck (layers 11-22) and
+               detection head (layer 23). All skip connections remain intact
+               because ``y`` contains the enhanced features at the same indices.
+
+            This means BiFPN acts as a feature enhancer on top of the backbone,
+            *not* as a replacement for the neck. The neck (PAN-FPN) still runs
+            normally and receives enhanced backbone features.
 
         When ``bifpn=False``:
             Delegate to ``base_model._predict_once(x)`` (standard YOLOv10 forward
@@ -226,20 +234,21 @@ class CTMIYOLOv10(nn.Module):
             # Standard YOLOv10 forward (with GhostConv already in seq)
             return self.base_model._predict_once(x)
 
-        # ── BiFPN forward ────────────────────────────────────────────────
-        # Run backbone layers (0-10) manually to collect P3, P4, P5 features.
-        # The neck layers (11-22) are skipped entirely — BiFPN replaces them.
-        # Detection head (layer 23) receives BiFPN-enhanced features directly.
+        # ── BiFPN-enhanced forward ───────────────────────────────────────
+        # Phase 1: Run backbone (layers 0-10), collect P3/P4/P5.
+        # Phase 2: Enhance P3/P4/P5 via BiFPN.
+        # Phase 3: Replace backbone features in y with enhanced versions.
+        # Phase 4: Continue through neck (11-22) and head (23) normally.
+        #
+        # The head (v10Detect) receives the output of the last neck layer
+        # (layer 22) and processes it internally — we just return x after
+        # the loop, matching the standard DetectionModel._predict_once.
 
-        y: list[torch.Tensor] = []
+        y: list[torch.Tensor | None] = []
+        p3_idx, p4_idx, p5_idx = 4, 6, 10  # layer indices for P3, P4, P5
         p3, p4, p5 = None, None, None
-        head = self.seq[-1]  # v10Detect
 
         for i, m in enumerate(self.seq):
-            # Stop before the detection head — we handle it separately
-            if i == len(self.seq) - 1:
-                break
-
             m_f = getattr(m, 'f', -1)
             m_i = getattr(m, 'i', -1)
 
@@ -253,33 +262,46 @@ class CTMIYOLOv10(nn.Module):
             x = m(x)
 
             # Collect backbone feature maps at P3, P4, P5
-            if m_i == 4:
+            if m_i == p3_idx:
                 p3 = x  # [B, 64, 80, 80]
-            elif m_i == 6:
+            elif m_i == p4_idx:
                 p4 = x  # [B, 128, 40, 40]
-            elif m_i == 10:
+            elif m_i == p5_idx:
                 p5 = x  # [B, 256, 20, 20]
 
+            # Save output for skip connections (match standard logic:
+            # only save if m.i in self.save, but we need all for BiFPN)
             y.append(x)
 
-        # After backbone (layer 10), run BiFPN
-        if p3 is None or p4 is None or p5 is None:
-            raise RuntimeError(
-                "BiFPN requires P3, P4, P5 features from backbone. "
-                f"Got p3={'✓' if p3 is not None else '✗'}, "
-                f"p4={'✓' if p4 is not None else '✗'}, "
-                f"p5={'✓' if p5 is not None else '✗'}"
-            )
+            # ── After backbone (layer 10): inject BiFPN-enhanced features ─
+            if m_i == p5_idx:
+                if p3 is None or p4 is None or p5 is None:
+                    raise RuntimeError(
+                        "BiFPN requires P3, P4, P5 features from backbone. "
+                        f"Got p3={'✓' if p3 is not None else '✗'}, "
+                        f"p4={'✓' if p4 is not None else '✗'}, "
+                        f"p5={'✓' if p5 is not None else '✗'}"
+                    )
 
-        # Run BiFPN: [P3, P4, P5] -> enhanced [P3_out, P4_out, P5_out]
-        bifpn_out = self.bifpn_module([p3, p4, p5])
+                # Run BiFPN: [P3, P4, P5] -> enhanced [P3_out, P4_out, P5_out]
+                bifpn_out = self.bifpn_module([p3, p4, p5])
 
-        # Feed BiFPN outputs directly to the detection head
-        # v10Detect expects a list of 3 feature maps [P3, P4, P5]
-        return head(bifpn_out)
+                # Replace backbone features in y with BiFPN-enhanced versions.
+                # The neck layers (11-22) reference y via skip connections,
+                # so they will automatically use the enhanced features.
+                y[p3_idx] = bifpn_out[0]  # enhanced P3
+                y[p4_idx] = bifpn_out[1]  # enhanced P4
+                y[p5_idx] = bifpn_out[2]  # enhanced P5
+
+        # Return the final output (head output, same as standard _predict_once)
+        return x
 
     def loss(self, batch: dict) -> torch.Tensor:
-        """Compute loss with improved model predictions."""
+        """Compute loss with improved model predictions.
+
+        Returns:
+            Scalar loss tensor (sum of box + cls + dfl losses).
+        """
         if getattr(self.base_model, "criterion", None) is None:
             self.base_model.criterion = self.base_model.init_criterion()
 
@@ -303,7 +325,11 @@ class CTMIYOLOv10(nn.Module):
             _fix_hyp(self.base_model.criterion.one2one)
 
         preds = self._predict_once(batch["img"])
-        return self.base_model.criterion(preds, batch)
+        loss_out = self.base_model.criterion(preds, batch)
+        # loss_out is (tensor[3], dict) — return only the summed scalar
+        if isinstance(loss_out, (tuple, list)):
+            return loss_out[0].sum()
+        return loss_out.sum()
 
     @classmethod
     def from_config(cls, config: Any) -> CTMIYOLOv10:

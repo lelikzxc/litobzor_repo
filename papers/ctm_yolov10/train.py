@@ -361,17 +361,35 @@ def main() -> None:
 
     model = model.to(device)
 
-    # ── Optimizer ───────────────────────────────────────────────────────
+    # ── Optimizer with differentiated LR for BiFPN ──────────────────────
     lr = config.get("training.learning_rate", 0.001)
     weight_decay = config.get("training.weight_decay", 0.0005)
     momentum = config.get("optimizer.kwargs.momentum", 0.937)
+    bifpn_lr_scale = config.get("model.bifpn.lr_scale", 0.1)  # BiFPN gets 10x lower LR
+
+    # Split parameters into groups: BiFPN gets lower LR
+    bifpn_params = []
+    backbone_params = []
+    for name, param in model.named_parameters():
+        if "bifpn_module" in name:
+            bifpn_params.append(param)
+        else:
+            backbone_params.append(param)
+
     optimizer = torch.optim.SGD(
-        model.parameters(),
-        lr=lr,
+        [
+            {"params": backbone_params, "lr": lr, "momentum": momentum,
+             "weight_decay": weight_decay, "nesterov": True},
+            {"params": bifpn_params, "lr": lr * bifpn_lr_scale, "momentum": momentum,
+             "weight_decay": weight_decay, "nesterov": True},
+        ],
+        lr=lr,  # default LR for any extra params
         momentum=momentum,
         weight_decay=weight_decay,
         nesterov=True,
     )
+    print(f"  Optimizer groups: backbone={len(backbone_params)} params, "
+          f"bifpn={len(bifpn_params)} params (LR={lr*bifpn_lr_scale:.6f})")
 
     # ── Scheduler ───────────────────────────────────────────────────────
     epochs = config.get("training.num_epochs", 100)
@@ -380,6 +398,33 @@ def main() -> None:
         T_max=epochs,
         eta_min=0.00001,
     )
+
+    # ── BiFPN warmup ────────────────────────────────────────────────────
+    # First N epochs: freeze backbone, train only BiFPN + detection head
+    bifpn_warmup_epochs = config.get("model.bifpn.warmup_epochs", 5)
+
+    def _set_bifpn_warmup(model: CTMIYOLOv10, epoch: int) -> None:
+        """Freeze backbone for first N epochs to let BiFPN stabilise."""
+        if epoch <= bifpn_warmup_epochs:
+            # Freeze backbone (seq layers 0-10), keep BiFPN and head trainable
+            for i, layer in enumerate(model.seq):
+                if i <= 10:  # backbone layers
+                    for p in layer.parameters():
+                        p.requires_grad = False
+                else:  # neck + head
+                    for p in layer.parameters():
+                        p.requires_grad = True
+            if model.bifpn_module is not None:
+                for p in model.bifpn_module.parameters():
+                    p.requires_grad = True
+            if epoch == 1:
+                print(f"  BiFPN warmup: backbone frozen (epochs 1-{bifpn_warmup_epochs})")
+        else:
+            # Unfreeze everything
+            for p in model.parameters():
+                p.requires_grad = True
+            if epoch == bifpn_warmup_epochs + 1:
+                print("  BiFPN warmup complete: all layers unfrozen")
 
     # ── Training loop ───────────────────────────────────────────────────
     print(f"\n{'='*60}")
@@ -390,6 +435,9 @@ def main() -> None:
     from tqdm import tqdm
 
     for epoch in range(1, epochs + 1):
+        # Apply BiFPN warmup (freeze backbone for first N epochs)
+        _set_bifpn_warmup(model, epoch)
+
         # ── Train one epoch ─────────────────────────────────────────────
         model.train()
         total_loss = 0.0
@@ -397,6 +445,7 @@ def main() -> None:
         total_cls = 0.0
         total_dfl = 0.0
         num_batches = 0
+        nan_batches = 0
 
         iterator = tqdm(train_loader, desc=f"Epoch {epoch}/{epochs} [Train]")
         for batch in iterator:
@@ -416,44 +465,36 @@ def main() -> None:
             # Forward through CTM model in train mode
             # CTMIYOLOv10.forward() accepts dict → calls self.loss() which
             # runs CTM-enhanced forward + criterion
-            loss_output = model(batch_dict)
-            if isinstance(loss_output, (tuple, list)):
-                loss = loss_output[0].sum()
-                details = loss_output[1]
-                box_loss = details.get('box_loss', 0)
-                cls_loss = details.get('cls_loss', 0)
-                dfl_loss = details.get('dfl_loss', 0)
-            else:
-                loss = loss_output.sum()
-                box_loss = cls_loss = dfl_loss = 0.0
+            # loss() now returns a scalar tensor (sum of box+cls+dfl)
+            loss = model(batch_dict)
+
+            # Check for NaN loss
+            if torch.isnan(loss) or torch.isinf(loss):
+                nan_batches += 1
+                if nan_batches > 10:
+                    print(f"\n  WARNING: Too many NaN losses ({nan_batches}), stopping training!")
+                    break
+                continue
 
             loss.backward()
+
+            # Clip gradients to prevent explosion from BiFPN
             torch.nn.utils.clip_grad_norm_(model.parameters(), 10.0)
+
             optimizer.step()
 
             total_loss += loss.item()
-            total_box += box_loss if isinstance(box_loss, float) else box_loss.item()
-            total_cls += cls_loss if isinstance(cls_loss, float) else cls_loss.item()
-            total_dfl += dfl_loss if isinstance(dfl_loss, float) else dfl_loss.item()
             num_batches += 1
 
             iterator.set_postfix({
                 "loss": f"{loss.item():.1f}",
-                "box": f"{box_loss:.1f}" if isinstance(box_loss, float) else f"{box_loss.item():.1f}",
-                "cls": f"{cls_loss:.2f}" if isinstance(cls_loss, float) else f"{cls_loss.item():.2f}",
             })
 
         avg_loss = total_loss / max(num_batches, 1)
-        avg_box = total_box / max(num_batches, 1)
-        avg_cls = total_cls / max(num_batches, 1)
-        avg_dfl = total_dfl / max(num_batches, 1)
 
         # ── Validate ────────────────────────────────────────────────────
         model.eval()
         val_loss = 0.0
-        val_box = 0.0
-        val_cls = 0.0
-        val_dfl = 0.0
         val_batches = 0
 
         with torch.no_grad():
@@ -467,27 +508,15 @@ def main() -> None:
                     batch_dict["cls"] = batch["cls"].to(device)
                     batch_dict["batch_idx"] = batch["batch_idx"].to(device)
 
-                # Compute loss via CTMIYOLOv10.loss() (handles CTM + criterion)
-                # Use a temporary train-mode forward for loss computation
+                # Compute loss via CTMIYOLOv10.loss()
                 model.train()
-                loss_output = model(batch_dict)
-                if isinstance(loss_output, (tuple, list)):
-                    vloss = loss_output[0].sum()
-                    vdetails = loss_output[1]
-                    val_box += vdetails.get('box_loss', 0)
-                    val_cls += vdetails.get('cls_loss', 0)
-                    val_dfl += vdetails.get('dfl_loss', 0)
-                else:
-                    vloss = loss_output.sum()
+                vloss = model(batch_dict)
                 model.eval()
 
                 val_loss += vloss.item()
                 val_batches += 1
 
         avg_val_loss = val_loss / max(val_batches, 1)
-        avg_val_box = val_box / max(val_batches, 1)
-        avg_val_cls = val_cls / max(val_batches, 1)
-        avg_val_dfl = val_dfl / max(val_batches, 1)
 
         # ── Compute mAP@0.5 on validation set ───────────────────────────
         map_results = compute_map_on_loader(
@@ -498,8 +527,8 @@ def main() -> None:
 
         # ── Print epoch summary ─────────────────────────────────────────
         print(f"\nEpoch {epoch}/{epochs} | "
-              f"Train Loss: {avg_loss:.2f} (box={avg_box:.1f}, cls={avg_cls:.2f}, dfl={avg_dfl:.2f}) | "
-              f"Val Loss: {avg_val_loss:.2f} (box={avg_val_box:.1f}, cls={avg_val_cls:.2f}, dfl={avg_val_dfl:.2f}) | "
+              f"Train Loss: {avg_loss:.2f} | "
+              f"Val Loss: {avg_val_loss:.2f} | "
               f"mAP@0.5: {current_map:.2f}% | "
               f"LR: {scheduler.get_last_lr()[0]:.2e}")
 

@@ -125,6 +125,9 @@ class BiFPN(nn.Module):
     """BiFPN neck for multi-scale feature fusion.
 
     Repeats the BiFPN block ``num_repeats`` times for deeper fusion.
+    Uses zero-initialised residual scaling so BiFPN starts as identity
+    and gradually learns to enhance features — critical for training
+    stability when the backbone has pretrained weights.
 
     Args:
         channels: Number of channels for all feature levels.
@@ -157,6 +160,31 @@ class BiFPN(nn.Module):
             BiFPNBlock(channels, num_levels) for _ in range(num_repeats)
         ])
 
+        # Zero-initialised residual scale: BiFPN starts as identity.
+        # out = features + residual_scale * (bifpn_out - features)
+        # With residual_scale=0, BiFPN has no effect initially.
+        # We use abs(residual_scale) so it's always non-negative.
+        self.residual_scale = nn.Parameter(torch.zeros(1))
+
+        # Initialize weights for stable training
+        self._init_weights()
+
+    def _init_weights(self) -> None:
+        """Initialize conv weights with very small values.
+
+        BiFPN is randomly initialised while the backbone has pretrained
+        weights.  Using tiny initial values + zero residual scale means
+        BiFPN starts as a no-op and gradually learns to contribute.
+        """
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.normal_(m.weight, mean=0.0, std=0.01)
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0.0)
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1.0)
+                nn.init.constant_(m.bias, 0.0)
+
     def forward(self, features: list[torch.Tensor]) -> list[torch.Tensor]:
         """Forward pass.
 
@@ -166,6 +194,13 @@ class BiFPN(nn.Module):
         Returns:
             List of fused feature maps at the same resolutions and channel dims.
         """
+        # Residual scale via sigmoid: starts at 0.5, range (0, 1).
+        # We subtract 0.5 so effective range is (-0.5, 0.5), starting at 0.
+        # This ensures gradients flow even at initialisation.
+        # sigmoid(0) = 0.5, so scale starts at 0.
+        scale = torch.sigmoid(self.residual_scale) - 0.5  # (-0.5, 0.5), starts at 0
+
+        # Always compute BiFPN to maintain gradient flow to residual_scale.
         # Project all to same channel dim
         projected = [proj(f) for proj, f in zip(self.input_proj, features)]
 
@@ -176,5 +211,12 @@ class BiFPN(nn.Module):
 
         # Project back to original channel dimensions
         out = [proj(f) for proj, f in zip(self.output_proj, out)]
+
+        # Residual: out_i = features_i + scale * (bifpn_out_i - features_i)
+        # When scale=0, output = original backbone features (identity).
+        out = [
+            f_in + scale * (f_out - f_in)
+            for f_in, f_out in zip(features, out)
+        ]
 
         return out

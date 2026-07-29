@@ -1,4 +1,4 @@
-"""Base dataset class and dataset type enum for CTM-IYOLOv10.
+"""Base dataset class and dataset type enum for the litobzor repository.
 
 Provides ``BaseDataset`` (abstract base for all datasets) and ``DatasetType``
 (enum for classification / segmentation / multitask).
