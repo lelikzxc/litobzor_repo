@@ -72,6 +72,18 @@ def parse_args() -> argparse.Namespace:
         help="Use only a fraction of the training dataset (e.g. 0.2 = 20%%), "
              "with stratified sampling to preserve class balance",
     )
+    parser.add_argument(
+        "--resume",
+        type=str,
+        nargs="?",
+        const="last",
+        default=None,
+        help=(
+            "Resume training from a checkpoint. "
+            "Use --resume (loads last.pt), --resume best (loads best.pt), "
+            "or --resume /path/to/checkpoint.pt"
+        ),
+    )
     return parser.parse_args()
 
 
@@ -225,6 +237,22 @@ def main() -> None:
         config=config,
         device=device,
     )
+
+    # ── Resume from checkpoint ───────────────────────────────────────────
+    if args.resume is not None:
+        if args.resume == "last":
+            checkpoint_path = engine.checkpoint_manager.last_path
+            print(f"\nResuming from last checkpoint: {checkpoint_path}")
+            resumed_epoch = engine.resume(load_last=True)
+        elif args.resume == "best":
+            checkpoint_path = engine.checkpoint_manager.best_path
+            print(f"\nResuming from best checkpoint: {checkpoint_path}")
+            resumed_epoch = engine.resume(load_last=False)
+        else:
+            checkpoint_path = Path(args.resume)
+            print(f"\nResuming from checkpoint: {checkpoint_path}")
+            resumed_epoch = engine.resume(checkpoint_path=checkpoint_path)
+        print(f"  Resumed at epoch {resumed_epoch}")
 
     # ── Train ───────────────────────────────────────────────────────────
     epochs = config.get("training.num_epochs", 50)

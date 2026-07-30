@@ -118,6 +118,45 @@ class Engine:
 
         return logger
 
+    def resume(
+        self,
+        checkpoint_path: str | Path | None = None,
+        load_last: bool = True,
+    ) -> int:
+        """Load model, optimizer, and scheduler state from a checkpoint.
+
+        Args:
+            checkpoint_path: Path to checkpoint file. If ``None``, uses
+                ``last.pt`` (when ``load_last=True``) or ``best.pt`` from
+                the checkpoint manager's save directory.
+            load_last: If ``True`` (default), loads ``last.pt``. Otherwise
+                loads ``best.pt``. Ignored if ``checkpoint_path`` is given.
+
+        Returns:
+            The epoch number stored in the checkpoint (0 if no checkpoint).
+
+        Raises:
+            FileNotFoundError: If the checkpoint file does not exist.
+        """
+        if checkpoint_path is not None:
+            epoch = self.load(checkpoint_path)
+        elif load_last:
+            if self.checkpoint_manager is None:
+                raise RuntimeError(
+                    "Cannot resume: no CheckpointManager configured."
+                )
+            epoch = self.load(self.checkpoint_manager.last_path)
+        else:
+            if self.checkpoint_manager is None:
+                raise RuntimeError(
+                    "Cannot resume: no CheckpointManager configured."
+                )
+            epoch = self.load(self.checkpoint_manager.best_path)
+
+        # Sync trainer's current_epoch so training continues from here
+        self.trainer.current_epoch = epoch
+        return epoch
+
     def validate(self, loader: DataLoader) -> dict[str, float]:
         """Evaluate the model on a validation set.
 

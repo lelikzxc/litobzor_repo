@@ -1,0 +1,53 @@
+# RadonCNN experiment configuration for WM-811K dataset
+# Based on Scientific Reports 2023, 13:8127
+
+model:
+  name: radon_cnn
+  mode: classification
+  num_classes: 7                  # 7 classes (excludes Near-full and None)
+  in_channels: 1                  # WM-811K is grayscale
+  radon_theta: 64                 # Number of Radon projection angles
+
+training:
+  num_epochs: 200                 # Max epochs (early stopping will stop earlier)
+  batch_size: 64                  # Paper: balanced dataset
+  learning_rate: 0.0003           # Paper: lr=0.0003
+  weight_decay: 0.0               # Not specified in paper
+  lr_decay: 0.99                  # Paper: lr_decay=0.99 per epoch
+  early_stopping_patience: 30     # Paper: early stopping 30 epochs
+  grad_max_norm: 1.0
+
+optimizer:
+  name: adam
+  lr: 0.0003
+  weight_decay: 0.0
+
+scheduler:
+  name: exponential
+  kwargs:
+    gamma: 0.99                   # Paper: lr_decay=0.99 per epoch
+
+loss:
+  name: cross_entropy
+
+metrics:
+  - accuracy
+  - f1
+  - precision
+  - recall
+
+checkpoint:
+  save_dir: checkpoints/radon_cnn
+  metric_name: val_accuracy
+  mode: max
+
+evaluation:
+  batch_size: 64
+
+data:
+  data_root: datasets/wm811k
+  image_size: 64                  # Paper: resize to (64, 64)
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  balanced: false                 # Use all 25k samples, WeightedRandomSampler balances batches

@@ -85,6 +85,51 @@ class Trainer:
         self.current_epoch: int = 0
         self._best_val_loss: float = float("inf")
 
+    def resume_from_checkpoint(
+        self,
+        checkpoint_path: str | Path | None = None,
+        load_last: bool = True,
+    ) -> int:
+        """Load model, optimizer, and scheduler state from a checkpoint.
+
+        Args:
+            checkpoint_path: Path to checkpoint file. If ``None``, uses
+                ``last.pt`` (when ``load_last=True``) or ``best.pt`` from
+                the checkpoint manager's save directory.
+            load_last: If ``True`` (default), loads ``last.pt``. Otherwise
+                loads ``best.pt``. Ignored if ``checkpoint_path`` is given.
+
+        Returns:
+            The epoch number stored in the checkpoint (0 if no checkpoint).
+
+        Raises:
+            FileNotFoundError: If the checkpoint file does not exist.
+        """
+        if self.checkpoint_manager is None:
+            raise RuntimeError(
+                "Cannot resume: no CheckpointManager configured. "
+                "Pass checkpoint_manager to Trainer()."
+            )
+
+        if checkpoint_path is not None:
+            state = self.checkpoint_manager.load(
+                self.model, self.optimizer, self.scheduler,
+                checkpoint_path=checkpoint_path,
+            )
+        elif load_last:
+            state = self.checkpoint_manager.load_last(
+                self.model, self.optimizer, self.scheduler,
+            )
+        else:
+            state = self.checkpoint_manager.load_best(
+                self.model, self.optimizer, self.scheduler,
+            )
+
+        resumed_epoch = state.get("epoch", 0)
+        self.current_epoch = resumed_epoch
+        self.model = self.model.to(self.device)
+        return resumed_epoch
+
     # ------------------------------------------------------------------
     # Public API
     # ------------------------------------------------------------------
@@ -160,12 +205,13 @@ class Trainer:
                     metric=val_loss,
                 )
                 if val_loss is not None:
+                    val_accuracy = val_metrics.get("accuracy", None)
                     self.checkpoint_manager.save_best(
                         model=self.model,
                         optimizer=self.optimizer,
                         scheduler=self.scheduler,
                         epoch=self.current_epoch,
-                        metric=val_loss,
+                        metric=val_accuracy,
                     )
 
             # Early stopping

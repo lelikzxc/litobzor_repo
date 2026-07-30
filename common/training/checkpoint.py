@@ -155,6 +155,48 @@ class CheckpointManager:
         self._best_metric = state.get("metric", None)
         return state
 
+    def load_last(
+        self,
+        model: nn.Module,
+        optimizer: optim.Optimizer | None = None,
+        scheduler: Any | None = None,
+    ) -> dict[str, Any]:
+        """Load the last checkpoint (``last.pt``).
+
+        Args:
+            model: The model to load state into.
+            optimizer: Optional optimizer to load state into.
+            scheduler: Optional scheduler to load state into.
+
+        Returns:
+            The full checkpoint dictionary.
+
+        Raises:
+            FileNotFoundError: If ``last.pt`` does not exist.
+        """
+        return self.load(model, optimizer, scheduler, checkpoint_path=self.last_path)
+
+    def load_best(
+        self,
+        model: nn.Module,
+        optimizer: optim.Optimizer | None = None,
+        scheduler: Any | None = None,
+    ) -> dict[str, Any]:
+        """Load the best checkpoint (``best.pt``).
+
+        Args:
+            model: The model to load state into.
+            optimizer: Optional optimizer to load state into.
+            scheduler: Optional scheduler to load state into.
+
+        Returns:
+            The full checkpoint dictionary.
+
+        Raises:
+            FileNotFoundError: If ``best.pt`` does not exist.
+        """
+        return self.load(model, optimizer, scheduler, checkpoint_path=self.best_path)
+
     def _build_state(
         self,
         model: nn.Module,
