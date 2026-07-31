@@ -1,6 +1,6 @@
 {
-  "epoch": 30,
-  "best_metric": 0.09179376710697706,
+  "epoch": 32,
+  "best_metric": 0.951668204416648,
   "best_metric_name": "val_loss",
   "current_metric": null,
   "global_step": 0,

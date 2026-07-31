@@ -76,6 +76,15 @@ data:
   val_split: 0.1
   test_split: 0.1
 
+  # Hybrid sampling: downsampling None (paper Section 4.1)
+  hybrid_sampling:
+    enabled: true
+    none_downsample_ratio: 0.30  # Keep 30% of None class (~44k samples)
+
+  # Data augmentation (paper Section 4.1: "dynamic augmentation")
+  augmentation:
+    enabled: true
+
 # Semi-supervised learning (Section 2.2)
 semi_supervised:
   enabled: false

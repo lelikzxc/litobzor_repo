@@ -25,11 +25,14 @@ from __future__ import annotations
 
 import argparse
 import sys
+from collections import Counter
 from pathlib import Path
 
+import numpy as np
 import torch
 from torch import nn
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader, WeightedRandomSampler, random_split
+from torchvision import transforms
 
 # Ensure the project root is on sys.path for imports
 _project_root = Path(__file__).resolve().parent.parent.parent
@@ -122,6 +125,68 @@ class WeightedCrossEntropyLoss(nn.Module):
 
     def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return nn.functional.cross_entropy(logits, targets, weight=self.weight)
+
+
+def _compute_class_counts(dataset: WaferWM811KDataset) -> list[int]:
+    """Compute per-class sample counts from the dataset.
+
+    Returns:
+        List of counts indexed by class label (0..num_classes-1).
+    """
+    counts: list[int] = [0] * dataset.num_classes
+    for _, label in dataset._samples:
+        counts[label] += 1
+    return counts
+
+
+def _build_balanced_train_dataset(
+    dataset: WaferWM811KDataset,
+    none_downsample_ratio: float = 0.30,
+    random_state: int = 42,
+) -> tuple[list[int], list[int]]:
+    """Build a partially balanced training set via downsampling None.
+
+    Paper Section 4.1: downsampling the majority None class + SMOTE.
+    Here we use only downsampling (SMOTE for 32x32 grayscale creates artifacts).
+    The class weights in WeightedCrossEntropyLoss handle the rest.
+
+    Args:
+        dataset: The full WM-811K dataset.
+        none_downsample_ratio: Fraction of None samples to keep (0.30 = ~30%).
+        random_state: Random seed for reproducibility.
+
+    Returns:
+        Tuple of (indices, labels).
+    """
+    rng = np.random.RandomState(random_state)
+
+    # Collect per-class indices
+    class_indices: dict[int, list[int]] = {c: [] for c in range(dataset.num_classes)}
+    for idx, (_, label) in enumerate(dataset._samples):
+        class_indices[label].append(idx)
+
+    # Downsample None (class 0) — keep ~30% (paper uses aggressive downsampling)
+    none_indices = class_indices[0]
+    n_keep = max(1, int(len(none_indices) * none_downsample_ratio))
+    kept_none = rng.choice(none_indices, size=n_keep, replace=False).tolist()
+
+    # Keep all minority class samples
+    minority_indices: list[int] = []
+    minority_labels: list[int] = []
+    for c in range(1, dataset.num_classes):
+        minority_indices.extend(class_indices[c])
+        minority_labels.extend([c] * len(class_indices[c]))
+
+    # Final set: kept None + all minority
+    all_indices = kept_none + minority_indices
+    all_labels = [0] * len(kept_none) + minority_labels
+
+    print(f"  Hybrid sampling (downsample None):")
+    print(f"    None: {len(none_indices)} -> {n_keep}")
+    print(f"    Minority: {len(minority_indices)}")
+    print(f"    Total: {len(all_indices)}")
+
+    return all_indices, all_labels
 
 
 class DiceFocalLoss(nn.Module):
@@ -224,19 +289,82 @@ def main() -> None:
     print(f"  Total samples: {len(full_dataset)}")
     print(f"  Classes: {full_dataset.class_names}")
 
-    # ── Split dataset ───────────────────────────────────────────────────
+    # ── Compute class distribution ──────────────────────────────────────
+    class_counts = _compute_class_counts(full_dataset)
+    print(f"  Class distribution: {dict(zip(full_dataset.class_names, class_counts))}")
+
+    # ── Data augmentation ───────────────────────────────────────────────
+    use_augmentation = config.get("data.augmentation.enabled", True)
+    if use_augmentation and not is_segmentation:
+        aug_transform = transforms.Compose([
+            transforms.RandomHorizontalFlip(p=0.5),
+            transforms.RandomVerticalFlip(p=0.5),
+            transforms.RandomRotation(degrees=15, fill=0),
+            transforms.RandomAffine(degrees=0, translate=(0.1, 0.1), fill=0),
+            transforms.ToTensor(),  # PIL -> Tensor [C, H, W]
+        ])
+        print(f"  Using augmentation: RandomFlip + Rotation(15°) + Affine(10%)")
+    else:
+        aug_transform = None
+
+    # ── Stratified split ────────────────────────────────────────────────
+    from sklearn.model_selection import StratifiedShuffleSplit
+
     total = len(full_dataset)
     train_len = int(total * train_split)
     val_len = int(total * val_split)
     test_len = total - train_len - val_len
 
-    train_dataset, val_dataset, test_dataset = random_split(
-        full_dataset,
-        [train_len, val_len, test_len],
-        generator=torch.Generator().manual_seed(42),
+    all_labels = [label for _, label in full_dataset._samples]
+    sss = StratifiedShuffleSplit(n_splits=1, test_size=val_len + test_len, random_state=42)
+    train_idx, temp_idx = next(sss.split(np.arange(total), all_labels))
+
+    temp_labels = [all_labels[i] for i in temp_idx]
+    sss2 = StratifiedShuffleSplit(n_splits=1, test_size=test_len / (val_len + test_len), random_state=42)
+    val_idx, test_idx = next(sss2.split(np.arange(len(temp_idx)), temp_labels))
+    val_idx = [temp_idx[i] for i in val_idx]
+    test_idx = [temp_idx[i] for i in test_idx]
+
+    # Create train dataset with augmentation, val/test without
+    train_dataset = WaferWM811KDataset(
+        data_root=data_root,
+        image_size=image_size,
+        num_classes=num_classes,
+        transform=aug_transform,
     )
+    # Use only the training indices
+    train_dataset._samples = [full_dataset._samples[i] for i in train_idx]
+
+    val_dataset = torch.utils.data.Subset(full_dataset, val_idx)
+    test_dataset = torch.utils.data.Subset(full_dataset, test_idx)
 
     print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
+
+    # ── Hybrid sampling (downsample None) ───────────────────────────────
+    # Paper Section 4.1: downsampling majority None class
+    # Class weights in WeightedCrossEntropyLoss handle the imbalance further
+    use_hybrid_sampling = config.get("data.hybrid_sampling.enabled", True)
+    if use_hybrid_sampling and not is_segmentation:
+        none_downsample_ratio = config.get("data.hybrid_sampling.none_downsample_ratio", 0.30)
+
+        balanced_indices, balanced_labels = _build_balanced_train_dataset(
+            full_dataset,
+            none_downsample_ratio=none_downsample_ratio,
+            random_state=42,
+        )
+
+        # Filter to only training indices
+        train_idx_set = set(train_idx)
+        balanced_train_indices = [i for i in balanced_indices if i in train_idx_set]
+        balanced_train_labels = [balanced_labels[balanced_indices.index(i)] for i in balanced_train_indices]
+
+        print(f"  Balanced train set: {len(balanced_train_indices)} samples")
+
+        # Override train_dataset samples with balanced subset
+        train_dataset._samples = [full_dataset._samples[i] for i in balanced_train_indices]
+        train_shuffle = True
+    else:
+        train_shuffle = True
 
     # ── Create DataLoaders ──────────────────────────────────────────────
     if is_segmentation:
@@ -256,7 +384,7 @@ def main() -> None:
     train_loader = DataLoader(
         train_dataset,
         batch_size=batch_size,
-        shuffle=True,
+        shuffle=train_shuffle,
         num_workers=num_workers,
         collate_fn=collate_fn,
     )
@@ -303,9 +431,8 @@ def main() -> None:
 
         model = SegmentationWrapper(model)
     else:
-        # Weighted Cross-Entropy for classification
-        # Estimate class counts (uniform for now; real counts would come from dataset)
-        loss_fn = WeightedCrossEntropyLoss(num_classes=num_classes)
+        # Weighted Cross-Entropy for classification with real class counts
+        loss_fn = WeightedCrossEntropyLoss(num_classes=num_classes, class_counts=class_counts)
 
         # Wrap model to extract only classification output
         class ClassificationWrapper(nn.Module):

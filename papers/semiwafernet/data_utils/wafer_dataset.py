@@ -50,12 +50,14 @@ class WaferWM811KDataset(BaseDataset):
         data_root: str | Path,
         image_size: int = 32,
         num_classes: int = 9,
+        transform: callable | None = None,
     ) -> None:
         super().__init__(dataset_type=DatasetType.MULTITASK)
         self.data_root = Path(data_root)
         self.image_size = image_size
         self.num_classes = num_classes
         self.class_names = WM811K_CLASSES
+        self.transform = transform
 
         self.labels_path = self.data_root / "labels.csv"
         self.images_dir = self.data_root / "images"
@@ -120,8 +122,16 @@ class WaferWM811KDataset(BaseDataset):
         # Resize to target size
         image = image.resize((self.image_size, self.image_size), Image.BILINEAR)
 
-        # Convert to tensor [1, H, W], normalize to [0, 1]
-        image = torch.from_numpy(np.array(image, dtype=np.float32)).unsqueeze(0) / 255.0
+        # Apply augmentation transform (if any) BEFORE converting to tensor
+        if self.transform is not None:
+            # Convert to PIL RGB for torchvision transforms, then back to grayscale
+            image_rgb = image.convert("RGB")
+            image_rgb = self.transform(image_rgb)
+            # Convert back to grayscale tensor [1, H, W]
+            image = image_rgb.mean(dim=0, keepdim=True)  # [1, H, W]
+        else:
+            # Convert to tensor [1, H, W], normalize to [0, 1]
+            image = torch.from_numpy(np.array(image, dtype=np.float32)).unsqueeze(0) / 255.0
 
         # Dummy mask (zeros) — WM-811K has no segmentation masks
         mask = torch.zeros(self.image_size, self.image_size, dtype=torch.long)
