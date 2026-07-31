@@ -276,6 +276,17 @@ def main() -> None:
             checkpoint_path = checkpoint_manager.best_path
             print(f"\nResuming from best checkpoint: {checkpoint_path}")
             resumed_epoch = trainer.resume_from_checkpoint(load_last=False)
+            # Reset scheduler LR to initial value so the model can escape
+            # local minima instead of continuing to decay from ~0.0002.
+            for param_group in optimizer.param_groups:
+                param_group["lr"] = learning_rate
+            # Recreate scheduler with fresh state
+            scheduler = torch.optim.lr_scheduler.ExponentialLR(
+                optimizer,
+                gamma=lr_decay,
+            )
+            trainer.scheduler = scheduler
+            print(f"  LR reset to {learning_rate} (was decaying from ~0.0002)")
         else:
             # Load a specific checkpoint file
             checkpoint_path = Path(args.resume)

@@ -1,0 +1,49 @@
+# Wafer Defect Classifier — конфигурация
+# Основана на ноутбуке pipeline (3).ipynb
+# Данные: datasets/wm811k/
+
+model:
+  name: wafer_defect_classifier
+  mode: classification
+  num_classes: 9                  # 9 классов (все, включая None и Near-full)
+  in_channels: 1                  # Grayscale
+  image_size: 128                 # Размер входного изображения
+
+segmentation:
+  num_epochs: 20
+  batch_size: 32
+  learning_rate: 0.001
+  patience: 5                     # Early stopping patience
+
+classification:
+  num_epochs: 20
+  batch_size: 16
+  learning_rate: 0.001
+  patience: 5                     # Early stopping patience
+  dropout: 0.5                    # Dropout в классификаторе
+  use_class_weights: true         # Использовать взвешенную кросс-энтропию
+
+preprocessing:
+  n_none: 6000                    # Целевое количество образцов none
+  threshold: 4                    # Порог для conditional filling
+  random_state: 42
+
+data:
+  # Исходные данные (datasets/wm811k/)
+  labels_path: datasets/wm811k/labels.csv
+  images_original: datasets/wm811k/images
+
+  # Результаты предобработки (создаются preprocessing.py внутри datasets/wm811k/)
+  images_step1: datasets/wm811k/images_step1
+  masks: datasets/wm811k/masks
+  labels_balanced: datasets/wm811k/labels_balanced.csv
+  train_csv: datasets/wm811k/labels_train.csv
+  val_csv: datasets/wm811k/labels_val.csv
+  test_csv: datasets/wm811k/labels_test.csv
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+
+checkpoint:
+  segmentation: checkpoints/wafer_defect_classifier/segmentation_best.pth
+  classification: checkpoints/wafer_defect_classifier/classification_best.pth

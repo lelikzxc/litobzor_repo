@@ -1,0 +1,10 @@
+# Wafer Defect Classifier — корневой конфиг
+# См. configs/config.yaml для полной конфигурации
+
+model:
+  name: wafer_defect_classifier
+  task: classification
+
+experiment:
+  seed: 42
+  output_dir: runs/wafer_defect_classifier
