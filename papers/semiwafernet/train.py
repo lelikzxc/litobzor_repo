@@ -254,7 +254,8 @@ def main() -> None:
         config._data.setdefault("training", {})["batch_size"] = args.batch_size
     if args.lr is not None:
         config._data.setdefault("training", {})["learning_rate"] = args.lr
-        config._data.setdefault("training", {}).setdefault("optimizer", {})["lr"] = args.lr
+        # Also write to optimizer.lr so Builder.build_optimizer() picks it up
+        config._data.setdefault("optimizer", {})["lr"] = args.lr
     if args.mode is not None:
         config._data.setdefault("model", {})["mode"] = args.mode
 
@@ -474,6 +475,14 @@ def main() -> None:
             print(f"\nResuming from checkpoint: {checkpoint_path}")
             resumed_epoch = engine.resume(checkpoint_path=checkpoint_path)
         print(f"  Resumed at epoch {resumed_epoch}")
+
+        # ── Override learning rate after resume ─────────────────────────
+        # engine.resume() restores the optimizer state (including lr) from
+        # the checkpoint. If --lr was passed, we need to override it.
+        if args.lr is not None:
+            for param_group in engine.optimizer.param_groups:
+                param_group["lr"] = args.lr
+            print(f"  Overrode learning rate to: {args.lr}")
 
     # ── Train ───────────────────────────────────────────────────────────
     if is_segmentation:
