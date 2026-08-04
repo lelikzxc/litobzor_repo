@@ -27,6 +27,9 @@ class Trainer:
     Args:
         student: The student model (SemiWaferNet instance).
         stage_manager: Configured StageManager instance.
+        optimizer: Optimizer for the student model.
+        supervised_loss_fn: Loss callable ``(student_output, targets) -> loss``.
+        scheduler: Optional LR scheduler.
         device: Torch device for training.
     """
 
@@ -34,6 +37,9 @@ class Trainer:
         self,
         student: nn.Module,
         stage_manager: StageManager,
+        optimizer: torch.optim.Optimizer | None = None,
+        supervised_loss_fn: Callable | None = None,
+        scheduler: Any = None,
         device: torch.device | None = None,
     ) -> None:
         self.student = student
@@ -41,12 +47,11 @@ class Trainer:
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.student.to(self.device)
 
-        # Placeholder optimizer (user should replace with actual optimizer)
-        self.optimizer: torch.optim.Optimizer | None = None
-        self.scheduler: Any = None
+        self.optimizer: torch.optim.Optimizer | None = optimizer
+        self.scheduler: Any = scheduler
 
-        # Placeholder loss function (user should replace with actual loss)
-        self.supervised_loss_fn: Callable | None = None
+        # Loss function (callable accepting (student_output, targets))
+        self.supervised_loss_fn: Callable | None = supervised_loss_fn
 
     def set_optimizer(self, optimizer: torch.optim.Optimizer) -> None:
         """Set the optimizer.
@@ -71,6 +76,74 @@ class Trainer:
             loss_fn: Callable that takes (student_output, targets) and returns loss dict.
         """
         self.supervised_loss_fn = loss_fn
+
+    def fit(
+        self,
+        labeled_data: Any,
+        unlabeled_data: Any | None = None,
+        num_epochs: int = 1,
+        consistency_weight: float | None = None,
+    ) -> dict[str, float]:
+        """Run the three-stage semi-supervised training pipeline.
+
+        Stage 1: supervised warm-up on the labeled set (paper Section 2.2).
+        Stage 2: pseudo-label generation + adaptive thresholding + uncertainty
+            filtering, then train on labeled + accepted pseudo-labels.
+        Stage 3: refresh teacher, regenerate pseudo-labels, retrain.
+
+        If ``unlabeled_data`` is ``None`` (no unlabeled samples available),
+        only Stage 1 (supervised) is run — this is the practical fallback when
+        the dataset contains only labeled samples.
+
+        Args:
+            labeled_data: Iterable of ``(inputs, targets)`` batches.
+            unlabeled_data: Optional iterable of unlabeled input batches.
+            num_epochs: Number of epochs per stage.
+            consistency_weight: Weight for the consistency loss.
+
+        Returns:
+            Dictionary with training metrics.
+        """
+        if self.optimizer is None:
+            raise RuntimeError("Optimizer not set. Call set_optimizer() first.")
+        if self.supervised_loss_fn is None:
+            raise RuntimeError("Loss function not set. Call set_supervised_loss() first.")
+
+        # Stage 1: supervised warm-up on D_l
+        print("\n[SSL] Stage 1: supervised warm-up on labeled data")
+        stage1_metrics = self.train_stage1(
+            labeled_data=labeled_data,
+            num_epochs=num_epochs,
+        )
+
+        if unlabeled_data is None:
+            print("[SSL] No unlabeled data available — running supervised-only "
+                  "(Stage 1). Add unlabeled samples to enable Stages 2-3.")
+            return {"stage1": stage1_metrics}
+
+        # Stage 2: pseudo-label generation + adaptive thresholding
+        print("\n[SSL] Stage 2: pseudo-label generation + adaptive thresholding")
+        stage2_metrics = self.train_stage2(
+            labeled_data=labeled_data,
+            unlabeled_data=unlabeled_data,
+            num_epochs=num_epochs,
+            consistency_weight=consistency_weight,
+        )
+
+        # Stage 3: refresh teacher + regenerate pseudo-labels + retrain
+        print("\n[SSL] Stage 3: refresh teacher + regenerate pseudo-labels + retrain")
+        stage3_metrics = self.train_stage3(
+            labeled_data=labeled_data,
+            unlabeled_data=unlabeled_data,
+            num_epochs=num_epochs,
+            consistency_weight=consistency_weight,
+        )
+
+        return {
+            "stage1": stage1_metrics,
+            "stage2": stage2_metrics,
+            "stage3": stage3_metrics,
+        }
 
     def train_stage1(
         self,

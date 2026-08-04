@@ -1,10 +1,11 @@
-"""Training entry point for Tiny Vision Transformer on WM-811K.
+"""Training entry point for Tiny Vision Transformer on WM-38k.
 
 Usage:
     python papers/vit_tiny/train.py --config papers/vit_tiny/configs/config.yaml
 
-Trains ViT-Tiny on the WM-811K wafer map dataset using the common engine.
-Supports CUDA automatically when available.
+Trains a pretrained ViT-Tiny (vit-tiny-patch16-224) on the WM-38k wafer
+map dataset (38 classes) using the common engine. Supports CUDA
+automatically when available.
 """
 
 from __future__ import annotations
@@ -13,8 +14,10 @@ import argparse
 import sys
 from pathlib import Path
 
+import numpy as np
 import torch
-from torch.utils.data import DataLoader, random_split
+from torch import nn
+from torch.utils.data import DataLoader, Subset
 
 # Ensure the project root is on sys.path for imports
 _project_root = Path(__file__).resolve().parent.parent.parent
@@ -24,14 +27,15 @@ if str(_project_root) not in sys.path:
 from common.engine.config import EngineConfig
 from common.engine.engine import Engine
 from common.training.metrics import accuracy, f1, precision, recall
-from papers.vit_tiny.data_utils import WaferWM811KDataset
-from papers.vit_tiny.models.vit_tiny import ViTTiny
+from common.utils.cache import cache_stratified_split
+from papers.vit_tiny.data_utils import WaferWM38KDataset
+from papers.vit_tiny.models.vit_tiny import PretrainedViTTiny
 
 
 def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="Train ViT-Tiny on WM-811K wafer map dataset"
+        description="Train ViT-Tiny on WM-38k wafer map dataset"
     )
     parser.add_argument(
         "--config",
@@ -79,6 +83,51 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def stratified_split(
+    dataset: WaferWM38KDataset,
+    train_ratio: float = 0.8,
+    val_ratio: float = 0.1,
+    seed: int = 42,
+    cache_dir: str | Path | None = None,
+) -> tuple[Subset, Subset, Subset]:
+    """Perform stratified train/val/test split (cached on disk).
+
+    Args:
+        dataset: The full dataset.
+        train_ratio: Proportion for training.
+        val_ratio: Proportion for validation.
+        seed: Random seed.
+        cache_dir: Cache directory. Defaults to ``<data_root>/cache``.
+
+    Returns:
+        Tuple of ``(train_subset, val_subset, test_subset)``.
+    """
+    if cache_dir is None:
+        cache_dir = dataset.data_root / "cache"
+
+    labels = np.array([dataset[i]["label"] for i in range(len(dataset))])
+    train_idx, val_idx, test_idx = cache_stratified_split(
+        labels,
+        train_ratio,
+        val_ratio,
+        seed,
+        cache_dir,
+    )
+
+    return (
+        Subset(dataset, train_idx),
+        Subset(dataset, val_idx),
+        Subset(dataset, test_idx),
+    )
+
+
+def collate_fn(batch):
+    """Custom collate for dict-based samples."""
+    images = torch.stack([item["image"] for item in batch])
+    labels = torch.tensor([item["label"] for item in batch], dtype=torch.long)
+    return images, labels
+
+
 def main() -> None:
     """Run the training loop."""
     args = parse_args()
@@ -111,44 +160,39 @@ def main() -> None:
         print(f"  Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
     # ── Create dataset ──────────────────────────────────────────────────
-    data_root = config.get("data.data_root", "datasets/wm811k")
-    image_size = config.get("data.image_size", 32)
-    num_classes = config.get("model.num_classes", 9)
+    data_root = config.get("data.data_root", "datasets/wm38k")
+    image_size = config.get("data.image_size", 224)
+    num_classes = config.get("model.num_classes", 38)
     train_split = config.get("data.train_split", 0.8)
     val_split = config.get("data.val_split", 0.1)
 
-    print(f"Loading WM-811K dataset from: {data_root}")
-    full_dataset = WaferWM811KDataset(
+    print(f"Loading WM-38k dataset from: {data_root}")
+
+    # Load full dataset WITHOUT augmentations first for stratified split
+    full_dataset_no_aug = WaferWM38KDataset(
         data_root=data_root,
         image_size=image_size,
+        train=False,  # no augmentations
     )
-    print(f"  Total samples: {len(full_dataset)}")
-    print(f"  Classes: {full_dataset.class_names}")
+    print(f"  Total samples: {len(full_dataset_no_aug)}")
+    print(f"  Classes: {full_dataset_no_aug.num_classes}")
 
-    # ── Split dataset ───────────────────────────────────────────────────
-    total = len(full_dataset)
-    train_len = int(total * train_split)
-    val_len = int(total * val_split)
-    test_len = total - train_len - val_len
-
-    train_dataset, val_dataset, test_dataset = random_split(
-        full_dataset,
-        [train_len, val_len, test_len],
-        generator=torch.Generator().manual_seed(42),
+    # ── Stratified split ────────────────────────────────────────────────
+    print("  Performing stratified train/val/test split (cached)...")
+    cache_dir = full_dataset_no_aug.data_root / "cache"
+    train_dataset, val_dataset, test_dataset = stratified_split(
+        full_dataset_no_aug,
+        train_ratio=train_split,
+        val_ratio=val_split,
+        seed=42,
+        cache_dir=cache_dir,
     )
-
     print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
 
     # ── Create DataLoaders ──────────────────────────────────────────────
     batch_size = config.get("training.batch_size", 64)
     eval_batch_size = config.get("evaluation.batch_size", 128)
     num_workers = 0  # safe default on Windows
-
-    def collate_fn(batch):
-        """Custom collate for dict-based samples."""
-        images = torch.stack([item["image"] for item in batch])
-        labels = torch.tensor([item["label"] for item in batch], dtype=torch.long)
-        return images, labels
 
     train_loader = DataLoader(
         train_dataset,
@@ -173,8 +217,8 @@ def main() -> None:
     )
 
     # ── Create model ────────────────────────────────────────────────────
-    print("Creating ViT-Tiny model...")
-    model = ViTTiny.from_config(config)
+    print("Creating pretrained ViT-Tiny model (vit-tiny-patch16-224)...")
+    model = PretrainedViTTiny.from_config(config)
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"  Parameters: {total_params:,} total, {trainable_params:,} trainable")
@@ -204,7 +248,7 @@ def main() -> None:
         print(f"  Resumed at epoch {resumed_epoch}")
 
     # ── Train ───────────────────────────────────────────────────────────
-    epochs = config.get("training.num_epochs", 50)
+    epochs = config.get("training.num_epochs", 30)
     print(f"\n{'='*60}")
     print(f"Starting training for {epochs} epochs")
     print(f"{'='*60}")

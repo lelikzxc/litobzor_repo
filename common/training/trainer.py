@@ -81,6 +81,12 @@ class Trainer:
 
         self.model = self.model.to(self.device)
 
+        # Move loss function to the device if it is an nn.Module so that any
+        # buffers (e.g. class weights in CrossEntropyLoss) live on the same
+        # device as the model.
+        if isinstance(self.loss_fn, nn.Module):
+            self.loss_fn = self.loss_fn.to(self.device)
+
         # Internal state
         self.current_epoch: int = 0
         self._best_val_loss: float = float("inf")
@@ -232,6 +238,9 @@ class Trainer:
     ) -> dict[str, float]:
         """Train the model for one epoch.
 
+        Collects all logits and targets across the entire epoch,
+        then computes metrics once for correct macro-F1 on imbalanced data.
+
         Args:
             loader: DataLoader yielding ``(inputs, targets)`` or ``dict``.
 
@@ -242,9 +251,9 @@ class Trainer:
         total_loss = 0.0
         num_batches = 0
 
-        # Per-batch metric accumulation to avoid OOM on large datasets
-        metric_sums: dict[str, float] = {}
-        metric_counts: dict[str, int] = {}
+        # Collect all logits and targets for correct metric computation
+        all_logits: list[torch.Tensor] = []
+        all_targets: list[torch.Tensor] = []
 
         iterator = tqdm(loader, desc="Train", disable=not self.verbose)
         for batch in iterator:
@@ -266,23 +275,22 @@ class Trainer:
             total_loss += loss.item()
             num_batches += 1
 
-            # Compute metrics per-batch and accumulate
-            if self.metric_fns:
-                for name, fn in self.metric_fns.items():
-                    try:
-                        val = fn(logits.detach(), targets.detach())
-                        metric_sums[name] = metric_sums.get(name, 0.0) + val
-                        metric_counts[name] = metric_counts.get(name, 0) + 1
-                    except Exception:
-                        pass
+            all_logits.append(logits.detach().cpu())
+            all_targets.append(targets.detach().cpu())
 
             iterator.set_postfix({"loss": f"{loss.item():.4f}"})
 
         metrics: dict[str, float] = {"loss": total_loss / max(num_batches, 1)}
 
-        # Average per-batch metrics
-        for name in metric_sums:
-            metrics[name] = metric_sums[name] / max(metric_counts.get(name, 1), 1)
+        # Compute metrics on the entire epoch (correct for macro-F1)
+        if self.metric_fns and all_logits:
+            logits_cat = torch.cat(all_logits, dim=0)
+            targets_cat = torch.cat(all_targets, dim=0)
+            for name, fn in self.metric_fns.items():
+                try:
+                    metrics[name] = fn(logits_cat, targets_cat)
+                except Exception:
+                    pass
 
         return metrics
 
@@ -290,6 +298,9 @@ class Trainer:
         self, loader: DataLoader
     ) -> dict[str, float]:
         """Evaluate the model on a validation set.
+
+        Collects all logits and targets across the entire dataset,
+        then computes metrics once for correct macro-F1 on imbalanced data.
 
         Args:
             loader: DataLoader yielding ``(inputs, targets)`` or ``dict``.
@@ -301,9 +312,9 @@ class Trainer:
         total_loss = 0.0
         num_batches = 0
 
-        # Per-batch metric accumulation to avoid OOM on large datasets
-        metric_sums: dict[str, float] = {}
-        metric_counts: dict[str, int] = {}
+        # Collect all logits and targets for correct metric computation
+        all_logits: list[torch.Tensor] = []
+        all_targets: list[torch.Tensor] = []
 
         with torch.no_grad():
             iterator = tqdm(loader, desc="Val", disable=not self.verbose)
@@ -318,21 +329,20 @@ class Trainer:
                 total_loss += loss.item()
                 num_batches += 1
 
-                # Compute metrics per-batch and accumulate
-                if self.metric_fns:
-                    for name, fn in self.metric_fns.items():
-                        try:
-                            val = fn(logits.detach(), targets.detach())
-                            metric_sums[name] = metric_sums.get(name, 0.0) + val
-                            metric_counts[name] = metric_counts.get(name, 0) + 1
-                        except Exception:
-                            pass
+                all_logits.append(logits.detach().cpu())
+                all_targets.append(targets.detach().cpu())
 
         metrics: dict[str, float] = {"loss": total_loss / max(num_batches, 1)}
 
-        # Average per-batch metrics
-        for name in metric_sums:
-            metrics[name] = metric_sums[name] / max(metric_counts.get(name, 1), 1)
+        # Compute metrics on the entire dataset (correct for macro-F1)
+        if self.metric_fns and all_logits:
+            logits_cat = torch.cat(all_logits, dim=0)
+            targets_cat = torch.cat(all_targets, dim=0)
+            for name, fn in self.metric_fns.items():
+                try:
+                    metrics[name] = fn(logits_cat, targets_cat)
+                except Exception:
+                    pass
 
         return metrics
 

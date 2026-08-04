@@ -27,8 +27,8 @@ class UncertaintyFilter(nn.Module):
 
     def __init__(
         self,
-        entropy_threshold: float = 0.5,
-        mi_threshold: float = 0.3,
+        entropy_threshold: float = 0.08,
+        mi_threshold: float = 0.12,
     ) -> None:
         super().__init__()
         self.entropy_threshold = entropy_threshold
@@ -99,28 +99,33 @@ class UncertaintyFilter(nn.Module):
         entropy_seg: torch.Tensor,
         mutual_info_class: torch.Tensor,
         mutual_info_seg: torch.Tensor,
+        adaptive_threshold_seg: torch.Tensor | float | None = None,
     ) -> dict[str, torch.Tensor]:
         """Filter pseudo-labels for both tasks.
 
         Args:
             confidence_class: Classification confidence [B].
             confidence_seg: Segmentation confidence [B, H, W].
-            adaptive_threshold: Adaptive threshold value.
+            adaptive_threshold: Adaptive threshold for classification [B] or scalar.
             entropy_class: Classification entropy [B].
             entropy_seg: Segmentation entropy [B, H, W].
             mutual_info_class: Classification mutual info [B].
             mutual_info_seg: Segmentation mutual info [B, H, W].
+            adaptive_threshold_seg: Optional adaptive threshold for segmentation
+                [B, H, W] or scalar. Defaults to ``adaptive_threshold``.
 
         Returns:
             Dictionary with:
                 "classification": boolean mask [B].
                 "segmentation": boolean mask [B, H, W].
         """
+        if adaptive_threshold_seg is None:
+            adaptive_threshold_seg = adaptive_threshold
         return {
             "classification": self.filter_classification(
                 confidence_class, adaptive_threshold, entropy_class, mutual_info_class
             ),
             "segmentation": self.filter_segmentation(
-                confidence_seg, adaptive_threshold, entropy_seg, mutual_info_seg
+                confidence_seg, adaptive_threshold_seg, entropy_seg, mutual_info_seg
             ),
         }

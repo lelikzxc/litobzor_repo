@@ -238,4 +238,13 @@ def build_loss(name: str, **kwargs: Any) -> nn.Module:
         raise ValueError(
             f"Unknown loss: '{name}'. Allowed: {allowed}"
         )
+
+    # Normalize common kwargs so they work across loss constructors.
+    # ``nn.CrossEntropyLoss`` requires ``weight`` to be a ``torch.Tensor``,
+    # but configs may pass a plain list. Convert it here for robustness.
+    if "weight" in kwargs and kwargs["weight"] is not None:
+        weight = kwargs["weight"]
+        if not isinstance(weight, torch.Tensor):
+            kwargs["weight"] = torch.as_tensor(weight, dtype=torch.float32)
+
     return _LOSS_REGISTRY[key](**kwargs)

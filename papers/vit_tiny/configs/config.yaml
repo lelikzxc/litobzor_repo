@@ -5,32 +5,33 @@
 #
 # Architecture per Table II:
 #   - Layers: 12, Hidden: 192, Heads: 3, MLP: 768
-#   - Patch size: 16, Image size: 64×64 (Section III-B: N=16 patches)
-#   - Grayscale→RGB via 1×1 Conv (Section III-A.4)
+#   - Patch size: 16, Image size: 224x224 (vit-tiny-patch16-224)
+#   - Pretrained on ImageNet, fine-tuned on WM-38k (Section III-A)
 #
-# Trained on WM-811K dataset (9 classes)
-# Compatible with both ViTTiny.from_config() and common.engine.EngineConfig.
+# Trained on WM-38k dataset (38 classes)
+# Compatible with both PretrainedViTTiny.from_config() and common.engine.EngineConfig.
 
 model:
   name: vit_tiny
-  num_classes: 9
+  num_classes: 38
   task: classification
   arch:
-    image_size: 64
+    image_size: 224
     patch_size: 16
-    in_channels: 1
-    num_classes: 9
+    in_channels: 3
+    num_classes: 38
     embed_dim: 192
     num_layers: 12
     num_heads: 3
     mlp_ratio: 4
     dropout: 0.1
     emb_dropout: 0.1
+    pretrained_name: WinKawaks/vit-tiny-patch16-224
 
 data:
   dataset: wafer_defects
-  data_root: datasets/wm811k
-  image_size: 64
+  data_root: datasets/wm38k
+  image_size: 224
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
@@ -39,15 +40,16 @@ training:
   batch_size: 64
   num_epochs: 30
   learning_rate: 0.0001
-  weight_decay: 0.05
+  weight_decay: 0.0
   device: cuda
   amp: true
 
 # Engine-compatible optimizer config (top-level, as expected by Builder)
+# Paper uses Adam optimizer (Algorithm 1, step 8)
 optimizer:
-  name: adamw
+  name: adam
   lr: 0.0001
-  weight_decay: 0.05
+  weight_decay: 0.0
 
 # Engine-compatible scheduler config (top-level, as expected by Builder)
 scheduler:
@@ -80,12 +82,12 @@ logging:
   checkpoint_interval: 5
 
 checkpoint:
-  save_dir: checkpoints/vit_tiny_wm811k
+  save_dir: checkpoints/vit_tiny_wm38k
   metric_name: val_loss
   mode: min
 
 # Engine-compatible dataset section
 dataset:
   name: wafer_defects
-  image_size: 64
-  num_classes: 9
+  image_size: 224
+  num_classes: 38

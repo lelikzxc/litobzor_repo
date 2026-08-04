@@ -17,6 +17,7 @@ from papers.semiwafernet.modules.transformer import (
     PatchProjection,
     MultiHeadSelfAttention,
     TransformerMLP,
+    HybridViTEncoder,
 )
 from papers.semiwafernet.modules.fusion import FeatureFusion, ChannelAlign
 
@@ -31,6 +32,7 @@ __all__ = [
     "PatchProjection",
     "MultiHeadSelfAttention",
     "TransformerMLP",
+    "HybridViTEncoder",
     "FeatureFusion",
     "ChannelAlign",
 ]

@@ -347,3 +347,83 @@ class ViTTiny(nn.Module):
             dropout=config.get("model.arch.dropout", 0.1),
             emb_dropout=config.get("model.arch.emb_dropout", 0.1),
         )
+
+
+class PretrainedViTTiny(nn.Module):
+    """Pretrained Tiny Vision Transformer for wafer defect classification.
+
+    Wraps the ImageNet-pretrained ``WinKawaks/vit-tiny-patch16-224`` model
+    from HuggingFace and replaces its classification head with a new head
+    for the WM-38k dataset (38 classes).
+
+    This matches the paper's approach of fine-tuning a pretrained ViT-Tiny
+    (Section III-A, "domain-specific fine-tuning of the pretrained ViT-Tiny
+    model"). The architecture matches Table II:
+        - Layers: 12, Hidden: 192, Heads: 3, MLP: 768
+        - Patch size: 16, Image size: 224x224
+
+    The model accepts RGB (3-channel) input of size 224x224 and returns
+    logits of shape ``[B, num_classes]``.
+
+    Args:
+        num_classes: Number of output classes (38 for WM-38k).
+        pretrained_name: HuggingFace model identifier for the pretrained
+            ViT-Tiny. Defaults to ``WinKawaks/vit-tiny-patch16-224``.
+        dropout: Dropout rate for the new classification head.
+    """
+
+    def __init__(
+        self,
+        num_classes: int = 38,
+        pretrained_name: str = "WinKawaks/vit-tiny-patch16-224",
+        dropout: float = 0.1,
+    ) -> None:
+        super().__init__()
+        from transformers import ViTModel
+
+        self.num_classes = num_classes
+        self.pretrained_name = pretrained_name
+
+        # Load pretrained ViT-Tiny backbone (no classification head)
+        self.backbone = ViTModel.from_pretrained(pretrained_name)
+
+        hidden_size = self.backbone.config.hidden_size  # 192
+
+        # New classification head for WM-38k
+        self.head = nn.Sequential(
+            nn.Dropout(dropout),
+            nn.Linear(hidden_size, num_classes),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass.
+
+        Args:
+            x: Input tensor of shape ``[B, 3, 224, 224]`` (RGB, normalized).
+
+        Returns:
+            Logits of shape ``[B, num_classes]``.
+        """
+        outputs = self.backbone(pixel_values=x)
+        cls_out = outputs.last_hidden_state[:, 0]  # [B, hidden_size]
+        logits = self.head(cls_out)  # [B, num_classes]
+        return logits
+
+    @classmethod
+    def from_config(cls, config: Any) -> PretrainedViTTiny:
+        """Instantiate a pretrained model from a config object.
+
+        Args:
+            config: Config object with ``model.arch.num_classes`` accessible via
+                ``config.get("model.arch.num_classes")``.
+
+        Returns:
+            Configured ``PretrainedViTTiny`` instance.
+        """
+        return cls(
+            num_classes=config.get("model.arch.num_classes", 38),
+            pretrained_name=config.get(
+                "model.arch.pretrained_name", "WinKawaks/vit-tiny-patch16-224"
+            ),
+            dropout=config.get("model.arch.dropout", 0.1),
+        )

@@ -1,13 +1,23 @@
-"""WM-811K wafer map dataset loader.
+"""WM-38k wafer map dataset loader with augmentations.
 
-Provides ``WaferWM811KDataset`` that reads ``labels.csv`` and loads
+Provides ``WaferWM38KDataset`` that reads ``labels.csv`` and loads
 grayscale wafer map images from the ``images/`` directory.
 
-The WM-811K dataset contains 9 defect classes:
-    Center, Donut, Edge-Loc, Edge-Ring, Loc, Near-full, none, Random, Scratch
+The WM-38k dataset contains 38 defect classes (each unique combination
+of the 8 base defect types is a distinct class), matching the paper:
 
-Each sample is a dict with ``"image"`` (``torch.Tensor [1, H, W]`` grayscale)
-and ``"label"`` (``int`` class index).
+    "Semiconductor Wafer Map Defect Classification with
+     Tiny Vision Transformers" (arXiv:2504.02494)
+
+Preprocessing follows Section III-A of the paper:
+    1. Data splitting (80:20 train/test)
+    2. Normalization (pixel values scaled to [0, 1])
+    3. Resizing to 224x224 via bilinear interpolation
+    4. Grayscale -> RGB conversion (done in the model via 1x1 Conv)
+    5. Augmentation (rotation, flipping, zooming)
+
+Each sample is a dict with ``"image"`` (``torch.Tensor [3, 224, 224]``
+RGB, ImageNet-normalized) and ``"label"`` (``int`` class index 0..37).
 """
 
 from __future__ import annotations
@@ -18,45 +28,92 @@ from typing import Any
 import numpy as np
 import torch
 from PIL import Image
-from torchvision.transforms import Resize
+from torchvision.transforms import (
+    Compose,
+    Grayscale,
+    Normalize,
+    RandomAffine,
+    RandomHorizontalFlip,
+    RandomResizedCrop,
+    Resize,
+    ToTensor,
+)
 
 from papers.vit_tiny.data_utils.base import BaseDataset, DatasetType
 
-# Label-to-index mapping for WM-811K (9 classes)
-WM811K_CLASSES: list[str] = [
-    "none",
-    "Center",
-    "Donut",
-    "Edge-Loc",
-    "Edge-Ring",
-    "Loc",
-    "Near-full",
-    "Random",
-    "Scratch",
-]
+# Number of classes in the WM-38k dataset (Table III of the paper)
+WM38K_NUM_CLASSES = 38
 
-WM811K_LABEL_TO_IDX: dict[str, int] = {
-    label: idx for idx, label in enumerate(WM811K_CLASSES)
-}
+# ImageNet normalization used by the pretrained ViT (ViTImageProcessor)
+IMAGENET_MEAN = [0.485, 0.456, 0.406]
+IMAGENET_STD = [0.229, 0.224, 0.225]
 
 
-class WaferWM811KDataset(BaseDataset):
-    """WM-811K wafer map classification dataset.
+def default_train_transform(image_size: int = 224) -> Compose:
+    """Build default training augmentation pipeline for WM-38k wafer maps.
+
+    Applies (Section III-A.5):
+        - Random rotation (rotation)
+        - Random horizontal flip (flipping)
+        - Random resized crop / zoom (zooming via RandomResizedCrop)
+        - Resize to target size
+        - Convert to tensor + ImageNet normalization
+
+    Args:
+        image_size: Target spatial size (H == W).
+
+    Returns:
+        A ``torchvision.transforms.Compose`` pipeline.
+    """
+    return Compose([
+        RandomAffine(degrees=15, scale=(0.9, 1.1)),
+        RandomHorizontalFlip(p=0.5),
+        RandomResizedCrop(image_size, scale=(0.9, 1.0)),
+        Grayscale(num_output_channels=3),
+        ToTensor(),
+        Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
+    ])
+
+
+def default_val_transform(image_size: int = 224) -> Compose:
+    """Build default validation/test transform (no augmentation).
+
+    Args:
+        image_size: Target spatial size (H == W).
+
+    Returns:
+        A ``torchvision.transforms.Compose`` pipeline.
+    """
+    return Compose([
+        Resize(image_size, interpolation=Image.BILINEAR),
+        Grayscale(num_output_channels=3),
+        ToTensor(),
+        Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
+    ])
+
+
+class WaferWM38KDataset(BaseDataset):
+    """WM-38k wafer map classification dataset (38 classes).
 
     Reads ``labels.csv`` for image-to-label mapping and loads grayscale
-    PNG images from ``images/``. Images are resized to ``image_size``.
+    PNG images from ``images/``. Images are resized to ``image_size``
+    and converted to RGB (3-channel) for the pretrained ViT.
 
     Args:
         data_root: Root directory containing ``labels.csv`` and ``images/``.
-        image_size: Target image size (assumed square, default 32).
-        transform: Optional transform to apply to images (applied after resize).
+        image_size: Target image size (assumed square, default 224).
+        transform: Optional transform to apply to images.
+            If ``None``, uses a default ToTensor conversion (no augmentation).
+        train: If ``True``, applies training augmentations by default
+            (when ``transform`` is not explicitly set).
     """
 
     def __init__(
         self,
         data_root: str | Path,
-        image_size: int = 32,
+        image_size: int = 224,
         transform: callable | None = None,
+        train: bool = True,
     ) -> None:
         super().__init__(dataset_type=DatasetType.CLASSIFICATION, transform=transform)
         self.data_root = Path(data_root)
@@ -64,8 +121,12 @@ class WaferWM811KDataset(BaseDataset):
         self.image_dir = self.data_root / "images"
         self.labels_path = self.data_root / "labels.csv"
 
-        # Resize transform for WM-811K images (native 128x128 → target size)
-        self._resize = Resize(image_size, interpolation=Image.BILINEAR)
+        # Use default transforms if none provided
+        if transform is None:
+            if train:
+                self.transform = default_train_transform(image_size)
+            else:
+                self.transform = default_val_transform(image_size)
 
         if not self.data_root.exists():
             raise FileNotFoundError(f"Data root not found: {self.data_root}")
@@ -95,7 +156,10 @@ class WaferWM811KDataset(BaseDataset):
                     continue
                 filename = parts[0].strip()
                 label_str = parts[1].strip()
-                label_idx = WM811K_LABEL_TO_IDX.get(label_str, 0)
+                try:
+                    label_idx = int(label_str)
+                except ValueError:
+                    continue
                 self._samples.append((filename, label_idx))
 
         if not self._samples:
@@ -111,17 +175,17 @@ class WaferWM811KDataset(BaseDataset):
         if not image_path.exists():
             raise FileNotFoundError(f"Image not found: {image_path}")
 
-        # Load as grayscale and resize to target size
+        # Load as grayscale
         image = Image.open(image_path).convert("L")
-        image = self._resize(image)
 
-        # Apply additional transform if provided
+        # Apply transform (includes resize + ToTensor + normalize)
         if self.transform is not None:
             image = self.transform(image)
         else:
-            # Default: PIL grayscale → [1, H, W] float32 tensor
+            # Fallback: manual conversion to RGB [3, H, H] tensor
             image = torch.from_numpy(np.array(image, dtype=np.float32)) / 255.0
-            image = image.unsqueeze(0)  # [H, W] → [1, H, W]
+            image = image.unsqueeze(0)  # [H, W] -> [1, H, W]
+            image = image.repeat(3, 1, 1)  # grayscale -> RGB
 
         return {
             "image": image,
@@ -130,10 +194,10 @@ class WaferWM811KDataset(BaseDataset):
 
     @property
     def num_classes(self) -> int:
-        """Return the number of classes (9 for WM-811K)."""
-        return len(WM811K_CLASSES)
+        """Return the number of classes (38 for WM-38k)."""
+        return WM38K_NUM_CLASSES
 
     @property
     def class_names(self) -> list[str]:
-        """Return the list of class names."""
-        return list(WM811K_CLASSES)
+        """Return the list of class names (C1..C38)."""
+        return [f"C{i+1}" for i in range(WM38K_NUM_CLASSES)]

@@ -50,14 +50,14 @@ class StageManager:
     def __init__(
         self,
         student: nn.Module,
-        num_classes: int = 6,
+        num_classes: int = 9,
         ema_decay: float = 0.999,
-        base_threshold: float = 0.9,
-        alpha: float = 0.1,
-        beta: float = 0.05,
+        base_threshold: float = 0.94,
+        alpha: float = 0.08,
+        beta: float = 0.02,
         mc_passes: int = 20,
-        entropy_threshold: float = 0.5,
-        mi_threshold: float = 0.3,
+        entropy_threshold: float = 0.08,
+        mi_threshold: float = 0.12,
         consistency_weight: float = 0.1,
     ) -> None:
         self.student = student
@@ -134,19 +134,20 @@ class StageManager:
                 "confidence_seg": [B, H, W] confidence scores.
                 "adaptive_threshold": float threshold value.
         """
-        # Teacher forward
-        teacher_output = self.teacher(unlabeled_x)
-
-        # MC Dropout for uncertainty
+        # MC Dropout for uncertainty estimation (Equations 5-6, 11-12).
+        # Dropout is activated in the ViT branch during pseudo-label generation,
+        # so we run stochastic forward passes on the student and average the
+        # predictive probabilities to obtain the mean predictive distribution.
         mc_results = self.mc_dropout(self.student, unlabeled_x)
 
-        # Compute confidence from teacher logits (softmax max probability)
-        class_probs = torch.softmax(teacher_output["classification"], dim=1)
-        seg_probs = torch.softmax(teacher_output["segmentation"], dim=1)
+        # Candidate pseudo-label and confidence from the mean predictive
+        # distribution (Equation 6): y_hat = argmax_c p̄_c(x), q(x) = max_c p̄_c(x)
+        class_probs = mc_results["mean_probs_class"]
+        seg_probs = mc_results["mean_probs_seg"]
         class_confidence, pseudo_class_labels = class_probs.max(dim=1)
         seg_confidence, pseudo_seg_labels = seg_probs.max(dim=1)
 
-        # Update adaptive threshold statistics
+        # Update adaptive threshold statistics (Equations 7-9)
         self.adaptive_threshold.update_statistics(
             confidence=class_confidence,
             pseudo_labels=pseudo_class_labels,
@@ -156,16 +157,22 @@ class StageManager:
             pseudo_labels=pseudo_seg_labels,
         )
 
-        # Compute adaptive threshold
-        adaptive_tau = self.adaptive_threshold.compute_threshold(
-            entropy=mc_results["entropy_class"]
+        # Class-adaptive, sample-wise threshold (Equation 10)
+        adaptive_tau_class = self.adaptive_threshold.compute_threshold(
+            pseudo_labels=pseudo_class_labels,
+            entropy=mc_results["entropy_class"],
+        )
+        adaptive_tau_seg = self.adaptive_threshold.compute_threshold(
+            pseudo_labels=pseudo_seg_labels,
+            entropy=mc_results["entropy_seg"],
         )
 
-        # Uncertainty filtering
+        # Uncertainty filtering (Equation 13)
         filter_masks = self.uncertainty_filter(
             confidence_class=class_confidence,
             confidence_seg=seg_confidence,
-            adaptive_threshold=adaptive_tau,
+            adaptive_threshold=adaptive_tau_class,
+            adaptive_threshold_seg=adaptive_tau_seg,
             entropy_class=mc_results["entropy_class"],
             entropy_seg=mc_results["entropy_seg"],
             mutual_info_class=mc_results["mutual_info_class"],
@@ -179,7 +186,7 @@ class StageManager:
             "mask_seg": filter_masks["segmentation"],
             "confidence_class": class_confidence,
             "confidence_seg": seg_confidence,
-            "adaptive_threshold": adaptive_tau.item(),
+            "adaptive_threshold": adaptive_tau_class.mean().item(),
         }
 
     def compute_consistency_loss(

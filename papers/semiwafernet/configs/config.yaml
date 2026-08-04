@@ -5,7 +5,7 @@ model:
   name: semiwafernet
   mode: classification           # "classification" (HybridCNN-ViT) or "segmentation" (ConvoFormer-UNet)
   num_classes: 9                 # WM-811K has 9 classes
-  seg_classes: 1                 # Binary segmentation (defect vs background)
+  seg_classes: 2                 # Binary segmentation (background + defect)
   backbone:
     type: cnn
     in_channels: 1               # WM-811K is grayscale
@@ -63,8 +63,8 @@ metrics:
 
 checkpoint:
   save_dir: checkpoints/semiwafernet
-  metric_name: val_loss
-  mode: min
+  metric_name: val_f1
+  mode: max
 
 evaluation:
   batch_size: 64
@@ -72,6 +72,8 @@ evaluation:
 data:
   data_root: datasets/wm811k
   image_size: 32                 # 32×32 for classification
+  seg_data_root: datasets/wm811k_seg   # pre-generated segmentation dataset
+  seg_image_size: 64             # 64×64 for segmentation (paper Section 4.1)
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1

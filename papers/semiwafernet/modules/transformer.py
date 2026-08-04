@@ -3,7 +3,16 @@
 Implements two variants:
 
 1. **HybridCNN-ViT (classification)**: Standard ViT encoder that processes
-   CNN backbone features via 1×1 conv projection → transformer blocks.
+   CNN backbone features via linear projection → positional embeddings →
+   class token → dropout(0.5) → transformer blocks → class token head.
+
+   Matches the paper (Section 2.1):
+       - Flatten N=64 tokens, linear project to D=128
+       - Learnable positional embeddings
+       - Learnable class token z_cls prepended
+       - Dropout rate 0.5 before the Transformer encoder
+       - L=4 layers, 8 heads, embed_dim=128, FFN=256, GELU, dropout=0.2
+       - Final class token fed to a linear head
 
 2. **ConvoFormer-UNet (segmentation)**: Convolution-enhanced Transformer with:
    - ConvEmbed: 3×3 conv (GELU) → 8×8 conv stride 8 → token grid
@@ -229,6 +238,99 @@ class TransformerEncoderBlock(nn.Module):
         return x
 
 
+class HybridViTEncoder(nn.Module):
+    """HybridCNN-ViT Transformer encoder for classification.
+
+    Matches the paper (Section 2.1):
+        1. Linear projection of flattened CNN features to D=128
+        2. Learnable positional embeddings added
+        3. Learnable class token z_cls prepended
+        4. Dropout rate 0.5 before the Transformer encoder
+        5. L=4 layers of multi-head self-attention + FFN (GELU, dropout 0.2)
+        6. Final class token returned for the linear classification head
+
+    Args:
+        in_channels: Input channel dimension from CNN backbone (128).
+        embed_dim: Transformer embedding dimension (D=128).
+        num_heads: Number of attention heads (8).
+        num_layers: Number of transformer encoder layers (L=4).
+        num_tokens: Number of spatial tokens (N=64 at 32×32 input).
+        dropout_cls: Dropout rate before the Transformer encoder (0.5).
+        dropout: Dropout rate inside transformer blocks (0.2).
+    """
+
+    def __init__(
+        self,
+        in_channels: int,
+        embed_dim: int = 128,
+        num_heads: int = 8,
+        num_layers: int = 4,
+        num_tokens: int = 64,
+        dropout_cls: float = 0.5,
+        dropout: float = 0.2,
+    ) -> None:
+        super().__init__()
+        self.embed_dim = embed_dim
+        self.num_tokens = num_tokens
+
+        # Linear projection of flattened CNN features to D=128
+        self.proj = nn.Linear(in_channels, embed_dim)
+
+        # Learnable positional embeddings (N tokens)
+        self.pos_embed = nn.Parameter(torch.zeros(1, num_tokens, embed_dim))
+        nn.init.trunc_normal_(self.pos_embed, std=0.02)
+
+        # Learnable class token
+        self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
+        nn.init.trunc_normal_(self.cls_token, std=0.02)
+
+        # Dropout before the Transformer encoder (rate 0.5)
+        self.dropout = nn.Dropout(dropout_cls)
+
+        # Transformer encoder blocks (L=4, dropout 0.2)
+        self.blocks = nn.ModuleList([
+            TransformerEncoderBlock(embed_dim, num_heads, mlp_ratio=2, dropout=dropout)
+            for _ in range(num_layers)
+        ])
+
+        self.norm = nn.LayerNorm(embed_dim)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass.
+
+        Args:
+            x: CNN feature map [B, C, H, W] (128×8×8 at 32×32 input).
+
+        Returns:
+            class_token: [B, embed_dim] final class token for the linear head.
+        """
+        B = x.shape[0]
+
+        # Flatten spatial dims → N tokens, then linear project to D
+        # x: [B, C, H, W] → [B, N, C] → [B, N, D]
+        x = x.flatten(2).transpose(1, 2)  # [B, N, C]
+        x = self.proj(x)  # [B, N, D]
+
+        # Add positional embeddings
+        x = x + self.pos_embed
+
+        # Prepend class token
+        cls_tokens = self.cls_token.expand(B, -1, -1)  # [B, 1, D]
+        x = torch.cat([cls_tokens, x], dim=1)  # [B, N+1, D]
+
+        # Dropout before the Transformer encoder
+        x = self.dropout(x)
+
+        # Transformer encoder
+        for block in self.blocks:
+            x = block(x)
+
+        x = self.norm(x)
+
+        # Return the class token
+        return x[:, 0]  # [B, D]
+
+
 class TransformerEncoder(nn.Module):
     """Transformer encoder with patch projection + N encoder blocks.
 
@@ -261,7 +363,7 @@ class TransformerEncoder(nn.Module):
 
         # Patch embedding
         if use_conv_embed:
-            self.patch_embed = ConvEmbed(in_channels=1, embed_dim=embed_dim)
+            self.patch_embed = ConvEmbed(in_channels=in_channels, embed_dim=embed_dim)
         else:
             self.patch_embed = PatchProjection(in_channels, embed_dim)
 
@@ -313,5 +415,6 @@ __all__ = [
     "TransformerMLP",
     "ConvoFormerBlock",
     "TransformerEncoderBlock",
+    "HybridViTEncoder",
     "TransformerEncoder",
 ]

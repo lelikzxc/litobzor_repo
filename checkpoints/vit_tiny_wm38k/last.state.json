@@ -1,11 +1,11 @@
 {
-  "epoch": 23,
-  "best_metric": 0.8334778547286987,
-  "best_metric_name": "val_f1",
+  "epoch": 30,
+  "best_metric": 0.9463298916816711,
+  "best_metric_name": "val_loss",
   "current_metric": null,
   "global_step": 0,
   "training_finished": true,
   "checkpoint_path": null,
-  "mode": "max",
+  "mode": "min",
   "extra": {}
 }

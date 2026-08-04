@@ -9,6 +9,8 @@ Supports CUDA automatically when available.
 Classification mode (HybridCNN-ViT):
     - Weighted Cross-Entropy loss with w_c = 1/sqrt(n_c)
     - Batch size 256, lr=5e-5, weight_decay=4e-4
+    - Data augmentation: RandomHorizontalFlip, RandomRotation, ColorJitter
+    - Hybrid sampling: None class downsampled to 30%
 
 Segmentation mode (ConvoFormer-UNet):
     - Dice + 0.5*Focal loss
@@ -25,14 +27,12 @@ from __future__ import annotations
 
 import argparse
 import sys
-from collections import Counter
 from pathlib import Path
 
 import numpy as np
 import torch
 from torch import nn
-from torch.utils.data import DataLoader, WeightedRandomSampler, random_split
-from torchvision import transforms
+from torch.utils.data import DataLoader, Subset
 
 # Ensure the project root is on sys.path for imports
 _project_root = Path(__file__).resolve().parent.parent.parent
@@ -43,8 +43,16 @@ from common.engine.config import EngineConfig
 from common.engine.engine import Engine
 from common.training.losses import FocalLoss, DiceLoss
 from common.training.metrics import accuracy, f1, precision, recall
-from papers.semiwafernet.data_utils import WaferWM811KDataset
+from common.utils.cache import cache_class_counts, cache_stratified_split
+from papers.semiwafernet.data_utils import (
+    WaferWM811KDataset,
+    SMOTEDataset,
+    WaferSegmentationDataset,
+)
+from papers.semiwafernet.data_utils.wafer_dataset import apply_hybrid_sampling
 from papers.semiwafernet.models.semiwafernet import SemiWaferNet
+from papers.semiwafernet.training.stage_manager import StageManager
+from papers.semiwafernet.training.trainer import Trainer as SemiWaferTrainer
 
 
 def parse_args() -> argparse.Namespace:
@@ -115,78 +123,17 @@ class WeightedCrossEntropyLoss(nn.Module):
     def __init__(self, num_classes: int = 9, class_counts: list[int] | None = None) -> None:
         super().__init__()
         if class_counts is not None:
-            # w_c = 1 / sqrt(n_c)
+            # w_c = 1 / sqrt(n_c)  — paper Section 2.3
             counts = torch.tensor(class_counts, dtype=torch.float32)
             weights = 1.0 / torch.sqrt(counts + 1e-8)
-            weights = weights / weights.sum() * num_classes  # normalize
+            weights = weights / weights.sum() * num_classes  # normalize so mean(weight) ≈ 1
             self.register_buffer("weight", weights)
+            print(f"  Loss class weights (1/sqrt(n_c)): {weights.numpy()}")
         else:
             self.weight = None
 
     def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         return nn.functional.cross_entropy(logits, targets, weight=self.weight)
-
-
-def _compute_class_counts(dataset: WaferWM811KDataset) -> list[int]:
-    """Compute per-class sample counts from the dataset.
-
-    Returns:
-        List of counts indexed by class label (0..num_classes-1).
-    """
-    counts: list[int] = [0] * dataset.num_classes
-    for _, label in dataset._samples:
-        counts[label] += 1
-    return counts
-
-
-def _build_balanced_train_dataset(
-    dataset: WaferWM811KDataset,
-    none_downsample_ratio: float = 0.30,
-    random_state: int = 42,
-) -> tuple[list[int], list[int]]:
-    """Build a partially balanced training set via downsampling None.
-
-    Paper Section 4.1: downsampling the majority None class + SMOTE.
-    Here we use only downsampling (SMOTE for 32x32 grayscale creates artifacts).
-    The class weights in WeightedCrossEntropyLoss handle the rest.
-
-    Args:
-        dataset: The full WM-811K dataset.
-        none_downsample_ratio: Fraction of None samples to keep (0.30 = ~30%).
-        random_state: Random seed for reproducibility.
-
-    Returns:
-        Tuple of (indices, labels).
-    """
-    rng = np.random.RandomState(random_state)
-
-    # Collect per-class indices
-    class_indices: dict[int, list[int]] = {c: [] for c in range(dataset.num_classes)}
-    for idx, (_, label) in enumerate(dataset._samples):
-        class_indices[label].append(idx)
-
-    # Downsample None (class 0) — keep ~30% (paper uses aggressive downsampling)
-    none_indices = class_indices[0]
-    n_keep = max(1, int(len(none_indices) * none_downsample_ratio))
-    kept_none = rng.choice(none_indices, size=n_keep, replace=False).tolist()
-
-    # Keep all minority class samples
-    minority_indices: list[int] = []
-    minority_labels: list[int] = []
-    for c in range(1, dataset.num_classes):
-        minority_indices.extend(class_indices[c])
-        minority_labels.extend([c] * len(class_indices[c]))
-
-    # Final set: kept None + all minority
-    all_indices = kept_none + minority_indices
-    all_labels = [0] * len(kept_none) + minority_labels
-
-    print(f"  Hybrid sampling (downsample None):")
-    print(f"    None: {len(none_indices)} -> {n_keep}")
-    print(f"    Minority: {len(minority_indices)}")
-    print(f"    Total: {len(all_indices)}")
-
-    return all_indices, all_labels
 
 
 class DiceFocalLoss(nn.Module):
@@ -201,7 +148,6 @@ class DiceFocalLoss(nn.Module):
         self.focal = FocalLoss(alpha=focal_alpha, gamma=focal_gamma)
 
     def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
-        # logits: [B, 1, H, W] or [B, 2, H, W], targets: [B, H, W]
         dice_loss = self.dice(logits, targets)
         focal_loss = self.focal(logits, targets)
         return dice_loss + 0.5 * focal_loss
@@ -223,16 +169,102 @@ class DeepSupervisionLoss(nn.Module):
         logits: dict[str, torch.Tensor],
         targets: torch.Tensor,
     ) -> torch.Tensor:
-        """Compute deep supervision loss.
-
-        Args:
-            logits: Dict with "main", "aux1", "aux2" keys.
-            targets: Ground truth mask [B, H, W].
-        """
-        main_loss = self.base_loss(logits["main"], targets)
-        aux1_loss = self.base_loss(logits["aux1"], targets)
-        aux2_loss = self.base_loss(logits["aux2"], targets)
+        # Auxiliary decoder outputs are at reduced resolutions (H/2, H/4).
+        # Upsample them to the full target resolution so the base loss can
+        # compare logits and targets of matching spatial size.
+        # targets: [B, H, W] (pixel class indices).
+        _, h, w = targets.shape
+        main = logits["main"]
+        aux1 = torch.nn.functional.interpolate(
+            logits["aux1"], size=(h, w), mode="bilinear", align_corners=False
+        )
+        aux2 = torch.nn.functional.interpolate(
+            logits["aux2"], size=(h, w), mode="bilinear", align_corners=False
+        )
+        main_loss = self.base_loss(main, targets)
+        aux1_loss = self.base_loss(aux1, targets)
+        aux2_loss = self.base_loss(aux2, targets)
         return main_loss + 0.3 * aux1_loss + 0.2 * aux2_loss
+
+
+def compute_class_counts(
+    labels: np.ndarray,
+    num_classes: int,
+    cache_dir: str | Path,
+) -> list[int]:
+    """Count samples per class in the dataset (cached on disk).
+
+    Args:
+        labels: Array of class labels for every sample.
+        num_classes: Number of classes.
+        cache_dir: Cache directory.
+
+    Returns:
+        List of counts per class (index = class index).
+    """
+    counts = cache_class_counts(labels, num_classes, cache_dir)
+    print(f"  Class counts: {counts}")
+    return counts
+
+
+def stratified_split(
+    dataset: WaferWM811KDataset,
+    train_ratio: float = 0.8,
+    val_ratio: float = 0.1,
+    seed: int = 42,
+    cache_dir: str | Path | None = None,
+) -> tuple[Subset, Subset, Subset]:
+    """Perform stratified train/val/test split (cached on disk).
+
+    Args:
+        dataset: The full dataset.
+        train_ratio: Proportion for training.
+        val_ratio: Proportion for validation.
+        seed: Random seed.
+        cache_dir: Cache directory. Defaults to ``<data_root>/cache``.
+
+    Returns:
+        Tuple of ``(train_subset, val_subset, test_subset)``.
+    """
+    if cache_dir is None:
+        cache_dir = dataset.data_root / "cache"
+
+    labels = np.array([dataset[i]["label"] for i in range(len(dataset))])
+    train_idx, val_idx, test_idx = cache_stratified_split(
+        labels,
+        train_ratio,
+        val_ratio,
+        seed,
+        cache_dir,
+    )
+
+    return (
+        Subset(dataset, train_idx),
+        Subset(dataset, val_idx),
+        Subset(dataset, test_idx),
+    )
+
+
+def collate_fn(batch):
+    """Custom collate for multitask dict-based samples (classification).
+
+    Returns ``(images, labels)`` so the generic trainer's ``_unpack_batch``
+    correctly treats labels as targets.
+    """
+    images = torch.stack([item["image"] for item in batch])
+    labels = torch.tensor([item["label"] for item in batch], dtype=torch.long)
+    return images, labels
+
+
+def seg_collate_fn(batch):
+    """Custom collate for segmentation samples.
+
+    Returns ``(images, masks)`` so the generic trainer's ``_unpack_batch``
+    correctly treats masks as targets.
+    """
+    images = torch.stack([item["image"] for item in batch])
+    masks = torch.stack([item["mask"] for item in batch])
+    return images, masks
 
 
 def main() -> None:
@@ -254,8 +286,7 @@ def main() -> None:
         config._data.setdefault("training", {})["batch_size"] = args.batch_size
     if args.lr is not None:
         config._data.setdefault("training", {})["learning_rate"] = args.lr
-        # Also write to optimizer.lr so Builder.build_optimizer() picks it up
-        config._data.setdefault("optimizer", {})["lr"] = args.lr
+        config._data.setdefault("training", {}).setdefault("optimizer", {})["lr"] = args.lr
     if args.mode is not None:
         config._data.setdefault("model", {})["mode"] = args.mode
 
@@ -281,91 +312,95 @@ def main() -> None:
     train_split = config.get("data.train_split", 0.8)
     val_split = config.get("data.val_split", 0.1)
 
-    print(f"Loading WM-811K dataset from: {data_root}")
-    full_dataset = WaferWM811KDataset(
-        data_root=data_root,
-        image_size=image_size,
-        num_classes=num_classes,
-    )
-    print(f"  Total samples: {len(full_dataset)}")
-    print(f"  Classes: {full_dataset.class_names}")
+    if is_segmentation:
+        # Segmentation uses the pre-generated WM-811K segmentation dataset
+        # (datasets/wm811k_seg) with masks derived from defective die
+        # (waferMap == 2), excluding None/Random classes (paper Section 4.1).
+        seg_root = config.get("data.seg_data_root", "datasets/wm811k_seg")
+        seg_image_size = config.get("data.seg_image_size", 64)
+        print(f"Loading WM-811K segmentation dataset from: {seg_root}")
+        print(f"  Image size: {seg_image_size}x{seg_image_size}")
 
-    # ── Compute class distribution ──────────────────────────────────────
-    class_counts = _compute_class_counts(full_dataset)
-    print(f"  Class distribution: {dict(zip(full_dataset.class_names, class_counts))}")
-
-    # ── Data augmentation ───────────────────────────────────────────────
-    use_augmentation = config.get("data.augmentation.enabled", True)
-    if use_augmentation and not is_segmentation:
-        aug_transform = transforms.Compose([
-            transforms.RandomHorizontalFlip(p=0.5),
-            transforms.RandomVerticalFlip(p=0.5),
-            transforms.RandomRotation(degrees=15, fill=0),
-            transforms.RandomAffine(degrees=0, translate=(0.1, 0.1), fill=0),
-            transforms.ToTensor(),  # PIL -> Tensor [C, H, W]
-        ])
-        print(f"  Using augmentation: RandomFlip + Rotation(15°) + Affine(10%)")
+        train_dataset = WaferSegmentationDataset(
+            data_root=seg_root, split="train", image_size=seg_image_size, train=True,
+        )
+        val_dataset = WaferSegmentationDataset(
+            data_root=seg_root, split="val", image_size=seg_image_size, train=False,
+        )
+        test_dataset = WaferSegmentationDataset(
+            data_root=seg_root, split="test", image_size=seg_image_size, train=False,
+        )
+        print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
     else:
-        aug_transform = None
+        # Read augmentation and hybrid_sampling config
+        aug_cfg = config.get("data.augmentation", {})
+        aug_enabled = aug_cfg.get("enabled", True) if isinstance(aug_cfg, dict) else True
+        hybrid_cfg = config.get("data.hybrid_sampling", {})
+        hybrid_enabled = hybrid_cfg.get("enabled", True) if isinstance(hybrid_cfg, dict) else True
+        none_downsample_ratio = hybrid_cfg.get("none_downsample_ratio", 0.30) if isinstance(hybrid_cfg, dict) else 0.30
 
-    # ── Stratified split ────────────────────────────────────────────────
-    from sklearn.model_selection import StratifiedShuffleSplit
+        print(f"Loading WM-811K dataset from: {data_root}")
+        print(f"  Augmentations: {'enabled' if aug_enabled else 'disabled'}")
+        print(f"  Hybrid sampling (None downsampling): {'enabled' if hybrid_enabled else 'disabled'} "
+              f"(ratio={none_downsample_ratio})")
 
-    total = len(full_dataset)
-    train_len = int(total * train_split)
-    val_len = int(total * val_split)
-    test_len = total - train_len - val_len
+        # Load full dataset WITHOUT augmentations and WITHOUT hybrid sampling
+        # for class count computation and stratified split
+        full_dataset_no_aug = WaferWM811KDataset(
+            data_root=data_root,
+            image_size=image_size,
+            num_classes=num_classes,
+            train=False,  # no augmentations
+            hybrid_sampling=False,  # keep all samples for counting
+        )
+        print(f"  Total samples: {len(full_dataset_no_aug)}")
+        print(f"  Classes: {full_dataset_no_aug.class_names}")
 
-    all_labels = [label for _, label in full_dataset._samples]
-    sss = StratifiedShuffleSplit(n_splits=1, test_size=val_len + test_len, random_state=42)
-    train_idx, temp_idx = next(sss.split(np.arange(total), all_labels))
+        # ── Compute class counts for weighted loss ──────────────────────
+        # Labels are needed for both class counts and stratified split.
+        labels = np.array(
+            [full_dataset_no_aug[i]["label"] for i in range(len(full_dataset_no_aug))]
+        )
+        cache_dir = full_dataset_no_aug.data_root / "cache"
 
-    temp_labels = [all_labels[i] for i in temp_idx]
-    sss2 = StratifiedShuffleSplit(n_splits=1, test_size=test_len / (val_len + test_len), random_state=42)
-    val_idx, test_idx = next(sss2.split(np.arange(len(temp_idx)), temp_labels))
-    val_idx = [temp_idx[i] for i in val_idx]
-    test_idx = [temp_idx[i] for i in test_idx]
+        print("  Computing class counts for weighted loss (cached)...")
+        class_counts = compute_class_counts(labels, num_classes, cache_dir)
 
-    # Create train dataset with augmentation, val/test without
-    train_dataset = WaferWM811KDataset(
-        data_root=data_root,
-        image_size=image_size,
-        num_classes=num_classes,
-        transform=aug_transform,
-    )
-    # Use only the training indices
-    train_dataset._samples = [full_dataset._samples[i] for i in train_idx]
-
-    val_dataset = torch.utils.data.Subset(full_dataset, val_idx)
-    test_dataset = torch.utils.data.Subset(full_dataset, test_idx)
-
-    print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
-
-    # ── Hybrid sampling (downsample None) ───────────────────────────────
-    # Paper Section 4.1: downsampling majority None class
-    # Class weights in WeightedCrossEntropyLoss handle the imbalance further
-    use_hybrid_sampling = config.get("data.hybrid_sampling.enabled", True)
-    if use_hybrid_sampling and not is_segmentation:
-        none_downsample_ratio = config.get("data.hybrid_sampling.none_downsample_ratio", 0.30)
-
-        balanced_indices, balanced_labels = _build_balanced_train_dataset(
-            full_dataset,
-            none_downsample_ratio=none_downsample_ratio,
-            random_state=42,
+        # ── Stratified split ────────────────────────────────────────────
+        print("  Performing stratified train/val/test split (cached)...")
+        train_idx_subset, val_dataset, test_dataset = stratified_split(
+            full_dataset_no_aug,
+            train_ratio=train_split,
+            val_ratio=val_split,
+            seed=42,
+            cache_dir=cache_dir,
         )
 
-        # Filter to only training indices
-        train_idx_set = set(train_idx)
-        balanced_train_indices = [i for i in balanced_indices if i in train_idx_set]
-        balanced_train_labels = [balanced_labels[balanced_indices.index(i)] for i in balanced_train_indices]
+        # Extract (filename, label) pairs for the train split from the full dataset
+        train_samples = [
+            full_dataset_no_aug._samples[i] for i in train_idx_subset.indices
+        ]
 
-        print(f"  Balanced train set: {len(balanced_train_indices)} samples")
+        # Apply hybrid sampling: downsample the majority None class (Section 4.1)
+        if hybrid_enabled:
+            train_samples = apply_hybrid_sampling(
+                train_samples,
+                none_downsample_ratio=none_downsample_ratio,
+                seed=42,
+            )
 
-        # Override train_dataset samples with balanced subset
-        train_dataset._samples = [full_dataset._samples[i] for i in balanced_train_indices]
-        train_shuffle = True
-    else:
-        train_shuffle = True
+        # Apply SMOTE to minority classes to construct a balanced training set
+        # (Section 4.1: "downsampling the majority None class and applying SMOTE
+        #  to minority classes")
+        train_dataset = SMOTEDataset(
+            data_root=data_root,
+            samples=train_samples,
+            image_size=image_size,
+            num_classes=num_classes,
+            seed=42,
+        )
+
+        print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
 
     # ── Create DataLoaders ──────────────────────────────────────────────
     if is_segmentation:
@@ -375,38 +410,42 @@ def main() -> None:
     eval_batch_size = config.get("evaluation.batch_size", 64)
     num_workers = 0  # safe default on Windows
 
-    def collate_fn(batch):
-        """Custom collate for multitask dict-based samples."""
-        images = torch.stack([item["image"] for item in batch])
-        labels = torch.tensor([item["label"] for item in batch], dtype=torch.long)
-        masks = torch.stack([item["mask"] for item in batch])
-        return images, labels, masks
+    # Segmentation batches are (images, masks); classification batches are
+    # (images, labels). The generic trainer's _unpack_batch uses batch[1] as
+    # targets, so the correct collate must be selected per mode.
+    use_seg_collate = is_segmentation
+    _collate = seg_collate_fn if use_seg_collate else collate_fn
 
     train_loader = DataLoader(
         train_dataset,
         batch_size=batch_size,
-        shuffle=train_shuffle,
+        shuffle=True,
         num_workers=num_workers,
-        collate_fn=collate_fn,
+        collate_fn=_collate,
     )
     val_loader = DataLoader(
         val_dataset,
         batch_size=eval_batch_size,
         shuffle=False,
         num_workers=num_workers,
-        collate_fn=collate_fn,
+        collate_fn=_collate,
     )
     test_loader = DataLoader(
         test_dataset,
         batch_size=eval_batch_size,
         shuffle=False,
         num_workers=num_workers,
-        collate_fn=collate_fn,
+        collate_fn=_collate,
     )
 
     # ── Create model ────────────────────────────────────────────────────
     print("Creating SemiWaferNet model...")
     model = SemiWaferNet.from_config(config)
+    # Keep a reference to the raw multitask model (returns a dict with
+    # "classification" and "segmentation" keys). The SSL pipeline (MC Dropout,
+    # consistency loss) requires this dict interface, so it uses ``base_model``
+    # rather than the task-specific wrapper below.
+    base_model = model
 
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
@@ -414,31 +453,29 @@ def main() -> None:
 
     # ── Create loss function ────────────────────────────────────────────
     if is_segmentation:
-        # Dice + 0.5*Focal with deep supervision
         base_loss = DiceFocalLoss(focal_alpha=0.25, focal_gamma=2.0)
         loss_fn = DeepSupervisionLoss(base_loss)
 
-        # Wrap model to return segmentation output
         class SegmentationWrapper(nn.Module):
-            """Wraps SemiWaferNet to return only segmentation output."""
-
             def __init__(self, base_model: nn.Module) -> None:
                 super().__init__()
                 self.base_model = base_model
 
             def forward(self, x: torch.Tensor) -> dict[str, torch.Tensor]:
+                # return_aux=True returns a dict {"main", "aux1", "aux2"}
+                # for deep supervision (Equation 17).
                 outputs = self.base_model(x, return_aux=True)
                 return outputs["segmentation"]
 
         model = SegmentationWrapper(model)
     else:
-        # Weighted Cross-Entropy for classification with real class counts
-        loss_fn = WeightedCrossEntropyLoss(num_classes=num_classes, class_counts=class_counts)
+        # Weighted Cross-Entropy with REAL class counts (paper Section 2.3)
+        loss_fn = WeightedCrossEntropyLoss(
+            num_classes=num_classes,
+            class_counts=class_counts,
+        )
 
-        # Wrap model to extract only classification output
         class ClassificationWrapper(nn.Module):
-            """Wraps SemiWaferNet to return only classification logits."""
-
             def __init__(self, base_model: nn.Module) -> None:
                 super().__init__()
                 self.base_model = base_model
@@ -457,8 +494,12 @@ def main() -> None:
         device=device,
     )
 
-    # Override loss function in engine
+    # Override loss function in engine AND trainer (so the trainer actually
+    # uses the weighted loss), and move it to the device.
     engine.loss_fn = loss_fn
+    if isinstance(loss_fn, nn.Module):
+        loss_fn = loss_fn.to(device)
+    engine.trainer.loss_fn = loss_fn
 
     # ── Resume from checkpoint ───────────────────────────────────────────
     if args.resume is not None:
@@ -476,15 +517,12 @@ def main() -> None:
             resumed_epoch = engine.resume(checkpoint_path=checkpoint_path)
         print(f"  Resumed at epoch {resumed_epoch}")
 
-        # ── Override learning rate after resume ─────────────────────────
-        # engine.resume() restores the optimizer state (including lr) from
-        # the checkpoint. If --lr was passed, we need to override it.
         if args.lr is not None:
             for param_group in engine.optimizer.param_groups:
                 param_group["lr"] = args.lr
             print(f"  Overrode learning rate to: {args.lr}")
 
-    # ── Train ───────────────────────────────────────────────────────────
+    # -- Train -----------------------------------------------------------
     if is_segmentation:
         epochs = config.get("seg_training.num_epochs", 50)
     else:
@@ -493,18 +531,123 @@ def main() -> None:
     print(f"Starting training for {epochs} epochs")
     print(f"{'='*60}")
 
-    logger = engine.fit(
-        train_loader=train_loader,
-        val_loader=val_loader,
-        epochs=epochs,
-    )
+    # ── Semi-supervised pipeline (paper Section 2.2) ────────────────────
+    # The three-stage progressive pseudo-labeling strategy is used when
+    # semi_supervised.enabled is True AND unlabeled data is available.
+    # With only labeled data (the current dataset), Stage 1 (supervised
+    # warm-up) is run, which is equivalent to standard supervised training.
+    ssl_cfg = config.get("semi_supervised", {})
+    ssl_enabled = ssl_cfg.get("enabled", False) if isinstance(ssl_cfg, dict) else False
+    unlabeled_loader = None
 
-    # ── Final metrics ───────────────────────────────────────────────────
+    if ssl_enabled and not is_segmentation:
+        unlabeled_root = config.get("data.unlabeled_root", None)
+        if unlabeled_root and Path(unlabeled_root).exists():
+            from papers.semiwafernet.data_utils import UnlabeledWaferDataset
+
+            def unlabeled_collate(batch):
+                # UnlabeledWaferDataset yields {"image": tensor}; extract the
+                # image so the SSL trainer receives a plain input tensor.
+                return torch.stack([item["image"] for item in batch])
+
+            unlabeled_ds = UnlabeledWaferDataset(
+                image_dir=unlabeled_root,
+                image_size=image_size,
+            )
+            unlabeled_loader = DataLoader(
+                unlabeled_ds,
+                batch_size=batch_size,
+                shuffle=True,
+                num_workers=num_workers,
+                collate_fn=unlabeled_collate,
+            )
+            print(f"[SSL] Loaded {len(unlabeled_ds)} unlabeled samples from {unlabeled_root}")
+        else:
+            print("[SSL] semi_supervised.enabled=True but no unlabeled data found "
+                  f"({unlabeled_root}). Running supervised-only (Stage 1).")
+
+    if ssl_enabled and not is_segmentation:
+        # The SSL pipeline (MC Dropout, consistency loss) operates on the raw
+        # multitask model that returns a dict {"classification", "segmentation"}.
+        # The classification wrapper below returns only a tensor, so we use the
+        # raw ``base_model`` here.
+        ssl_student = base_model
+
+        # The SSL trainer expects targets as a dict with "classification" and
+        # "segmentation" keys, and a supervised loss that accepts
+        # (student_output_dict, targets_dict). Adapt the classification
+        # collate output (images, labels) and the weighted CE loss accordingly.
+        def ssl_labeled_batches(loader):
+            for images, labels in loader:
+                seg_targets = torch.zeros(
+                    images.shape[0], image_size, image_size,
+                    dtype=torch.long, device=images.device,
+                )
+                targets = {
+                    "classification": labels,
+                    "segmentation": seg_targets,
+                }
+                yield images, targets
+
+        class SSLSupervisedLoss(nn.Module):
+            """Adapt WeightedCrossEntropyLoss to the SSL dict interface."""
+
+            def __init__(self, base_loss: nn.Module) -> None:
+                super().__init__()
+                self.base_loss = base_loss
+
+            def forward(
+                self,
+                student_output: dict[str, torch.Tensor],
+                targets: dict[str, torch.Tensor],
+            ) -> dict[str, torch.Tensor]:
+                class_loss = self.base_loss(
+                    student_output["classification"],
+                    targets["classification"],
+                )
+                return {"classification": class_loss}
+
+        # Build the three-stage semi-supervised trainer.
+        stage_manager = StageManager(
+            student=ssl_student,
+            num_classes=num_classes,
+            ema_decay=ssl_cfg.get("ema_decay", 0.999),
+            base_threshold=ssl_cfg.get("confidence_threshold", 0.94),
+            alpha=ssl_cfg.get("alpha", 0.08),
+            beta=ssl_cfg.get("beta", 0.02),
+            mc_passes=ssl_cfg.get("mc_passes", 20),
+            entropy_threshold=ssl_cfg.get("entropy_threshold", 0.08),
+            mi_threshold=ssl_cfg.get("mutual_information_threshold", 0.12),
+            consistency_weight=ssl_cfg.get("consistency_weight", 0.1),
+        )
+        ssl_trainer = SemiWaferTrainer(
+            student=ssl_student,
+            stage_manager=stage_manager,
+            optimizer=engine.optimizer,
+            supervised_loss_fn=SSLSupervisedLoss(loss_fn),
+            scheduler=engine.scheduler,
+            device=torch.device(device),
+        )
+        ssl_metrics = ssl_trainer.fit(
+            labeled_data=ssl_labeled_batches(train_loader),
+            unlabeled_data=unlabeled_loader,
+            num_epochs=epochs,
+            consistency_weight=ssl_cfg.get("consistency_weight", 0.1),
+        )
+        print(f"\n[SSL] Training complete: {ssl_metrics}")
+        logger = engine.logger
+    else:
+        logger = engine.fit(
+            train_loader=train_loader,
+            val_loader=val_loader,
+            epochs=epochs,
+        )
+
+    # -- Final metrics ---------------------------------------------------
     print(f"\n{'='*60}")
     print("Training complete!")
     print(f"{'='*60}")
 
-    # Print final training metrics
     history = logger.history
     if history:
         final = history[-1]
@@ -518,7 +661,7 @@ def main() -> None:
             if key in final:
                 print(f"  {key}: {final[key]:.4f}")
 
-    # ── Evaluate on test set ────────────────────────────────────────────
+    # -- Evaluate on test set --------------------------------------------
     print(f"\n{'='*60}")
     print("Evaluating on test set...")
     print(f"{'='*60}")
