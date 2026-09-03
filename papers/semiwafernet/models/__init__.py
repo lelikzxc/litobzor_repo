@@ -1,19 +1,16 @@
 """Model definitions for SemiWaferNet.
 
 Models:
-- SemiWaferNet: hybrid CNN–Transformer for classification + segmentation
-- ClassifierHead: classification head (GAP + LayerNorm + Linear)
-- SegmentationDecoder: lightweight segmentation decoder
+- SemiWaferNet: HybridCNN-ViT or ConvoFormer-UNet (mode switch)
+- ConvoFormerUNet: segmentation architecture (~7.11M)
 """
 
 from __future__ import annotations
 
 from papers.semiwafernet.models.semiwafernet import SemiWaferNet
-from papers.semiwafernet.models.classifier import ClassifierHead
-from papers.semiwafernet.models.decoder import SegmentationDecoder
+from papers.semiwafernet.models.convoformer_unet import ConvoFormerUNet
 
 __all__ = [
     "SemiWaferNet",
-    "ClassifierHead",
-    "SegmentationDecoder",
+    "ConvoFormerUNet",
 ]

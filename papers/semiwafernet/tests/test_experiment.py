@@ -134,7 +134,7 @@ class TestCountParams:
 
         assert backbone_params > 0
         assert transformer_params > 0
-        assert fusion_params > 0
+        assert fusion_params >= 0  # Identity fusion in HybridCNN-ViT
         assert classifier_params > 0
         # Decoder may have 0 params in classification mode (not used in forward)
         assert decoder_params >= 0
@@ -175,7 +175,7 @@ class TestBuildExperimentInfo:
         assert info.total_params > 0
         assert info.backbone_params > 0
         assert info.transformer_params > 0
-        assert info.fusion_params > 0
+        assert info.fusion_params >= 0  # Identity fusion in HybridCNN-ViT
         assert info.classifier_params > 0
         # Decoder may have 0 params in classification mode (not used in forward)
         assert info.decoder_params >= 0

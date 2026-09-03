@@ -47,6 +47,8 @@ datasets/
 outputs/
 logs/
 
+# Accidental temp clones / scratch dirs
+.tmp*/
 
 test_classes.txt
 test_nc.txt

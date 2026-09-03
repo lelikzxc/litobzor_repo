@@ -87,14 +87,15 @@ def test_engine_config_from_yaml() -> None:
     config = EngineConfig.from_yaml("papers/vmamba/configs/config.yaml")
     assert config is not None
     assert config.get("model.name") == "fcs_vmamba"
-    assert config.get("model.num_classes") == 8
+    assert config.get("model.num_classes") == 9
 
 
 def test_engine_config_dot_access() -> None:
     """Verify dot-separated key access works."""
     config = EngineConfig.from_yaml("papers/vmamba/configs/config.yaml")
     assert config.get("model.backbone.embed_dim") == 96
-    assert config.get("model.backbone.depths") == [2, 2, 6, 2]
+    assert config.get("model.backbone.depths") == [2, 2, 2, 2]
+    assert config.get("model.backbone.fixed_channels") is True
     assert config.get("model.fa.enabled") is True
     assert config.get("model.sfs.enabled") is True
     assert config.get("model.clca.enabled") is True
@@ -105,27 +106,22 @@ def test_engine_config_engine_fields() -> None:
     """Verify engine-compatible fields are present."""
     config = EngineConfig.from_yaml("papers/vmamba/configs/config.yaml")
 
-    # model section
     assert config.get("model.name") == "fcs_vmamba"
-    assert config.get("model.num_classes") == 8
+    assert config.get("model.num_classes") == 9
 
-    # training.optimizer as dict
-    opt = config.get("training.optimizer")
+    opt = config.get("optimizer")
     assert isinstance(opt, dict)
     assert opt.get("name") == "adamw"
-    assert opt.get("lr") == 0.0001
+    assert opt.get("lr") == 0.001
 
-    # training.scheduler as dict
-    sched = config.get("training.scheduler")
+    sched = config.get("scheduler")
     assert isinstance(sched, dict)
     assert sched.get("name") == "cosine"
 
-    # training.loss as dict
-    loss = config.get("training.loss")
+    loss = config.get("loss")
     assert isinstance(loss, dict)
     assert loss.get("name") == "cross_entropy"
 
-    # dataset section
     ds = config.get("dataset")
     assert isinstance(ds, dict)
     assert ds.get("name") == "wafer_defects"
@@ -146,10 +142,10 @@ def test_from_config_with_engine_config() -> None:
     config = EngineConfig.from_yaml("papers/vmamba/configs/config.yaml")
     model = FCSVMamba.from_config(config)
     assert isinstance(model, FCSVMamba)
-    assert model.num_classes == 8
+    assert model.num_classes == 9
     assert model.embed_dim == 96
-    assert model.depths == [2, 2, 6, 2]
-    assert model.num_heads == [3, 6, 12, 24]
+    assert model.depths == [2, 2, 2, 2]
+    assert model.final_dim == 96
     assert model.fa_enabled is True
     assert model.sfs_enabled is True
     assert model.clca_enabled is True

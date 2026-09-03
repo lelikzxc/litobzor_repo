@@ -27,8 +27,8 @@ class UncertaintyFilter(nn.Module):
 
     def __init__(
         self,
-        entropy_threshold: float = 0.08,
-        mi_threshold: float = 0.12,
+        entropy_threshold: float = 0.5,
+        mi_threshold: float = 0.3,
     ) -> None:
         super().__init__()
         self.entropy_threshold = entropy_threshold

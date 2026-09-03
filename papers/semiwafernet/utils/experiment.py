@@ -1,13 +1,8 @@
-"""Experiment metadata utilities for SemiWaferNet.
-
-Provides a single source of truth for model metadata, parameter counting,
-and architecture summaries used across training, evaluation, and logging.
-"""
+"""Experiment metadata utilities for SemiWaferNet."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
 
 import torch
 
@@ -16,28 +11,10 @@ from papers.semiwafernet.models.semiwafernet import SemiWaferNet
 
 @dataclass
 class ExperimentInfo:
-    """Immutable snapshot of experiment metadata.
-
-    Attributes:
-        model_name: Model name (e.g. ``"semiwafernet"``).
-        num_classes: Number of output classes.
-        image_size: Input image size (assumed square).
-        backbone_channels: Channel list for CNN backbone stages.
-        transformer_embed_dim: Transformer embedding dimension.
-        transformer_layers: Number of transformer encoder layers.
-        total_params: Total trainable parameters.
-        backbone_params: Parameters in the CNN backbone.
-        transformer_params: Parameters in the transformer encoder.
-        fusion_params: Parameters in the feature fusion module.
-        classifier_params: Parameters in the classification head.
-        decoder_params: Parameters in the segmentation decoder.
-        ema_enabled: Whether EMA teacher is enabled.
-        pseudo_labels_enabled: Whether pseudo-label generation is enabled.
-        consistency_enabled: Whether consistency loss is enabled.
-        architecture_summary: Human-readable architecture description.
-    """
+    """Immutable snapshot of experiment metadata."""
 
     model_name: str = "semiwafernet"
+    mode: str = "classification"
     num_classes: int = 9
     image_size: int = 32
     backbone_channels: list[int] = field(default_factory=lambda: [64, 128])
@@ -56,32 +33,7 @@ class ExperimentInfo:
 
 
 def count_params(model: torch.nn.Module) -> int:
-    """Count trainable parameters in a model.
-
-    Args:
-        model: A PyTorch module.
-
-    Returns:
-        Number of trainable parameters.
-    """
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
-
-
-def _count_module_params(model: torch.nn.Module, class_name: str) -> int:
-    """Count parameters in all sub-modules of a given class name.
-
-    Args:
-        model: A PyTorch module.
-        class_name: Class name to match (e.g. ``"CNNBackbone"``).
-
-    Returns:
-        Number of trainable parameters in matching sub-modules.
-    """
-    total = 0
-    for module in model.modules():
-        if type(module).__name__ == class_name:
-            total += count_params(module)
-    return total
 
 
 def build_experiment_info(
@@ -90,45 +42,44 @@ def build_experiment_info(
     pseudo_labels_enabled: bool = False,
     consistency_enabled: bool = False,
 ) -> ExperimentInfo:
-    """Build an ``ExperimentInfo`` snapshot from a model instance.
-
-    Args:
-        model: A SemiWaferNet instance.
-        ema_enabled: Whether EMA teacher is enabled.
-        pseudo_labels_enabled: Whether pseudo-label generation is enabled.
-        consistency_enabled: Whether consistency loss is enabled.
-
-    Returns:
-        Populated ``ExperimentInfo`` dataclass.
-    """
+    """Build an ``ExperimentInfo`` snapshot from a SemiWaferNet instance."""
     total = count_params(model)
+    mode = getattr(model, "mode", "classification")
 
-    # Count parameters by component using class name matching
-    backbone_params = _count_module_params(model, "CNNBackbone")
-    transformer_params = _count_module_params(model, "TransformerEncoder")
-    fusion_params = _count_module_params(model, "FeatureFusion")
-    classifier_params = _count_module_params(model, "ClassifierHead")
-    decoder_params = _count_module_params(model, "SegmentationDecoder")
+    backbone_params = count_params(model.backbone) if not isinstance(model.backbone, torch.nn.Identity) else 0
+    if hasattr(model, "transformer") and not isinstance(model.transformer, torch.nn.Identity):
+        transformer_params = count_params(model.transformer)
+    else:
+        transformer_params = 0
+    fusion_params = count_params(model.fusion) if hasattr(model, "fusion") else 0
+    classifier_params = count_params(model.classifier) if hasattr(model, "classifier") else 0
+    if mode == "segmentation" and getattr(model, "seg_model", None) is not None:
+        decoder_params = count_params(model.seg_model)
+    else:
+        decoder_params = count_params(model.decoder) if not isinstance(model.decoder, torch.nn.Identity) else 0
 
-    # Read attributes from model
-    backbone_channels = getattr(model, "backbone_channels", [64, 128])
-    embed_dim = getattr(model.transformer, "embed_dim", 128) if hasattr(model, "transformer") else 128
-    num_layers = len(getattr(model.transformer, "blocks", [])) if hasattr(model, "transformer") else 4
-    num_classes = getattr(model.classifier, "num_classes", 9) if hasattr(model, "classifier") else 9
+    # Recover hyperparams
+    if hasattr(model, "backbone") and hasattr(model.backbone, "out_channels"):
+        backbone_channels = list(model.backbone.out_channels)
+    else:
+        backbone_channels = [64, 128]
+    embed_dim = getattr(model.transformer, "embed_dim", 128)
+    num_layers = len(getattr(model.transformer, "blocks", [])) if hasattr(model.transformer, "blocks") else 4
+    if hasattr(model.classifier, "head"):
+        num_classes = model.classifier.head.out_features
+    else:
+        num_classes = getattr(model, "num_classes", 9)
 
-    # Build architecture summary
-    parts: list[str] = [
-        f"SemiWaferNet",
-        f"CNN({backbone_channels})",
-        f"Transformer(embed={embed_dim}, layers={num_layers})",
-        f"classes={num_classes}",
-    ]
-    arch_summary = " | ".join(parts)
+    arch = (
+        f"SemiWaferNet({mode}) | CNN({backbone_channels}) | "
+        f"Transformer(embed={embed_dim}, layers={num_layers}) | classes={num_classes}"
+    )
 
     return ExperimentInfo(
         model_name="semiwafernet",
+        mode=mode,
         num_classes=num_classes,
-        image_size=32,
+        image_size=32 if mode == "classification" else 64,
         backbone_channels=backbone_channels,
         transformer_embed_dim=embed_dim,
         transformer_layers=num_layers,
@@ -141,24 +92,16 @@ def build_experiment_info(
         ema_enabled=ema_enabled,
         pseudo_labels_enabled=pseudo_labels_enabled,
         consistency_enabled=consistency_enabled,
-        architecture_summary=arch_summary,
+        architecture_summary=arch,
     )
 
 
 def format_experiment_info(info: ExperimentInfo) -> str:
-    """Format ``ExperimentInfo`` as a human-readable string.
-
-    Args:
-        info: Experiment metadata.
-
-    Returns:
-        Formatted multi-line string.
-    """
     lines = [
         "=" * 56,
-        "  SemiWaferNet — Experiment Metadata",
+        "  SemiWaferNet Experiment Metadata",
         "=" * 56,
-        f"  Model:              {info.model_name}",
+        f"  Model:              {info.model_name} ({info.mode})",
         f"  Classes:            {info.num_classes}",
         f"  Image size:         {info.image_size}×{info.image_size}",
         f"  Backbone channels:  {info.backbone_channels}",
@@ -177,7 +120,6 @@ def format_experiment_info(info: ExperimentInfo) -> str:
         f"    EMA teacher:      {info.ema_enabled}",
         f"    Pseudo labels:    {info.pseudo_labels_enabled}",
         f"    Consistency:      {info.consistency_enabled}",
-        "",
         f"  Architecture:       {info.architecture_summary}",
         "=" * 56,
     ]

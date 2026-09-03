@@ -431,7 +431,6 @@ class TestStageManager:
         assert stage_manager.adaptive_threshold is not None
         assert stage_manager.mc_dropout is not None
         assert stage_manager.uncertainty_filter is not None
-        assert stage_manager.consistency_loss is not None
 
     def test_set_stage(self, stage_manager: StageManager) -> None:
         """set_stage updates current_stage."""
@@ -490,31 +489,6 @@ class TestStageManager:
         stage_manager.set_stage(2)
         result = stage_manager.generate_pseudo_labels(small_input)
         assert 0.0 <= result["adaptive_threshold"] <= 1.0
-
-    def test_compute_consistency_loss(self, stage_manager: StageManager, small_input: torch.Tensor) -> None:
-        """compute_consistency_loss returns dict with loss values."""
-        stage_manager.set_stage(2)
-        student_output = stage_manager.student(small_input)
-        teacher_output = stage_manager.teacher(small_input)
-        losses = stage_manager.compute_consistency_loss(student_output, teacher_output)
-        assert "classification" in losses
-        assert "segmentation" in losses
-        assert losses["classification"].ndim == 0  # scalar
-        assert losses["segmentation"].ndim == 0  # scalar
-
-    def test_compute_consistency_loss_with_masks(self, stage_manager: StageManager, small_input: torch.Tensor) -> None:
-        """compute_consistency_loss works with masks."""
-        stage_manager.set_stage(2)
-        student_output = stage_manager.student(small_input)
-        teacher_output = stage_manager.teacher(small_input)
-        class_mask = torch.tensor([True, False])
-        seg_mask = torch.ones(2, 32, 32, dtype=torch.bool)
-        losses = stage_manager.compute_consistency_loss(
-            student_output, teacher_output,
-            class_mask=class_mask, seg_mask=seg_mask,
-        )
-        assert "classification" in losses
-        assert "segmentation" in losses
 
     def test_refresh_teacher(self, stage_manager: StageManager) -> None:
         """refresh_teacher creates a new teacher from current student."""

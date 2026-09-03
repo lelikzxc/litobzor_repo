@@ -195,27 +195,22 @@ class ConvoFormerBlock(nn.Module):
         Returns:
             Output token sequence [B, N, embed_dim].
         """
-        # Self-attention path
+        # Eq. (15): Z' = MSA(LN(Z)) + Conv_dw_3×3(Z)
         attn_out = self.attn(self.norm1(x))
 
-        # Local enhancement path (depthwise conv)
         if spatial_shape is not None and spatial_shape[0] > 1 and spatial_shape[1] > 1:
             H, W = spatial_shape
-            B, N, D = x.shape
-            # Reshape tokens to spatial feature map
-            x_spatial = x.transpose(1, 2).reshape(B, D, H, W)  # [B, D, H, W]
-            conv_out = self.depthwise_conv(x_spatial)
-            conv_out = self.norm_conv(conv_out)
-            conv_out = conv_out.flatten(2).transpose(1, 2)  # [B, N, D]
+            B, _, D = x.shape
+            x_spatial = x.transpose(1, 2).reshape(B, D, H, W)
+            conv_out = self.norm_conv(self.depthwise_conv(x_spatial))
+            conv_out = conv_out.flatten(2).transpose(1, 2)
         else:
-            conv_out = 0.0
+            conv_out = torch.zeros_like(attn_out)
 
-        # Fuse: MSA + Conv_dw
-        x = x + attn_out + conv_out
+        x = attn_out + conv_out
 
-        # MLP path
+        # Feed-forward with residual
         x = x + self.mlp(self.norm2(x))
-
         return x
 
 

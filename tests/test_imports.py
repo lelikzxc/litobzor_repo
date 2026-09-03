@@ -28,9 +28,8 @@ COMMON_MODULES = [
     "common.utils.paths",
     "common.metrics",
     "common.metrics.metrics",
-    "common.losses",
     "common.datasets",
-    "common.visualization",
+    "common.training",
     "common.engine",
     "common.engine.registry",
     "common.engine.config",
@@ -51,9 +50,8 @@ def test_project_structure() -> None:
     required_dirs = [
         "common/utils",
         "common/metrics",
-        "common/losses",
         "common/datasets",
-        "common/visualization",
+        "common/training",
         "configs",
         "docs",
         "scripts",
@@ -70,11 +68,12 @@ def test_project_structure() -> None:
 
 @pytest.mark.parametrize("script", ["train.py", "evaluate.py", "predict.py"])
 def test_entrypoint_scripts(script: str) -> None:
+    """Root entry points print usage when called with --help."""
     result = subprocess.run(
-        [sys.executable, str(ROOT / script)],
+        [sys.executable, str(ROOT / script), "--help"],
         capture_output=True,
         text=True,
         check=False,
     )
     assert result.returncode == 0
-    assert "Not implemented" in result.stdout
+    assert "Usage:" in result.stdout

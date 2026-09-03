@@ -1,10 +1,5 @@
 # Documentation
 
-This directory contains project documentation.
+Paper-specific docs live next to each implementation under `papers/<name>/README.md`.
 
-Planned contents:
-
-- Architecture overview
-- Dataset preparation guides
-- Experiment reproduction guides per paper
-- API reference for common modules
+Shared training/engine APIs: see `common/` and the root [README](../README.md).

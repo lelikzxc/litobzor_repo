@@ -2,8 +2,7 @@
 
 Components:
 - CNN backbone: multi-scale convolutional feature extractor
-- Transformer encoder: global context modeling via self-attention
-- Feature fusion: multi-scale CNN + transformer feature integration
+- Transformer / ConvoFormer blocks for HybridCNN-ViT and ConvoFormer-UNet
 """
 
 from __future__ import annotations
@@ -19,7 +18,6 @@ from papers.semiwafernet.modules.transformer import (
     TransformerMLP,
     HybridViTEncoder,
 )
-from papers.semiwafernet.modules.fusion import FeatureFusion, ChannelAlign
 
 __all__ = [
     "CNNBackbone",
@@ -33,6 +31,4 @@ __all__ = [
     "MultiHeadSelfAttention",
     "TransformerMLP",
     "HybridViTEncoder",
-    "FeatureFusion",
-    "ChannelAlign",
 ]

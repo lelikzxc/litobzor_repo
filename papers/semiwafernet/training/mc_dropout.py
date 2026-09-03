@@ -53,8 +53,13 @@ class MonteCarloDropout(nn.Module):
 
         for _ in range(self.num_passes):
             output = model(x)
-            class_probs_list.append(torch.softmax(output["classification"], dim=1))  # [B, C]
-            seg_probs_list.append(torch.softmax(output["segmentation"], dim=1))      # [B, C, H, W]
+            class_probs_list.append(torch.softmax(output["classification"], dim=1))
+            seg = output["segmentation"]
+            if seg.shape[1] == 1:
+                # Binary logits → keep [B, 1, H, W] Bernoulli probs for API compat
+                seg_probs_list.append(torch.sigmoid(seg))
+            else:
+                seg_probs_list.append(torch.softmax(seg, dim=1))
 
         model.eval()  # restore eval mode
 
@@ -65,27 +70,35 @@ class MonteCarloDropout(nn.Module):
         mean_class_probs = class_probs_stack.mean(dim=0)  # [B, C]
         mean_seg_probs = seg_probs_stack.mean(dim=0)      # [B, C, H, W]
 
-        # Predictive entropy: H[p(y|x)] = -sum_c p_c * log(p_c)
-        entropy_class = self._entropy(mean_class_probs)   # [B]
-        entropy_seg = self._entropy(mean_seg_probs)       # [B, H, W]
+        # Predictive entropy
+        entropy_class = self._entropy(mean_class_probs)
+        if mean_seg_probs.shape[1] == 1:
+            # Binary Bernoulli entropy: -p log p - (1-p) log(1-p)
+            p = mean_seg_probs.squeeze(1).clamp(1e-7, 1 - 1e-7)
+            entropy_seg = -(p * p.log() + (1 - p) * (1 - p).log())
+            per_pass_entropy_seg = []
+            for i in range(self.num_passes):
+                pi = seg_probs_stack[i].squeeze(1).clamp(1e-7, 1 - 1e-7)
+                per_pass_entropy_seg.append(
+                    -(pi * pi.log() + (1 - pi) * (1 - pi).log())
+                )
+            expected_entropy_seg = torch.stack(per_pass_entropy_seg, dim=0).mean(dim=0)
+        else:
+            entropy_seg = self._entropy(mean_seg_probs)
+            per_pass_entropy_seg = torch.stack(
+                [self._entropy(seg_probs_stack[i]) for i in range(self.num_passes)],
+                dim=0,
+            )
+            expected_entropy_seg = per_pass_entropy_seg.mean(dim=0)
 
-        # Mutual information: H[E[p]] - E[H[p]]
-        # Expected entropy: E[H[p]] = mean over passes of per-pass entropy
-        # Compute per-pass entropy manually (Tensor.map not available in all PyTorch versions)
         per_pass_entropy_class = torch.stack(
             [self._entropy(class_probs_stack[i]) for i in range(self.num_passes)],
             dim=0,
-        )  # [num_passes, B]
-        expected_entropy_class = per_pass_entropy_class.mean(dim=0)  # [B]
+        )
+        expected_entropy_class = per_pass_entropy_class.mean(dim=0)
 
-        per_pass_entropy_seg = torch.stack(
-            [self._entropy(seg_probs_stack[i]) for i in range(self.num_passes)],
-            dim=0,
-        )  # [num_passes, B, H, W]
-        expected_entropy_seg = per_pass_entropy_seg.mean(dim=0)  # [B, H, W]
-
-        mutual_info_class = entropy_class - expected_entropy_class  # [B]
-        mutual_info_seg = entropy_seg - expected_entropy_seg        # [B, H, W]
+        mutual_info_class = entropy_class - expected_entropy_class
+        mutual_info_seg = entropy_seg - expected_entropy_seg
 
         return {
             "mean_probs_class": mean_class_probs,

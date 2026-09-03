@@ -118,46 +118,38 @@ class AdaptiveThreshold(nn.Module):
     @torch.no_grad()
     def compute_threshold(
         self,
-        pseudo_labels: torch.Tensor,
+        pseudo_labels: torch.Tensor | None = None,
         entropy: torch.Tensor | None = None,
     ) -> torch.Tensor:
-        """Compute the class-adaptive, sample-wise threshold (Equation 10).
+        """Compute adaptive threshold (Equation 10).
 
-        ``tau_c(x) = tau_base + alpha * (sigma_c / mu_c) + beta * (1 - Entropy(x))``
-
-        The coefficient-of-variation term ``sigma_c / mu_c`` is selected
-        per-sample based on the predicted class ``c``, while the entropy term
-        ``(1 - Entropy(x))`` is computed per-sample. The result is clipped to
-        ``[0, 1]``.
-
-        Args:
-            pseudo_labels: Predicted class indices ``[N]`` (or ``[N, H, W]``).
-            entropy: Optional normalised entropy ``[0, 1]`` per sample.
-                If None, the entropy bonus is zero.
-
-        Returns:
-            Adaptive threshold tensor of the same shape as ``pseudo_labels``.
+        If ``pseudo_labels`` is provided, returns a per-sample threshold tensor
+        of the same shape. Otherwise returns a scalar mean threshold over
+        observed classes (legacy / unit-test API).
         """
         mu = self.class_mean
         sigma = self.class_std
-
-        # Coefficient of variation per class: sigma_c / mu_c
         cv = sigma / mu.clamp(min=1e-8)
 
-        # Per-sample CV term selected by predicted class
-        flat_labels = pseudo_labels.flatten().long()
-        cv_term = cv[flat_labels]  # [N]
+        if pseudo_labels is None:
+            valid = self.class_count > 0
+            cv_term = cv[valid].mean() if valid.any() else torch.zeros((), device=mu.device)
+            if entropy is not None:
+                entropy_term = (1.0 - entropy.flatten().mean()).clamp(min=-1.0, max=1.0)
+            else:
+                entropy_term = torch.zeros((), device=mu.device)
+            tau = self.base_threshold + self.alpha * cv_term + self.beta * entropy_term
+            return tau.clamp(0.0, 1.0)
 
-        # Per-sample entropy bonus
+        flat_labels = pseudo_labels.flatten().long()
+        cv_term = cv[flat_labels]
         if entropy is not None:
-            e = entropy.flatten()
-            entropy_term = 1.0 - e
+            entropy_term = 1.0 - entropy.flatten()
         else:
             entropy_term = torch.zeros_like(cv_term)
 
         tau = self.base_threshold + self.alpha * cv_term + self.beta * entropy_term
-        tau = tau.clamp(0.0, 1.0)
-        return tau.reshape_as(pseudo_labels)
+        return tau.clamp(0.0, 1.0).reshape_as(pseudo_labels)
 
     def get_threshold_value(self) -> float:
         """Return the current adaptive threshold as a Python float.

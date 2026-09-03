@@ -26,10 +26,6 @@ from papers.semiwafernet.modules.transformer import (
     MultiHeadSelfAttention,
     TransformerMLP,
 )
-from papers.semiwafernet.modules.fusion import FeatureFusion, ChannelAlign
-from papers.semiwafernet.models.classifier import ClassifierHead
-from papers.semiwafernet.models.decoder import SegmentationDecoder
-
 from common.utils.config import Config
 
 CONFIG_PATH = Path(__file__).resolve().parents[1] / "configs" / "config.yaml"
@@ -50,10 +46,6 @@ def test_import_modules() -> None:
     assert PatchProjection is not None
     assert MultiHeadSelfAttention is not None
     assert TransformerMLP is not None
-    assert FeatureFusion is not None
-    assert ChannelAlign is not None
-    assert ClassifierHead is not None
-    assert SegmentationDecoder is not None
     assert SemiWaferNet is not None
 
 
@@ -132,27 +124,21 @@ def test_classification_shape() -> None:
 
 
 def test_segmentation_shape() -> None:
-    """Segmentation output has shape [B, seg_classes, H, W].
-
-    ConvoFormer-UNet uses ConvEmbed (8×8 conv stride 8), so input 64×64
-    → 8×8 token grid → decoder ×2×2 upsample → 32×32 output.
-    """
+    """Segmentation output has full input resolution (paper decoder)."""
     B, seg_classes, H, W = 2, 1, 64, 64
     model = SemiWaferNet(mode="segmentation", seg_classes=seg_classes)
     x = torch.randn(B, 1, H, W)
     output = model(x)
-    # ConvEmbed stride 8 → 8×8 tokens → decoder ×2×2 → 32×32
-    assert output["segmentation"].shape == (B, seg_classes, 32, 32)
+    assert output["segmentation"].shape == (B, seg_classes, H, W)
 
 
 def test_segmentation_full_resolution() -> None:
-    """Segmentation output is H/2 × W/2 of input (ConvEmbed stride 8 → ×2×2 decoder)."""
-    B, C, H, W = 1, 1, 128, 128
+    """Segmentation logits match input spatial size."""
+    B, C, H, W = 1, 1, 64, 64
     model = SemiWaferNet(mode="segmentation")
     x = torch.randn(B, C, H, W)
     output = model(x)
-    # ConvEmbed stride 8 → 16×16 tokens → decoder ×2×2 → 64×64
-    assert output["segmentation"].shape[2:] == (64, 64)
+    assert output["segmentation"].shape[2:] == (H, W)
 
 
 # ── Gradients ──────────────────────────────────────────────────────────────────
@@ -207,20 +193,18 @@ def test_gradients_flow_segmentation() -> None:
 # ── Parameter count ────────────────────────────────────────────────────────────
 
 
-def test_parameter_count_classification() -> None:
-    """Classification model has a reasonable number of parameters."""
-    model = SemiWaferNet(mode="classification")
-    total = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    # Expect roughly 0.5-5M parameters for the paper config
-    assert 100_000 < total < 10_000_000, f"Unexpected parameter count: {total:,}"
-
-
 def test_parameter_count_segmentation() -> None:
-    """Segmentation model has a reasonable number of parameters."""
+    """ConvoFormer-UNet is ~7.11M params (paper Table 8)."""
     model = SemiWaferNet(mode="segmentation")
     total = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    # Expect roughly 0.5-5M parameters for the paper config
-    assert 100_000 < total < 10_000_000, f"Unexpected parameter count: {total:,}"
+    assert 5_000_000 < total < 10_000_000, f"Unexpected parameter count: {total:,}"
+
+
+def test_parameter_count_classification() -> None:
+    """HybridCNN-ViT is compact (~0.5–2M; paper reports 4.97 MB weights)."""
+    model = SemiWaferNet(mode="classification")
+    total = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    assert 100_000 < total < 5_000_000, f"Unexpected parameter count: {total:,}"
 
 
 # ── from_config ────────────────────────────────────────────────────────────────
@@ -361,64 +345,3 @@ class TestTransformer:
         assert tokens.shape == (2, 64, 128)
         assert H == 8
         assert W == 8
-
-
-class TestFusion:
-    """Unit tests for feature fusion module (2 CNN features + transformer)."""
-
-    def test_channel_align_shape(self) -> None:
-        align = ChannelAlign(128, 64)
-        x = torch.randn(2, 128, 16, 16)
-        out = align(x)
-        assert out.shape == (2, 64, 16, 16)
-
-    def test_fusion_shape(self) -> None:
-        fusion = FeatureFusion(
-            cnn_channels=[64, 128],
-            transformer_dim=128,
-            fusion_dim=128,
-        )
-        cnn_features = [
-            torch.randn(2, 64, 16, 16),
-            torch.randn(2, 128, 8, 8),
-        ]
-        transformer_tokens = torch.randn(2, 64, 128)  # 8x8 = 64 tokens
-        class_feat, seg_feat = fusion(cnn_features, transformer_tokens, (8, 8))
-        assert class_feat.shape == (2, 128, 16, 16)
-        assert seg_feat.shape == (2, 128, 16, 16)
-
-
-class TestClassifier:
-    """Unit tests for classification head."""
-
-    def test_classifier_shape(self) -> None:
-        classifier = ClassifierHead(in_channels=128, num_classes=9)
-        x = torch.randn(2, 128, 16, 16)
-        out = classifier(x)
-        assert out.shape == (2, 9)
-
-
-class TestDecoder:
-    """Unit tests for segmentation decoder (binary segmentation).
-
-    Decoder takes [B, C, H/4, W/4] and does ×2 → ×2 upsample,
-    producing [B, C, H, W]. With 8×8 input → 32×32 output.
-    """
-
-    def test_decoder_shape(self) -> None:
-        decoder = SegmentationDecoder(in_channels=128, num_classes=1)
-        x = torch.randn(2, 128, 8, 8)
-        out = decoder(x)
-        assert out.shape == (2, 1, 32, 32)  # ×2 → ×2 = ×4 upsample
-
-    def test_decoder_with_deep_supervision(self) -> None:
-        decoder = SegmentationDecoder(in_channels=128, num_classes=1)
-        x = torch.randn(2, 128, 8, 8)
-        out = decoder(x, return_aux=True)
-        assert isinstance(out, dict)
-        assert "main" in out
-        assert "aux1" in out
-        assert "aux2" in out
-        assert out["main"].shape == (2, 1, 32, 32)
-        assert out["aux1"].shape == (2, 1, 16, 16)
-        assert out["aux2"].shape == (2, 1, 8, 8)

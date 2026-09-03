@@ -140,18 +140,11 @@ class MultiTaskLoss(nn.Module):
 
 
 def _training_collate(batch: list[dict]) -> dict[str, torch.Tensor]:
-    """Wrap ``multitask_collate`` and remap keys for Trainer compatibility.
-
-    ``multitask_collate`` returns ``{"image": ..., "label": ..., "mask": ...}``.
-    ``Trainer._unpack_batch`` expects ``{"inputs": ..., "targets": ...}``.
-
-    The ``targets`` value is itself a dict ``{"label": ..., "mask": ...}``
-    so that ``MultiTaskLoss`` can extract the individual targets.
-    """
+    """Collate labeled samples for classification HybridCNN-ViT + common.Trainer."""
     collated = multitask_collate(batch)
     return {
         "inputs": collated["image"],
-        "targets": {"label": collated["label"], "mask": collated["mask"]},
+        "targets": collated["label"],
     }
 
 
@@ -167,8 +160,9 @@ _DATASET_SIZE = 64
 
 
 @pytest.fixture
-def model() -> SemiWaferNet:
-    return SemiWaferNet(
+def model() -> nn.Module:
+    """Classification HybridCNN-ViT wrapped to tensor output for common.Trainer."""
+    base = SemiWaferNet(
         mode="classification",
         in_channels=1,
         backbone_channels=[16, 32],
@@ -180,6 +174,16 @@ def model() -> SemiWaferNet:
         fusion_dim=32,
         num_classes=_NUM_CLASSES,
     )
+
+    class _ClassificationWrapper(nn.Module):
+        def __init__(self, m: SemiWaferNet) -> None:
+            super().__init__()
+            self.base_model = m
+
+        def forward(self, x: torch.Tensor) -> torch.Tensor:
+            return self.base_model(x)["classification"]
+
+    return _ClassificationWrapper(base)
 
 
 @pytest.fixture
@@ -222,13 +226,8 @@ def scheduler(optimizer: torch.optim.Optimizer) -> object:
 
 
 @pytest.fixture
-def loss_fn() -> MultiTaskLoss:
-    cls_loss = build_loss("cross_entropy")
-    return MultiTaskLoss(
-        cls_loss_fn=cls_loss,
-        cls_weight=1.0,
-        seg_weight=1.0,
-    )
+def loss_fn() -> nn.Module:
+    return nn.CrossEntropyLoss()
 
 
 @pytest.fixture
@@ -385,10 +384,7 @@ class TestTrainerCreation:
     def test_trainer_creation_minimal(self, model: SemiWaferNet) -> None:
         """Trainer can be created with just model, optimizer, loss_fn."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
-        loss = MultiTaskLoss(
-            cls_loss_fn=build_loss("cross_entropy"),
-            seg_loss_fn=build_loss("cross_entropy"),
-        )
+        loss = nn.CrossEntropyLoss()
         trainer = Trainer(model=model, optimizer=opt, loss_fn=loss)
         assert isinstance(trainer, Trainer)
 
@@ -397,7 +393,7 @@ class TestTrainerCreation:
         model: SemiWaferNet,
         optimizer: torch.optim.Optimizer,
         scheduler: object,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
         metric_fns: dict[str, callable],
         checkpoint_manager: CheckpointManager,
         early_stopping: EarlyStopping,
@@ -426,20 +422,14 @@ class TestTrainerCreation:
     def test_trainer_device_auto(self, model: SemiWaferNet) -> None:
         """Trainer defaults to 'auto' device selection."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
-        loss = MultiTaskLoss(
-            cls_loss_fn=build_loss("cross_entropy"),
-            seg_loss_fn=build_loss("cross_entropy"),
-        )
+        loss = nn.CrossEntropyLoss()
         trainer = Trainer(model=model, optimizer=opt, loss_fn=loss)
         assert str(trainer.device) in ("cpu", "cuda")
 
     def test_trainer_model_on_device(self, model: SemiWaferNet) -> None:
         """Trainer moves model to the specified device."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
-        loss = MultiTaskLoss(
-            cls_loss_fn=build_loss("cross_entropy"),
-            seg_loss_fn=build_loss("cross_entropy"),
-        )
+        loss = nn.CrossEntropyLoss()
         trainer = Trainer(model=model, optimizer=opt, loss_fn=loss, device="cpu")
         param_device = next(model.parameters()).device
         assert str(param_device) == "cpu"
@@ -458,7 +448,7 @@ class TestTrainingStep:
         model: SemiWaferNet,
         train_loader: DataLoader,
         optimizer: torch.optim.Optimizer,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer.train_one_epoch() runs without error."""
         trainer = Trainer(
@@ -477,7 +467,7 @@ class TestTrainingStep:
         model: SemiWaferNet,
         train_loader: DataLoader,
         optimizer: torch.optim.Optimizer,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer.train_one_epoch() runs with loss only (metrics not supported
         for dict outputs by the canonical Trainer)."""
@@ -496,7 +486,7 @@ class TestTrainingStep:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Loss decreases (or at least doesn't explode) over multiple epochs."""
         opt = build_optimizer(model, name="adamw", lr=1e-2)
@@ -520,7 +510,7 @@ class TestTrainingStep:
         model: SemiWaferNet,
         train_loader: DataLoader,
         optimizer: torch.optim.Optimizer,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Parameters are updated after a training step."""
         params_before = [p.clone() for p in model.parameters()]
@@ -542,7 +532,7 @@ class TestTrainingStep:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Optimizer.step() changes parameter values."""
         opt = build_optimizer(model, name="sgd", lr=1.0)  # high LR for visible change
@@ -577,7 +567,7 @@ class TestValidationStep:
         model: SemiWaferNet,
         val_loader: DataLoader,
         optimizer: torch.optim.Optimizer,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer.validate() runs without error."""
         trainer = Trainer(
@@ -596,7 +586,7 @@ class TestValidationStep:
         model: SemiWaferNet,
         val_loader: DataLoader,
         optimizer: torch.optim.Optimizer,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer.validate() runs with loss only (metrics not supported
         for dict outputs by the canonical Trainer)."""
@@ -616,7 +606,7 @@ class TestValidationStep:
         model: SemiWaferNet,
         val_loader: DataLoader,
         optimizer: torch.optim.Optimizer,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Validation runs without gradient computation."""
         trainer = Trainer(
@@ -646,7 +636,7 @@ class TestSchedulerStep:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Scheduler.step() reduces learning rate."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -669,7 +659,7 @@ class TestSchedulerStep:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Scheduler step produces finite LR."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -693,7 +683,7 @@ class TestSchedulerStep:
         model: SemiWaferNet,
         train_loader: DataLoader,
         val_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Scheduler works inside Trainer.fit()."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -724,7 +714,7 @@ class TestCheckpoint:
         self,
         model: SemiWaferNet,
         optimizer: torch.optim.Optimizer,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer.save_checkpoint() creates a file."""
         trainer = Trainer(
@@ -743,7 +733,7 @@ class TestCheckpoint:
         self,
         model: SemiWaferNet,
         optimizer: torch.optim.Optimizer,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer.load_checkpoint() restores model state."""
         trainer = Trainer(
@@ -772,7 +762,7 @@ class TestCheckpoint:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Training can resume from a checkpoint."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -802,7 +792,7 @@ class TestCheckpoint:
         model: SemiWaferNet,
         train_loader: DataLoader,
         val_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """CheckpointManager saves checkpoints during Trainer.fit()."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -835,7 +825,7 @@ class TestHardwareCompatibility:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Training runs on CPU."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -854,7 +844,7 @@ class TestHardwareCompatibility:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Training runs with AMP enabled on CPU."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -884,7 +874,7 @@ class TestGradientFlow:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """All parameters receive non-zero gradients after backward."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -911,7 +901,7 @@ class TestGradientFlow:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Gradient clipping does not crash."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -940,7 +930,7 @@ class TestBatchSize:
     def test_batch_size(
         self,
         model: SemiWaferNet,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
         batch_size: int,
     ) -> None:
         """Training works with batch_size=1 and batch_size=4."""
@@ -988,19 +978,16 @@ class TestDataPipeline:
         batch = next(iter(loader))
         assert "inputs" in batch
         assert "targets" in batch
-        assert isinstance(batch["targets"], dict)
-        assert "label" in batch["targets"]
-        assert "mask" in batch["targets"]
+        assert isinstance(batch["targets"], torch.Tensor)
         assert batch["inputs"].shape == (_BATCH_SIZE, 1, _IMG_SIZE, _IMG_SIZE)
-        assert batch["targets"]["label"].shape == (_BATCH_SIZE,)
-        assert batch["targets"]["mask"].shape == (_BATCH_SIZE, _IMG_SIZE, _IMG_SIZE)
+        assert batch["targets"].shape == (_BATCH_SIZE,)
 
     def test_full_pipeline(
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
         val_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Full pipeline: Dataset → DataLoader → Trainer → Forward → Loss → Backward."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -1023,7 +1010,7 @@ class TestDataPipeline:
         model: SemiWaferNet,
         train_loader: DataLoader,
         val_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Full pipeline with scheduler step."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -1052,7 +1039,7 @@ class TestEngineCompatibility:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Engine can use a model that was trained via Trainer."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -1075,17 +1062,16 @@ class TestEngineCompatibility:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Engine.predict_single works after training with custom postprocess."""
         from common.inference.postprocessing import logits_to_probs, logits_to_class
 
-        def _postprocess(logits: dict) -> dict:
-            cls_logits = logits["classification"]
+        def _postprocess(logits: torch.Tensor) -> dict:
             return {
-                "logits": cls_logits,
-                "probs": logits_to_probs(cls_logits),
-                "prediction": logits_to_class(cls_logits),
+                "logits": logits,
+                "probs": logits_to_probs(logits),
+                "prediction": logits_to_class(logits),
             }
 
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -1101,7 +1087,7 @@ class TestEngineCompatibility:
         # Engine inference with custom postprocess
         config = EngineConfig.from_yaml(CONFIG_PATH)
         engine = Engine(model, config, device="cpu")
-        # Override predictor's postprocess_fn for multitask output
+        # Override predictor's postprocess_fn for classification tensor output
         from common.inference.predictor import Predictor
         engine.predictor = Predictor(model, device="cpu", postprocess_fn=_postprocess)
         x = torch.randn(1, _IMG_SIZE, _IMG_SIZE)
@@ -1123,7 +1109,7 @@ class TestFullTrainingLoop:
         self,
         model: SemiWaferNet,
         train_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer.fit() works with only train data."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -1143,7 +1129,7 @@ class TestFullTrainingLoop:
         model: SemiWaferNet,
         train_loader: DataLoader,
         val_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer.fit() works with train and val data."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -1163,7 +1149,7 @@ class TestFullTrainingLoop:
         model: SemiWaferNet,
         train_loader: DataLoader,
         val_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer.fit() stops early when EarlyStopping triggers."""
         opt = build_optimizer(model, name="adamw", lr=1e-3)
@@ -1184,7 +1170,7 @@ class TestFullTrainingLoop:
         model: SemiWaferNet,
         train_loader: DataLoader,
         val_loader: DataLoader,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
         early_stopping: EarlyStopping,
         logger: TrainingLogger,
         scaler: NativeScaler,
@@ -1224,7 +1210,7 @@ class TestDataModuleIntegration:
     def test_datamodule_with_trainer(
         self,
         model: SemiWaferNet,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer works with DataModule-created DataLoaders."""
         dataset = LabeledWaferDataset(
@@ -1257,7 +1243,7 @@ class TestDataModuleIntegration:
     def test_datamodule_with_transforms(
         self,
         model: SemiWaferNet,
-        loss_fn: MultiTaskLoss,
+        loss_fn: nn.Module,
     ) -> None:
         """Trainer works with transformed datasets via DataModule."""
         transform = build_transforms(resize_size=(_IMG_SIZE, _IMG_SIZE))

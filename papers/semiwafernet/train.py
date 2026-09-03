@@ -47,6 +47,7 @@ from common.utils.cache import cache_class_counts, cache_stratified_split
 from papers.semiwafernet.data_utils import (
     WaferWM811KDataset,
     SMOTEDataset,
+    UnlabeledWM811KDataset,
     WaferSegmentationDataset,
 )
 from papers.semiwafernet.data_utils.wafer_dataset import apply_hybrid_sampling
@@ -229,7 +230,10 @@ def stratified_split(
     if cache_dir is None:
         cache_dir = dataset.data_root / "cache"
 
-    labels = np.array([dataset[i]["label"] for i in range(len(dataset))])
+    if hasattr(dataset, "_samples"):
+        labels = np.array([lab for _, lab in dataset._samples])
+    else:
+        labels = np.array([dataset[i]["label"] for i in range(len(dataset))])
     train_idx, val_idx, test_idx = cache_stratified_split(
         labels,
         train_ratio,
@@ -338,48 +342,86 @@ def main() -> None:
         hybrid_cfg = config.get("data.hybrid_sampling", {})
         hybrid_enabled = hybrid_cfg.get("enabled", True) if isinstance(hybrid_cfg, dict) else True
         none_downsample_ratio = hybrid_cfg.get("none_downsample_ratio", 0.30) if isinstance(hybrid_cfg, dict) else 0.30
+        use_official_split = config.get("data.use_official_split", True)
 
         print(f"Loading WM-811K dataset from: {data_root}")
         print(f"  Augmentations: {'enabled' if aug_enabled else 'disabled'}")
         print(f"  Hybrid sampling (None downsampling): {'enabled' if hybrid_enabled else 'disabled'} "
               f"(ratio={none_downsample_ratio})")
+        print(f"  Official train/test partition: {'enabled' if use_official_split else 'disabled'}")
 
-        # Load full dataset WITHOUT augmentations and WITHOUT hybrid sampling
-        # for class count computation and stratified split
-        full_dataset_no_aug = WaferWM811KDataset(
-            data_root=data_root,
-            image_size=image_size,
-            num_classes=num_classes,
-            train=False,  # no augmentations
-            hybrid_sampling=False,  # keep all samples for counting
-        )
-        print(f"  Total samples: {len(full_dataset_no_aug)}")
-        print(f"  Classes: {full_dataset_no_aug.class_names}")
+        if use_official_split:
+            # Paper Section 4.1: official Training/Test partition; validation is
+            # stratified from the official Training portion before re-sampling.
+            # Table 1: Train(raw) 48,919 / Val 5,436 / Test 118,595
+            official_train = WaferWM811KDataset(
+                data_root=data_root,
+                image_size=image_size,
+                num_classes=num_classes,
+                train=False,
+                hybrid_sampling=False,
+                split="training",
+            )
+            test_dataset = WaferWM811KDataset(
+                data_root=data_root,
+                image_size=image_size,
+                num_classes=num_classes,
+                train=False,
+                hybrid_sampling=False,
+                split="test",
+            )
+            print(f"  Official Training labeled: {len(official_train)}")
+            print(f"  Official Test labeled: {len(test_dataset)}")
+            print(f"  Classes: {official_train.class_names}")
 
-        # ── Compute class counts for weighted loss ──────────────────────
-        # Labels are needed for both class counts and stratified split.
-        labels = np.array(
-            [full_dataset_no_aug[i]["label"] for i in range(len(full_dataset_no_aug))]
-        )
-        cache_dir = full_dataset_no_aug.data_root / "cache"
+            labels = np.array([lab for _, lab in official_train._samples])
+            cache_dir = official_train.data_root / "cache"
+            print("  Computing class counts for weighted loss (cached)...")
+            class_counts = compute_class_counts(labels, num_classes, cache_dir)
 
-        print("  Computing class counts for weighted loss (cached)...")
-        class_counts = compute_class_counts(labels, num_classes, cache_dir)
+            # Val ratio relative to official Training ≈ 5436/54355 ≈ 0.1 (Table 1)
+            val_from_train = float(config.get("data.val_from_train", 0.1))
+            print(f"  Splitting official Training → train/val "
+                  f"(val_from_train={val_from_train})...")
+            from sklearn.model_selection import StratifiedShuffleSplit
 
-        # ── Stratified split ────────────────────────────────────────────
-        print("  Performing stratified train/val/test split (cached)...")
-        train_idx_subset, val_dataset, test_dataset = stratified_split(
-            full_dataset_no_aug,
-            train_ratio=train_split,
-            val_ratio=val_split,
-            seed=42,
-            cache_dir=cache_dir,
-        )
+            sss = StratifiedShuffleSplit(
+                n_splits=1, test_size=val_from_train, random_state=42
+            )
+            train_idx, val_idx = next(
+                sss.split(np.zeros(len(labels)), labels)
+            )
+            train_samples = [official_train._samples[int(i)] for i in train_idx]
+            val_dataset = Subset(official_train, val_idx.tolist())
+        else:
+            # Legacy random stratified split over all labeled samples
+            full_dataset_no_aug = WaferWM811KDataset(
+                data_root=data_root,
+                image_size=image_size,
+                num_classes=num_classes,
+                train=False,
+                hybrid_sampling=False,
+            )
+            print(f"  Total labeled samples: {len(full_dataset_no_aug)}")
+            print(f"  Classes: {full_dataset_no_aug.class_names}")
 
-        # Extract (filename, label) pairs for the train split from the full dataset
-        train_samples = [
-            full_dataset_no_aug._samples[i] for i in train_idx_subset.indices
-        ]
+            labels = np.array([lab for _, lab in full_dataset_no_aug._samples])
+            cache_dir = full_dataset_no_aug.data_root / "cache"
+
+            print("  Computing class counts for weighted loss (cached)...")
+            class_counts = compute_class_counts(labels, num_classes, cache_dir)
+
+            print("  Performing stratified train/val/test split (cached)...")
+            train_idx_subset, val_dataset, test_dataset = stratified_split(
+                full_dataset_no_aug,
+                train_ratio=train_split,
+                val_ratio=val_split,
+                seed=42,
+                cache_dir=cache_dir,
+            )
+            train_samples = [
+                full_dataset_no_aug._samples[i] for i in train_idx_subset.indices
+            ]
 
         # Apply hybrid sampling: downsample the majority None class (Section 4.1)
         if hybrid_enabled:
@@ -531,63 +573,72 @@ def main() -> None:
     print(f"Starting training for {epochs} epochs")
     print(f"{'='*60}")
 
-    # ── Semi-supervised pipeline (paper Section 2.2) ────────────────────
-    # The three-stage progressive pseudo-labeling strategy is used when
-    # semi_supervised.enabled is True AND unlabeled data is available.
-    # With only labeled data (the current dataset), Stage 1 (supervised
-    # warm-up) is run, which is equivalent to standard supervised training.
+    # ── Semi-supervised pipeline (paper Section 2.2 / 4.1) ───────────────
+    # Three-stage progressive pseudo-labeling on Dl ∪ Du.
+    # Unlabeled samples come from WM-811K rows with empty failureType
+    # (638,507 total; paper uses a 150,000 subsample).
     ssl_cfg = config.get("semi_supervised", {})
     ssl_enabled = ssl_cfg.get("enabled", False) if isinstance(ssl_cfg, dict) else False
     unlabeled_loader = None
 
     if ssl_enabled and not is_segmentation:
+        unlabeled_max = int(ssl_cfg.get("unlabeled_max_samples", 150_000))
         unlabeled_root = config.get("data.unlabeled_root", None)
+
+        def unlabeled_collate(batch):
+            # Yield plain image tensors for the SSL trainer.
+            return torch.stack([item["image"] for item in batch])
+
         if unlabeled_root and Path(unlabeled_root).exists():
             from papers.semiwafernet.data_utils import UnlabeledWaferDataset
-
-            def unlabeled_collate(batch):
-                # UnlabeledWaferDataset yields {"image": tensor}; extract the
-                # image so the SSL trainer receives a plain input tensor.
-                return torch.stack([item["image"] for item in batch])
 
             unlabeled_ds = UnlabeledWaferDataset(
                 image_dir=unlabeled_root,
                 image_size=image_size,
             )
-            unlabeled_loader = DataLoader(
-                unlabeled_ds,
-                batch_size=batch_size,
-                shuffle=True,
-                num_workers=num_workers,
-                collate_fn=unlabeled_collate,
-            )
             print(f"[SSL] Loaded {len(unlabeled_ds)} unlabeled samples from {unlabeled_root}")
         else:
-            print("[SSL] semi_supervised.enabled=True but no unlabeled data found "
-                  f"({unlabeled_root}). Running supervised-only (Stage 1).")
+            # Default: unlabeled pool from the same WM-811K labels.csv
+            unlabeled_ds = UnlabeledWM811KDataset(
+                data_root=data_root,
+                image_size=image_size,
+                max_samples=unlabeled_max,
+                train=True,
+                seed=42,
+            )
+            print(
+                f"[SSL] Loaded {len(unlabeled_ds)} unlabeled WM-811K samples "
+                f"(max={unlabeled_max}) from {data_root}"
+            )
 
-    if ssl_enabled and not is_segmentation:
-        # The SSL pipeline (MC Dropout, consistency loss) operates on the raw
-        # multitask model that returns a dict {"classification", "segmentation"}.
-        # The classification wrapper below returns only a tensor, so we use the
-        # raw ``base_model`` here.
+        unlabeled_loader = DataLoader(
+            unlabeled_ds,
+            batch_size=batch_size,
+            shuffle=True,
+            num_workers=num_workers,
+            collate_fn=unlabeled_collate,
+        )
+
+    if ssl_enabled and not is_segmentation and unlabeled_loader is not None:
         ssl_student = base_model
 
-        # The SSL trainer expects targets as a dict with "classification" and
-        # "segmentation" keys, and a supervised loss that accepts
-        # (student_output_dict, targets_dict). Adapt the classification
-        # collate output (images, labels) and the weighted CE loss accordingly.
-        def ssl_labeled_batches(loader):
-            for images, labels in loader:
-                seg_targets = torch.zeros(
-                    images.shape[0], image_size, image_size,
-                    dtype=torch.long, device=images.device,
-                )
-                targets = {
-                    "classification": labels,
-                    "segmentation": seg_targets,
-                }
-                yield images, targets
+        class LabeledSSLAdapter:
+            """Re-iterable labeled batches as (images, targets_dict)."""
+
+            def __init__(self, loader: DataLoader, size: int) -> None:
+                self.loader = loader
+                self.size = size
+
+            def __iter__(self):
+                for images, labels in self.loader:
+                    seg_targets = torch.zeros(
+                        images.shape[0], self.size, self.size, dtype=torch.long
+                    )
+                    targets = {
+                        "classification": labels,
+                        "segmentation": seg_targets,
+                    }
+                    yield images, targets
 
         class SSLSupervisedLoss(nn.Module):
             """Adapt WeightedCrossEntropyLoss to the SSL dict interface."""
@@ -607,7 +658,14 @@ def main() -> None:
                 )
                 return {"classification": class_loss}
 
-        # Build the three-stage semi-supervised trainer.
+        # Split total epochs across the three SSL stages (paper: 50 epochs total)
+        stage_epochs_cfg = ssl_cfg.get("epochs_per_stage", None)
+        if isinstance(stage_epochs_cfg, list) and len(stage_epochs_cfg) == 3:
+            e1, e2, e3 = [int(x) for x in stage_epochs_cfg]
+        else:
+            e1 = e2 = epochs // 3
+            e3 = epochs - e1 - e2
+
         stage_manager = StageManager(
             student=ssl_student,
             num_classes=num_classes,
@@ -618,7 +676,7 @@ def main() -> None:
             mc_passes=ssl_cfg.get("mc_passes", 20),
             entropy_threshold=ssl_cfg.get("entropy_threshold", 0.08),
             mi_threshold=ssl_cfg.get("mutual_information_threshold", 0.12),
-            consistency_weight=ssl_cfg.get("consistency_weight", 0.1),
+            consistency_weight=ssl_cfg.get("consistency_weight", 0.0),
         )
         ssl_trainer = SemiWaferTrainer(
             student=ssl_student,
@@ -628,14 +686,45 @@ def main() -> None:
             scheduler=engine.scheduler,
             device=torch.device(device),
         )
-        ssl_metrics = ssl_trainer.fit(
-            labeled_data=ssl_labeled_batches(train_loader),
-            unlabeled_data=unlabeled_loader,
-            num_epochs=epochs,
-            consistency_weight=ssl_cfg.get("consistency_weight", 0.1),
+        labeled_ssl = LabeledSSLAdapter(train_loader, image_size)
+        print(
+            f"[SSL] Running 3-stage progressive pseudo-labeling "
+            f"(epochs/stage={e1}/{e2}/{e3})"
         )
+        # Stage-wise fit (reuse trainer API with per-stage epoch budgets)
+        print("\n[SSL] Stage 1: supervised warm-up on labeled data")
+        stage1_metrics = ssl_trainer.train_stage1(
+            labeled_data=labeled_ssl, num_epochs=e1
+        )
+        print("\n[SSL] Stage 2: pseudo-labels on unlabeled + train Dl ∪ Dpseudo")
+        stage2_metrics = ssl_trainer.train_stage2(
+            labeled_data=labeled_ssl,
+            unlabeled_data=unlabeled_loader,
+            num_epochs=e2,
+            consistency_weight=ssl_cfg.get("consistency_weight", 0.0),
+        )
+        print("\n[SSL] Stage 3: refresh teacher + regenerate + retrain")
+        stage3_metrics = ssl_trainer.train_stage3(
+            labeled_data=labeled_ssl,
+            unlabeled_data=unlabeled_loader,
+            num_epochs=e3,
+            consistency_weight=ssl_cfg.get("consistency_weight", 0.0),
+        )
+        ssl_metrics = {
+            "stage1": stage1_metrics,
+            "stage2": stage2_metrics,
+            "stage3": stage3_metrics,
+        }
         print(f"\n[SSL] Training complete: {ssl_metrics}")
+        engine.model.to(device)
+        engine.model.eval()
         logger = engine.logger
+        if hasattr(logger, "log_epoch"):
+            logger.log_epoch(
+                ssl_stage1_loss=float(stage1_metrics.get("loss", 0.0)),
+                ssl_stage2_loss=float(stage2_metrics.get("loss", 0.0)),
+                ssl_stage3_loss=float(stage3_metrics.get("loss", 0.0)),
+            )
     else:
         logger = engine.fit(
             train_loader=train_loader,

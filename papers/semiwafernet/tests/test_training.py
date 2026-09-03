@@ -14,7 +14,6 @@ from torch import nn
 
 from papers.semiwafernet.training.ema import EMATeacher
 from papers.semiwafernet.training.pseudo_label import PseudoLabelGenerator
-from papers.semiwafernet.training.consistency import ConsistencyLoss
 from papers.semiwafernet.models.semiwafernet import SemiWaferNet
 from common.utils.config import Config
 
@@ -39,11 +38,6 @@ def pseudo_label_gen() -> PseudoLabelGenerator:
     return PseudoLabelGenerator(confidence_threshold=0.9)
 
 
-@pytest.fixture
-def consistency_loss() -> ConsistencyLoss:
-    return ConsistencyLoss(reduction="mean")
-
-
 # ── Imports ────────────────────────────────────────────────────────────────────
 
 
@@ -51,7 +45,6 @@ def test_import_training_modules() -> None:
     """All training module classes are importable."""
     assert EMATeacher is not None
     assert PseudoLabelGenerator is not None
-    assert ConsistencyLoss is not None
 
 
 # ── EMA Teacher ────────────────────────────────────────────────────────────────
@@ -235,105 +228,6 @@ class TestPseudoLabelGenerator:
         assert mask[0] == False  # below 0.99 threshold
 
 
-# ── Consistency Loss ───────────────────────────────────────────────────────────
-
-
-class TestConsistencyLoss:
-    """Tests for ConsistencyLoss."""
-
-    def test_creation(self) -> None:
-        """ConsistencyLoss can be created."""
-        loss = ConsistencyLoss(reduction="mean")
-        assert isinstance(loss, ConsistencyLoss)
-
-    def test_classification_loss_shape(self, consistency_loss: ConsistencyLoss) -> None:
-        """Classification consistency loss returns a scalar."""
-        student_logits = torch.randn(4, 9)
-        teacher_logits = torch.randn(4, 9)
-        loss = consistency_loss.classification_loss(student_logits, teacher_logits)
-        assert loss.ndim == 0, "Loss should be a scalar tensor"
-
-    def test_classification_loss_value(self, consistency_loss: ConsistencyLoss) -> None:
-        """Identical student and teacher give zero loss."""
-        logits = torch.randn(4, 9)
-        loss = consistency_loss.classification_loss(logits, logits)
-        assert loss.item() == 0.0
-
-    def test_classification_loss_positive(self, consistency_loss: ConsistencyLoss) -> None:
-        """Different student and teacher give positive loss."""
-        student = torch.randn(4, 9)
-        teacher = torch.randn(4, 9)
-        loss = consistency_loss.classification_loss(student, teacher)
-        assert loss.item() > 0.0
-
-    def test_classification_loss_masked(self, consistency_loss: ConsistencyLoss) -> None:
-        """Masked classification loss only considers selected samples."""
-        student = torch.randn(4, 9)
-        teacher = torch.randn(4, 9)
-        mask = torch.tensor([True, False, True, False])
-        loss_masked = consistency_loss.classification_loss(student, teacher, mask=mask)
-        loss_full = consistency_loss.classification_loss(student, teacher)
-        assert loss_masked.item() >= 0.0
-        assert loss_masked.item() != loss_full.item()  # different due to masking
-
-    def test_classification_loss_empty_mask(self, consistency_loss: ConsistencyLoss) -> None:
-        """Empty mask returns zero loss."""
-        student = torch.randn(4, 9)
-        teacher = torch.randn(4, 9)
-        mask = torch.tensor([False, False, False, False])
-        loss = consistency_loss.classification_loss(student, teacher, mask=mask)
-        assert loss.item() == 0.0
-
-    def test_segmentation_loss_shape(self, consistency_loss: ConsistencyLoss) -> None:
-        """Segmentation consistency loss returns a scalar."""
-        student = torch.randn(2, 1, 16, 16)
-        teacher = torch.randn(2, 1, 16, 16)
-        loss = consistency_loss.segmentation_loss(student, teacher)
-        assert loss.ndim == 0
-
-    def test_segmentation_loss_identical(self, consistency_loss: ConsistencyLoss) -> None:
-        """Identical segmentation logits give zero loss."""
-        logits = torch.randn(2, 1, 16, 16)
-        loss = consistency_loss.segmentation_loss(logits, logits)
-        assert loss.item() == 0.0
-
-    def test_segmentation_loss_masked(self, consistency_loss: ConsistencyLoss) -> None:
-        """Masked segmentation loss only considers selected pixels."""
-        student = torch.randn(2, 1, 8, 8)
-        teacher = torch.randn(2, 1, 8, 8)
-        mask = torch.zeros(2, 8, 8, dtype=torch.bool)
-        mask[0, :, :] = True  # only first sample
-        loss = consistency_loss.segmentation_loss(student, teacher, mask=mask)
-        assert loss.item() > 0.0
-
-    def test_forward_dict(self, consistency_loss: ConsistencyLoss) -> None:
-        """Forward returns dict with both task losses."""
-        student_out = {
-            "classification": torch.randn(4, 9),
-            "segmentation": torch.randn(4, 1, 16, 16),
-        }
-        teacher_out = {
-            "classification": torch.randn(4, 9),
-            "segmentation": torch.randn(4, 1, 16, 16),
-        }
-        losses = consistency_loss(student_out, teacher_out)
-        assert "classification" in losses
-        assert "segmentation" in losses
-        assert losses["classification"].ndim == 0
-        assert losses["segmentation"].ndim == 0
-
-    def test_teacher_detached(self, consistency_loss: ConsistencyLoss) -> None:
-        """Teacher logits are detached from computation graph."""
-        student = torch.randn(4, 9, requires_grad=True)
-        teacher = torch.randn(4, 9, requires_grad=True)
-        loss = consistency_loss.classification_loss(student, teacher)
-        loss.backward()
-        # Student should have grad, teacher should not (detached)
-        assert student.grad is not None
-        # Verify teacher was detached by checking no grad flows back
-        assert teacher.grad is None  # detached before loss
-
-
 # ── Config Loading ─────────────────────────────────────────────────────────────
 
 
@@ -348,12 +242,14 @@ def test_config_has_semi_supervised() -> None:
 
 
 def test_config_semi_supervised_values() -> None:
-    """Config semi_supervised values are reasonable."""
+    """Config semi_supervised values match the paper SSL setup."""
     config = Config.from_yaml(CONFIG_PATH)
-    assert config.get("semi_supervised.enabled") is False
+    assert config.get("semi_supervised.enabled") is True
     assert 0.0 < config.get("semi_supervised.ema_decay", 0.999) < 1.0
     assert 0.0 < config.get("semi_supervised.confidence_threshold", 0.94) <= 1.0
-    assert config.get("semi_supervised.consistency_weight", 0.1) >= 0.0
+    assert config.get("semi_supervised.consistency_weight", 0.0) >= 0.0
+    assert config.get("semi_supervised.unlabeled_max_samples", 150000) == 150000
+    assert config.get("semi_supervised.mc_passes", 20) == 20
 
 
 def test_config_ema_decay_default() -> None:

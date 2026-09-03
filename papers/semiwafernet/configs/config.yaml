@@ -1,46 +1,43 @@
-# SemiWaferNet experiment configuration for WM-811K dataset
-# Based on Electronics 2026, 15, 1437
-
 model:
   name: semiwafernet
   mode: classification           # "classification" (HybridCNN-ViT) or "segmentation" (ConvoFormer-UNet)
   num_classes: 9                 # WM-811K has 9 classes
-  seg_classes: 2                 # Binary segmentation (background + defect)
+  seg_classes: 1                 # Binary defect mask logits (paper Section 4.1)
   backbone:
     type: cnn
     in_channels: 1               # WM-811K is grayscale
-    channels: [64, 128]          # 2-stage: 64 (stage1) → 128 (stage2)
-    depths: [1, 1]               # 1 ConvBlock + 1 ResidualBlock per stage
+    channels: [64, 128]          # HybridCNN-ViT: 64 → 128
+    depths: [1, 1]
     norm: bn
     activation: relu
   transformer:
-    embed_dim: 128               # D=128 from paper
-    num_heads: 8                 # 8 heads
-    num_layers: 4                # L=4 layers
+    embed_dim: 128               # D=128 (HybridCNN-ViT)
+    num_heads: 8
+    num_layers: 4                # L=4
     mlp_ratio: 2                 # FF=256 = 2*128
-    dropout: 0.2                 # dropout=0.2 for transformer
-    dropout_cls: 0.5             # dropout=0.5 before class token
+    dropout: 0.2
+    dropout_cls: 0.5
   decoder:
-    embed_dim: 128
+    base_channels: 48            # ConvoFormer-UNet width → ~7.11M (Table 8)
+    embed_dim: 160               # ConvoFormer bottleneck width
+    mlp_ratio: 2
   input:
     in_channels: 1
-    image_size: 32               # 32×32 for classification (HybridCNN-ViT)
+    image_size: 32               # 32×32 classification / 64×64 segmentation
 
 training:
   num_epochs: 50
-  batch_size: 256                # Paper: batch_size=256 for classification
-  learning_rate: 0.00005         # Paper: lr=5e-5 for classification
-  weight_decay: 0.0004           # Paper: weight_decay=4e-4 for classification
+  batch_size: 256
+  learning_rate: 0.00005
+  weight_decay: 0.0004
   grad_max_norm: 1.0
 
-# Segmentation-specific training params (used when model.mode=segmentation)
 seg_training:
   num_epochs: 50
-  batch_size: 32                 # Paper: batch_size=32 for segmentation
-  learning_rate: 0.0001          # Paper: lr=1e-4 for segmentation
-  weight_decay: 0.01             # Paper: weight_decay=0.01 for segmentation
+  batch_size: 32
+  learning_rate: 0.0001
+  weight_decay: 0.01
 
-# Top-level fields for Builder compatibility
 optimizer:
   name: adamw
   lr: 0.00005
@@ -53,7 +50,7 @@ scheduler:
     eta_min: 0.000001
 
 loss:
-  name: cross_entropy            # Weighted CE for classification; Dice+Focal for segmentation
+  name: cross_entropy
 
 metrics:
   - accuracy
@@ -71,31 +68,32 @@ evaluation:
 
 data:
   data_root: datasets/wm811k
-  image_size: 32                 # 32×32 for classification
-  seg_data_root: datasets/wm811k_seg   # pre-generated segmentation dataset
-  seg_image_size: 64             # 64×64 for segmentation (paper Section 4.1)
+  image_size: 32
+  seg_data_root: datasets/wm811k_seg
+  seg_image_size: 64
+  # Paper Section 4.1: official WM-811K Training/Test; val from Training (~10%)
+  use_official_split: true
+  val_from_train: 0.1
+  # Legacy random split over all labeled samples (when use_official_split: false)
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
-
-  # Hybrid sampling: downsampling None (paper Section 4.1)
   hybrid_sampling:
     enabled: true
-    none_downsample_ratio: 0.30  # Keep 30% of None class (~44k samples)
-
-  # Data augmentation (paper Section 4.1: "dynamic augmentation")
+    none_downsample_ratio: 0.30
   augmentation:
     enabled: true
 
-# Semi-supervised learning (Section 2.2)
 semi_supervised:
-  enabled: false
-  stages: 3                      # 3-stage progressive pseudo-labeling
+  enabled: true                  # HybridCNN-ViT SSL (Stages 1–3) with unlabeled WM-811K
+  stages: 3
+  unlabeled_max_samples: 150000  # paper Section 4.1
+  epochs_per_stage: [17, 17, 16] # sum to training.num_epochs (50)
   ema_decay: 0.999
-  confidence_threshold: 0.94     # τ_base = 0.94
-  alpha: 0.08                    # α = 0.08
-  beta: 0.02                     # β = 0.02
-  entropy_threshold: 0.08        # ε_entropy = 0.08
-  mutual_information_threshold: 0.12  # ε_MI = 0.12
-  mc_passes: 20                  # M = 20 for MC Dropout
-  consistency_weight: 0.1
+  confidence_threshold: 0.94     # τ_base
+  alpha: 0.08
+  beta: 0.02
+  entropy_threshold: 0.08        # ε_H
+  mutual_information_threshold: 0.12  # ε_MI
+  mc_passes: 20                  # M
+  consistency_weight: 0.0        # paper uses supervised CE on pseudo-labels, not MSE consistency

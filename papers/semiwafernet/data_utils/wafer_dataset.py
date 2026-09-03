@@ -110,12 +110,147 @@ def apply_hybrid_sampling(
     return other_samples + none_downsampled
 
 
+def _is_unlabeled_failure_type(value: str) -> bool:
+    """WM-811K unlabeled rows have empty failureType (parsed as NaN in pandas).
+
+    Note: the string ``\"none\"`` is a valid labeled class (no defect pattern),
+    not an unlabeled marker.
+    """
+    v = value.strip()
+    return (not v) or v.lower() == "nan"
+
+
+def parse_wm811k_labeled_rows(
+    labels_path: Path,
+    split: str | None = None,
+) -> list[tuple[str, int]]:
+    """Parse labeled ``(filename, class_idx)`` rows from WM-811K ``labels.csv``.
+
+    Supports:
+      - Official CSV: ``filename,...,trianTestLabel,failureType``
+      - Simple CSV: ``image,label`` / ``filename,label``
+
+    Args:
+        labels_path: Path to ``labels.csv``.
+        split: If ``\"training\"`` or ``\"test\"``, keep only that official
+            ``trianTestLabel`` partition. ``None`` keeps all labeled rows.
+
+    Returns:
+        List of ``(filename, label_idx)`` for rows with a valid failureType.
+    """
+    if not labels_path.exists():
+        raise FileNotFoundError(f"Labels file not found: {labels_path}")
+
+    samples: list[tuple[str, int]] = []
+    split_filter = split.lower() if split else None
+
+    with open(labels_path, "r", encoding="utf-8") as f:
+        header = f.readline().strip()
+        header_l = header.lower()
+        cols = [c.strip().lower() for c in header.split(",")]
+
+        # Official WM-811K layout
+        if "failuretype" in cols:
+            ft_idx = cols.index("failuretype")
+            fn_idx = cols.index("filename") if "filename" in cols else 0
+            split_idx = cols.index("triantestlabel") if "triantestlabel" in cols else None
+
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = line.split(",")
+                if len(parts) <= ft_idx:
+                    continue
+                failure = parts[ft_idx].strip()
+                if _is_unlabeled_failure_type(failure):
+                    continue
+                label_idx = WM811K_LABEL_TO_IDX.get(failure)
+                if label_idx is None:
+                    try:
+                        label_idx = int(failure)
+                    except ValueError:
+                        continue
+                if split_filter is not None and split_idx is not None:
+                    row_split = parts[split_idx].strip().lower()
+                    if row_split != split_filter:
+                        continue
+                samples.append((parts[fn_idx].strip(), label_idx))
+
+        # Simple image,label layout
+        elif ("image" in header_l or "filename" in header_l) and "label" in header_l:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = line.split(",")
+                if len(parts) < 2:
+                    continue
+                filename = parts[0].strip()
+                label_str = parts[1].strip()
+                try:
+                    label_idx = int(label_str)
+                except ValueError:
+                    label_idx = WM811K_LABEL_TO_IDX.get(label_str, 0)
+                samples.append((filename, label_idx))
+        else:
+            raise ValueError(
+                f"Unrecognized labels.csv header in {labels_path}: {header!r}. "
+                "Expected WM-811K columns (failureType) or image,label."
+            )
+
+    return samples
+
+
+def parse_wm811k_unlabeled_filenames(
+    labels_path: str | Path,
+    max_samples: int | None = None,
+    seed: int = 42,
+) -> list[str]:
+    """Return filenames with empty/NaN ``failureType`` (unlabeled pool).
+
+    Paper Section 4.1 uses 150,000 unlabeled samples subsampled from the
+    full unlabeled pool (~638k).
+    """
+    labels_path = Path(labels_path)
+    if not labels_path.exists():
+        raise FileNotFoundError(f"Labels file not found: {labels_path}")
+
+    filenames: list[str] = []
+    with open(labels_path, "r", encoding="utf-8") as f:
+        header = f.readline().strip()
+        cols = [c.strip().lower() for c in header.split(",")]
+        if "failuretype" not in cols:
+            raise ValueError(
+                f"Unlabeled WM-811K rows require a failureType column; got {header!r}"
+            )
+        ft_idx = cols.index("failuretype")
+        fn_idx = cols.index("filename") if "filename" in cols else 0
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(",")
+            if len(parts) <= ft_idx:
+                continue
+            if _is_unlabeled_failure_type(parts[ft_idx]):
+                filenames.append(parts[fn_idx].strip())
+
+    if max_samples is not None and max_samples < len(filenames):
+        rng = np.random.RandomState(seed)
+        idx = rng.choice(len(filenames), size=max_samples, replace=False)
+        filenames = [filenames[i] for i in sorted(idx.tolist())]
+
+    return filenames
+
+
 class WaferWM811KDataset(BaseDataset):
     """WM-811K wafer map classification dataset for SemiWaferNet.
 
     Reads ``labels.csv`` from the dataset root and loads PNG images.
-    Returns multitask samples with image, label, and a dummy mask
-    (since WM-811K only has classification labels, not segmentation masks).
+    Only **labeled** rows (non-empty ``failureType``) are included.
+    Returns samples with image, label, and a dummy mask
+    (WM-811K has classification labels, not segmentation masks).
 
     Args:
         data_root: Root directory containing ``labels.csv`` and ``images/``.
@@ -127,6 +262,8 @@ class WaferWM811KDataset(BaseDataset):
         train: If ``True``, applies training augmentations by default.
         hybrid_sampling: If ``True``, downsamples None class (Section 4.1).
         none_downsample_ratio: Fraction of None class to keep (default 0.30).
+        split: Official WM-811K partition filter: ``\"training\"``, ``\"test\"``,
+            or ``None`` for all labeled samples (paper Section 4.1).
     """
 
     def __init__(
@@ -138,12 +275,14 @@ class WaferWM811KDataset(BaseDataset):
         train: bool = True,
         hybrid_sampling: bool = True,
         none_downsample_ratio: float = 0.30,
+        split: str | None = None,
     ) -> None:
         super().__init__(dataset_type=DatasetType.MULTITASK)
         self.data_root = Path(data_root)
         self.image_size = image_size
         self.num_classes = num_classes
         self.class_names = WM811K_CLASSES
+        self.split = split
 
         # Default transforms
         if transform is None:
@@ -159,8 +298,14 @@ class WaferWM811KDataset(BaseDataset):
         self.labels_path = self.data_root / "labels.csv"
         self.images_dir = self.data_root / "images"
 
-        self._samples: list[tuple[str, int]] = []  # (filename, label_idx)
-        self._load_labels()
+        self._samples: list[tuple[str, int]] = parse_wm811k_labeled_rows(
+            self.labels_path, split=split
+        )
+        if not self._samples:
+            raise ValueError(
+                f"No labeled samples loaded from {self.labels_path} "
+                f"(split={split!r})"
+            )
 
         # Apply hybrid sampling (downsample None class) for training
         if train and hybrid_sampling:
@@ -169,39 +314,6 @@ class WaferWM811KDataset(BaseDataset):
                 none_downsample_ratio=none_downsample_ratio,
                 seed=42,
             )
-
-    def _load_labels(self) -> None:
-        """Parse labels.csv and build (filename, label_idx) pairs."""
-        if not self.labels_path.exists():
-            raise FileNotFoundError(f"Labels file not found: {self.labels_path}")
-
-        with open(self.labels_path, "r", encoding="utf-8") as f:
-            header = f.readline().strip().lower()
-            if "image" in header and "label" in header:
-                for line in f:
-                    line = line.strip()
-                    if not line:
-                        continue
-                    parts = line.split(",")
-                    if len(parts) >= 2:
-                        filename = parts[0].strip()
-                        label_str = parts[1].strip()
-                        try:
-                            label_idx = int(label_str)
-                        except ValueError:
-                            label_idx = WM811K_LABEL_TO_IDX.get(label_str, 0)
-                        self._samples.append((filename, label_idx))
-            else:
-                for line in f:
-                    line = line.strip()
-                    if not line:
-                        continue
-                    parts = line.split(",")
-                    if len(parts) >= 2:
-                        self._samples.append((parts[0].strip(), int(parts[1].strip())))
-
-        if not self._samples:
-            raise ValueError(f"No samples loaded from {self.labels_path}")
 
     def __len__(self) -> int:
         return len(self._samples)
@@ -369,3 +481,79 @@ class SMOTEDataset(BaseDataset):
     @property
     def num_samples(self) -> int:
         return len(self._y)
+
+
+class UnlabeledWM811KDataset(BaseDataset):
+    """Unlabeled WM-811K maps (empty ``failureType``) for SSL Stages 2–3.
+
+    Paper Section 4.1: subsample 150,000 unlabeled wafers and add them to the
+    balanced labeled training set for progressive pseudo-labeling.
+
+    Each sample is ``{\"image\": [1, H, W]}`` (no label / mask).
+    """
+
+    def __init__(
+        self,
+        data_root: str | Path,
+        image_size: int = 32,
+        max_samples: int = 150_000,
+        transform: callable | None = None,
+        train: bool = True,
+        seed: int = 42,
+    ) -> None:
+        super().__init__(dataset_type=DatasetType.CLASSIFICATION)
+        self.data_root = Path(data_root)
+        self.image_size = image_size
+        self.images_dir = self.data_root / "images"
+        self.labels_path = self.data_root / "labels.csv"
+
+        if transform is None:
+            if train:
+                self.transform = default_train_transform(image_size)
+            else:
+                self.transform = Compose([
+                    Resize(image_size, interpolation=Image.BILINEAR),
+                ])
+        else:
+            self.transform = transform
+
+        self._filenames = parse_wm811k_unlabeled_filenames(
+            self.labels_path,
+            max_samples=max_samples,
+            seed=seed,
+        )
+        if not self._filenames:
+            raise ValueError(f"No unlabeled samples found in {self.labels_path}")
+
+    def __len__(self) -> int:
+        return len(self._filenames)
+
+    def __getitem__(self, index: int) -> dict[str, Any]:
+        filename = self._filenames[index]
+        image_path = self.images_dir / filename
+        if not image_path.exists():
+            png_path = self.images_dir / f"{Path(filename).stem}.png"
+            if png_path.exists():
+                image_path = png_path
+            else:
+                raise FileNotFoundError(f"Image not found: {image_path}")
+
+        image = Image.open(image_path).convert("L")
+        if self.transform is not None:
+            image_rgb = image.convert("RGB")
+            image_rgb = self.transform(image_rgb)
+            image = (
+                torch.from_numpy(np.array(image_rgb, dtype=np.float32))
+                .mean(dim=2, keepdim=True)
+                .permute(2, 0, 1)
+                / 255.0
+            )
+        else:
+            image = image.resize((self.image_size, self.image_size), Image.BILINEAR)
+            image = torch.from_numpy(np.array(image, dtype=np.float32)).unsqueeze(0) / 255.0
+
+        return {"image": image}
+
+    @property
+    def num_samples(self) -> int:
+        return len(self._filenames)

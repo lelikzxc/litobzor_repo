@@ -219,25 +219,14 @@ class Trainer:
         consistency_weight: float | None = None,
         **kwargs: Any,
     ) -> dict[str, float]:
-        """Stage 2: Semi-supervised training with pseudo-labels.
+        """Stage 2: train on labeled + accepted pseudo-labels (paper Sec. 2.2).
 
-        Generates pseudo-labels from teacher, applies adaptive thresholding
-        and uncertainty filtering, and trains on labeled + accepted pseudo-labels
-        with consistency regularization.
+        Paper procedure (not consistency MSE):
+            1. Teacher / MC-Dropout generates candidates on Du
+            2. Class-adaptive threshold + uncertainty filtering
+            3. Train student with supervised loss on Dl ∪ D_pseudo
 
-        Args:
-            labeled_data: Iterable of (inputs, targets) batches.
-            unlabeled_data: Iterable of unlabeled input batches.
-            num_epochs: Number of training epochs.
-            consistency_weight: Weight for consistency loss. If None, uses
-                the value from StageManager.
-            **kwargs: Additional arguments (reserved for future use).
-
-        Returns:
-            Dictionary with training metrics.
-
-        Raises:
-            RuntimeError: If optimizer or loss function is not set.
+        ``consistency_weight`` is kept for API compatibility but unused.
         """
         if self.optimizer is None:
             raise RuntimeError("Optimizer not set. Call set_optimizer() first.")
@@ -245,22 +234,20 @@ class Trainer:
             raise RuntimeError("Loss function not set. Call set_supervised_loss() first.")
 
         self.stage_manager.set_stage(2)
-        cw = consistency_weight if consistency_weight is not None else self.stage_manager.consistency_weight
+        _ = consistency_weight  # API compat; paper uses supervised CE on pseudo-labels
 
         total_loss = 0.0
         total_sup_loss = 0.0
-        total_cons_loss = 0.0
+        total_pseudo_loss = 0.0
         num_batches = 0
 
         for epoch in range(num_epochs):
             epoch_loss = 0.0
             epoch_sup = 0.0
-            epoch_cons = 0.0
+            epoch_pseudo = 0.0
             batch_count = 0
 
-            # Zip labeled and unlabeled data together
             for labeled_batch, unlabeled_batch in zip(labeled_data, unlabeled_data):
-                # Labeled branch
                 inputs_l, targets = labeled_batch
                 inputs_l = inputs_l.to(self.device)
                 targets = {
@@ -268,7 +255,6 @@ class Trainer:
                     for k, v in targets.items()
                 }
 
-                # Unlabeled branch
                 inputs_u = unlabeled_batch
                 if isinstance(inputs_u, (list, tuple)):
                     inputs_u = inputs_u[0]
@@ -276,38 +262,38 @@ class Trainer:
 
                 self.optimizer.zero_grad()
 
-                # Student forward on labeled data
+                # Supervised loss on labeled data
                 student_output_l = self.student(inputs_l)
                 sup_losses = self.supervised_loss_fn(student_output_l, targets)
                 sup_loss = sum(sup_losses.values()) if isinstance(sup_losses, dict) else sup_losses
 
-                # Generate pseudo-labels from teacher on unlabeled data
-                pseudo_results = self.stage_manager.generate_pseudo_labels(inputs_u)
+                # Pseudo-labels on unlabeled data (MC Dropout + adaptive filter)
+                with torch.no_grad():
+                    pseudo_results = self.stage_manager.generate_pseudo_labels(inputs_u)
 
-                # Student forward on unlabeled data
                 student_output_u = self.student(inputs_u)
-                teacher_output_u = self.stage_manager.teacher(inputs_u)
+                mask = pseudo_results["mask_class"]  # [B]
+                pseudo_y = pseudo_results["pseudo_labels_class"]  # [B]
 
-                # Consistency loss with uncertainty masks
-                cons_losses = self.stage_manager.compute_consistency_loss(
-                    student_output_u,
-                    teacher_output_u,
-                    class_mask=pseudo_results["mask_class"],
-                    seg_mask=pseudo_results["mask_seg"],
-                )
-                cons_loss = cons_losses["classification"] + cons_losses["segmentation"]
+                if mask.any():
+                    # Supervised CE on accepted pseudo-labels only (paper Stages 2–3)
+                    logits_u = student_output_u["classification"]
+                    pseudo_loss = nn.functional.cross_entropy(
+                        logits_u[mask], pseudo_y[mask]
+                    )
+                else:
+                    pseudo_loss = student_output_u["classification"].sum() * 0.0
 
-                # Total loss
-                loss = sup_loss + cw * cons_loss
+                loss = sup_loss + pseudo_loss
                 loss.backward()
                 self.optimizer.step()
 
-                # Update teacher
+                # Snapshot teacher as EMA of student (stable teacher for next refresh)
                 self.stage_manager.teacher.update(self.student)
 
                 epoch_loss += loss.item()
-                epoch_sup += sup_loss.item()
-                epoch_cons += cons_loss.item()
+                epoch_sup += float(sup_loss.detach())
+                epoch_pseudo += float(pseudo_loss.detach())
                 batch_count += 1
 
             if self.scheduler is not None:
@@ -315,16 +301,17 @@ class Trainer:
 
             total_loss += epoch_loss
             total_sup_loss += epoch_sup
-            total_cons_loss += epoch_cons
+            total_pseudo_loss += epoch_pseudo
             num_batches += batch_count
 
-        avg_loss = total_loss / max(num_batches, 1)
-        avg_sup = total_sup_loss / max(num_batches, 1)
-        avg_cons = total_cons_loss / max(num_batches, 1)
+        n = max(num_batches, 1)
+        avg_pseudo = total_pseudo_loss / n
         return {
-            "loss": avg_loss,
-            "supervised_loss": avg_sup,
-            "consistency_loss": avg_cons,
+            "loss": total_loss / n,
+            "supervised_loss": total_sup_loss / n,
+            "pseudo_loss": avg_pseudo,
+            # Legacy key kept for older tests/callers
+            "consistency_loss": avg_pseudo,
         }
 
     def train_stage3(

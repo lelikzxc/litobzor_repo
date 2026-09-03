@@ -47,8 +47,10 @@ def test_model_creation() -> None:
     """Verify FCSVMamba can be instantiated with default params."""
     model = FCSVMamba()
     assert isinstance(model, FCSVMamba)
-    assert model.num_classes == 8
+    assert model.num_classes == 9
     assert model.embed_dim == 96
+    assert model.depths == [2, 2, 2, 2]
+    assert model.final_dim == 96  # fixed channels
     assert len(model.stages) == 4
     assert len(model.mergings) == 3
     assert model.fa_enabled is True
@@ -88,29 +90,29 @@ def test_forward_shape() -> None:
     """Verify forward pass produces correct output shape.
 
     Input:  [2, 3, 224, 224]
-    Output: [2, 8] (logits, no Softmax)
+    Output: [2, 9] (logits, no Softmax)
     """
-    model = FCSVMamba(num_classes=8)
+    model = FCSVMamba(num_classes=9, image_size=64)
     model.eval()
 
-    x = torch.randn(2, 3, 224, 224)
+    x = torch.randn(2, 3, 64, 64)
     with torch.no_grad():
         out = model(x)
 
     assert out is not None, "Forward pass returned None"
-    assert out.shape == (2, 8), f"Expected (2, 8), got {out.shape}"
+    assert out.shape == (2, 9), f"Expected (2, 9), got {out.shape}"
 
 
 def test_forward_logits_only() -> None:
     """Verify model returns logits (not probabilities)."""
-    model = FCSVMamba(num_classes=8)
+    model = FCSVMamba(num_classes=9, image_size=64)
     model.eval()
 
-    x = torch.randn(1, 3, 224, 224)
+    x = torch.randn(1, 3, 64, 64)
     with torch.no_grad():
         out = model(x)
 
-    assert out.shape == (1, 8)
+    assert out.shape == (1, 9)
     # Values should not be softmaxed (can be negative or > 1)
     assert (out < 0).any() or (out > 1).any(), (
         "Output appears to be probabilities, not logits"
@@ -119,13 +121,20 @@ def test_forward_logits_only() -> None:
 
 def test_gradients_flow() -> None:
     """Verify gradients flow through the entire model."""
-    model = FCSVMamba(num_classes=8)
-    x = torch.randn(1, 3, 224, 224, requires_grad=True)
+    model = FCSVMamba(num_classes=9, image_size=64)
+    x = torch.randn(1, 3, 64, 64, requires_grad=True)
     out = model(x)
     loss = out.sum()
     loss.backward()
     assert x.grad is not None, "Input gradient is None"
     assert x.grad.abs().sum() > 0, "Input gradient is zero"
+
+
+def test_parameter_budget_near_paper() -> None:
+    """Paper Table 3 reports 1.20M params for FCS-VMamba."""
+    model = FCSVMamba()
+    n = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    assert 0.8e6 < n < 1.6e6, f"Expected ~1.2M params, got {n}"
 
 
 def test_parameter_count() -> None:
@@ -145,12 +154,11 @@ def test_from_config() -> None:
     config = Config.from_yaml("papers/vmamba/configs/config.yaml")
     model = FCSVMamba.from_config(config)
     assert isinstance(model, FCSVMamba)
-    assert model.num_classes == 8
+    assert model.num_classes == 9
     assert model.embed_dim == 96
-    assert model.depths == [2, 2, 6, 2]
-    assert model.num_heads == [3, 6, 12, 24]
+    assert model.depths == [2, 2, 2, 2]
+    assert model.final_dim == 96
     assert model.ssm_ratio == 2.0
-    assert model.mlp_ratio == 4.0
     assert model.fa_enabled is True
     assert model.sfs_enabled is True
     assert model.clca_enabled is True
@@ -349,7 +357,7 @@ def test_ablation_disabled_modules_output_shape() -> None:
     )
     model_baseline.eval()
     model_full.eval()
-    x = torch.randn(2, 3, 224, 224)
+    x = torch.randn(2, 3, 64, 64)
     with torch.no_grad():
         out_baseline = model_baseline(x)
         out_full = model_full(x)
@@ -367,7 +375,7 @@ def test_ablation_partial_enabled() -> None:
         ("FA+CLCA", True, False, True),
         ("SFS+CLCA", False, True, True),
     ]
-    x = torch.randn(1, 3, 224, 224)
+    x = torch.randn(1, 3, 64, 64)
     for name, fa, sfs, clca in configs:
         model = FCSVMamba(
             fa_enabled=fa, sfs_enabled=sfs, clca_enabled=clca, num_classes=8,
@@ -404,7 +412,7 @@ def test_fcs_forward_with_disabled_modules() -> None:
         fa_enabled=False, sfs_enabled=False, clca_enabled=False, num_classes=8,
     )
     model.eval()
-    x = torch.randn(2, 3, 224, 224)
+    x = torch.randn(2, 3, 64, 64)
     with torch.no_grad():
         out = model(x)
     assert out.shape == (2, 8), f"Expected (2, 8), got {out.shape}"
@@ -413,12 +421,8 @@ def test_fcs_forward_with_disabled_modules() -> None:
 # ── FCSVSSBlock execution order tests ────────────────────────────────────
 
 
-def test_fcsvssblock_has_fa_and_sfs_before_mlp() -> None:
-    """Verify FA and SFS are called *before* the MLP in FCSVSSBlock.
-
-    Uses ``register_forward_hook`` to trace the call order and confirm
-    that FA and SFS execute between the SS2D residual and the MLP.
-    """
+def test_fcsvssblock_order_fa_ss2d_sfs() -> None:
+    """Verify paper FSSLayer order: FA → SS2D → SFS (no MLP)."""
     block = FCSVSSBlock(dim=96, fa_enabled=True, sfs_enabled=True)
 
     call_order: list[str] = []
@@ -428,12 +432,10 @@ def test_fcsvssblock_has_fa_and_sfs_before_mlp() -> None:
             call_order.append(name)
         return hook
 
-    # Register hooks on the sub-modules in execution order
     handles = [
-        block.op.register_forward_hook(make_hook("ss2d")),
         block.fa.register_forward_hook(make_hook("fa")),
+        block.op.register_forward_hook(make_hook("ss2d")),
         block.sfs.register_forward_hook(make_hook("sfs")),
-        block.mlp.register_forward_hook(make_hook("mlp")),
     ]
 
     x = torch.randn(1, 96, 56, 56)
@@ -442,15 +444,8 @@ def test_fcsvssblock_has_fa_and_sfs_before_mlp() -> None:
     for h in handles:
         h.remove()
 
-    # Verify the relative order: SS2D → FA → SFS → MLP
-    ss2d_idx = call_order.index("ss2d")
-    fa_idx = call_order.index("fa")
-    sfs_idx = call_order.index("sfs")
-    mlp_idx = call_order.index("mlp")
-
-    assert ss2d_idx < fa_idx, f"SS2D ({ss2d_idx}) should execute before FA ({fa_idx})"
-    assert fa_idx < sfs_idx, f"FA ({fa_idx}) should execute before SFS ({sfs_idx})"
-    assert sfs_idx < mlp_idx, f"SFS ({sfs_idx}) should execute before MLP ({mlp_idx})"
+    assert not hasattr(block, "mlp")
+    assert call_order == ["fa", "ss2d", "sfs"], f"Unexpected order: {call_order}"
 
 
 def test_fcsvssblock_forward_shape() -> None:
