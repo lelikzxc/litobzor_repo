@@ -5,7 +5,7 @@
   "current_metric": null,
   "global_step": 0,
   "training_finished": false,
-  "checkpoint_path": "checkpoints\\semiwafernet\\ssl_stage2.pt",
+  "checkpoint_path": null,
   "mode": "max",
   "extra": {}
 }

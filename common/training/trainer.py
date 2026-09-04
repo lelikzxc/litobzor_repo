@@ -295,7 +295,7 @@ class Trainer:
         return metrics
 
     def validate(
-        self, loader: DataLoader
+        self, loader: DataLoader, desc: str = "Val"
     ) -> dict[str, float]:
         """Evaluate the model on a validation set.
 
@@ -317,7 +317,7 @@ class Trainer:
         all_targets: list[torch.Tensor] = []
 
         with torch.no_grad():
-            iterator = tqdm(loader, desc="Val", disable=not self.verbose)
+            iterator = tqdm(loader, desc=desc, disable=not self.verbose)
             for batch in iterator:
                 inputs, targets = self._unpack_batch(batch)
                 inputs = move_batch_to_device(inputs, self.device)

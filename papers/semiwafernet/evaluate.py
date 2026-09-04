@@ -13,6 +13,7 @@ from pathlib import Path
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, random_split
+from tqdm import tqdm
 
 _project_root = Path(__file__).resolve().parent.parent.parent
 if str(_project_root) not in sys.path:
@@ -21,7 +22,9 @@ if str(_project_root) not in sys.path:
 from common.engine.config import EngineConfig
 from common.training.metrics import accuracy, f1, precision, recall
 from papers.semiwafernet.data_utils import WaferWM811KDataset
+from papers.semiwafernet.data_utils.wafer_dataset import inspect_wm811k_labels
 from papers.semiwafernet.models.semiwafernet import SemiWaferNet
+from papers.semiwafernet.utils.checkpoint import normalize_semiwafernet_state_dict
 
 
 def parse_args() -> argparse.Namespace:
@@ -83,25 +86,53 @@ def main() -> None:
     num_classes = config.get("model.num_classes", 9)
     train_split = config.get("data.train_split", 0.8)
     val_split = config.get("data.val_split", 0.1)
+    use_official_split = config.get("data.use_official_split", True)
 
     print(f"Loading WM-811K dataset from: {data_root}")
-    full_dataset = WaferWM811KDataset(
-        data_root=data_root, image_size=image_size, num_classes=num_classes
-    )
-    print(f"  Total samples: {len(full_dataset)}")
-    print(f"  Classes: {full_dataset.class_names}")
+    labels_path = Path(data_root) / "labels.csv"
+    label_info = inspect_wm811k_labels(labels_path)
+    print(f"  labels.csv format: {label_info['format']}")
 
-    total = len(full_dataset)
-    train_len = int(total * train_split)
-    val_len = int(total * val_split)
-    test_len = total - train_len - val_len
+    if use_official_split and not label_info["has_official_split"]:
+        print(
+            "  WARNING: No trianTestLabel column — using random split instead."
+        )
+        use_official_split = False
 
-    _, _, test_dataset = random_split(
-        full_dataset,
-        [train_len, val_len, test_len],
-        generator=torch.Generator().manual_seed(42),
-    )
-    print(f"  Test samples: {len(test_dataset)}")
+    if use_official_split:
+        test_dataset = WaferWM811KDataset(
+            data_root=data_root,
+            image_size=image_size,
+            num_classes=num_classes,
+            train=False,
+            hybrid_sampling=False,
+            split="test",
+        )
+        class_names = test_dataset.class_names
+        print(f"  Official test samples: {len(test_dataset)}")
+    else:
+        full_dataset = WaferWM811KDataset(
+            data_root=data_root,
+            image_size=image_size,
+            num_classes=num_classes,
+            train=False,
+            hybrid_sampling=False,
+        )
+        class_names = full_dataset.class_names
+        print(f"  Total samples: {len(full_dataset)}")
+        print(f"  Classes: {class_names}")
+
+        total = len(full_dataset)
+        train_len = int(total * train_split)
+        val_len = int(total * val_split)
+        test_len = total - train_len - val_len
+
+        _, _, test_dataset = random_split(
+            full_dataset,
+            [train_len, val_len, test_len],
+            generator=torch.Generator().manual_seed(42),
+        )
+        print(f"  Test samples (random split): {len(test_dataset)}")
 
     # ── DataLoader ──────────────────────────────────────────────────────
     eval_batch_size = config.get("evaluation.batch_size", 64)
@@ -135,15 +166,18 @@ def main() -> None:
     state = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
 
     if "model" in state:
-        model.load_state_dict(state["model"])
+        model_state = normalize_semiwafernet_state_dict(state["model"])
+        model.load_state_dict(model_state)
         epoch = state.get("epoch", 0)
         metric = state.get("metric", None)
         print(f"  Loaded from epoch {epoch}, best metric: {metric}")
     elif "model_state_dict" in state:
-        model.load_state_dict(state["model_state_dict"])
+        model_state = normalize_semiwafernet_state_dict(state["model_state_dict"])
+        model.load_state_dict(model_state)
         print(f"  Loaded from epoch {state.get('epoch', 0)}")
     else:
-        model.load_state_dict(state)
+        model_state = normalize_semiwafernet_state_dict(state)
+        model.load_state_dict(model_state)
         print("  Loaded state_dict directly")
 
     model.eval()
@@ -159,7 +193,7 @@ def main() -> None:
     num_batches = 0
     loss_fn = torch.nn.CrossEntropyLoss()
 
-    for images, labels in test_loader:
+    for images, labels in tqdm(test_loader, desc="Test", unit="batch"):
         images = images.to(device)
         labels = labels.to(device)
 
@@ -193,7 +227,7 @@ def main() -> None:
         mask = targets == c
         if mask.any():
             class_acc = (preds[mask] == targets[mask]).float().mean().item()
-            print(f"  Class {c} ({full_dataset.class_names[c]}): {class_acc:.4f}")
+            print(f"  Class {c} ({class_names[c]}): {class_acc:.4f}")
         else:
             print(f"  Class {c}: N/A (no samples)")
 

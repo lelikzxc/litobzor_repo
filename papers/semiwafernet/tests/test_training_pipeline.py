@@ -92,7 +92,7 @@ def stage_manager(model: SemiWaferNet) -> StageManager:
 @pytest.fixture
 def trainer(model: SemiWaferNet, stage_manager: StageManager) -> Trainer:
     """Default Trainer instance."""
-    return Trainer(student=model, stage_manager=stage_manager)
+    return Trainer(student=model, stage_manager=stage_manager, verbose=False)
 
 
 # ── MonteCarloDropout ─────────────────────────────────────────────────────────
@@ -490,11 +490,17 @@ class TestStageManager:
         result = stage_manager.generate_pseudo_labels(small_input)
         assert 0.0 <= result["adaptive_threshold"] <= 1.0
 
-    def test_refresh_teacher(self, stage_manager: StageManager) -> None:
-        """refresh_teacher creates a new teacher from current student."""
-        old_teacher = stage_manager.teacher
+    def test_refresh_teacher(self, stage_manager: StageManager, small_input: torch.Tensor) -> None:
+        """refresh_teacher syncs teacher weights from the current student."""
+        with torch.no_grad():
+            for p in stage_manager.student.parameters():
+                p.add_(1.0)
         stage_manager.refresh_teacher()
-        assert stage_manager.teacher is not old_teacher
+        for t_p, s_p in zip(
+            stage_manager.teacher.teacher.parameters(),
+            stage_manager.student.parameters(),
+        ):
+            assert torch.allclose(t_p, s_p)
 
     def test_reset_statistics(self, stage_manager: StageManager, small_input: torch.Tensor) -> None:
         """reset_statistics clears adaptive threshold stats."""
@@ -617,7 +623,7 @@ class TestTrainer:
         assert "consistency_loss" in metrics
 
     def test_train_stage3_sets_stage(self, trainer: Trainer) -> None:
-        """train_stage3 sets stage to 2 (via train_stage2)."""
+        """train_stage3 sets stage to 3."""
         opt = torch.optim.SGD(trainer.student.parameters(), lr=0.01)
         trainer.set_optimizer(opt)
         trainer.set_supervised_loss(lambda o, t: {"loss": torch.tensor(0.0, requires_grad=True)})
@@ -625,7 +631,7 @@ class TestTrainer:
             labeled_data=[(torch.randn(2, 1, 32, 32), {"classification": torch.randn(2, 9), "segmentation": torch.randn(2, 1, 32, 32)})],
             unlabeled_data=[torch.randn(2, 1, 32, 32)],
         )
-        assert trainer.stage_manager.current_stage == 2
+        assert trainer.stage_manager.current_stage == 3
 
     def test_generate_pseudo_labels(self, trainer: Trainer, small_input: torch.Tensor) -> None:
         """generate_pseudo_labels delegates to StageManager."""
@@ -637,10 +643,16 @@ class TestTrainer:
         assert "pseudo_labels_seg" in result
 
     def test_refresh_teacher(self, trainer: Trainer) -> None:
-        """refresh_teacher delegates to StageManager."""
-        old_teacher = trainer.stage_manager.teacher
+        """refresh_teacher syncs teacher weights from the current student."""
+        with torch.no_grad():
+            for p in trainer.student.parameters():
+                p.add_(1.0)
         trainer.refresh_teacher()
-        assert trainer.stage_manager.teacher is not old_teacher
+        for t_p, s_p in zip(
+            trainer.stage_manager.teacher.teacher.parameters(),
+            trainer.student.parameters(),
+        ):
+            assert torch.allclose(t_p, s_p)
 
 
 # ── Config ─────────────────────────────────────────────────────────────────────

@@ -19,6 +19,7 @@ from typing import Any
 import numpy as np
 import torch
 from PIL import Image
+from tqdm import tqdm
 from torchvision.transforms import (
     ColorJitter,
     Compose,
@@ -55,10 +56,10 @@ def default_train_transform(image_size: int) -> Compose:
     """Build training augmentation pipeline per SemiWaferNet paper Section 4.1.
 
     Applies:
+        - Resize to fixed ``image_size × image_size`` (wafer maps are non-square)
         - Random horizontal flip (p=0.5)
         - Random rotation (±10°)
         - Color jitter (brightness=0.2, contrast=0.2)
-        - Resize to target size
 
     Returns PIL images (not tensors) — tensor conversion happens in __getitem__.
 
@@ -68,11 +69,12 @@ def default_train_transform(image_size: int) -> Compose:
     Returns:
         A ``torchvision.transforms.Compose`` pipeline.
     """
+    size = (image_size, image_size)
     return Compose([
+        Resize(size, interpolation=Image.BILINEAR),
         RandomHorizontalFlip(p=0.5),
         RandomRotation(degrees=10),
         ColorJitter(brightness=0.2, contrast=0.2),
-        Resize(image_size, interpolation=Image.BILINEAR),
     ])
 
 
@@ -108,6 +110,49 @@ def apply_hybrid_sampling(
           f"others {len(other_samples)}, total {len(other_samples) + keep_none}")
 
     return other_samples + none_downsampled
+
+
+def inspect_wm811k_labels(labels_path: str | Path) -> dict[str, bool | str | int]:
+    """Inspect ``labels.csv`` layout for SemiWaferNet training requirements.
+
+    Returns:
+        Dictionary with:
+            - ``format``: ``\"official\"`` (failureType + trianTestLabel) or ``\"simple\"``
+            - ``has_failure_type``: needed for SSL unlabeled pool
+            - ``has_official_split``: needed for paper train/test partition
+            - ``unlabeled_count``: rows with empty failureType (0 for simple CSV)
+    """
+    labels_path = Path(labels_path)
+    if not labels_path.exists():
+        raise FileNotFoundError(f"Labels file not found: {labels_path}")
+
+    with open(labels_path, "r", encoding="utf-8") as f:
+        header = f.readline().strip()
+    cols = [c.strip().lower() for c in header.split(",")]
+
+    has_failure_type = "failuretype" in cols
+    has_official_split = "triantestlabel" in cols
+    fmt = "official" if has_failure_type else "simple"
+
+    unlabeled_count = 0
+    if has_failure_type:
+        ft_idx = cols.index("failuretype")
+        with open(labels_path, "r", encoding="utf-8") as f:
+            f.readline()
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = line.split(",")
+                if len(parts) > ft_idx and _is_unlabeled_failure_type(parts[ft_idx]):
+                    unlabeled_count += 1
+
+    return {
+        "format": fmt,
+        "has_failure_type": has_failure_type,
+        "has_official_split": has_official_split,
+        "unlabeled_count": unlabeled_count,
+    }
 
 
 def _is_unlabeled_failure_type(value: str) -> bool:
@@ -154,6 +199,13 @@ def parse_wm811k_labeled_rows(
             ft_idx = cols.index("failuretype")
             fn_idx = cols.index("filename") if "filename" in cols else 0
             split_idx = cols.index("triantestlabel") if "triantestlabel" in cols else None
+
+            if split_filter is not None and split_idx is None:
+                raise ValueError(
+                    f"Official split {split_filter!r} requested but {labels_path} "
+                    "has no trianTestLabel column. Run scripts/unpack_lswmd.py on "
+                    "LSWMD.pkl or set data.use_official_split: false."
+                )
 
             for line in f:
                 line = line.strip()
@@ -221,20 +273,26 @@ def parse_wm811k_unlabeled_filenames(
         header = f.readline().strip()
         cols = [c.strip().lower() for c in header.split(",")]
         if "failuretype" not in cols:
-            raise ValueError(
-                f"Unlabeled WM-811K rows require a failureType column; got {header!r}"
-            )
+            # Simple image,label CSV has no unlabeled pool (paper needs LSWMD unpack).
+            return []
         ft_idx = cols.index("failuretype")
         fn_idx = cols.index("filename") if "filename" in cols else 0
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            parts = line.split(",")
-            if len(parts) <= ft_idx:
-                continue
-            if _is_unlabeled_failure_type(parts[ft_idx]):
-                filenames.append(parts[fn_idx].strip())
+        lines = f.readlines()
+
+    for line in tqdm(
+        lines,
+        desc="  Parsing unlabeled WM-811K rows",
+        unit="row",
+        leave=False,
+    ):
+        line = line.strip()
+        if not line:
+            continue
+        parts = line.split(",")
+        if len(parts) <= ft_idx:
+            continue
+        if _is_unlabeled_failure_type(parts[ft_idx]):
+            filenames.append(parts[fn_idx].strip())
 
     if max_samples is not None and max_samples < len(filenames):
         rng = np.random.RandomState(seed)
@@ -290,7 +348,7 @@ class WaferWM811KDataset(BaseDataset):
                 self.transform = default_train_transform(image_size)
             else:
                 self.transform = Compose([
-                    Resize(image_size, interpolation=Image.BILINEAR),
+                    Resize((image_size, image_size), interpolation=Image.BILINEAR),
                 ])
         else:
             self.transform = transform
@@ -405,7 +463,11 @@ class SMOTEDataset(BaseDataset):
         # Load all images as flattened vectors
         images: list[np.ndarray] = []
         labels: list[int] = []
-        for filename, label in samples:
+        for filename, label in tqdm(
+            samples,
+            desc="  Loading images for SMOTE",
+            unit="img",
+        ):
             img = self._load_image(filename)
             images.append(img)
             labels.append(label)
@@ -512,7 +574,7 @@ class UnlabeledWM811KDataset(BaseDataset):
                 self.transform = default_train_transform(image_size)
             else:
                 self.transform = Compose([
-                    Resize(image_size, interpolation=Image.BILINEAR),
+                    Resize((image_size, image_size), interpolation=Image.BILINEAR),
                 ])
         else:
             self.transform = transform
@@ -523,7 +585,11 @@ class UnlabeledWM811KDataset(BaseDataset):
             seed=seed,
         )
         if not self._filenames:
-            raise ValueError(f"No unlabeled samples found in {self.labels_path}")
+            raise ValueError(
+                f"No unlabeled samples found in {self.labels_path}. "
+                "Full WM-811K from LSWMD.pkl (scripts/unpack_lswmd.py) is required "
+                "for semi-supervised training — rows with empty failureType are unlabeled."
+            )
 
     def __len__(self) -> int:
         return len(self._filenames)

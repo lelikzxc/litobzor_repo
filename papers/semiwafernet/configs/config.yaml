@@ -18,7 +18,7 @@ model:
     dropout: 0.2
     dropout_cls: 0.5
   decoder:
-    base_channels: 48            # ConvoFormer-UNet width → ~7.11M (Table 8)
+    base_channels: 66            # ConvoFormer-UNet width → ~7.11M (Table 8)
     embed_dim: 160               # ConvoFormer bottleneck width
     mlp_ratio: 2
   input:

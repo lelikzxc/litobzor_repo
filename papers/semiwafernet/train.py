@@ -33,6 +33,7 @@ import numpy as np
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, Subset
+from tqdm import tqdm
 
 # Ensure the project root is on sys.path for imports
 _project_root = Path(__file__).resolve().parent.parent.parent
@@ -50,8 +51,9 @@ from papers.semiwafernet.data_utils import (
     UnlabeledWM811KDataset,
     WaferSegmentationDataset,
 )
-from papers.semiwafernet.data_utils.wafer_dataset import apply_hybrid_sampling
+from papers.semiwafernet.data_utils.wafer_dataset import apply_hybrid_sampling, inspect_wm811k_labels
 from papers.semiwafernet.models.semiwafernet import SemiWaferNet
+from papers.semiwafernet.utils.checkpoint import resume_semiwafernet_engine
 from papers.semiwafernet.training.stage_manager import StageManager
 from papers.semiwafernet.training.trainer import Trainer as SemiWaferTrainer
 
@@ -109,6 +111,25 @@ def parse_args() -> argparse.Namespace:
             "Resume training from a checkpoint. "
             "Use --resume (loads last.pt), --resume best (loads best.pt), "
             "or --resume /path/to/checkpoint.pt"
+        ),
+    )
+    parser.add_argument(
+        "--ssl-fast",
+        action="store_true",
+        help=(
+            "Smoke-test SSL: 1 epoch/stage, 5k unlabeled, 5 MC passes "
+            "(verifies pseudo-label accept rate and metrics quickly)"
+        ),
+    )
+    parser.add_argument(
+        "--ssl-start-stage",
+        type=int,
+        default=1,
+        choices=[1, 2, 3],
+        help=(
+            "Start SSL from this stage (1/2/3). Use with --resume pointing to "
+            "the previous stage checkpoint, e.g. --resume checkpoints/semiwafernet/ssl_stage2.pt "
+            "--ssl-start-stage 3"
         ),
     )
     return parser.parse_args()
@@ -293,6 +314,22 @@ def main() -> None:
         config._data.setdefault("training", {}).setdefault("optimizer", {})["lr"] = args.lr
     if args.mode is not None:
         config._data.setdefault("model", {})["mode"] = args.mode
+    if args.ssl_fast:
+        ssl = config._data.setdefault("semi_supervised", {})
+        ssl["enabled"] = True
+        ssl["epochs_per_stage"] = [1, 1, 1]
+        ssl["unlabeled_max_samples"] = 5_000
+        ssl["mc_passes"] = 5
+        # Relax filters so smoke can exercise the pseudo-label path
+        # (paper thresholds need a warm model; 1 epoch is not enough).
+        ssl["confidence_threshold"] = 0.50
+        ssl["entropy_threshold"] = 0.90
+        ssl["mutual_information_threshold"] = 0.30
+        config._data.setdefault("training", {})["num_epochs"] = 3
+        print(
+            "[SSL-FAST] Smoke mode: 1 epoch/stage, 5k unlabeled, 5 MC passes, "
+            "relaxed filters (tau=0.50, H=0.90, MI=0.30)"
+        )
 
     # ── Resolve device ──────────────────────────────────────────────────
     device = args.device
@@ -343,8 +380,24 @@ def main() -> None:
         hybrid_enabled = hybrid_cfg.get("enabled", True) if isinstance(hybrid_cfg, dict) else True
         none_downsample_ratio = hybrid_cfg.get("none_downsample_ratio", 0.30) if isinstance(hybrid_cfg, dict) else 0.30
         use_official_split = config.get("data.use_official_split", True)
+        labels_path = Path(data_root) / "labels.csv"
+        label_info = inspect_wm811k_labels(labels_path)
 
         print(f"Loading WM-811K dataset from: {data_root}")
+        print(f"  labels.csv format: {label_info['format']}")
+        if label_info["format"] == "simple":
+            print(
+                "  NOTE: Simple image,label CSV detected. For paper-faithful SSL and "
+                "official train/test split, unpack full WM-811K:\n"
+                "        python scripts/unpack_lswmd.py  (requires datasets/LSWMD.pkl)"
+            )
+        if use_official_split and not label_info["has_official_split"]:
+            print(
+                "  WARNING: No trianTestLabel column - disabling official split; "
+                "using stratified train/val/test instead."
+            )
+            use_official_split = False
+
         print(f"  Augmentations: {'enabled' if aug_enabled else 'disabled'}")
         print(f"  Hybrid sampling (None downsampling): {'enabled' if hybrid_enabled else 'disabled'} "
               f"(ratio={none_downsample_ratio})")
@@ -381,7 +434,7 @@ def main() -> None:
 
             # Val ratio relative to official Training ≈ 5436/54355 ≈ 0.1 (Table 1)
             val_from_train = float(config.get("data.val_from_train", 0.1))
-            print(f"  Splitting official Training → train/val "
+            print(f"  Splitting official Training -> train/val "
                   f"(val_from_train={val_from_train})...")
             from sklearn.model_selection import StratifiedShuffleSplit
 
@@ -441,6 +494,11 @@ def main() -> None:
             num_classes=num_classes,
             seed=42,
         )
+        # After SMOTE all classes are balanced — recompute weights from actual
+        # training counts. Using pre-SMOTE frequencies makes 'none' cheap
+        # (weight≈0.13) and the model over-predicts defects on imbalanced test.
+        class_counts = np.bincount(train_dataset._y, minlength=num_classes).astype(int).tolist()
+        print(f"  SMOTE-balanced counts for loss weights: {class_counts}")
 
         print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
 
@@ -548,15 +606,13 @@ def main() -> None:
         if args.resume == "last":
             checkpoint_path = engine.checkpoint_manager.last_path
             print(f"\nResuming from last checkpoint: {checkpoint_path}")
-            resumed_epoch = engine.resume(load_last=True)
         elif args.resume == "best":
             checkpoint_path = engine.checkpoint_manager.best_path
             print(f"\nResuming from best checkpoint: {checkpoint_path}")
-            resumed_epoch = engine.resume(load_last=False)
         else:
             checkpoint_path = Path(args.resume)
             print(f"\nResuming from checkpoint: {checkpoint_path}")
-            resumed_epoch = engine.resume(checkpoint_path=checkpoint_path)
+        resumed_epoch = resume_semiwafernet_engine(engine, checkpoint_path)
         print(f"  Resumed at epoch {resumed_epoch}")
 
         if args.lr is not None:
@@ -585,39 +641,51 @@ def main() -> None:
         unlabeled_max = int(ssl_cfg.get("unlabeled_max_samples", 150_000))
         unlabeled_root = config.get("data.unlabeled_root", None)
 
+        if not label_info.get("has_failure_type") and not (
+            unlabeled_root and Path(unlabeled_root).exists()
+        ):
+            print(
+                "\n[SSL] DISABLED: labels.csv has no failureType column (no unlabeled pool).\n"
+                "      Re-create the dataset from LSWMD.pkl for semi-supervised training:\n"
+                "        python scripts/unpack_lswmd.py\n"
+                "      Continuing with supervised-only training (Stage 1 only).\n"
+            )
+            ssl_enabled = False
+
         def unlabeled_collate(batch):
             # Yield plain image tensors for the SSL trainer.
             return torch.stack([item["image"] for item in batch])
 
-        if unlabeled_root and Path(unlabeled_root).exists():
-            from papers.semiwafernet.data_utils import UnlabeledWaferDataset
+        if ssl_enabled:
+            if unlabeled_root and Path(unlabeled_root).exists():
+                from papers.semiwafernet.data_utils import UnlabeledWaferDataset
 
-            unlabeled_ds = UnlabeledWaferDataset(
-                image_dir=unlabeled_root,
-                image_size=image_size,
-            )
-            print(f"[SSL] Loaded {len(unlabeled_ds)} unlabeled samples from {unlabeled_root}")
-        else:
-            # Default: unlabeled pool from the same WM-811K labels.csv
-            unlabeled_ds = UnlabeledWM811KDataset(
-                data_root=data_root,
-                image_size=image_size,
-                max_samples=unlabeled_max,
-                train=True,
-                seed=42,
-            )
-            print(
-                f"[SSL] Loaded {len(unlabeled_ds)} unlabeled WM-811K samples "
-                f"(max={unlabeled_max}) from {data_root}"
-            )
+                unlabeled_ds = UnlabeledWaferDataset(
+                    image_dir=unlabeled_root,
+                    image_size=image_size,
+                )
+                print(f"[SSL] Loaded {len(unlabeled_ds)} unlabeled samples from {unlabeled_root}")
+            else:
+                # Default: unlabeled pool from the same WM-811K labels.csv
+                unlabeled_ds = UnlabeledWM811KDataset(
+                    data_root=data_root,
+                    image_size=image_size,
+                    max_samples=unlabeled_max,
+                    train=True,
+                    seed=42,
+                )
+                print(
+                    f"[SSL] Loaded {len(unlabeled_ds)} unlabeled WM-811K samples "
+                    f"(max={unlabeled_max}) from {data_root}"
+                )
 
-        unlabeled_loader = DataLoader(
-            unlabeled_ds,
-            batch_size=batch_size,
-            shuffle=True,
-            num_workers=num_workers,
-            collate_fn=unlabeled_collate,
-        )
+            unlabeled_loader = DataLoader(
+                unlabeled_ds,
+                batch_size=batch_size,
+                shuffle=True,
+                num_workers=num_workers,
+                collate_fn=unlabeled_collate,
+            )
 
     if ssl_enabled and not is_segmentation and unlabeled_loader is not None:
         ssl_student = base_model
@@ -628,6 +696,9 @@ def main() -> None:
             def __init__(self, loader: DataLoader, size: int) -> None:
                 self.loader = loader
                 self.size = size
+
+            def __len__(self) -> int:
+                return len(self.loader)
 
             def __iter__(self):
                 for images, labels in self.loader:
@@ -678,6 +749,7 @@ def main() -> None:
             mi_threshold=ssl_cfg.get("mutual_information_threshold", 0.12),
             consistency_weight=ssl_cfg.get("consistency_weight", 0.0),
         )
+        grad_max_norm = config.get("training.grad_max_norm", 1.0)
         ssl_trainer = SemiWaferTrainer(
             student=ssl_student,
             stage_manager=stage_manager,
@@ -685,46 +757,98 @@ def main() -> None:
             supervised_loss_fn=SSLSupervisedLoss(loss_fn),
             scheduler=engine.scheduler,
             device=torch.device(device),
+            grad_max_norm=grad_max_norm,
         )
         labeled_ssl = LabeledSSLAdapter(train_loader, image_size)
+        ssl_ckpt_dir = engine.checkpoint_manager.last_path.parent if engine.checkpoint_manager else Path("checkpoints/semiwafernet")
+        start_stage = int(args.ssl_start_stage)
+        if start_stage > 1 and args.resume is None:
+            print(
+                f"[SSL] WARNING: --ssl-start-stage {start_stage} without --resume "
+                "starts from a randomly initialized model. Prefer:\n"
+                "  --resume checkpoints/semiwafernet/ssl_stage{start_stage - 1}.pt "
+                f"--ssl-start-stage {start_stage}"
+            )
         print(
-            f"[SSL] Running 3-stage progressive pseudo-labeling "
+            f"[SSL] Running progressive pseudo-labeling from stage {start_stage} "
             f"(epochs/stage={e1}/{e2}/{e3})"
         )
-        # Stage-wise fit (reuse trainer API with per-stage epoch budgets)
-        print("\n[SSL] Stage 1: supervised warm-up on labeled data")
-        stage1_metrics = ssl_trainer.train_stage1(
-            labeled_data=labeled_ssl, num_epochs=e1
-        )
-        print("\n[SSL] Stage 2: pseudo-labels on unlabeled + train Dl ∪ Dpseudo")
-        stage2_metrics = ssl_trainer.train_stage2(
-            labeled_data=labeled_ssl,
-            unlabeled_data=unlabeled_loader,
-            num_epochs=e2,
-            consistency_weight=ssl_cfg.get("consistency_weight", 0.0),
-        )
-        print("\n[SSL] Stage 3: refresh teacher + regenerate + retrain")
-        stage3_metrics = ssl_trainer.train_stage3(
-            labeled_data=labeled_ssl,
-            unlabeled_data=unlabeled_loader,
-            num_epochs=e3,
-            consistency_weight=ssl_cfg.get("consistency_weight", 0.0),
-        )
+
+        stage1_metrics: dict[str, float] = {"loss": float("nan"), "skipped": True}
+        stage2_metrics: dict[str, float] = {"loss": float("nan"), "skipped": True}
+        stage3_metrics: dict[str, float] = {"loss": float("nan"), "skipped": True}
+
+        if start_stage <= 1:
+            print("\n[SSL] Stage 1: supervised warm-up on labeled data")
+            stage1_metrics = ssl_trainer.train_stage1(
+                labeled_data=labeled_ssl, num_epochs=e1
+            )
+            stage1_ckpt = ssl_ckpt_dir / "ssl_stage1.pt"
+            engine.save(stage1_ckpt)
+            print(f"[SSL] Stage 1 checkpoint saved: {stage1_ckpt}")
+        else:
+            # Weights loaded via --resume; sync teacher before later stages.
+            ssl_trainer.stage_manager.install_teacher_from_student()
+            print(f"[SSL] Skipping Stage 1 (start_stage={start_stage})")
+
+        if start_stage <= 2:
+            print("\n[SSL] Stage 2: pseudo-labels on unlabeled + train Dl U Dpseudo")
+            stage2_metrics = ssl_trainer.train_stage2(
+                labeled_data=labeled_ssl,
+                unlabeled_data=unlabeled_loader,
+                num_epochs=e2,
+                consistency_weight=ssl_cfg.get("consistency_weight", 0.0),
+            )
+            stage2_ckpt = ssl_ckpt_dir / "ssl_stage2.pt"
+            engine.save(stage2_ckpt)
+            print(f"[SSL] Stage 2 checkpoint saved: {stage2_ckpt}")
+        else:
+            print(f"[SSL] Skipping Stage 2 (start_stage={start_stage})")
+
+        if start_stage <= 3:
+            print("\n[SSL] Stage 3: refresh teacher + regenerate + retrain")
+            stage3_metrics = ssl_trainer.train_stage3(
+                labeled_data=labeled_ssl,
+                unlabeled_data=unlabeled_loader,
+                num_epochs=e3,
+                consistency_weight=ssl_cfg.get("consistency_weight", 0.0),
+            )
         ssl_metrics = {
             "stage1": stage1_metrics,
             "stage2": stage2_metrics,
             "stage3": stage3_metrics,
         }
         print(f"\n[SSL] Training complete: {ssl_metrics}")
+
+        print(f"\n{'='*60}")
+        print("Validating after SSL...")
+        print(f"{'='*60}")
+        val_metrics = engine.validate(val_loader)
+        print(f"  Val Loss: {val_metrics.get('loss', 'N/A'):.4f}")
+        for key, value in val_metrics.items():
+            if key != "loss":
+                print(f"  Val {key}: {value:.4f}")
+
         engine.model.to(device)
         engine.model.eval()
         logger = engine.logger
         if hasattr(logger, "log_epoch"):
+            def _ssl_loss(metrics: dict) -> float:
+                value = metrics.get("loss", 0.0)
+                try:
+                    value = float(value)
+                except (TypeError, ValueError):
+                    return 0.0
+                return value if value == value else 0.0  # NaN -> 0
+
             logger.log_epoch(
-                ssl_stage1_loss=float(stage1_metrics.get("loss", 0.0)),
-                ssl_stage2_loss=float(stage2_metrics.get("loss", 0.0)),
-                ssl_stage3_loss=float(stage3_metrics.get("loss", 0.0)),
+                ssl_stage1_loss=_ssl_loss(stage1_metrics),
+                ssl_stage2_loss=_ssl_loss(stage2_metrics),
+                ssl_stage3_loss=_ssl_loss(stage3_metrics),
             )
+        # SSL path skips engine.fit(); ensure history exists for downstream logging
+        if not getattr(logger, "history", None):
+            logger.history = []
     else:
         logger = engine.fit(
             train_loader=train_loader,

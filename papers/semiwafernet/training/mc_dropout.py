@@ -9,6 +9,8 @@ forward passes to estimate predictive uncertainty via:
 
 from __future__ import annotations
 
+import math
+
 import torch
 from torch import nn
 
@@ -40,10 +42,10 @@ class MonteCarloDropout(nn.Module):
             Dictionary with:
                 "mean_probs_class": [B, num_classes] mean softmax over passes.
                 "mean_probs_seg": [B, num_classes, H, W] mean softmax over passes.
-                "entropy_class": [B] predictive entropy for classification.
-                "entropy_seg": [B, H, W] predictive entropy for segmentation.
-                "mutual_info_class": [B] mutual information for classification.
-                "mutual_info_seg": [B, H, W] mutual information for segmentation.
+                "entropy_class": [B] normalised predictive entropy in [0, 1].
+                "entropy_seg": [B, H, W] normalised predictive entropy in [0, 1].
+                "mutual_info_class": [B] normalised mutual information in [0, 1].
+                "mutual_info_seg": [B, H, W] normalised mutual information in [0, 1].
         """
         model.train()  # enable dropout
         B = x.shape[0]
@@ -70,35 +72,40 @@ class MonteCarloDropout(nn.Module):
         mean_class_probs = class_probs_stack.mean(dim=0)  # [B, C]
         mean_seg_probs = seg_probs_stack.mean(dim=0)      # [B, C, H, W]
 
-        # Predictive entropy
-        entropy_class = self._entropy(mean_class_probs)
+        num_classes = mean_class_probs.shape[1]
+        max_class_entropy = math.log(num_classes)
+
+        raw_entropy_class = self._entropy(mean_class_probs)
+        entropy_class = raw_entropy_class / max_class_entropy
+
         if mean_seg_probs.shape[1] == 1:
-            # Binary Bernoulli entropy: -p log p - (1-p) log(1-p)
+            max_seg_entropy = math.log(2.0)
             p = mean_seg_probs.squeeze(1).clamp(1e-7, 1 - 1e-7)
-            entropy_seg = -(p * p.log() + (1 - p) * (1 - p).log())
-            per_pass_entropy_seg = []
+            raw_entropy_seg = -(p * p.log() + (1 - p) * (1 - p).log())
+            entropy_seg = raw_entropy_seg / max_seg_entropy
+            per_pass_raw_seg = []
             for i in range(self.num_passes):
                 pi = seg_probs_stack[i].squeeze(1).clamp(1e-7, 1 - 1e-7)
-                per_pass_entropy_seg.append(
-                    -(pi * pi.log() + (1 - pi) * (1 - pi).log())
-                )
-            expected_entropy_seg = torch.stack(per_pass_entropy_seg, dim=0).mean(dim=0)
+                per_pass_raw_seg.append(-(pi * pi.log() + (1 - pi) * (1 - pi).log()))
+            expected_entropy_seg_raw = torch.stack(per_pass_raw_seg, dim=0).mean(dim=0)
+            mutual_info_seg = (raw_entropy_seg - expected_entropy_seg_raw).clamp(min=0.0) / max_seg_entropy
         else:
-            entropy_seg = self._entropy(mean_seg_probs)
-            per_pass_entropy_seg = torch.stack(
+            max_seg_entropy = math.log(mean_seg_probs.shape[1])
+            raw_entropy_seg = self._entropy(mean_seg_probs)
+            entropy_seg = raw_entropy_seg / max_seg_entropy
+            per_pass_raw_seg = torch.stack(
                 [self._entropy(seg_probs_stack[i]) for i in range(self.num_passes)],
                 dim=0,
             )
-            expected_entropy_seg = per_pass_entropy_seg.mean(dim=0)
+            expected_entropy_seg_raw = per_pass_raw_seg.mean(dim=0)
+            mutual_info_seg = (raw_entropy_seg - expected_entropy_seg_raw).clamp(min=0.0) / max_seg_entropy
 
-        per_pass_entropy_class = torch.stack(
+        per_pass_raw_class = torch.stack(
             [self._entropy(class_probs_stack[i]) for i in range(self.num_passes)],
             dim=0,
         )
-        expected_entropy_class = per_pass_entropy_class.mean(dim=0)
-
-        mutual_info_class = entropy_class - expected_entropy_class
-        mutual_info_seg = entropy_seg - expected_entropy_seg
+        expected_entropy_class_raw = per_pass_raw_class.mean(dim=0)
+        mutual_info_class = (raw_entropy_class - expected_entropy_class_raw).clamp(min=0.0) / max_class_entropy
 
         return {
             "mean_probs_class": mean_class_probs,

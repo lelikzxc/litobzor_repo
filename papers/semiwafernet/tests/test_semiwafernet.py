@@ -197,7 +197,7 @@ def test_parameter_count_segmentation() -> None:
     """ConvoFormer-UNet is ~7.11M params (paper Table 8)."""
     model = SemiWaferNet(mode="segmentation")
     total = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    assert 5_000_000 < total < 10_000_000, f"Unexpected parameter count: {total:,}"
+    assert 6_500_000 < total < 7_500_000, f"Unexpected parameter count: {total:,}"
 
 
 def test_parameter_count_classification() -> None:

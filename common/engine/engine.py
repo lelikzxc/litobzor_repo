@@ -179,7 +179,7 @@ class Engine:
         Returns:
             Dictionary with ``"loss"`` and any configured metric values.
         """
-        return self.trainer.validate(loader)
+        return self.trainer.validate(loader, desc="Test")
 
     def predict(self, loader: DataLoader) -> list[dict[str, Any]]:
         """Run inference on a DataLoader using the Predictor.

@@ -4,11 +4,6 @@ Provides the three-stage training workflow:
     - Stage 1: Supervised training only
     - Stage 2: Pseudo-label generation + adaptive thresholding + consistency
     - Stage 3: Refresh pseudo-labels + retrain
-
-This class exposes the training workflow methods but does NOT implement:
-    - Dataset loading / data loaders
-    - Optimizer or scheduler logic (beyond placeholders)
-    - CLI interface
 """
 
 from __future__ import annotations
@@ -18,20 +13,13 @@ from typing import Any, Callable
 import torch
 from torch import nn
 
+from common.training.utils import clip_gradients
+from papers.semiwafernet.training.progress import batch_progress, cycle_loader, epoch_progress
 from papers.semiwafernet.training.stage_manager import StageManager
 
 
 class Trainer:
-    """High-level trainer for SemiWaferNet semi-supervised training.
-
-    Args:
-        student: The student model (SemiWaferNet instance).
-        stage_manager: Configured StageManager instance.
-        optimizer: Optimizer for the student model.
-        supervised_loss_fn: Loss callable ``(student_output, targets) -> loss``.
-        scheduler: Optional LR scheduler.
-        device: Torch device for training.
-    """
+    """High-level trainer for SemiWaferNet semi-supervised training."""
 
     def __init__(
         self,
@@ -41,6 +29,8 @@ class Trainer:
         supervised_loss_fn: Callable | None = None,
         scheduler: Any = None,
         device: torch.device | None = None,
+        grad_max_norm: float | None = 1.0,
+        verbose: bool = True,
     ) -> None:
         self.student = student
         self.stage_manager = stage_manager
@@ -49,32 +39,17 @@ class Trainer:
 
         self.optimizer: torch.optim.Optimizer | None = optimizer
         self.scheduler: Any = scheduler
-
-        # Loss function (callable accepting (student_output, targets))
         self.supervised_loss_fn: Callable | None = supervised_loss_fn
+        self.grad_max_norm = grad_max_norm
+        self.verbose = verbose
 
     def set_optimizer(self, optimizer: torch.optim.Optimizer) -> None:
-        """Set the optimizer.
-
-        Args:
-            optimizer: PyTorch optimizer instance.
-        """
         self.optimizer = optimizer
 
     def set_scheduler(self, scheduler: Any) -> None:
-        """Set the learning rate scheduler.
-
-        Args:
-            scheduler: PyTorch LR scheduler instance.
-        """
         self.scheduler = scheduler
 
     def set_supervised_loss(self, loss_fn: Callable) -> None:
-        """Set the supervised loss function.
-
-        Args:
-            loss_fn: Callable that takes (student_output, targets) and returns loss dict.
-        """
         self.supervised_loss_fn = loss_fn
 
     def fit(
@@ -84,54 +59,23 @@ class Trainer:
         num_epochs: int = 1,
         consistency_weight: float | None = None,
     ) -> dict[str, float]:
-        """Run the three-stage semi-supervised training pipeline.
-
-        Stage 1: supervised warm-up on the labeled set (paper Section 2.2).
-        Stage 2: pseudo-label generation + adaptive thresholding + uncertainty
-            filtering, then train on labeled + accepted pseudo-labels.
-        Stage 3: refresh teacher, regenerate pseudo-labels, retrain.
-
-        If ``unlabeled_data`` is ``None`` (no unlabeled samples available),
-        only Stage 1 (supervised) is run — this is the practical fallback when
-        the dataset contains only labeled samples.
-
-        Args:
-            labeled_data: Iterable of ``(inputs, targets)`` batches.
-            unlabeled_data: Optional iterable of unlabeled input batches.
-            num_epochs: Number of epochs per stage.
-            consistency_weight: Weight for the consistency loss.
-
-        Returns:
-            Dictionary with training metrics.
-        """
         if self.optimizer is None:
             raise RuntimeError("Optimizer not set. Call set_optimizer() first.")
         if self.supervised_loss_fn is None:
             raise RuntimeError("Loss function not set. Call set_supervised_loss() first.")
 
-        # Stage 1: supervised warm-up on D_l
-        print("\n[SSL] Stage 1: supervised warm-up on labeled data")
-        stage1_metrics = self.train_stage1(
-            labeled_data=labeled_data,
-            num_epochs=num_epochs,
-        )
+        stage1_metrics = self.train_stage1(labeled_data=labeled_data, num_epochs=num_epochs)
 
         if unlabeled_data is None:
-            print("[SSL] No unlabeled data available — running supervised-only "
-                  "(Stage 1). Add unlabeled samples to enable Stages 2-3.")
+            print("[SSL] No unlabeled data available — running supervised-only (Stage 1).")
             return {"stage1": stage1_metrics}
 
-        # Stage 2: pseudo-label generation + adaptive thresholding
-        print("\n[SSL] Stage 2: pseudo-label generation + adaptive thresholding")
         stage2_metrics = self.train_stage2(
             labeled_data=labeled_data,
             unlabeled_data=unlabeled_data,
             num_epochs=num_epochs,
             consistency_weight=consistency_weight,
         )
-
-        # Stage 3: refresh teacher + regenerate pseudo-labels + retrain
-        print("\n[SSL] Stage 3: refresh teacher + regenerate pseudo-labels + retrain")
         stage3_metrics = self.train_stage3(
             labeled_data=labeled_data,
             unlabeled_data=unlabeled_data,
@@ -145,28 +89,29 @@ class Trainer:
             "stage3": stage3_metrics,
         }
 
+    def _run_supervised_step(
+        self,
+        inputs: torch.Tensor,
+        targets: dict[str, torch.Tensor],
+    ) -> torch.Tensor:
+        assert self.optimizer is not None
+        assert self.supervised_loss_fn is not None
+
+        self.optimizer.zero_grad()
+        student_output = self.student(inputs)
+        losses = self.supervised_loss_fn(student_output, targets)
+        loss = sum(losses.values()) if isinstance(losses, dict) else losses
+        loss.backward()
+        clip_gradients(self.student, self.grad_max_norm, None)
+        self.optimizer.step()
+        return loss
+
     def train_stage1(
         self,
         labeled_data: Any,
         num_epochs: int = 1,
         **kwargs: Any,
     ) -> dict[str, float]:
-        """Stage 1: Supervised training only.
-
-        Trains on labeled data without pseudo-labels or teacher.
-
-        Args:
-            labeled_data: Iterable of (inputs, targets) batches.
-                targets should be a dict with "classification" and "segmentation" keys.
-            num_epochs: Number of training epochs.
-            **kwargs: Additional arguments (reserved for future use).
-
-        Returns:
-            Dictionary with training metrics (e.g., {"loss": 0.0}).
-
-        Raises:
-            RuntimeError: If optimizer or loss function is not set.
-        """
         if self.optimizer is None:
             raise RuntimeError("Optimizer not set. Call set_optimizer() first.")
         if self.supervised_loss_fn is None:
@@ -177,12 +122,19 @@ class Trainer:
 
         total_loss = 0.0
         num_batches = 0
+        batch_total = len(labeled_data) if hasattr(labeled_data, "__len__") else None
 
-        for epoch in range(num_epochs):
+        for epoch in epoch_progress(num_epochs, stage=1, title="supervised warm-up", disable=not self.verbose):
             epoch_loss = 0.0
             batch_count = 0
 
-            for batch in labeled_data:
+            batches = batch_progress(
+                labeled_data,
+                desc=f"  Epoch {epoch + 1}/{num_epochs}",
+                total=batch_total,
+                disable=not self.verbose,
+            )
+            for batch in batches:
                 inputs, targets = batch
                 inputs = inputs.to(self.device)
                 targets = {
@@ -190,17 +142,10 @@ class Trainer:
                     for k, v in targets.items()
                 }
 
-                self.optimizer.zero_grad()
-                student_output = self.student(inputs)
-                losses = self.supervised_loss_fn(student_output, targets)
-
-                # Sum all loss components
-                loss = sum(losses.values()) if isinstance(losses, dict) else losses
-                loss.backward()
-                self.optimizer.step()
-
+                loss = self._run_supervised_step(inputs, targets)
                 epoch_loss += loss.item()
                 batch_count += 1
+                batches.set_postfix(loss=f"{loss.item():.4f}")
 
             if self.scheduler is not None:
                 self.scheduler.step()
@@ -208,7 +153,10 @@ class Trainer:
             total_loss += epoch_loss
             num_batches += batch_count
 
+        self.stage_manager.install_teacher_from_student()
         avg_loss = total_loss / max(num_batches, 1)
+        if self.verbose:
+            print(f"[SSL Stage 1] avg loss: {avg_loss:.4f}")
         return {"loss": avg_loss}
 
     def train_stage2(
@@ -219,35 +167,44 @@ class Trainer:
         consistency_weight: float | None = None,
         **kwargs: Any,
     ) -> dict[str, float]:
-        """Stage 2: train on labeled + accepted pseudo-labels (paper Sec. 2.2).
-
-        Paper procedure (not consistency MSE):
-            1. Teacher / MC-Dropout generates candidates on Du
-            2. Class-adaptive threshold + uncertainty filtering
-            3. Train student with supervised loss on Dl ∪ D_pseudo
-
-        ``consistency_weight`` is kept for API compatibility but unused.
-        """
         if self.optimizer is None:
             raise RuntimeError("Optimizer not set. Call set_optimizer() first.")
         if self.supervised_loss_fn is None:
             raise RuntimeError("Loss function not set. Call set_supervised_loss() first.")
 
-        self.stage_manager.set_stage(2)
-        _ = consistency_weight  # API compat; paper uses supervised CE on pseudo-labels
+        if self.stage_manager.get_stage() == 1:
+            self.stage_manager.set_stage(2)
+        _ = consistency_weight
 
         total_loss = 0.0
         total_sup_loss = 0.0
         total_pseudo_loss = 0.0
+        total_accepted = 0
+        total_pseudo = 0
         num_batches = 0
+        batch_total = len(labeled_data) if hasattr(labeled_data, "__len__") else None
+        unlabeled_cycle = cycle_loader(unlabeled_data)
 
-        for epoch in range(num_epochs):
+        stage_num = self.stage_manager.get_stage()
+        stage_title = "pseudo-labels + train" if stage_num == 2 else "refresh + retrain"
+
+        for epoch in epoch_progress(
+            num_epochs, stage=stage_num, title=stage_title, disable=not self.verbose
+        ):
             epoch_loss = 0.0
             epoch_sup = 0.0
             epoch_pseudo = 0.0
             batch_count = 0
 
-            for labeled_batch, unlabeled_batch in zip(labeled_data, unlabeled_data):
+            batches = batch_progress(
+                labeled_data,
+                desc=f"  Epoch {epoch + 1}/{num_epochs}",
+                total=batch_total,
+                disable=not self.verbose,
+            )
+            for labeled_batch in batches:
+                unlabeled_batch = next(unlabeled_cycle)
+
                 inputs_l, targets = labeled_batch
                 inputs_l = inputs_l.to(self.device)
                 targets = {
@@ -262,39 +219,50 @@ class Trainer:
 
                 self.optimizer.zero_grad()
 
-                # Supervised loss on labeled data
                 student_output_l = self.student(inputs_l)
                 sup_losses = self.supervised_loss_fn(student_output_l, targets)
                 sup_loss = sum(sup_losses.values()) if isinstance(sup_losses, dict) else sup_losses
 
-                # Pseudo-labels on unlabeled data (MC Dropout + adaptive filter)
                 with torch.no_grad():
                     pseudo_results = self.stage_manager.generate_pseudo_labels(inputs_u)
 
                 student_output_u = self.student(inputs_u)
-                mask = pseudo_results["mask_class"]  # [B]
-                pseudo_y = pseudo_results["pseudo_labels_class"]  # [B]
+                mask = pseudo_results["mask_class"]
+                pseudo_y = pseudo_results["pseudo_labels_class"]
+
+                total_pseudo += mask.numel()
+                total_accepted += int(mask.sum().item())
 
                 if mask.any():
-                    # Supervised CE on accepted pseudo-labels only (paper Stages 2–3)
-                    logits_u = student_output_u["classification"]
-                    pseudo_loss = nn.functional.cross_entropy(
-                        logits_u[mask], pseudo_y[mask]
+                    pseudo_losses = self.supervised_loss_fn(
+                        {"classification": student_output_u["classification"][mask]},
+                        {"classification": pseudo_y[mask]},
+                    )
+                    pseudo_loss = (
+                        sum(pseudo_losses.values())
+                        if isinstance(pseudo_losses, dict)
+                        else pseudo_losses
                     )
                 else:
                     pseudo_loss = student_output_u["classification"].sum() * 0.0
 
                 loss = sup_loss + pseudo_loss
                 loss.backward()
+                clip_gradients(self.student, self.grad_max_norm, None)
                 self.optimizer.step()
-
-                # Snapshot teacher as EMA of student (stable teacher for next refresh)
-                self.stage_manager.teacher.update(self.student)
 
                 epoch_loss += loss.item()
                 epoch_sup += float(sup_loss.detach())
                 epoch_pseudo += float(pseudo_loss.detach())
                 batch_count += 1
+
+                accept_rate = 100.0 * mask.float().mean().item()
+                batches.set_postfix(
+                    loss=f"{loss.item():.4f}",
+                    sup=f"{float(sup_loss.detach()):.3f}",
+                    pseudo=f"{float(pseudo_loss.detach()):.3f}",
+                    acc=f"{accept_rate:.0f}%",
+                )
 
             if self.scheduler is not None:
                 self.scheduler.step()
@@ -304,14 +272,23 @@ class Trainer:
             total_pseudo_loss += epoch_pseudo
             num_batches += batch_count
 
+        self.stage_manager.install_teacher_from_student()
+
         n = max(num_batches, 1)
         avg_pseudo = total_pseudo_loss / n
+        accept_pct = 100.0 * total_accepted / max(total_pseudo, 1)
+        if self.verbose:
+            print(
+                f"[SSL Stage {stage_num}] avg loss: {total_loss / n:.4f}, "
+                f"pseudo accept: {accept_pct:.1f}%"
+            )
+
         return {
             "loss": total_loss / n,
             "supervised_loss": total_sup_loss / n,
             "pseudo_loss": avg_pseudo,
-            # Legacy key kept for older tests/callers
             "consistency_loss": avg_pseudo,
+            "pseudo_accept_rate": accept_pct,
         }
 
     def train_stage3(
@@ -322,27 +299,9 @@ class Trainer:
         consistency_weight: float | None = None,
         **kwargs: Any,
     ) -> dict[str, float]:
-        """Stage 3: Refresh pseudo-labels and retrain.
-
-        Refreshes the teacher model, resets adaptive threshold statistics,
-        regenerates pseudo-labels, and trains again.
-
-        Args:
-            labeled_data: Iterable of (inputs, targets) batches.
-            unlabeled_data: Iterable of unlabeled input batches.
-            num_epochs: Number of training epochs.
-            consistency_weight: Weight for consistency loss. If None, uses
-                the value from StageManager.
-            **kwargs: Additional arguments (reserved for future use).
-
-        Returns:
-            Dictionary with training metrics.
-        """
-        # Refresh teacher and reset statistics
+        self.stage_manager.set_stage(3)
         self.refresh_teacher()
         self.stage_manager.reset_statistics()
-
-        # Run stage 2 logic (same training procedure)
         return self.train_stage2(
             labeled_data=labeled_data,
             unlabeled_data=unlabeled_data,
@@ -351,21 +310,8 @@ class Trainer:
             **kwargs,
         )
 
-    def generate_pseudo_labels(
-        self, unlabeled_x: torch.Tensor
-    ) -> dict[str, Any]:
-        """Generate pseudo-labels for unlabeled data.
-
-        Delegates to StageManager.generate_pseudo_labels().
-
-        Args:
-            unlabeled_x: Unlabeled input tensor [B, C, H, W].
-
-        Returns:
-            Dictionary with pseudo-labels, masks, and uncertainty metrics.
-        """
+    def generate_pseudo_labels(self, unlabeled_x: torch.Tensor) -> dict[str, Any]:
         return self.stage_manager.generate_pseudo_labels(unlabeled_x)
 
     def refresh_teacher(self) -> None:
-        """Refresh the teacher model by copying current student."""
         self.stage_manager.refresh_teacher()

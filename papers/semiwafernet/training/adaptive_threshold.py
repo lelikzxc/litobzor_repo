@@ -127,24 +127,29 @@ class AdaptiveThreshold(nn.Module):
         of the same shape. Otherwise returns a scalar mean threshold over
         observed classes (legacy / unit-test API).
         """
-        mu = self.class_mean
-        sigma = self.class_std
+        ref_device = (
+            pseudo_labels.device
+            if pseudo_labels is not None
+            else entropy.device if entropy is not None else self.class_mean.device
+        )
+        mu = self.class_mean.to(ref_device)
+        sigma = self.class_std.to(ref_device)
         cv = sigma / mu.clamp(min=1e-8)
 
         if pseudo_labels is None:
-            valid = self.class_count > 0
-            cv_term = cv[valid].mean() if valid.any() else torch.zeros((), device=mu.device)
+            valid = self.class_count.to(ref_device) > 0
+            cv_term = cv[valid].mean() if valid.any() else torch.zeros((), device=ref_device)
             if entropy is not None:
                 entropy_term = (1.0 - entropy.flatten().mean()).clamp(min=-1.0, max=1.0)
             else:
-                entropy_term = torch.zeros((), device=mu.device)
+                entropy_term = torch.zeros((), device=ref_device)
             tau = self.base_threshold + self.alpha * cv_term + self.beta * entropy_term
             return tau.clamp(0.0, 1.0)
 
-        flat_labels = pseudo_labels.flatten().long()
+        flat_labels = pseudo_labels.flatten().long().to(ref_device)
         cv_term = cv[flat_labels]
         if entropy is not None:
-            entropy_term = 1.0 - entropy.flatten()
+            entropy_term = 1.0 - entropy.flatten().to(ref_device)
         else:
             entropy_term = torch.zeros_like(cv_term)
 

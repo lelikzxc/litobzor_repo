@@ -91,15 +91,25 @@ class StageManager:
         """True if stage is 2 or 3."""
         return self.current_stage in (2, 3)
 
+    def install_teacher_from_student(self) -> None:
+        """Copy current student weights into the teacher (paper §2.2 stage boundary)."""
+        self.teacher.teacher.load_state_dict(self.student.state_dict(), strict=True)
+        for t_buf, s_buf in zip(self.teacher.teacher.buffers(), self.student.buffers()):
+            t_buf.copy_(s_buf)
+        self.teacher.teacher.eval()
+
     def generate_pseudo_labels(
         self, unlabeled_x: torch.Tensor
     ) -> dict[str, torch.Tensor | float]:
         """Generate pseudo-labels for unlabeled data via MC Dropout + filters.
 
+        Paper §2.2: pseudo-labels are inferred by the **teacher** model from the
+        previous stage (with dropout enabled in the ViT branch during MC passes).
+
         Returns:
             Dictionary with pseudo labels, masks, confidences, and adaptive threshold.
         """
-        mc_results = self.mc_dropout(self.student, unlabeled_x)
+        mc_results = self.mc_dropout(self.teacher.teacher, unlabeled_x)
 
         class_probs = mc_results["mean_probs_class"]
         class_confidence, pseudo_class_labels = class_probs.max(dim=1)
@@ -141,11 +151,8 @@ class StageManager:
         }
 
     def refresh_teacher(self) -> None:
-        """Refresh the teacher model by copying current student."""
-        self.teacher = EMATeacher(
-            self.student,
-            momentum=self.teacher.momentum,
-        )
+        """Refresh teacher from student before Stage 3 pseudo-label regeneration."""
+        self.install_teacher_from_student()
 
     def reset_statistics(self) -> None:
         """Reset adaptive threshold statistics."""

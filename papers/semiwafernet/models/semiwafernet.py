@@ -51,9 +51,10 @@ class SemiWaferNet(nn.Module):
         mode: str = "classification",
         mlp_ratio: int = 2,
         fusion_dim: int | None = None,  # unused; kept for test/API compat
-        base_channels: int = 48,
+        base_channels: int = 66,
         seg_embed_dim: int = 160,
         seg_mlp_ratio: int = 2,
+        dropout_cls: float = 0.5,
     ) -> None:
         super().__init__()
         self.mode = mode
@@ -80,7 +81,7 @@ class SemiWaferNet(nn.Module):
                 num_heads=num_heads,
                 num_layers=num_layers,
                 num_tokens=64,
-                dropout_cls=0.5,
+                dropout_cls=dropout_cls,
                 dropout=dropout,
             )
             # ModuleDict exposes ``classifier.head`` (Linear) for tests/API compat
@@ -142,13 +143,14 @@ class SemiWaferNet(nn.Module):
             num_heads=transformer_cfg.get("num_heads", 8),
             num_layers=transformer_cfg.get("num_layers", 4),
             dropout=transformer_cfg.get("dropout", 0.2 if mode == "classification" else 0.1),
+            dropout_cls=transformer_cfg.get("dropout_cls", 0.5),
             num_classes=model_cfg.get("num_classes", 9),
             seg_classes=model_cfg.get("seg_classes", 1),
             norm=backbone_cfg.get("norm", "bn"),
             activation=backbone_cfg.get("activation", "relu"),
             mode=mode,
             mlp_ratio=transformer_cfg.get("mlp_ratio", 2),
-            base_channels=decoder_cfg.get("base_channels", 48),
+            base_channels=decoder_cfg.get("base_channels", 66),
             seg_embed_dim=decoder_cfg.get("embed_dim", 160),
             seg_mlp_ratio=transformer_cfg.get("seg_mlp_ratio", decoder_cfg.get("mlp_ratio", 2)),
         )
