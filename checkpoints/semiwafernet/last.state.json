@@ -1,11 +1,11 @@
 {
-  "epoch": 0,
-  "best_metric": null,
+  "epoch": 50,
+  "best_metric": 0.939293622970581,
   "best_metric_name": "val_f1",
   "current_metric": null,
   "global_step": 0,
-  "training_finished": false,
-  "checkpoint_path": "checkpoints\\semiwafernet\\ssl_stage2.pt",
+  "training_finished": true,
+  "checkpoint_path": null,
   "mode": "max",
   "extra": {}
 }

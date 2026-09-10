@@ -27,7 +27,7 @@ class SemiWaferNet(nn.Module):
 
     Args:
         mode: ``"classification"`` or ``"segmentation"``.
-        in_channels: Input channels (1 for WM-811K).
+        in_channels: Input channels (use 3 for WM-811K one-hot die maps).
         backbone_channels: CNN stage widths for HybridCNN-ViT.
         embed_dim: Transformer width.
         num_heads / num_layers / dropout: Transformer hyperparams.
@@ -137,7 +137,10 @@ class SemiWaferNet(nn.Module):
         default_embed = 160 if mode == "segmentation" else 128
 
         return cls(
-            in_channels=input_cfg.get("in_channels", 1),
+            in_channels=input_cfg.get(
+                "in_channels",
+                backbone_cfg.get("in_channels", 3),
+            ),
             backbone_channels=backbone_cfg.get("channels", [64, 128]),
             embed_dim=transformer_cfg.get("embed_dim", default_embed),
             num_heads=transformer_cfg.get("num_heads", 8),

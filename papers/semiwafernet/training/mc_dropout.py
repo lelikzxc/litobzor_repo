@@ -1,27 +1,25 @@
 """Monte Carlo Dropout for uncertainty estimation.
-
 Enables dropout during inference and performs multiple stochastic
 forward passes to estimate predictive uncertainty via:
     - mean probabilities
-    - predictive entropy
-    - mutual information
+    - predictive entropy (raw nats, paper Eq. 11)
+    - mutual information (raw nats, paper Eq. 12)
+BatchNorm stays in eval mode; only Dropout modules are stochastic
+(standard MC-Dropout practice; ``model.train()`` would corrupt BN stats).
 """
-
 from __future__ import annotations
-
-import math
-
 import torch
 from torch import nn
 
+def enable_mc_dropout(model: nn.Module) -> None:
+    """Keep model in eval mode but activate Dropout for MC sampling."""
+    model.eval()
+    for module in model.modules():
+        if isinstance(module, nn.Dropout):
+            module.train()
 
 class MonteCarloDropout(nn.Module):
     """Monte Carlo Dropout for uncertainty estimation.
-
-    Performs multiple stochastic forward passes with dropout enabled
-    during inference, then computes uncertainty metrics from the
-    distribution of predictions.
-
     Args:
         num_passes: Number of stochastic forward passes (default: 20).
     """
@@ -31,82 +29,72 @@ class MonteCarloDropout(nn.Module):
         self.num_passes = num_passes
 
     @torch.no_grad()
-    def forward(self, model: nn.Module, x: torch.Tensor) -> dict[str, torch.Tensor]:
+    def forward(
+        self,
+        model: nn.Module,
+        x: torch.Tensor,
+        logit_bias: torch.Tensor | None = None,
+        temperature: float = 1.0,
+    ) -> dict[str, torch.Tensor]:
         """Run MC Dropout and return uncertainty estimates.
-
         Args:
-            model: A PyTorch model with dropout layers.
-            x: Input tensor [B, C, H, W].
-
+            model: Teacher / student returning ``classification`` logits.
+            x: Input batch.
+            logit_bias: Optional per-class bias added to logits before softmax
+                (e.g. ``log π`` for balanced-training → imbalanced pool).
+            temperature: Softmax temperature ``T`` (``logits / T``). ``T < 1``
+                sharpens the predictive distribution for selection.
         Returns:
             Dictionary with:
-                "mean_probs_class": [B, num_classes] mean softmax over passes.
-                "mean_probs_seg": [B, num_classes, H, W] mean softmax over passes.
-                "entropy_class": [B] normalised predictive entropy in [0, 1].
-                "entropy_seg": [B, H, W] normalised predictive entropy in [0, 1].
-                "mutual_info_class": [B] normalised mutual information in [0, 1].
-                "mutual_info_seg": [B, H, W] normalised mutual information in [0, 1].
+                mean_probs_class / mean_probs_seg
+                entropy_class / entropy_seg — raw predictive entropy (Eq. 11)
+                mutual_info_class / mutual_info_seg — raw MI (Eq. 12)
         """
-        model.train()  # enable dropout
-        B = x.shape[0]
-
+        enable_mc_dropout(model)
+        t = max(float(temperature), 1e-6)
         class_probs_list: list[torch.Tensor] = []
         seg_probs_list: list[torch.Tensor] = []
-
         for _ in range(self.num_passes):
             output = model(x)
-            class_probs_list.append(torch.softmax(output["classification"], dim=1))
+            logits = output["classification"]
+            if logit_bias is not None:
+                logits = logits + logit_bias.to(device=logits.device, dtype=logits.dtype)
+            class_probs_list.append(torch.softmax(logits / t, dim=1))
             seg = output["segmentation"]
             if seg.shape[1] == 1:
-                # Binary logits → keep [B, 1, H, W] Bernoulli probs for API compat
                 seg_probs_list.append(torch.sigmoid(seg))
             else:
                 seg_probs_list.append(torch.softmax(seg, dim=1))
-
-        model.eval()  # restore eval mode
-
-        # Stack and compute mean
-        class_probs_stack = torch.stack(class_probs_list, dim=0)  # [num_passes, B, C]
-        seg_probs_stack = torch.stack(seg_probs_list, dim=0)      # [num_passes, B, C, H, W]
-
-        mean_class_probs = class_probs_stack.mean(dim=0)  # [B, C]
-        mean_seg_probs = seg_probs_stack.mean(dim=0)      # [B, C, H, W]
-
-        num_classes = mean_class_probs.shape[1]
-        max_class_entropy = math.log(num_classes)
-
-        raw_entropy_class = self._entropy(mean_class_probs)
-        entropy_class = raw_entropy_class / max_class_entropy
-
+        model.eval()
+        class_probs_stack = torch.stack(class_probs_list, dim=0)
+        seg_probs_stack = torch.stack(seg_probs_list, dim=0)
+        mean_class_probs = class_probs_stack.mean(dim=0)
+        mean_seg_probs = seg_probs_stack.mean(dim=0)
+        entropy_class = self._entropy(mean_class_probs)
         if mean_seg_probs.shape[1] == 1:
-            max_seg_entropy = math.log(2.0)
             p = mean_seg_probs.squeeze(1).clamp(1e-7, 1 - 1e-7)
-            raw_entropy_seg = -(p * p.log() + (1 - p) * (1 - p).log())
-            entropy_seg = raw_entropy_seg / max_seg_entropy
-            per_pass_raw_seg = []
+            entropy_seg = -(p * p.log() + (1 - p) * (1 - p).log())
+            per_pass_entropy_seg = []
             for i in range(self.num_passes):
                 pi = seg_probs_stack[i].squeeze(1).clamp(1e-7, 1 - 1e-7)
-                per_pass_raw_seg.append(-(pi * pi.log() + (1 - pi) * (1 - pi).log()))
-            expected_entropy_seg_raw = torch.stack(per_pass_raw_seg, dim=0).mean(dim=0)
-            mutual_info_seg = (raw_entropy_seg - expected_entropy_seg_raw).clamp(min=0.0) / max_seg_entropy
+                per_pass_entropy_seg.append(
+                    -(pi * pi.log() + (1 - pi) * (1 - pi).log())
+                )
+            expected_entropy_seg = torch.stack(per_pass_entropy_seg, dim=0).mean(dim=0)
         else:
-            max_seg_entropy = math.log(mean_seg_probs.shape[1])
-            raw_entropy_seg = self._entropy(mean_seg_probs)
-            entropy_seg = raw_entropy_seg / max_seg_entropy
-            per_pass_raw_seg = torch.stack(
+            entropy_seg = self._entropy(mean_seg_probs)
+            per_pass_entropy_seg = torch.stack(
                 [self._entropy(seg_probs_stack[i]) for i in range(self.num_passes)],
                 dim=0,
             )
-            expected_entropy_seg_raw = per_pass_raw_seg.mean(dim=0)
-            mutual_info_seg = (raw_entropy_seg - expected_entropy_seg_raw).clamp(min=0.0) / max_seg_entropy
-
-        per_pass_raw_class = torch.stack(
+            expected_entropy_seg = per_pass_entropy_seg.mean(dim=0)
+        per_pass_entropy_class = torch.stack(
             [self._entropy(class_probs_stack[i]) for i in range(self.num_passes)],
             dim=0,
         )
-        expected_entropy_class_raw = per_pass_raw_class.mean(dim=0)
-        mutual_info_class = (raw_entropy_class - expected_entropy_class_raw).clamp(min=0.0) / max_class_entropy
-
+        expected_entropy_class = per_pass_entropy_class.mean(dim=0)
+        mutual_info_class = (entropy_class - expected_entropy_class).clamp(min=0.0)
+        mutual_info_seg = (entropy_seg - expected_entropy_seg).clamp(min=0.0)
         return {
             "mean_probs_class": mean_class_probs,
             "mean_probs_seg": mean_seg_probs,
@@ -118,15 +106,7 @@ class MonteCarloDropout(nn.Module):
 
     @staticmethod
     def _entropy(probs: torch.Tensor) -> torch.Tensor:
-        """Compute entropy along the class dimension.
-
-        Args:
-            probs: Probability tensor with class dimension at dim=1.
-
-        Returns:
-            Entropy tensor with class dimension reduced.
-        """
-        # Clamp to avoid log(0)
+        """Shannon entropy along class dim=1 (natural log, paper Eq. 11)."""
         eps = torch.finfo(probs.dtype).eps
         clamped = probs.clamp(min=eps)
         return -(clamped * clamped.log()).sum(dim=1)

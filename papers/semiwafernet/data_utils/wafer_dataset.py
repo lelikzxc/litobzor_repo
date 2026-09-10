@@ -1,14 +1,11 @@
-"""WM-811K wafer map dataset loader for SemiWaferNet with augmentations and hybrid sampling.
+"""WM-811K wafer map dataset loader for SemiWaferNet.
 
-Loads wafer map images from the WM-811K dataset (labels.csv + PNG images)
-and returns multitask samples compatible with SemiWaferNet:
-    ``{"image": [1, H, W], "label": int, "mask": [H, W]}``
+WM-811K PNGs store categorical die states ``{0, 1, 2}`` (background / normal /
+defect), NOT natural-image intensities. Encoding follows the paper's
+``X ∈ R^{3×H×W}`` by one-hot channels after nearest-neighbor resize.
 
-Implements:
-    - Data augmentation pipeline (Section 4.1: "dynamic augmentation")
-    - Hybrid sampling: downsampling None class to 30% (Section 4.1)
-
-SemiWaferNet operates on **grayscale** (1-channel) images per the paper.
+Augmentations are geometric only (flip / 90° rotations) so categories stay
+intact — no ColorJitter / bilinear.
 """
 
 from __future__ import annotations
@@ -20,17 +17,9 @@ import numpy as np
 import torch
 from PIL import Image
 from tqdm import tqdm
-from torchvision.transforms import (
-    ColorJitter,
-    Compose,
-    RandomHorizontalFlip,
-    RandomRotation,
-    Resize,
-)
 
 from papers.semiwafernet.data_utils.base import BaseDataset, DatasetType
 
-# WM-811K class names (9 classes)
 WM811K_CLASSES: list[str] = [
     "none",
     "Center",
@@ -43,39 +32,68 @@ WM811K_CLASSES: list[str] = [
     "Scratch",
 ]
 
-# Label-to-index mapping
 WM811K_LABEL_TO_IDX: dict[str, int] = {
     label: idx for idx, label in enumerate(WM811K_CLASSES)
 }
 
-# Index of "none" class (class 0)
 NONE_CLASS_IDX: int = 0
 
 
-def default_train_transform(image_size: int) -> Compose:
-    """Build training augmentation pipeline per SemiWaferNet paper Section 4.1.
+def load_wafer_die_map(image_path: Path) -> np.ndarray:
+    """Load a wafer PNG as an integer die-state map ``{0,1,2}``."""
+    arr = np.array(Image.open(image_path).convert("L"), dtype=np.int64)
+    # Some exports may stretch to 0..255 — snap to 3-level die states.
+    uniq = np.unique(arr)
+    if uniq.max() > 2:
+        # Map lowest→0, mid→1, highest→2 when possible
+        levels = np.unique(arr)
+        if len(levels) == 1:
+            arr = np.zeros_like(arr)
+        elif len(levels) == 2:
+            arr = (arr == levels[1]).astype(np.int64)
+        else:
+            # tertile-like: use 0, mid, max present
+            lo, hi = levels.min(), levels.max()
+            mid = levels[len(levels) // 2]
+            out = np.zeros_like(arr)
+            out[arr == mid] = 1
+            out[arr == hi] = 2
+            arr = out
+    return np.clip(arr, 0, 2)
 
-    Applies:
-        - Resize to fixed ``image_size × image_size`` (wafer maps are non-square)
-        - Random horizontal flip (p=0.5)
-        - Random rotation (±10°)
-        - Color jitter (brightness=0.2, contrast=0.2)
 
-    Returns PIL images (not tensors) — tensor conversion happens in __getitem__.
+def resize_die_map(die_map: np.ndarray, image_size: int) -> np.ndarray:
+    """Nearest-neighbor resize — preserves categorical die states."""
+    img = Image.fromarray(die_map.astype(np.uint8), mode="L")
+    img = img.resize((image_size, image_size), Image.NEAREST)
+    return np.array(img, dtype=np.int64)
 
-    Args:
-        image_size: Target spatial size (H == W).
 
-    Returns:
-        A ``torchvision.transforms.Compose`` pipeline.
-    """
-    size = (image_size, image_size)
-    return Compose([
-        Resize(size, interpolation=Image.BILINEAR),
-        RandomHorizontalFlip(p=0.5),
-        RandomRotation(degrees=10),
-        ColorJitter(brightness=0.2, contrast=0.2),
-    ])
+def die_map_to_onehot(die_map: np.ndarray) -> torch.Tensor:
+    """Convert ``[H,W]`` die states to ``[3,H,W]`` float one-hot (paper R^{3×H×W})."""
+    oh = np.eye(3, dtype=np.float32)[die_map.astype(np.int64)]
+    return torch.from_numpy(oh).permute(2, 0, 1).contiguous()
+
+
+def geometric_augment(x: torch.Tensor, rng: np.random.RandomState | None = None) -> torch.Tensor:
+    """Flip / 90°-rotate a ``[C,H,W]`` tensor (category-preserving)."""
+    if rng is None:
+        rng = np.random.RandomState()
+    if rng.rand() < 0.5:
+        x = torch.flip(x, dims=[-1])
+    if rng.rand() < 0.5:
+        x = torch.flip(x, dims=[-2])
+    k = int(rng.randint(0, 4))
+    if k:
+        x = torch.rot90(x, k, dims=[-2, -1])
+    return x
+
+
+def encode_wafer_image(image_path: Path, image_size: int) -> torch.Tensor:
+    """Full encode path: load → nearest resize → one-hot ``[3,H,W]``."""
+    die = load_wafer_die_map(image_path)
+    die = resize_die_map(die, image_size)
+    return die_map_to_onehot(die)
 
 
 def apply_hybrid_sampling(
@@ -83,45 +101,23 @@ def apply_hybrid_sampling(
     none_downsample_ratio: float = 0.30,
     seed: int = 42,
 ) -> list[tuple[str, int]]:
-    """Apply hybrid sampling: downsample the majority 'none' class.
-
-    From SemiWaferNet paper Section 4.1:
-        "To address class imbalance, we employ hybrid sampling that
-         downsamples the majority None class to 30% of its original size."
-
-    Args:
-        samples: List of (filename, label_idx) pairs.
-        none_downsample_ratio: Fraction of None class to keep (default 0.30).
-        seed: Random seed for reproducibility.
-
-    Returns:
-        Downsampled list of (filename, label_idx) pairs.
-    """
+    """Downsample the majority 'none' class (paper Section 4.1)."""
     rng = np.random.RandomState(seed)
     none_samples = [(f, l) for f, l in samples if l == NONE_CLASS_IDX]
     other_samples = [(f, l) for f, l in samples if l != NONE_CLASS_IDX]
 
-    # Downsample None class
     keep_none = int(len(none_samples) * none_downsample_ratio)
     rng.shuffle(none_samples)
     none_downsampled = none_samples[:keep_none]
 
-    print(f"  Hybrid sampling: None {len(none_samples)} -> {keep_none}, "
-          f"others {len(other_samples)}, total {len(other_samples) + keep_none}")
-
+    print(
+        f"  Hybrid sampling: None {len(none_samples)} -> {keep_none}, "
+        f"others {len(other_samples)}, total {len(other_samples) + keep_none}"
+    )
     return other_samples + none_downsampled
 
 
 def inspect_wm811k_labels(labels_path: str | Path) -> dict[str, bool | str | int]:
-    """Inspect ``labels.csv`` layout for SemiWaferNet training requirements.
-
-    Returns:
-        Dictionary with:
-            - ``format``: ``\"official\"`` (failureType + trianTestLabel) or ``\"simple\"``
-            - ``has_failure_type``: needed for SSL unlabeled pool
-            - ``has_official_split``: needed for paper train/test partition
-            - ``unlabeled_count``: rows with empty failureType (0 for simple CSV)
-    """
     labels_path = Path(labels_path)
     if not labels_path.exists():
         raise FileNotFoundError(f"Labels file not found: {labels_path}")
@@ -156,11 +152,6 @@ def inspect_wm811k_labels(labels_path: str | Path) -> dict[str, bool | str | int
 
 
 def _is_unlabeled_failure_type(value: str) -> bool:
-    """WM-811K unlabeled rows have empty failureType (parsed as NaN in pandas).
-
-    Note: the string ``\"none\"`` is a valid labeled class (no defect pattern),
-    not an unlabeled marker.
-    """
     v = value.strip()
     return (not v) or v.lower() == "nan"
 
@@ -169,20 +160,6 @@ def parse_wm811k_labeled_rows(
     labels_path: Path,
     split: str | None = None,
 ) -> list[tuple[str, int]]:
-    """Parse labeled ``(filename, class_idx)`` rows from WM-811K ``labels.csv``.
-
-    Supports:
-      - Official CSV: ``filename,...,trianTestLabel,failureType``
-      - Simple CSV: ``image,label`` / ``filename,label``
-
-    Args:
-        labels_path: Path to ``labels.csv``.
-        split: If ``\"training\"`` or ``\"test\"``, keep only that official
-            ``trianTestLabel`` partition. ``None`` keeps all labeled rows.
-
-    Returns:
-        List of ``(filename, label_idx)`` for rows with a valid failureType.
-    """
     if not labels_path.exists():
         raise FileNotFoundError(f"Labels file not found: {labels_path}")
 
@@ -194,7 +171,6 @@ def parse_wm811k_labeled_rows(
         header_l = header.lower()
         cols = [c.strip().lower() for c in header.split(",")]
 
-        # Official WM-811K layout
         if "failuretype" in cols:
             ft_idx = cols.index("failuretype")
             fn_idx = cols.index("filename") if "filename" in cols else 0
@@ -229,7 +205,6 @@ def parse_wm811k_labeled_rows(
                         continue
                 samples.append((parts[fn_idx].strip(), label_idx))
 
-        # Simple image,label layout
         elif ("image" in header_l or "filename" in header_l) and "label" in header_l:
             for line in f:
                 line = line.strip()
@@ -259,11 +234,6 @@ def parse_wm811k_unlabeled_filenames(
     max_samples: int | None = None,
     seed: int = 42,
 ) -> list[str]:
-    """Return filenames with empty/NaN ``failureType`` (unlabeled pool).
-
-    Paper Section 4.1 uses 150,000 unlabeled samples subsampled from the
-    full unlabeled pool (~638k).
-    """
     labels_path = Path(labels_path)
     if not labels_path.exists():
         raise FileNotFoundError(f"Labels file not found: {labels_path}")
@@ -273,7 +243,6 @@ def parse_wm811k_unlabeled_filenames(
         header = f.readline().strip()
         cols = [c.strip().lower() for c in header.split(",")]
         if "failuretype" not in cols:
-            # Simple image,label CSV has no unlabeled pool (paper needs LSWMD unpack).
             return []
         ft_idx = cols.index("failuretype")
         fn_idx = cols.index("filename") if "filename" in cols else 0
@@ -302,34 +271,25 @@ def parse_wm811k_unlabeled_filenames(
     return filenames
 
 
+def _resolve_image_path(images_dir: Path, filename: str) -> Path:
+    image_path = images_dir / filename
+    if image_path.exists():
+        return image_path
+    png_path = images_dir / f"{Path(filename).stem}.png"
+    if png_path.exists():
+        return png_path
+    raise FileNotFoundError(f"Image not found: {image_path} or {png_path}")
+
+
 class WaferWM811KDataset(BaseDataset):
-    """WM-811K wafer map classification dataset for SemiWaferNet.
-
-    Reads ``labels.csv`` from the dataset root and loads PNG images.
-    Only **labeled** rows (non-empty ``failureType``) are included.
-    Returns samples with image, label, and a dummy mask
-    (WM-811K has classification labels, not segmentation masks).
-
-    Args:
-        data_root: Root directory containing ``labels.csv`` and ``images/``.
-        image_size: Target image size (assumed square, default 32 for classification).
-        num_classes: Number of classes (default 9 for WM-811K).
-        transform: Optional transform to apply to images (PIL → PIL).
-            If ``None`` and ``train=True``, uses default augmentations.
-            If ``None`` and ``train=False``, uses resize only.
-        train: If ``True``, applies training augmentations by default.
-        hybrid_sampling: If ``True``, downsamples None class (Section 4.1).
-        none_downsample_ratio: Fraction of None class to keep (default 0.30).
-        split: Official WM-811K partition filter: ``\"training\"``, ``\"test\"``,
-            or ``None`` for all labeled samples (paper Section 4.1).
-    """
+    """Labeled WM-811K classification dataset (3-channel one-hot die maps)."""
 
     def __init__(
         self,
         data_root: str | Path,
         image_size: int = 32,
         num_classes: int = 9,
-        transform: callable | None = None,
+        transform: callable | None = None,  # unused; kept for API compat
         train: bool = True,
         hybrid_sampling: bool = True,
         none_downsample_ratio: float = 0.30,
@@ -341,17 +301,9 @@ class WaferWM811KDataset(BaseDataset):
         self.num_classes = num_classes
         self.class_names = WM811K_CLASSES
         self.split = split
-
-        # Default transforms
-        if transform is None:
-            if train:
-                self.transform = default_train_transform(image_size)
-            else:
-                self.transform = Compose([
-                    Resize((image_size, image_size), interpolation=Image.BILINEAR),
-                ])
-        else:
-            self.transform = transform
+        self.train = train
+        self._aug_rng = np.random.RandomState(42)
+        _ = transform
 
         self.labels_path = self.data_root / "labels.csv"
         self.images_dir = self.data_root / "images"
@@ -361,11 +313,9 @@ class WaferWM811KDataset(BaseDataset):
         )
         if not self._samples:
             raise ValueError(
-                f"No labeled samples loaded from {self.labels_path} "
-                f"(split={split!r})"
+                f"No labeled samples loaded from {self.labels_path} (split={split!r})"
             )
 
-        # Apply hybrid sampling (downsample None class) for training
         if train and hybrid_sampling:
             self._samples = apply_hybrid_sampling(
                 self._samples,
@@ -378,37 +328,11 @@ class WaferWM811KDataset(BaseDataset):
 
     def __getitem__(self, index: int) -> dict[str, Any]:
         filename, label = self._samples[index]
-        image_path = self.images_dir / filename
-
-        # Load image as grayscale (1 channel) — WM-811K is grayscale
-        if image_path.exists():
-            image = Image.open(image_path).convert("L")
-        else:
-            png_path = self.images_dir / f"{Path(filename).stem}.png"
-            if png_path.exists():
-                image = Image.open(png_path).convert("L")
-            else:
-                raise FileNotFoundError(f"Image not found: {image_path} or {png_path}")
-
-        # Apply transform (includes resize + augmentations)
-        if self.transform is not None:
-            # Convert to RGB for torchvision transforms (they expect 3-channel)
-            image_rgb = image.convert("RGB")
-            image_rgb = self.transform(image_rgb)
-            # Convert back to grayscale tensor [1, H, W]
-            image = torch.from_numpy(np.array(image_rgb, dtype=np.float32)).mean(dim=2, keepdim=True).permute(2, 0, 1) / 255.0
-        else:
-            image = image.resize((self.image_size, self.image_size), Image.BILINEAR)
-            image = torch.from_numpy(np.array(image, dtype=np.float32)).unsqueeze(0) / 255.0
-
-        # Dummy mask (zeros) — WM-811K has no segmentation masks
+        image = encode_wafer_image(_resolve_image_path(self.images_dir, filename), self.image_size)
+        if self.train:
+            image = geometric_augment(image, self._aug_rng)
         mask = torch.zeros(self.image_size, self.image_size, dtype=torch.long)
-
-        return {
-            "image": image,      # [1, H, W]
-            "label": label,      # int
-            "mask": mask,        # [H, W] dummy
-        }
+        return {"image": image, "label": label, "mask": mask}
 
     @property
     def num_samples(self) -> int:
@@ -416,25 +340,12 @@ class WaferWM811KDataset(BaseDataset):
 
 
 class SMOTEDataset(BaseDataset):
-    """WM-811K dataset with SMOTE oversampling of minority classes.
+    """Balance minority classes for HybridCNN-ViT training (paper Section 4.1).
 
-    Applies SMOTE (Synthetic Minority Over-sampling Technique) to the
-    minority classes to construct a balanced training set, per the paper
-    Section 4.1: "a balanced labeled training set is constructed via hybrid
-    sampling by downsampling the majority None class and applying SMOTE to
-    minority classes".
-
-    SMOTE operates on flattened image vectors (image_size^2 features) and
-    generates synthetic samples by interpolating between nearest neighbours
-    of the same class. The synthetic images are stored in memory.
-
-    Args:
-        data_root: Root directory containing ``labels.csv`` and ``images/``.
-        samples: List of ``(filename, label_idx)`` pairs (already downsampled).
-        image_size: Target image size (assumed square).
-        num_classes: Number of classes.
-        smote_k_neighbors: Number of nearest neighbours for SMOTE (default 5).
-        seed: Random seed for reproducibility.
+    Paper says SMOTE; on categorical die states ``{0,1,2}`` soft SMOTE creates
+    invalid maps. Default ``method="random"`` uses RandomOverSampler (exact
+    copies of real maps + online geometric augs). ``method="smote"`` keeps the
+    interpolate-then-round path for ablations.
     """
 
     def __init__(
@@ -445,6 +356,7 @@ class SMOTEDataset(BaseDataset):
         num_classes: int = 9,
         smote_k_neighbors: int = 5,
         seed: int = 42,
+        method: str = "random",
     ) -> None:
         super().__init__(dataset_type=DatasetType.CLASSIFICATION)
         self.data_root = Path(data_root)
@@ -452,93 +364,60 @@ class SMOTEDataset(BaseDataset):
         self.num_classes = num_classes
         self.class_names = WM811K_CLASSES
         self.images_dir = self.data_root / "images"
+        self._aug_rng = np.random.RandomState(seed + 7)
+        method = str(method).lower().strip()
 
-        # Dynamic augmentation (Section 4.1)
-        self.transform = Compose([
-            RandomHorizontalFlip(p=0.5),
-            RandomRotation(degrees=10),
-            ColorJitter(brightness=0.2, contrast=0.2),
-        ])
-
-        # Load all images as flattened vectors
         images: list[np.ndarray] = []
         labels: list[int] = []
         for filename, label in tqdm(
             samples,
-            desc="  Loading images for SMOTE",
+            desc="  Loading images for oversample",
             unit="img",
         ):
-            img = self._load_image(filename)
-            images.append(img)
+            die = load_wafer_die_map(_resolve_image_path(self.images_dir, filename))
+            die = resize_die_map(die, image_size)
+            images.append(die.astype(np.float32).reshape(-1))
             labels.append(label)
 
-        X = np.stack(images)  # [N, image_size^2]
-        y = np.array(labels)  # [N]
-
-        # Apply SMOTE to minority classes (only if there are >= 2 classes
-        # and every class has enough samples for k-neighbours)
-        from imblearn.over_sampling import SMOTE
+        X = np.stack(images)
+        y = np.array(labels)
 
         unique_classes = np.unique(y)
-        min_count = min(np.bincount(y)[unique_classes])
-        if len(unique_classes) < 2 or min_count < smote_k_neighbors + 1:
-            # Not enough classes/samples for SMOTE — keep original data
+        min_count = int(min(np.bincount(y)[unique_classes]))
+        if len(unique_classes) < 2 or min_count < 2:
             X_res, y_res = X, y
-            print(f"  SMOTE skipped (classes={len(unique_classes)}, min_count={min_count})")
-        else:
-            smote = SMOTE(
-                k_neighbors=smote_k_neighbors,
-                random_state=seed,
-            )
-            X_res, y_res = smote.fit_resample(X, y)
+            print(f"  Oversample skipped (classes={len(unique_classes)}, min_count={min_count})")
+        elif method == "smote":
+            from imblearn.over_sampling import SMOTE
 
-        # Store resampled data
-        self._X = X_res.reshape(-1, 1, image_size, image_size).astype(np.float32)
+            k = min(smote_k_neighbors, max(1, min_count - 1))
+            smote = SMOTE(k_neighbors=k, random_state=seed)
+            X_res, y_res = smote.fit_resample(X, y)
+            print(f"  SMOTE (interp+round): {len(X)} -> {len(X_res)} samples")
+        else:
+            from imblearn.over_sampling import RandomOverSampler
+
+            ros = RandomOverSampler(random_state=seed)
+            X_res, y_res = ros.fit_resample(X, y)
+            print(f"  RandomOverSampler (real copies): {len(X)} -> {len(X_res)} samples")
+
+        die = np.rint(X_res).astype(np.int64).clip(0, 2).reshape(-1, image_size, image_size)
+        oh = np.eye(3, dtype=np.float32)[die]
+        self._X = np.transpose(oh, (0, 3, 1, 2)).astype(np.float32)
         self._y = y_res.astype(np.int64)
 
-        print(f"  SMOTE: {len(X)} -> {len(X_res)} samples")
         counts = np.bincount(self._y, minlength=num_classes)
-        print(f"  SMOTE class counts: {counts.tolist()}")
-
-    def _load_image(self, filename: str) -> np.ndarray:
-        """Load a single image as a flattened float vector in [0, 1]."""
-        image_path = self.images_dir / filename
-        if not image_path.exists():
-            png_path = self.images_dir / f"{Path(filename).stem}.png"
-            if png_path.exists():
-                image_path = png_path
-            else:
-                raise FileNotFoundError(f"Image not found: {image_path}")
-        image = Image.open(image_path).convert("L")
-        image = image.resize((self.image_size, self.image_size), Image.BILINEAR)
-        arr = np.array(image, dtype=np.float32) / 255.0
-        return arr.flatten()
+        print(f"  Balanced class counts: {counts.tolist()}")
 
     def __len__(self) -> int:
         return len(self._y)
 
     def __getitem__(self, index: int) -> dict[str, Any]:
-        # image: [1, H, W] float in [0, 1]
-        image = self._X[index]
-
-        # Apply dynamic augmentation (Section 4.1)
-        if self.transform is not None:
-            # Convert to PIL for torchvision transforms
-            img_pil = Image.fromarray((image[0] * 255.0).astype(np.uint8), mode="L")
-            img_rgb = img_pil.convert("RGB")
-            img_rgb = self.transform(img_rgb)
-            # Convert back to grayscale tensor [1, H, W]
-            image = torch.from_numpy(np.array(img_rgb, dtype=np.float32)).mean(dim=2, keepdim=True).permute(2, 0, 1) / 255.0
-        else:
-            image = torch.from_numpy(image)  # [1, H, W]
-
+        image = torch.from_numpy(self._X[index].copy())
+        image = geometric_augment(image, self._aug_rng)
         label = int(self._y[index])
         mask = torch.zeros(self.image_size, self.image_size, dtype=torch.long)
-        return {
-            "image": image,
-            "label": label,
-            "mask": mask,
-        }
+        return {"image": image, "label": label, "mask": mask}
 
     @property
     def num_samples(self) -> int:
@@ -546,13 +425,7 @@ class SMOTEDataset(BaseDataset):
 
 
 class UnlabeledWM811KDataset(BaseDataset):
-    """Unlabeled WM-811K maps (empty ``failureType``) for SSL Stages 2–3.
-
-    Paper Section 4.1: subsample 150,000 unlabeled wafers and add them to the
-    balanced labeled training set for progressive pseudo-labeling.
-
-    Each sample is ``{\"image\": [1, H, W]}`` (no label / mask).
-    """
+    """Unlabeled WM-811K maps for SSL (empty failureType)."""
 
     def __init__(
         self,
@@ -560,7 +433,7 @@ class UnlabeledWM811KDataset(BaseDataset):
         image_size: int = 32,
         max_samples: int = 150_000,
         transform: callable | None = None,
-        train: bool = True,
+        train: bool = False,
         seed: int = 42,
     ) -> None:
         super().__init__(dataset_type=DatasetType.CLASSIFICATION)
@@ -568,16 +441,9 @@ class UnlabeledWM811KDataset(BaseDataset):
         self.image_size = image_size
         self.images_dir = self.data_root / "images"
         self.labels_path = self.data_root / "labels.csv"
-
-        if transform is None:
-            if train:
-                self.transform = default_train_transform(image_size)
-            else:
-                self.transform = Compose([
-                    Resize((image_size, image_size), interpolation=Image.BILINEAR),
-                ])
-        else:
-            self.transform = transform
+        self.train = train
+        self._aug_rng = np.random.RandomState(seed + 11)
+        _ = transform
 
         self._filenames = parse_wm811k_unlabeled_filenames(
             self.labels_path,
@@ -596,30 +462,20 @@ class UnlabeledWM811KDataset(BaseDataset):
 
     def __getitem__(self, index: int) -> dict[str, Any]:
         filename = self._filenames[index]
-        image_path = self.images_dir / filename
-        if not image_path.exists():
-            png_path = self.images_dir / f"{Path(filename).stem}.png"
-            if png_path.exists():
-                image_path = png_path
-            else:
-                raise FileNotFoundError(f"Image not found: {image_path}")
-
-        image = Image.open(image_path).convert("L")
-        if self.transform is not None:
-            image_rgb = image.convert("RGB")
-            image_rgb = self.transform(image_rgb)
-            image = (
-                torch.from_numpy(np.array(image_rgb, dtype=np.float32))
-                .mean(dim=2, keepdim=True)
-                .permute(2, 0, 1)
-                / 255.0
-            )
-        else:
-            image = image.resize((self.image_size, self.image_size), Image.BILINEAR)
-            image = torch.from_numpy(np.array(image, dtype=np.float32)).unsqueeze(0) / 255.0
-
+        image = encode_wafer_image(
+            _resolve_image_path(self.images_dir, filename), self.image_size
+        )
+        if self.train:
+            image = geometric_augment(image, self._aug_rng)
         return {"image": image}
 
     @property
     def num_samples(self) -> int:
         return len(self._filenames)
+
+
+# Back-compat alias used by older imports / docs
+def default_train_transform(image_size: int):
+    """Deprecated: categorical maps use geometric_augment on tensors."""
+    _ = image_size
+    return None

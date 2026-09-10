@@ -1,0 +1,1150 @@
+
+--- PAGE 1 ---
+Academic Editor: Silvia Liberata Ullo
+Received: 24 February 2026
+Revised: 23 March 2026
+Accepted: 26 March 2026
+Published: 30 March 2026
+Copyright: © 2026 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license.
+Article
+SemiWaferNet: Efficient Semi-Supervised Hybrid
+CNN–Transformer Models for Wafer Defect Classification
+and Segmentation
+Ruiwen Shi 1, Ruihan Liu 2, Zhiguo Zhou 1,3,4,*
+and Xuehua Zhou 1,4
+1
+School of Integrated Circuits and Electronics, Beijing Institute of Technology, Beijing 100081, China;
+3120231338@bit.edu.cn (R.S.); xuehuazhou@bit.edu.cn (X.Z.)
+2
+College of Intelligent Robotics and Advanced Manufacturing, Fudan University, Shanghai 200433, China;
+rhliu25@m.fudan.edu.cn
+3
+Marine Science and Technology Domain, Beijing Institute of Technology (Zhuhai), Zhuhai 519088, China
+4
+Tangshan Research Institute of Beijing Institute of Technology, Tangshan 063000, China
+*
+Correspondence: zhiguozhou@bit.edu.cn
+Abstract
+Wafer defect analysis is important for semiconductor manufacturing, but labeled data are
+limited, and class distributions are highly imbalanced. We present a semi-supervised frame-
+work with two lightweight hybrid CNN–Transformer models for wafer defect classification
+and segmentation. For classification, HybridCNN-ViT combines CNN-based local fea-
+ture extraction with Transformer-based global context modeling, and adopts a three-stage
+progressive pseudo-labeling strategy to leverage unlabeled samples. The pseudo-label
+selection mechanism is systematically calibrated to improve pseudo-label reliability un-
+der limited labeled data. For segmentation, ConvoFormer-UNet integrates convolution-
+enhanced embeddings with Transformer blocks to balance boundary detail and global
+context. On the public WM-811K dataset, HybridCNN-ViT achieves 98.72% accuracy and
+0.9985 macro-AUC under the semi-supervised setting for classification, while ConvoFormer-
+UNet reaches 99.19% IoU for segmentation with fewer parameters than several baselines.
+We also report efficiency on a single GPU to illustrate practical inference speed.
+Keywords: wafer defect detection; defect segmentation; semi-supervised learning; vision
+transformer; lightweight architecture; industrial inspection
+1. Introduction
+Wafer defects are inevitable in semiconductor manufacturing and typically appear
+as spatial patterns associated with process variations or equipment issues. For example,
+cluster patterns may relate to deposition problems, edge rings to etching issues, and linear
+scratches to mechanical handling errors [1]. Accurate Automatic Defect Classification
+(ADC) can support root-cause analysis and yield improvement.
+We study this problem on the WM-811K dataset [2], a widely used benchmark for
+wafer map analysis. It contains 811,457 wafer maps across nine pattern types (Center,
+Donut, Edge-Loc, Edge-Ring, Loc, Near-full, Random, Scratch, and None; Figure 1). Only
+172,950 maps are labeled with severe class imbalance, while 638,507 samples are unlabeled,
+naturally motivating semi-supervised learning (SSL) [3].
+Electronics 2026, 15, 1437
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 2 ---
+Electronics 2026, 15, 1437
+2 of 17
+Figure 1. Examples of the nine wafer defect patterns from the WM-811K dataset, a widely used
+benchmark for wafer map analysis.
+Early wafer defect analysis relied on rule-based or statistical process control meth-
+ods [4], which often struggled with complex patterns and noisy data. Classical machine
+learning approaches then used handcrafted features with classifiers such as SVMs [1] and
+Radon transform-based pipelines with decision trees [5] or voting ensembles [6]. However,
+these pipelines typically required extensive feature engineering and could generalize poorly
+on high-dimensional, imbalanced wafer data [7,8].
+Deep learning, especially Convolutional Neural Networks (CNNs), improves represen-
+tation learning by automating feature extraction [9,10]. For instance, Kyeong and Kim [11]
+reported 98% accuracy, and Wang et al. [12] achieved 93% using deformable convolutions.
+Nonetheless, CNNs can be limited by local receptive fields, making it difficult to capture
+long-range dependencies needed for certain defect morphologies [13].
+Vision Transformers (ViTs) [14] model global relationships via self-attention and have
+motivated hybrid CNN–Transformer architectures. Examples include MSF-Trans [15] and
+DeepSEM-Net [16]. However, such hybrids may increase computational cost and model
+size and can be sensitive to class imbalance, with reduced precision on underrepresented
+patterns [17,18]. To alleviate label scarcity, SSL methods have been explored [19], including
+SWaCo [20] and GAN-based approaches [21]; yet their effectiveness often depends on
+pseudo-label reliability and the design of sample selection strategies, and some methods
+may introduce additional training overhead [22].
+For pixel-level defect localization, U-Net [23] and Transformer-based variants such as
+TransUNet [24] combine localization with broader context. WaferSegClassNet (WSCN) [25]
+further improves efficiency, but deployment can still be challenged by latency constraints,
+imbalance robustness, and generalization to unseen variations [26].
+Existing approaches, including models such as MSF-Trans [15] and SSL methods such
+as SWaCo [20], still face difficulty in simultaneously balancing accuracy, efficiency, and
+robustness in data-scarce and imbalanced settings. Under limited labeled data, the practical
+benefit of semi-supervised learning depends not only on model architecture but also on
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 3 ---
+Electronics 2026, 15, 1437
+3 of 17
+the reliability and reproducibility of pseudo-label generation and filtering. Therefore, this
+study develops lightweight hybrid models together with a progressively refined pseudo-
+labeling strategy to improve performance while maintaining computational efficiency and
+practical robustness.
+Compared with existing CNN–Transformer hybrid methods that mainly emphasize
+stronger representation capacity, the proposed HybridCNN-ViT is designed as a lightweight
+classifier that combines CNN-based local feature extraction, a compact ViT encoder, and a
+systematically calibrated semi-supervised pseudo-label selection strategy for imbalanced
+wafer defect recognition. For segmentation, ConvoFormer-UNet integrates convolution-
+enhanced patch embedding and local convolutional enhancement within Transformer
+processing, which helps preserve boundary-sensitive defect patterns under a compact
+parameter budget.
+The main contributions of this paper are summarized as follows:
+•
+A lightweight semi-supervised framework for wafer defect classification that com-
+bines CNN-based local feature extraction, a compact ViT encoder, and a three-stage
+progressive pseudo-labeling strategy. The pseudo-label selection process is systemati-
+cally calibrated to improve pseudo-label reliability under limited labeled data, leading
+to strong classification performance on WM-811K.
+•
+A lightweight hybrid segmentation architecture, ConvoFormer-UNet, that integrates
+convolution-enhanced patch embedding and local convolutional enhancement within
+Transformer blocks to better preserve defect boundary details and global context. This
+design achieves strong segmentation performance on WM-811K while maintaining a
+favorable accuracy–efficiency trade-off, with 73% fewer parameters than DeepLabv3+.
+2. Proposed Methodology for Wafer Defect Classification
+This section presents HybridCNN-ViT to address two challenges in wafer map classifi-
+cation: capturing both local detail and global context, and exploiting unlabeled data under
+limited annotations. The overall architecture is shown in Figure 2.
+Figure 2. Overall architecture of HybridCNN-ViT. A three-stage semi-supervised pipeline iteratively
+incorporates high-confidence pseudo-labels from unlabeled data.
+2.1. HybridCNN-ViT Architecture
+HybridCNN-ViT combines a CNN backbone for hierarchical local feature extraction
+with a lightweight Vision Transformer (ViT) encoder for long-range dependency modeling,
+aiming to improve discrimination for spatially distributed and visually similar defect
+patterns. Unlike heavier hybrid architectures that mainly rely on scaling Transformer
+capacity, the proposed HybridCNN-ViT adopts a lightweight CNN–Transformer design
+for wafer defect classification. In our framework, this compact hybrid encoder is further
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 4 ---
+Electronics 2026, 15, 1437
+4 of 17
+combined with a systematically calibrated semi-supervised pseudo-label selection strategy
+to improve pseudo-label reliability under limited labeled data.
+Given an input image X ∈R3×H×W, the CNN module extracts and progressively
+downsamples feature maps. The first stage applies a convolutional block:
+F1 = MaxPool
+
+ReLU
+
+BN
+
+Conv3×3
+64 (X)
+
+(1)
+Here, the 3 × 3 convolution uses a stride of 1 and a padding of 1, so the spatial
+resolution is preserved before pooling. The subsequent max-pooling layer uses kernel size
+2 and stride 2, yielding F1 ∈R64×H/2×W/2.
+A residual block is then used:
+y = F(x, Wi) + T (x)
+(2)
+where T (x) denotes the shortcut branch. When the input and output dimensions are
+unchanged, T (x) is an identity mapping; otherwise, it is implemented as a projection
+shortcut using a 1 × 1 convolution followed by batch normalization to match the channel
+number and spatial resolution. In our setting, the residual block performs a 64 →128
+channel expansion with a stride of 2:
+F2 = ResBlock(F1, 64 →128, stride = 2)
+(3)
+Thus, F2 ∈R128×H/4×W/4. Under the classification input size of 32 × 32 used in this
+work, the resulting feature map is F2 ∈R128×8×8.
+Adaptive average pooling is then applied to maintain a fixed spatial size, yielding
+Fc ∈R128×8×8 under our experimental setting. The pooled feature map is flattened
+into N = 64 tokens and linearly projected into a D-dimensional embedding space with
+D = 128. Learnable positional embeddings are added, and a learnable class token zcls is
+prepended to the token sequence. A dropout layer with a rate of 0.5 is applied before the
+Transformer encoder.
+The Transformer encoder consists of L = 4 layers of multi-head self-attention and
+feed-forward blocks with residual connections, following standard ViT practice [14]. In the
+implementation used in this work, each encoder layer uses 8 attention heads, an embedding
+dimension of 128, a feed-forward dimension of 256, GELU activation, and dropout with a
+rate of 0.2. We set L = 4 based on validation results to balance accuracy and computation;
+increasing to L = 6 yields a small accuracy gain (0.37%) but increases computation by 48%
+under our setting. The final class token is fed to a linear head:
+ˆy = Softmax(Wclszcls + bcls)
+(4)
+2.2. Semi-Supervised Training Strategy
+To leverage unlabeled data while reducing confirmation bias, we adopt a three-stage
+progressive pseudo-labeling strategy that combines class-adaptive confidence thresholding
+with uncertainty-aware filtering. The overall design aims to improve pseudo-label reliability
+in a reproducible manner rather than relying on a fixed global threshold.
+We denote the training stage by s ∈{1, 2, 3} and the number of Monte Carlo stochastic
+forward passes by M = 20. Stage 1 trains the classifier using only the labeled set Dl,
+producing an initial teacher model. Stages 2 and 3 progressively expand the training data
+with pseudo-labeled samples selected from the unlabeled set Du. Specifically, Stage 2
+uses the best teacher from Stage 1 to generate the initial pseudo-labeled subset, while
+Stage 3 uses the updated teacher from Stage 2 to refresh pseudo-labels and further refine
+the accepted sample set.
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 5 ---
+Electronics 2026, 15, 1437
+5 of 17
+For each unlabeled sample x ∈Du, we perform M = 20 stochastic forward passes
+with dropout enabled and obtain predictive probabilities {p(m)
+c
+(x)}M
+m=1 for class c. The
+mean predictive probability is
+¯pc(x) = 1
+M
+M
+∑
+m=1
+p(m)
+c
+(x),
+(5)
+and the candidate pseudo-label together with its confidence score is defined as
+ˆy(x) = arg max
+c
+¯pc(x),
+q(x) = max
+c
+¯pc(x).
+(6)
+To characterize stage-wise class reliability, we define the candidate set for class c at
+stage s as
+U (s)
+c
+= {x ∈Du | ˆy(x) = c}.
+(7)
+On this candidate set, the mean and standard deviation of the confidence scores are
+computed as
+µ(s)
+c
+=
+1
+|U (s)
+c | ∑
+x∈U (s)
+c
+q(x),
+(8)
+σ(s)
+c
+=
+v
+u
+u
+t
+1
+|U (s)
+c | ∑
+x∈U (s)
+c
+ q(x) −µ(s)
+c
+2.
+(9)
+Here, µ(s)
+c
+reflects the average confidence of class-c candidates at stage s, whereas σ(s)
+c
+measures the dispersion of their confidence scores. The ratio σ(s)
+c /µ(s)
+c
+is used as a stage-
+wise indicator of class reliability and is recomputed whenever pseudo-labels are refreshed.
+Based on these class-wise statistics, we define a class-adaptive confidence threshold:
+τ(s)
+c (x) = τbase + α · σ(s)
+c
+µ(s)
+c
++ β ·
+ 1 −Entropy(x)
+
+,
+(10)
+where τbase, α, and β control the baseline confidence level, the class-reliability adjustment,
+and the entropy-based sample-level adjustment, respectively. The threshold is clipped to the
+interval [0, 1] after computation. In this formulation, the term σ(s)
+c /µ(s)
+c
+makes the threshold
+responsive to stage-wise class reliability, while the entropy-dependent term provides a soft
+correction according to the concentration of the current predictive distribution.
+We estimate predictive uncertainty using Monte Carlo Dropout [27]. Dropout is
+activated in the ViT branch during pseudo-label generation, including the token sequence
+before the Transformer encoder (rate 0.5) and the Transformer encoder layers (rate 0.2), so
+that stochastic forward sampling can be performed without changing the deterministic
+training objective. The predictive entropy and mutual information are computed as
+Entropy(x) = −
+C
+∑
+c=1
+¯pc(x) ln ¯pc(x),
+(11)
+MI(x) = Entropy(x) −1
+M
+M
+∑
+m=1
+ 
+−
+C
+∑
+c=1
+p(m)
+c
+(x) ln p(m)
+c
+(x)
+!
+.
+(12)
+Predictive entropy measures the overall uncertainty of the averaged predictive dis-
+tribution, whereas mutual information captures the inconsistency of predictions under
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 6 ---
+Electronics 2026, 15, 1437
+6 of 17
+stochastic model perturbations. Using both quantities allows us to reject samples with
+either diffuse predictions or unstable stochastic behavior.
+A pseudo-label is accepted only if it satisfies both the adaptive confidence condition
+and the uncertainty constraints:
+q(x) ≥τ(s)
+ˆy(x)(x),
+Entropy(x) < ϵentropy,
+MI(x) < ϵMI.
+(13)
+Here, the confidence threshold provides a soft selection mechanism, while the entropy
+and mutual information constraints serve as hard rejection gates for uncertain predictions.
+The five hyperparameters involved in pseudo-label selection, namely τbase, α, β,
+ϵentropy, and ϵMI, are systematically calibrated on a held-out pseudo-evaluation subset
+that is not used to fit the teacher or student models. The final configuration is selected
+by jointly considering pseudo-label macro-F1, sample acceptance rate, and uncertainty
+filtering effectiveness. The final values used in all experiments are τbase = 0.94, α = 0.08,
+β = 0.02, ϵentropy = 0.08, and ϵMI = 0.12.
+The three training stages are defined as follows. Stage 1 performs supervised warm-up
+using only Dl. Stage 2 uses the best teacher from Stage 1 to infer pseudo-labels on Du, com-
+putes the corresponding class-wise statistics µ(2)
+c
+and σ(2)
+c
+, applies adaptive thresholding
+and uncertainty-aware filtering, and forms the accepted pseudo-labeled subset D(2)
+pseudo.
+The classifier is then trained on Dl ∪D(2)
+pseudo. Stage 3 repeats this procedure using the
+updated teacher from Stage 2. Pseudo-labels are regenerated on Du, the class-wise statistics
+and adaptive thresholds are recomputed, the accepted pseudo-labeled subset is refreshed
+to obtain D(3)
+pseudo, and the final classifier is trained on Dl ∪D(3)
+pseudo. Therefore, Stage 3 is not
+merely an additional round of training; the teacher model, class-wise statistics, adaptive
+thresholds, and accepted pseudo-label set are all updated.
+We found three stages to be a practical trade-off, as adding more refresh stages yielded
+only marginal improvement while substantially increasing training cost.
+The complete stage-wise training and pseudo-label refresh procedure is provided in
+the Supplementary Material (Algorithm S1). For completeness, the training procedure of
+ConvoFormer-UNet is also provided in the Supplementary Material (Algorithm S2).
+2.3. Optimization Objective
+To address class imbalance in WM-811K, we use weighted cross-entropy:
+L = −1
+B
+B
+∑
+i=1
+wyi log
+ 
+exp(zyi)
+∑9
+j=1 exp(zj)
+!
+(14)
+with inverse square-root weights wc = 1/√nc. In our preliminary comparison, this choice
+yielded a 2.1% higher F1-score on minority classes than focal loss under the same training
+setup. We attribute this to the fact that focal loss down-weights easy samples and can be
+less effective when rare classes contain mostly hard examples.
+3. Proposed Methodology for Wafer Defect Segmentation
+This section presents ConvoFormer-UNet, a lightweight hybrid architecture for wafer
+defect segmentation. The design aims to preserve boundary detail while integrating multi-
+scale context under practical computational budgets. The architecture is shown in Figure 3.
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 7 ---
+Electronics 2026, 15, 1437
+7 of 17
+Figure 3. The proposed ConvoFormer-UNet for wafer defect segmentation, including a hybrid
+encoder with convolutional embedding and a progressive decoder with multi-scale skip connections.
+The complete training procedure for ConvoFormer-UNet is provided in the Supplementary
+Material (Algorithm S2) to support reproducibility without expanding the main text.
+3.1. ConvoFormer-UNet Architecture
+3.1.1. Overview and Encoder Design
+ConvoFormer-UNet follows an encoder–decoder structure. The encoder adopts a
+convolution-enhanced embedding prior to Transformer processing, aiming to preserve
+low-level cues that are critical for boundary-sensitive segmentation. This design differs
+from standard Transformer-based U-Net variants by explicitly injecting local convolutional
+priors both before and within Transformer processing, which is particularly beneficial for
+boundary-sensitive wafer defect masks.
+Compared with a pure linear patch projection, we first apply a 3 × 3 convolution to
+extract localized features from the input image X ∈R1×H×W (with H = W = 64). This
+kernel size is a common design choice for efficient spatial modeling [28]. We use the GELU
+activation, GELU(x) = x · Φ(x), to provide smooth gradients [29]. An 8 × 8 convolution
+with stride 8 then projects the features into the Transformer embedding space, producing
+an 8 × 8 token grid (i.e., N = 64 tokens) while retaining spatial cues.
+3.1.2. Hybrid Fusion and Decoder
+Within each Transformer layer, we fuse a global self-attention path with a local en-
+hancement path (a depthwise 3 × 3 convolution) to capture long-range context while
+preserving boundary details:
+Z′
+l = MSA
+ LN(Zl)
+ + Convdw
+3×3(Zl),
+(15)
+where LN(·) denotes Layer Normalization and Convdw
+3×3(·) denotes a depthwise
+3 × 3 convolution.
+The decoder progressively upsamples features using transposed convolutions, and
+reduces the semantic gap via 1 × 1 convolutions before fusing encoder and decoder features.
+Skip connections preserve high-resolution information, while multi-scale fusion at each
+decoding stage propagates coarse-to-fine cues to handle defects of different sizes.
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 8 ---
+Electronics 2026, 15, 1437
+8 of 17
+3.2. Model Optimization Strategies
+Loss and Multi-Scale Supervision
+Pixel-level defect segmentation is typically imbalanced because defect pixels occupy
+only a small fraction of the image. We therefore optimize a hybrid loss:
+Lseg = LDice + 0.5 Lfocal,
+(16)
+where Dice loss emphasizes the overlap between prediction and ground truth, and focal loss
+down-weights easy background pixels to focus learning on harder regions. We additionally
+apply deep supervision by attaching auxiliary heads to intermediate decoder layers:
+Ltotal = Lmain + 0.3 Laux1 + 0.2 Laux2.
+(17)
+This encourages intermediate layers to produce meaningful predictions at multiple scales.
+A limitation of this formulation is that the weighting between the Dice/focal compo-
+nents and auxiliary losses is task-dependent; suboptimal weights may reduce performance
+under varying defect sizes or noise levels. Moreover, boundary quality can still degrade
+for extremely small or low-contrast defects, where supervision signals are weak and mask
+annotation errors have a larger relative impact.
+4. Experimental Results and Analysis
+This section reports the experimental setup and evaluates HybridCNN-ViT and
+ConvoFormer-UNet on WM-811K. We include baseline comparisons, ablation studies,
+and additional validation.
+4.1. Dataset, Preprocessing, and Implementation
+Experiments are conducted on the public WM-811K dataset [2], which contains
+811,457 wafer maps in total, including 172,950 labeled samples from nine pattern classes
+and 638,507 unlabeled samples. To clarify the data protocol for both tasks, task-specific
+subsets are constructed for classification and segmentation from the same WM-811K source.
+Invalid or malformed entries are removed before constructing the task-specific subsets.
+For classification, we use the labeled subset together with the official training/test
+partition provided in WM-811K. A validation subset is further split from the official training
+portion before any re-sampling is applied. The class distributions of the labeled subset and
+the resulting train/validation/test splits are reported in Table 1, and the corresponding
+imbalance is visualized in Figure 4. For model training, a balanced labeled training set is
+constructed via hybrid sampling by downsampling the majority None class and applying
+SMOTE to minority classes, while the validation and test sets are kept in the original
+imbalanced distribution to better reflect practical evaluation settings.
+For semi-supervised classification, 150,000 unlabeled samples are added to the bal-
+anced labeled training set. This size is selected based on a preliminary trade-off between
+computational cost and validation performance. Compared with using labeled data only, it
+improves accuracy by more than 2%, whereas larger unlabeled sets (e.g., 200,000 or more)
+provide smaller gains (less than 0.5%) at higher training cost. In addition, a small held-out
+pseudo-evaluation subset is separated from the labeled training portion. It is not used to
+fit the teacher or student models and is used only for pseudo-label quality evaluation and
+hyperparameter calibration. Wafer maps used for classification are resized to 32 × 32, with
+dynamic augmentation applied during training.
+For segmentation, we do not rely on an external pixel-annotation dataset. Instead,
+the segmentation subset is derived from labeled defect-present wafers in WM-811K after
+excluding the None and Random classes, and its exact size and distribution by defect type
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 9 ---
+Electronics 2026, 15, 1437
+9 of 17
+are summarized in Table 2. Ground-truth masks are generated deterministically from
+the original wafer maps by assigning mask value 1 to locations where waferMap equals 2
+(defective die), and 0 otherwise. This produces a die-level binary defect mask rather than a
+manually delineated pixel-accurate contour. No additional human annotation is introduced
+in this process.
+Table 1. Class distribution of the labeled WM-811K subset and the raw train/validation/test splits
+used for classification.
+Class
+All Labeled
+Train (Raw)
+Validation
+Test
+Center
+4294 (2.48%)
+3116 (6.37%)
+346 (6.36%)
+832 (0.70%)
+Donut
+555 (0.32%)
+368 (0.75%)
+41 (0.75%)
+146 (0.12%)
+Edge-Loc
+5189 (3.00%)
+2175 (4.45%)
+242 (4.45%)
+2772 (2.34%)
+Edge-Ring
+9680 (5.60%)
+7698 (15.74%)
+856 (15.75%)
+1126 (0.95%)
+Loc
+3593 (2.08%)
+1458 (2.98%)
+162 (2.98%)
+1973 (1.66%)
+Random
+866 (0.50%)
+548 (1.12%)
+61 (1.12%)
+257 (0.22%)
+Scratch
+1193 (0.69%)
+450 (0.92%)
+50 (0.92%)
+693 (0.58%)
+Near-full
+149 (0.09%)
+49 (0.10%)
+5 (0.09%)
+95 (0.08%)
+None
+147,431 (85.24%)
+33,057 (67.57%)
+3673 (67.57%)
+110,701 (93.34%)
+Total
+172,950 (100.00%)
+48,919 (100.00%)
+5436 (100.00%)
+118,595 (100.00%)
+Note: The train split shown here is the raw split before hybrid sampling. During classification training, the
+majority None class is downsampled and SMOTE is applied to minority classes, while validation and test remain
+imbalanced. Percentages are computed within each column.
+Figure 4. Class distribution of the labeled WM-811K subset and the raw train/validation/test splits
+used for classification. The y-axis is shown in log scale to make minority classes visible alongside the
+dominant None class.
+Table 2. Distribution of the segmentation subset derived from labeled defect-present wafers in
+WM-811K after excluding the None and Random classes.
+Metric
+Center
+Donut
+Edge-Loc
+Edge-Ring
+Loc
+Scratch
+Near-Full
+Total
+Count
+4294
+555
+5189
+9680
+3593
+1193
+149
+24,653
+Percentage
+17.42%
+2.25%
+21.05%
+39.26%
+14.57%
+4.84%
+0.60%
+100.00%
+For segmentation preprocessing, wafer maps are resized to 64 × 64, and the corre-
+sponding binary masks are resized using nearest-neighbor interpolation to preserve label
+consistency. Under this protocol, annotation uncertainty mainly arises from inherited
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 10 ---
+Electronics 2026, 15, 1437
+10 of 17
+die-state noise and resampling effects rather than inter-annotator variability. In particular,
+sparse or very small defects are more sensitive to small label perturbations, and their IoU
+may therefore be affected more strongly than that of large-area defect patterns.
+All models are implemented in PyTorch 2.5.1 and trained on an NVIDIA GeForce
+RTX 3060 Laptop GPU using AdamW. HybridCNN-ViT is trained for 50 epochs with a
+three-stage semi-supervised pipeline (batch size 256, learning rate 5 × 10−5, weight decay
+4 × 10−4). The hyperparameters involved in pseudo-label selection are calibrated on the
+held-out pseudo-evaluation subset and fixed across all experiments. The final values are
+τbase = 0.94, α = 0.08, β = 0.02, ϵentropy = 0.08, and ϵMI = 0.12. ConvoFormer-UNet is
+trained for 50 epochs (batch size 32, learning rate 1 × 10−4, weight decay 0.01) using the
+hybrid loss with deep supervision.
+4.2. Defect Classification Results
+4.2.1. Overall Performance
+As shown in Table 3, HybridCNN-ViT achieves an average accuracy of 98.35% on WM-
+811K. The model performs strongly on structurally complex categories such as Donut, Edge-
+Loc, and Loc, suggesting that combining local CNN cues with global context is beneficial
+for these patterns. Compared with methods that report higher accuracy on the majority
+None class, our results indicate a more balanced performance across defect-present classes,
+which may reflect a different trade-off between false positives and false negatives under
+the imbalanced test distribution.
+Table 3. Performance comparison of different classification models on the WM-811K dataset (accuracy,
+%). Column abbreviations: E-Loc = Edge-Loc, E-Ring = Edge-Ring, N-full = Near-full.
+Model
+Center
+Donut
+E-Loc
+E-Ring
+Loc
+Random
+Scratch
+N-full
+None
+Avg.
+Modified ViT
+97.38
+85.04
+91.98
+97.70
+75.14
+86.99
+57.72
+85.14
+–
+90.73
+CNN-WDI [30]
+98.00
+98.30
+93.10
+91.70
+90.30
+96.50
+98.70
+99.90
+99.70
+96.20
+WMFPR [2]
+84.90
+74.00
+85.10
+79.70
+68.50
+79.80
+82.40
+97.90
+95.70
+83.10
+WMDPI [6]
+86.00
+77.00
+77.00
+95.00
+60.00
+94.00
+34.00
+97.00
+100.00
+80.00
+DTE-WMFPR [5]
+95.80
+92.20
+83.50
+86.80
+83.50
+95.80
+86.00
+N/A
+100.00
+90.40
+HybridCNN-ViT (Ours)
+98.77
+99.91
+94.88
+99.38
+97.00
+99.91
+97.26
+100.00
+97.35
+98.35
+Note: N/A: not available in the original publication. –: not reported/not applicable.
+We further compare HybridCNN-ViT with CNN-WDI using paired t-tests over 10 in-
+dependent runs. The differences are statistically significant for overall accuracy (p < 0.001),
+and also for Scratch (p < 0.01) and Edge-Loc (p < 0.005), indicating that the observed gains
+are consistent across runs.
+4.2.2. Error Analysis and Limitations
+Misclassifications mainly occur in three situations: defects with large within-image
+scale variation (e.g., fragmented Scratch), low-contrast or discontinuous boundary patterns
+(e.g., sparse Edge-Loc), and visually similar peripheral categories (Edge-Loc/Edge-Ring/Loc).
+These cases suggest that multi-scale fusion can be imperfect when fine fragments and global
+structures must be integrated jointly. They also indicate that subtle boundary cues may be
+underweighted relative to background regions. Transitional or hybrid morphologies can
+further reduce separability among closely related classes. Representative correct predictions
+and typical failure cases illustrating these error modes are shown in Figure 5.
+As further indicated by the confusion matrix in Figure 6, the most persistent errors
+occur among visually similar peripheral categories. In particular, Edge-Loc is occasionally
+confused with None or Edge-Ring, while Loc may also be predicted as None when the defect
+response is weak or spatially sparse. These error patterns suggest that, for peripheral and
+weakly localized defects, the boundary contrast and defect extent can be insufficient for
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 11 ---
+Electronics 2026, 15, 1437
+11 of 17
+stable separation, especially when the morphology is transitional between localized and
+edge-concentrated patterns. This observation is consistent with the class-wise improve-
+ments reported in Section 4.2.3, where larger gains are observed on Loc, Edge-Loc, and
+Edge-Ring after improving pseudo-label quality control.
+Figure 5. Representative classification examples from the test set, including both correct predictions and
+typical failure cases. Correct classifications are bordered in green, while incorrect ones are bordered in
+red. Several failure cases involve visually similar categories such as Edge-Loc, Edge-Ring, and Loc.
+Figure 6. Confusion matrix for HybridCNN-ViT. The main residual confusion occurs among visually
+similar peripheral classes, especially Edge-Loc, Edge-Ring, and Loc, which motivates the subsequent
+error analysis.
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 12 ---
+Electronics 2026, 15, 1437
+12 of 17
+In addition, the semi-supervised pipeline depends on pseudo-label quality; rare or
+ambiguous samples may still receive noisy pseudo-labels, limiting gains on the most
+confusing categories. These observations motivate scale-aware fusion, boundary-sensitive
+cues, and objectives that explicitly enhance separability among similar defect types.
+4.2.3. Efficiency, Ablation, and Additional Validation
+The trained HybridCNN-ViT model size is 4.97 MB. On an NVIDIA GeForce RTX 3060
+Laptop GPU, the average inference time is 3.33 ms per image (approximately 300 images/s)
+under our implementation; throughput may vary with batch size, hardware, and system
+overhead. Training dynamics are shown in Figure 7. Replacing the ViT-only baseline with
+the hybrid encoder improves accuracy (0.9835 vs. 0.9598), and adding SSL further improves
+accuracy to 0.9872 under the same protocol. This gain is also reflected in Macro-F1 (0.9835
+to 0.9861) and Cohen’s Kappa (0.9815 to 0.9854), indicating that the improvement is not
+merely due to increased model capacity but also benefits from leveraging unlabeled data.
+Beyond the overall SSL gain, we further evaluate the pseudo-label selection mechanism
+used in the proposed semi-supervised pipeline. Pseudo-label quality is assessed on the
+held-out pseudo-evaluation subset by comparing pseudo labels with ground-truth labels
+under the same teacher/student setting. To avoid relying on arbitrary threshold choices,
+the five hyperparameters involved in adaptive thresholding and uncertainty filtering
+are systematically calibrated on a held-out pseudo-evaluation subset that is not used
+for model training (Section 4.1). We then compare the calibrated adaptive strategy with
+a fixed-threshold pseudo-labeling baseline under the same teacher–student setting and
+pseudo-label generation protocol.
+The results show that the proposed selection mechanism improves pseudo-label
+reliability at both stages and remains stable after pseudo-label refresh. At Stage 2, the
+calibrated adaptive strategy achieves a Macro-F1 of 97.78%, compared with 96.73% for the
+fixed-threshold baseline. After pseudo-label refresh, the Stage 3 Macro-F1 further improves
+to 98.13%, whereas the fixed-threshold baseline drops to 95.64%. In other words, our
+method gains 0.35 percentage points from Stage 2 to Stage 3, while the fixed-threshold
+baseline degrades by 1.09 percentage points. The performance gap between the two
+methods therefore widens from 1.05 percentage points at Stage 2 to 2.49 percentage points
+at Stage 3. Table 4 summarizes this stage-wise comparison of pseudo-label quality between
+the two methods.
+Table 4. Comparison of pseudo-label quality under fixed-threshold and calibrated adaptive selection.
+Method
+Stage
+Macro-F1 (%)
+Gain (pp)
+Stage Trend
+Fixed threshold
+Stage 2
+96.73
+–
+–
+Calibrated adaptive + uncertainty filtering
+Stage 2
+97.78
++1.05
+–
+Fixed threshold
+Stage 3
+95.64
+–
+−1.09 vs. Stage 2
+Calibrated adaptive + uncertainty filtering
+Stage 3
+98.13
++2.49
++0.35 vs. Stage 2
+Note: Pseudo-label quality is measured on a held-out pseudo-evaluation subset using Macro-F1. Gain is reported
+as the absolute difference in Macro-F1 (percentage points) with respect to the fixed-threshold baseline at the
+same stage.
+In addition to Macro-F1, the experiments provide a more complete view of pseudo-
+label behavior. The uncertainty-aware filtering mechanism rejects a non-trivial fraction of
+otherwise high-confidence but unstable predictions, with rejection rates of 4.58% at Stage 2
+and 3.42% at Stage 3. Meanwhile, the accepted pseudo-label rate remains competitive,
+increasing from 84.01% at Stage 2 to 87.27% at Stage 3. This indicates that the proposed
+strategy improves pseudo-label quality without excessively sacrificing usable samples.
+The improvements are also more pronounced in challenging classes. At Stage 3, the
+calibrated adaptive strategy yields F1 gains of approximately +6.89% for Loc, +4.79% for
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 13 ---
+Electronics 2026, 15, 1437
+13 of 17
+Donut, +3.70% for Edge-Loc, and +2.86% for Edge-Ring relative to the fixed-threshold baseline.
+These class-wise gains suggest that improved pseudo-label quality control is particularly
+beneficial for categories that are more difficult or more sensitive to noisy pseudo-labels.
+Taken together, these results suggest that the proposed pseudo-label selection strategy
+improves pseudo-label reliability while maintaining a competitive acceptance rate. The
+unlabeled-set size selection is described in Section 4.1. Table 5 reports the per-class impact
+of introducing the CNN feature extractor, while Table 6 summarizes the overall impact
+of adding SSL. As shown in Table 6, the SSL stage improves not only accuracy but also
+Macro-F1 (0.9835 to 0.9861) and Cohen’s Kappa (0.9815 to 0.9854).
+We perform 5-fold stratified cross-validation (Table 7) to assess robustness. The mean
+accuracy is 98.54% with a standard deviation of ±0.25%, suggesting stable performance
+across folds.
+Figure 7. Validation loss and accuracy curves comparing the HybridCNN-ViT and ViT-Only models.
+Table 5. Ablation study: per-class impact of the CNN feature extractor.
+Class
+ViT-Only
+HybridCNN-ViT
+P
+R
+F1
+P
+R
+F1
+Center
+97.22
+98.76
+97.98
+98.77
+99.47
+99.12
+Donut
+99.04
+100.00
+99.52
+99.74
+99.91
+99.82
+Edge-Loc
+94.08
+92.50
+93.28
+98.35
+94.88
+96.59
+Edge-Ring
+96.63
+98.76
+97.69
+98.60
+99.38
+98.99
+Loc
+95.23
+89.85
+92.46
+98.04
+97.00
+97.52
+Random
+98.95
+99.65
+99.30
+99.47
+99.91
+99.69
+Scratch
+90.33
+95.59
+92.88
+98.66
+97.26
+97.96
+Near-full
+99.91
+100.00
+99.96
+100.00
+100.00
+100.00
+None
+92.46
+88.70
+90.54
+93.71
+97.35
+95.50
+Macro Avg
+95.98
+95.98
+95.96
+98.37
+98.35
+98.35
+Note: P: Precision; R: Recall; F1: F1-score.
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 14 ---
+Electronics 2026, 15, 1437
+14 of 17
+Table 6. Ablation study: Overall impact of semi-supervised learning (SSL) (metrics in %).
+Model Configuration
+Acc
+Macro F1
+Macro AUC
+Cohen Kappa
+ViT-Only (Supervised)
+95.98
+95.96
+99.78
+95.48
+HybridCNN-ViT (Supervised)
+98.35
+98.35
+99.82
+98.15
+HybridCNN-ViT + SSL (Ours)
+98.72
+98.61
+99.85
+98.54
+Table 7. Cross-validation results for the HybridCNN-ViT model.
+Fold
+Acc. (%)
+Prec.
+Rec.
+F1
+Fold 1
+98.42
+0.9841
+0.9842
+0.9841
+Fold 2
+98.65
+0.9863
+0.9865
+0.9864
+Fold 3
+98.23
+0.9821
+0.9823
+0.9822
+Fold 4
+98.87
+0.9885
+0.9887
+0.9886
+Fold 5
+98.54
+0.9852
+0.9854
+0.9853
+Mean
+98.54 ± 0.25
+0.9852 ± 0.0025
+0.9854 ± 0.0025
+0.9853 ± 0.0025
+4.3. Defect Segmentation Results
+4.3.1. Overall Performance, Qualitative Results, and Efficiency
+For segmentation, we compare ConvoFormer-UNet with U-Net [23], TransUNet [24],
+DeepLabv3+ [31], and MiniUNet [32]. As shown in Table 8, ConvoFormer-UNet achieves an
+IoU of 99.19% with 7.11M parameters. Compared with TransUNet, it improves IoU (99.19%
+vs. 99.02%) with 20.5% fewer parameters, and uses substantially fewer parameters than
+DeepLabv3+ while maintaining comparable IoU. Figure 8 shows representative predictions,
+including point defects and linear scratches. On the specified GPU, the average inference
+time is 8.12 ms per image (about 123 images/s) under our implementation.
+Figure 8. Representative qualitative results for wafer defect segmentation, including sparse defects,
+point-like defects, and linear scratches. Each row shows the input wafer map, the generated ground-
+truth mask, and the predicted mask.
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 15 ---
+Electronics 2026, 15, 1437
+15 of 17
+Table 8. Performance Comparison of Different Segmentation Models.
+Model
+Parameters (M)
+IoU (%)
+Inf. (ms)
+U-Net [23]
+7.76
+98.81
+6.85
+TransUNet [24]
+8.95
+99.02
+9.47
+DeepLabv3+ [31]
+26.8
+99.23
+18.23
+MiniUNet [32]
+0.026
+98.37
+2.41
+ConvoFormer-UNet (Ours)
+7.11
+99.19
+8.12
+4.3.2. Ablation Study and Limitations
+We ablate the convolution-enhanced patch embedding (ConvEmbed) and the local
+convolution within Transformer blocks (LocalConv). As shown in Figure 9, removing
+ConvEmbed yields the largest drop (IoU 98.56%), whereas removing LocalConv reduces
+IoU to 98.97%. These results indicate that both components contribute under our evalu-
+ation setting. A limitation is that the relative contributions may change under different
+resolutions, noise characteristics, or defect morphologies, and very small or low-contrast
+defects remain challenging when boundary signals are weak.
+Figure 9. Ablation study of key components in ConvoFormer-UNet on validation-set IoU.
+5. Conclusions
+This paper addresses key challenges in wafer defect analysis, including diverse defect
+patterns and limited annotations. We propose a unified framework with two hybrid models
+for classification and segmentation, together with a semi-supervised training strategy.
+For classification, HybridCNN-ViT combines CNN-based local feature extraction with
+Transformer-based global context modeling. With a three-stage semi-supervised pipeline,
+it achieves 98.72% accuracy and 0.9985 Macro AUC, and shows stable performance under
+5-fold cross-validation (98.54% ± 0.25%). The model is compact (4.97 MB) and achieves
+3.33 ms per image (about 300 images/s) under our implementation.
+For segmentation, ConvoFormer-UNet enhances local perception and multi-scale
+fusion within an encoder–decoder design. It achieves 99.19% IoU with 7.11M parameters,
+offering a favorable accuracy–efficiency trade-off relative to common baselines.
+Ablation studies support the contributions of key components in both models. Future
+work will focus on improving multi-scale and boundary-sensitive modeling for difficult
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 16 ---
+Electronics 2026, 15, 1437
+16 of 17
+cases (e.g., fragmented Scratch and visually similar edge-related classes), strengthening
+pseudo-label reliability under distribution shift, and evaluating deployment performance
+across diverse hardware and mixed-type defect scenarios.
+Supplementary Materials: The following supporting information can be downloaded at: https:
+//www.mdpi.com/article/10.3390/electronics15071437/s1, Supplementary Algorithms:
+Algo-
+rithm S1 (HybridCNN-ViT training/pseudo-labeling pipeline) and Algorithm S2 (ConvoFormer-
+UNet training procedure).
+Author Contributions: Conceptualization, R.S. and Z.Z.; Methodology, R.S., R.L., Z.Z., and X.Z.;
+Software, R.L.; Investigation, R.S. and R.L.; Data curation, R.S.; Formal analysis, R.S. and R.L.;
+Validation, R.S. and R.L.; Visualization, R.S.; Writing—original draft preparation, R.S. and R.L.;
+Writing—review and editing, R.L., Z.Z. and X.Z.; Supervision, Z.Z. and X.Z. All authors have read
+and agreed to the published version of the manuscript.
+Funding: This research received no external funding.
+Data Availability Statement: The data that support the findings of this study are available via the WM-
+811K wafer map dataset. The original related publication is available at doi:10.1109/TSM.2014.2364237,
+and a public copy of the dataset is available at: https://www.kaggle.com/datasets/qingyi/wm811
+k-wafer-map (accessed on 25 March 2026). Code is available from the corresponding author upon
+reasonable request.
+Conflicts of Interest: The authors declare no conflicts of interest. The funders had no role in the design
+of the study; in the collection, analyses, or interpretation of data; in the writing of the manuscript; or
+in the decision to publish the results.
+References
+1.
+Xie, L.; Huang, R.; Gu, N.; Cao, Z. A novel defect detection and identification method in optical inspection. Neural Comput. Appl.
+2014, 24, 1953–1962.
+2.
+Wu, M.J.; Jang, J.S.R.; Chen, J.L. Wafer map failure pattern recognition and similarity ranking for large-scale data sets. IEEE Trans.
+Semicond. Manuf. 2014, 28, 1–12. [CrossRef]
+3.
+Chapelle, O.; Schölkopf, B.; Zien, A. (Eds.) Semi-Supervised Learning; MIT Press: Cambridge, MA, USA, 2006.
+4.
+Spanos, C.J. Statistical process control in semiconductor manufacturing. Proc. IEEE 1992, 80, 819–830. [CrossRef]
+5.
+Piao, M.; Jin, C.H.; Lee, J.Y.; Byun, J.Y. Decision tree ensemble-based wafer map failure pattern recognition based on radon
+transform-based features. IEEE Trans. Semicond. Manuf. 2018, 31, 250–257. [CrossRef]
+6.
+Saqlain, M.; Jargalsaikhan, B.; Lee, J.Y. A voting ensemble classifier for wafer map defect patterns identification in semiconductor
+manufacturing. IEEE Trans. Semicond. Manuf. 2019, 32, 171–182. [CrossRef]
+7.
+Ma, J.; Zhang, T.; Yang, C.; Cao, Y.; Xie, L.; Tian, H.; Li, X. Review of wafer surface defect detection methods. Electronics 2023,
+12, 1787. [CrossRef]
+8.
+Zhang, G.; Pan, Y.; Zhang, L. Semi-supervised learning with GAN for automatic defect detection from images. Autom. Constr.
+2021, 128, 103764. [CrossRef]
+9.
+LeCun, Y.; Bengio, Y.; Hinton, G. Deep learning. Nature 2015, 521, 436–444. [CrossRef] [PubMed]
+10.
+Li, R.; Kang, Z. Deep Learning for Wafer Map Defect Detection: A Review. In Proceedings of the 2023 Global Reliability and
+Prognostics and Health Management Conference (PHM-Hangzhou), Hangzhou, China, 12–15 October 2023; IEEE: Piscataway,
+NJ, USA, 2023; pp. 1–6.
+11.
+Kyeong, K.; Kim, H. Classification of mixed-type defect patterns in wafer bin maps using convolutional neural networks. IEEE
+Trans. Semicond. Manuf. 2018, 31, 395–402. [CrossRef]
+12.
+Wang, J.; Xu, C.; Yang, Z.; Zhang, J.; Li, X. Deformable convolutional networks for efficient mixed-type wafer defect pattern
+recognition. IEEE Trans. Semicond. Manuf. 2020, 33, 587–596. [CrossRef]
+13.
+Hu, Z.; Wu, Y. Survey of semiconductor wafer defect detection method based on machine vision. J. Image Graph. 2025, 30, 25–50.
+[CrossRef]
+14.
+Dosovitskiy, A. An image is worth 16x16 words: Transformers for image recognition at scale. arXiv 2020, arXiv:2010.11929.
+15.
+Wei, Y.; Wang, H. Mixed-type wafer defect recognition with multi-scale information fusion transformer. IEEE Trans. Semicond.
+Manuf. 2022, 35, 341–352. [CrossRef]
+https://doi.org/10.3390/electronics15071437
+
+--- PAGE 17 ---
+Electronics 2026, 15, 1437
+17 of 17
+16.
+Qiao, Y.; Mei, Z.; Luo, Y.; Chen, Y. DeepSEM-Net: Enhancing SEM defect analysis in semiconductor manufacturing with a
+dual-branch CNN-Transformer architecture. Comput. Ind. Eng. 2024, 193, 110301. [CrossRef]
+17.
+Fan, S.K.S.; Chiu, S.H. A new ViT-Based augmentation framework for wafer map defect classification to enhance the resilience of
+semiconductor supply chains. Int. J. Prod. Econ. 2024, 273, 109275. [CrossRef]
+18.
+Zhang, X.; Liang, X.; Zhang, Y.; Li, J.; Wei, S. MLR-WM-ViT: Global high-performance classification of mixed-type wafer map
+defect using a multi-level relay Vision Transformer. Expert Syst. Appl. 2025, 277, 127121. [CrossRef]
+19.
+Wang, Y.; Ni, D.; Huang, Z.; Chen, P. A self-supervised learning framework based on masked autoencoder for complex wafer bin
+map classification. Expert Syst. Appl. 2024, 249, 123601. [CrossRef]
+20.
+Kwak, M.G.; Lee, Y.J.; Kim, S.B. SWaCo: Safe Wafer Bin Map Classification With Self-Supervised Contrastive Learning. IEEE
+Trans. Semicond. Manuf. 2023, 36, 416–424. [CrossRef]
+21.
+Nero, M.; Shan, C.; Wang, L.C.; Sumikawa, N. Concept recognition in production yield data analytics. In Proceedings of the 2018
+IEEE International Test Conference (ITC), Phoenix, AZ, USA, 29 October–1 November 2018; IEEE: Piscataway, NJ, USA, 2018;
+pp. 1–10.
+22.
+Sheng, Y.; Yan, J.; Piao, M. Improved wafer map defect pattern classification using automatic data augmentation based lightweight
+encoder network in contrastive learning. J. Intell. Manuf. 2025, 36, 4129–4141. [CrossRef]
+23.
+Ronneberger, O.; Fischer, P.; Brox, T. U-net: Convolutional networks for biomedical image segmentation. In Proceedings of the
+Medical Image Computing and Computer-Assisted Intervention–MICCAI 2015: 18th International Conference, Munich, Germany, 5–9
+October 2015; Springer: Cham, Switzerland, 2015; pp. 234–241.
+24.
+Chen, J.; Lu, Y.; Yu, Q.; Luo, X.; Adeli, E.; Wang, Y.; Lu, L.; Yuille, A.L.; Zhou, Y. Transunet: Transformers make strong encoders
+for medical image segmentation. arXiv 2021, arXiv:2102.04306. [CrossRef]
+25.
+Nag, S.; Makwana, D.; R, S.C.T.; Mittal, S.; Mohan, C. WaferSegClassNet—A Light-weight Network for Classification and
+Segmentation of Semiconductor Wafer Defects. Comput. Ind. 2022, 142, 103720. [CrossRef]
+26.
+Yin, S.; Zhang, Y.; Wang, R. Contrastive Learning with Global and Local Representation for Mixed-Type Wafer Defect Recognition.
+Sensors 2025, 25, 1272. [CrossRef]
+27.
+Gal, Y.; Ghahramani, Z. Dropout as a bayesian approximation: Representing model uncertainty in deep learning. In Proceedings
+of the International Conference on Machine Learning, PMLR, New York, NY, USA, 20–22 June 2016; pp. 1050–1059.
+28.
+Simonyan, K.; Zisserman, A. Very deep convolutional networks for large-scale image recognition. arXiv 2014, arXiv:1409.1556.
+29.
+Hendrycks, D.; Gimpel, K. Gaussian error linear units (gelus). arXiv 2016, arXiv:1606.08415.
+30.
+Saqlain, M.; Abbas, Q.; Lee, J.Y. A deep convolutional neural network for wafer defect identification on an imbalanced dataset in
+semiconductor manufacturing processes. IEEE Trans. Semicond. Manuf. 2020, 33, 436–444. [CrossRef]
+31.
+Chen, L.C.; Papandreou, G.; Kokkinos, I.; Murphy, K.; Yuille, A.L. Deeplab: Semantic image segmentation with deep convolutional
+nets, atrous convolution, and fully connected crfs. IEEE Trans. Pattern Anal. Mach. Intell. 2017, 40, 834–848. [CrossRef]
+32.
+Liu, J.; Li, Q.; Cao, R.; Tang, W.; Qiu, G. MiniNet: An extremely lightweight convolutional neural network for real-time
+unsupervised monocular depth estimation. ISPRS J. Photogramm. Remote Sens. 2020, 166, 255–267. [CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.
+https://doi.org/10.3390/electronics15071437

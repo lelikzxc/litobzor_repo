@@ -1,22 +1,23 @@
 """Training entry point for FCS-VMamba on WM-811K.
 
-Usage:
+Usage (paper Subset A, ~902 images, 50 epochs):
     python papers/vmamba/train.py --config papers/vmamba/configs/config.yaml
 
 Trains FCS-VMamba on the WM-811K wafer map dataset using the common engine.
-Supports CUDA automatically when available.
+Default protocol matches the paper Sec. 4.2 balanced benchmark (Subset A).
 """
 
 from __future__ import annotations
 
 import argparse
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
 import torch
 from sklearn.model_selection import StratifiedShuffleSplit
-from torch.utils.data import DataLoader, Subset, random_split
+from torch.utils.data import DataLoader, Subset
 
 # Ensure the project root is on sys.path for imports
 _project_root = Path(__file__).resolve().parent.parent.parent
@@ -26,6 +27,7 @@ if str(_project_root) not in sys.path:
 from common.engine.config import EngineConfig
 from common.engine.engine import Engine
 from papers.vmamba.data_utils import WaferWM811KDataset
+from papers.vmamba.data_utils.wafer_dataset import build_train_augment
 from papers.vmamba.models.vmamba import FCSVMamba
 
 
@@ -66,11 +68,23 @@ def parse_args() -> argparse.Namespace:
         help="Override learning rate from config",
     )
     parser.add_argument(
+        "--per-class",
+        type=int,
+        default=100,
+        help="Paper Subset A: max samples per class (default 100 → ~902). "
+             "Use 0 to keep all labeled samples.",
+    )
+    parser.add_argument(
         "--subset",
         type=float,
         default=None,
-        help="Use only a fraction of the training dataset (e.g. 0.2 = 20%%), "
-             "with stratified sampling to preserve class balance",
+        help="Extra stratified fraction of the train split after balancing "
+             "(e.g. 0.2). Ignored for the default paper protocol.",
+    )
+    parser.add_argument(
+        "--no-aug",
+        action="store_true",
+        help="Disable paper training augmentations",
     )
     parser.add_argument(
         "--resume",
@@ -87,45 +101,71 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def _balanced_indices(
+    labels: list[int],
+    per_class: int,
+    seed: int = 42,
+) -> list[int]:
+    """Sample up to ``per_class`` indices per class (paper Subset A)."""
+    rng = np.random.RandomState(seed)
+    by_class: dict[int, list[int]] = defaultdict(list)
+    for idx, y in enumerate(labels):
+        by_class[int(y)].append(idx)
+
+    chosen: list[int] = []
+    for cls in sorted(by_class):
+        pool = by_class[cls]
+        if len(pool) <= per_class:
+            chosen.extend(pool)
+        else:
+            chosen.extend(rng.choice(pool, size=per_class, replace=False).tolist())
+    rng.shuffle(chosen)
+    return chosen
+
+
+def _stratified_split(
+    indices: list[int],
+    labels: list[int],
+    train_ratio: float = 0.8,
+    seed: int = 42,
+) -> tuple[list[int], list[int]]:
+    """8:2 stratified train/val split (paper Sec. 4.2)."""
+    y = np.array([labels[i] for i in indices])
+    if len(indices) < 10:
+        cut = max(1, int(len(indices) * train_ratio))
+        return indices[:cut], indices[cut:]
+
+    sss = StratifiedShuffleSplit(
+        n_splits=1,
+        train_size=train_ratio,
+        random_state=seed,
+    )
+    train_pos, val_pos = next(sss.split(np.zeros(len(indices)), y))
+    train_idx = [indices[i] for i in train_pos]
+    val_idx = [indices[i] for i in val_pos]
+    return train_idx, val_idx
+
+
 def _stratified_subset(
-    dataset: Subset,
+    indices: list[int],
+    labels: list[int],
     subset_ratio: float,
     seed: int = 42,
-) -> Subset:
-    """Create a stratified subset of a ``Subset`` (from ``random_split``).
-
-    Uses ``StratifiedShuffleSplit`` to preserve class distribution,
-    which is critical for imbalanced datasets like WM-811K.
-
-    Args:
-        dataset: A ``Subset`` wrapping the original ``WaferWM811KDataset``.
-        subset_ratio: Fraction of the dataset to keep (0, 1].
-        seed: Random seed for reproducibility.
-
-    Returns:
-        A new ``Subset`` with stratified sampling.
-    """
-    # Get labels from the underlying full dataset via the Subset indices
-    full_dataset = dataset.dataset  # type: ignore[union-attr]
-    labels = np.array([full_dataset._samples[i][1] for i in dataset.indices])
-
+) -> list[int]:
+    y = np.array([labels[i] for i in indices])
     sss = StratifiedShuffleSplit(
         n_splits=1,
         train_size=subset_ratio,
         random_state=seed,
     )
-    subset_idx, _ = next(sss.split(np.zeros(len(labels)), labels))
-
-    # Map back to original dataset indices
-    original_indices = [dataset.indices[i] for i in subset_idx]
-    return Subset(full_dataset, original_indices)
+    keep, _ = next(sss.split(np.zeros(len(indices)), y))
+    return [indices[i] for i in keep]
 
 
 def main() -> None:
     """Run the training loop."""
     args = parse_args()
 
-    # ── Load configuration ──────────────────────────────────────────────
     config_path = Path(args.config)
     if not config_path.exists():
         print(f"Error: Config file not found: {config_path}")
@@ -133,9 +173,10 @@ def main() -> None:
 
     config = EngineConfig.from_yaml(config_path)
 
-    # Apply CLI overrides
     if args.epochs is not None:
         config._data.setdefault("training", {})["num_epochs"] = args.epochs
+        sched = config._data.setdefault("scheduler", {})
+        sched.setdefault("kwargs", {})["T_max"] = args.epochs
     if args.batch_size is not None:
         config._data.setdefault("training", {})["batch_size"] = args.batch_size
     if args.lr is not None:
@@ -143,7 +184,6 @@ def main() -> None:
         config._data.setdefault("training", {}).setdefault("optimizer", {})["lr"] = args.lr
         config._data.setdefault("optimizer", {})["lr"] = args.lr
 
-    # ── Resolve device ──────────────────────────────────────────────────
     device = args.device
     if device == "auto":
         device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -153,53 +193,65 @@ def main() -> None:
         print(f"  GPU: {torch.cuda.get_device_name(0)}")
         print(f"  Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
-    # ── Create dataset ──────────────────────────────────────────────────
     data_root = config.get("data.data_root", "datasets/wm811k")
-    image_size = config.get("data.image_size", 224)
-    train_split = config.get("data.train_split", 0.8)
-    val_split = config.get("data.val_split", 0.1)
+    image_size = int(config.get("data.image_size", 224))
 
-    print(f"Loading WM-811K dataset from: {data_root}")
-    full_dataset = WaferWM811KDataset(
+    print(f"Loading WM-811K labeled maps from: {data_root}")
+    # Locked baseline encoding: one-hot die states + bilinear → image_size.
+    base_dataset = WaferWM811KDataset(
         data_root=data_root,
         image_size=image_size,
+        transform=None,
     )
-    print(f"  Total samples: {len(full_dataset)}")
-    print(f"  Classes: {full_dataset.class_names}")
+    labels = [y for _, y in base_dataset._samples]
+    print(f"  Labeled samples: {len(base_dataset)}")
+    print(f"  Classes: {base_dataset.class_names}")
 
-    # ── Split dataset ───────────────────────────────────────────────────
-    total = len(full_dataset)
-    train_len = int(total * train_split)
-    val_len = int(total * val_split)
-    test_len = total - train_len - val_len
+    if args.per_class and args.per_class > 0:
+        pool = _balanced_indices(labels, per_class=args.per_class, seed=42)
+        print(f"  Balanced subset (<={args.per_class}/class): {len(pool)} images")
+    else:
+        pool = list(range(len(base_dataset)))
+        print(f"  Using all labeled samples: {len(pool)}")
 
-    train_dataset, val_dataset, test_dataset = random_split(
-        full_dataset,
-        [train_len, val_len, test_len],
-        generator=torch.Generator().manual_seed(42),
-    )
+    train_idx, val_idx = _stratified_split(pool, labels, train_ratio=0.8, seed=42)
 
-    # ── Apply stratified subset for faster iteration ────────────────────
     if args.subset is not None:
-        subset_ratio = float(args.subset)
-        if subset_ratio <= 0.0 or subset_ratio > 1.0:
-            print(f"Error: --subset must be in (0, 1], got {subset_ratio}")
+        ratio = float(args.subset)
+        if ratio <= 0.0 or ratio > 1.0:
+            print(f"Error: --subset must be in (0, 1], got {ratio}")
             sys.exit(1)
-        train_dataset = _stratified_subset(train_dataset, subset_ratio, seed=42)
-        print(f"  Using stratified subset: {len(train_dataset)} train samples ({subset_ratio*100:.0f}%)")
+        train_idx = _stratified_subset(train_idx, labels, ratio, seed=42)
+        print(f"  Extra train subset: {len(train_idx)} ({ratio * 100:.0f}%)")
 
-    print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
+    # Train dataset with paper augmentations
+    if args.no_aug:
+        train_dataset = Subset(base_dataset, train_idx)
+    else:
+        aug_dataset = WaferWM811KDataset(
+            data_root=data_root,
+            image_size=image_size,
+            transform=build_train_augment(image_size),
+        )
+        train_dataset = Subset(aug_dataset, train_idx)
 
-    # ── Create DataLoaders ──────────────────────────────────────────────
-    batch_size = config.get("training.batch_size", 64)
-    eval_batch_size = config.get("evaluation.batch_size", 128)
-    num_workers = 0  # safe default on Windows
+    # Paper Sec. 4.1: stratified 8:2 — holdout is both val (during fit) and test.
+    val_dataset = Subset(base_dataset, val_idx)
+    test_dataset = val_dataset
+
+    print(
+        f"  Train: {len(train_dataset)}, Val/Test: {len(val_dataset)} "
+        f"(paper 8:2 on balanced pool)"
+    )
+
+    batch_size = config.get("training.batch_size", 4)
+    eval_batch_size = config.get("evaluation.batch_size", 32)
+    num_workers = 0
 
     def collate_fn(batch):
-        """Custom collate for dict-based samples."""
         images = torch.stack([item["image"] for item in batch])
-        labels = torch.tensor([item["label"] for item in batch], dtype=torch.long)
-        return images, labels
+        labels_t = torch.tensor([item["label"] for item in batch], dtype=torch.long)
+        return images, labels_t
 
     train_loader = DataLoader(
         train_dataset,
@@ -223,14 +275,12 @@ def main() -> None:
         collate_fn=collate_fn,
     )
 
-    # ── Create model ────────────────────────────────────────────────────
     print("Creating FCS-VMamba model...")
     model = FCSVMamba.from_config(config)
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"  Parameters: {total_params:,} total, {trainable_params:,} trainable")
 
-    # ── Create Engine ───────────────────────────────────────────────────
     print("Initializing engine...")
     engine = Engine(
         model=model,
@@ -238,7 +288,6 @@ def main() -> None:
         device=device,
     )
 
-    # ── Resume from checkpoint ───────────────────────────────────────────
     if args.resume is not None:
         if args.resume == "last":
             checkpoint_path = engine.checkpoint_manager.last_path
@@ -254,11 +303,10 @@ def main() -> None:
             resumed_epoch = engine.resume(checkpoint_path=checkpoint_path)
         print(f"  Resumed at epoch {resumed_epoch}")
 
-    # ── Train ───────────────────────────────────────────────────────────
     epochs = config.get("training.num_epochs", 50)
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"Starting training for {epochs} epochs")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
     logger = engine.fit(
         train_loader=train_loader,
@@ -266,48 +314,57 @@ def main() -> None:
         epochs=epochs,
     )
 
-    # ── Final metrics ───────────────────────────────────────────────────
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("Training complete!")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
-    # Print final training metrics
     history = logger.history
     if history:
         final = history[-1]
-        print(f"\nFinal training metrics:")
+        print("\nFinal training metrics:")
         if "train_loss" in final:
             print(f"  Train Loss: {final['train_loss']:.4f}")
         if "val_loss" in final:
             print(f"  Val Loss:   {final['val_loss']:.4f}")
-        for key in ["train_accuracy", "train_f1", "train_recall", "train_precision"]:
-            if key in final:
-                print(f"  {key}: {final[key]:.4f}")
-        for key in ["val_accuracy", "val_f1", "val_recall", "val_precision"]:
+        for key in [
+            "train_accuracy",
+            "train_f1",
+            "train_recall",
+            "train_precision",
+            "val_accuracy",
+            "val_f1",
+            "val_recall",
+            "val_precision",
+        ]:
             if key in final:
                 print(f"  {key}: {final[key]:.4f}")
 
-    # ── Evaluate on test set ────────────────────────────────────────────
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("Evaluating on test set...")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
+
+    # Prefer best val checkpoint for final numbers.
+    best_path = engine.checkpoint_manager.best_path
+    if best_path is not None and Path(best_path).exists():
+        print(f"Loading best checkpoint: {best_path}")
+        engine.resume(load_last=False)
 
     test_metrics = engine.test(test_loader)
-    print(f"\nTest Results:")
-    print(f"  Loss: {test_metrics.get('loss', 'N/A'):.4f}")
+    print("\nTest Results (best ckpt):")
+    loss_v = test_metrics.get("loss", None)
+    if isinstance(loss_v, (int, float)):
+        print(f"  Loss: {loss_v:.4f}")
     for name, value in test_metrics.items():
-        if name != "loss":
+        if name != "loss" and isinstance(value, (int, float)):
             print(f"  {name}: {value:.4f}")
 
-    # ── Save final checkpoint ───────────────────────────────────────────
     checkpoint_path = engine.save()
     print(f"\nCheckpoint saved to: {checkpoint_path}")
 
-    # ── Best metric ─────────────────────────────────────────────────────
     if engine.state.best_metric is not None:
         print(f"Best validation metric: {engine.state.best_metric:.4f}")
 
-    print(f"\nDone!")
+    print("\nDone!")
 
 
 if __name__ == "__main__":

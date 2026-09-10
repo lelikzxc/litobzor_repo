@@ -101,8 +101,9 @@ class FCSVMamba(nn.Module):
 
         for stage_idx in range(4):
             stage_dims.append(curr_dim)
-            # CLCA from stage 1 onward, only on the last block of the stage
-            stage_use_clca = clca_enabled and stage_idx > 0
+            # Locked baseline: CLCA on last stage only (~1.01M params).
+            # Multi-stage CLCA (author stages 1–3) destabilized Subset A here.
+            stage_use_clca = clca_enabled and stage_idx == 3
 
             blocks: list[nn.Module] = []
             for block_i in range(self.depths[stage_idx]):
@@ -143,20 +144,21 @@ class FCSVMamba(nn.Module):
         """Returns logits ``[B, num_classes]`` (no Softmax)."""
         x = self.patch_embed(x)
 
+        # Guide for last-stage CLCA = previous stage output after merge.
         prev_features: torch.Tensor | None = None
         for stage_idx in range(4):
             for block in self.stages[stage_idx]:
-                # Pass previous-stage map into CLCA-enabled (last) blocks
                 if getattr(block, "clca_enabled", False) and prev_features is not None:
                     x = block(x, context=prev_features)
                 else:
                     x = block(x)
 
             if stage_idx < 3:
-                prev_features = x
                 x = self.mergings[stage_idx](x)
+                prev_features = x
 
-        x = x.mean(dim=(-2, -1))  # GAP
+        # Locked baseline head: GAP → LayerNorm → Linear.
+        x = x.mean(dim=(-2, -1))
         x = self.norm(x)
         return self.head(x)
 

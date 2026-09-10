@@ -1,0 +1,1152 @@
+
+--- PAGE 1 ---
+Academic Editor: Jérôme Gilles
+Received: 26 January 2026
+Revised: 11 March 2026
+Accepted: 20 March 2026
+Published: 24 March 2026
+Copyright: © 2026 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license.
+Article
+Wafer Defect Recognition for Industrial Inspection: FCS-VMamba
+Model and Experimental Validation
+Yijia Zhang 1, Ziyi Ma 2,*
+, Tongji Cui 3, Tiejun Zhao 4, Qi Wang 5 and Jianhua Wang 6
+1
+School of Materials Science and Engineering, Hebei University of Technology, Tianjin 300401, China;
+oneplusz66@163.com
+2
+School of Artificial Intelligence and Data Science, Hebei University of Technology, Tianjin 300401, China
+3
+Arizona College of Technology, Hebei University of Technology, Tianjin 300401, China;
+225674@stu.hebut.edu.cn
+4
+Chinacoal Beijing Coal Mining Machinery Co., Ltd., Beijing 102400, China; zhaotiejun@chinacoal.com
+5
+Xuzhou XCMG Excavating Machinery Co., Ltd., Xuzhou 221131, China; wangqi2103@163.com
+6
+School of Computer Science, Inner Mongolia University, Hohhot City 010031, China; jhwang@imu.edu.cn
+*
+Correspondence: zyma@hebut.edu.cn
+Abstract
+In industrial imaging scenarios, semiconductor wafer defect classification is crucial for
+chip manufacturing yield and reliability. However, numerous challenges persist, including
+weak imaging responses and detail loss during downsampling, complex backgrounds that
+interfere with feature extraction, and the trade-off between performance and efficiency
+on edge devices. Traditional CNNs and ViTs exhibit limitations in modeling long-range
+dependencies and managing edge deployment costs. To address these issues, we leverage
+the VMamba architecture, a Visual State Space Model (SSM) that achieves global contextual
+modeling with linear computational complexity. Based on the VMamba architecture,
+we propose FCS-VMamba, a domain-adapted model that integrates three core modules,
+namely Frequency Attention (FA), Cross-Layer Cross-Attention (CLCA), and Saliency
+Feature Suppression (SFS). The experimental results show that FCS-VMamba achieved
+86.06% macro-precision and 87.91% Top-1 accuracy with only 1.2 M parameters. These
+results demonstrate that FCS-VMamba provides a practical and parameter-efficient baseline
+for industrial wafer defect recognition.
+Keywords: wafer defect recognition;visual state space model; frequency attention; cross-layer
+cross-attention; saliency feature suppression; parameter-efficient network
+1. Introduction
+With the accelerated advancement of industrialization, semiconductors, as the core
+pillar of the modern electronic information industry, have deeply penetrated critical sectors
+vital to the national economy and public welfare [1–3]. These encompass artificial intelli-
+gence, 5G communications, autonomous driving, high-end manufacturing, and aerospace
+industries. In recent years, global competition surrounding advanced process technologies
+has intensified. Moore’s law continues to evolve toward the 3 nm, 2 nm, and even GAA
+transistor eras, with wafer manufacturing complexity growing exponentially [4]. A single
+wafer undergoes over 1000 precision processes, encompassing hundreds of critical steps
+including silicon ingot growth, lithography, etching, ion implantation, chemical mechanical
+polishing (CMP), and metallization [5]. Within this highly complex manufacturing process,
+even minor environmental disturbances or process parameter deviations can trigger vari-
+ous surface defects such as particle contamination, scratches, defects, residues, and pattern
+J. Imaging 2026, 12, 142
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 2 ---
+J. Imaging 2026, 12, 142
+2 of 20
+distortion [6]. These defects are extremely minute, typically ranging in size from microme-
+ters to submicrometers, yet they can cause circuit short circuits, open circuits, leakage, or
+degraded electrical performance [7]. During later manufacturing stages, the four-probe
+method is commonly used to perform electrical testing on individual chips on wafers to
+determine the presence of functional defects [8]. Test results are visualized as wafer maps,
+with each chip color-coded according to its test status. Subsequently, specialized process
+engineers name and classify defects based on their spatial distribution patterns on the
+wafer map [9,10]. Accurate wafer pattern classification is crucial for root cause analysis,
+process optimization, and production line debugging [11].
+Traditional inspection methods primarily rely on manual visual assessment or rule-
+based optical detection technologies [12]. The former suffers from subjective judgment
+variations and visual fatigue, struggling to meet the consistency and repeatability demands
+of mass production; the latter, lacking adaptive capabilities, generally exhibits insufficient
+recognition accuracy and a weak generalization ability when confronted with diverse
+defect morphologies and complex background textures [13]. With the advancement of
+intelligent manufacturing, automated visual inspection has emerged as a mainstream trend,
+imposing heightened demands on the intelligence, real-time responsiveness, and robustness
+of inspection systems. Deep learning has achieved significant progress in image recognition.
+Models such as convolutional neural networks (CNNs) can automatically extract multi-
+level spatial features, thereby enhancing detection accuracy to some extent [14]. However,
+constrained by the local receptive field characteristics of convolutional operations, CNNs
+possess inherent limitations in modeling long-range dependencies, making it difficult to
+effectively capture cross-regional structural defect patterns [15].
+To address these issues, researchers introduced the visual transformer architecture
+based on self-attention mechanisms. Leveraging its global context modeling capability,
+the transformer demonstrates distinct advantages in feature representation completeness.
+Nevertheless, the computational complexity of standard self-attention scales quadratically
+with the input sequence length, incurring substantial computational overhead and memory
+consumption [16]. Recently, State Space Models (SSMs) have demonstrated potential to sur-
+pass transformers in computer vision tasks. The Mamba model achieves effective modeling
+of long-range dependencies through a selective state mechanism while maintaining linear
+computational complexity, positioning it as a potential alternative for efficient inference
+without compromising performance [17].
+In practical industrial settings, semiconductor wafer defect detection technology still
+faces several core challenges:
+•
+Insufficient application of novel frameworks: Research on architectures based on Mamba
+models within the field of semiconductor wafer defect detection remains limited.
+•
+Challenges in detecting minute features: Certain wafer defects, such as minute parti-
+cles and fine scratches, pose difficulties for mainstream architectures, often leading to
+weak feature responses and information loss after multiple downsampling operations.
+•
+Complex backgrounds and interfering factors: Wafer surface textures combined with
+fluctuating lighting conditions complicate defect extraction and judgment.
+•
+Trade-off between model performance and efficiency: Complex deep learning models
+improve feature learning but incur significant computational resource consumption
+and slower inference speeds, failing to meet real-time requirements.
+These challenges indicate that existing methods struggle to simultaneously satisfy accu-
+racy, robustness, and efficiency requirements in real industrial environments. In particular,
+there remains a clear need for lightweight architectures that can preserve fine-grained de-
+fect features, model long-range dependencies, and maintain high inference efficiency under
+complex background conditions. Our contributions are summarized as follows:
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 3 ---
+J. Imaging 2026, 12, 142
+3 of 20
+•
+We propose the parameter-efficient and high-efficiency detection network FCS-
+VMamba based on VMamba. This achieves enhanced adaptability for industrial
+defect detection in visual domains by integrating three innovative modules.
+•
+A novel FSSLayer module is constructed, introducing a Frequency Attention (FA)
+module, transforming spatial domain features into the frequency domain for attention
+re-weighting, and enhancing sensitivity to texture details and contour edges.
+•
+Cross-layer cross-attention (CLCA) addresses the semantic gap between deep and
+shallow features by establishing cross-level feature interaction.
+•
+The Saliency Feature Suppression (SFS) mechanism actively suppresses highly acti-
+vated regions to compel the model to focus on secondary features, improving robust-
+ness against occluded samples and adversarial attacks.
+We conducted experiments using a dual-level evaluation strategy: a balanced subset
+of 902 images for ablation studies and an industrial-scale benchmark with over 10,000 sam-
+ples to simulate the extreme class imbalance of real production lines. Comparative results
+against EdgeNeXt-Small and RepViT indicate that FCS-VMamba achieves an optimal
+balance among the model size, inference speed, and classification accuracy. This pro-
+vides a competitive and memory-efficient baseline for the application of Mamba-based
+architectures in semiconductor wafer defect classification.
+2. Related Work
+2.1. Wafer Defect Detection and Classification
+Semiconductor wafer defect detection is a critical task in industrial manufacturing. Tra-
+ditional methods primarily rely on manual inspection or rule-based optical detection, which
+suffer from subjectivity, visual fatigue, and insufficient generalization capabilities [12]. Au-
+tomated visual inspection using deep learning has emerged as a mainstream approach,
+improving detection accuracy and efficiency [18].
+Piao et al. [19] proposed a wafer image failure mode recognition method combining the
+Radon transform with ensemble decision trees, validating effectiveness on the WM-811K
+dataset. Nakazawa and Kulkarni [20] designed an anomaly detection framework based on
+deep convolutional encoders and decoders, trained with synthetic defect data to identify
+unknown defects. Maksim et al. [21] employed CNNs integrating sparse real and syn-
+thetic data for small-sample scenarios, achieving approximately 87.8% accuracy under data
+scarcity. Cheon et al. [8] proposed a CNN for wafer surface defect classification, enabling
+unknown defect detection, with superior performance for relevant tasks. Wang et al. [22]
+proposed deformable convolutional networks (DC-Nets) that adaptively sample mixed de-
+fect regions, significantly improving mixed defect recognition. Saqlain et al. [23] combined
+CNNs with data augmentation and regularization to mitigate class imbalance, achieving an
+average accuracy of 96.2% across nine-class classification tasks. Saqlain et al. [23] proposed
+a CNN-WDI model with data augmentation, batch normalization, and spatial dropout to
+address class imbalances. Ji and Lee [24] used GAN-based sample augmentation, raising
+CNNs’ classification accuracy on WM-811K from 97.0% to 98.3%. Kim et al. [25] inte-
+grated spatial autocorrelation analysis into a generalized uncertainty decision tree model,
+demonstrating superior performance on real DRAM data. Shon et al. [12] introduced an
+unsupervised pretraining method based on CVAE with automatic data augmentation,
+enhancing robustness under imbalanced datasets. Doss et al. [26] proposed a ShuffleNet-
+v2-CNN transfer learning model, classifying Si wafer defects from the WM-811K dataset
+via preprocessing, augmentation, feature extraction, and classification, achieving 96.93%
+overall accuracy.
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 4 ---
+J. Imaging 2026, 12, 142
+4 of 20
+2.2. Transformer and State Space Model-Based Architectures
+While CNNs excel at local feature extraction, they cannot handle long-range dependen-
+cies [15]. Visual transformer architectures have been introduced to address this limitation,
+providing global context modeling and improved feature representation [16]. Wei and
+Wang [27] proposed the Multi-Scale Fusion Transformer (MSF-Trans). This model employs
+CNNs to capture local features while integrating transformers to model global dependen-
+cies, achieving significant improvements on datasets with 38 defect categories. Fan et al. [28]
+proposed a ViT-based data augmentation framework to address class imbalance, enhancing
+CNN performance for wafer map defect classification and semiconductor supply chain
+resilience. Xu et al. [29] proposed density-guided dual-stream ViT (DG-ViT), integrating
+the SGGT and DAGCN with adaptive density masking and achieving 94.81% (WM-811K)
+and 98.54% (Mixed-WM38) accuracy for wafer defect detection. Yuan et al. [30] proposed a
+position-aware self-supervised framework with RingDistanceConv (RDConv), achieving
+96.41% accuracy on WM-811K (eight defect classes). Gu et al. [31] proposed WamGLM (a
+multimodal LLM) with two-stage fine-tuning (PSCL +WaferMapVMQA Dataset), enabling
+multi-turn dialogue-based wafer map defect information queries. However, standard
+self-attention mechanisms incur quadratic computational complexity, limiting practical
+deployment in resource-constrained industrial environments.
+State space models (SSMs), such as the Mamba model, achieve effective long-range
+dependency modeling with linear computational complexity, offering a promising alter-
+native for efficient inference [17]. Wang et al. [32] proposed MemoryMamba (a memory-
+augmented SSM), outperforming existing methods across four industrial datasets for defect
+recognition. Du et al. [33] proposed a climbing robot-based ring vision system and PD-
+Mamba (Vision Mamba), achieving a 77.97% mIoU and 88.81% mP for bridge pier defect
+detection with linear complexity. Li et al. [34] proposed a stripe-aware CNN-Mamba hybrid
+network (SA-CMamba) with SAEM, achieving a 90.97%, 79.24%, and 62.33% mIoU on
+NEU-Seg, DAGM, and CRACK500 for pixel-level surface defect detection. Yu et al. [30]
+proposed hierarchical Vision Mamba with adaptive multi-scale fusion (HiAM-Mamba),
+achieving 100% (NEU-CLS) and 99.26% (X-SDD) accuracy for steel surface defect clas-
+sification. Zhang et al. [35] proposed DPFNet, a dual-path fusion network combining
+VisionMamba’s state space modeling with separable convolutions, achieving 98.84% accu-
+racy on the MixedWM38 dataset.
+2.3. Automated Defect Classification Systems
+Automated defect classification (ADC) systems have been widely adopted in semi-
+conductor manufacturing. These systems detect potential defect regions, record their
+coordinates, and direct high-precision SEM imaging to generate local high-resolution image
+blocks [8]. Despite high automation, classification accuracy remains suboptimal, often
+requiring subsequent manual review by experienced technicians. Recent studies have lever-
+aged high-resolution imaging, advanced image processing, and deep learning to improve
+precise extraction, localization, fine-grained classification, and cause inference for wafer
+surface defects [36].
+Early research in wafer defect detection and classification includes Liu et al. [37], who
+proposed a knowledge-based intelligent WBM defect diagnosis system integrating spatial
+statistics testing, CNN, ART neural networks and MI, validated with 12 real WBM patterns
+and implemented in a Taiwanese semiconductor company. Subsequently, Kung et al. [38]
+developed a machine learning-based framework combining text mining, image processing,
+deep learning, and decision rules for wafer pattern classification and auto disposition,
+reducing the hold time for specific hold codes by 70%. Later, Kim et al. [39] proposed
+Bin2Vec (a neural network-based bin coloring method) and a CNN-based WBM classifi-
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 5 ---
+J. Imaging 2026, 12, 142
+5 of 20
+cation model, which outperformed machine learning benchmarks on 27,701 real WBMs
+with improved visualization effects. Dey et al. [40] proposed an ensemble deep learning
+framework integrating RetinaNet with multiple backbones, using preference-weighted
+aggregation and unsupervised denoising to improve complex defect detection. Yoon and
+Kang [41] developed a semi-automated classification system combining CNN predictions
+with expert intervention, achieving over 99% accuracy and 93% coverage. Yang and
+Sun [42] explored a classical quantum hybrid deep learning paradigm, demonstrating
+wafer image classification and hotspot detection on approximate quantum processors for
+the first time. More recently, Dey et al. [40] put forward an ensemble deep learning model
+integrating RetinaNet backbones and preference-based fusion combined with unsupervised
+denoising to enhance the mAP for defect classification, detection, and localization in SEM
+images, while Neumann et al. [43] proposed an ML-based automated application for defect
+detection and classification from the ZEISS MultiSEM® (Carl Zeiss, Oberkochen, Germany)
+images of imec iN5 node semiconductor wafers.
+3. Methodology
+3.1. Overall Workflow
+To address the complexity of semiconductor wafer defect detection, we propose the
+FCS-VMamba architecture. To provide a clear and comprehensive understanding, Figure 1
+illustrates the overall workflow of our proposed method, which is logically divided into
+three primary phases: data input and preprocessing, FCS-VMamba feature extraction, and
+defect classification output.
+Figure 1. Overall workflow of the proposed FCS-VMamba architecture.
+Phase 1: Data Input and Preprocessing. The pipeline begins with the raw WM811k
+wafer maps. To ensure data consistency and enhance the model’s generalization capabili-
+ties, the input images undergo a rigorous preprocessing sequence. This includes resizing
+the images to a unified resolution of 224 × 224 pixels, applying data augmentation tech-
+niques (such as random flips, rotations, and color jittering) to simulate complex industrial
+conditions, and performing normalization.
+Phase 2: Proposed FCS-VMamba Architecture. The preprocessed images are fed
+into the PatchEmbed2D module (with a stride of four) for tokenization. Subsequently,
+the features are processed through a four-stage hierarchical architecture. As depicted in
+the detailed FSSBlock in Figure 1, the core feature extraction relies on our three proposed
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 6 ---
+J. Imaging 2026, 12, 142
+6 of 20
+mechanisms synergizing with the state space model. The Frequency Attention (FA) module
+precisely captures high-frequency structural energy anomalies via the RFFT amplitude; the
+SS2D core performs efficient 2D selective scanning; the Saliency Feature Suppression (SFS)
+module applies a detached soft mask to dynamically filter non-defect periodic textures;
+and the Cross-Layer Cross-Attention (CLCA) module salvages minute defect details from
+shallow layers. Patch merging is employed between stages to perform downsampling
+while preserving critical semantic information.
+Phase 3: Defect Classification Output. In the final phase, the deep semantic features
+extracted by the Stage 4 FSSLayer are aggregated using global average pooling (GAP). A fully
+connected classification head then maps these aggregated features into a nine-dimensional
+space, accurately outputting the specific wafer defect categories (e.g., center, donut, or scratch).
+3.2. VMamba Model
+The VMamba architecture represents a novel visual backbone network based on the
+state space model (SSM), which is widely applied across diverse computer vision tasks in-
+cluding image classification, object detection, and semantic segmentation. This architecture
+centers on the Visual State Space (VSS) block to construct an efficient, scalable structure. Its
+core component, the 2D Selective Scan (SS2D) module, effectively bridges the gap between
+one-dimensional sequential scanning and two-dimensional spatial data processing. It
+captures global contextual information while maintaining linear time complexity. The
+VMamba architecture employs a multi-stage hierarchical feature extraction structure. This
+progressively reduces the image resolution while extracting multi-scale feature information.
+The SS2D module maintains efficient feature interaction, thereby capturing comprehensive
+spatial context and structural details.
+Upon entering the VMamba architecture, images first pass through the stem module;
+a strided convolution divides the input image RH×W×3 into non-overlapping image blocks,
+generating a two-dimensional feature map with a spatial resolution H/4 × W/4 without
+requiring additional positional embeddings. Subsequently, the feature map undergoes
+progressive feature extraction and resolution compression across four hierarchical stages.
+Each stage (except the first one) commences with a downsampling layer (implemented via
+strided convolution), halving the spatial resolution and adjusting the number of channels,
+followed by the stacking of multiple VSS blocks as the core feature learning units.
+Each VSS block integrates an SS2D module, a deep convolutional layer (DWConv),
+and a feedforward network (FFN). The SS2D module traverses the feature map along
+four scan paths (Cross-Scan), converting two-dimensional spatial data into a sequence
+stream. Each stream is processed in parallel via selective scanning operations, followed by
+a merging operation (Cross-Merge) to capture global contextual information from multiple
+perspectives. DWConv enhances local spatial feature interactions, while the FFN enriches
+feature representations in the channel dimension.
+After four processing stages, the feature map is compressed to a resolution of
+H/32 × W/32, with the multi-scale features extracted at each stage fully utilized for down-
+stream tasks. In image classification tasks, the final feature map undergoes global average
+pooling and a fully connected layer to output class probabilities. For dense prediction
+tasks such as object detection and semantic segmentation, hierarchical features are fed into
+task-specific head networks (e.g., Mask R-CNN for detection or UperNet for segmentation)
+for further feature fusion and prediction. Throughout this process, VMamba maintains
+linear computational complexity with respect to the input size, circumventing the quadratic
+complexity issue of self-attention in visual transformers. This achieves an excellent balance
+between inference speed and feature representation capability.
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 7 ---
+J. Imaging 2026, 12, 142
+7 of 20
+3.3. FCS-VMamba Model and Structural Enhancements
+Building upon the efficient linear complexity foundation of the VMamba model, we
+introduce our customized architectural innovations. Figure 2 shows the FCS-VMamba
+network architecture that we independently constructed. The core components comprise
+Patch Embedding, an enhanced encoder (incorporating FSSLayer and Patch Merging2D), a
+Frequency Domain Attention module, a Salient Feature Suppression module, a Cross-Layer
+Cross-Attention module, a fully connected classification head, and residual connections.
+Figure 2. Architecture diagram of FCS-VMamba.
+First, Patch Embedding divides 224 × 224 high-resolution wafer images into 4 × 4
+non-overlapping patches, embedding them into a 96-dimensional feature space to generate
+H/4 × W/4 × 96 feature maps. This fully preserves the local details of defects such as
+nanoscale particles and shallow etching, laying the foundation for multi-scale feature
+extraction. Subsequently, the feature map undergoes multi-level progressive processing
+within an enhanced encoder. As shown in Figure 3, each encoder layer comprises multiple
+enhanced FSSLayers (derived from VMamba’s VSSLayer) and Patch Merging2D. The
+FSSLayer follows this workflow: LayerNorm feature normalization →FFT-based frequency
+domain attention modeling →SS2D linear complexity local feature capture →salient
+feature suppression module for micro-defect detection →residual connections preserving
+low-level information.
+Specifically, the Frequency Attention (FA) module employs the 2D Real FFT (RFFT)
+amplitude spectrum to capture the global structure of periodic lithographic textures on
+wafers, resolving misclassification issues caused by texture interference and shallow etching
+non-uniformity.
+The Salient Feature Suppression module attenuates highly activated prominent re-
+gions, compelling the model to focus on low-response minute defects. Cross-layer attention
+is embedded only in the final FSSLayer to efficiently fuse shallow-layer details with deep-
+layer semantic features.
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 8 ---
+J. Imaging 2026, 12, 142
+8 of 20
+Patch Merging2D implements layer-by-layer downsampling. To meet strict memory-
+efficient requirements for industrial edge deployment, we break convention by maintaining
+a fixed 96-dimensional channel count during subsampling (rather than the traditional
+doubling of channels), halving only the spatial resolution.
+This reduces feature maps from H/4 × W/4 × 96 to H/32 × W/32 × 96, substan-
+tially enhancing the network’s dual capture capability of local defect details and global
+distribution patterns while controlling the parameter volume.
+The high-dimensional features output by the encoder are integrated and fed into a
+fully connected classification head. This head maps features to the wafer defect category
+space, completing the transformation from feature representation to classification outcome.
+Residual connections traverse all encoder layers, directly adding the input to each FSS-
+Layer’s processed features. This effectively mitigates the vanishing gradient problem in
+deep networks, ensuring the complete transmission of underlying defect features.
+The superior performance of this entire architecture is primarily driven by the domain-
+specific theoretical reconstructions embedded within the network. In the following sub-
+sections, we detail these three core mechanisms, beginning with how we capture global
+structural anomalies.
+Figure 3. Structure diagram of the FSSLayer block.
+3.4. Frequency Attention Module
+Wafer surface defects often manifest as minute anomalies at the pixel or sub-pixel
+level, exhibiting highly sparse spatial distributions. FcaNet [44] theoretically demonstrated
+that conventional global average pooling (GAP) merely extracts the lowest-frequency
+direct current (DC) component and discards high-frequency structures. A mechanical
+transplantation of its discrete cosine transform (DCT) into our framework is fundamentally
+flawed for industrial inspection. The core of FcaNet relies on a multi-spectral 2D DCT
+for general image feature compression. However, wafer images possess unique physical
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 9 ---
+J. Imaging 2026, 12, 142
+9 of 20
+characteristics; the background consists of highly periodic normal circuits, whereas defects
+are local anomalies with highly random spatial coordinates.
+To strictly address this, we completely abandon the DCT approach and independently
+design a novel pooling mechanism based on the amplitude spectrum of the 2D real fast
+Fourier transform (2D RFFT). Unlike the DCT, which is sensitive to spatial translation, the
+amplitude spectrum of the FFT inherently possesses excellent mathematical shift-invariance.
+By applying GAP exclusively to the FFT amplitude spectrum, our FA module effectively
+extracts the “average frequency energy”. This crucial design allows the model to precisely
+capture the high-frequency structural energy anomalies triggered by nanoscale micro-
+defects, remaining completely undisturbed by their random spatial occurrences on the
+wafer. This represents a domain-specific mathematical reconstruction tailored to the wafer
+physics rather than a simple engineering transplant.
+Furthermore, this customized FA module integrates this frequency-domain global
+information to guide spatial domain feature extraction within the VMamba backbone.
+While the state space model (SSM) block achieves efficient sequence feature extraction, its
+internal linear projection layer struggles to integrate global structural information. Our FA
+module overcomes this by converting frequency-domain energy anomalies into channel
+attention weights for globally guided feature enhancement.
+The specific mathematical workflow is as follows. First, the FA module maps the
+spatial feature tensor’s X ∈RB×C×H×W output from the SSM block to the frequency
+domain via a 2D Real FFT, yielding the complex-valued spectral feature:
+F(X) = RFFT2D(X) ∈CB×C×H×W′
+(1)
+where W′ = ⌊W/2⌋+ 1 due to the conjugate symmetry of the real FFT.
+After obtaining the spectral energy distribution via the modulus operation (i.e., calculating
+the amplitude spectrum to ensure shift invariance), spatial information is compressed using
+global average pooling (GAP) along the spatial dimensions to generate the frequency-aware
+channel descriptor (i.e., the average frequency energy) g ∈RB×C×1×1, expressed as
+gc =
+1
+H × W′
+H
+∑
+i=1
+W′
+∑
+j=1
+F(X)b,c,i,j
+
+(2)
+Subsequently, the channel attention weights w are learned through a bottleneck struc-
+ture comprising two linear transformations:
+w = σ(W2 · ReLU(W1g))
+(3)
+where W1 ∈R
+C
+r ×C denotes the dimension reduction matrix, W2 ∈RC× C
+r represents
+the dimension expansion matrix, r is the compression ratio, and σ denotes the sigmoid
+activation function.
+By utilizing the translation-invariant amplitude spectrum rather than relying on naive
+DCT components, our FA module comprehensively encodes structural information within
+the channel. Guided by this customized global frequency-domain energy, the FA module
+accurately focuses on micro-defect regions while aggressively suppressing the highly
+periodic texture interference of regular circuits.
+3.5. Saliency Feature Suppression Mechanism
+Following the frequency-domain modulation and local feature capture via the SS2D
+core, it is critical to explicitly address the dominant interference from the wafer’s back-
+ground patterns to protect fragile defect signals.
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 10 ---
+J. Imaging 2026, 12, 142
+10 of 20
+The wafer surface itself exhibits highly repetitive circuit patterns and periodic tex-
+tures, with certain regular structures potentially exhibiting greater “visual distinctiveness”
+statistically than genuine defects. This leads traditional models to over-rely on the most
+discriminative, high-response regions and misclassify non-defective textures as positive
+samples. Consequently, they readily overlook subtle, low-response defect features that are
+critical for accurate identification.
+Generic saliency-guided suppression architectures (such as those used in person
+reidentification [45]) typically adopt a “hard erasure” strategy, which bluntly forces the
+feature values of high-response regions to zero. While effective for macroscopic objects
+containing a large number of pixels, directly applying hard erasure to the extremely sparse
+and minute micro-defects of a wafer instantly destroys the fragile feature distribution,
+inevitably leading to catastrophic gradient fragmentation and training collapse.
+To fundamentally address this challenge, our theoretical innovation lies in the design of
+a “soft suppression with detached residuals” mechanism. Different from standard content-
+agnostic regularization methods (e.g., Dropout or Random Erasing) or conventional hard
+erasure, our SFS is a content-aware, deterministic regularizer engineered to insulate the
+gradient flow. The core principle is to emulate lateral inhibition effects in the primary visual
+cortex while mathematically guaranteeing a perfectly smooth loss surface.
+The specific workflow is as follows. First, for the input feature map X ∈RB×H×W×C,
+we compute the saliency distribution at each spatial location by aggregating the feature
+response intensity via a mean operation across the channel dimension:
+S = 1
+C
+C
+∑
+c=1
+|Xc| ∈RB×H×W×1
+(4)
+Subsequently, we select the top k = αHW locations with the highest saliency (α being
+the suppression ratio) and construct suppression regions centered on these locations. To
+strictly avoid the gradient flow disruption caused by hard masking, our SFS innovatively
+implements a soft suppression strategy. We apply a mask M that explicitly retains 10% of
+the original feature intensity in highly activated areas (setting the mask value to 0.1 rather
+than 0), leaving other regions unchanged:
+Mb,i,j =
+
+
+
+0.1
+if ∃(m, n) ∈Tk with |i −m| ≤R and |j −n| ≤R,
+1
+otherwise.
+(5)
+where Tk denotes the set of salient positions and R is the suppression radius. The mask
+M is multiplied element-wise with the original feature map to obtain the soft suppressed
+feature map ˙X = X ⊙M.
+Furthermore, to mathematically ensure a highly stable gradient flow during backprop-
+agation, the final output Y is wrapped within a detached residual identity mapping:
+Y = X + ( ˙X −X).detach()
+(6)
+This proprietary design compels the network to bypass high-contrast periodic back-
+grounds during the forward pass to mine latent, widely distributed defect-related features.
+Experiments demonstrate that this mathematical reconstruction significantly enhances the
+model’s robustness against complex background interference.
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 11 ---
+J. Imaging 2026, 12, 142
+11 of 20
+3.6. Cross-Layer Cross-Attention
+While the aforementioned SFS module effectively isolates minute defects from periodic
+backgrounds within a single layer, preventing these microscopic features from vanishing
+entirely across deep hierarchical stages necessitates a robust inter-layer interaction strategy.
+Given the high resolution of wafer images and the wide defect size range (from a few
+pixels to tens of pixels), single-scale features struggle to balance detail preservation and
+semantic abstraction. While CrossViT [46] introduced cross-attention for feature interaction,
+a direct application of its architecture is theoretically misaligned with hierarchical models.
+CrossViT relies on a dual-branch parallel architecture (processing large and small patches
+simultaneously) to achieve parallel multi-scale fusion. However, state space models (such
+as VMamba) possess a critical architectural vulnerability: they perform highly aggressive
+spatial downsampling across hierarchical stages. In the context of semiconductor inspec-
+tion, this rapid resolution reduction causes already minute, nanoscale defect features to
+completely vanish in deep network layers.
+To fundamentally resolve this theoretical bottleneck, our CLCA approach entirely aban-
+dons the parallel branch design of CrossViT. Instead, we propose an innovative “serialized,
+vertical cross-layer interaction” mechanism. Rather than fusing parallel scales, our architecture
+executes a “vertical cross-layer salvaging” operation. As dictated by our underlying archi-
+tectural logic, CLCA explicitly utilizes the high-resolution feature maps from the preceding
+hierarchical stage (the shallow layer) as the contextual key and value to directly respond to the
+query generated by the current stage (the deep layer). This fundamental, bottom-up redesign
+ensures that microscopic defect details, which are typically obliterated during downsampling,
+are forcibly salvaged and integrated into the deep, high-order semantics.
+The bidirectional interaction is accomplished via a lightweight attention head with a
+linear computational complexity of O(N), avoiding the O(N2) computational explosion
+associated with fully connected self-attention. First, the module receives the current
+layer’s features xcurrent ∈RB×H×W×C and the previous layer’s features xprev. To establish
+exact spatial correspondence for the salvaging process, it spatially aligns xprev via bilinear
+interpolation, yielding
+xaligned = Resize(xprev, (H, W))
+(7)
+matching the current layer’s dimension.
+Subsequently, the module constructs the attention mechanism through linear projec-
+tions. Crucially, the query acts as the semantic anchor from the deep layer, while the key
+and value serve as the detailed spatial context salvaged from the shallow layer:
+Q = Wq · Flatten(xcurrent),
+K = Wk · Flatten(xaligned),
+V = Wv · Flatten(xaligned) (8)
+Attention weights are computed following the scaled dot product rule. After normal-
+ization via the Softmax function, these weights are applied to the value for weighted fusion,
+achieving the targeted feature enhancement:
+Attention(Q, K, V) = softmax
+ QKT
+√dk
+
+V
+(9)
+During defect detection, deep layers identify overall structural deficiency trends, but
+their localization is inherently imprecise due to aggressive subsampling. By transitioning
+from CrossViT’s parallel multi-scale fusion to our serialized vertical cross-layer salvaging,
+deep semantic features dynamically retrieve exact spatial boundaries from shallow, high-
+resolution features. This explicitly mitigates the severe information decay within the SSM
+feature pyramid.
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 12 ---
+J. Imaging 2026, 12, 142
+12 of 20
+4. Experimental Set-Up and Result Analysis
+4.1. Experimental Set-Up
+All experiments were conducted on a server equipped with an NVIDIA RTX 4090
+GPU (24 GB of VRAM) (NVIDIA Corporation, Santa Clara, CA, USA) running Ubuntu
+22.04 LTS (Canonical Ltd., London, UK). The software environment was configured using
+PyTorch 2.1.0 and CUDA 12.1. The source code and datasets are publicly available at
+https://github.com/yijiazhang666/VMamba-for-semiconductor (accessed on 25 January
+2026). For model optimization, the AdamW optimizer was employed with an initial
+learning rate of 0.001, a training batch size of 4, and a total of 50 training epochs.
+4.2. Dataset Construction and Preprocessing
+The original WM811k dataset contains over 810,000 wafer maps, but it suffers from
+extreme class imbalance (only approximately 172,950 are labeled) and inconsistent spatial
+dimensions. To rigorously evaluate the proposed FCS-VMamba architecture and address
+the inherent challenges of industrial deployment, we constructed a dual-level evaluation
+benchmark derived from the WM811k dataset:
+(1)
+Subset A: Balanced Benchmark (902 images). To purely evaluate the feature represen-
+tation capabilities of our proposed modules without the overwhelming interference of
+the majority class (defect-free wafers), we utilized a class-balanced subset. Following
+the random sampling methodology widely adopted in the field [47], we randomly
+sampled approximately 100 images for each of the nine categories (center, donut, edge
+local, edge ring, local, near full, none, random, and scratch), as illustrated in Figure 4.
+This subset prevents model bias toward majority classes and serves as the baseline for
+our ablation and comparative studies.
+Figure 4. Nine types of wafer defects.
+(2)
+Subset B: Industrial Imbalanced Benchmark (11,000 images). To validate the model’s
+robustness and scalability in true industrial environments, we randomly sampled
+a large-scale, highly imbalanced dataset without any manual intervention. This
+subset meticulously simulates the “high-yield, low-defect” reality of semiconductor
+fabrication lines, characterized by an extremely long-tailed distribution. Specifically,
+it comprised 11,000 images distributed as follows: none (8000), edge ring (1000), edge
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 13 ---
+J. Imaging 2026, 12, 142
+13 of 20
+local (550), center (500), local (400), scratch (200), random (150), donut (100), and near
+full (100). The ratio of the largest class to the smallest class reached 80:1, posing a
+severe challenge for the model’s capacity to avoid majority class overfitting.
+For both subsets, the training-to-validation ratio was strictly set to 8:2. To further
+enhance model generalization and prevent overfitting, data augmentation was applied
+during training, including random horizontal and vertical shifts, random rotations, and
+adjustments to the brightness, contrast, and saturation. It is important to note that Sub-
+set B (11,000 images) was utilized exclusively for the ablation experiments to evaluate
+industrial robustness, whereas all other evaluations, including the comparative studies and
+visualization analysis, were conducted on Subset A (902 images).
+4.3. Evaluation Metrics
+To ensure precise evaluation of the model performance, we employed multiple met-
+rics to comprehensively measure the prediction accuracy: the confusion matrix, macro-
+precision, macro-recall, F1 score, and Top-1 recognition rate. Performance comparisons
+were conducted based on the FLOPs values, FPS, and model size.
+4.3.1. Confusion Matrix
+Figure 5 (derived from Subset A) shows a two-dimensional table displaying the
+model’s predicted results for each category alongside their corresponding true labels.
+The confusion matrix provides an intuitive analysis of the model’s prediction bias across
+categories, and it served as the foundation for calculating metrics such as the precision
+and recall.
+Figure 5. Confusion matrices of the six models.
+4.3.2. Macro Precision
+In multi-classification tasks, this metric first calculates the precision for each individual
+class and then takes the average of all class precisions. It reflects the model’s overall
+classification capability across all classes:
+Precisioni =
+TPi
+TPi + FPi
+(10)
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 14 ---
+J. Imaging 2026, 12, 142
+14 of 20
+Macro-Precision = 1
+C
+C
+∑
+i=1
+Precisioni
+(11)
+4.3.3. Macro-Recall
+In multi-classification tasks, the recall is first calculated for each category, and then
+the average of all categories’ recalls is taken. This measures the model’s average ability to
+identify positive samples across each category:
+Recalli =
+TPi
+TPi + FNi
+(12)
+Macro-Recall = 1
+C
+C
+∑
+i=1
+Recalli
+(13)
+4.3.4. F1 Score
+The F1 score is the harmonic mean of the precision and recall. Its core function is to
+balance both metrics, avoiding the one-sidedness of relying on a single indicator:
+F1i = 2 × Precisioni × Recalli
+Precisioni + Recalli
+(14)
+Macro-F1 = 1
+C
+C
+∑
+i=1
+F1i
+(15)
+4.3.5. Top-1 Accuracy
+In classification tasks, this denotes the proportion of samples where the model’s
+highest-confidence prediction matches the true label. It serves as the most fundamental
+accuracy metric for classification tasks.
+4.4. Ablation Studies
+Ablation studies were conducted to investigate the impact of different components on
+model performance using the WM811k dataset, focusing on Frequency Attention, Cross-Layer
+Cross-Attention, and Saliency Feature Suppression. Table 1 (Subset A, 902 images) shows
+that introducing the Frequency Attention module alone improved the macro-precision by
+0.29%. Further incorporation of Cross-Layer Cross-Attention yielded a 5.13% increase in
+macro-precision, substantially enhancing overall model performance. Finally, integrating the
+Saliency Feature Suppression mechanism resulted in a 5.39% improvement in macro-precision.
+These experimental results demonstrate that the three modules—Frequency Attention,
+Cross-Layer Cross-Attention, and Saliency Feature Suppression—though introducing a
+slight increase in computational complexity (FLOPs), significantly reduced the number of
+parameters while delivering notable performance gains.
+Table 1. Ablation study on the balanced benchmark (Subset A, 902 images).
+Model
+Macro-Precision
+Macro-Recall
+Macro-F1
+Top-1
+FLOPs (G)
+Params (M)
+FPS
+VMamba
+81.66
+81.88
+81.27
+83.52
+10.27
+46.02
+674.36
+gVMamba
+81.90
+81.83
+81.21
+85.16
+10.27
+46.81
+594.75
+ggVMamba
+85.85
+86.29
+85.93
+86.81
+3.71
+15.62
+745.88
+FCS-VMamba
+86.06
+86.29
+86.06
+87.91
+13.71
+1.20
+273.18
+Note: gVMamba added Frequency Attention only. ggVMamba added Frequency Attention and Cross-Layer
+Cross-Attention.
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 15 ---
+J. Imaging 2026, 12, 142
+15 of 20
+Furthermore, although the theoretical FLOPs of FCS-VMamba were slightly higher,
+this was a reasonable adjustment made based on the actual demands of industrial applica-
+tions; in practical deployment, memory constraints have a far greater impact on application
+effectiveness than computational power. Through the collaborative effect of multiple
+modules, we successfully compressed the parameter size to an ultra-low 1.20 M, which
+effectively alleviated memory pressure in real-world work scenarios. Although sequence
+unfolding in the 2D Selective Scan module mathematically increased the theoretical FLOPs,
+the hardware-optimized parallel scanning mechanism ensured that this did not translate
+into high latency. Ultimately, FCS-VMamba achieved an empirical inference speed of
+273.18 FPS, easily satisfying industrial real-time requirements.
+As shown in Table 2, To rigorously verify the robustness of these modules under
+extreme industrial conditions, we further extended the ablation study to the highly im-
+balanced industrial benchmark (Subset B, 11,000 images). In this long-tail scenario, the
+baseline VMamba model exhibited performance degradation in minority classes, yielding
+a Macro-Recall of 77.49% and a Macro-F1 of 77.64%, reflecting the tendency of standard
+architectures to overfit the overwhelming majority class. The introduction of the Frequency
+Attention module increased the Macro-Precision to 80.78% and Macro-F1 to 81.62%, indi-
+cating that capturing high-frequency anomalies helps the model resist background noise.
+Notably, the further incorporation of Cross-Layer Cross-Attention delivered a substantial
+leap. This massive improvement mathematically proves that the vertical salvaging mecha-
+nism effectively preserves minority defect details that would otherwise be washed out by
+the dominant normal samples during aggressive downsampling. Ultimately, integrating
+the Saliency Feature Suppression module led to the best overall performance, peaking at a
+Macro-Precision of 85.89%, Macro-F1 of 86.23%, and Top-1 accuracy of 91.80%. By actively
+applying soft suppression to the heavily repeated normal circuit textures, the SFS module
+forced the network to maintain high sensitivity to rare defects.
+Table 2. Ablation study on the industrial imbalanced benchmark (Subset B, 11,000 images).
+Model
+Macro-Precision
+Macro-Recall
+Macro-F1
+Top-1
+FLOPs (G)
+Params (M)
+FPS
+VMamba
+79.66
+77.49
+77.64
+86.50
+10.27
+46.02
+674.36
+gVMamba
+80.78
+83.01
+81.62
+87.20
+10.27
+46.81
+594.75
+ggVMamba
+85.28
+85.33
+85.27
+90.55
+3.71
+15.62
+745.88
+FCS-VMamba
+85.89
+87.40
+86.23
+91.80
+13.71
+1.20
+273.18
+4.5. Comparative Experiments
+To ensure a fair and objective comparison of foundational feature representation ca-
+pabilities among different mainstream architectures (CNNs, standard ViTs, and SSMs),
+comparative experiments were conducted on the balanced benchmark (Subset A, 902 im-
+ages). This strategic choice isolated the intrinsic architectural effectiveness of each model
+from the compounding effects of extreme data skew, ensuring that the competitors were
+evaluated on a strictly level playing field. We compared our FCS-VMamba against two
+state-of-the-art parameter-efficient models: EdgeNeXt-Small and RepViT.
+As shown in Table 3, the FCS-VMamba model achieved significant improvements
+across all comprehensive metrics. Specifically, the Macro-Precision reached 86.06%, sur-
+passing the EdgeNeXt-Small model by 6.35 percentage points and the RepViT model by
+4.48 percentage points. The Macro-Recall was 86.29%, exceeding EdgeNeXt-Small by
+6.00 percentage points and RepViT by 3.94 percentage points. Consequently, the Macro-F1
+score peaked at 86.06%, outperforming EdgeNeXt-Small and RepViT by 6.38 and 4.19 per-
+centage points, respectively. The Top-1 accuracy also reached a leading 87.91%.
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 16 ---
+J. Imaging 2026, 12, 142
+16 of 20
+Table 3. Comparison of results with state-of-the-art models on the balanced benchmark (Subset A,
+902 images).
+Model
+Macro-Precision
+Macro-Recall
+Macro-F1
+Top-1
+FLOPs (G)
+Params (M)
+FPS
+EdgeNeXt-Small
+79.71
+80.29
+79.68
+81.87
+0.26
+1.84
+1216.69
+RepViT
+81.58
+82.35
+81.87
+82.97
+5.62
+1.09
+801.06
+FCS-VMamba
+86.06
+86.29
+86.06
+87.91
+13.71
+1.20
+273.18
+Although the theoretical FLOPs of our model were mathematically higher due to
+the sequential unfolding of the 2D Selective Scan (SS2D) module, it demonstrated highly
+competitive parameter efficiency (only 1.20M parameters). Being lightweight in industrial
+edge deployment is not solely dictated by FLOPs but also fundamentally constrained by
+the on-chip memory (SRAM) footprint. By keeping the parameters comparable to RepViT
+and lower than EdgeNeXt-Small, while delivering a highly practical empirical inference
+speed of 273.18 FPS, FCS-VMamba proved to be the most optimal and balanced architecture
+for high-precision wafer map classification.
+4.6. Statistical Robustness and Cross-Validation
+To strictly address the statistical standards and verify that the performance superiority
+of our proposed architecture was not due to random dataset splitting or lucky initialization,
+we conducted a robust statistical significance analysis. We adopted the Monte Carlo
+cross-validation (Repeated Random Sub-Sampling) strategy.
+Specifically, we conducted five independent runs using different random seeds for
+dataset splitting and weight initialization. To isolate and evaluate the architectural im-
+provements, this rigorous validation was focused on comparing the baseline VMamba and
+our final FCS-VMamba on the balanced benchmark. The statistical results, expressed as the
+mean ± standard deviation (SD), are summarized in Table 4.
+Table 4. Statistical robustness evaluation across 5 independent runs (Monte Carlo Cross-Validation).
+Model
+Macro-Precision (Mean ± SD)
+Macro-Recall (Mean ± SD)
+Macro-F1 (Mean ± SD)
+VMamba
+81.49% ± 1.35%
+80.83% ± 2.28%
+80.64% ± 1.56%
+FCS-VMamba
+86.52% ± 1.60%
+86.04% ± 1.09%
+85.91% ± 1.65%
+As demonstrated in Table 4, the baseline VMamba exhibited noticeable performance
+fluctuations across different data splits, particularly suffering high variance in its Macro-
+Recall (SD = 2.28%). In stark contrast, FCS-VMamba not only elevated the absolute Macro-
+F1 performance by a massive margin of 5.27 percentage points but also maintained a
+strictly narrow standard deviation (1.65%). This statistically proves that the robustness and
+superiority of FCS-VMamba are deeply rooted in our structural innovations (Frequency
+Attention, Cross-Layer Cross-Attention, and SFS) rather than statistical coincidence.
+4.7. Visualization Analysis
+In Figure 6, to provide a more intuitive assessment of the improved model’s perfor-
+mance, we compare the training accuracy and training loss curves of the FCS-VMamba,
+EdgeNeXt-Small, RepViT, and VMamba models under identical experimental conditions.
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 17 ---
+J. Imaging 2026, 12, 142
+17 of 20
+(a) Precision Comparison Line Plot
+(b) Loss Value Comparison Line Plot
+Figure 6. Comparison Line Plots: (a) precision comparison and (b) loss value comparison.
+The results demonstrate that the FCS-VMamba model exhibited a faster rate of ac-
+curacy increase during the initial training phase, with its loss function declining rapidly
+via steeper gradients and stabilizing earlier than its counterparts. The FCS-VMamba ar-
+chitecture achieved significantly faster accuracy growth than other models during the
+initial training, stabilizing above 95% accuracy as early as 40 iterations and maintaining a
+sustained lead thereafter. Although its loss rate was marginally lower than EdgeNeXt-Small
+and VMamba between 20 and 30 iterations, it declined substantially after 21 iterations and
+surpassed them after 32 iterations. This convergence behavior not only demonstrates the
+FCS-VMamba architecture’s high adaptability to wafer defect classification tasks but also
+further validates its comprehensive advantages in classification accuracy, optimization
+efficiency, and generalization stability. It better meets the practical demands for efficient
+and reliable classification models in semiconductor manufacturing scenarios.
+5. Conclusions
+In this paper, we proposed a novel, parameter-efficient FCS-VMamba classification
+network that addresses critical challenges in semiconductor wafer defect recognition,
+including inadequate modeling of long-range dependencies, false negatives for minute
+defects, complex background interference, and edge deployment constraints.
+By innovatively integrating a Frequency Attention (FA) module, Cross-Layer Cross-
+Attention (CLCA), and Saliency Feature Suppression (SFS), the architecture achieved a
+synergistic optimization of its accuracy, footprint, and inference speed. Specifically, the
+FA module, based on the FFT amplitude spectrum, precisely captured the high-frequency
+characteristics of minute anomalies while maintaining spatial shift invariance. Further-
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 18 ---
+J. Imaging 2026, 12, 142
+18 of 20
+more, the CLCA mechanism facilitates bidirectional interaction between shallow-layer
+detail features and deep-layer semantic features through a serialized vertical salvaging
+mechanism, effectively mitigating information decay during aggressive downsampling.
+The SFS mechanism acts as a content-aware regularizer, employing a soft-suppression
+strategy to dynamically filter non-defect interference, such as periodic wafer textures,
+without destabilizing the gradient flow. Its parameter-efficient design demonstrates strong
+potential for efficient inference in memory-constrained (SRAM) environments.
+To rigorously validate the model, we evaluated it using a dual-level strategy. The ex-
+perimental results demonstrate that on both the balanced subset and the highly imbalanced
+industrial benchmark of 11,000 images, FCS-VMamba achieved outstanding robustness.
+With only 1.2 million parameters, it achieved a Macro-Precision of 86.06% and Top-1 accu-
+racy of 87.91%, successfully overcoming the tendency of standard models to overfit majority
+classes. This provides a practical, stable, and memory-efficient baseline for high-precision
+automated wafer map pattern classification in semiconductor manufacturing.
+However, limitations remain. The model’s performance on physical edge hardware and its
+true generalization capability across different process nodes in real industrial scenarios require
+further empirical validation, and three-dimensional defect recognition issues remain unresolved.
+Future research will focus on three key directions: (1) integrating multimodal sensor data
+to enhance sub-nanometer defect perception capabilities; (2) establishing process-adaptive
+mechanisms and conducting rigorous edge hardware testing for cross-environment zero-
+shot transfer learning; and (3) co-optimizing inspection-diagnosis workflows to provide
+interpretable root-cause analysis for wafer defects, ultimately advancing semiconductor
+manufacturing toward fully intelligent closed-loop control.
+Author Contributions: Conceptualization, Y.Z., Z.M. and J.W.; methodology, Y.Z., Z.M. and J.W.;
+software, Y.Z. and T.C.; validation, Y.Z., T.C. and Q.W.; formal analysis, Y.Z. and T.C.; investigation,
+Y.Z., T.C. and Q.W.; resources, Z.M. and T.Z.; writing—original draft, Y.Z.; writing—review and
+editing, Z.M.; supervision, Z.M., T.Z. and J.W.; funding acquisition, Z.M., T.Z. and J.W. All authors
+have read and agreed to the published version of the manuscript.
+Funding: This work was supported in part by the Hebei Natural Science Foundation (F2024202068),
+in part by the Science Research Project of Hebei Education Department (BJK2024172), and in part by
+the China Postdoctoral Science Foundation under Grant Number 2025M771533.
+Institutional Review Board Statement: Not applicable.
+Informed Consent Statement: Not applicable.
+Data Availability Statement: The data presented in this study are openly available in GitHub at
+https://github.com/yijiazhang666/VMamba-for-semiconductor (accessed on 25 January 2026).
+Acknowledgments: During the preparation of this manuscript, the authors used a generative AI tool
+for minor language editing. The authors have carefully reviewed and edited all AI-assisted output
+and take full responsibility for the content of the publication.
+Conflicts of Interest: Author Tiejun Zhao was employed by the company Chinacoal Beijing Coal
+Mining Machinery Co. Author Wang Qi was employed by the Xuzhou XCMG Excavating Machinery
+Co. The remaining authors declare that the research was conducted in the absence of any commercial
+or financial relationships that could be construed as a potential conflict of interest.
+References
+1.
+Mönch, L.; Uzsoy, R.; Fowler, J.W. A survey of semiconductor supply chain models part I: Semiconductor supply chains, strategic
+network design, and supply chain simulation. Int. J. Prod. Res. 2018, 56, 4524–4545. [CrossRef]
+2.
+Uzsoy, R.; Fowler, J.W.; Mönch, L. A survey of semiconductor supply chain models part II: Demand planning, inventory
+management, and capacity planning. Int. J. Prod. Res. 2018, 56, 4546–4564. [CrossRef]
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 19 ---
+J. Imaging 2026, 12, 142
+19 of 20
+3.
+Mönch, L.; Uzsoy, R.; Fowler, J.W. A survey of semiconductor supply chain models part III: Master planning, production planning,
+and demand fulfilment. Int. J. Prod. Res. 2018, 56, 4565–4584. [CrossRef]
+4.
+Kumar, N.; Kennedy, K.; Gildersleeve, K.; Abelson, R.; Mastrangelo, C.; Montgomery, D. A review of yield modelling techniques
+for semiconductor manufacturing. Int. J. Prod. Res. 2006, 44, 5019–5036. [CrossRef]
+5.
+Chandu, H.S. A Survey of Semiconductor Wafer Fabrication Technologies: Advances and Future Trends. Int. J. Res. Anal. Rev.
+2023, 10, 344–349.
+6.
+Wang, C.H.; Kuo, W.; Bensmail, H. Detection and classification of defect patterns on semiconductor wafers. IIE Trans. 2006,
+38, 1059–1068. [CrossRef]
+7.
+Chen, Y.; Zhao, M.; Xu, Z.; Li, K.; Ji, J. Wafer defect recognition method based on multi-scale feature fusion. Front. Neurosci. 2023,
+17, 1202985. [CrossRef]
+8.
+Cheon, S.; Lee, H.; Kim, C.O.; Lee, S.H. Convolutional neural network for wafer surface defect classification and the detection of
+unknown defect class. IEEE Trans. Semicond. Manuf. 2019, 32, 163–170. [CrossRef]
+9.
+Wu, M.J.; Jang, J.S.R.; Chen, J.L. Wafer map failure pattern recognition and similarity ranking for large-scale data sets. IEEE Trans.
+Semicond. Manuf. 2014, 28, 1–12. [CrossRef]
+10.
+Jin, C.H.; Na, H.J.; Piao, M.; Pok, G.; Ryu, K.H. A novel DBSCAN-based defect pattern detection and classification framework for
+wafer bin map. IEEE Trans. Semicond. Manuf. 2019, 32, 286–292. [CrossRef]
+11.
+Su, H.; Li, W.; Li, J.; Liu, H.; Wang, K.; Zhang, Y.; Zhou, X.; Wu, C.; Guo, T. Research Progress on Wafer-Level Micro-LED Chip
+Inspection Technology. Liq. Cryst. Disp. 2023, 38, 582–594. [CrossRef]
+12.
+Shon, H.S.; Batbaatar, E.; Cho, W.S.; Choi, S.G. Unsupervised pre-training of imbalanced data for identification of wafer map
+defect patterns. IEEE Access 2021, 9, 52352–52363. [CrossRef]
+13.
+Tongwha, K.; Kamran, B. Advances in machine learning and deep learning applications towards wafer map defect recognition
+and classification: A review. J. Intell. Manuf. 2022, 34, 3215–3247. [CrossRef]
+14.
+Tao, Z. Research on Automatic Detection and Classification Methods for Electronic Product Defects Based on Neural Networks.
+Master’s Thesis, Soochow University, Suzhou, China, 2020.
+15.
+Li, Z. Surface Defect Recognition Method Based on Transformer Feature Fusion. Ph.D. Thesis, Huazhong University of Science
+and Technology, Wuhan, China, 2023.
+16.
+Wang, H.; Li, Y.; Lin, Y.; Lu, X. VMA-UNet: A Multi-Scale Medical Image Segmentation Network Based on Mamba. J. South-Cent.
+Minzu Univ. (Natural Sci. Ed.) 2026, 45, 51–59. [CrossRef]
+17.
+Gu, A.; Dao, T. Mamba: Linear-time sequence modeling with selective state spaces. In Proceedings of the First Conference on
+Language Modeling, Philadelphia, PA, USA, 7–9 October 2024.
+18.
+Batool, U.; Shapiai, M.I.; Tahir, M.; Ismail, Z.H.; Zakaria, N.J.; Elfakharany, A. A systematic review of deep learning for silicon
+wafer defect recognition. IEEE Access 2021, 9, 116572–116593. [CrossRef]
+19.
+Piao, M.; Jin, C.H.; Lee, J.Y.; Byun, J.Y. Decision tree ensemble-based wafer map failure pattern recognition based on radon
+transform-based features. IEEE Trans. Semicond. Manuf. 2018, 31, 250–257. [CrossRef]
+20.
+Nakazawa, T.; Kulkarni, D.V. Anomaly detection and segmentation for wafer defect patterns using deep convolutional encoder–
+decoder neural network architectures in semiconductor manufacturing.
+IEEE Trans. Semicond. Manuf. 2019, 32, 250–256.
+[CrossRef]
+21.
+Maksim, K.; Kirill, B.; Eduard, Z.; Nikita, G.; Aleksandr, B.; Arina, L.; Nikolay, K. Classification of wafer maps defect based on
+deep learning methods with small amount of data. In Proceedings of the 2019 International Conference on Engineering and
+Telecommunication (EnT), Moscow, Russia, 20–21 November 2019; IEEE: New York, NY, USA, 2019; pp. 1–5.
+22.
+Wang, J.; Xu, C.; Yang, Z.; Zhang, J.; Li, X. Deformable convolutional networks for efficient mixed-type wafer defect pattern
+recognition. IEEE Trans. Semicond. Manuf. 2020, 33, 587–596. [CrossRef]
+23.
+Saqlain, M.; Abbas, Q.; Lee, J.Y. A deep convolutional neural network for wafer defect identification on an imbalanced dataset in
+semiconductor manufacturing processes. IEEE Trans. Semicond. Manuf. 2020, 33, 436–444. [CrossRef]
+24.
+Ji, Y.; Lee, J.H. Using GAN to improve CNN performance of wafer map defect type classification: Yield enhancement. In
+Proceedings of the 2020 31st Annual SEMI Advanced Semiconductor Manufacturing Conference (ASMC), Saratoga Springs, NY,
+USA, 24–26 August 2020; IEEE: New York, NY, USA, 2020; pp. 1–6.
+25.
+Kim, B.; Jeong, Y.S.; Tong, S.H.; Jeong, M.K. A generalised uncertain decision tree for defect classification of multiple wafer maps.
+Int. J. Prod. Res. 2020, 58, 2805–2821. [CrossRef]
+26.
+Doss, R.; Ramakrishnan, J.; Kavitha, S.; Ramkumar, S.; Charlyn Pushpa Latha, G.; Ramaswamy, K. Classification of Silicon (Si) Wafer
+Material Defects in Semiconductor Choosers using a Deep Learning ShuffleNet-v2-CNN Model. Adv. Mater. Sci. Eng. 2022, 2022, 1829792.
+27.
+Wei, Y.; Wang, H. Mixed-type wafer defect recognition with multi-scale information fusion transformer. IEEE Trans. Semicond.
+Manuf. 2022, 35, 341–352. [CrossRef]
+28.
+Fan, S.K.S.; Chiu, S.H. A new ViT-Based augmentation framework for wafer map defect classification to enhance the resilience of
+semiconductor supply chains. Int. J. Prod. Econ. 2024, 273, 109275. [CrossRef]
+https://doi.org/10.3390/jimaging12040142
+
+--- PAGE 20 ---
+J. Imaging 2026, 12, 142
+20 of 20
+29.
+Xu, R.; Xu, Z.; Wang, J.; Shen, J.; Wen, L.; Xie, Y.; Yang, Y. DG-ViT: A density-guided dual-stream vision transformer for wafer
+defect detection. Meas. Sci. Technol. 2025, 36, 125102. [CrossRef]
+30.
+Yuan, W.; Yan, J.; Piao, M. Position-Aware Self-Supervised Learning for Wafer Map Defect Pattern Recognition. IEEE Trans.
+Instrum. Meas. 2025, 74, 2546111.
+31.
+Gu, S.; Lei, Z.; Wen, G.; Xu, Q.; Li, Z.S.; Chen, X.; Yang, C. WamGLM: A multimodal large-scale language model for wafer map
+defect information in-depth query through multi-turn dialogue based on prototypical supervised contrastive learning. Appl. Soft
+Comput. 2025, 185, 113962.
+32.
+Wang, Q.; Hu, H.; Zhou, Y. Memorymamba: Memory-augmented state space model for defect recognition.
+arXiv 2024,
+arXiv:2405.03673.
+33.
+Du, H.; Wang, H.f.; Shan, Y.h.; Pan, Z.f.; Jiao, Y.m.; Gao, R.; Huang, H. Automated Intelligent Detection of Defects on Bridge Piers
+Using a Climbing Operation Robot and Vision Mamba. IEEE Trans. Instrum. Meas. 2025, 74, 5036018. [CrossRef]
+34.
+Li, W.; Wang, C.; Feng, W.; Wang, X.; Ren, Z.; Wang, J.; Wang, C.; Lu, Q. SA-CMamba: Stripe-aware CNN-Mamba Hybrid
+Network for pixel-level surface defect detection. Measurement 2025, 258, 119510. [CrossRef]
+35.
+Zhang, H.; Lang, T.; Wang, C.; Liu, W.; Tang, S.; Ji, Y. State-space models and depth separable convolution for high-precision
+hybrid wafer defect detection: H. Zhang et al. J. Supercomput. 2025, 81, 1030. [CrossRef]
+36.
+Dehaerne, E.; Dey, B.; Blanco, V.; Davis, J. Scanning electron microscopy-based automatic defect inspection for semiconductor
+manufacturing: A systematic review. J. Micro/Nanopatterning Mater. Metrol. 2025, 24, 020901. [CrossRef]
+37.
+Liu, C.W.; Chien, C.F. An intelligent system for wafer bin map defect diagnosis: An empirical study for semiconductor
+manufacturing. Eng. Appl. Artif. Intell. 2013, 26, 1479–1486. [CrossRef]
+38.
+Kung, J.F.; Cheng, P.; Hwu, A.; Wang, C.T.; Hsu, Y. Wafer pattern classification and auto disposition by machine learning—James
+Lin.
+In Proceedings of the 2017 Joint International Symposium on e-Manufacturing and Design Collaboration (eMDC) &
+Semiconductor Manufacturing (ISSM), Hsinchu, Taiwan, 15 September 2017; IEEE: New York, NY, USA, 2017; pp. 1–3.
+39.
+Kim, J.; Kim, H.; Park, J.; Mo, K.; Kang, P. Bin2Vec: A better wafer bin map coloring scheme for comprehensible visualization and
+effective bad wafer classification. Appl. Sci. 2019, 9, 597. [CrossRef]
+40.
+Dey, B.; Goswami, D.; Halder, S.; Khalil, K.; Leray, P.; Bayoumi, M.A. Deep learning-based defect classification and detection in
+SEM images. In Proceedings of the Metrology, Inspection, and Process Control XXXVI, San Jose, CA, USA, 24–28 April 2022;
+SPIE: Bellingham, WA, USA, 2022; p. PC120530Y.
+41.
+Yoon, S.; Kang, S. Semi-automatic wafer map pattern classification with convolutional neural networks. Comput. Ind. Eng. 2022,
+166, 107977. [CrossRef]
+42.
+Yang, Y.F.; Sun, M. Semiconductor defect detection by hybrid classical-quantum deep learning. In Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition, New Orleans, LA, USA, 18–24 June 2022; pp. 2323–2332.
+43.
+Neumann, J.T.; Srikantha, A.; Hüthwohl, P.; Lee, K.; Korb, T.; Foca, E.; Garbowski, T.; Boecker, D.; Das, S.; Halder, S.; et al. Defect
+detection and classification on imec iN5 node BEoL test vehicle with MultiSEM. In Proceedings of the Metrology, Inspection, and
+Process Control XXXVI, San Jose, CA, USA, 24–28 April 2022; SPIE: Bellingham, WA, USA, 2022; Volume 12053, pp. 159–168.
+44.
+Qin, Z.; Zhang, P.; Wu, F.; Li, X. Fcanet: Frequency channel attention networks. In Proceedings of the IEEE/CVF International
+Conference on Computer Vision, Montreal, QC, Canada, 10–17 October 2021; pp. 783–792.
+45.
+Chen, X.; Fu, C.; Zhao, Y.; Zheng, F.; Song, J.; Ji, R.; Yang, Y. Salience-guided cascaded suppression network for person re-
+identification. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, Seattle, WA, USA,
+13–19 June 2020; pp. 3300–3310.
+46.
+Chen, C.F.R.; Fan, Q.; Panda, R. Crossvit: Cross-attention multi-scale vision transformer for image classification. In Proceedings
+of the IEEE/CVF International Conference on Computer Vision, Montreal, QC, Canada, 10–17 October 2021; pp. 357–366.
+47.
+Junayed, M.; Reza, T.T.; Islam, M.S. Enhancing Defect Recognition: Convolutional Neural Networks for Silicon Wafer Map
+Analysis. In Proceedings of the 2024 3rd International Conference on Advancement in Electrical and Electronic Engineering
+(ICAEEE), Gazipur, Bangladesh, 25–27 April 2024; pp. 1–6. [CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.
+https://doi.org/10.3390/jimaging12040142

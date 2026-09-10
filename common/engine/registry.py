@@ -243,7 +243,7 @@ def build_scheduler(
     Returns:
         A scheduler instance.
     """
-    if name.lower() in ("cosine", "step", "plateau", "onecycle"):
+    if name.lower() in ("cosine", "cosine_warmup", "step", "plateau", "onecycle"):
         return _build_scheduler(optimizer, name=name, **kwargs)
     if name in _registries["schedulers"]:
         cls = _registries["schedulers"][name]

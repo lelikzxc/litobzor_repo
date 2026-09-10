@@ -1,7 +1,16 @@
-# FCS-VMamba experiment configuration — paper-faithful lightweight model
-# ~1.2M params (J. Imaging 2026, Table 3): fixed 96-d channels, depths [2,2,2,2]
-# Trained on WM-811K (9 classes). Compatible with FCSVMamba.from_config()
-# and common.engine.EngineConfig.
+# FCS-VMamba — locked Subset A baseline (best local result so far)
+#
+# Achieved (50 ep, seed-dependent): Top-1 ~73.9% / Macro-F1 ~72.9%
+# Paper target: Top-1 87.91% / Macro-F1 86.06% — gap still open; do not
+# casually change encoding / CLCA stages / init without a controlled ablations.
+#
+# Locked recipe:
+#   - Input: die one-hot {0,1,2} → 3ch, bilinear → 224 (NOT /255 grayscale)
+#   - Model: ~1.01M params, CLCA on last stage only, SS2D forward_type=v03
+#   - Head: GAP → LayerNorm → Linear
+#   - Train: batch=4, AdamW lr=1e-3, wd=0.05, cosine 50 ep, grad_max_norm=1.0
+#   - Aug: H/V flip + RandomAffine(15°, translate 0.1, NEAREST); no color jitter
+# Requires selective_scan_cuda_oflex in the venv.
 
 model:
   name: fcs_vmamba
@@ -13,12 +22,12 @@ model:
     pretrained: false
     embed_dim: 96
     depths: [2, 2, 2, 2]
-    num_heads: [3, 6, 12, 24]   # legacy; CLCA uses clca.num_heads
+    num_heads: [3, 6, 12, 24]
     ssm_ratio: 2.0
-    mlp_ratio: 4.0              # unused (FSSLayer has no MLP)
+    mlp_ratio: 4.0
     drop_path_rate: 0.1
     d_state: 16
-    fixed_channels: true        # paper: no channel doubling on merge
+    fixed_channels: true
 
   fa:
     enabled: true
@@ -26,14 +35,14 @@ model:
 
   sfs:
     enabled: true
-    suppression_ratio: 0.2      # α in Eq. (5)
-    suppression_radius: 1       # R in Eq. (5)
-    reduction: 4                # unused (SFS is parameter-free)
+    suppression_ratio: 0.2
+    suppression_radius: 1
+    reduction: 4
 
   clca:
     enabled: true
     num_heads: 4
-    reduction: 16               # unused (true cross-attention)
+    reduction: 16
 
   input:
     image_size: 224
@@ -44,18 +53,19 @@ data:
   data_root: datasets/wm811k
   image_size: 224
   train_split: 0.8
-  val_split: 0.1
-  test_split: 0.1
+  val_split: 0.2
+  test_split: 0.0
 
 training:
   num_classes: 9
-  batch_size: 4                 # paper Sec. 4.1
-  num_epochs: 50                # paper Sec. 4.1
-  learning_rate: 0.001          # paper Sec. 4.1 (AdamW)
+  batch_size: 4
+  num_epochs: 50
+  learning_rate: 0.001
   weight_decay: 0.05
   device: cuda
   amp: false
   grad_max_norm: 1.0
+  grad_max_value: null
 
 optimizer:
   name: adamw
@@ -77,7 +87,7 @@ metrics:
   - precision
 
 evaluation:
-  batch_size: 32
+  batch_size: 16
   metrics:
     - accuracy
     - f1
@@ -91,8 +101,8 @@ logging:
 
 checkpoint:
   save_dir: checkpoints/vmamba_wm811k
-  metric_name: val_loss
-  mode: min
+  metric_name: val_accuracy
+  mode: max
 
 dataset:
   name: wafer_defects

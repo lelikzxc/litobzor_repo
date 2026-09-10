@@ -54,31 +54,48 @@ def clip_gradients(
     model: nn.Module,
     max_norm: float | None = None,
     max_value: float | None = None,
+    *,
+    max_abs_per_param: float | None = 50.0,
 ) -> float:
-    """Clip gradients of a model's parameters.
+    """Clip / sanitize gradients of a model's parameters.
+
+    Order:
+      1. Replace non-finite grads with 0.
+      2. Per-element clamp to ``[-max_abs_per_param, max_abs_per_param]``
+         (SSM/LayerNorm can spike on long wafer sequences; clamping keeps
+         a usable signal — zeroing whole params freezes early layers).
+      3. Optional per-element value clip.
+      4. Optional global norm clip.
 
     Args:
         model: The model whose gradients will be clipped.
         max_norm: Maximum gradient norm (``clip_grad_norm_``). ``None`` disables.
         max_value: Maximum gradient value (``clip_grad_value_``). ``None`` disables.
+        max_abs_per_param: Per-element abs clamp before norm clip. ``None`` disables.
 
     Returns:
-        The total gradient norm before clipping (or ``0.0`` if no clipping).
+        The total gradient norm before clipping (or ``0.0`` if no grads).
     """
     total_norm = 0.0
     for p in model.parameters():
-        if p.grad is not None:
-            param_norm = p.grad.data.norm(2)
-            total_norm += param_norm.item() ** 2
+        if p.grad is None:
+            continue
+        grad = p.grad.data
+        if not torch.isfinite(grad).all():
+            grad.nan_to_num_(nan=0.0, posinf=0.0, neginf=0.0)
+        if max_abs_per_param is not None:
+            grad.clamp_(-max_abs_per_param, max_abs_per_param)
+        param_norm = grad.norm(2)
+        total_norm += param_norm.item() ** 2
     total_norm = total_norm ** 0.5
-
-    if max_norm is not None:
-        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm)
 
     if max_value is not None:
         torch.nn.utils.clip_grad_value_(model.parameters(), max_value)
 
-    return total_norm
+    if max_norm is not None:
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm)
+
+    return float(total_norm)
 
 
 class NativeScaler:

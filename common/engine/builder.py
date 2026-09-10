@@ -137,7 +137,12 @@ class Builder:
 
         opt_kwargs: dict[str, Any] = {}
         if self.config is not None:
-            opt_kwargs = dict(self.config.get("optimizer.kwargs", {}))
+            opt_kwargs = dict(self.config.get("optimizer.kwargs", {}) or {})
+            # Prefer explicit optimizer.weight_decay when kwargs omit it
+            if "weight_decay" not in opt_kwargs:
+                wd = self.config.get("optimizer.weight_decay")
+                if wd is not None:
+                    opt_kwargs["weight_decay"] = wd
         opt_kwargs.update(kwargs)
 
         return _build_optimizer(model, name=name or "adamw", lr=lr or 1e-3, **opt_kwargs)
@@ -435,6 +440,8 @@ class Builder:
             checkpoint_manager=checkpoint_manager,
             logger=logger,
             scaler=scaler,
+            grad_max_norm=self.config.get("training.grad_max_norm", None) if self.config else None,
+            grad_max_value=self.config.get("training.grad_max_value", None) if self.config else None,
         )
         predictor = self.build_predictor(built_model, device=device)
         state = self.build_state()

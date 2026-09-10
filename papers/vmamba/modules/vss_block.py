@@ -49,7 +49,8 @@ class SS2D(nn.Module):
             dropout=0.0,
             bias=False,
             initialize="v0",
-            forward_type="v2",
+            # v03 = oflex + force_fp32 (v3 disables fp32 → unstable on wafer maps)
+            forward_type="v03",
             channel_first=True,
         )
 
@@ -95,7 +96,9 @@ class FCSVSSBlock(nn.Module):
             dropout=0.0,
             bias=False,
             initialize="v0",
-            forward_type="v2",
+            # v03: oflex + force_fp32. Plain "v3" sets force_fp32=False and
+            # explodes LayerNorm grads (~1e18) on poorly encoded wafer maps.
+            forward_type="v03",
             channel_first=True,
         )
         self.drop_path = DropPath(drop_path) if drop_path > 0.0 else nn.Identity()

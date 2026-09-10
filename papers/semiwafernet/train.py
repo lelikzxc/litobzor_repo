@@ -132,29 +132,116 @@ def parse_args() -> argparse.Namespace:
             "--ssl-start-stage 3"
         ),
     )
+    parser.add_argument(
+        "--data-fraction",
+        type=float,
+        default=None,
+        help=(
+            "Use only this fraction of labeled train/val/test and unlabeled data "
+            "(e.g. 0.01 = 1%%). Stratified per class where possible."
+        ),
+    )
+    parser.add_argument(
+        "--no-ssl",
+        action="store_true",
+        help="Disable semi-supervised stages (supervised-only training).",
+    )
     return parser.parse_args()
 
 
-class WeightedCrossEntropyLoss(nn.Module):
-    """Weighted Cross-Entropy loss with w_c = 1 / sqrt(n_c).
+def stratified_subsample_pairs(
+    samples: list[tuple[str, int]],
+    fraction: float,
+    num_classes: int,
+    seed: int = 42,
+    min_per_class: int = 2,
+) -> list[tuple[str, int]]:
+    """Keep ``fraction`` of (filename, label) pairs, stratified by class."""
+    if fraction >= 1.0:
+        return samples
+    if fraction <= 0.0:
+        raise ValueError(f"data-fraction must be in (0, 1], got {fraction}")
 
-    From SemiWaferNet paper Section 2.3: weights are inversely proportional
-    to the square root of class frequencies to handle class imbalance.
+    rng = np.random.RandomState(seed)
+    by_class: dict[int, list[tuple[str, int]]] = {c: [] for c in range(num_classes)}
+    for item in samples:
+        by_class[int(item[1])].append(item)
+
+    out: list[tuple[str, int]] = []
+    for c, items in by_class.items():
+        if not items:
+            continue
+        n = max(min_per_class, int(round(len(items) * fraction)))
+        n = min(n, len(items))
+        idx = rng.choice(len(items), size=n, replace=False)
+        out.extend(items[int(i)] for i in idx)
+    rng.shuffle(out)
+    return out
+
+
+def subsample_indices(
+    labels: np.ndarray,
+    fraction: float,
+    seed: int = 42,
+    min_per_class: int = 2,
+) -> list[int]:
+    """Stratified index subsample for a label array."""
+    if fraction >= 1.0:
+        return list(range(len(labels)))
+    if fraction <= 0.0:
+        raise ValueError(f"data-fraction must be in (0, 1], got {fraction}")
+
+    rng = np.random.RandomState(seed)
+    out: list[int] = []
+    for c in np.unique(labels):
+        idx = np.where(labels == c)[0]
+        n = max(min_per_class, int(round(len(idx) * fraction)))
+        n = min(n, len(idx))
+        chosen = rng.choice(idx, size=n, replace=False)
+        out.extend(int(i) for i in chosen)
+    rng.shuffle(out)
+    return out
+
+
+class WeightedCrossEntropyLoss(nn.Module):
+    """Weighted Cross-Entropy with optional balanced-softmax prior.
+
+    Paper Section 2.3: w_c = 1/sqrt(n_c). When training on a SMOTE-balanced
+    loader but evaluating on the natural long-tailed split, Balanced Softmax
+    (logits += log pi) with pi from the *natural* class prior keeps official
+    test accuracy aligned with the imbalanced label distribution.
     """
 
-    def __init__(self, num_classes: int = 9, class_counts: list[int] | None = None) -> None:
+    def __init__(
+        self,
+        num_classes: int = 9,
+        class_counts: list[int] | None = None,
+        prior_counts: list[int] | None = None,
+        balanced_softmax: bool = True,
+    ) -> None:
         super().__init__()
+        self.balanced_softmax = balanced_softmax
         if class_counts is not None:
-            # w_c = 1 / sqrt(n_c)  — paper Section 2.3
             counts = torch.tensor(class_counts, dtype=torch.float32)
             weights = 1.0 / torch.sqrt(counts + 1e-8)
-            weights = weights / weights.sum() * num_classes  # normalize so mean(weight) ≈ 1
+            weights = weights / weights.sum() * num_classes
             self.register_buffer("weight", weights)
             print(f"  Loss class weights (1/sqrt(n_c)): {weights.numpy()}")
         else:
             self.weight = None
 
+        prior_src = prior_counts if prior_counts is not None else class_counts
+        if prior_src is not None and balanced_softmax:
+            prior = torch.tensor(prior_src, dtype=torch.float32)
+            prior = prior / prior.sum().clamp(min=1e-8)
+            self.register_buffer("log_prior", torch.log(prior.clamp(min=1e-12)))
+            print("  Balanced-softmax log-prior enabled (natural pi)")
+        else:
+            self.log_prior = None
+
     def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        if self.log_prior is not None:
+            logits = logits + self.log_prior.to(device=logits.device, dtype=logits.dtype)
         return nn.functional.cross_entropy(logits, targets, weight=self.weight)
 
 
@@ -320,16 +407,20 @@ def main() -> None:
         ssl["epochs_per_stage"] = [1, 1, 1]
         ssl["unlabeled_max_samples"] = 5_000
         ssl["mc_passes"] = 5
-        # Relax filters so smoke can exercise the pseudo-label path
-        # (paper thresholds need a warm model; 1 epoch is not enough).
-        ssl["confidence_threshold"] = 0.50
-        ssl["entropy_threshold"] = 0.90
-        ssl["mutual_information_threshold"] = 0.30
+        ssl["min_accept_rate"] = 0.10
         config._data.setdefault("training", {})["num_epochs"] = 3
+        if args.data_fraction is None:
+            args.data_fraction = 0.05
         print(
-            "[SSL-FAST] Smoke mode: 1 epoch/stage, 5k unlabeled, 5 MC passes, "
-            "relaxed filters (tau=0.50, H=0.90, MI=0.30)"
+            "[SSL-FAST] Smoke mode: 1 epoch/stage, 5k unlabeled cap, 5 MC passes, "
+            f"data_fraction={args.data_fraction}"
         )
+    if args.no_ssl:
+        config._data.setdefault("semi_supervised", {})["enabled"] = False
+        # Supervised paper run: do not carve pe-holdout out of Dl.
+        config._data.setdefault("data", {})["pseudo_eval_fraction"] = 0.0
+        print("[SSL] Disabled via --no-ssl (supervised-only)")
+        print("[data] pseudo_eval_fraction forced to 0 (keep full Dl)")
 
     # ── Resolve device ──────────────────────────────────────────────────
     device = args.device
@@ -431,6 +522,7 @@ def main() -> None:
             cache_dir = official_train.data_root / "cache"
             print("  Computing class counts for weighted loss (cached)...")
             class_counts = compute_class_counts(labels, num_classes, cache_dir)
+            natural_class_counts = list(class_counts)
 
             # Val ratio relative to official Training ≈ 5436/54355 ≈ 0.1 (Table 1)
             val_from_train = float(config.get("data.val_from_train", 0.1))
@@ -446,6 +538,23 @@ def main() -> None:
             )
             train_samples = [official_train._samples[int(i)] for i in train_idx]
             val_dataset = Subset(official_train, val_idx.tolist())
+
+            # Paper Section 4.1: held-out pseudo-evaluation subset — excluded from Dl
+            pe_frac = float(config.get("data.pseudo_eval_fraction", 0.05))
+            if pe_frac > 0.0 and pe_frac < 1.0:
+                from sklearn.model_selection import StratifiedShuffleSplit as _SSS
+
+                pe_labels = np.array([lab for _, lab in train_samples])
+                pe_sss = _SSS(n_splits=1, test_size=pe_frac, random_state=43)
+                keep_idx, pe_idx = next(pe_sss.split(np.zeros(len(pe_labels)), pe_labels))
+                pe_samples = [train_samples[int(i)] for i in pe_idx]
+                train_samples = [train_samples[int(i)] for i in keep_idx]
+                print(
+                    f"  Pseudo-eval holdout: {len(pe_samples)} "
+                    f"({100 * pe_frac:.0f}% of train, not used for fitting)"
+                )
+            else:
+                pe_samples = []
         else:
             # Legacy random stratified split over all labeled samples
             full_dataset_no_aug = WaferWM811KDataset(
@@ -463,6 +572,7 @@ def main() -> None:
 
             print("  Computing class counts for weighted loss (cached)...")
             class_counts = compute_class_counts(labels, num_classes, cache_dir)
+            natural_class_counts = list(class_counts)
 
             print("  Performing stratified train/val/test split (cached)...")
             train_idx_subset, val_dataset, test_dataset = stratified_split(
@@ -475,6 +585,7 @@ def main() -> None:
             train_samples = [
                 full_dataset_no_aug._samples[i] for i in train_idx_subset.indices
             ]
+            pe_samples = []
 
         # Apply hybrid sampling: downsample the majority None class (Section 4.1)
         if hybrid_enabled:
@@ -484,23 +595,74 @@ def main() -> None:
                 seed=42,
             )
 
+        data_fraction = args.data_fraction
+        if data_fraction is not None and data_fraction < 1.0:
+            print(f"  Applying data-fraction={data_fraction} (stratified subsample)...")
+            train_samples = stratified_subsample_pairs(
+                train_samples, data_fraction, num_classes, seed=42
+            )
+            if isinstance(val_dataset, Subset):
+                val_labels = np.array(
+                    [val_dataset.dataset._samples[i][1] for i in val_dataset.indices]
+                )
+                val_local = subsample_indices(val_labels, data_fraction, seed=43)
+                val_dataset = Subset(
+                    val_dataset.dataset,
+                    [val_dataset.indices[i] for i in val_local],
+                )
+            if isinstance(test_dataset, WaferWM811KDataset):
+                test_labels = np.array([lab for _, lab in test_dataset._samples])
+                test_idx = subsample_indices(test_labels, data_fraction, seed=44)
+                test_dataset = Subset(test_dataset, test_idx)
+            elif isinstance(test_dataset, Subset):
+                test_labels = np.array(
+                    [test_dataset.dataset._samples[i][1] for i in test_dataset.indices]
+                )
+                test_local = subsample_indices(test_labels, data_fraction, seed=44)
+                test_dataset = Subset(
+                    test_dataset.dataset,
+                    [test_dataset.indices[i] for i in test_local],
+                )
+            print(
+                f"  After fraction: train_samples={len(train_samples)}, "
+                f"val={len(val_dataset)}, test={len(test_dataset)}"
+            )
+
         # Apply SMOTE to minority classes to construct a balanced training set
         # (Section 4.1: "downsampling the majority None class and applying SMOTE
         #  to minority classes")
+        hybrid_class_counts = np.bincount(
+            [lab for _, lab in train_samples], minlength=num_classes
+        ).astype(int).tolist()
         train_dataset = SMOTEDataset(
             data_root=data_root,
             samples=train_samples,
             image_size=image_size,
             num_classes=num_classes,
             seed=42,
+            method=str(config.get("data.oversample_method", "random")),
         )
-        # After SMOTE all classes are balanced — recompute weights from actual
-        # training counts. Using pre-SMOTE frequencies makes 'none' cheap
-        # (weight≈0.13) and the model over-predicts defects on imbalanced test.
-        class_counts = np.bincount(train_dataset._y, minlength=num_classes).astype(int).tolist()
-        print(f"  SMOTE-balanced counts for loss weights: {class_counts}")
+        smote_class_counts = np.bincount(
+            train_dataset._y, minlength=num_classes
+        ).astype(int).tolist()
+        # CE w_c=1/sqrt(n_c): use natural/hybrid counts so rare defects (Scratch)
+        # keep high weight even after SMOTE equalizes sampler frequencies.
+        ce_source = str(config.get("data.ce_count_source", "natural")).lower()
+        if ce_source == "smote":
+            class_counts = smote_class_counts
+        elif ce_source == "hybrid":
+            class_counts = hybrid_class_counts
+        else:
+            ce_source = "natural"
+            class_counts = list(natural_class_counts)
+        print(f"  Natural class counts (prior): {natural_class_counts}")
+        print(f"  Hybrid class counts: {hybrid_class_counts}")
+        print(f"  SMOTE-balanced counts: {smote_class_counts}")
+        print(f"  CE weight source: {ce_source} -> {class_counts}")
 
         print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
+        if pe_samples:
+            print(f"  Pseudo-eval holdout kept out of Dl: {len(pe_samples)}")
 
     # ── Create DataLoaders ──────────────────────────────────────────────
     if is_segmentation:
@@ -570,21 +732,44 @@ def main() -> None:
         model = SegmentationWrapper(model)
     else:
         # Weighted Cross-Entropy with REAL class counts (paper Section 2.3)
+        # Engine ClassificationWrapper applies log-pi for metrics/eval.
+        # CE itself uses post-SMOTE weights only (no second prior add).
         loss_fn = WeightedCrossEntropyLoss(
             num_classes=num_classes,
             class_counts=class_counts,
+            prior_counts=natural_class_counts,
+            balanced_softmax=False,
         )
+        prior = torch.tensor(natural_class_counts, dtype=torch.float32)
+        prior = prior / prior.sum().clamp(min=1e-8)
+        eval_prior_scale = float(config.get("data.eval_prior_scale", 0.0))
+        ssl_prior_scale = float(config.get("semi_supervised.ssl_prior_scale", 0.0))
+        if abs(eval_prior_scale) < 1e-12:
+            class_log_prior = None
+        else:
+            class_log_prior = eval_prior_scale * torch.log(prior.clamp(min=1e-12))
+        print(f"  Eval prior scale={eval_prior_scale}, SSL prior scale={ssl_prior_scale}")
 
         class ClassificationWrapper(nn.Module):
-            def __init__(self, base_model: nn.Module) -> None:
+            """Classification logits; optional eval-only log-pi (disabled for paper runs)."""
+
+            def __init__(self, base_model: nn.Module, log_prior: torch.Tensor | None) -> None:
                 super().__init__()
                 self.base_model = base_model
+                if log_prior is not None:
+                    self.register_buffer("log_prior", log_prior.detach().float())
+                else:
+                    self.log_prior = None
 
             def forward(self, x: torch.Tensor) -> torch.Tensor:
-                outputs = self.base_model(x)
-                return outputs["classification"]
+                logits = self.base_model(x)["classification"]
+                if self.log_prior is not None and not self.training:
+                    logits = logits + self.log_prior.to(
+                        device=logits.device, dtype=logits.dtype
+                    )
+                return logits
 
-        model = ClassificationWrapper(model)
+        model = ClassificationWrapper(model, class_log_prior)
 
     # ── Create Engine ───────────────────────────────────────────────────
     print("Initializing engine...")
@@ -639,6 +824,9 @@ def main() -> None:
 
     if ssl_enabled and not is_segmentation:
         unlabeled_max = int(ssl_cfg.get("unlabeled_max_samples", 150_000))
+        if args.data_fraction is not None and args.data_fraction < 1.0:
+            unlabeled_max = max(256, int(unlabeled_max * args.data_fraction))
+            print(f"[SSL] unlabeled_max after data-fraction: {unlabeled_max}")
         unlabeled_root = config.get("data.unlabeled_root", None)
 
         if not label_info.get("has_failure_type") and not (
@@ -671,7 +859,7 @@ def main() -> None:
                     data_root=data_root,
                     image_size=image_size,
                     max_samples=unlabeled_max,
-                    train=True,
+                    train=False,  # deterministic maps for MC pseudo-labels (paper §2.2)
                     seed=42,
                 )
                 print(
@@ -714,15 +902,20 @@ def main() -> None:
         class SSLSupervisedLoss(nn.Module):
             """Adapt WeightedCrossEntropyLoss to the SSL dict interface."""
 
-            def __init__(self, base_loss: nn.Module) -> None:
+            def __init__(self, base_loss: nn.Module, log_prior: torch.Tensor | None = None) -> None:
                 super().__init__()
                 self.base_loss = base_loss
+                if log_prior is not None:
+                    self.register_buffer("log_prior", log_prior.detach().float())
+                else:
+                    self.log_prior = None
 
             def forward(
                 self,
                 student_output: dict[str, torch.Tensor],
                 targets: dict[str, torch.Tensor],
             ) -> dict[str, torch.Tensor]:
+                # Match supervised CE (no prior while training on SMOTE-balanced Dl).
                 class_loss = self.base_loss(
                     student_output["classification"],
                     targets["classification"],
@@ -730,13 +923,23 @@ def main() -> None:
                 return {"classification": class_loss}
 
         # Split total epochs across the three SSL stages (paper: 50 epochs total)
+        # CLI --epochs overrides fixed epochs_per_stage from config.
         stage_epochs_cfg = ssl_cfg.get("epochs_per_stage", None)
-        if isinstance(stage_epochs_cfg, list) and len(stage_epochs_cfg) == 3:
+        if args.epochs is not None:
+            e1 = e2 = max(1, epochs // 3)
+            e3 = max(1, epochs - e1 - e2)
+            print(
+                f"[SSL] WARNING: --epochs={epochs} overrides paper epochs_per_stage "
+                f"[17,17,16] -> {e1}/{e2}/{e3}. Prefer omitting --epochs for a full run."
+            )
+        elif isinstance(stage_epochs_cfg, list) and len(stage_epochs_cfg) == 3:
             e1, e2, e3 = [int(x) for x in stage_epochs_cfg]
         else:
-            e1 = e2 = epochs // 3
-            e3 = epochs - e1 - e2
+            e1 = e2 = max(1, epochs // 3)
+            e3 = max(1, epochs - e1 - e2)
 
+        # Base natural log-pi; StageManager applies ssl_prior_scale (calibrated on pe).
+        base_ssl_log_prior = torch.log(prior.clamp(min=1e-12))
         stage_manager = StageManager(
             student=ssl_student,
             num_classes=num_classes,
@@ -748,16 +951,22 @@ def main() -> None:
             entropy_threshold=ssl_cfg.get("entropy_threshold", 0.08),
             mi_threshold=ssl_cfg.get("mutual_information_threshold", 0.12),
             consistency_weight=ssl_cfg.get("consistency_weight", 0.0),
+            logit_bias=base_ssl_log_prior,
+            max_none_to_defect_ratio=float(
+                ssl_cfg.get("max_none_to_defect_ratio", 999.0)
+            ),
         )
+        stage_manager.set_ssl_prior_scale(ssl_prior_scale)
         grad_max_norm = config.get("training.grad_max_norm", 1.0)
         ssl_trainer = SemiWaferTrainer(
             student=ssl_student,
             stage_manager=stage_manager,
             optimizer=engine.optimizer,
-            supervised_loss_fn=SSLSupervisedLoss(loss_fn),
+            supervised_loss_fn=SSLSupervisedLoss(loss_fn, class_log_prior),
             scheduler=engine.scheduler,
             device=torch.device(device),
             grad_max_norm=grad_max_norm,
+            batch_size=batch_size,
         )
         labeled_ssl = LabeledSSLAdapter(train_loader, image_size)
         ssl_ckpt_dir = engine.checkpoint_manager.last_path.parent if engine.checkpoint_manager else Path("checkpoints/semiwafernet")
@@ -774,14 +983,69 @@ def main() -> None:
             f"(epochs/stage={e1}/{e2}/{e3})"
         )
 
+
+        # Held-out pseudo-eval loader (paper Section 4.1)
+        pe_loader = None
+        if pe_samples:
+            from papers.semiwafernet.data_utils.wafer_dataset import (
+                encode_wafer_image,
+                _resolve_image_path,
+            )
+
+            class _PseudoEvalDataset(torch.utils.data.Dataset):
+                def __init__(self, root, samples, size):
+                    self.root = Path(root)
+                    self.samples = samples
+                    self.size = size
+                    self.images_dir = self.root / "images"
+
+                def __len__(self):
+                    return len(self.samples)
+
+                def __getitem__(self, i):
+                    fn, lab = self.samples[i]
+                    img = encode_wafer_image(
+                        _resolve_image_path(self.images_dir, fn), self.size
+                    )
+                    return img, int(lab)
+
+            pe_loader = DataLoader(
+                _PseudoEvalDataset(data_root, pe_samples, image_size),
+                batch_size=batch_size,
+                shuffle=False,
+                num_workers=0,
+            )
+            print(f"[SSL] Pseudo-eval loader: {len(pe_samples)} samples")
+
+        def _calibrate_ssl_gates(tag: str) -> None:
+            if pe_loader is None or not bool(ssl_cfg.get("calibrate_on_pseudo_eval", True)):
+                return
+            print(f"\n[SSL] Calibrating gates on pseudo-eval ({tag})...")
+            ssl_trainer.stage_manager.calibrate_on_pseudo_eval(
+                pe_loader=pe_loader,
+                device=torch.device(device),
+                verbose=True,
+            )
+
         stage1_metrics: dict[str, float] = {"loss": float("nan"), "skipped": True}
         stage2_metrics: dict[str, float] = {"loss": float("nan"), "skipped": True}
         stage3_metrics: dict[str, float] = {"loss": float("nan"), "skipped": True}
 
         if start_stage <= 1:
             print("\n[SSL] Stage 1: supervised warm-up on labeled data")
+
+            def _stage1_val_metric() -> float:
+                # Same protocol as final eval (ClassificationWrapper + log-pi).
+                metrics = engine.validate(val_loader)
+                key = config.get("checkpoint.metric_name", "val_accuracy")
+                if key.startswith("val_"):
+                    key = key[4:]
+                return float(metrics.get(key, metrics.get("accuracy", 0.0)))
+
             stage1_metrics = ssl_trainer.train_stage1(
-                labeled_data=labeled_ssl, num_epochs=e1
+                labeled_data=labeled_ssl,
+                num_epochs=e1,
+                val_eval_fn=_stage1_val_metric,
             )
             stage1_ckpt = ssl_ckpt_dir / "ssl_stage1.pt"
             engine.save(stage1_ckpt)
@@ -792,7 +1056,8 @@ def main() -> None:
             print(f"[SSL] Skipping Stage 1 (start_stage={start_stage})")
 
         if start_stage <= 2:
-            print("\n[SSL] Stage 2: pseudo-labels on unlabeled + train Dl U Dpseudo")
+            _calibrate_ssl_gates("before Stage 2")
+            print("\n[SSL] Stage 2: pseudo-labels on unlabeled + train Dl U D_pseudo")
             stage2_metrics = ssl_trainer.train_stage2(
                 labeled_data=labeled_ssl,
                 unlabeled_data=unlabeled_loader,
@@ -806,6 +1071,7 @@ def main() -> None:
             print(f"[SSL] Skipping Stage 2 (start_stage={start_stage})")
 
         if start_stage <= 3:
+            _calibrate_ssl_gates("before Stage 3")
             print("\n[SSL] Stage 3: refresh teacher + regenerate + retrain")
             stage3_metrics = ssl_trainer.train_stage3(
                 labeled_data=labeled_ssl,
@@ -878,6 +1144,13 @@ def main() -> None:
     print(f"\n{'='*60}")
     print("Evaluating on test set...")
     print(f"{'='*60}")
+
+    # Paper-style reporting: use best val checkpoint, not last epoch.
+    if engine.checkpoint_manager is not None:
+        best_path = engine.checkpoint_manager.best_path
+        if best_path.exists():
+            print(f"Loading best checkpoint for test: {best_path}")
+            resume_semiwafernet_engine(engine, best_path)
 
     test_metrics = engine.test(test_loader)
     print(f"\nTest Results:")

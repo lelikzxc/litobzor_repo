@@ -15,14 +15,14 @@ class AdaptiveThreshold(nn.Module):
     """Adaptive threshold for pseudo-label selection.
 
     Maintains per-class running statistics of prediction confidence
-    and computes a dynamic threshold:
+    and computes a dynamic threshold (paper Eq. 10):
 
-        tau = base_threshold + alpha * (sigma / mu) + beta * (1 - entropy)
+        tau = base_threshold + alpha * (sigma / mu) + beta * (1 - Entropy(x))
 
     where:
         - mu: per-class mean confidence
         - sigma: per-class confidence standard deviation
-        - entropy: normalised predictive entropy (in [0, 1])
+        - Entropy(x): raw predictive entropy in nats (Eq. 11), not normalised
 
     The threshold is clamped to [0, 1].
 
@@ -134,13 +134,15 @@ class AdaptiveThreshold(nn.Module):
         )
         mu = self.class_mean.to(ref_device)
         sigma = self.class_std.to(ref_device)
-        cv = sigma / mu.clamp(min=1e-8)
+        # Clamp CV so early/noisy class stats cannot push tau to 1.0
+        cv = (sigma / mu.clamp(min=1e-8)).clamp(max=1.0)
 
         if pseudo_labels is None:
             valid = self.class_count.to(ref_device) > 0
             cv_term = cv[valid].mean() if valid.any() else torch.zeros((), device=ref_device)
             if entropy is not None:
-                entropy_term = (1.0 - entropy.flatten().mean()).clamp(min=-1.0, max=1.0)
+                # Paper Eq. 10: β·(1 − Entropy(x)) with raw nats (Eq. 11).
+                entropy_term = 1.0 - entropy.flatten().mean().to(ref_device)
             else:
                 entropy_term = torch.zeros((), device=ref_device)
             tau = self.base_threshold + self.alpha * cv_term + self.beta * entropy_term
@@ -164,7 +166,7 @@ class AdaptiveThreshold(nn.Module):
         """
         mu = self.class_mean
         sigma = self.class_std
-        cv = sigma / mu.clamp(min=1e-8)
+        cv = (sigma / mu.clamp(min=1e-8)).clamp(max=1.0)
         valid = self.class_count > 0
         cv_term = cv[valid].mean().item() if valid.any() else 0.0
         tau = self.base_threshold + self.alpha * cv_term

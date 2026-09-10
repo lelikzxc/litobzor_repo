@@ -6,9 +6,9 @@ Provides ``selective_scan_fn`` with automatic fallback:
     1. CUDA kernels (selective_scan_cuda_oflex / selective_scan_cuda_core / selective_scan_cuda)
     2. Pure-PyTorch fallback (``selective_scan_torch``) when CUDA is unavailable
 
-The pure-PyTorch fallback uses a Python for-loop over the sequence length,
-which is significantly slower but allows the model to run on CPU or without
-compiled CUDA extensions.
+The pure-PyTorch fallback walks the sequence step-by-step and never materialises
+full ``[B, D, L, N]`` tensors (those OOMed 8GB GPUs). Prefer installing
+``selective_scan_cuda_oflex`` for real training speed.
 """
 
 from __future__ import annotations
@@ -57,21 +57,11 @@ def selective_scan_torch(
     *args,
     **kwargs,
 ) -> torch.Tensor:
-    """Pure-PyTorch selective scan (for-loop over sequence length).
+    """Memory-safe pure-PyTorch selective scan (no full ``[B,D,L,N]`` tensors).
 
-    Args:
-        u: Input tensor of shape ``[B, K*C, L]``.
-        delta: Discretisation step of shape ``[B, K*C, L]``.
-        A: State transition matrix of shape ``[K*C, N]``.
-        B: Input projection of shape ``[B, K, N, L]``.
-        C: Output projection of shape ``[B, K, N, L]``.
-        D: Skip connection of shape ``[K*C]`` (optional).
-        delta_bias: Bias for delta of shape ``[K*C]`` (optional).
-        delta_softplus: Apply ``softplus`` to delta.
-        oflex: Keep output in fp32.
-
-    Returns:
-        Scanned output of shape ``[B, K*C, L]``.
+    Keeps only the recurrent state ``[B, K*C, N]`` and walks ``L`` step-by-step.
+    Slower than CUDA kernels, but will not OOM an 8GB laptop GPU the way a
+    parallel scan over ``L≈3k`` would.
     """
     dtype_in = u.dtype
     Batch, K, N, L = B.shape
@@ -83,21 +73,33 @@ def selective_scan_torch(
     if delta_softplus:
         delta = F.softplus(delta)
 
-    u, delta, A, B, C = u.float(), delta.float(), A.float(), B.float(), C.float()
-    B = B.view(Batch, K, 1, N, L).repeat(1, 1, Cdim, 1, 1).view(Batch, KCdim, N, L)
-    C = C.view(Batch, K, 1, N, L).repeat(1, 1, Cdim, 1, 1).view(Batch, KCdim, N, L)
-    deltaA = torch.exp(torch.einsum("bdl,dn->bdln", delta, A))
-    deltaB_u = torch.einsum("bdl,bdnl,bdl->bdln", delta, B, u)
+    u = u.float()
+    delta = delta.float()
+    A = A.float()
+    B = B.float()
+    C = C.float()
 
-    x = A.new_zeros((Batch, KCdim, N))
+    # [B,K,Cdim,L] / [K,Cdim,N] — broadcast, never expand over L×N at once
+    u_ = u.view(Batch, K, Cdim, L)
+    delta_ = delta.view(Batch, K, Cdim, L)
+    A_ = A.view(K, Cdim, N)
+
+    x = u.new_zeros(Batch, K, Cdim, N)
     ys: list[torch.Tensor] = []
-    for i in range(L):
-        x = deltaA[:, :, i, :] * x + deltaB_u[:, :, i, :]
-        y = torch.einsum("bdn,bdn->bd", x, C[:, :, :, i])
-        ys.append(y)
-    y = torch.stack(ys, dim=2)  # (B, C, L)
 
-    out = y if D is None else y + u * D.unsqueeze(-1)
+    for i in range(L):
+        di = delta_[:, :, :, i]  # [B,K,Cdim]
+        ui = u_[:, :, :, i]
+        Bi = B[:, :, :, i]  # [B,K,N]
+        Ci = C[:, :, :, i]
+
+        dA = torch.exp(di.unsqueeze(-1) * A_)  # [B,K,Cdim,N]
+        dBu = di.unsqueeze(-1) * Bi.unsqueeze(2) * ui.unsqueeze(-1)
+        x = dA * x + dBu
+        ys.append((x * Ci.unsqueeze(2)).sum(-1).reshape(Batch, KCdim))
+
+    y = torch.stack(ys, dim=2)
+    out = y if D is None else y + u * D.float().unsqueeze(-1)
     return out if oflex else out.to(dtype=dtype_in)
 
 
@@ -123,11 +125,28 @@ class SelectiveScanCuda(torch.autograd.Function):
         backend: str | None = None,
     ) -> torch.Tensor:
         ctx.delta_softplus = delta_softplus
-        backend = "oflex" if WITH_SELECTIVESCAN_OFLEX and (backend is None) else backend
-        backend = "core" if WITH_SELECTIVESCAN_CORE and (backend is None) else backend
-        backend = "mamba" if WITH_SELECTIVESCAN_MAMBA and (backend is None) else backend
+        if backend is None:
+            if WITH_SELECTIVESCAN_OFLEX:
+                backend = "oflex"
+            elif WITH_SELECTIVESCAN_CORE:
+                backend = "core"
+            elif WITH_SELECTIVESCAN_MAMBA:
+                backend = "mamba"
+            else:
+                backend = "torch"
+        # If a specific backend was requested but not installed, fall back.
+        if backend == "oflex" and not WITH_SELECTIVESCAN_OFLEX:
+            backend = "core" if WITH_SELECTIVESCAN_CORE else ("mamba" if WITH_SELECTIVESCAN_MAMBA else "torch")
+        if backend == "core" and not WITH_SELECTIVESCAN_CORE:
+            backend = "oflex" if WITH_SELECTIVESCAN_OFLEX else ("mamba" if WITH_SELECTIVESCAN_MAMBA else "torch")
+        if backend == "mamba" and not WITH_SELECTIVESCAN_MAMBA:
+            backend = "oflex" if WITH_SELECTIVESCAN_OFLEX else ("core" if WITH_SELECTIVESCAN_CORE else "torch")
         ctx.backend = backend
 
+        if backend == "torch":
+            return selective_scan_torch(
+                u, delta, A, B, C, D, delta_bias, delta_softplus, oflex
+            )
         if backend == "oflex":
             out, x, *rest = selective_scan_cuda_oflex.fwd(u, delta, A, B, C, D, delta_bias, delta_softplus, 1, oflex)  # type: ignore[attr-defined]
         elif backend == "core":

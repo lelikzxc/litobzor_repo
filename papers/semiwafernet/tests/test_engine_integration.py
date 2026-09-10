@@ -106,13 +106,13 @@ def test_engine_config_dot_access() -> None:
     """Verify dot-separated key access works."""
     config = EngineConfig.from_yaml("papers/semiwafernet/configs/config.yaml")
     assert config.get("model.backbone.channels") == [64, 128]
-    assert config.get("model.backbone.in_channels") == 1
+    assert config.get("model.backbone.in_channels") == 3
     assert config.get("model.backbone.norm") == "bn"
     assert config.get("model.transformer.embed_dim") == 128
     assert config.get("model.transformer.num_heads") == 8
     assert config.get("model.transformer.num_layers") == 4
     assert config.get("model.input.image_size") == 32
-    assert config.get("model.input.in_channels") == 1
+    assert config.get("model.input.in_channels") == 3
 
 
 def test_engine_config_engine_fields() -> None:

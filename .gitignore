@@ -53,3 +53,5 @@ logs/
 test_classes.txt
 test_nc.txt
 test_out.py
+
+third_party/

@@ -1,29 +1,29 @@
 model:
   name: semiwafernet
-  mode: classification           # "classification" (HybridCNN-ViT) or "segmentation" (ConvoFormer-UNet)
-  num_classes: 9                 # WM-811K has 9 classes
-  seg_classes: 1                 # Binary defect mask logits (paper Section 4.1)
+  mode: classification
+  num_classes: 9
+  seg_classes: 1
   backbone:
     type: cnn
-    in_channels: 1               # WM-811K is grayscale
-    channels: [64, 128]          # HybridCNN-ViT: 64 → 128
+    in_channels: 3
+    channels: [64, 128]
     depths: [1, 1]
     norm: bn
     activation: relu
   transformer:
-    embed_dim: 128               # D=128 (HybridCNN-ViT)
+    embed_dim: 128
     num_heads: 8
-    num_layers: 4                # L=4
-    mlp_ratio: 2                 # FF=256 = 2*128
+    num_layers: 4
+    mlp_ratio: 2
     dropout: 0.2
     dropout_cls: 0.5
   decoder:
-    base_channels: 66            # ConvoFormer-UNet width → ~7.11M (Table 8)
-    embed_dim: 160               # ConvoFormer bottleneck width
+    base_channels: 66
+    embed_dim: 160
     mlp_ratio: 2
   input:
-    in_channels: 1
-    image_size: 32               # 32×32 classification / 64×64 segmentation
+    in_channels: 3
+    image_size: 32
 
 training:
   num_epochs: 50
@@ -42,12 +42,10 @@ optimizer:
   name: adamw
   lr: 0.00005
   weight_decay: 0.0004
+# Paper Section 4.1: AdamW hyperparameters only — no LR schedule published.
 
 scheduler:
-  name: cosine
-  kwargs:
-    T_max: 50
-    eta_min: 0.000001
+  name: null
 
 loss:
   name: cross_entropy
@@ -60,6 +58,7 @@ metrics:
 
 checkpoint:
   save_dir: checkpoints/semiwafernet
+  # Table 3 Avg is macro per-class recall; val_f1 tracks that better than micro-acc.
   metric_name: val_f1
   mode: max
 
@@ -71,29 +70,42 @@ data:
   image_size: 32
   seg_data_root: datasets/wm811k_seg
   seg_image_size: 64
-  # Paper Section 4.1: official WM-811K Training/Test; val from Training (~10%)
   use_official_split: true
   val_from_train: 0.1
-  # Legacy random split over all labeled samples (when use_official_split: false)
+  # Only used when SSL is enabled (paper pe-holdout). Supervised keeps all Dl.
+  pseudo_eval_fraction: 0.05
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
   hybrid_sampling:
     enabled: true
+    # Paper says downsample None but gives no ratio; 0.30 is our fixed choice.
     none_downsample_ratio: 0.30
   augmentation:
     enabled: true
+  # Paper: no Balanced Softmax / log-pi at eval.
+  eval_prior_scale: 0.0
+  # After hybrid+SMOTE, n_c are equal -> w_c ~ 1 (paper 1/sqrt(n_c) on train Dl).
+  ce_count_source: smote
+  # categorical die maps: random oversample real copies (not soft SMOTE interp).
+  oversample_method: random
 
 semi_supervised:
-  enabled: true                  # HybridCNN-ViT SSL (Stages 1–3) with unlabeled WM-811K
+  enabled: true
   stages: 3
-  unlabeled_max_samples: 150000  # paper Section 4.1
-  epochs_per_stage: [17, 17, 16] # sum to training.num_epochs (50)
+  unlabeled_max_samples: 150000
+  epochs_per_stage: [17, 17, 16]
   ema_decay: 0.999
-  confidence_threshold: 0.94     # τ_base
+  confidence_threshold: 0.94
   alpha: 0.08
   beta: 0.02
-  entropy_threshold: 0.08        # ε_H
-  mutual_information_threshold: 0.12  # ε_MI
-  mc_passes: 20                  # M
-  consistency_weight: 0.0        # paper uses supervised CE on pseudo-labels, not MSE consistency
+  entropy_threshold: 0.08
+  mutual_information_threshold: 0.12
+  mc_passes: 20
+  # Paper: no log-pi on teacher logits.
+  ssl_prior_scale: 0.0
+  # Paper: fixed thresholds; do not re-search prior/eps at runtime.
+  calibrate_on_pseudo_eval: false
+  # Paper: no none-cap on D_pseudo.
+  max_none_to_defect_ratio: 999.0
+  consistency_weight: 0.0

@@ -172,7 +172,7 @@ class CrossLayerChannelAttention(nn.Module):
         out = (attn @ v).transpose(1, 2).reshape(B, H * W, C)
         out = self.proj_drop(self.proj(out))
         out = out.reshape(B, H, W, C).permute(0, 3, 1, 2).contiguous()
-
+        # Locked baseline: residual inside CLCA; block also does x + clca(...).
         return target + out
 
 

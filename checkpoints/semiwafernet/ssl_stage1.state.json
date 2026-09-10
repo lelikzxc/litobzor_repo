@@ -1,7 +1,7 @@
 {
   "epoch": 0,
   "best_metric": null,
-  "best_metric_name": "val_f1",
+  "best_metric_name": "val_accuracy",
   "current_metric": null,
   "global_step": 0,
   "training_finished": false,
