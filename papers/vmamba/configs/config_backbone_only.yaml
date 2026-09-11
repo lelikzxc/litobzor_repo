@@ -1,11 +1,16 @@
-# FCS-VMamba — Subset A working recipe
+# FCS-VMamba — Subset A (toward paper 87.91% / 86.06%)
 #
-# BEST LOCAL: backbone-only (FA/SFS/CLCA OFF), lr=5e-4, 50ep
-#   Top-1 87.78% / Macro-F1 87.34%  ≈ paper FCS target 87.91% / 86.06%
-#   Paper bare VMamba baseline was 83.52%; our backbone exceeds that.
-#   Full FCS with current FA/SFS/CLCA HURT (75.6%) — modules need rework.
+# Local best so far:
+#   Exp A (lr=1e-3, 20ep): peak Val Acc 0.70 @ep16, then collapse
+#   Exp B (lr=5e-4, 20ep): peak Val Acc 0.744 / F1 0.738 @ep18 — stable
 #
-# Encoding: die one-hot → bilinear 224; SS2D v03; ~0.96M params (no FCS heads)
+# Working recipe (Exp B):
+#   - Input: die one-hot {0,1,2} → 3ch, bilinear → 224
+#   - Model: ~1.01M params, CLCA last stage only, SS2D v03
+#   - Head: GAP → LayerNorm → Linear
+#   - Train: batch=4, AdamW lr=5e-4 (paper 1e-3 unstable here), wd=0.05,
+#            cosine T_max=50, grad_max_norm=1.0
+#   - Aug: H/V flip + RandomAffine(15°, translate 0.1, NEAREST)
 # Requires selective_scan_cuda_oflex in the venv.
 
 model:
@@ -96,7 +101,7 @@ logging:
   checkpoint_interval: 10
 
 checkpoint:
-  save_dir: checkpoints/vmamba_wm811k
+  save_dir: checkpoints/vmamba_wm811k_exp_backbone50
   metric_name: val_accuracy
   mode: max
 

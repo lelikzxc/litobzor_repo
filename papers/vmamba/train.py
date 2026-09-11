@@ -175,8 +175,8 @@ def main() -> None:
 
     if args.epochs is not None:
         config._data.setdefault("training", {})["num_epochs"] = args.epochs
-        sched = config._data.setdefault("scheduler", {})
-        sched.setdefault("kwargs", {})["T_max"] = args.epochs
+        # Do not rewrite scheduler T_max: short smokes keep the paper cosine
+        # schedule (e.g. T_max=50) so the first N epochs match a full run.
     if args.batch_size is not None:
         config._data.setdefault("training", {})["batch_size"] = args.batch_size
     if args.lr is not None:

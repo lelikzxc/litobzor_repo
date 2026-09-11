@@ -476,6 +476,10 @@ class Trainer:
             parts.append(f"Train Loss: {latest['train_loss']:.4f}")
         if "val_loss" in latest:
             parts.append(f"Val Loss: {latest['val_loss']:.4f}")
+        if "val_accuracy" in latest:
+            parts.append(f"Val Acc: {latest['val_accuracy']:.4f}")
+        if "val_f1" in latest:
+            parts.append(f"Val F1: {latest['val_f1']:.4f}")
         if "lr" in latest:
             parts.append(f"LR: {latest['lr']:.2e}")
         if "epoch_time" in latest:
