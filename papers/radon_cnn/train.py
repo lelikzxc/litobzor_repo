@@ -29,12 +29,17 @@ Hyperparameters (from paper):
 from __future__ import annotations
 
 import argparse
+import json
+import random
+import shutil
 import sys
 from pathlib import Path
 
+import numpy as np
 import torch
+import yaml
 from torch import nn
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader, WeightedRandomSampler
 
 # Ensure the project root is on sys.path for imports
 _project_root = Path(__file__).resolve().parent.parent.parent
@@ -42,21 +47,25 @@ if str(_project_root) not in sys.path:
     sys.path.insert(0, str(_project_root))
 
 from common.engine.config import EngineConfig
-from common.training.metrics import accuracy, f1, precision, recall
-from common.training.trainer import Trainer
 from common.training.checkpoint import CheckpointManager
 from common.training.early_stopping import EarlyStopping
 from common.training.logger import TrainingLogger
+from common.training.metrics import accuracy, f1, precision, recall
+from common.training.trainer import Trainer
 from common.training.utils import NativeScaler
 from papers.radon_cnn.data_utils import WaferRadonDataset
+from papers.radon_cnn.data_utils.protocol import (
+    dataset_options,
+    load_manifest,
+    make_manifest,
+    subsets,
+)
 from papers.radon_cnn.models.radon_cnn import RadonCNN
 
 
 def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(
-        description="Train RadonCNN on WM-811K wafer map dataset"
-    )
+    parser = argparse.ArgumentParser(description="Train RadonCNN on WM-811K wafer map dataset")
     parser.add_argument(
         "--config",
         type=str,
@@ -133,54 +142,52 @@ def main() -> None:
     lr_decay = config.get("training.lr_decay", 0.99)
     early_stopping_patience = config.get("training.early_stopping_patience", 30)
     weight_decay = config.get("training.weight_decay", 0.0)
-    grad_max_norm = config.get("training.grad_max_norm", 1.0)
+    grad_max_norm = config.get("training.grad_max_norm", None)
 
     # Data params
     data_root = config.get("data.data_root", "datasets/wm811k")
-    image_size = config.get("data.image_size", 64)
     num_classes = config.get("model.num_classes", 7)
-    balanced = config.get("data.balanced", True)
-    train_split = config.get("data.train_split", 0.8)
-    val_split = config.get("data.val_split", 0.1)
 
     # Checkpoint
     save_dir = config.get("checkpoint.save_dir", "checkpoints/radon_cnn")
 
     # ── Seed ─────────────────────────────────────────────────────────────
-    seed = args.seed
-    if seed is not None:
-        torch.manual_seed(seed)
-        import random
-        import numpy as np
-        random.seed(seed)
-        np.random.seed(seed)
-        print(f"Using seed: {seed}")
+    seed = args.seed if args.seed is not None else config.get("training.seed", 42)
+    torch.manual_seed(seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    if device == "cpu":
+        torch.set_num_threads(config.get("training.cpu_threads", 2))
+    print(f"Using seed: {seed}")
 
     # ── Dataset ──────────────────────────────────────────────────────────
     print(f"Loading WM-811K dataset from: {data_root}")
-    full_dataset = WaferRadonDataset(
-        data_root=data_root,
-        image_size=image_size,
-        num_classes=num_classes,
-        balanced=False,  # Use all 25k samples; WeightedRandomSampler balances batches
-    )
+    full_dataset = WaferRadonDataset(**dataset_options(config))
     print(f"  Total samples: {len(full_dataset)}")
     print(f"  Classes: {full_dataset.class_names}")
 
-    total = len(full_dataset)
-    train_len = int(total * train_split)
-    val_len = int(total * val_split)
-    test_len = total - train_len - val_len
-
-    train_dataset, val_dataset, test_dataset = random_split(
-        full_dataset,
-        [train_len, val_len, test_len],
-        generator=torch.Generator().manual_seed(42),
-    )
+    split_path = Path(save_dir) / "split.json"
+    if args.resume is not None:
+        if args.resume not in {"last", "best"}:
+            split_path = Path(args.resume).parent / "split.json"
+        manifest = load_manifest(full_dataset, split_path)
+        if args.seed is not None and args.seed != manifest["seed"]:
+            raise ValueError("--seed differs from the resumed split")
+        seed = manifest["seed"]
+        torch.manual_seed(seed)
+        random.seed(seed)
+        np.random.seed(seed)
+    else:
+        if (Path(save_dir) / "last.pt").exists() or (Path(save_dir) / "best.pt").exists():
+            raise FileExistsError(f"Existing run in {save_dir}; use --resume or a new save_dir")
+        manifest = make_manifest(full_dataset, config, seed)
+        split_path.parent.mkdir(parents=True, exist_ok=True)
+        split_path.write_text(json.dumps(manifest, indent=2))
+    train_dataset, val_dataset, test_dataset = subsets(full_dataset, manifest)
+    print(f"  Protocol: {manifest['protocol']}; unique wafers: {manifest['unique_counts']}")
     print(f"  Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
 
     # WeightedRandomSampler for balanced batches (compensates for class imbalance)
-    from torch.utils.data import WeightedRandomSampler
     from collections import Counter
 
     # Get labels from train_dataset via full_dataset indices
@@ -188,12 +195,22 @@ def main() -> None:
     class_counts = Counter(train_labels)
     # Weight = 1 / count for each class
     weights = [1.0 / class_counts[full_dataset._samples[i][1]] for i in train_dataset.indices]
-    sampler = WeightedRandomSampler(weights, num_samples=len(train_dataset), replacement=True)
+    generator = torch.Generator().manual_seed(seed)
+    sampler = None
+    if manifest["protocol"] == "full" and config.get("data.balance_train_batches", True):
+        sampler = WeightedRandomSampler(
+            weights, num_samples=len(train_dataset), replacement=True, generator=generator
+        )
+    if batch_size < 2 or len(train_dataset) < batch_size:
+        raise ValueError("Training requires batch_size >= 2 and at least one full batch")
 
     train_loader = DataLoader(
         train_dataset,
         batch_size=batch_size,
         sampler=sampler,
+        shuffle=(sampler is None),
+        generator=generator,
+        drop_last=True,  # FC BatchNorm cannot train on a singleton final batch.
         num_workers=0,
         pin_memory=(device == "cuda"),
     )
@@ -241,11 +258,11 @@ def main() -> None:
     )
     checkpoint_manager = CheckpointManager(
         save_dir=save_dir,
-        metric_name="val_accuracy",
-        mode="max",  # Track val_accuracy: higher is better
+        metric_name="val_loss",
+        mode="min",
     )
     logger = TrainingLogger()
-    scaler = NativeScaler(enabled=(device == "cuda"))
+    scaler = NativeScaler(enabled=(device == "cuda" and config.get("training.amp", False)))
 
     # ── Trainer ──────────────────────────────────────────────────────────
     trainer = Trainer(
@@ -276,17 +293,6 @@ def main() -> None:
             checkpoint_path = checkpoint_manager.best_path
             print(f"\nResuming from best checkpoint: {checkpoint_path}")
             resumed_epoch = trainer.resume_from_checkpoint(load_last=False)
-            # Reset scheduler LR to initial value so the model can escape
-            # local minima instead of continuing to decay from ~0.0002.
-            for param_group in optimizer.param_groups:
-                param_group["lr"] = learning_rate
-            # Recreate scheduler with fresh state
-            scheduler = torch.optim.lr_scheduler.ExponentialLR(
-                optimizer,
-                gamma=lr_decay,
-            )
-            trainer.scheduler = scheduler
-            print(f"  LR reset to {learning_rate} (was decaying from ~0.0002)")
         else:
             # Load a specific checkpoint file
             checkpoint_path = Path(args.resume)
@@ -296,6 +302,30 @@ def main() -> None:
             )
         print(f"  Resumed at epoch {resumed_epoch}")
         print(f"  Current LR: {trainer._get_current_lr():.6f}")
+        best_path = Path(checkpoint_path).parent / "best.pt"
+        if best_path.exists():
+            best = torch.load(best_path, map_location="cpu", weights_only=False)
+            checkpoint_manager._best_metric = best["metric"]
+            early_stopping.best_metric = best["metric"]
+            early_stopping._best_state = best["model"]
+            if best_path.resolve() != checkpoint_manager.best_path.resolve():
+                if checkpoint_manager.best_path.exists():
+                    raise FileExistsError(
+                        "Resume destination already has a different best checkpoint"
+                    )
+                shutil.copy2(best_path, checkpoint_manager.best_path)
+
+    # Save the effective CLI overrides, so evaluate.py can recover the run.
+    config._data["training"].update(
+        seed=manifest["seed"],
+        batch_size=batch_size,
+        learning_rate=learning_rate,
+        num_epochs=num_epochs,
+    )
+    Path(save_dir).mkdir(parents=True, exist_ok=True)
+    (Path(save_dir) / "experiment.yaml").write_text(yaml.safe_dump(config._data))
+    if split_path != Path(save_dir) / "split.json":
+        (Path(save_dir) / "split.json").write_text(json.dumps(manifest, indent=2))
 
     # ── Train ────────────────────────────────────────────────────────────
     print(f"\nStarting training for {num_epochs} epochs...")
@@ -303,7 +333,7 @@ def main() -> None:
     print(f"  Early stopping patience: {early_stopping_patience}")
     print(f"  Checkpoints: {save_dir}")
 
-    history = trainer.fit(
+    trainer.fit(
         train_loader=train_loader,
         val_loader=val_loader,
         epochs=num_epochs,
@@ -321,6 +351,7 @@ def main() -> None:
         num_workers=0,
     )
 
+    checkpoint_manager.load_best(model)
     test_metrics = trainer.validate(test_loader)
     print(f"  Test accuracy: {test_metrics.get('accuracy', 0.0):.4f}")
     print(f"  Test f1:       {test_metrics.get('f1', 0.0):.4f}")

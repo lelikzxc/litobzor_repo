@@ -8,19 +8,45 @@ with 'none'; we (1) re-calibrate eps_H / prior scale on the held-out
 pseudo-eval split (paper Section 4.1) for Macro-F1 of accepted labels, and
 (2) cap 'none' in D_pseudo so SSL does not undo SMOTE balance on Dl.
 """
+
 from __future__ import annotations
 
 from typing import Any
 
 import torch
 from torch import nn
-from torch.utils.data import Dataset, TensorDataset
+from torch.utils.data import Dataset, TensorDataset, SequentialSampler
 from tqdm import tqdm
 
 from papers.semiwafernet.training.adaptive_threshold import AdaptiveThreshold
 from papers.semiwafernet.training.ema import EMATeacher
 from papers.semiwafernet.training.mc_dropout import MonteCarloDropout, enable_mc_dropout
 from papers.semiwafernet.training.uncertainty import UncertaintyFilter
+
+
+class IndexedPseudoDataset(Dataset):
+    """Accepted labels reference the deterministic source instead of copying Du."""
+
+    def __init__(self, source, indices, labels):
+        self.source = source
+        self.indices = indices.tolist()
+        self.labels = labels.long()
+
+    def __len__(self):
+        return len(self.indices)
+
+    def __getitem__(self, index):
+        item = self.source[self.indices[index]]
+        x = (
+            item["image"]
+            if isinstance(item, dict)
+            else item[0]
+            if isinstance(item, (tuple, list))
+            else item
+        )
+        from papers.semiwafernet.data_utils.wafer_dataset import geometric_augment
+
+        return geometric_augment(x), self.labels[index]
 
 
 def _macro_f1(pred: torch.Tensor, target: torch.Tensor, num_classes: int) -> float:
@@ -53,14 +79,16 @@ class StageManager:
         mi_threshold: float = 0.12,
         consistency_weight: float = 0.0,
         logit_bias: torch.Tensor | None = None,
-        max_none_to_defect_ratio: float = 1.0,
+        max_none_to_defect_ratio: float | None = None,
         **_unused: Any,
     ) -> None:
         self.student = student
         self.num_classes = num_classes
         self.consistency_weight = consistency_weight
         self.base_threshold = base_threshold
-        self.max_none_to_defect_ratio = float(max_none_to_defect_ratio)
+        self.max_none_to_defect_ratio = (
+            float(max_none_to_defect_ratio) if max_none_to_defect_ratio is not None else None
+        )
         self.current_stage: int = 1
         self._base_logit_bias: torch.Tensor | None = None
         self.logit_bias: torch.Tensor | None = None
@@ -83,9 +111,7 @@ class StageManager:
         )
         self._paper_eps_h = float(entropy_threshold)
 
-    def register_logit_bias(
-        self, logit_bias: torch.Tensor, scale: float = 1.0
-    ) -> None:
+    def register_logit_bias(self, logit_bias: torch.Tensor, scale: float = 1.0) -> None:
         """Register natural log-pi; ``scale`` softens bias used at SSL time."""
         bias = logit_bias.detach().float().view(-1)
         if bias.numel() != self.num_classes:
@@ -125,9 +151,7 @@ class StageManager:
             t_buf.copy_(s_buf)
         self.teacher.teacher.eval()
 
-    def generate_pseudo_labels(
-        self, unlabeled_x: torch.Tensor
-    ) -> dict[str, torch.Tensor | float]:
+    def generate_pseudo_labels(self, unlabeled_x: torch.Tensor) -> dict[str, torch.Tensor | float]:
         """Generate pseudo-labels for a single batch (tests / debugging)."""
         bias = None
         if self.logit_bias is not None:
@@ -179,6 +203,12 @@ class StageManager:
         verbose: bool,
         with_labels: bool = False,
     ) -> dict[str, torch.Tensor]:
+        indexed = (
+            not with_labels
+            and hasattr(loader, "dataset")
+            and isinstance(getattr(loader, "sampler", None), SequentialSampler)
+            and not getattr(loader, "drop_last", False)
+        )
         images: list[torch.Tensor] = []
         confs: list[torch.Tensor] = []
         preds: list[torch.Tensor] = []
@@ -225,14 +255,17 @@ class StageManager:
             )
             mi = (ent - per_pass_ent.mean(dim=0)).clamp(min=0.0)
 
-            images.append(inputs_u.detach().cpu())
+            if not indexed:
+                images.append(inputs_u.detach().cpu())
             confs.append(conf.detach().cpu())
             preds.append(pred.detach().cpu())
             ents.append(ent.detach().cpu())
             mis.append(mi.detach().cpu())
 
+        if not confs:
+            raise ValueError("Pseudo-label source is empty")
         out: dict[str, torch.Tensor] = {
-            "x": torch.cat(images, dim=0),
+            "x": torch.cat(images, dim=0) if images else None,
             "conf": torch.cat(confs, dim=0),
             "pred": torch.cat(preds, dim=0),
             "ent": torch.cat(ents, dim=0),
@@ -277,11 +310,10 @@ class StageManager:
         none_keep <= max_none_to_defect_ratio * n_defect_accepted
         (default ratio=1.0 -> none cannot exceed defects in D_pseudo).
         """
-        if not mask.any():
+        if self.max_none_to_defect_ratio is None or not mask.any():
             return mask
         idx = mask.nonzero(as_tuple=False).view(-1)
         pred_a = pred[idx]
-        conf_a = conf[idx]
         defect = pred_a != 0
         n_def = int(defect.sum().item())
         none_idx = idx[~defect]
@@ -420,7 +452,7 @@ class StageManager:
         all_y = pack["pred"]
         all_ent = pack["ent"]
         all_mi = pack["mi"]
-        n_total = int(all_x.shape[0])
+        n_total = int(all_y.shape[0])
 
         final_mask, tau = self._apply_gates(all_conf, all_y, all_ent, all_mi)
         n_hard = int(final_mask.sum().item())
@@ -457,7 +489,12 @@ class StageManager:
                 f"(max_none_to_defect_ratio={self.max_none_to_defect_ratio:.2f})"
             )
 
-        pseudo_ds = TensorDataset(all_x[final_mask], all_y[final_mask].long())
+        if all_x is None:
+            pseudo_ds = IndexedPseudoDataset(
+                unlabeled_loader.dataset, final_mask.nonzero().flatten(), all_y[final_mask]
+            )
+        else:
+            pseudo_ds = TensorDataset(all_x[final_mask], all_y[final_mask].long())
         if verbose:
             hist = torch.bincount(all_y[final_mask], minlength=self.num_classes).tolist()
             print(

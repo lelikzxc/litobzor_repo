@@ -78,6 +78,8 @@ def resume_semiwafernet_engine(engine: Any, checkpoint_path: Path) -> int:
     else:
         engine.state.epoch = epoch
 
+    if engine.checkpoint_manager is not None and engine.state.best_metric is not None:
+        engine.checkpoint_manager._best_metric = engine.state.best_metric
     return epoch
 
 

@@ -103,13 +103,8 @@ def parse_wm811k_labeled_samples(
 
 def die_map_to_onehot(image: Image.Image | np.ndarray) -> torch.Tensor:
     """Convert categorical die map ``{0,1,2}`` to one-hot ``[3, H, W]`` float."""
-    if isinstance(image, Image.Image):
-        arr = np.asarray(image.convert("L"), dtype=np.int64)
-    else:
-        arr = np.asarray(image, dtype=np.int64)
-        if arr.ndim == 3:
-            arr = arr[..., 0]
-    arr = np.clip(arr, 0, 2)
+    from papers.wafer_encoding import decode_die_map
+    arr = decode_die_map(image)
     oh = np.zeros((3, arr.shape[0], arr.shape[1]), dtype=np.float32)
     for c in (0, 1, 2):
         oh[c] = (arr == c).astype(np.float32)

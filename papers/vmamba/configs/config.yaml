@@ -1,13 +1,5 @@
-# FCS-VMamba — Subset A working recipe
-#
-# BEST LOCAL: backbone-only (FA/SFS/CLCA OFF), lr=5e-4, 50ep
-#   Top-1 87.78% / Macro-F1 87.34%  ≈ paper FCS target 87.91% / 86.06%
-#   Paper bare VMamba baseline was 83.52%; our backbone exceeds that.
-#   Full FCS with current FA/SFS/CLCA HURT (75.6%) — modules need rework.
-#
-# Encoding: die one-hot → bilinear 224; SS2D v03; ~0.96M params (no FCS heads)
-# Requires selective_scan_cuda_oflex in the venv.
-
+# FCS-VMamba paper recipe. Unpublished choices are documented in docs/reproduction_audit.md.
+seed: 42
 model:
   name: fcs_vmamba
   num_classes: 9
@@ -26,17 +18,17 @@ model:
     fixed_channels: true
 
   fa:
-    enabled: false
+    enabled: true
     reduction: 16
 
   sfs:
-    enabled: false
+    enabled: true
     suppression_ratio: 0.2
     suppression_radius: 1
     reduction: 4
 
   clca:
-    enabled: false
+    enabled: true
     num_heads: 4
     reduction: 16
 
@@ -45,8 +37,13 @@ model:
     channels: 3
 
 data:
+  source: author_archive
+  per_class: 0
+  # Normalization values and augmentation magnitudes are unpublished choices.
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
   dataset: wafer_defects
-  data_root: datasets/wm811k
+  data_root: datasets/vmamba_author/WM811k_Dataset.zip
   image_size: 224
   train_split: 0.8
   val_split: 0.2
@@ -56,7 +53,7 @@ training:
   num_classes: 9
   batch_size: 4
   num_epochs: 50
-  learning_rate: 0.0005
+  learning_rate: 0.001
   weight_decay: 0.05
   device: cuda
   amp: false
@@ -65,7 +62,7 @@ training:
 
 optimizer:
   name: adamw
-  lr: 0.0005
+  lr: 0.001
   weight_decay: 0.05
 
 scheduler:
@@ -96,7 +93,7 @@ logging:
   checkpoint_interval: 10
 
 checkpoint:
-  save_dir: checkpoints/vmamba_wm811k
+  save_dir: checkpoints/vmamba_fcs_reproduction
   metric_name: val_accuracy
   mode: max
 

@@ -68,8 +68,8 @@ class RadonTransformModule(nn.Module):
         dtype = x.dtype
 
         # Radon transform is a deterministic non-learnable operation.
-        # We detach from autograd for the numpy conversion, then re-attach
-        # the result so that downstream layers receive gradients.
+        # Numpy preprocessing is non-differentiable with respect to inputs.
+        # Downstream CNN parameters still receive gradients normally.
         with torch.no_grad():
             x_np = x.detach().cpu().numpy()
 
@@ -101,11 +101,6 @@ class RadonTransformModule(nn.Module):
 
         # Add channel dimension: [B, 1, H, W]
         result_tensor = result_tensor.unsqueeze(1)
-
-        # Re-attach to autograd graph so downstream layers receive gradients.
-        # The Radon transform itself is not learnable, but we need the
-        # computation graph to flow through it for the CNN layers after it.
-        result_tensor.requires_grad_(x.requires_grad)
 
         return result_tensor
 

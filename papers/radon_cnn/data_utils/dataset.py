@@ -15,13 +15,13 @@ Preprocessing per the paper (Section "Experimental setup"):
 The Radon transform is applied at dataset load time (not in the model forward
 pass) because:
     - It is a deterministic non-learnable operation (skimage, numpy)
-    - Applying it in the model would break gradient flow (detach → numpy → back)
-    - Pre-computing is ~3x faster (no redundant computation per epoch)
-    - This matches the paper: Radon is a preprocessing step
+    - CNN parameters still receive gradients with constant preprocessed inputs
+    - A lazy RAM cache avoids recomputation on subsequent epochs
 """
 
 from __future__ import annotations
 
+import csv
 import warnings
 from pathlib import Path
 from typing import Any
@@ -32,16 +32,17 @@ from PIL import Image
 from skimage.transform import radon, resize
 
 from papers.radon_cnn.data_utils.base import BaseDataset, DatasetType
+from papers.wafer_encoding import decode_die_map
 
 # RadonCNN uses 7 classes (excludes 'Near-full' and 'None')
 RADONCNN_CLASSES: list[str] = [
-    "Center",       # 0
-    "Donut",        # 1
-    "Edge-Loc",     # 2
-    "Edge-Ring",    # 3
-    "Loc",          # 4
-    "Random",       # 5
-    "Scratch",      # 6
+    "Center",  # 0
+    "Donut",  # 1
+    "Edge-Loc",  # 2
+    "Edge-Ring",  # 3
+    "Loc",  # 4
+    "Random",  # 5
+    "Scratch",  # 6
 ]
 
 # Mapping from WM-811K 9-class labels to RadonCNN 7-class labels
@@ -66,10 +67,10 @@ def remove_background(wafer_map: np.ndarray) -> np.ndarray:
     different shapes on the sides after resizing, thus affecting model
     training negatively."
 
-    In WM-811K, background pixels are 0, defect pixels are 1 or 2.
-    We set background to 0 and defect to 1.
+    Decode categorical PNG levels first: 0 = background, 1 = good die,
+    2 = defective die. Good dies must not survive this operation.
     """
-    binary = (wafer_map > 0).astype(np.float32)
+    binary = (decode_die_map(wafer_map) == 2).astype(np.float32)
     return binary
 
 
@@ -134,6 +135,8 @@ class WaferRadonDataset(BaseDataset):
         balanced: bool = True,
         apply_radon: bool = True,
         transform: callable | None = None,
+        radon_theta: int = 64,
+        cache_radon: bool = True,
     ) -> None:
         super().__init__(dataset_type=DatasetType.CLASSIFICATION, transform=transform)
         self.data_root = Path(data_root)
@@ -141,6 +144,13 @@ class WaferRadonDataset(BaseDataset):
         self.num_classes = num_classes
         self.apply_radon = apply_radon
         self.class_names = RADONCNN_CLASSES[:num_classes]
+        if num_classes != 7:
+            raise ValueError("WM-811K RadonCNN requires all seven defect classes")
+        if image_size != 64 or radon_theta < 1:
+            raise ValueError("RadonCNN requires image_size=64 and positive radon_theta")
+        self.radon_theta = radon_theta
+        self.cache_radon = cache_radon
+        self._cache: dict[int, torch.Tensor] = {}
 
         self.labels_path = self.data_root / "labels.csv"
         self.images_dir = self.data_root / "images"
@@ -156,35 +166,37 @@ class WaferRadonDataset(BaseDataset):
         if not self.labels_path.exists():
             raise FileNotFoundError(f"Labels file not found: {self.labels_path}")
 
-        with open(self.labels_path, "r", encoding="utf-8") as f:
-            f.readline()  # skip header
-
-            for line in f:
-                line = line.strip()
-                if not line:
+        aliases = {name.lower(): i for i, name in enumerate(RADONCNN_CLASSES)}
+        aliases.update({"edge_loc": 2, "edge_ring": 3})
+        with open(self.labels_path, encoding="utf-8-sig", newline="") as f:
+            reader = csv.DictReader(f)
+            fields = reader.fieldnames or []
+            image_field = next((k for k in ("filename", "image") if k in fields), None)
+            label_field = next((k for k in ("failureType", "label") if k in fields), None)
+            if image_field is None or label_field is None:
+                raise ValueError("CSV needs filename/image and failureType/label columns")
+            seen = set()
+            for row in reader:
+                filename = row[image_field].strip()
+                label_str = row[label_field].strip()
+                if label_str.lower() in {"", "none", "near-full", "near_full", "nan"}:
                     continue
-                parts = line.split(",")
-                if len(parts) < 2:
-                    continue
-
-                filename = parts[0].strip()
-                label_str = parts[1].strip()
-
                 try:
                     label_idx = int(label_str)
                 except ValueError:
-                    from papers.semiwafernet.data_utils.wafer_dataset import (
-                        WM811K_CLASSES,
-                    )
-                    label_idx = (
-                        WM811K_CLASSES.index(label_str)
-                        if label_str in WM811K_CLASSES
-                        else -1
-                    )
-
-                if label_idx in WM811K_TO_RADONCNN:
+                    if label_str.lower() not in aliases:
+                        raise ValueError(f"Unknown wafer class {label_str!r}") from None
+                    mapped_label = aliases[label_str.lower()]
+                else:
+                    if label_idx in {0, 6}:
+                        continue
+                    if label_idx not in WM811K_TO_RADONCNN:
+                        raise ValueError(f"Unknown wafer class index {label_idx}")
                     mapped_label = WM811K_TO_RADONCNN[label_idx]
-                    self._samples.append((filename, mapped_label))
+                if filename in seen:
+                    raise ValueError(f"Duplicate wafer filename {filename!r}")
+                seen.add(filename)
+                self._samples.append((filename, mapped_label))
 
         if not self._samples:
             raise ValueError(
@@ -207,7 +219,7 @@ class WaferRadonDataset(BaseDataset):
         for s in samples:
             class_buckets.setdefault(s[1], []).append(s)
 
-        for label, bucket in class_buckets.items():
+        for bucket in class_buckets.values():
             rng = np.random.RandomState(42)
             indices = rng.choice(len(bucket), size=min_count, replace=False)
             balanced.extend([bucket[i] for i in indices])
@@ -218,21 +230,35 @@ class WaferRadonDataset(BaseDataset):
         return len(self._samples)
 
     def __getitem__(self, index: int) -> dict[str, Any]:
-        filename, label = self._samples[index]
+        image_tensor = self._cache.get(index)
+        if image_tensor is None:
+            image_tensor = self._load_input(index)
+            if self.cache_radon:
+                self._cache[index] = image_tensor
+        if self.transform is not None:
+            image_tensor = self.transform(image_tensor.clone())
+        return {"inputs": image_tensor, "targets": self._samples[index][1]}
+
+    def _load_input(self, index: int) -> torch.Tensor:
+        filename, _ = self._samples[index]
         image_path = self.images_dir / filename
 
         # Load image as grayscale (1 channel)
         if image_path.exists():
-            image = Image.open(image_path).convert("L")
+            with Image.open(image_path) as source:
+                image = source.convert("L")
         else:
             png_path = self.images_dir / f"{Path(filename).stem}.png"
             if png_path.exists():
-                image = Image.open(png_path).convert("L")
+                with Image.open(png_path) as source:
+                    image = source.convert("L")
             else:
                 raise FileNotFoundError(f"Image not found: {image_path} or {png_path}")
 
-        # Resize to (image_size, image_size) per paper
-        image = image.resize((self.image_size, self.image_size), Image.BILINEAR)
+        # Categorical levels must not be interpolated into new die types.
+        # Nearest-neighbour preserves 0/1/2 before extracting defect points.
+        decode_die_map(image)  # Validate the original PNG encoding.
+        image = image.resize((self.image_size, self.image_size), Image.Resampling.NEAREST)
 
         # Convert to numpy for background removal
         img_array = np.array(image, dtype=np.float32)
@@ -244,20 +270,14 @@ class WaferRadonDataset(BaseDataset):
         if self.apply_radon:
             img_array = apply_radon_transform(
                 img_array,
-                theta=64,
+                theta=self.radon_theta,
                 image_size=self.image_size,
             )
 
         # Convert to tensor [1, H, W]
         image_tensor = torch.from_numpy(img_array).unsqueeze(0)
 
-        if self.transform is not None:
-            image_tensor = self.transform(image_tensor)
-
-        return {
-            "inputs": image_tensor,  # [1, H, W]
-            "targets": label,         # int
-        }
+        return image_tensor
 
     @property
     def num_samples(self) -> int:

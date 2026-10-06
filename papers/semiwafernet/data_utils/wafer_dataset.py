@@ -1,8 +1,9 @@
 """WM-811K wafer map dataset loader for SemiWaferNet.
 
 WM-811K PNGs store categorical die states ``{0, 1, 2}`` (background / normal /
-defect), NOT natural-image intensities. Encoding follows the paper's
-``X ∈ R^{3×H×W}`` by one-hot channels after nearest-neighbor resize.
+defect), NOT natural-image intensities. The paper specifies
+``X ∈ R^{3×H×W}`` but not its channel encoding. One-hot channels after
+nearest-neighbor resize are an explicit reproduction choice.
 
 Augmentations are geometric only (flip / 90° rotations) so categories stay
 intact — no ColorJitter / bilinear.
@@ -32,34 +33,17 @@ WM811K_CLASSES: list[str] = [
     "Scratch",
 ]
 
-WM811K_LABEL_TO_IDX: dict[str, int] = {
-    label: idx for idx, label in enumerate(WM811K_CLASSES)
-}
+WM811K_LABEL_TO_IDX: dict[str, int] = {label: idx for idx, label in enumerate(WM811K_CLASSES)}
 
 NONE_CLASS_IDX: int = 0
 
 
 def load_wafer_die_map(image_path: Path) -> np.ndarray:
     """Load a wafer PNG as an integer die-state map ``{0,1,2}``."""
-    arr = np.array(Image.open(image_path).convert("L"), dtype=np.int64)
-    # Some exports may stretch to 0..255 — snap to 3-level die states.
-    uniq = np.unique(arr)
-    if uniq.max() > 2:
-        # Map lowest→0, mid→1, highest→2 when possible
-        levels = np.unique(arr)
-        if len(levels) == 1:
-            arr = np.zeros_like(arr)
-        elif len(levels) == 2:
-            arr = (arr == levels[1]).astype(np.int64)
-        else:
-            # tertile-like: use 0, mid, max present
-            lo, hi = levels.min(), levels.max()
-            mid = levels[len(levels) // 2]
-            out = np.zeros_like(arr)
-            out[arr == mid] = 1
-            out[arr == hi] = 2
-            arr = out
-    return np.clip(arr, 0, 2)
+    from papers.wafer_encoding import decode_die_map
+
+    with Image.open(image_path) as image:
+        return decode_die_map(image)
 
 
 def resize_die_map(die_map: np.ndarray, image_size: int) -> np.ndarray:
@@ -78,7 +62,7 @@ def die_map_to_onehot(die_map: np.ndarray) -> torch.Tensor:
 def geometric_augment(x: torch.Tensor, rng: np.random.RandomState | None = None) -> torch.Tensor:
     """Flip / 90°-rotate a ``[C,H,W]`` tensor (category-preserving)."""
     if rng is None:
-        rng = np.random.RandomState()
+        rng = np.random
     if rng.rand() < 0.5:
         x = torch.flip(x, dims=[-1])
     if rng.rand() < 0.5:
@@ -312,9 +296,7 @@ class WaferWM811KDataset(BaseDataset):
             self.labels_path, split=split
         )
         if not self._samples:
-            raise ValueError(
-                f"No labeled samples loaded from {self.labels_path} (split={split!r})"
-            )
+            raise ValueError(f"No labeled samples loaded from {self.labels_path} (split={split!r})")
 
         if train and hybrid_sampling:
             self._samples = apply_hybrid_sampling(
@@ -340,13 +322,7 @@ class WaferWM811KDataset(BaseDataset):
 
 
 class SMOTEDataset(BaseDataset):
-    """Balance minority classes for HybridCNN-ViT training (paper Section 4.1).
-
-    Paper says SMOTE; on categorical die states ``{0,1,2}`` soft SMOTE creates
-    invalid maps. Default ``method="random"`` uses RandomOverSampler (exact
-    copies of real maps + online geometric augs). ``method="smote"`` keeps the
-    interpolate-then-round path for ablations.
-    """
+    """SMOTE over flattened one-hot inputs; random-copy ablation is explicit."""
 
     def __init__(
         self,
@@ -356,7 +332,8 @@ class SMOTEDataset(BaseDataset):
         num_classes: int = 9,
         smote_k_neighbors: int = 5,
         seed: int = 42,
-        method: str = "random",
+        method: str = "smote",
+        augment: bool = True,
     ) -> None:
         super().__init__(dataset_type=DatasetType.CLASSIFICATION)
         self.data_root = Path(data_root)
@@ -365,6 +342,7 @@ class SMOTEDataset(BaseDataset):
         self.class_names = WM811K_CLASSES
         self.images_dir = self.data_root / "images"
         self._aug_rng = np.random.RandomState(seed + 7)
+        self.augment = augment
         method = str(method).lower().strip()
 
         images: list[np.ndarray] = []
@@ -379,31 +357,33 @@ class SMOTEDataset(BaseDataset):
             images.append(die.astype(np.float32).reshape(-1))
             labels.append(label)
 
-        X = np.stack(images)
+        if method not in {"random", "smote"}:
+            raise ValueError(f"Unknown oversample method: {method}")
+        die = np.stack(images).astype(np.uint8).reshape(-1, image_size, image_size)
         y = np.array(labels)
-
         unique_classes = np.unique(y)
         min_count = int(min(np.bincount(y)[unique_classes]))
-        if len(unique_classes) < 2 or min_count < 2:
-            X_res, y_res = X, y
-            print(f"  Oversample skipped (classes={len(unique_classes)}, min_count={min_count})")
-        elif method == "smote":
-            from imblearn.over_sampling import SMOTE
-
-            k = min(smote_k_neighbors, max(1, min_count - 1))
-            smote = SMOTE(k_neighbors=k, random_state=seed)
-            X_res, y_res = smote.fit_resample(X, y)
-            print(f"  SMOTE (interp+round): {len(X)} -> {len(X_res)} samples")
-        else:
+        if method == "random":
             from imblearn.over_sampling import RandomOverSampler
 
+            # Store each real map once; oversampling duplicates indices only.
             ros = RandomOverSampler(random_state=seed)
-            X_res, y_res = ros.fit_resample(X, y)
-            print(f"  RandomOverSampler (real copies): {len(X)} -> {len(X_res)} samples")
+            indices, y_res = ros.fit_resample(np.arange(len(y)).reshape(-1, 1), y)
+            self._indices = indices[:, 0]
+            self._die = die
+            self._X = None
+        else:
+            if len(unique_classes) < 2 or min_count < 2:
+                raise ValueError("SMOTE needs at least two samples in each of two classes")
+            from imblearn.over_sampling import SMOTE
 
-        die = np.rint(X_res).astype(np.int64).clip(0, 2).reshape(-1, image_size, image_size)
-        oh = np.eye(3, dtype=np.float32)[die]
-        self._X = np.transpose(oh, (0, 3, 1, 2)).astype(np.float32)
+            # SMOTE in encoded input space. Keep interpolated features: rounding
+            # removes the interpolation and is not the algorithm in the paper.
+            X = np.eye(3, dtype=np.float32)[die].transpose(0, 3, 1, 2).reshape(len(y), -1)
+            smote = SMOTE(k_neighbors=min(smote_k_neighbors, min_count - 1), random_state=seed)
+            X_res, y_res = smote.fit_resample(X, y)
+            self._X = X_res.reshape(-1, 3, image_size, image_size)
+            print(f"  SMOTE: {len(y)} -> {len(y_res)} encoded samples")
         self._y = y_res.astype(np.int64)
 
         counts = np.bincount(self._y, minlength=num_classes)
@@ -413,8 +393,12 @@ class SMOTEDataset(BaseDataset):
         return len(self._y)
 
     def __getitem__(self, index: int) -> dict[str, Any]:
-        image = torch.from_numpy(self._X[index].copy())
-        image = geometric_augment(image, self._aug_rng)
+        if self._X is None:
+            image = die_map_to_onehot(self._die[self._indices[index]])
+        else:
+            image = torch.from_numpy(self._X[index].copy())
+        if self.augment:
+            image = geometric_augment(image, self._aug_rng)
         label = int(self._y[index])
         mask = torch.zeros(self.image_size, self.image_size, dtype=torch.long)
         return {"image": image, "label": label, "mask": mask}
@@ -462,9 +446,7 @@ class UnlabeledWM811KDataset(BaseDataset):
 
     def __getitem__(self, index: int) -> dict[str, Any]:
         filename = self._filenames[index]
-        image = encode_wafer_image(
-            _resolve_image_path(self.images_dir, filename), self.image_size
-        )
+        image = encode_wafer_image(_resolve_image_path(self.images_dir, filename), self.image_size)
         if self.train:
             image = geometric_augment(image, self._aug_rng)
         return {"image": image}

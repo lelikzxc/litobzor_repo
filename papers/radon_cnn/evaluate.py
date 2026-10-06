@@ -11,8 +11,7 @@ import sys
 from pathlib import Path
 
 import torch
-from torch import nn
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader
 
 _project_root = Path(__file__).resolve().parent.parent.parent
 if str(_project_root) not in sys.path:
@@ -21,24 +20,28 @@ if str(_project_root) not in sys.path:
 from common.engine.config import EngineConfig
 from common.training.metrics import accuracy, f1, precision, recall
 from papers.radon_cnn.data_utils import WaferRadonDataset
+from papers.radon_cnn.data_utils.protocol import (
+    dataset_options,
+    load_manifest,
+    model_state,
+    subsets,
+)
 from papers.radon_cnn.models.radon_cnn import RadonCNN
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Evaluate RadonCNN on WM-811K test set"
-    )
+    parser = argparse.ArgumentParser(description="Evaluate RadonCNN on WM-811K test set")
     parser.add_argument(
         "--checkpoint",
         type=str,
-        default="checkpoints/radon_cnn/best.pt",
+        default="checkpoints/radon_cnn_v2/best.pt",
         help="Path to checkpoint .pt file",
     )
     parser.add_argument(
         "--config",
         type=str,
-        default="papers/radon_cnn/configs/config.yaml",
-        help="Path to YAML configuration file",
+        default=None,
+        help="Override the experiment.yaml saved beside the checkpoint",
     )
     parser.add_argument(
         "--device",
@@ -59,40 +62,26 @@ def main() -> None:
     print(f"Using device: {device}")
 
     # ── Load config ─────────────────────────────────────────────────────
-    config_path = Path(args.config)
+    checkpoint_path = Path(args.checkpoint)
+    config_path = Path(args.config) if args.config else checkpoint_path.parent / "experiment.yaml"
     if not config_path.exists():
         print(f"Error: Config not found: {config_path}")
         sys.exit(1)
     config = EngineConfig.from_yaml(config_path)
+    if device == "cpu":
+        torch.set_num_threads(config.get("training.cpu_threads", 2))
 
     # ── Create dataset ──────────────────────────────────────────────────
     data_root = config.get("data.data_root", "datasets/wm811k")
-    image_size = config.get("data.image_size", 64)
     num_classes = config.get("model.num_classes", 7)
-    balanced = config.get("data.balanced", True)
-    train_split = config.get("data.train_split", 0.8)
-    val_split = config.get("data.val_split", 0.1)
 
     print(f"Loading WM-811K dataset from: {data_root}")
-    full_dataset = WaferRadonDataset(
-        data_root=data_root,
-        image_size=image_size,
-        num_classes=num_classes,
-        balanced=False,
-    )
+    full_dataset = WaferRadonDataset(**dataset_options(config))
     print(f"  Total samples: {len(full_dataset)}")
     print(f"  Classes: {full_dataset.class_names}")
 
-    total = len(full_dataset)
-    train_len = int(total * train_split)
-    val_len = int(total * val_split)
-    test_len = total - train_len - val_len
-
-    _, _, test_dataset = random_split(
-        full_dataset,
-        [train_len, val_len, test_len],
-        generator=torch.Generator().manual_seed(42),
-    )
+    manifest = load_manifest(full_dataset, checkpoint_path.parent / "split.json")
+    _, _, test_dataset = subsets(full_dataset, manifest)
     print(f"  Test samples: {len(test_dataset)}")
 
     test_loader = DataLoader(
@@ -111,18 +100,15 @@ def main() -> None:
     print(f"Loading checkpoint from: {checkpoint_path}")
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
 
-    model = RadonCNN(in_channels=1, num_classes=num_classes, radon_theta=64)
-    if "model_state_dict" in checkpoint:
-        model.load_state_dict(checkpoint["model_state_dict"])
-    else:
-        model.load_state_dict(checkpoint)
+    model = RadonCNN(in_channels=1, num_classes=num_classes)
+    model.load_state_dict(model_state(checkpoint))
     model.to(device)
     model.eval()
     print(f"  Parameters: {sum(p.numel() for p in model.parameters()):,}")
 
     # ── Evaluate ────────────────────────────────────────────────────────
     print("\nEvaluating...")
-    all_preds: list[torch.Tensor] = []
+    all_logits: list[torch.Tensor] = []
     all_targets: list[torch.Tensor] = []
 
     for batch in test_loader:
@@ -130,21 +116,20 @@ def main() -> None:
         labels = batch["targets"].to(device)
 
         logits = model(images)
-        preds = logits.argmax(dim=1)
-
-        all_preds.append(preds.cpu())
+        all_logits.append(logits.cpu())
         all_targets.append(labels.cpu())
 
-    preds_tensor = torch.cat(all_preds)
+    logits_tensor = torch.cat(all_logits)
+    preds_tensor = logits_tensor.argmax(dim=1)
     targets_tensor = torch.cat(all_targets)
 
-    acc = accuracy(preds_tensor, targets_tensor)
-    f1_score = f1(preds_tensor, targets_tensor)
-    prec = precision(preds_tensor, targets_tensor)
-    rec = recall(preds_tensor, targets_tensor)
+    acc = accuracy(logits_tensor, targets_tensor)
+    f1_score = f1(logits_tensor, targets_tensor, num_classes=num_classes)
+    prec = precision(logits_tensor, targets_tensor, num_classes=num_classes)
+    rec = recall(logits_tensor, targets_tensor, num_classes=num_classes)
 
     print(f"\n{'=' * 40}")
-    print(f"Test Results")
+    print("Test Results")
     print(f"{'=' * 40}")
     print(f"  Accuracy:  {acc:.4f}")
     print(f"  F1 Score:  {f1_score:.4f}")
@@ -153,7 +138,7 @@ def main() -> None:
     print(f"{'=' * 40}")
 
     # Per-class accuracy
-    print(f"\nPer-class accuracy:")
+    print("\nPer-class accuracy:")
     for class_idx, class_name in enumerate(full_dataset.class_names):
         mask = targets_tensor == class_idx
         if mask.sum() > 0:

@@ -55,3 +55,6 @@ test_nc.txt
 test_out.py
 
 third_party/
+
+# Local CPU diagnostic checkpoints and generated reports
+checkpoints/semiwafernet_cpu_*/

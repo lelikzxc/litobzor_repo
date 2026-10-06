@@ -1,3 +1,5 @@
+# CPU diagnostic weighted-loss ablation; compare to config_cpu_diagnostic.yaml.
+# Run with --data-fraction 0.1 --device cpu --no-ssl. Not a paper reproduction.
 seed: 42
 model:
   name: semiwafernet
@@ -7,8 +9,12 @@ model:
   backbone:
     type: cnn
     in_channels: 3
-    channels: [64, 128]
-    depths: [1, 1]
+    channels:
+    - 64
+    - 128
+    depths:
+    - 1
+    - 1
     norm: bn
     activation: relu
   transformer:
@@ -25,47 +31,36 @@ model:
   input:
     in_channels: 3
     image_size: 32
-
 training:
-  num_epochs: 50
+  num_epochs: 10
   batch_size: 256
-  learning_rate: 0.00005
+  learning_rate: 5.0e-05
   weight_decay: 0.0004
   grad_max_norm: 1.0
-
 seg_training:
   num_epochs: 50
   batch_size: 32
   learning_rate: 0.0001
   weight_decay: 0.01
-
 optimizer:
   name: adamw
-  lr: 0.00005
+  lr: 5.0e-05
   weight_decay: 0.0004
-# Paper Section 4.1: AdamW hyperparameters only — no LR schedule published.
-
 scheduler:
   name: null
-
 loss:
   name: cross_entropy
-
 metrics:
-  - accuracy
-  - f1
-  - precision
-  - recall
-
+- accuracy
+- f1
+- precision
+- recall
 checkpoint:
-  save_dir: checkpoints/semiwafernet_reproduction
-  # Table 3 Avg is macro per-class recall; val_f1 tracks that better than micro-acc.
+  save_dir: checkpoints/semiwafernet_cpu_weighted
   metric_name: val_f1
   mode: max
-
 evaluation:
   batch_size: 64
-
 data:
   data_root: datasets/wm811k
   image_size: 32
@@ -73,29 +68,26 @@ data:
   seg_image_size: 64
   use_official_split: true
   val_from_train: 0.1
-  # Only used when SSL is enabled (paper pe-holdout). Supervised keeps all Dl.
-  pseudo_eval_fraction: 0.05
+  pseudo_eval_fraction: 0.0
   train_split: 0.8
   val_split: 0.1
   test_split: 0.1
   hybrid_sampling:
     enabled: true
-    # Paper says downsample None but gives no ratio; 0.30 is our fixed choice.
-    none_downsample_ratio: 0.30
+    none_downsample_ratio: 0.3
   augmentation:
     enabled: true
-  # Paper: no Balanced Softmax / log-pi at eval.
   eval_prior_scale: 0.0
-  # Counts after balancing: w_c=1/sqrt(n_c) becomes uniform. This count convention is unpublished.
-  ce_count_source: smote
-  # SMOTE in encoded feature space; interpolation is retained.
+  ce_count_source: natural
   oversample_method: smote
-
 semi_supervised:
-  enabled: true
+  enabled: false
   stages: 3
   unlabeled_max_samples: 150000
-  epochs_per_stage: [17, 17, 16]
+  epochs_per_stage:
+  - 17
+  - 17
+  - 16
   ema_decay: 0.999
   confidence_threshold: 0.94
   alpha: 0.08
@@ -103,10 +95,7 @@ semi_supervised:
   entropy_threshold: 0.08
   mutual_information_threshold: 0.12
   mc_passes: 20
-  # Paper: no log-pi on teacher logits.
   ssl_prior_scale: 0.0
-  # Paper: fixed thresholds; do not re-search prior/eps at runtime.
   calibrate_on_pseudo_eval: false
-  # Paper: no none-cap on D_pseudo.
   max_none_to_defect_ratio: null
   consistency_weight: 0.0

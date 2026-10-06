@@ -159,6 +159,11 @@ class NativeScaler:
         else:
             optimizer.step()
 
+    def unscale_(self, optimizer: torch.optim.Optimizer) -> None:
+        """Restore true gradient magnitudes before inspection or clipping."""
+        if self.enabled:
+            self._scaler.unscale_(optimizer)
+
     def update(self) -> None:
         """Update the scale factor."""
         if self.enabled:

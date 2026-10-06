@@ -74,6 +74,10 @@ class KernelFlip(nn.Module):
         Returns:
             Max-out tensor of shape [B, out_channels, H_out, W_out].
         """
+        return self.branches(x).amax(dim=1)
+
+    def branches(self, x: torch.Tensor) -> torch.Tensor:
+        """Return both branches [B, 2, C, H, W] before any max-out."""
         # Branch 1: original convolution
         out1 = self.conv(x)
 
@@ -83,6 +87,4 @@ class KernelFlip(nn.Module):
         out2 = out2.flip(-1)  # Flip back to original orientation
 
         # Max-out: element-wise maximum over the two branches
-        out = torch.maximum(out1, out2)
-
-        return out
+        return torch.stack((out1, out2), dim=1)

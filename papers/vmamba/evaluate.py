@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 import torch
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader, Subset
 
 _project_root = Path(__file__).resolve().parent.parent.parent
 if str(_project_root) not in sys.path:
@@ -19,14 +19,12 @@ if str(_project_root) not in sys.path:
 
 from common.engine.config import EngineConfig
 from common.training.metrics import accuracy, f1, precision, recall
-from papers.vmamba.data_utils import WaferWM811KDataset
+from papers.vmamba.data_utils.author_dataset import build_dataset
 from papers.vmamba.models.vmamba import FCSVMamba
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Evaluate FCS-VMamba on WM-811K test set"
-    )
+    parser = argparse.ArgumentParser(description="Evaluate FCS-VMamba on WM-811K test set")
     parser.add_argument(
         "--checkpoint",
         type=str,
@@ -66,26 +64,19 @@ def main() -> None:
 
     # ── Create dataset ──────────────────────────────────────────────────
     data_root = config.get("data.data_root", "datasets/wm811k")
-    image_size = config.get("data.image_size", 128)
-    train_split = config.get("data.train_split", 0.8)
-    val_split = config.get("data.val_split", 0.1)
 
     print(f"Loading WM-811K dataset from: {data_root}")
-    full_dataset = WaferWM811KDataset(data_root=data_root, image_size=image_size)
+    full_dataset = build_dataset(config, train=False)
     print(f"  Total samples: {len(full_dataset)}")
     print(f"  Classes: {full_dataset.class_names}")
 
-    total = len(full_dataset)
-    train_len = int(total * train_split)
-    val_len = int(total * val_split)
-    test_len = total - train_len - val_len
+    from papers.reproduction import load_holdout
 
-    _, _, test_dataset = random_split(
-        full_dataset,
-        [train_len, val_len, test_len],
-        generator=torch.Generator().manual_seed(42),
-    )
-    print(f"  Test samples: {len(test_dataset)}")
+    holdout, saved_config = load_holdout(args.checkpoint, full_dataset._samples)
+    if saved_config["model"] != config.to_dict()["model"]:
+        raise ValueError("Model config differs from the checkpoint training protocol")
+    test_dataset = Subset(full_dataset, holdout)
+    print(f"  Saved holdout samples: {len(test_dataset)}")
 
     # ── DataLoader ──────────────────────────────────────────────────────
     eval_batch_size = config.get("evaluation.batch_size", 128)
@@ -132,9 +123,9 @@ def main() -> None:
     model.eval()
 
     # ── Evaluate ────────────────────────────────────────────────────────
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("Evaluating on test set...")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
     all_logits = []
     all_targets = []
@@ -164,7 +155,7 @@ def main() -> None:
     prec = precision(logits, targets, num_classes=num_classes)
     rec = recall(logits, targets, num_classes=num_classes)
 
-    print(f"\nTest Results:")
+    print("\nTest Results:")
     print(f"  Loss:      {avg_loss:.4f}")
     print(f"  Accuracy:  {acc:.4f}")
     print(f"  F1:        {f1_score:.4f}")
@@ -172,7 +163,7 @@ def main() -> None:
     print(f"  Recall:    {rec:.4f}")
 
     preds = logits.argmax(dim=1)
-    print(f"\nPer-class accuracy:")
+    print("\nPer-class accuracy:")
     for c in range(num_classes):
         mask = targets == c
         if mask.any():
@@ -181,7 +172,7 @@ def main() -> None:
         else:
             print(f"  Class {c}: N/A (no samples)")
 
-    print(f"\nDone!")
+    print("\nDone!")
 
 
 if __name__ == "__main__":

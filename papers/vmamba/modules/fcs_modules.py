@@ -48,11 +48,11 @@ class FrequencyAttention(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Args/Returns: ``[B, C, H, W]``."""
         # RFFT over spatial dims → amplitude spectrum (shift-invariant)
-        x_fft = fft.rfft2(x, dim=(-2, -1), norm="ortho")
+        x_fft = fft.rfft2(x.float(), dim=(-2, -1), norm="ortho")
         magnitude = torch.abs(x_fft)  # [B, C, H, W']
 
         # Average frequency energy per channel (Eq. 2)
-        gap = magnitude.mean(dim=(-2, -1))  # [B, C]
+        gap = magnitude.mean(dim=(-2, -1)).to(x.dtype)  # [B, C]
 
         # Bottleneck channel attention (Eq. 3)
         weights = self.sigmoid(self.expansion(F.relu(self.reduction(gap))))
@@ -79,6 +79,10 @@ class SaliencySuppression(nn.Module):
         soft_value: float = 0.1,
     ) -> None:
         super().__init__()
+        if not 0.0 <= suppression_ratio <= 1.0:
+            raise ValueError("suppression_ratio must be in [0, 1]")
+        if suppression_radius < 0:
+            raise ValueError("suppression_radius must be nonnegative")
         self.suppression_ratio = suppression_ratio
         self.suppression_radius = suppression_radius
         self.soft_value = soft_value
@@ -91,7 +95,9 @@ class SaliencySuppression(nn.Module):
         # Spatial saliency: mean |x| over channels → [B, 1, H, W] (Eq. 4)
         spatial_saliency = torch.mean(torch.abs(x), dim=1, keepdim=True)
 
-        k = max(1, int(H * W * self.suppression_ratio))
+        k = int(H * W * self.suppression_ratio)
+        if k == 0:
+            return x
         flat = spatial_saliency.view(B, -1)
         _, topk_indices = torch.topk(flat, k, dim=-1)  # [B, k]
 
@@ -172,8 +178,8 @@ class CrossLayerChannelAttention(nn.Module):
         out = (attn @ v).transpose(1, 2).reshape(B, H * W, C)
         out = self.proj_drop(self.proj(out))
         out = out.reshape(B, H, W, C).permute(0, 3, 1, 2).contiguous()
-        # Locked baseline: residual inside CLCA; block also does x + clca(...).
-        return target + out
+        # The caller owns the residual; returning target + out doubles it.
+        return out
 
 
 # ── Factories ─────────────────────────────────────────────────────────────

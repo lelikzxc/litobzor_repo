@@ -11,7 +11,7 @@ from typing import Any, Callable
 
 import torch
 from torch import nn
-from torch.utils.data import DataLoader, Dataset, TensorDataset
+from torch.utils.data import DataLoader, Dataset, TensorDataset, ConcatDataset
 
 from common.training.utils import clip_gradients
 from papers.semiwafernet.training.progress import batch_progress, epoch_progress
@@ -60,6 +60,7 @@ class Trainer:
         self.grad_max_norm = grad_max_norm
         self.verbose = verbose
         self.batch_size = batch_size
+        self.current_epoch = 0
 
     def set_optimizer(self, optimizer: torch.optim.Optimizer) -> None:
         self.optimizer = optimizer
@@ -160,6 +161,9 @@ class Trainer:
         best_metric = float("-inf")
         best_state: dict[str, torch.Tensor] | None = None
         best_epoch = -1
+        best_optimizer = None
+        best_scheduler = None
+        epoch_callback = kwargs.get("epoch_callback")
 
         for epoch in epoch_progress(
             num_epochs, stage=1, title="supervised warm-up", disable=not self.verbose
@@ -194,9 +198,20 @@ class Trainer:
                     best_metric = metric
                     best_epoch = epoch + 1
                     best_state = copy.deepcopy(self.student.state_dict())
+                    best_optimizer = copy.deepcopy(self.optimizer.state_dict())
+                    best_scheduler = (
+                        copy.deepcopy(self.scheduler.state_dict()) if self.scheduler else None
+                    )
+
+            self.current_epoch += 1
+            if epoch_callback is not None:
+                epoch_callback(self.current_epoch, 1, epoch_loss / max(batch_count, 1))
 
         if best_state is not None:
             self.student.load_state_dict(best_state)
+            self.optimizer.load_state_dict(best_optimizer)
+            if self.scheduler is not None and best_scheduler is not None:
+                self.scheduler.load_state_dict(best_scheduler)
             if self.verbose:
                 print(
                     f"[SSL Stage 1] restored best teacher "
@@ -219,6 +234,11 @@ class Trainer:
         pseudo_ds: Dataset | None,
     ) -> DataLoader:
         """Shuffled DataLoader over Dl U D_pseudo (paper Section 2.2)."""
+        source_loader = getattr(labeled_data, "loader", labeled_data)
+        if isinstance(source_loader, DataLoader):
+            labeled_ds = _PairFromDictDataset(source_loader.dataset)
+            union = ConcatDataset([labeled_ds, pseudo_ds]) if pseudo_ds is not None else labeled_ds
+            return DataLoader(union, batch_size=self.batch_size, shuffle=True, num_workers=0)
         labeled_pairs: list[tuple[torch.Tensor, int]] = []
         for images, labels in self._iter_labeled_pairs(labeled_data):
             for i in range(images.shape[0]):
@@ -243,9 +263,7 @@ class Trainer:
                 xs.append(px if torch.is_tensor(px) else torch.as_tensor(px))
                 ys.append(int(py.item()) if torch.is_tensor(py) else int(py))
 
-        train_ds: Dataset = TensorDataset(
-            torch.stack(xs), torch.tensor(ys, dtype=torch.long)
-        )
+        train_ds: Dataset = TensorDataset(torch.stack(xs), torch.tensor(ys, dtype=torch.long))
         return DataLoader(
             train_ds,
             batch_size=self.batch_size,
@@ -272,6 +290,10 @@ class Trainer:
         _ = consistency_weight
 
         stage_num = self.stage_manager.get_stage()
+        epoch_callback = kwargs.get("epoch_callback")
+        val_eval_fn = kwargs.get("val_eval_fn")
+        best_metric = float("-inf")
+        best_state = best_optimizer = best_scheduler = None
         stage_title = "pseudo-labels + train" if stage_num == 2 else "refresh + retrain"
 
         pseudo_ds, pseudo_stats = self.stage_manager.build_pseudo_dataset(
@@ -314,6 +336,24 @@ class Trainer:
             total_loss += epoch_loss
             num_batches += batch_count
 
+            if val_eval_fn is not None:
+                metric = float(val_eval_fn())
+                if metric > best_metric:
+                    best_metric = metric
+                    best_state = copy.deepcopy(self.student.state_dict())
+                    best_optimizer = copy.deepcopy(self.optimizer.state_dict())
+                    best_scheduler = (
+                        copy.deepcopy(self.scheduler.state_dict()) if self.scheduler else None
+                    )
+            self.current_epoch += 1
+            if epoch_callback is not None:
+                epoch_callback(self.current_epoch, stage_num, epoch_loss / max(batch_count, 1))
+
+        if best_state is not None:
+            self.student.load_state_dict(best_state)
+            self.optimizer.load_state_dict(best_optimizer)
+            if self.scheduler is not None and best_scheduler is not None:
+                self.scheduler.load_state_dict(best_scheduler)
         self.stage_manager.install_teacher_from_student()
         n = max(num_batches, 1)
         accept_pct = float(pseudo_stats.get("accept_rate", 0.0))

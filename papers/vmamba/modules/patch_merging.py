@@ -41,8 +41,11 @@ class PatchMerging(nn.Module):
         B, C, H, W = x.shape
         assert H % 2 == 0 and W % 2 == 0, f"Spatial dims ({H}, {W}) must be even"
 
-        x = x.reshape(B, C, H // 2, 2, W // 2, 2)
-        x = x.permute(0, 2, 4, 3, 5, 1).reshape(B, H // 2 * W // 2, 4 * C)
+        # VMamba order: top-left, bottom-left, top-right, bottom-right.
+        x = torch.cat([
+            x[:, :, 0::2, 0::2], x[:, :, 1::2, 0::2],
+            x[:, :, 0::2, 1::2], x[:, :, 1::2, 1::2],
+        ], dim=1).flatten(2).transpose(1, 2)
 
         x = self.norm(x)
         x = self.reduction(x)  # [B, H/2*W/2, out_dim]

@@ -21,7 +21,7 @@ import torch.nn.functional as F
 # ── CUDA kernel availability ──────────────────────────────────────────────
 
 WITH_SELECTIVESCAN_OFLEX = True
-WITH_SELECTIVESCAN_CORE = False
+WITH_SELECTIVESCAN_CORE = True
 WITH_SELECTIVESCAN_MAMBA = True
 
 try:
@@ -219,5 +219,5 @@ def selective_scan_fn(
         Scanned output ``[B, K*C, L]``.
     """
     has_cuda = WITH_SELECTIVESCAN_OFLEX or WITH_SELECTIVESCAN_CORE or WITH_SELECTIVESCAN_MAMBA
-    fn = selective_scan_torch if backend == "torch" or (not has_cuda) else SelectiveScanCuda.apply  # type: ignore[assignment]
+    fn = selective_scan_torch if not u.is_cuda or backend == "torch" or (not has_cuda) else SelectiveScanCuda.apply  # type: ignore[assignment]
     return fn(u, delta, A, B, C, D, delta_bias, delta_softplus, oflex, backend)

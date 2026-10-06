@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import argparse
 import sys
-from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -26,16 +25,21 @@ if str(_project_root) not in sys.path:
 
 from common.engine.config import EngineConfig
 from common.engine.engine import Engine
-from papers.vmamba.data_utils import WaferWM811KDataset
-from papers.vmamba.data_utils.wafer_dataset import build_train_augment
+from common.utils.seed import set_seed
+from papers.reproduction import save_protocol
+from papers.vmamba.data_utils.author_dataset import build_dataset
+from papers.vmamba.data_utils.protocol import (
+    balanced_indices as _balanced_indices,
+)
+from papers.vmamba.data_utils.protocol import (
+    stratified_split as _stratified_split,
+)
 from papers.vmamba.models.vmamba import FCSVMamba
 
 
 def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(
-        description="Train FCS-VMamba on WM-811K wafer map dataset"
-    )
+    parser = argparse.ArgumentParser(description="Train FCS-VMamba on WM-811K wafer map dataset")
     parser.add_argument(
         "--config",
         type=str,
@@ -70,16 +74,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--per-class",
         type=int,
-        default=100,
+        default=None,
         help="Paper Subset A: max samples per class (default 100 → ~902). "
-             "Use 0 to keep all labeled samples.",
+        "Use 0 to keep all labeled samples.",
     )
     parser.add_argument(
         "--subset",
         type=float,
         default=None,
         help="Extra stratified fraction of the train split after balancing "
-             "(e.g. 0.2). Ignored for the default paper protocol.",
+        "(e.g. 0.2). Ignored for the default paper protocol.",
     )
     parser.add_argument(
         "--no-aug",
@@ -98,52 +102,13 @@ def parse_args() -> argparse.Namespace:
             "or --resume /path/to/checkpoint.pt"
         ),
     )
-    return parser.parse_args()
-
-
-def _balanced_indices(
-    labels: list[int],
-    per_class: int,
-    seed: int = 42,
-) -> list[int]:
-    """Sample up to ``per_class`` indices per class (paper Subset A)."""
-    rng = np.random.RandomState(seed)
-    by_class: dict[int, list[int]] = defaultdict(list)
-    for idx, y in enumerate(labels):
-        by_class[int(y)].append(idx)
-
-    chosen: list[int] = []
-    for cls in sorted(by_class):
-        pool = by_class[cls]
-        if len(pool) <= per_class:
-            chosen.extend(pool)
-        else:
-            chosen.extend(rng.choice(pool, size=per_class, replace=False).tolist())
-    rng.shuffle(chosen)
-    return chosen
-
-
-def _stratified_split(
-    indices: list[int],
-    labels: list[int],
-    train_ratio: float = 0.8,
-    seed: int = 42,
-) -> tuple[list[int], list[int]]:
-    """8:2 stratified train/val split (paper Sec. 4.2)."""
-    y = np.array([labels[i] for i in indices])
-    if len(indices) < 10:
-        cut = max(1, int(len(indices) * train_ratio))
-        return indices[:cut], indices[cut:]
-
-    sss = StratifiedShuffleSplit(
-        n_splits=1,
-        train_size=train_ratio,
-        random_state=seed,
+    parser.add_argument(
+        "--allow-slow-scan",
+        action="store_true",
+        help="Allow the slow PyTorch selective scan on CUDA without compiled kernels",
     )
-    train_pos, val_pos = next(sss.split(np.zeros(len(indices)), y))
-    train_idx = [indices[i] for i in train_pos]
-    val_idx = [indices[i] for i in val_pos]
-    return train_idx, val_idx
+    parser.add_argument("--seed", type=int, default=None)
+    return parser.parse_args()
 
 
 def _stratified_subset(
@@ -162,6 +127,28 @@ def _stratified_subset(
     return [indices[i] for i in keep]
 
 
+def configure_ssm_optimizer(engine, config):
+    """Respect the SS2D A/D parameter flags instead of decaying its state dynamics."""
+    from common.engine.builder import Builder
+
+    decay, no_decay = [], []
+    for parameter in engine.model.parameters():
+        (no_decay if getattr(parameter, "_no_weight_decay", False) else decay).append(parameter)
+    kwargs = dict(config.get("optimizer.kwargs", {}) or {})
+    kwargs.pop("weight_decay", None)
+    engine.optimizer = torch.optim.AdamW(
+        [
+            {"params": decay, "weight_decay": float(config.get("optimizer.weight_decay", 0.05))},
+            {"params": no_decay, "weight_decay": 0.0},
+        ],
+        lr=float(config.get("optimizer.lr", 0.001)),
+        **kwargs,
+    )
+    engine.scheduler = Builder(config).build_scheduler(engine.optimizer)
+    engine.trainer.optimizer = engine.optimizer
+    engine.trainer.scheduler = engine.scheduler
+
+
 def main() -> None:
     """Run the training loop."""
     args = parse_args()
@@ -172,6 +159,17 @@ def main() -> None:
         sys.exit(1)
 
     config = EngineConfig.from_yaml(config_path)
+    seed = args.seed if args.seed is not None else int(config.get("seed", 42))
+    set_seed(seed)
+    per_class = (
+        args.per_class
+        if args.per_class is not None
+        else int(
+            config.get(
+                "data.per_class", 0 if config.get("data.source") == "author_archive" else 100
+            )
+        )
+    )
 
     if args.epochs is not None:
         config._data.setdefault("training", {})["num_epochs"] = args.epochs
@@ -188,51 +186,57 @@ def main() -> None:
     if device == "auto":
         device = "cuda" if torch.cuda.is_available() else "cpu"
 
+    if device == "cuda" and not args.allow_slow_scan:
+        from papers.vmamba.kernels import csms6s
+
+        if not (
+            csms6s.WITH_SELECTIVESCAN_OFLEX
+            or csms6s.WITH_SELECTIVESCAN_CORE
+            or csms6s.WITH_SELECTIVESCAN_MAMBA
+        ):
+            raise RuntimeError(
+                "CUDA training requires a compiled selective-scan kernel; see papers/vmamba/README.md or explicitly use --allow-slow-scan"
+            )
+
     print(f"Using device: {device}")
     if device == "cuda":
         print(f"  GPU: {torch.cuda.get_device_name(0)}")
         print(f"  Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
     data_root = config.get("data.data_root", "datasets/wm811k")
-    image_size = int(config.get("data.image_size", 224))
 
     print(f"Loading WM-811K labeled maps from: {data_root}")
     # Locked baseline encoding: one-hot die states + bilinear → image_size.
-    base_dataset = WaferWM811KDataset(
-        data_root=data_root,
-        image_size=image_size,
-        transform=None,
-    )
+    base_dataset = build_dataset(config, train=False)
     labels = [y for _, y in base_dataset._samples]
     print(f"  Labeled samples: {len(base_dataset)}")
     print(f"  Classes: {base_dataset.class_names}")
 
-    if args.per_class and args.per_class > 0:
-        pool = _balanced_indices(labels, per_class=args.per_class, seed=42)
-        print(f"  Balanced subset (<={args.per_class}/class): {len(pool)} images")
+    if per_class > 0:
+        pool = _balanced_indices(labels, per_class=per_class, seed=seed)
+        print(f"  Balanced subset (<={per_class}/class): {len(pool)} images")
     else:
         pool = list(range(len(base_dataset)))
         print(f"  Using all labeled samples: {len(pool)}")
 
-    train_idx, val_idx = _stratified_split(pool, labels, train_ratio=0.8, seed=42)
+    train_idx, val_idx = _stratified_split(
+        pool, labels, train_ratio=float(config.get("data.train_split", 0.8)), seed=seed
+    )
 
     if args.subset is not None:
         ratio = float(args.subset)
         if ratio <= 0.0 or ratio > 1.0:
             print(f"Error: --subset must be in (0, 1], got {ratio}")
             sys.exit(1)
-        train_idx = _stratified_subset(train_idx, labels, ratio, seed=42)
+        if ratio < 1.0:
+            train_idx = _stratified_subset(train_idx, labels, ratio, seed=seed)
         print(f"  Extra train subset: {len(train_idx)} ({ratio * 100:.0f}%)")
 
     # Train dataset with paper augmentations
     if args.no_aug:
         train_dataset = Subset(base_dataset, train_idx)
     else:
-        aug_dataset = WaferWM811KDataset(
-            data_root=data_root,
-            image_size=image_size,
-            transform=build_train_augment(image_size),
-        )
+        aug_dataset = build_dataset(config, train=True)
         train_dataset = Subset(aug_dataset, train_idx)
 
     # Paper Sec. 4.1: stratified 8:2 — holdout is both val (during fit) and test.
@@ -240,8 +244,15 @@ def main() -> None:
     test_dataset = val_dataset
 
     print(
-        f"  Train: {len(train_dataset)}, Val/Test: {len(val_dataset)} "
-        f"(paper 8:2 on balanced pool)"
+        f"  Train: {len(train_dataset)}, Val/Test: {len(val_dataset)} (paper 8:2 on balanced pool)"
+    )
+
+    save_protocol(
+        config.get("checkpoint.save_dir"),
+        config,
+        base_dataset._samples,
+        {"train": train_idx, "holdout": val_idx},
+        seed,
     )
 
     batch_size = config.get("training.batch_size", 4)
@@ -288,6 +299,9 @@ def main() -> None:
         device=device,
     )
 
+    if config.get("optimizer.name", "adamw").lower() == "adamw":
+        configure_ssm_optimizer(engine, config)
+
     if args.resume is not None:
         if args.resume == "last":
             checkpoint_path = engine.checkpoint_manager.last_path
@@ -302,8 +316,15 @@ def main() -> None:
             print(f"\nResuming from checkpoint: {checkpoint_path}")
             resumed_epoch = engine.resume(checkpoint_path=checkpoint_path)
         print(f"  Resumed at epoch {resumed_epoch}")
+        # Common Engine.load restores trainer state, not the manager's best score.
+        if engine.checkpoint_manager.best_path.exists():
+            best_state = torch.load(
+                engine.checkpoint_manager.best_path, map_location="cpu", weights_only=False
+            )
+            if best_state.get("metric") is not None:
+                engine.checkpoint_manager._best_metric = float(best_state["metric"])
 
-    epochs = config.get("training.num_epochs", 50)
+    epochs = max(0, int(config.get("training.num_epochs", 50)) - engine.trainer.current_epoch)
     print(f"\n{'=' * 60}")
     print(f"Starting training for {epochs} epochs")
     print(f"{'=' * 60}")
@@ -347,7 +368,8 @@ def main() -> None:
     best_path = engine.checkpoint_manager.best_path
     if best_path is not None and Path(best_path).exists():
         print(f"Loading best checkpoint: {best_path}")
-        engine.resume(load_last=False)
+        state = torch.load(best_path, map_location="cpu", weights_only=False)
+        engine.model.load_state_dict(state["model"])
 
     test_metrics = engine.test(test_loader)
     print("\nTest Results (best ckpt):")
@@ -358,7 +380,8 @@ def main() -> None:
         if name != "loss" and isinstance(value, (int, float)):
             print(f"  {name}: {value:.4f}")
 
-    checkpoint_path = engine.save()
+    # Preserve last.pt as the resumable final epoch; best weights are for reporting.
+    checkpoint_path = engine.checkpoint_manager.last_path
     print(f"\nCheckpoint saved to: {checkpoint_path}")
 
     if engine.state.best_metric is not None:

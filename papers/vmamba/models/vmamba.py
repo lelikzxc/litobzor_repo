@@ -101,9 +101,8 @@ class FCSVMamba(nn.Module):
 
         for stage_idx in range(4):
             stage_dims.append(curr_dim)
-            # Locked baseline: CLCA on last stage only (~1.01M params).
-            # Multi-stage CLCA (author stages 1–3) destabilized Subset A here.
-            stage_use_clca = clca_enabled and stage_idx == 3
+            # Figure 2: last block of each of stages 2, 3 and 4.
+            stage_use_clca = clca_enabled and stage_idx > 0
 
             blocks: list[nn.Module] = []
             for block_i in range(self.depths[stage_idx]):
@@ -121,6 +120,7 @@ class FCSVMamba(nn.Module):
                         sfs_enabled=sfs_enabled,
                         clca_enabled=stage_use_clca and is_last,
                         clca_num_heads=clca_num_heads,
+                        clca_guide_dim=stage_dims[stage_idx - 1] if stage_idx > 0 else curr_dim,
                         d_state=d_state,
                         sfs_ratio=sfs_ratio,
                         sfs_radius=sfs_radius,
@@ -139,12 +139,24 @@ class FCSVMamba(nn.Module):
 
         self.norm = nn.LayerNorm(self.final_dim)
         self.head = nn.Linear(self.final_dim, num_classes)
+        self.apply(self._init_weights)
+
+    @staticmethod
+    def _init_weights(module: nn.Module) -> None:
+        # Stacked dt/A/D parameters retain their special SSM initialisation.
+        if isinstance(module, nn.Linear):
+            nn.init.trunc_normal_(module.weight, std=0.02)
+            if module.bias is not None:
+                nn.init.zeros_(module.bias)
+        elif isinstance(module, nn.LayerNorm):
+            nn.init.ones_(module.weight)
+            nn.init.zeros_(module.bias)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Returns logits ``[B, num_classes]`` (no Softmax)."""
         x = self.patch_embed(x)
 
-        # Guide for last-stage CLCA = previous stage output after merge.
+        # Keep shallow features before spatial merging (paper Eq. 7).
         prev_features: torch.Tensor | None = None
         for stage_idx in range(4):
             for block in self.stages[stage_idx]:
@@ -154,12 +166,11 @@ class FCSVMamba(nn.Module):
                     x = block(x)
 
             if stage_idx < 3:
+                prev_features = x.detach()
                 x = self.mergings[stage_idx](x)
-                prev_features = x
 
-        # Locked baseline head: GAP → LayerNorm → Linear.
-        x = x.mean(dim=(-2, -1))
-        x = self.norm(x)
+        # Figure 2 and author code: token LayerNorm BEFORE pooling.
+        x = self.norm(x.permute(0, 2, 3, 1)).mean(dim=(1, 2))
         return self.head(x)
 
     @classmethod

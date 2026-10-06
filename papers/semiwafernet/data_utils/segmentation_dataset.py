@@ -57,7 +57,7 @@ class WaferSegmentationDataset(BaseDataset):
         if not self.images_dir.exists() or not self.masks_dir.exists():
             raise FileNotFoundError(
                 f"Segmentation split '{split}' not found under {self.data_root}. "
-                f"Run scripts/create_wm811k_segmentation_dataset.py first."
+                f"Run python papers/semiwafernet/prepare_segmentation.py first."
             )
 
         self._image_paths = sorted(self.images_dir.glob("*.png"))

@@ -36,7 +36,6 @@ import torch
 from torch import nn
 
 from papers.radon_cnn.modules.kernel_flip import KernelFlip
-from papers.radon_cnn.modules.radon_transform import RadonTransformModule
 
 
 class _ConvBlock(nn.Module):
@@ -44,7 +43,7 @@ class _ConvBlock(nn.Module):
 
     Per the paper (Table 2): Conv → ReLU → BatchNorm → MaxPool.
     BatchNorm after ReLU stabilises training by normalising non-negative
-    activations, matching the paper's architecture exactly.
+    activations, following the order listed in Table 2.
 
     Args:
         in_channels: Number of input channels.
@@ -115,19 +114,21 @@ class _ConvBlockKF(nn.Module):
         self.pool = nn.MaxPool2d(kernel_size=pool_kernel)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        x = self.kernel_flip(x)
+        x = self.kernel_flip.branches(x)
+        batch, branches, channels, height, width = x.shape
+        x = x.reshape(batch * branches, channels, height, width)
         x = self.relu(x)
         x = self.bn(x)
         x = self.pool(x)
-        return x
+        return x.reshape(batch, branches, *x.shape[1:]).amax(dim=1)
 
 
 class _ClassifierHead(nn.Module):
-    """Classification head: GAP → FC(256) → ReLU → BN → FC(128) → ReLU → BN → FC(7).
+    """Classification head: Flatten → FC(256) → ReLU → BN → FC(128) → ReLU → BN → FC(7).
 
     Per Table 2:
         - Conv4 output: 4×4×256
-        - Global Average Pooling to reduce 4×4 → 1×1
+        - Flatten the spatial output; Table 2 does not specify a GAP layer
         - FC1: ReLU 256 + BatchNorm
         - FC2: ReLU 128 + BatchNorm
         - FC3: 7 (logits, no activation)
@@ -136,8 +137,7 @@ class _ClassifierHead(nn.Module):
 
     def __init__(self, num_classes: int = 7) -> None:
         super().__init__()
-        self.gap = nn.AdaptiveAvgPool2d(1)  # [B, 256, 4, 4] → [B, 256, 1, 1]
-        self.fc1 = nn.Linear(256, 256)
+        self.fc1 = nn.Linear(4 * 4 * 256, 256)
         self.relu1 = nn.ReLU(inplace=True)
         self.bn1 = nn.BatchNorm1d(256)
         self.fc2 = nn.Linear(256, 128)
@@ -146,8 +146,7 @@ class _ClassifierHead(nn.Module):
         self.fc3 = nn.Linear(128, num_classes)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        x = self.gap(x)           # [B, 256, 1, 1]
-        x = x.flatten(1)          # [B, 256]
+        x = x.flatten(1)  # [B, 4096]
         x = self.fc1(x)
         x = self.relu1(x)
         x = self.bn1(x)
@@ -198,9 +197,9 @@ class RadonCNN(nn.Module):
         → FC(256) → BN → FC(128) → BN → FC(7)
 
     Note: The Radon transform is applied at the dataset level (see
-    ``WaferRadonDataset``), not in the model forward pass. This avoids
-    gradient graph breaks caused by numpy/skimage operations and speeds
-    up training by ~3x (no redundant Radon computation per epoch).
+    ``WaferRadonDataset``), not in the model forward pass. A lazy cache
+    avoids redundant Radon computation. Constant input features do not
+    prevent gradients from flowing through any of the CNN layers.
 
     Args:
         in_channels: Number of input channels (default 1 for grayscale).

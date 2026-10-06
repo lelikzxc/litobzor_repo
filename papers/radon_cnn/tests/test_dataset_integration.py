@@ -78,19 +78,19 @@ class TestRemoveBackground:
         import numpy as np
         arr = np.ones((10, 10), dtype=np.float32)
         result = remove_background(arr)
-        assert (result == 1).all()
+        assert (result == 0).all()
 
     def test_remove_background_mixed(self) -> None:
         import numpy as np
         arr = np.array([[0, 1, 2], [0, 0, 1], [2, 0, 0]], dtype=np.float32)
         result = remove_background(arr)
-        assert (result[0] == [0, 1, 1]).all()
-        assert (result[1] == [0, 0, 1]).all()
+        assert (result[0] == [0, 0, 1]).all()
+        assert (result[1] == [0, 0, 0]).all()
         assert (result[2] == [1, 0, 0]).all()
 
     def test_remove_background_shape(self) -> None:
         import numpy as np
-        arr = np.random.rand(64, 64).astype(np.float32)
+        arr = np.random.randint(0, 3, (64, 64)).astype(np.uint8)
         result = remove_background(arr)
         assert result.shape == (64, 64)
 

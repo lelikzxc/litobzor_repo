@@ -77,6 +77,7 @@ class FCSVSSBlock(nn.Module):
         d_state: int = 16,
         sfs_ratio: float = 0.2,
         sfs_radius: int = 1,
+        clca_guide_dim: int | None = None,
     ) -> None:
         super().__init__()
         self.dim = dim
@@ -84,7 +85,7 @@ class FCSVSSBlock(nn.Module):
         self.sfs_enabled = sfs_enabled
         self.clca_enabled = clca_enabled
 
-        self.norm = nn.LayerNorm(dim)
+        self.norm = nn.LayerNorm(dim, eps=1e-6)
         self.op = _OfficialSS2D(
             d_model=dim,
             d_state=d_state,
@@ -119,9 +120,9 @@ class FCSVSSBlock(nn.Module):
         self.norm_clca: nn.Module
         self.clca: nn.Module
         if clca_enabled:
-            self.norm_clca = nn.LayerNorm(dim)
+            self.norm_clca = nn.LayerNorm(dim, eps=1e-6)
             self.clca = CrossLayerChannelAttention(
-                guide_dim=dim,
+                guide_dim=clca_guide_dim or dim,
                 target_dim=dim,
                 num_heads=clca_num_heads,
             )
@@ -153,7 +154,7 @@ class FCSVSSBlock(nn.Module):
             x_n = x.permute(0, 2, 3, 1).contiguous()
             x_n = self.norm_clca(x_n)
             x_n = x_n.permute(0, 3, 1, 2).contiguous()
-            x = x + self.clca(context, x_n)
+            x = x_n + self.clca(context, x_n)
 
         return x
 

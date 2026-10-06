@@ -226,60 +226,11 @@ class CrossMergeF(torch.autograd.Function):
         return x, None, None, None, None
 
 
-# ── Triton autograd Functions (stubs when triton unavailable) ─────────────
-
-if WITH_TRITON:
-
-    @triton.jit  # type: ignore[attr-defined]
-    def triton_cross_scan_flex(
-        x: torch.Tensor,
-        y: torch.Tensor,
-        B: int,
-        C: int,
-        H: int,
-        W: int,
-        scans: int,
-        ONE_BY_ONE: bool,
-        IN_CHANNEL_FIRST: bool,
-        OUT_CHANNEL_FIRST: bool,
-        BLOCK: int,
-    ):
-        """Triton kernel for cross-scan (placeholder — uses PyTorch fallback)."""
-        raise NotImplementedError("Triton cross-scan kernel not compiled — use force_torch=True")
-
-    class CrossScanTritonF(torch.autograd.Function):
-        """Triton cross-scan (falls back to PyTorch when triton unavailable)."""
-
-        @staticmethod
-        def forward(ctx, x, in_channel_first, out_channel_first, one_by_one, scans):
-            return CrossScanF.apply(x, in_channel_first, out_channel_first, one_by_one, scans)
-
-        @staticmethod
-        def backward(ctx, ys):
-            raise NotImplementedError
-
-    class CrossMergeTritonF(torch.autograd.Function):
-        """Triton cross-merge (falls back to PyTorch when triton unavailable)."""
-
-        @staticmethod
-        def forward(ctx, ys, in_channel_first, out_channel_first, one_by_one, scans):
-            return CrossMergeF.apply(ys, in_channel_first, out_channel_first, one_by_one, scans)
-
-        @staticmethod
-        def backward(ctx, x):
-            raise NotImplementedError
-
-else:
-
-    class CrossScanTritonF:  # type: ignore[no-redef]
-        @staticmethod
-        def apply(x, in_channel_first, out_channel_first, one_by_one, scans):
-            return CrossScanF.apply(x, in_channel_first, out_channel_first, one_by_one, scans)
-
-    class CrossMergeTritonF:  # type: ignore[no-redef]
-        @staticmethod
-        def apply(ys, in_channel_first, out_channel_first, one_by_one, scans):
-            return CrossMergeF.apply(ys, in_channel_first, out_channel_first, one_by_one, scans)
+# The vendored Triton kernels were placeholders with no backward. Calling a
+# torch autograd Function *inside* another Function.forward discards its graph.
+# Use the complete PyTorch scan/merge on both CPU and CUDA.
+CrossScanTritonF = CrossScanF
+CrossMergeTritonF = CrossMergeF
 
 
 # ── Public API ────────────────────────────────────────────────────────────
@@ -306,8 +257,7 @@ def cross_scan_fn(
     Returns:
         Scanned tensor ``[B, 4, C, L]`` or equivalent.
     """
-    use_triton = WITH_TRITON and x.is_cuda and (not force_torch)
-    CSF = CrossScanTritonF if use_triton else CrossScanF
+    CSF = CrossScanF
     if x.is_cuda:
         with torch.cuda.device(x.device):
             return CSF.apply(x, in_channel_first, out_channel_first, one_by_one, scans)
@@ -335,8 +285,7 @@ def cross_merge_fn(
     Returns:
         Merged tensor ``[B, C, H*W]`` or equivalent.
     """
-    use_triton = WITH_TRITON and y.is_cuda and (not force_torch)
-    CMF = CrossMergeTritonF if use_triton else CrossMergeF
+    CMF = CrossMergeF
     if y.is_cuda:
         with torch.cuda.device(y.device):
             return CMF.apply(y, in_channel_first, out_channel_first, one_by_one, scans)

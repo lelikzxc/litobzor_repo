@@ -9,13 +9,16 @@ model:
   radon_theta: 64                 # Number of Radon projection angles
 
 training:
-  num_epochs: 200                 # Max epochs (early stopping will stop earlier)
+  num_epochs: 500                 # Local cap; article does not specify a maximum
+  seed: 42
+  amp: false                     # FP32 reference; may be enabled on CUDA
+  cpu_threads: 2
   batch_size: 64                  # Paper: balanced dataset
   learning_rate: 0.0003           # Paper: lr=0.0003
   weight_decay: 0.0               # Not specified in paper
   lr_decay: 0.99                  # Paper: lr_decay=0.99 per epoch
   early_stopping_patience: 30     # Paper: early stopping 30 epochs
-  grad_max_norm: 1.0
+  grad_max_norm: null             # No norm clipping specified in the article
 
 optimizer:
   name: adam
@@ -37,9 +40,9 @@ metrics:
   - recall
 
 checkpoint:
-  save_dir: checkpoints/radon_cnn
-  metric_name: val_accuracy
-  mode: max
+  save_dir: checkpoints/radon_cnn_v2
+  metric_name: val_loss
+  mode: min
 
 evaluation:
   batch_size: 64
@@ -47,7 +50,8 @@ evaluation:
 data:
   data_root: datasets/wm811k
   image_size: 64                  # Paper: resize to (64, 64)
-  train_split: 0.8
+  protocol: full                 # Full-data diagnostic; not Table 3's small-data experiment
   val_split: 0.1
   test_split: 0.1
-  balanced: false                 # Use all 25k samples, WeightedRandomSampler balances batches
+  balance_train_batches: true
+  cache_radon: true              # RAM cache: about 400 MiB for all seven classes

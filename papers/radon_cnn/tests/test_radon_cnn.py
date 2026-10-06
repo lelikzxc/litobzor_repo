@@ -182,14 +182,14 @@ class TestParameterCounts:
     def test_baseline_parameter_count(self, baseline_model: BaselineCNN) -> None:
         num_params = sum(p.numel() for p in baseline_model.parameters())
         assert num_params > 0
-        # Baseline: ~479K parameters (4 conv layers + 3 FC layers)
-        assert 400_000 < num_params < 600_000
+        # Flatten 4x4x256 into FC1, without an undocumented GAP layer.
+        assert 1_400_000 < num_params < 1_600_000
 
     def test_radon_parameter_count(self, radon_model: RadonCNN) -> None:
         num_params = sum(p.numel() for p in radon_model.parameters())
         assert num_params > 0
         # RadonCNN: similar to baseline (kernel flip shares weights)
-        assert 400_000 < num_params < 600_000
+        assert 1_400_000 < num_params < 1_600_000
 
     def test_radon_no_extra_params_vs_baseline(self) -> None:
         """Kernel flip shares weights, so RadonCNN should have similar params to baseline."""

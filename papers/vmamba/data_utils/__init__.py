@@ -9,4 +9,6 @@ from papers.vmamba.data_utils.wafer_dataset import WaferWM811KDataset
 
 __all__ = [
     "WaferWM811KDataset",
+    "VMambaDataset",
 ]
+from .dataset import VMambaDataset

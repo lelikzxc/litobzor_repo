@@ -103,13 +103,11 @@ class AdaptiveThreshold(nn.Module):
                 new_var = class_conf.var(correction=0).item() if n_new > 1 else 0.0
                 delta = new_mean - old_mean
                 combined_var = (
-                    n_old * old_var
-                    + n_new * new_var
-                    + n_old * n_new * delta * delta / n_total
+                    n_old * old_var + n_new * new_var + n_old * n_new * delta * delta / n_total
                 ) / n_total
                 updated_std = max(combined_var**0.5, 1e-8)
             else:
-                updated_std = max(class_conf.std(correction=0).item(), 1e-8) if n_new > 1 else 1.0
+                updated_std = max(class_conf.std(correction=0).item(), 1e-8) if n_new > 1 else 0.0
 
             self.class_mean[c] = updated_mean
             self.class_std[c] = updated_std
@@ -130,12 +128,14 @@ class AdaptiveThreshold(nn.Module):
         ref_device = (
             pseudo_labels.device
             if pseudo_labels is not None
-            else entropy.device if entropy is not None else self.class_mean.device
+            else entropy.device
+            if entropy is not None
+            else self.class_mean.device
         )
         mu = self.class_mean.to(ref_device)
         sigma = self.class_std.to(ref_device)
-        # Clamp CV so early/noisy class stats cannot push tau to 1.0
-        cv = (sigma / mu.clamp(min=1e-8)).clamp(max=1.0)
+        cv = sigma / mu.clamp(min=1e-8)
+        cv = torch.where(self.class_count.to(ref_device) > 0, cv, 0.0)
 
         if pseudo_labels is None:
             valid = self.class_count.to(ref_device) > 0

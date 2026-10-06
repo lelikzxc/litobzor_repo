@@ -6,6 +6,7 @@ opencv-python
 matplotlib
 pandas
 scikit-learn
+scikit-image>=0.20
 imbalanced-learn
 PyYAML
 tqdm

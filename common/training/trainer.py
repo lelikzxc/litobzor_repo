@@ -211,13 +211,16 @@ class Trainer:
                     metric=val_loss,
                 )
                 if val_loss is not None:
-                    val_accuracy = val_metrics.get("accuracy", None)
+                    metric_key = self.checkpoint_manager.metric_name.removeprefix("val_")
+                    if metric_key not in val_metrics:
+                        raise ValueError(f"Checkpoint metric {metric_key!r} missing from validation")
+                    selected_metric = val_metrics[metric_key]
                     self.checkpoint_manager.save_best(
                         model=self.model,
                         optimizer=self.optimizer,
                         scheduler=self.scheduler,
                         epoch=self.current_epoch,
-                        metric=val_accuracy,
+                        metric=selected_metric,
                     )
 
             # Early stopping
@@ -268,6 +271,7 @@ class Trainer:
                 loss = self.loss_fn(logits, targets)
 
             self.scaler.backward(loss, self.optimizer)
+            self.scaler.unscale_(self.optimizer)
             clip_gradients(self.model, self.grad_max_norm, self.grad_max_value)
             self.scaler.step(self.optimizer)
             self.scaler.update()
@@ -275,8 +279,9 @@ class Trainer:
             total_loss += loss.item()
             num_batches += 1
 
-            all_logits.append(logits.detach().cpu())
-            all_targets.append(targets.detach().cpu())
+            metric_logits, metric_targets = self._metric_tensors(logits, targets)
+            all_logits.append(metric_logits.detach().cpu())
+            all_targets.append(metric_targets.detach().cpu())
 
             iterator.set_postfix({"loss": f"{loss.item():.4f}"})
 
@@ -329,8 +334,9 @@ class Trainer:
                 total_loss += loss.item()
                 num_batches += 1
 
-                all_logits.append(logits.detach().cpu())
-                all_targets.append(targets.detach().cpu())
+                metric_logits, metric_targets = self._metric_tensors(logits, targets)
+                all_logits.append(metric_logits.detach().cpu())
+                all_targets.append(metric_targets.detach().cpu())
 
         metrics: dict[str, float] = {"loss": total_loss / max(num_batches, 1)}
 
@@ -442,6 +448,15 @@ class Trainer:
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
+
+    @staticmethod
+    def _metric_tensors(logits, targets):
+        """Classification adapters may return dictionaries for their loss."""
+        if isinstance(logits, dict):
+            logits = logits.get("classification", logits.get("main"))
+        if isinstance(targets, dict):
+            targets = targets.get("classification", targets.get("label", targets.get("mask")))
+        return logits, targets
 
     @staticmethod
     def _unpack_batch(
