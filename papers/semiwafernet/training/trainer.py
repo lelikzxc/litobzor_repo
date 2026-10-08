@@ -19,7 +19,12 @@ from papers.semiwafernet.training.stage_manager import StageManager
 
 
 class _PairFromDictDataset(Dataset):
-    """Wrap dict samples ``{image,label}`` as ``(image, label)`` pairs."""
+    """Normalize dict/pair samples to an image and scalar long class label.
+
+    Real datasets may use Python ints; pseudo datasets use tensors. Both
+    sides of the union must agree before default_collate sees a shuffled
+    batch, whose first label determines its collation strategy.
+    """
 
     def __init__(self, base: Dataset) -> None:
         self.base = base
@@ -30,8 +35,10 @@ class _PairFromDictDataset(Dataset):
     def __getitem__(self, index: int):
         item = self.base[index]
         if isinstance(item, dict):
-            return item["image"], int(item["label"])
-        return item
+            image, label = item["image"], item["label"]
+        else:
+            image, label = item
+        return image, torch.as_tensor(label, dtype=torch.long).reshape(())
 
 
 class Trainer:
@@ -237,7 +244,10 @@ class Trainer:
         source_loader = getattr(labeled_data, "loader", labeled_data)
         if isinstance(source_loader, DataLoader):
             labeled_ds = _PairFromDictDataset(source_loader.dataset)
-            union = ConcatDataset([labeled_ds, pseudo_ds]) if pseudo_ds is not None else labeled_ds
+            union = (
+                ConcatDataset([labeled_ds, _PairFromDictDataset(pseudo_ds)])
+                if pseudo_ds is not None else labeled_ds
+            )
             return DataLoader(union, batch_size=self.batch_size, shuffle=True, num_workers=0)
         labeled_pairs: list[tuple[torch.Tensor, int]] = []
         for images, labels in self._iter_labeled_pairs(labeled_data):
