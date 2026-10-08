@@ -1,0 +1,66 @@
+{
+  "diagnostic_only": true,
+  "paper_targets": {
+    "accuracy": 0.8791,
+    "macro_f1": 0.8606,
+    "source": "vmamba.pdf Table 3, 902-image Subset A"
+  },
+  "device": "cpu",
+  "torch_version": "2.13.0",
+  "variant": "full",
+  "image_size": 32,
+  "parameters": 1082697,
+  "train_samples": 144,
+  "holdout_samples": 181,
+  "train_class_counts": {
+    "0": 16,
+    "1": 16,
+    "2": 16,
+    "3": 16,
+    "4": 16,
+    "5": 16,
+    "6": 16,
+    "7": 16,
+    "8": 16
+  },
+  "holdout_class_counts": {
+    "0": 20,
+    "1": 20,
+    "2": 20,
+    "3": 21,
+    "4": 21,
+    "5": 20,
+    "6": 19,
+    "7": 20,
+    "8": 20
+  },
+  "holdout_role": "Author benchmark validation split; used for diagnostic model selection, not an independent test",
+  "seed": 42,
+  "augmentation": true,
+  "profile_only": true,
+  "max_training_seconds": 15.0,
+  "steps": [
+    {
+      "epoch": 1,
+      "loss": 1.8790874481201172,
+      "gradient_norm_before_clip": 18.89487648010254,
+      "forward_seconds": 0.03843366699993567,
+      "seconds": 0.2347229580000203
+    }
+  ],
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 1.8790874481201172,
+      "train_accuracy": 1.0,
+      "samples_seen": 1,
+      "complete": false
+    }
+  ],
+  "training_seconds": 0.252670500000022,
+  "training_budget_reached": false,
+  "total_seconds": 0.25267233299996406,
+  "mean_step_seconds_after_first": 0.2347229580000203,
+  "rough_50_epoch_hours_at_profiled_settings": 2.3504896210835367,
+  "timing_caveat": "Single cold batch includes first-use compilation; this is a rough projection at the recorded resolution and batch size, not a measured full-run duration."
+}

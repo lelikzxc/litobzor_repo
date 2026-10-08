@@ -1,0 +1,1640 @@
+{
+  "diagnostic_only": true,
+  "paper_targets": {
+    "accuracy": 0.8791,
+    "macro_f1": 0.8606,
+    "source": "vmamba.pdf Table 3, 902-image Subset A"
+  },
+  "device": "mps",
+  "torch_version": "2.13.0",
+  "variant": "full",
+  "image_size": 64,
+  "parameters": 1082697,
+  "train_samples": 144,
+  "holdout_samples": 181,
+  "train_class_counts": {
+    "0": 16,
+    "1": 16,
+    "2": 16,
+    "3": 16,
+    "4": 16,
+    "5": 16,
+    "6": 16,
+    "7": 16,
+    "8": 16
+  },
+  "holdout_class_counts": {
+    "0": 20,
+    "1": 20,
+    "2": 20,
+    "3": 21,
+    "4": 21,
+    "5": 20,
+    "6": 19,
+    "7": 20,
+    "8": 20
+  },
+  "holdout_role": "Author benchmark validation split; used for diagnostic model selection, not an independent test",
+  "seed": 42,
+  "augmentation": true,
+  "profile_only": false,
+  "max_training_seconds": 170.0,
+  "max_training_steps": 0,
+  "steps": [
+    {
+      "epoch": 1,
+      "loss": 2.283825397491455,
+      "gradient_norm_before_clip": 6.670156002044678,
+      "forward_seconds": 0.24805412500018065,
+      "seconds": 3.8591191670002445,
+      "allocated_memory_bytes": 79961600,
+      "driver_allocated_memory_bytes": 1209532416
+    },
+    {
+      "epoch": 1,
+      "loss": 2.2170257568359375,
+      "gradient_norm_before_clip": 6.365017414093018,
+      "forward_seconds": 0.22616862500035495,
+      "seconds": 1.0583465419999811,
+      "allocated_memory_bytes": 80378368,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.105394124984741,
+      "gradient_norm_before_clip": 4.3643598556518555,
+      "forward_seconds": 0.22444191600015984,
+      "seconds": 1.0499434160001329,
+      "allocated_memory_bytes": 87334144,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.324185609817505,
+      "gradient_norm_before_clip": 6.3763508796691895,
+      "forward_seconds": 0.2287639159999344,
+      "seconds": 1.0641397080003117,
+      "allocated_memory_bytes": 83485440,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.3048434257507324,
+      "gradient_norm_before_clip": 6.093284606933594,
+      "forward_seconds": 0.22455108299982385,
+      "seconds": 1.0673174169996855,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.0399956703186035,
+      "gradient_norm_before_clip": 4.499361038208008,
+      "forward_seconds": 0.22499741699994047,
+      "seconds": 1.0627604999999676,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.7256247997283936,
+      "gradient_norm_before_clip": 3.683431625366211,
+      "forward_seconds": 0.22460299999966082,
+      "seconds": 1.052871290999974,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.795833945274353,
+      "gradient_norm_before_clip": 5.001257419586182,
+      "forward_seconds": 0.224013584000204,
+      "seconds": 1.0607451670002774,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.5023305416107178,
+      "gradient_norm_before_clip": 3.8438148498535156,
+      "forward_seconds": 0.2251679169999079,
+      "seconds": 1.0492245000000366,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.041769027709961,
+      "gradient_norm_before_clip": 5.138436794281006,
+      "forward_seconds": 0.22350391700001637,
+      "seconds": 1.0529209999999694,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.0913758277893066,
+      "gradient_norm_before_clip": 4.307629585266113,
+      "forward_seconds": 0.22557829199968182,
+      "seconds": 1.0522445829997196,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.2588751316070557,
+      "gradient_norm_before_clip": 4.029441833496094,
+      "forward_seconds": 0.22405033299992283,
+      "seconds": 1.0673351669997828,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.721567153930664,
+      "gradient_norm_before_clip": 4.8508992195129395,
+      "forward_seconds": 0.22342545799983782,
+      "seconds": 1.0580611659997885,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.6899797916412354,
+      "gradient_norm_before_clip": 3.678262710571289,
+      "forward_seconds": 0.2252936659997431,
+      "seconds": 1.0380943330001173,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.8519728183746338,
+      "gradient_norm_before_clip": 3.977132558822632,
+      "forward_seconds": 0.22360554199985927,
+      "seconds": 1.044298667000021,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.1362040042877197,
+      "gradient_norm_before_clip": 5.289347171783447,
+      "forward_seconds": 0.22495324999999866,
+      "seconds": 1.0905097080003543,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.556692600250244,
+      "gradient_norm_before_clip": 4.603628158569336,
+      "forward_seconds": 0.22493833300040933,
+      "seconds": 1.0469563750002635,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.3698363304138184,
+      "gradient_norm_before_clip": 5.6400146484375,
+      "forward_seconds": 0.22391404199970566,
+      "seconds": 1.0530674579999868,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.9511001110076904,
+      "gradient_norm_before_clip": 4.399255752563477,
+      "forward_seconds": 0.2262477500003115,
+      "seconds": 1.0667130840001846,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.010256767272949,
+      "gradient_norm_before_clip": 3.43315052986145,
+      "forward_seconds": 0.22478112499993586,
+      "seconds": 1.066135334000137,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.296532154083252,
+      "gradient_norm_before_clip": 4.322102069854736,
+      "forward_seconds": 0.22604037500013874,
+      "seconds": 1.0910739169999033,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.015439510345459,
+      "gradient_norm_before_clip": 5.826899528503418,
+      "forward_seconds": 0.22484670900030324,
+      "seconds": 1.0613367500000095,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.216362476348877,
+      "gradient_norm_before_clip": 4.222435474395752,
+      "forward_seconds": 0.22593558300013683,
+      "seconds": 1.060471833000065,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.1686697006225586,
+      "gradient_norm_before_clip": 6.760040283203125,
+      "forward_seconds": 0.2239932080001381,
+      "seconds": 1.034686291000071,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.031546115875244,
+      "gradient_norm_before_clip": 3.477313995361328,
+      "forward_seconds": 0.22426862500014977,
+      "seconds": 1.061689459000263,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.06840181350708,
+      "gradient_norm_before_clip": 3.9057393074035645,
+      "forward_seconds": 0.2236142500000824,
+      "seconds": 1.0589756670001407,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.8208935260772705,
+      "gradient_norm_before_clip": 3.7241649627685547,
+      "forward_seconds": 0.22389287500027422,
+      "seconds": 1.0838655410002502,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.036618709564209,
+      "gradient_norm_before_clip": 3.3922057151794434,
+      "forward_seconds": 0.22531004200027382,
+      "seconds": 1.0441876670001875,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.2023485898971558,
+      "gradient_norm_before_clip": 3.328437566757202,
+      "forward_seconds": 0.22344750000002023,
+      "seconds": 1.0394151659997988,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.081212043762207,
+      "gradient_norm_before_clip": 4.647477626800537,
+      "forward_seconds": 0.22388658299996678,
+      "seconds": 1.0317032919997473,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.208897113800049,
+      "gradient_norm_before_clip": 8.62823486328125,
+      "forward_seconds": 0.22453583300011815,
+      "seconds": 1.0801700420001907,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.067356586456299,
+      "gradient_norm_before_clip": 3.2579290866851807,
+      "forward_seconds": 0.22487833300010607,
+      "seconds": 1.0464549580001403,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.9785990715026855,
+      "gradient_norm_before_clip": 3.4240589141845703,
+      "forward_seconds": 0.22363062500016895,
+      "seconds": 1.0584853330001351,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.7189865112304688,
+      "gradient_norm_before_clip": 4.980504989624023,
+      "forward_seconds": 0.22328029199979937,
+      "seconds": 1.0591876250000496,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 2.067953109741211,
+      "gradient_norm_before_clip": 3.543569326400757,
+      "forward_seconds": 0.22490637500004595,
+      "seconds": 1.068026583000119,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 1,
+      "loss": 1.28360915184021,
+      "gradient_norm_before_clip": 3.654712677001953,
+      "forward_seconds": 0.2233613339999465,
+      "seconds": 1.0542326670001785,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.3487637042999268,
+      "gradient_norm_before_clip": 3.348428964614868,
+      "forward_seconds": 0.22555991599983827,
+      "seconds": 1.0612218329997631,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.7236442565917969,
+      "gradient_norm_before_clip": 3.609156370162964,
+      "forward_seconds": 0.22498483300023508,
+      "seconds": 1.0781949160000295,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 2.1734890937805176,
+      "gradient_norm_before_clip": 4.942735195159912,
+      "forward_seconds": 0.22535312499985594,
+      "seconds": 1.0617133330001707,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.3037967681884766,
+      "gradient_norm_before_clip": 3.7824177742004395,
+      "forward_seconds": 0.22356675000037285,
+      "seconds": 1.0481934580002417,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.2383826971054077,
+      "gradient_norm_before_clip": 3.0052311420440674,
+      "forward_seconds": 0.22439583300001686,
+      "seconds": 1.0637450410004021,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 2.026918888092041,
+      "gradient_norm_before_clip": 7.251357555389404,
+      "forward_seconds": 0.23721412499980943,
+      "seconds": 1.050445666000087,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.754474401473999,
+      "gradient_norm_before_clip": 3.8761281967163086,
+      "forward_seconds": 0.2244002500001443,
+      "seconds": 1.037152290999984,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.8678781986236572,
+      "gradient_norm_before_clip": 4.587386131286621,
+      "forward_seconds": 0.2258378750002521,
+      "seconds": 1.0618214159999297,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.2306463718414307,
+      "gradient_norm_before_clip": 4.941893100738525,
+      "forward_seconds": 0.22520887500013487,
+      "seconds": 1.0445759580002232,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.9643259048461914,
+      "gradient_norm_before_clip": 5.36950159072876,
+      "forward_seconds": 0.22388583400015705,
+      "seconds": 1.0700875420002376,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.6044299602508545,
+      "gradient_norm_before_clip": 3.5379748344421387,
+      "forward_seconds": 0.22639908300016032,
+      "seconds": 1.046545290999802,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.8687623739242554,
+      "gradient_norm_before_clip": 5.283560752868652,
+      "forward_seconds": 0.22357624999995096,
+      "seconds": 1.0352647919999072,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.428579568862915,
+      "gradient_norm_before_clip": 4.589545249938965,
+      "forward_seconds": 0.2284214169999359,
+      "seconds": 1.0567076249999445,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.6705667972564697,
+      "gradient_norm_before_clip": 4.114009380340576,
+      "forward_seconds": 0.22476329200026157,
+      "seconds": 1.0934583749999547,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.9370741844177246,
+      "gradient_norm_before_clip": 4.822060585021973,
+      "forward_seconds": 0.22497245900012786,
+      "seconds": 1.0775020840001162,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.4629104137420654,
+      "gradient_norm_before_clip": 3.481304407119751,
+      "forward_seconds": 0.22767283300026975,
+      "seconds": 1.1122598750002908,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.989575743675232,
+      "gradient_norm_before_clip": 3.4007632732391357,
+      "forward_seconds": 0.2261812500000815,
+      "seconds": 1.075236374999804,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.6851603984832764,
+      "gradient_norm_before_clip": 4.353086471557617,
+      "forward_seconds": 0.22508858299988788,
+      "seconds": 1.0475298750002366,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.8758313655853271,
+      "gradient_norm_before_clip": 3.3676869869232178,
+      "forward_seconds": 0.22645579200025168,
+      "seconds": 1.064190542000233,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.824136734008789,
+      "gradient_norm_before_clip": 3.4892704486846924,
+      "forward_seconds": 0.22391579100030867,
+      "seconds": 1.0855992500000866,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.9329771995544434,
+      "gradient_norm_before_clip": 3.621760606765747,
+      "forward_seconds": 0.2259812909996981,
+      "seconds": 1.0595159579997926,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.8897154331207275,
+      "gradient_norm_before_clip": 3.4283950328826904,
+      "forward_seconds": 0.225484540999787,
+      "seconds": 1.0536636249998992,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.8171992301940918,
+      "gradient_norm_before_clip": 5.5841779708862305,
+      "forward_seconds": 0.22439320900002713,
+      "seconds": 1.0488734589998785,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.998575210571289,
+      "gradient_norm_before_clip": 6.0779829025268555,
+      "forward_seconds": 0.22373708399982206,
+      "seconds": 1.0450083749997248,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.7110722064971924,
+      "gradient_norm_before_clip": 5.02119779586792,
+      "forward_seconds": 0.22469070799979818,
+      "seconds": 1.0600944580000942,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.7184338569641113,
+      "gradient_norm_before_clip": 3.916327476501465,
+      "forward_seconds": 0.22356808299991826,
+      "seconds": 1.0358529579998503,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.859269142150879,
+      "gradient_norm_before_clip": 4.328680038452148,
+      "forward_seconds": 0.22521587499977613,
+      "seconds": 1.0683937079998032,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.6524317264556885,
+      "gradient_norm_before_clip": 3.7916836738586426,
+      "forward_seconds": 0.22433370899989313,
+      "seconds": 1.0415155000000595,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.682724952697754,
+      "gradient_norm_before_clip": 4.921350002288818,
+      "forward_seconds": 0.22389091700006247,
+      "seconds": 1.0678611670000464,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.399516224861145,
+      "gradient_norm_before_clip": 4.335474491119385,
+      "forward_seconds": 0.22392370800025674,
+      "seconds": 1.095670333000271,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.9749194383621216,
+      "gradient_norm_before_clip": 4.054901123046875,
+      "forward_seconds": 0.22535933300014221,
+      "seconds": 1.0520894169999337,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.6869796514511108,
+      "gradient_norm_before_clip": 3.8160955905914307,
+      "forward_seconds": 0.2239653339997858,
+      "seconds": 1.083457499999895,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.9183175563812256,
+      "gradient_norm_before_clip": 4.358987331390381,
+      "forward_seconds": 0.22508049999987634,
+      "seconds": 1.0476030410000021,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.5469391345977783,
+      "gradient_norm_before_clip": 3.985506534576416,
+      "forward_seconds": 0.2238715419998698,
+      "seconds": 1.0308705840002403,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.5788657665252686,
+      "gradient_norm_before_clip": 5.6981611251831055,
+      "forward_seconds": 0.22393462500031092,
+      "seconds": 1.0545002920002844,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 2,
+      "loss": 1.8606044054031372,
+      "gradient_norm_before_clip": 3.31524395942688,
+      "forward_seconds": 0.22430508299976282,
+      "seconds": 1.0620125410000583,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.736437439918518,
+      "gradient_norm_before_clip": 3.934675693511963,
+      "forward_seconds": 0.22414337500003967,
+      "seconds": 1.0442552909998994,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.3071258068084717,
+      "gradient_norm_before_clip": 3.621701717376709,
+      "forward_seconds": 0.22377237499995317,
+      "seconds": 1.0507451250000486,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.2845640182495117,
+      "gradient_norm_before_clip": 2.9008941650390625,
+      "forward_seconds": 0.22568533300000126,
+      "seconds": 1.0435129580000648,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.0693292617797852,
+      "gradient_norm_before_clip": 2.9958276748657227,
+      "forward_seconds": 0.22399270799996884,
+      "seconds": 1.0646419170002446,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.744869351387024,
+      "gradient_norm_before_clip": 5.287773609161377,
+      "forward_seconds": 0.22655508399975588,
+      "seconds": 1.0862790839996705,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.6346147060394287,
+      "gradient_norm_before_clip": 5.0041913986206055,
+      "forward_seconds": 0.22635516699983782,
+      "seconds": 1.0996936249998726,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 2.0722146034240723,
+      "gradient_norm_before_clip": 4.750611782073975,
+      "forward_seconds": 0.2261174159998518,
+      "seconds": 1.0835465410000324,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.8933113813400269,
+      "gradient_norm_before_clip": 4.30419397354126,
+      "forward_seconds": 0.22573145900014424,
+      "seconds": 1.0821535840000251,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.2942315340042114,
+      "gradient_norm_before_clip": 4.1997175216674805,
+      "forward_seconds": 0.22790112499978932,
+      "seconds": 1.0689695000000938,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.771353840827942,
+      "gradient_norm_before_clip": 4.370469093322754,
+      "forward_seconds": 0.22379562499963868,
+      "seconds": 1.0806683329997213,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.2248761653900146,
+      "gradient_norm_before_clip": 6.021674156188965,
+      "forward_seconds": 0.22496866599976784,
+      "seconds": 1.0615546249996441,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.2325304746627808,
+      "gradient_norm_before_clip": 4.522454738616943,
+      "forward_seconds": 0.22369770900013464,
+      "seconds": 1.0587821670001176,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.5079572200775146,
+      "gradient_norm_before_clip": 4.117621898651123,
+      "forward_seconds": 0.22544337499994072,
+      "seconds": 1.0659751670000333,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.6647570133209229,
+      "gradient_norm_before_clip": 3.586005210876465,
+      "forward_seconds": 0.22442308299969227,
+      "seconds": 1.0800012919999062,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.7404859066009521,
+      "gradient_norm_before_clip": 4.469089508056641,
+      "forward_seconds": 0.22377729200024987,
+      "seconds": 1.0412292500000149,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.9134531021118164,
+      "gradient_norm_before_clip": 4.7808051109313965,
+      "forward_seconds": 0.22373116699964157,
+      "seconds": 1.0631315420000647,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 2.118502378463745,
+      "gradient_norm_before_clip": 5.193774223327637,
+      "forward_seconds": 0.22381833300005383,
+      "seconds": 1.0596862079996754,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.6849901676177979,
+      "gradient_norm_before_clip": 4.005105972290039,
+      "forward_seconds": 0.22359316699976262,
+      "seconds": 1.029378917000031,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 2.253894329071045,
+      "gradient_norm_before_clip": 5.024649143218994,
+      "forward_seconds": 0.2239992079998956,
+      "seconds": 1.056483291999939,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.3470896482467651,
+      "gradient_norm_before_clip": 3.6106503009796143,
+      "forward_seconds": 0.22615462500016292,
+      "seconds": 1.0510957090000375,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 2.3403310775756836,
+      "gradient_norm_before_clip": 4.5805230140686035,
+      "forward_seconds": 0.22456370800000514,
+      "seconds": 1.0568559160001314,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.5209177732467651,
+      "gradient_norm_before_clip": 5.31340217590332,
+      "forward_seconds": 0.22445758300000307,
+      "seconds": 1.048058625000067,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 2.2829535007476807,
+      "gradient_norm_before_clip": 5.255678176879883,
+      "forward_seconds": 0.2245127500000308,
+      "seconds": 1.0575770000000375,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.5205416679382324,
+      "gradient_norm_before_clip": 5.014718532562256,
+      "forward_seconds": 0.22445174999984374,
+      "seconds": 1.0488749579999421,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.625298261642456,
+      "gradient_norm_before_clip": 3.4578940868377686,
+      "forward_seconds": 0.22432066700002906,
+      "seconds": 1.065439417000107,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.4786136150360107,
+      "gradient_norm_before_clip": 3.1020076274871826,
+      "forward_seconds": 0.22429195900031118,
+      "seconds": 1.0734565420002582,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.0468875169754028,
+      "gradient_norm_before_clip": 3.2855701446533203,
+      "forward_seconds": 0.22455820799996218,
+      "seconds": 1.0645039159999214,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.6287845373153687,
+      "gradient_norm_before_clip": 3.423447847366333,
+      "forward_seconds": 0.22668762500006778,
+      "seconds": 1.0966350830003648,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.4921599626541138,
+      "gradient_norm_before_clip": 4.7182745933532715,
+      "forward_seconds": 0.22579158300004565,
+      "seconds": 1.0513635419997627,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.3272162675857544,
+      "gradient_norm_before_clip": 6.607903003692627,
+      "forward_seconds": 0.22339737499987677,
+      "seconds": 1.0511445829997683,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.111387014389038,
+      "gradient_norm_before_clip": 3.540929079055786,
+      "forward_seconds": 0.22775541700002577,
+      "seconds": 1.061407207999764,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 2.194868326187134,
+      "gradient_norm_before_clip": 4.749684810638428,
+      "forward_seconds": 0.2235287079997761,
+      "seconds": 1.086059750000004,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.4493825435638428,
+      "gradient_norm_before_clip": 3.7271604537963867,
+      "forward_seconds": 0.22461691699982111,
+      "seconds": 1.0411830419998296,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.2297656536102295,
+      "gradient_norm_before_clip": 4.406715393066406,
+      "forward_seconds": 0.2233702500002437,
+      "seconds": 1.051932584000042,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.5448856353759766,
+      "gradient_norm_before_clip": 3.4251976013183594,
+      "forward_seconds": 0.2246852499997658,
+      "seconds": 1.0419218749998436,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 3,
+      "loss": 1.8437684774398804,
+      "gradient_norm_before_clip": 3.6213748455047607,
+      "forward_seconds": 0.22415700000010474,
+      "seconds": 1.0889055839998036,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 2.9795432090759277,
+      "gradient_norm_before_clip": 5.744687557220459,
+      "forward_seconds": 0.22517320799988738,
+      "seconds": 1.050790374999906,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 2.130692958831787,
+      "gradient_norm_before_clip": 6.2377824783325195,
+      "forward_seconds": 0.2240742090002641,
+      "seconds": 1.0581362090001676,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.9081951379776,
+      "gradient_norm_before_clip": 4.385861873626709,
+      "forward_seconds": 0.22483562500019616,
+      "seconds": 1.066473207999934,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.8441593647003174,
+      "gradient_norm_before_clip": 5.390954494476318,
+      "forward_seconds": 0.22885945799998808,
+      "seconds": 1.0690466669998386,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.7266114950180054,
+      "gradient_norm_before_clip": 3.571972370147705,
+      "forward_seconds": 0.22412087500015332,
+      "seconds": 1.035384625000006,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.336498498916626,
+      "gradient_norm_before_clip": 3.765186309814453,
+      "forward_seconds": 0.22376645799977268,
+      "seconds": 1.0625725830000192,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 2.204599618911743,
+      "gradient_norm_before_clip": 5.496374607086182,
+      "forward_seconds": 0.22446179200005645,
+      "seconds": 1.0916027079997548,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.733276128768921,
+      "gradient_norm_before_clip": 3.551668643951416,
+      "forward_seconds": 0.22592420799992396,
+      "seconds": 1.0472856669998691,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.4128880500793457,
+      "gradient_norm_before_clip": 3.509765148162842,
+      "forward_seconds": 0.22490295900024648,
+      "seconds": 1.052548334000221,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.587982177734375,
+      "gradient_norm_before_clip": 4.763259410858154,
+      "forward_seconds": 0.2248450829997637,
+      "seconds": 1.0500765000001593,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.986155390739441,
+      "gradient_norm_before_clip": 5.102843284606934,
+      "forward_seconds": 0.22358699999995224,
+      "seconds": 1.0876978330002203,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.3680598735809326,
+      "gradient_norm_before_clip": 5.129723072052002,
+      "forward_seconds": 0.2260335410001062,
+      "seconds": 1.0698145000001205,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.097061276435852,
+      "gradient_norm_before_clip": 2.991499900817871,
+      "forward_seconds": 0.2250398339997446,
+      "seconds": 1.0612642920000326,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 2.236050605773926,
+      "gradient_norm_before_clip": 5.541305065155029,
+      "forward_seconds": 0.22397237499990297,
+      "seconds": 1.0392174169996906,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.4920176267623901,
+      "gradient_norm_before_clip": 3.7136268615722656,
+      "forward_seconds": 0.22424062499976571,
+      "seconds": 1.044986875000177,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.5914652347564697,
+      "gradient_norm_before_clip": 3.9920101165771484,
+      "forward_seconds": 0.22360841699992307,
+      "seconds": 1.0351818330000242,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.699108600616455,
+      "gradient_norm_before_clip": 5.434315204620361,
+      "forward_seconds": 0.22347062500011816,
+      "seconds": 1.0564244160000271,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 0.7923519015312195,
+      "gradient_norm_before_clip": 2.8282289505004883,
+      "forward_seconds": 0.22559858299973712,
+      "seconds": 1.0739194169996154,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.843788981437683,
+      "gradient_norm_before_clip": 4.418121814727783,
+      "forward_seconds": 0.22691208300011567,
+      "seconds": 1.0462816660001408,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.5375382900238037,
+      "gradient_norm_before_clip": 3.5453691482543945,
+      "forward_seconds": 0.2248082500000237,
+      "seconds": 1.0492160829999193,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.979382038116455,
+      "gradient_norm_before_clip": 3.203615665435791,
+      "forward_seconds": 0.22356250000029831,
+      "seconds": 1.0361418750003395,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.547797441482544,
+      "gradient_norm_before_clip": 4.262669563293457,
+      "forward_seconds": 0.22418487499999173,
+      "seconds": 1.0709189999997761,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.701947569847107,
+      "gradient_norm_before_clip": 3.404773235321045,
+      "forward_seconds": 0.22554029200000514,
+      "seconds": 1.0434915829996498,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.8987691402435303,
+      "gradient_norm_before_clip": 5.191920757293701,
+      "forward_seconds": 0.22363104199985173,
+      "seconds": 1.0445815419998326,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 2.128760814666748,
+      "gradient_norm_before_clip": 5.71583366394043,
+      "forward_seconds": 0.2237436670002353,
+      "seconds": 1.0310148749999826,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.4166982173919678,
+      "gradient_norm_before_clip": 3.5197696685791016,
+      "forward_seconds": 0.22356104099981167,
+      "seconds": 1.0866202500001236,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.3771753311157227,
+      "gradient_norm_before_clip": 3.242776870727539,
+      "forward_seconds": 0.22504866700001003,
+      "seconds": 1.0406522080002105,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.0556414127349854,
+      "gradient_norm_before_clip": 2.977917432785034,
+      "forward_seconds": 0.22359675000006973,
+      "seconds": 1.0524192919997404,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.4917867183685303,
+      "gradient_norm_before_clip": 3.168248414993286,
+      "forward_seconds": 0.22499187499988693,
+      "seconds": 1.0515346669999417,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.8815498352050781,
+      "gradient_norm_before_clip": 5.323247909545898,
+      "forward_seconds": 0.22365354200019283,
+      "seconds": 1.0659657080000216,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.5805766582489014,
+      "gradient_norm_before_clip": 4.369852542877197,
+      "forward_seconds": 0.22511262499983786,
+      "seconds": 1.0825876250000874,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.2183518409729004,
+      "gradient_norm_before_clip": 5.061812400817871,
+      "forward_seconds": 0.22533695800029818,
+      "seconds": 1.0500458330002402,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.558490514755249,
+      "gradient_norm_before_clip": 3.631756067276001,
+      "forward_seconds": 0.22745625000015934,
+      "seconds": 1.0860527909999291,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.6043660640716553,
+      "gradient_norm_before_clip": 3.926543712615967,
+      "forward_seconds": 0.23481858299965097,
+      "seconds": 1.0802212909998161,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 1.5649034976959229,
+      "gradient_norm_before_clip": 2.6189417839050293,
+      "forward_seconds": 0.2357811669999137,
+      "seconds": 1.0791958330000853,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 4,
+      "loss": 2.8619956970214844,
+      "gradient_norm_before_clip": 7.223311901092529,
+      "forward_seconds": 0.2310660830003144,
+      "seconds": 1.0668881250003324,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.181986689567566,
+      "gradient_norm_before_clip": 2.9769489765167236,
+      "forward_seconds": 0.23269537499982107,
+      "seconds": 1.0892185829998198,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.2597578763961792,
+      "gradient_norm_before_clip": 4.733973026275635,
+      "forward_seconds": 0.23214008300010391,
+      "seconds": 1.1008288750003885,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.9174716472625732,
+      "gradient_norm_before_clip": 5.1733622550964355,
+      "forward_seconds": 0.23938508299988825,
+      "seconds": 1.1138452919999509,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 2.8075990676879883,
+      "gradient_norm_before_clip": 5.4369378089904785,
+      "forward_seconds": 0.2394669589998557,
+      "seconds": 1.0989727090000088,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.9027795791625977,
+      "gradient_norm_before_clip": 5.5720534324646,
+      "forward_seconds": 0.23656508400017628,
+      "seconds": 1.1582782919999772,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.146890640258789,
+      "gradient_norm_before_clip": 4.437868118286133,
+      "forward_seconds": 0.23498104199961745,
+      "seconds": 1.099199082999803,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.287186861038208,
+      "gradient_norm_before_clip": 3.6431736946105957,
+      "forward_seconds": 0.24063983299993197,
+      "seconds": 1.0896061670000563,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.212620496749878,
+      "gradient_norm_before_clip": 3.121201753616333,
+      "forward_seconds": 0.24793075000025055,
+      "seconds": 1.0902793750001365,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.6131720542907715,
+      "gradient_norm_before_clip": 4.246970176696777,
+      "forward_seconds": 0.23628516700000546,
+      "seconds": 1.1149854170002982,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.751671314239502,
+      "gradient_norm_before_clip": 4.558989524841309,
+      "forward_seconds": 0.26259895900011543,
+      "seconds": 1.1570474999998623,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.0954575538635254,
+      "gradient_norm_before_clip": 1.7901062965393066,
+      "forward_seconds": 0.26334987500013085,
+      "seconds": 1.1420732080000562,
+      "allocated_memory_bytes": 84942080,
+      "driver_allocated_memory_bytes": 1276641280
+    },
+    {
+      "epoch": 5,
+      "loss": 1.7043399810791016,
+      "gradient_norm_before_clip": 4.459173679351807,
+      "forward_seconds": 0.23708887499969933,
+      "seconds": 1.1265918749995762,
+      "allocated_memory_bytes": 84173568,
+      "driver_allocated_memory_bytes": 1276641280
+    }
+  ],
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 2.0067254172431097,
+      "train_accuracy": 0.2152777777777778,
+      "samples_seen": 144,
+      "complete": true
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.7279969155788422,
+      "train_accuracy": 0.2777777777777778,
+      "samples_seen": 144,
+      "complete": true
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.614843060572942,
+      "train_accuracy": 0.3263888888888889,
+      "samples_seen": 144,
+      "complete": true
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.7048954781558778,
+      "train_accuracy": 0.3125,
+      "samples_seen": 144,
+      "complete": true
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.5734111467997234,
+      "train_accuracy": 0.4166666666666667,
+      "samples_seen": 48,
+      "complete": false
+    }
+  ],
+  "untrained_holdout": {
+    "loss": 2.2239550490405677,
+    "accuracy": 0.11049723756906077,
+    "macro_f1": 0.03235529902196568,
+    "class_report": {
+      "none": {
+        "precision": 0.04,
+        "recall": 0.05,
+        "f1-score": 0.044444444444444446,
+        "support": 20.0
+      },
+      "Center": {
+        "precision": 0.1417910447761194,
+        "recall": 0.95,
+        "f1-score": 0.24675324675324675,
+        "support": 20.0
+      },
+      "Donut": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 20.0
+      },
+      "Edge-Loc": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 21.0
+      },
+      "Edge-Ring": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 21.0
+      },
+      "Loc": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 20.0
+      },
+      "Near-full": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 19.0
+      },
+      "Random": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 20.0
+      },
+      "Scratch": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 20.0
+      },
+      "accuracy": 0.11049723756906077,
+      "macro avg": {
+        "precision": 0.020199004975124377,
+        "recall": 0.1111111111111111,
+        "f1-score": 0.03235529902196568,
+        "support": 181.0
+      },
+      "weighted avg": {
+        "precision": 0.02008740826255463,
+        "recall": 0.11049723756906077,
+        "f1-score": 0.03217654046383329,
+        "support": 181.0
+      }
+    },
+    "samples": 181
+  },
+  "training_seconds": 170.45130987500033,
+  "training_budget_reached": true,
+  "final_holdout": {
+    "loss": 1.531176092874938,
+    "accuracy": 0.43646408839779005,
+    "macro_f1": 0.33674642446572267,
+    "class_report": {
+      "none": {
+        "precision": 0.28169014084507044,
+        "recall": 1.0,
+        "f1-score": 0.43956043956043955,
+        "support": 20.0
+      },
+      "Center": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 20.0
+      },
+      "Donut": {
+        "precision": 0.5,
+        "recall": 0.8,
+        "f1-score": 0.6153846153846154,
+        "support": 20.0
+      },
+      "Edge-Loc": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 21.0
+      },
+      "Edge-Ring": {
+        "precision": 0.38095238095238093,
+        "recall": 0.7619047619047619,
+        "f1-score": 0.5079365079365079,
+        "support": 21.0
+      },
+      "Loc": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 20.0
+      },
+      "Near-full": {
+        "precision": 0.9411764705882353,
+        "recall": 0.8421052631578947,
+        "f1-score": 0.8888888888888888,
+        "support": 19.0
+      },
+      "Random": {
+        "precision": 0.6111111111111112,
+        "recall": 0.55,
+        "f1-score": 0.5789473684210527,
+        "support": 20.0
+      },
+      "Scratch": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 20.0
+      },
+      "accuracy": 0.43646408839779005,
+      "macro avg": {
+        "precision": 0.30165890038853305,
+        "recall": 0.439334447229184,
+        "f1-score": 0.33674642446572267,
+        "support": 181.0
+      },
+      "weighted avg": {
+        "precision": 0.29689711591326023,
+        "recall": 0.43646408839779005,
+        "f1-score": 0.3327812376954569,
+        "support": 181.0
+      }
+    },
+    "samples": 181
+  },
+  "total_seconds": 197.11453199999983,
+  "mean_step_seconds_after_first": 1.0643120031935607
+}

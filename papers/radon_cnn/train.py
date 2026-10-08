@@ -13,7 +13,7 @@ Usage:
     # Train for 100 more epochs (resumed or from scratch)
     python papers/radon_cnn/train.py --epochs 100 --resume
 
-Trains RadonCNN on the WM-811K wafer map dataset using the common Trainer.
+Trains RadonCNN using the common training loop and sample-weighted validation.
 
 Hyperparameters (from paper):
     - lr=0.0003, Adam optimizer
@@ -51,8 +51,7 @@ from common.training.checkpoint import CheckpointManager
 from common.training.early_stopping import EarlyStopping
 from common.training.logger import TrainingLogger
 from common.training.metrics import accuracy, f1, precision, recall
-from common.training.trainer import Trainer
-from common.training.utils import NativeScaler
+from common.training.utils import NativeScaler, resolve_device
 from papers.radon_cnn.data_utils import WaferRadonDataset
 from papers.radon_cnn.data_utils.protocol import (
     dataset_options,
@@ -61,6 +60,7 @@ from papers.radon_cnn.data_utils.protocol import (
     subsets,
 )
 from papers.radon_cnn.models.radon_cnn import RadonCNN
+from papers.radon_cnn.trainer import RadonTrainer
 
 
 def parse_args() -> argparse.Namespace:
@@ -76,8 +76,8 @@ def parse_args() -> argparse.Namespace:
         "--device",
         type=str,
         default="auto",
-        choices=["auto", "cuda", "cpu"],
-        help="Device to use for training (auto=use CUDA if available)",
+        choices=["auto", "cuda", "mps", "cpu"],
+        help="Device to use for training (auto: CUDA, then Apple MPS, then CPU)",
     )
     parser.add_argument(
         "--epochs",
@@ -123,9 +123,7 @@ def main() -> None:
     args = parse_args()
 
     # ── Device ───────────────────────────────────────────────────────────
-    device = args.device
-    if device == "auto":
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = resolve_device(args.device)
     print(f"Using device: {device}")
 
     # ── Load config ──────────────────────────────────────────────────────
@@ -265,7 +263,7 @@ def main() -> None:
     scaler = NativeScaler(enabled=(device == "cuda" and config.get("training.amp", False)))
 
     # ── Trainer ──────────────────────────────────────────────────────────
-    trainer = Trainer(
+    trainer = RadonTrainer(
         model=model,
         optimizer=optimizer,
         loss_fn=loss_fn,

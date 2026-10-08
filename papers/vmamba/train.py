@@ -25,6 +25,7 @@ if str(_project_root) not in sys.path:
 
 from common.engine.config import EngineConfig
 from common.engine.engine import Engine
+from common.training.utils import resolve_device
 from common.utils.seed import set_seed
 from papers.reproduction import save_protocol
 from papers.vmamba.data_utils.author_dataset import build_dataset
@@ -50,8 +51,8 @@ def parse_args() -> argparse.Namespace:
         "--device",
         type=str,
         default="auto",
-        choices=["auto", "cuda", "cpu"],
-        help="Device to use for training (auto=use CUDA if available)",
+        choices=["auto", "cuda", "mps", "cpu"],
+        help="Device to use for training (auto: CUDA, then MPS, then CPU)",
     )
     parser.add_argument(
         "--epochs",
@@ -182,9 +183,7 @@ def main() -> None:
         config._data.setdefault("training", {}).setdefault("optimizer", {})["lr"] = args.lr
         config._data.setdefault("optimizer", {})["lr"] = args.lr
 
-    device = args.device
-    if device == "auto":
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = resolve_device(args.device)
 
     if device == "cuda" and not args.allow_slow_scan:
         from papers.vmamba.kernels import csms6s

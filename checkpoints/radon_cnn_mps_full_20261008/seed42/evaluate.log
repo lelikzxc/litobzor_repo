@@ -1,0 +1,27 @@
+Using device: mps
+Loading WM-811K dataset from: datasets/wm811k
+  Total samples: 25370
+  Classes: ['Center', 'Donut', 'Edge-Loc', 'Edge-Ring', 'Loc', 'Random', 'Scratch']
+  Test samples: 385
+Loading checkpoint from: /Users/lelik/Documents/niime/litobzor_repo/checkpoints/radon_cnn_mps_full_20261008/seed42/best.pt
+  Parameters: 1,462,327
+
+Evaluating...
+
+========================================
+Test Results
+========================================
+  Accuracy:  0.8649
+  F1 Score:  0.8637
+  Precision: 0.8655
+  Recall:    0.8649
+========================================
+
+Per-class accuracy:
+  Center      : 0.9455  (n=55)
+  Donut       : 0.9455  (n=55)
+  Edge-Loc    : 0.8364  (n=55)
+  Edge-Ring   : 0.9455  (n=55)
+  Loc         : 0.6182  (n=55)
+  Random      : 0.9455  (n=55)
+  Scratch     : 0.8182  (n=55)

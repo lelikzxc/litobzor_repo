@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.5, pytest-8.3.4, pluggy-1.5.0
+rootdir: /Users/lelik/Documents/niime/litobzor_repo
+configfile: pyproject.toml
+plugins: anyio-3.7.1, cov-7.0.0, langsmith-0.4.49
+collected 1 item
+
+papers/semiwafernet/tests/test_mps_diagnostic.py {'device': 'mps', 'stages': [{'loss': 2.234619617462158}, {'loss': 2.2207248210906982, 'supervised_loss': 2.2207248210906982, 'pseudo_loss': 0.0, 'consistency_loss': 0.0, 'pseudo_accept_rate': 100.0}, {'loss': 1.927138328552246, 'supervised_loss': 1.927138328552246, 'pseudo_loss': 0.0, 'consistency_loss': 0.0, 'pseudo_accept_rate': 100.0}], 'note': 'Permissive synthetic gates test mechanics only'}
+.
+
+============================== 1 passed in 2.41s ===============================

@@ -1,0 +1,17 @@
+  Loading images for oversample:   0%|          | 0/4881 [00:00<?, ?img/s]  Loading images for oversample:  33%|███▎      | 1603/4881 [00:00<00:00, 16027.76img/s]  Loading images for oversample:  66%|██████▌   | 3206/4881 [00:00<00:00, 14906.84img/s]  Loading images for oversample:  96%|█████████▋| 4702/4881 [00:00<00:00, 14730.17img/s]  Loading images for oversample: 100%|██████████| 4881/4881 [00:00<00:00, 14784.59img/s]
+  SMOTE: 4881 -> 6480 encoded samples
+  Balanced class counts: [720, 720, 720, 720, 720, 720, 720, 720, 720]
+Device=mps; full model=788169 params; train=[720, 720, 328, 720, 720, 720, 44, 509, 400]; val=[300, 100, 81, 100, 100, 100, 10, 100, 100]
+mid_smote: step=150, loss=1.0713, val_acc=0.5298, val_f1=0.5768
+mid_smote: step=300, loss=0.6594, val_acc=0.6418, val_f1=0.6940
+mid_smote: step=450, loss=0.5007, val_acc=0.6630, val_f1=0.7199
+mid_smote: step=600, loss=0.4255, val_acc=0.7397, val_f1=0.8088
+mid_smote: step=750, loss=0.3775, val_acc=0.7306, val_f1=0.7920
+mid_smote: step=900, loss=0.3429, val_acc=0.7992, val_f1=0.8247
+mid_smote: step=1050, loss=0.3184, val_acc=0.7588, val_f1=0.7968
+mid_smote: step=1200, loss=0.3032, val_acc=0.8093, val_f1=0.8298
+mid_smote: step=1350, loss=0.2897, val_acc=0.7659, val_f1=0.8000
+mid_smote: step=1500, loss=0.2615, val_acc=0.7356, val_f1=0.7819
+mid_smote: step=1650, loss=0.2579, val_acc=0.8224, val_f1=0.8545
+mid_smote: step=1800, loss=0.2568, val_acc=0.7255, val_f1=0.7719
+Report: /Users/lelik/Documents/niime/litobzor_repo/checkpoints/semiwafernet_mps_followup_20261008/paired_seed43/natural_none/report.json

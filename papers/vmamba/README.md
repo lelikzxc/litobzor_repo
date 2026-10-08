@@ -39,4 +39,33 @@ For raw categorical maps, set `data.source: raw_maps`, `data.data_root: datasets
 
 CPU execution needs no CUDA kernel. GPU training without an accelerated scan is refused by default because the recurrent PyTorch fallback is extremely slow; `--allow-slow-scan` opts into that fallback.
 
+## Short diagnostics on Apple Silicon
+
+Training and evaluation accept `--device mps`; `auto` prefers CUDA, then MPS,
+then CPU. MPS uses an affine-prefix selective scan with checkpointed 128-token
+blocks, preserving the SSM recurrence while reducing Python/GPU launch overhead
+and bounding backward state memory. The CUDA scan is unchanged. CPU tests compare
+outputs and all parameter gradients against the recurrence, including 3136-token
+sequences and transition underflow. FFT support depends on the installed PyTorch;
+the tested environment runs FrequencyAttention directly on MPS.
+
+```bash
+python papers/vmamba/scripts/mps_diagnostic.py --device mps --image-size 224 --batch-size 1 --profile-only --output checkpoints/mps_diagnostics/vmamba/profile224
+python papers/vmamba/scripts/mps_diagnostic.py --device mps --image-size 64 --max-seconds 180 --output checkpoints/mps_diagnostics/vmamba/full64
+```
+
+The second command keeps the full FCS architecture but uses 64-pixel inputs and
+16 training images per class selected only from the author benchmark's training
+split. It evaluates on the complete, disjoint author holdout, saves explicit
+diagnostic metadata, and stops training after a bounded time (checked between
+batches). Initial/final evaluation add a little time to that budget. The results
+measure early learning; reduced resolution/data and few epochs cannot establish
+paper reproduction. `--variant no_sfs` or `backbone` creates explicit ablations;
+use a separate `--output` for each. Paper defaults remain in `configs/config.yaml`.
+
+The [measured MPS diagnostic results](docs/mps_diagnostic_results.md) record
+the short 64-pixel run, native FFT/scan gradient checks, and warm 224-pixel
+timings. They document the limits of interpreting early accuracy as evidence
+for eventual paper reproduction.
+
 See [architecture_audit.md](docs/architecture_audit.md) for the failure analysis, implemented corrections and remaining publication ambiguities.

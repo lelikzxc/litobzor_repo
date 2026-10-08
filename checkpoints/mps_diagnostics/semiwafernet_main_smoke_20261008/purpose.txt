@@ -1,0 +1,1 @@
+Three-stage MPS entrypoint mechanics smoke only. Random oversampling, permissive synthetic gates, data fraction .001 and 2 MC passes explicitly deviate from paper. Scores are not quality evidence.

@@ -1,0 +1,32 @@
+{
+  "identity": {
+    "checkpoint_sha256": "301ae5a06f5e5585bd5a3db1ececc68405c985b5ba905cd82894bbfa5560ddc0",
+    "encoded_pack_sha256": "4d339c51c48044e32f3477f5eafd9568a2a639426304e7c5ac542b145b0e3401",
+    "shared_roles_and_raw_features_sha256": "18fe99d2aabc0106ae16430d093a64f625940b79036f5f49d81ff7bb36dcec07",
+    "backend": "cpu"
+  },
+  "checkpoint_sha256": "301ae5a06f5e5585bd5a3db1ececc68405c985b5ba905cd82894bbfa5560ddc0",
+  "npz_sha256": "26c4b13551530b2fbc757aa5b119bde090a80532676cd16b95186756ca95a8fd",
+  "npz_path": "checkpoints/semiwafernet_mps_followup_20261008/paired_seed43/natural_none/cpu_holdout_logits.npz",
+  "validation_count": 991,
+  "sample_count": 9991,
+  "arrays": {
+    "filenames": "Unicode[N]",
+    "true_labels": "int64[N]",
+    "logits": "float32[N,9]"
+  },
+  "class_order": [
+    "none",
+    "Center",
+    "Donut",
+    "Edge-Loc",
+    "Edge-Ring",
+    "Loc",
+    "Near-full",
+    "Random",
+    "Scratch"
+  ],
+  "raw_none_features_path": "checkpoints/semiwafernet_mps_followup_20261008/paired_splits/builder_summary.json",
+  "raw_none_features_key": "selected_None_raw_features",
+  "inference_seconds": 14.5303167080001
+}

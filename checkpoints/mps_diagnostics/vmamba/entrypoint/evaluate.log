@@ -1,0 +1,40 @@
+/Users/lelik/Documents/niime/litobzor_repo/papers/vmamba/kernels/csm_triton.py:28: UserWarning: triton not installed — using pure-PyTorch cross-scan/merge
+  warnings.warn("triton not installed — using pure-PyTorch cross-scan/merge")
+/Users/lelik/Documents/niime/litobzor_repo/papers/vmamba/kernels/csms6s.py:32: UserWarning: selective_scan_cuda_oflex not available — using pure-PyTorch fallback
+  warnings.warn("selective_scan_cuda_oflex not available — using pure-PyTorch fallback")
+/Users/lelik/Documents/niime/litobzor_repo/papers/vmamba/kernels/csms6s.py:197: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @torch.cuda.amp.custom_fwd
+/Users/lelik/Documents/niime/litobzor_repo/papers/vmamba/kernels/csms6s.py:257: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @torch.cuda.amp.custom_bwd
+Using device: mps
+Loading WM-811K dataset from: datasets/vmamba_author/WM811k_Dataset.zip
+  Total samples: 902
+  Classes: ['none', 'Center', 'Donut', 'Edge-Loc', 'Edge-Ring', 'Loc', 'Near-full', 'Random', 'Scratch']
+  Saved holdout samples: 9
+Creating FCS-VMamba model...
+Loading checkpoint: checkpoints/mps_diagnostics/vmamba/entrypoint/best.pt
+  Loaded from epoch 1, best metric: 0.3333333432674408
+
+============================================================
+Evaluating on test set...
+============================================================
+
+Test Results:
+  Loss:      1.9364
+  Accuracy:  0.3333
+  F1:        0.2169
+  Precision: 0.1852
+  Recall:    0.3333
+
+Per-class accuracy:
+  Class 0 (none): 0.0000
+  Class 1 (Center): 0.0000
+  Class 2 (Donut): 1.0000
+  Class 3 (Edge-Loc): 0.0000
+  Class 4 (Edge-Ring): 0.0000
+  Class 5 (Loc): 0.0000
+  Class 6 (Near-full): 1.0000
+  Class 7 (Random): 0.0000
+  Class 8 (Scratch): 1.0000
+
+Done!

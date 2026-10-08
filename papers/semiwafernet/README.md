@@ -4,6 +4,8 @@ Reference: **SemiWaferNet: Efficient Semi-Supervised Hybrid CNN-Transformer Mode
 
 Two separate models: HybridCNN-ViT for classification (32x32, nine classes) and ConvoFormer-UNet for binary segmentation (64x64). Full training is required to assess the paper's recognition quality. CPU training is supported, but the repeated MC-dropout passes make the full SSL experiment much slower than a short supervised run. Unit tests and short runs do not establish paper-level recognition quality.
 
+Training, evaluation and checkpoint diagnostics accept `--device mps` on Apple Silicon. `auto` selects CUDA, then available Apple MPS, then CPU; an unavailable explicitly requested backend raises an error. MPS uses float32 without CUDA AMP.
+
 ## Run on GPU
 
 Install the repository requirements, including `imbalanced-learn`, and a CUDA-compatible PyTorch/torchvision pair. The paper uses PyTorch 2.5.1. Work from the repository root.
@@ -69,3 +71,52 @@ Diagnostic checkpoints, logs and generated reports live in separate `checkpoints
 The completed 10-epoch unweighted diagnostic reduced training loss from 1.7387 to 0.5286. Its best checkpoint (epoch 8, validation macro-F1 0.6770) scored **0.576981 test accuracy, 0.354619 macro-F1 and 0.462172 macro-recall** on the saved 11,860-map test subset. These results do not reproduce the paper; the validation/test gap cannot be dismissed by citing unit-test success. Detailed per-class metrics are saved in `checkpoints/semiwafernet_cpu_diagnostic/results.json`. The weighted comparison was interrupted before completing its 10 epochs, so no completed head-to-head comparison or default change is inferred from it.
 
 Measured CPU throughput with four threads was about 298 training images/s (batch 256), 874 deterministic inference images/s and 599 MC-dropout inference images/s. Two pseudo-label refreshes alone process 6 million inference examples and take roughly 2.8 hours at the measured MC rate; the 50 training epochs and accepted pseudo-labels add further hours. GPU training is the practical next quality experiment, after the CUDA-specific regression checks pass on that device.
+
+## Bounded Apple MPS learning diagnostics
+
+```bash
+OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python papers/semiwafernet/scripts/diagnose_mps.py --device mps --output checkpoints/mps_diagnostics/semiwafernet_new
+```
+
+The diagnostic keeps the full classifier and compares the published learning rate with `5e-4`, plus real-map random oversampling versus encoded-space SMOTE at the same faster rate. Each comparison is capped at 180 optimizer steps and 120 seconds of training/validation. Neither the paper configuration nor reproduction checkpoints are changed.
+
+It uses disjoint reduced train/validation subsets from **official Training only**: up to 180 training and 40 validation maps per class, with 20% of a rare class reserved for validation. Checkpoints are selected solely by the balanced validation macro-F1. A separate stress evaluation appends 3000 additional held-out None maps to that validation set to measure minority precision when None dominates; it never selects checkpoints or changes training. Twenty MC passes on eight held-out maps per class diagnose the published pseudo-label gates without training on validation labels. `--steps`, `--max-seconds`, `--mc-passes` and `--none-stress-samples` explicitly control the budget.
+
+SMOTE runs with a single scoped CPU thread before any Metal tensor allocation. The first local attempt crashed in CPU SMOTE after initializing Metal; the bounded-thread preparation order avoids that failure in this environment. Reports include exact filenames, class counts, confusion matrices, training/validation losses, elapsed time and all diagnostic overrides. Official Test is untouched, so these scores measure learning behaviour and are **not** reproduced paper metrics.
+
+On the local M3 / 8 GB on 2026-10-08, 180-step comparisons used 1484 distinct training maps (1620 after SMOTE) and 330 balanced validation maps. Paper-LR SMOTE reached validation macro-F1 0.6877; faster-LR SMOTE reached 0.8062; faster-LR real-map oversampling reached 0.8016. Training plus validation took 16.0 / 10.5 / 10.4 seconds respectively, with first-run kernel initialization included. This matched-rate comparison does not identify SMOTE as the main failure source.
+
+A separate 600-step extension reached balanced validation macro-F1 **0.7676 with paper LR** and **0.8836 with faster LR**, in 34.7 and 35.9 seconds. The stress set contained 3330 maps, 91.29% None, and was disjoint from training. Its macro-F1 fell to **0.6898 / 0.7354**. With faster LR, Scratch recall was 0.80 but precision only 0.096 because many None maps became false Scratch predictions. Balanced holdout quality therefore overstates minority precision under a large None prior.
+
+Published 20-pass MC gates accepted 0/72 held-out candidates with paper LR and 27/72 with faster LR; all 27 were correct in this tiny sample, but none were Loc, Scratch or Edge-Loc. This indicates a confidence/coverage bottleneck for SSL, not proof that loosening published gates is safe. A separate mechanics-only run verified the actual three-stage training entry point, standalone checkpoint evaluation and nonempty lazy pseudo-set union on MPS; its permissive gates and tiny data are not recognition-quality results. Reports are under `checkpoints/mps_diagnostics/semiwafernet_20261008`, `semiwafernet_extension_20261008` and `semiwafernet_main_smoke_20261008`.
+
+A final matched real-map-sampler ablation increased distinct None training maps from 180 to 720 while retaining the same 600 updates, LR, class-balanced sampling, architecture and held-out sets. Balanced validation F1 changed from 0.8780 to 0.8652; stress F1 changed from 0.7451 to 0.6142. The extra 540 training maps were disjoint from both holdouts. Each arm took about 34.4 seconds. This single-seed result does not support promoting more None diversity as a standalone fix. Reproduce with `--variants fast_real fast_real_diverse_none --steps 600 --diverse-none-per-class 720` and a fresh output directory; records are under `checkpoints/mps_diagnostics/semiwafernet_none_diversity_20261008`.
+
+There is also a publication metric/protocol inconsistency. Table 1 reports 110,701 None maps out of 118,595 official test maps (93.34%). Table 6 reports SSL accuracy 98.72% and Cohen Kappa 98.54%. Standard Cohen Kappa then implies chance agreement `(0.9872-0.9854)/(1-0.9854) = 0.1233`. Given the stated None proportion and only 1.28% total errors, chance agreement must be at least `0.933437*(0.933437-0.0128) = 0.8594`, so standard Kappa cannot exceed 90.90%. These figures cannot all describe the same conventional full-test evaluation. Table 5's supervised class recalls average 98.3511%, matching Table 6's 98.35% "Acc", but weighting them by Table 1 test supports implies 97.3309% micro accuracy. A different metric definition or evaluation distribution may explain this; exact publication-level comparison requires clarification rather than assuming the numbers share the current protocol.
+
+### Follow-up: None size, real Du coverage, and actual Stage 2
+
+The follow-up on 2026-10-08 used the full classifier on a MacBook Air M3 with 8 GB RAM. A 1,800-update warm-up on 4,881 distinct maps reached validation macro-F1 **0.8644 at the published LR** and **0.8751 at `5e-4`**, taking about 101 seconds per arm. Those validation/stress sets differ from the earlier 600-update experiment, so their absolute scores are not a matched improvement estimate. The published-LR warm-up still predicted Scratch for 121/129 large held-out None maps. Audited nearest-neighbor encodings retained failed dies; the observed failure also exists with real-map oversampling. Size and sparse defect density correlate with errors, rather than an observed encoding/collation failure explaining them.
+
+A fresh matched comparison used the same 4,881-map training budget, 1,800 updates, LR `2e-4`, SMOTE, architecture, and common holdouts for seeds 42 and 43. Only the 720 original None training maps changed: natural sampling versus equal sampling from `<700`, `700..2499`, and `>=2500` occupied-die bins. Validation held out 100 None maps per bin plus 691 defect maps (991 total). The descriptive stress set appended 9,000 independent naturally sampled None maps, giving 9,991 maps, 93.08% None. Every image was from official **Training**, and checkpoints were selected only by validation macro-F1.
+
+| None training sampling | Mean validation macro-F1 | Mean None-dominant stress macro-F1 |
+|---|---:|---:|
+| Natural | 0.8473 | 0.7606 |
+| Equal size bins | 0.8592 | 0.6914 |
+
+Each run completed in 115–129 seconds including preparation and diagnostic evaluation. Stratification reduced large-None→Scratch errors on stress by **43.43 percentage points**, but increased small-None→Scratch errors by **4.97 points**. Small maps dominate the natural population, so the intervention worsened overall stress in both seeds. This is a distribution tradeoff, and the publication sampling defaults remain unchanged.
+
+Twenty-pass MC probes on the **same 1,024 genuine blank-label Du maps** accepted only **9 / 8** maps for the natural/stratified seed-42 models, using the original confidence, entropy and MI gates and class CV measured on Du. Neither accepted None, Loc or Scratch. With those fixed Du statistics, the full validation set yielded 216/171 accepted predictions, all correct in this selected holdout; that does not establish real-Du precision, whose ground truth is unavailable. The entropy gate dominated the rejection. Each complete Du-plus-validation probe took 12–13 seconds.
+
+Two bounded continuation comparisons invoked the actual `Trainer.train_stage1` and `train_stage2`: identical incoming weights, geometric augmentation, fresh AdamW, 306 updates per arm, unchanged gates, and the incoming validation score included in artifact selection. Seed 42 reached **0.8420 supervised / 0.8471 SSL**; seed 43 retained its **0.8545 incoming baseline** in both arms. The terminal epochs worsened in both seed-43 arms. Source diagnostic checkpoints omit optimizer moments, so these experiments restart AdamW rather than reproduce the full trainer's optimizer transfer. The small pseudo union also changes shuffle, dropout, augmentation assignment and final BatchNorm batch size; the small selected-score difference is not a demonstrated SSL benefit.
+
+A validation-only None-bias calibration raised the natural-arm mean stress F1 from 0.7606 to 0.8152 while reducing Scratch recall from **0.64 to 0.345**. This precision/recall tradeoff does not repair recognition or match the paper's class recall, and no bias or gate relaxation was promoted to the paper configuration. More supervised coverage and explicit per-class validation remain necessary before a costly full SSL experiment; these reduced-data results cannot guarantee full CUDA reproduction.
+
+The diagnostic now supports `--split-from <report-or-manifest>` with official-Training label/hash and overlap checks, `mid_smote` (`2e-4`), and explicit `--variant-lr NAME=VALUE` overrides. Best checkpoints and progress are saved atomically at each validation with `best_step`; interruption/time-budget reports preserve completed work rather than reporting missing best weights. The original default diagnostic and publication configuration remain available. For example, reuse the exact natural source split with a fresh output:
+
+```bash
+python -u papers/semiwafernet/scripts/diagnose_mps.py --device mps --split-from checkpoints/semiwafernet_mps_followup_20261008/paired_splits/natural_none.json --variants mid_smote --seed 43 --steps 1800 --eval-every 150 --max-seconds 130 --output checkpoints/semiwafernet_mps_new_seed43
+```
+
+The [durable diagnostic record](results/mps_followup_20261008.json) stores the experiment decisions, per-class results and evidence/checkpoint checksums. Exact splits, logs, weights, CPU logits, MC probes, continuation comparisons, calibration and [paired report/curves](../../checkpoints/semiwafernet_mps_followup_20261008/paired_summary.md) are under `checkpoints/semiwafernet_mps_followup_20261008/`. These are completed diagnostic experiments, not an accepted paper reproduction.

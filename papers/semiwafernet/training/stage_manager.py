@@ -3,10 +3,10 @@
 Stage 1 warm-up -> Stage 2/3 offline MC pseudo on Du -> train on Dl U D_pseudo.
 
 Gates follow Eq. 10-13. Author defaults: tau_base=0.94, alpha=0.08, beta=0.02,
-eps_H=0.08, eps_MI=0.12 (raw nats). On our teachers these defaults flood D_pseudo
-with 'none'; we (1) re-calibrate eps_H / prior scale on the held-out
-pseudo-eval split (paper Section 4.1) for Macro-F1 of accepted labels, and
-(2) cap 'none' in D_pseudo so SSL does not undo SMOTE balance on Dl.
+eps_H=0.08, eps_MI=0.12 (raw nats). The paper recipe keeps these thresholds
+fixed, applies no prior adjustment, and leaves the None cap disabled.
+Prior/entropy calibration and None capping are explicit optional ablations;
+neither runs automatically with the default reproduction configuration.
 """
 
 from __future__ import annotations

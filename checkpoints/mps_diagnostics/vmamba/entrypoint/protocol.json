@@ -1,0 +1,180 @@
+{
+  "seed": 42,
+  "torch_version": "2.13.0",
+  "config": {
+    "seed": 42,
+    "model": {
+      "name": "fcs_vmamba",
+      "num_classes": 9,
+      "task": "classification",
+      "backbone": {
+        "name": "fcs_vmamba",
+        "pretrained": false,
+        "embed_dim": 96,
+        "depths": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "num_heads": [
+          3,
+          6,
+          12,
+          24
+        ],
+        "ssm_ratio": 2.0,
+        "mlp_ratio": 4.0,
+        "drop_path_rate": 0.1,
+        "d_state": 16,
+        "fixed_channels": true
+      },
+      "fa": {
+        "enabled": true,
+        "reduction": 16
+      },
+      "sfs": {
+        "enabled": true,
+        "suppression_ratio": 0.2,
+        "suppression_radius": 1,
+        "reduction": 4
+      },
+      "clca": {
+        "enabled": true,
+        "num_heads": 4,
+        "reduction": 16
+      },
+      "input": {
+        "image_size": 64,
+        "channels": 3
+      }
+    },
+    "data": {
+      "source": "author_archive",
+      "per_class": 5,
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "dataset": "wafer_defects",
+      "data_root": "datasets/vmamba_author/WM811k_Dataset.zip",
+      "image_size": 64,
+      "train_split": 0.8,
+      "val_split": 0.2,
+      "test_split": 0.0
+    },
+    "training": {
+      "num_classes": 9,
+      "batch_size": 4,
+      "num_epochs": 1,
+      "learning_rate": 0.001,
+      "weight_decay": 0.05,
+      "device": "mps",
+      "amp": false,
+      "grad_max_norm": 1.0,
+      "grad_max_value": null
+    },
+    "optimizer": {
+      "name": "adamw",
+      "lr": 0.001,
+      "weight_decay": 0.05
+    },
+    "scheduler": {
+      "name": "cosine",
+      "kwargs": {
+        "T_max": 50
+      }
+    },
+    "loss": {
+      "name": "cross_entropy"
+    },
+    "metrics": [
+      "accuracy",
+      "f1",
+      "recall",
+      "precision"
+    ],
+    "evaluation": {
+      "batch_size": 4,
+      "metrics": [
+        "accuracy",
+        "f1",
+        "recall",
+        "precision"
+      ]
+    },
+    "logging": {
+      "level": "INFO",
+      "save_checkpoints": true,
+      "checkpoint_interval": 10
+    },
+    "checkpoint": {
+      "save_dir": "checkpoints/mps_diagnostics/vmamba/entrypoint",
+      "metric_name": "val_accuracy",
+      "mode": "max"
+    },
+    "dataset": {
+      "name": "wafer_defects",
+      "image_size": 224,
+      "num_classes": 9
+    }
+  },
+  "sample_digest": "ef1bf789b3c78988d2610c972c31a5b53e87eb16067ce3a12b5ce428d9dc9b6a",
+  "splits": {
+    "train": [
+      452,
+      592,
+      814,
+      454,
+      157,
+      426,
+      37,
+      109,
+      310,
+      861,
+      348,
+      686,
+      755,
+      543,
+      15,
+      242,
+      126,
+      628,
+      571,
+      747,
+      808,
+      603,
+      661,
+      246,
+      785,
+      391,
+      842,
+      164,
+      428,
+      65,
+      322,
+      54,
+      746,
+      272,
+      244,
+      633
+    ],
+    "holdout": [
+      150,
+      772,
+      659,
+      378,
+      421,
+      882,
+      235,
+      599,
+      79
+    ]
+  }
+}

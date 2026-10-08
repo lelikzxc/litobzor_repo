@@ -1,0 +1,69 @@
+{
+  "diagnostic_only": true,
+  "paper_targets": {
+    "accuracy": 0.8791,
+    "macro_f1": 0.8606,
+    "source": "vmamba.pdf Table 3, 902-image Subset A"
+  },
+  "device": "mps",
+  "torch_version": "2.13.0",
+  "variant": "full",
+  "image_size": 224,
+  "parameters": 1082697,
+  "train_samples": 144,
+  "holdout_samples": 181,
+  "train_class_counts": {
+    "0": 16,
+    "1": 16,
+    "2": 16,
+    "3": 16,
+    "4": 16,
+    "5": 16,
+    "6": 16,
+    "7": 16,
+    "8": 16
+  },
+  "holdout_class_counts": {
+    "0": 20,
+    "1": 20,
+    "2": 20,
+    "3": 21,
+    "4": 21,
+    "5": 20,
+    "6": 19,
+    "7": 20,
+    "8": 20
+  },
+  "holdout_role": "Author benchmark validation split; used for diagnostic model selection, not an independent test",
+  "seed": 42,
+  "augmentation": true,
+  "profile_only": true,
+  "max_training_seconds": 60.0,
+  "max_training_steps": 0,
+  "steps": [
+    {
+      "epoch": 1,
+      "loss": 2.181962251663208,
+      "gradient_norm_before_clip": 10.455981254577637,
+      "forward_seconds": 2.628202207999948,
+      "seconds": 8.816920582999956,
+      "allocated_memory_bytes": 75918848,
+      "driver_allocated_memory_bytes": 609386496
+    }
+  ],
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 2.181962251663208,
+      "train_accuracy": 0.0,
+      "samples_seen": 1,
+      "complete": false
+    }
+  ],
+  "training_seconds": 8.834665833999907,
+  "training_budget_reached": false,
+  "total_seconds": 8.834669958999939,
+  "mean_step_seconds_after_first": 8.816920582999956,
+  "rough_50_epoch_hours_at_profiled_settings": 88.291663060319,
+  "timing_caveat": "Single cold batch includes first-use compilation; this is a rough projection at the recorded resolution and batch size, not a measured full-run duration."
+}

@@ -1,0 +1,155 @@
+{
+  "status": "accepted_project_result",
+  "accepted_by": "user",
+  "accepted_date": "2026-10-08",
+  "model": "RadonCNN",
+  "hardware": {
+    "model": "MacBook Air",
+    "chip": "Apple M3",
+    "unified_memory_GB": 8
+  },
+  "training_device": "mps",
+  "torch_version": "2.13.0",
+  "project_scope": "User considers this result sufficient; further RadonCNN tuning is not required in the current scope.",
+  "paper_metrics_reproduced": false,
+  "comparison_limitations": [
+    "Three seeds are not the article's 20 repeats.",
+    "Test sets differ across seeds; each test has 55 originals per class.",
+    "Exact author split, Radon projection settings and rare-class balancing method are unrecovered."
+  ],
+  "protocol": {
+    "training_presentations": 6400,
+    "unique_train_wafers": 5710,
+    "validation_wafers": 385,
+    "test_wafers": 385,
+    "classes": 7,
+    "class_names": [
+      "Center",
+      "Donut",
+      "Edge-Loc",
+      "Edge-Ring",
+      "Loc",
+      "Random",
+      "Scratch"
+    ],
+    "replacement": "Training only; original wafers are split before balancing.",
+    "selection": "Minimum sample-weighted validation loss per seed; all three declared seeds included."
+  },
+  "aggregate_test_metrics": {
+    "accuracy": {
+      "n": 3,
+      "mean": 0.8709956709956709,
+      "sample_standard_deviation": 0.006536653190710608,
+      "mean_percent": 87.09956709956708,
+      "sample_standard_deviation_percentage_points": 0.6536653190710607
+    },
+    "macro_f1": {
+      "n": 3,
+      "mean": 0.8704757327939094,
+      "sample_standard_deviation": 0.00795164468401198,
+      "mean_percent": 87.04757327939095,
+      "sample_standard_deviation_percentage_points": 0.795164468401198
+    },
+    "macro_precision": {
+      "n": 3,
+      "mean": 0.8729465327839273,
+      "sample_standard_deviation": 0.00802471642751258,
+      "mean_percent": 87.29465327839273,
+      "sample_standard_deviation_percentage_points": 0.802471642751258
+    },
+    "macro_recall": {
+      "n": 3,
+      "mean": 0.8709956709956711,
+      "sample_standard_deviation": 0.006536653190710557,
+      "mean_percent": 87.09956709956711,
+      "sample_standard_deviation_percentage_points": 0.6536653190710556
+    }
+  },
+  "settings_without_seed_and_directory": {
+    "checkpoint": {
+      "metric_name": "val_loss",
+      "mode": "min"
+    },
+    "data": {
+      "allow_train_replacement": true,
+      "cache_radon": true,
+      "data_root": "datasets/wm811k",
+      "image_size": 64,
+      "protocol": "balanced",
+      "test_split": 0.1,
+      "train_size": 6400,
+      "val_split": 0.1
+    },
+    "evaluation": {
+      "batch_size": 64
+    },
+    "model": {
+      "in_channels": 1,
+      "mode": "classification",
+      "name": "radon_cnn",
+      "num_classes": 7,
+      "radon_theta": 64
+    },
+    "training": {
+      "amp": false,
+      "batch_size": 64,
+      "cpu_threads": 2,
+      "early_stopping_patience": 30,
+      "grad_max_norm": null,
+      "learning_rate": 0.0003,
+      "lr_decay": 0.99,
+      "num_epochs": 500,
+      "weight_decay": 0.0
+    }
+  },
+  "runs": [
+    {
+      "seed": 42,
+      "best_epoch": 32,
+      "stopped_epoch": 62,
+      "test_accuracy": 0.8649350649350649,
+      "test_macro_f1": 0.8636905062442357,
+      "best_checkpoint": "checkpoints/radon_cnn_mps_full_20261008/seed42/best.pt",
+      "checkpoint_sha256": "a7f583ef50aed8f48c9fdb6439efb5a02c969e31718ca9fc4b837a130c702b6a",
+      "split_manifest": "checkpoints/radon_cnn_mps_full_20261008/seed42/split.json",
+      "split_sha256": "00cb10d3f423b2bd936e8d673538160214cb00cb452f2138fb3d0bb1be2fdb24",
+      "effective_config": "checkpoints/radon_cnn_mps_full_20261008/seed42/experiment.yaml",
+      "config_sha256": "7559afa7d226e6ef49ed0bd0e1917f3cb3c4bdb0fce74c004456538bd1742b57"
+    },
+    {
+      "seed": 43,
+      "best_epoch": 6,
+      "stopped_epoch": 36,
+      "test_accuracy": 0.8701298701298701,
+      "test_macro_f1": 0.8685111846297958,
+      "best_checkpoint": "checkpoints/radon_cnn_mps_full_20261008/seed43/best.pt",
+      "checkpoint_sha256": "2207e2675c6a67c4bfe73b708587b285c7b6ea78bc64d2ad733dd0019bd6f85d",
+      "split_manifest": "checkpoints/radon_cnn_mps_full_20261008/seed43/split.json",
+      "split_sha256": "39ad5ab503b83a1d95150bbb558672e31bfce607a089b0f055e524f9a7acfac9",
+      "effective_config": "checkpoints/radon_cnn_mps_full_20261008/seed43/experiment.yaml",
+      "config_sha256": "03c0774ada85470004f90283f78196a2dfa443751c7f04026ccdb85de123cf83"
+    },
+    {
+      "seed": 44,
+      "best_epoch": 6,
+      "stopped_epoch": 36,
+      "test_accuracy": 0.8779220779220779,
+      "test_macro_f1": 0.8792255075076968,
+      "best_checkpoint": "checkpoints/radon_cnn_mps_full_20261008/seed44/best.pt",
+      "checkpoint_sha256": "d39d2489f2c535c111d0203a5c0058559b5c46cba0f29882d348e67057e4d4bc",
+      "split_manifest": "checkpoints/radon_cnn_mps_full_20261008/seed44/split.json",
+      "split_sha256": "3c1376e02d73095c00d356fa979688cc41a8bf8e0b47e54fc9085c04a005814a",
+      "effective_config": "checkpoints/radon_cnn_mps_full_20261008/seed44/experiment.yaml",
+      "config_sha256": "60fd9285a36ca81ded33bf75e93a5b35c5b0a6cefdec69794f86587be70ab8ad"
+    }
+  ],
+  "source_sha256": {
+    "papers/radon_cnn/models/radon_cnn.py": "bcbdefc6878334e610fa2b197858cd16cc5b2524d99cf926390660a2bf2ee0c1",
+    "papers/radon_cnn/modules/kernel_flip.py": "72aface38c0bf964a60957e84dbc6c31a01fce125cf19610201615a081307040",
+    "papers/radon_cnn/trainer.py": "15675ebd66a046d128e087550aa32942fce7375f5484362df8fa1d4a5155b5be",
+    "papers/radon_cnn/data_utils/dataset.py": "e033a88a3d8849d3cc4703f2353cae3b72435162384836ec9b6b63c19ae2d95e"
+  },
+  "report": "checkpoints/radon_cnn_mps_full_20261008/summary.json",
+  "report_sha256": "e818446bf23637cdcdd3d26672f230aecd3fc725942f6fd8dc81275df1346d04",
+  "training_curves": "checkpoints/radon_cnn_mps_full_20261008/training_curves.png"
+}

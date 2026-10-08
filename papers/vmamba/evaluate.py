@@ -19,6 +19,7 @@ if str(_project_root) not in sys.path:
 
 from common.engine.config import EngineConfig
 from common.training.metrics import accuracy, f1, precision, recall
+from common.training.utils import resolve_device
 from papers.vmamba.data_utils.author_dataset import build_dataset
 from papers.vmamba.models.vmamba import FCSVMamba
 
@@ -41,7 +42,7 @@ def parse_args() -> argparse.Namespace:
         "--device",
         type=str,
         default="auto",
-        choices=["auto", "cuda", "cpu"],
+        choices=["auto", "cuda", "mps", "cpu"],
     )
     return parser.parse_args()
 
@@ -50,9 +51,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    device = args.device
-    if device == "auto":
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = resolve_device(args.device)
     print(f"Using device: {device}")
 
     # ── Load config ─────────────────────────────────────────────────────

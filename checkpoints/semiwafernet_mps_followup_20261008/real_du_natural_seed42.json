@@ -1,0 +1,7931 @@
+{
+  "probe": "real-Du class CV versus validation self-CV with unchanged gates",
+  "script_sha256": "64a8bf4fb45b3d2c376902183365c1c7a443a068202ca4f463d6b6f5d4dd717d",
+  "training_performed": false,
+  "device": "mps",
+  "torch_version": "2.13.0",
+  "checkpoint": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/semiwafernet_mps_followup_20261008/paired_seed42/natural_none/mid_smote.pt",
+  "checkpoint_sha256": "6e26e09bde36c872321f7ae03afe6de67a2c354b28b2d9906f8f5cffde816f10",
+  "checkpoint_variant": "mid_smote",
+  "checkpoint_options": {
+    "config": "papers/semiwafernet/configs/config.yaml",
+    "device": "mps",
+    "output": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/semiwafernet_mps_followup_20261008/paired_seed42/natural_none",
+    "seed": 42,
+    "split_from": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/semiwafernet_mps_followup_20261008/paired_splits/natural_none.json",
+    "variant_lr": [],
+    "train_per_class": 180,
+    "val_per_class": 40,
+    "batch_size": 64,
+    "steps": 1800,
+    "eval_every": 150,
+    "max_seconds": 130.0,
+    "mc_passes": 20,
+    "mc_samples_per_class": 20,
+    "none_stress_samples": 9000,
+    "diverse_none_per_class": 720,
+    "variants": [
+      "mid_smote"
+    ],
+    "data_seed": 42,
+    "learning_rate": 0.0002
+  },
+  "report": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/semiwafernet_mps_followup_20261008/paired_seed42/natural_none/report.json",
+  "report_sha256": "5470eda7a556b83b0341a603d96a3ee22be717c3eb6db35972da0f7a74bf9609",
+  "labels_csv": "/Users/lelik/Documents/niime/litobzor_repo/datasets/wm811k/labels.csv",
+  "labels_csv_sha256": "a2a72f85f89e43f7a3c26ad797115eeeca84a3844c06549617e71b6f40aed832",
+  "source_provenance": {
+    "blank_failureType_rows_in_csv": 638507,
+    "blank_failureType_Test_rows_excluded": 0,
+    "eligible_blank_label_non_Test_pool": 638507,
+    "unlabeled_sampling_seed": 420242,
+    "unlabeled_sampled_without_replacement": true,
+    "validation_verified_official_Training_only": true,
+    "validation_disjoint_from_report_training_and_stress": true,
+    "unlabeled_disjoint_from_all_labeled_Training_and_Test": true,
+    "official_Test_images_loaded": 0
+  },
+  "class_order": [
+    "none",
+    "Center",
+    "Donut",
+    "Edge-Loc",
+    "Edge-Ring",
+    "Loc",
+    "Near-full",
+    "Random",
+    "Scratch"
+  ],
+  "gate_parameters": {
+    "base_threshold": 0.94,
+    "alpha": 0.08,
+    "beta": 0.02,
+    "entropy_threshold": 0.08,
+    "mi_threshold": 0.12
+  },
+  "gate_entropy_units": "raw Shannon nats",
+  "prior_bias": null,
+  "None_cap": null,
+  "mc_passes": 20,
+  "batch_size": 64,
+  "mc_seed": 42,
+  "cpu_threads": 1,
+  "unlabeled_samples": [
+    "lot14359_3.png",
+    "lot30910_2.png",
+    "lot35574_9.png",
+    "lot34131_10.png",
+    "lot14869_7.png",
+    "lot22889_20.png",
+    "lot9511_14.png",
+    "lot15647_12.png",
+    "lot13583_2.png",
+    "lot30690_24.png",
+    "lot12121_25.png",
+    "lot10522_19.png",
+    "lot29725_25.png",
+    "lot21711_25.png",
+    "lot11677_2.png",
+    "lot16031_14.png",
+    "lot16949_11.png",
+    "lot18777_25.png",
+    "lot13532_22.png",
+    "lot21026_8.png",
+    "lot20467_24.png",
+    "lot10609_15.png",
+    "lot11816_9.png",
+    "lot34931_12.png",
+    "lot2397_11.png",
+    "lot19715_16.png",
+    "lot3747_1.png",
+    "lot14977_18.png",
+    "lot16846_1.png",
+    "lot41236_8.png",
+    "lot10653_15.png",
+    "lot31662_8.png",
+    "lot30950_3.png",
+    "lot37401_14.png",
+    "lot7661_9.png",
+    "lot37061_2.png",
+    "lot35778_23.png",
+    "lot9260_21.png",
+    "lot41670_18.png",
+    "lot39250_5.png",
+    "lot6388_17.png",
+    "lot22309_8.png",
+    "lot24257_12.png",
+    "lot5007_24.png",
+    "lot3634_24.png",
+    "lot13075_14.png",
+    "lot5818_24.png",
+    "lot4100_12.png",
+    "lot7170_8.png",
+    "lot32499_15.png",
+    "lot17060_6.png",
+    "lot7662_7.png",
+    "lot24590_4.png",
+    "lot12489_9.png",
+    "lot20346_11.png",
+    "lot22593_24.png",
+    "lot17310_14.png",
+    "lot32122_16.png",
+    "lot31047_20.png",
+    "lot21783_25.png",
+    "lot22119_23.png",
+    "lot30062_24.png",
+    "lot27034_1.png",
+    "lot28725_20.png",
+    "lot13593_17.png",
+    "lot41654_20.png",
+    "lot38648_1.png",
+    "lot4198_2.png",
+    "lot16710_20.png",
+    "lot19677_5.png",
+    "lot32816_6.png",
+    "lot15200_16.png",
+    "lot17928_4.png",
+    "lot30859_12.png",
+    "lot2354_15.png",
+    "lot28423_13.png",
+    "lot9176_1.png",
+    "lot35125_1.png",
+    "lot18383_9.png",
+    "lot32871_16.png",
+    "lot37239_18.png",
+    "lot8832_12.png",
+    "lot21543_11.png",
+    "lot16532_18.png",
+    "lot14969_1.png",
+    "lot13942_25.png",
+    "lot18483_3.png",
+    "lot10301_17.png",
+    "lot6772_15.png",
+    "lot36155_14.png",
+    "lot33190_4.png",
+    "lot36177_8.png",
+    "lot28850_20.png",
+    "lot29829_1.png",
+    "lot12096_21.png",
+    "lot8473_7.png",
+    "lot6949_4.png",
+    "lot22284_13.png",
+    "lot35545_2.png",
+    "lot3663_23.png",
+    "lot13499_3.png",
+    "lot13972_24.png",
+    "lot3076_16.png",
+    "lot13976_12.png",
+    "lot23601_1.png",
+    "lot15150_8.png",
+    "lot38622_22.png",
+    "lot36183_10.png",
+    "lot41347_3.png",
+    "lot23700_2.png",
+    "lot4220_18.png",
+    "lot2146_14.png",
+    "lot25377_6.png",
+    "lot11057_9.png",
+    "lot12678_21.png",
+    "lot22421_7.png",
+    "lot26976_21.png",
+    "lot22426_24.png",
+    "lot33987_8.png",
+    "lot23694_23.png",
+    "lot5797_4.png",
+    "lot33511_5.png",
+    "lot41053_7.png",
+    "lot4655_21.png",
+    "lot41841_7.png",
+    "lot37705_17.png",
+    "lot27468_19.png",
+    "lot13684_1.png",
+    "lot14933_23.png",
+    "lot13488_20.png",
+    "lot3684_21.png",
+    "lot17966_8.png",
+    "lot31471_4.png",
+    "lot36468_8.png",
+    "lot34194_22.png",
+    "lot17242_10.png",
+    "lot32660_18.png",
+    "lot36880_23.png",
+    "lot2043_18.png",
+    "lot8301_13.png",
+    "lot38369_23.png",
+    "lot12088_1.png",
+    "lot24385_21.png",
+    "lot44719_18.png",
+    "lot33189_2.png",
+    "lot34599_23.png",
+    "lot13146_10.png",
+    "lot38959_1.png",
+    "lot39534_22.png",
+    "lot34845_20.png",
+    "lot9978_5.png",
+    "lot16009_10.png",
+    "lot26966_7.png",
+    "lot24372_6.png",
+    "lot10655_18.png",
+    "lot29616_3.png",
+    "lot19679_15.png",
+    "lot6244_10.png",
+    "lot6028_25.png",
+    "lot8822_15.png",
+    "lot28620_24.png",
+    "lot19682_1.png",
+    "lot23203_13.png",
+    "lot8049_1.png",
+    "lot2041_10.png",
+    "lot32773_8.png",
+    "lot6407_8.png",
+    "lot40053_2.png",
+    "lot17127_18.png",
+    "lot16153_17.png",
+    "lot10553_5.png",
+    "lot15288_12.png",
+    "lot32366_2.png",
+    "lot37385_18.png",
+    "lot32976_15.png",
+    "lot19258_13.png",
+    "lot17760_7.png",
+    "lot34503_2.png",
+    "lot13587_8.png",
+    "lot8784_13.png",
+    "lot32395_25.png",
+    "lot16823_25.png",
+    "lot17118_18.png",
+    "lot46103_12.png",
+    "lot14253_23.png",
+    "lot36532_9.png",
+    "lot20958_23.png",
+    "lot7323_16.png",
+    "lot2287_3.png",
+    "lot30191_16.png",
+    "lot21175_1.png",
+    "lot8575_16.png",
+    "lot22210_2.png",
+    "lot5297_21.png",
+    "lot36070_6.png",
+    "lot12078_24.png",
+    "lot26035_24.png",
+    "lot23709_11.png",
+    "lot14858_12.png",
+    "lot26438_25.png",
+    "lot34766_9.png",
+    "lot8256_17.png",
+    "lot29832_14.png",
+    "lot14835_2.png",
+    "lot15596_22.png",
+    "lot31770_21.png",
+    "lot17256_5.png",
+    "lot29783_11.png",
+    "lot29143_4.png",
+    "lot22461_5.png",
+    "lot15468_11.png",
+    "lot1758_6.png",
+    "lot39001_25.png",
+    "lot12863_13.png",
+    "lot6642_1.png",
+    "lot6659_11.png",
+    "lot23873_11.png",
+    "lot31343_4.png",
+    "lot9255_23.png",
+    "lot7326_15.png",
+    "lot16335_2.png",
+    "lot27082_24.png",
+    "lot18444_12.png",
+    "lot39754_8.png",
+    "lot40198_7.png",
+    "lot30160_22.png",
+    "lot31129_21.png",
+    "lot5040_25.png",
+    "lot26883_15.png",
+    "lot21277_3.png",
+    "lot28544_15.png",
+    "lot7533_16.png",
+    "lot6648_3.png",
+    "lot13517_19.png",
+    "lot35192_18.png",
+    "lot11534_4.png",
+    "lot21381_6.png",
+    "lot10081_9.png",
+    "lot27867_4.png",
+    "lot30136_8.png",
+    "lot29841_8.png",
+    "lot16064_12.png",
+    "lot21471_23.png",
+    "lot9823_7.png",
+    "lot29878_2.png",
+    "lot35132_5.png",
+    "lot12678_17.png",
+    "lot30621_5.png",
+    "lot2873_22.png",
+    "lot9527_8.png",
+    "lot27695_7.png",
+    "lot9928_7.png",
+    "lot34440_21.png",
+    "lot36442_4.png",
+    "lot20255_2.png",
+    "lot13275_24.png",
+    "lot6928_25.png",
+    "lot4680_17.png",
+    "lot1657_4.png",
+    "lot14704_14.png",
+    "lot16760_16.png",
+    "lot15897_13.png",
+    "lot39676_21.png",
+    "lot41544_7.png",
+    "lot30438_15.png",
+    "lot33986_20.png",
+    "lot35582_7.png",
+    "lot23504_16.png",
+    "lot24988_14.png",
+    "lot10191_24.png",
+    "lot9414_14.png",
+    "lot20373_3.png",
+    "lot28715_12.png",
+    "lot41862_17.png",
+    "lot3656_20.png",
+    "lot22215_12.png",
+    "lot36758_2.png",
+    "lot14903_6.png",
+    "lot13017_2.png",
+    "lot39055_6.png",
+    "lot6134_19.png",
+    "lot3185_13.png",
+    "lot31269_16.png",
+    "lot17098_7.png",
+    "lot33736_24.png",
+    "lot39115_22.png",
+    "lot22985_8.png",
+    "lot30415_6.png",
+    "lot9018_23.png",
+    "lot6459_4.png",
+    "lot20391_16.png",
+    "lot13914_21.png",
+    "lot42008_7.png",
+    "lot20225_6.png",
+    "lot11571_9.png",
+    "lot28147_19.png",
+    "lot35729_4.png",
+    "lot22359_20.png",
+    "lot3383_24.png",
+    "lot26538_13.png",
+    "lot8101_9.png",
+    "lot1689_14.png",
+    "lot13461_22.png",
+    "lot41722_20.png",
+    "lot32700_23.png",
+    "lot20616_8.png",
+    "lot7308_15.png",
+    "lot15924_19.png",
+    "lot18694_8.png",
+    "lot12087_23.png",
+    "lot16463_21.png",
+    "lot6723_6.png",
+    "lot20358_12.png",
+    "lot20016_20.png",
+    "lot23716_20.png",
+    "lot33980_12.png",
+    "lot30223_19.png",
+    "lot5143_25.png",
+    "lot41602_12.png",
+    "lot13947_12.png",
+    "lot36844_13.png",
+    "lot28198_23.png",
+    "lot27741_14.png",
+    "lot17438_7.png",
+    "lot33280_3.png",
+    "lot29113_5.png",
+    "lot30182_13.png",
+    "lot3110_16.png",
+    "lot27379_10.png",
+    "lot41523_3.png",
+    "lot2705_11.png",
+    "lot31678_21.png",
+    "lot41190_20.png",
+    "lot36635_7.png",
+    "lot43287_4.png",
+    "lot9986_9.png",
+    "lot31265_19.png",
+    "lot6894_22.png",
+    "lot35610_22.png",
+    "lot41391_4.png",
+    "lot18793_18.png",
+    "lot3632_3.png",
+    "lot19598_20.png",
+    "lot33383_18.png",
+    "lot27075_10.png",
+    "lot19262_3.png",
+    "lot16509_4.png",
+    "lot30680_7.png",
+    "lot32756_18.png",
+    "lot32191_15.png",
+    "lot19420_1.png",
+    "lot9411_3.png",
+    "lot21441_17.png",
+    "lot31212_21.png",
+    "lot27492_1.png",
+    "lot15404_18.png",
+    "lot5208_12.png",
+    "lot3510_15.png",
+    "lot8143_12.png",
+    "lot24030_24.png",
+    "lot28859_4.png",
+    "lot4483_6.png",
+    "lot34088_25.png",
+    "lot38904_13.png",
+    "lot19290_14.png",
+    "lot27615_24.png",
+    "lot5734_21.png",
+    "lot39685_22.png",
+    "lot27582_2.png",
+    "lot5940_18.png",
+    "lot13719_10.png",
+    "lot16470_18.png",
+    "lot33931_11.png",
+    "lot16705_9.png",
+    "lot10037_22.png",
+    "lot19861_18.png",
+    "lot32952_5.png",
+    "lot7143_2.png",
+    "lot3395_3.png",
+    "lot30357_19.png",
+    "lot22787_4.png",
+    "lot19680_14.png",
+    "lot5011_15.png",
+    "lot19797_20.png",
+    "lot26530_4.png",
+    "lot20602_14.png",
+    "lot3917_2.png",
+    "lot36419_2.png",
+    "lot10501_23.png",
+    "lot41217_7.png",
+    "lot41369_15.png",
+    "lot9474_25.png",
+    "lot23710_21.png",
+    "lot3256_25.png",
+    "lot33343_17.png",
+    "lot28017_20.png",
+    "lot71_23.png",
+    "lot21813_24.png",
+    "lot5773_23.png",
+    "lot26433_9.png",
+    "lot25340_24.png",
+    "lot33330_21.png",
+    "lot14291_19.png",
+    "lot18647_21.png",
+    "lot22593_20.png",
+    "lot38526_1.png",
+    "lot2165_15.png",
+    "lot11466_19.png",
+    "lot11480_24.png",
+    "lot3318_2.png",
+    "lot34788_15.png",
+    "lot33248_9.png",
+    "lot19908_21.png",
+    "lot19720_6.png",
+    "lot33371_12.png",
+    "lot21716_21.png",
+    "lot32479_11.png",
+    "lot5335_16.png",
+    "lot35525_18.png",
+    "lot20917_21.png",
+    "lot35573_25.png",
+    "lot23553_19.png",
+    "lot8646_9.png",
+    "lot4827_6.png",
+    "lot24605_21.png",
+    "lot26349_19.png",
+    "lot12208_1.png",
+    "lot17258_22.png",
+    "lot38403_21.png",
+    "lot29378_20.png",
+    "lot9158_25.png",
+    "lot26528_16.png",
+    "lot34318_25.png",
+    "lot36471_2.png",
+    "lot14434_18.png",
+    "lot8982_12.png",
+    "lot19727_6.png",
+    "lot31211_5.png",
+    "lot9345_16.png",
+    "lot37666_24.png",
+    "lot37166_3.png",
+    "lot179_21.png",
+    "lot19042_25.png",
+    "lot20146_1.png",
+    "lot34699_12.png",
+    "lot15256_2.png",
+    "lot2713_3.png",
+    "lot30273_4.png",
+    "lot38776_20.png",
+    "lot8427_10.png",
+    "lot4355_7.png",
+    "lot36467_18.png",
+    "lot35983_1.png",
+    "lot20916_11.png",
+    "lot15586_6.png",
+    "lot16018_16.png",
+    "lot5367_13.png",
+    "lot41369_21.png",
+    "lot31251_25.png",
+    "lot10213_19.png",
+    "lot9896_24.png",
+    "lot6959_14.png",
+    "lot4215_11.png",
+    "lot12564_18.png",
+    "lot39987_10.png",
+    "lot14816_24.png",
+    "lot5574_10.png",
+    "lot37790_2.png",
+    "lot3406_3.png",
+    "lot25598_18.png",
+    "lot16932_13.png",
+    "lot26318_9.png",
+    "lot6161_4.png",
+    "lot30129_8.png",
+    "lot15114_9.png",
+    "lot8935_3.png",
+    "lot26080_14.png",
+    "lot28211_21.png",
+    "lot3216_23.png",
+    "lot15414_10.png",
+    "lot27675_14.png",
+    "lot13102_1.png",
+    "lot4024_12.png",
+    "lot7593_25.png",
+    "lot21666_24.png",
+    "lot5650_21.png",
+    "lot20045_12.png",
+    "lot29983_6.png",
+    "lot17787_25.png",
+    "lot3503_2.png",
+    "lot3198_24.png",
+    "lot21154_20.png",
+    "lot25640_22.png",
+    "lot27178_11.png",
+    "lot10957_6.png",
+    "lot4018_18.png",
+    "lot35948_3.png",
+    "lot8822_4.png",
+    "lot6345_4.png",
+    "lot22706_17.png",
+    "lot32139_15.png",
+    "lot16218_16.png",
+    "lot13283_11.png",
+    "lot8290_5.png",
+    "lot4703_14.png",
+    "lot41800_15.png",
+    "lot17187_16.png",
+    "lot38138_12.png",
+    "lot26089_15.png",
+    "lot19193_11.png",
+    "lot44662_5.png",
+    "lot6077_16.png",
+    "lot12100_3.png",
+    "lot1709_2.png",
+    "lot17842_18.png",
+    "lot16469_6.png",
+    "lot5974_19.png",
+    "lot4780_2.png",
+    "lot35776_8.png",
+    "lot38307_6.png",
+    "lot39217_15.png",
+    "lot2036_24.png",
+    "lot15828_15.png",
+    "lot22128_25.png",
+    "lot4992_15.png",
+    "lot30360_7.png",
+    "lot19259_3.png",
+    "lot14671_3.png",
+    "lot36533_20.png",
+    "lot20595_13.png",
+    "lot7232_1.png",
+    "lot38125_23.png",
+    "lot5130_18.png",
+    "lot7797_18.png",
+    "lot39287_17.png",
+    "lot13474_13.png",
+    "lot2400_4.png",
+    "lot20726_16.png",
+    "lot33725_15.png",
+    "lot4634_4.png",
+    "lot27422_2.png",
+    "lot7967_21.png",
+    "lot1488_6.png",
+    "lot6811_22.png",
+    "lot35790_3.png",
+    "lot8096_13.png",
+    "lot21553_17.png",
+    "lot9788_7.png",
+    "lot26525_3.png",
+    "lot20603_8.png",
+    "lot35920_11.png",
+    "lot9941_19.png",
+    "lot36054_11.png",
+    "lot20152_12.png",
+    "lot3181_1.png",
+    "lot35437_24.png",
+    "lot39929_23.png",
+    "lot21363_15.png",
+    "lot45970_21.png",
+    "lot16654_5.png",
+    "lot8066_8.png",
+    "lot7984_17.png",
+    "lot44392_7.png",
+    "lot35838_20.png",
+    "lot35819_18.png",
+    "lot32425_13.png",
+    "lot41592_14.png",
+    "lot8776_13.png",
+    "lot15859_13.png",
+    "lot14558_19.png",
+    "lot26282_18.png",
+    "lot30620_10.png",
+    "lot6950_18.png",
+    "lot6200_23.png",
+    "lot14062_25.png",
+    "lot28260_6.png",
+    "lot24497_15.png",
+    "lot35577_9.png",
+    "lot38643_1.png",
+    "lot35457_3.png",
+    "lot38615_6.png",
+    "lot18486_23.png",
+    "lot29231_12.png",
+    "lot17266_24.png",
+    "lot13448_11.png",
+    "lot31096_21.png",
+    "lot6157_5.png",
+    "lot40636_25.png",
+    "lot37771_18.png",
+    "lot9589_18.png",
+    "lot19056_12.png",
+    "lot9468_24.png",
+    "lot40558_17.png",
+    "lot3734_4.png",
+    "lot10434_18.png",
+    "lot6533_17.png",
+    "lot29341_3.png",
+    "lot27411_23.png",
+    "lot28270_15.png",
+    "lot25461_6.png",
+    "lot35278_10.png",
+    "lot28124_4.png",
+    "lot36388_24.png",
+    "lot26085_16.png",
+    "lot37714_25.png",
+    "lot6810_25.png",
+    "lot42926_11.png",
+    "lot14352_9.png",
+    "lot17261_6.png",
+    "lot30415_20.png",
+    "lot38184_13.png",
+    "lot33044_1.png",
+    "lot38170_23.png",
+    "lot25741_1.png",
+    "lot41736_17.png",
+    "lot24476_14.png",
+    "lot12276_17.png",
+    "lot34769_17.png",
+    "lot23594_11.png",
+    "lot41700_25.png",
+    "lot8179_24.png",
+    "lot14761_21.png",
+    "lot17457_11.png",
+    "lot11649_24.png",
+    "lot2330_19.png",
+    "lot31053_19.png",
+    "lot28395_11.png",
+    "lot36150_11.png",
+    "lot9031_25.png",
+    "lot35287_13.png",
+    "lot36558_3.png",
+    "lot14845_25.png",
+    "lot29981_23.png",
+    "lot5655_2.png",
+    "lot28495_9.png",
+    "lot25_15.png",
+    "lot5777_13.png",
+    "lot4899_6.png",
+    "lot19792_1.png",
+    "lot34998_25.png",
+    "lot11247_5.png",
+    "lot29520_18.png",
+    "lot11532_25.png",
+    "lot41956_6.png",
+    "lot16910_19.png",
+    "lot7650_22.png",
+    "lot13861_19.png",
+    "lot41925_15.png",
+    "lot21693_14.png",
+    "lot21996_1.png",
+    "lot27449_9.png",
+    "lot23290_23.png",
+    "lot30413_15.png",
+    "lot8804_7.png",
+    "lot4087_18.png",
+    "lot27695_9.png",
+    "lot19959_5.png",
+    "lot28140_12.png",
+    "lot20175_16.png",
+    "lot28171_3.png",
+    "lot31234_17.png",
+    "lot11944_22.png",
+    "lot31621_9.png",
+    "lot23946_7.png",
+    "lot14899_8.png",
+    "lot29600_6.png",
+    "lot3551_2.png",
+    "lot12455_15.png",
+    "lot7357_11.png",
+    "lot2567_2.png",
+    "lot11541_3.png",
+    "lot21648_7.png",
+    "lot13014_25.png",
+    "lot8047_13.png",
+    "lot36191_16.png",
+    "lot38287_17.png",
+    "lot21276_10.png",
+    "lot15834_15.png",
+    "lot4599_1.png",
+    "lot11481_14.png",
+    "lot6872_9.png",
+    "lot7382_4.png",
+    "lot2866_5.png",
+    "lot23684_22.png",
+    "lot5700_8.png",
+    "lot38887_6.png",
+    "lot37923_9.png",
+    "lot9245_7.png",
+    "lot13166_10.png",
+    "lot32051_25.png",
+    "lot2391_22.png",
+    "lot38234_17.png",
+    "lot8531_13.png",
+    "lot34158_24.png",
+    "lot35617_24.png",
+    "lot27370_5.png",
+    "lot23179_18.png",
+    "lot35525_13.png",
+    "lot37780_11.png",
+    "lot28036_1.png",
+    "lot35379_9.png",
+    "lot36400_15.png",
+    "lot43621_22.png",
+    "lot5640_9.png",
+    "lot18328_3.png",
+    "lot36784_21.png",
+    "lot38244_11.png",
+    "lot8475_2.png",
+    "lot17362_13.png",
+    "lot20678_15.png",
+    "lot31387_9.png",
+    "lot22482_4.png",
+    "lot13489_6.png",
+    "lot3313_12.png",
+    "lot4720_25.png",
+    "lot8465_19.png",
+    "lot8672_18.png",
+    "lot44265_5.png",
+    "lot39304_6.png",
+    "lot13479_11.png",
+    "lot32444_3.png",
+    "lot27573_24.png",
+    "lot7525_15.png",
+    "lot26376_11.png",
+    "lot4904_16.png",
+    "lot7952_10.png",
+    "lot17748_21.png",
+    "lot22489_14.png",
+    "lot30439_11.png",
+    "lot19661_13.png",
+    "lot3719_15.png",
+    "lot4340_13.png",
+    "lot29822_13.png",
+    "lot30244_15.png",
+    "lot42538_11.png",
+    "lot25802_7.png",
+    "lot1967_24.png",
+    "lot6027_25.png",
+    "lot21075_9.png",
+    "lot9466_12.png",
+    "lot31221_7.png",
+    "lot17024_6.png",
+    "lot10227_3.png",
+    "lot3494_3.png",
+    "lot33336_6.png",
+    "lot22931_4.png",
+    "lot35495_9.png",
+    "lot34294_17.png",
+    "lot33918_7.png",
+    "lot29479_4.png",
+    "lot38488_23.png",
+    "lot37045_24.png",
+    "lot32082_16.png",
+    "lot16732_4.png",
+    "lot35568_15.png",
+    "lot27991_1.png",
+    "lot4576_24.png",
+    "lot40062_10.png",
+    "lot29229_16.png",
+    "lot23015_15.png",
+    "lot31418_19.png",
+    "lot35435_16.png",
+    "lot7822_15.png",
+    "lot34477_25.png",
+    "lot19230_4.png",
+    "lot32250_16.png",
+    "lot4671_6.png",
+    "lot28139_6.png",
+    "lot9421_21.png",
+    "lot8617_21.png",
+    "lot23730_23.png",
+    "lot32400_12.png",
+    "lot4576_18.png",
+    "lot34700_13.png",
+    "lot45543_11.png",
+    "lot16775_13.png",
+    "lot32734_11.png",
+    "lot16441_14.png",
+    "lot34897_24.png",
+    "lot13745_12.png",
+    "lot22930_18.png",
+    "lot15515_17.png",
+    "lot7021_17.png",
+    "lot27568_2.png",
+    "lot37750_10.png",
+    "lot13558_15.png",
+    "lot24407_10.png",
+    "lot41657_15.png",
+    "lot1898_22.png",
+    "lot29109_15.png",
+    "lot18106_24.png",
+    "lot7469_17.png",
+    "lot7263_25.png",
+    "lot26524_16.png",
+    "lot24058_2.png",
+    "lot26063_6.png",
+    "lot24813_16.png",
+    "lot41985_6.png",
+    "lot31954_12.png",
+    "lot15429_21.png",
+    "lot1994_2.png",
+    "lot34346_18.png",
+    "lot20952_3.png",
+    "lot27133_19.png",
+    "lot16251_15.png",
+    "lot32623_10.png",
+    "lot35207_15.png",
+    "lot35348_15.png",
+    "lot35986_14.png",
+    "lot2543_22.png",
+    "lot5183_17.png",
+    "lot40173_22.png",
+    "lot9780_23.png",
+    "lot18557_17.png",
+    "lot25445_17.png",
+    "lot28627_3.png",
+    "lot35636_17.png",
+    "lot22379_19.png",
+    "lot21500_17.png",
+    "lot10562_1.png",
+    "lot24402_16.png",
+    "lot44675_1.png",
+    "lot14269_21.png",
+    "lot29137_19.png",
+    "lot22262_21.png",
+    "lot16177_11.png",
+    "lot35377_16.png",
+    "lot14507_9.png",
+    "lot18260_4.png",
+    "lot22224_20.png",
+    "lot12127_17.png",
+    "lot17306_3.png",
+    "lot7603_14.png",
+    "lot40046_22.png",
+    "lot13351_1.png",
+    "lot11917_19.png",
+    "lot19973_3.png",
+    "lot20335_25.png",
+    "lot39141_10.png",
+    "lot18458_3.png",
+    "lot11555_14.png",
+    "lot39225_8.png",
+    "lot32796_16.png",
+    "lot8766_25.png",
+    "lot41554_15.png",
+    "lot37687_19.png",
+    "lot38346_21.png",
+    "lot9445_22.png",
+    "lot9955_5.png",
+    "lot18474_13.png",
+    "lot25402_22.png",
+    "lot12512_3.png",
+    "lot20873_8.png",
+    "lot23458_4.png",
+    "lot18002_14.png",
+    "lot34291_5.png",
+    "lot5802_14.png",
+    "lot20642_17.png",
+    "lot3750_2.png",
+    "lot6550_16.png",
+    "lot18946_3.png",
+    "lot9241_3.png",
+    "lot14827_6.png",
+    "lot9169_1.png",
+    "lot28103_13.png",
+    "lot25306_6.png",
+    "lot26085_20.png",
+    "lot22425_8.png",
+    "lot11871_5.png",
+    "lot8802_17.png",
+    "lot2973_7.png",
+    "lot40071_23.png",
+    "lot21804_2.png",
+    "lot39613_20.png",
+    "lot40037_17.png",
+    "lot18117_21.png",
+    "lot33722_7.png",
+    "lot6685_10.png",
+    "lot24350_15.png",
+    "lot24947_9.png",
+    "lot14985_1.png",
+    "lot19269_1.png",
+    "lot27476_21.png",
+    "lot7463_20.png",
+    "lot32961_21.png",
+    "lot17333_19.png",
+    "lot40173_19.png",
+    "lot7025_24.png",
+    "lot15762_25.png",
+    "lot2996_17.png",
+    "lot43304_21.png",
+    "lot7083_8.png",
+    "lot13457_7.png",
+    "lot7718_20.png",
+    "lot4327_7.png",
+    "lot17466_10.png",
+    "lot39417_24.png",
+    "lot31873_6.png",
+    "lot33561_24.png",
+    "lot3284_13.png",
+    "lot25329_22.png",
+    "lot34568_23.png",
+    "lot3550_6.png",
+    "lot20029_22.png",
+    "lot28419_9.png",
+    "lot34934_20.png",
+    "lot36752_11.png",
+    "lot33755_14.png",
+    "lot20283_24.png",
+    "lot10600_25.png",
+    "lot10564_1.png",
+    "lot30580_22.png",
+    "lot27291_16.png",
+    "lot3376_13.png",
+    "lot19223_6.png",
+    "lot11241_5.png",
+    "lot42009_12.png",
+    "lot15422_17.png",
+    "lot4095_23.png",
+    "lot6468_1.png",
+    "lot5805_18.png",
+    "lot14773_18.png",
+    "lot32475_8.png",
+    "lot4764_20.png",
+    "lot16918_20.png",
+    "lot5766_20.png",
+    "lot10967_15.png",
+    "lot28488_25.png",
+    "lot39850_3.png",
+    "lot22089_10.png",
+    "lot37280_4.png",
+    "lot28659_24.png",
+    "lot32176_8.png",
+    "lot18051_22.png",
+    "lot5313_17.png",
+    "lot20071_9.png",
+    "lot19420_23.png",
+    "lot37672_15.png",
+    "lot32849_14.png",
+    "lot10517_19.png",
+    "lot22043_7.png",
+    "lot21344_3.png",
+    "lot33252_2.png",
+    "lot13855_21.png",
+    "lot10209_6.png",
+    "lot3979_18.png",
+    "lot36005_23.png",
+    "lot8109_12.png",
+    "lot12042_20.png",
+    "lot34364_6.png",
+    "lot1854_6.png",
+    "lot32054_11.png",
+    "lot22170_24.png",
+    "lot4432_20.png",
+    "lot29778_2.png",
+    "lot4813_8.png",
+    "lot9011_3.png",
+    "lot26199_2.png",
+    "lot17143_15.png",
+    "lot26531_11.png",
+    "lot6795_6.png",
+    "lot5828_9.png",
+    "lot38693_9.png",
+    "lot9140_14.png",
+    "lot7329_15.png",
+    "lot6538_7.png",
+    "lot27198_13.png",
+    "lot30592_21.png",
+    "lot39343_8.png",
+    "lot20043_1.png",
+    "lot12164_5.png",
+    "lot31780_20.png",
+    "lot24270_7.png",
+    "lot29928_17.png",
+    "lot23611_9.png",
+    "lot20423_5.png",
+    "lot24518_14.png",
+    "lot14296_8.png",
+    "lot10647_16.png",
+    "lot9967_15.png",
+    "lot11758_16.png",
+    "lot8902_4.png",
+    "lot20056_20.png",
+    "lot6518_24.png",
+    "lot2925_1.png",
+    "lot16608_3.png",
+    "lot38855_13.png",
+    "lot8295_2.png",
+    "lot15587_13.png",
+    "lot17324_14.png",
+    "lot28098_17.png",
+    "lot3686_19.png",
+    "lot23720_13.png",
+    "lot35580_13.png",
+    "lot17849_6.png",
+    "lot8149_22.png",
+    "lot38148_9.png",
+    "lot38430_8.png",
+    "lot20864_11.png",
+    "lot11540_19.png",
+    "lot35544_22.png",
+    "lot16632_4.png",
+    "lot25453_21.png",
+    "lot24450_10.png",
+    "lot41489_18.png",
+    "lot33434_19.png",
+    "lot44272_13.png",
+    "lot19228_19.png",
+    "lot30351_11.png",
+    "lot31394_25.png",
+    "lot27170_16.png",
+    "lot22286_16.png",
+    "lot12884_16.png",
+    "lot21439_8.png",
+    "lot23243_24.png",
+    "lot19303_10.png",
+    "lot30505_25.png",
+    "lot35226_5.png",
+    "lot2216_12.png",
+    "lot6987_13.png",
+    "lot33885_22.png",
+    "lot10554_14.png",
+    "lot27301_25.png",
+    "lot32731_3.png"
+  ],
+  "validation_samples": [
+    [
+      "lot42943_17.png",
+      0
+    ],
+    [
+      "lot45127_6.png",
+      0
+    ],
+    [
+      "lot42961_16.png",
+      0
+    ],
+    [
+      "lot45163_20.png",
+      0
+    ],
+    [
+      "lot45163_19.png",
+      0
+    ],
+    [
+      "lot43401_3.png",
+      0
+    ],
+    [
+      "lot42988_10.png",
+      0
+    ],
+    [
+      "lot43143_11.png",
+      0
+    ],
+    [
+      "lot43441_4.png",
+      0
+    ],
+    [
+      "lot43421_17.png",
+      0
+    ],
+    [
+      "lot61_14.png",
+      0
+    ],
+    [
+      "lot244_18.png",
+      0
+    ],
+    [
+      "lot43465_22.png",
+      0
+    ],
+    [
+      "lot45188_4.png",
+      0
+    ],
+    [
+      "lot45154_4.png",
+      0
+    ],
+    [
+      "lot43065_7.png",
+      0
+    ],
+    [
+      "lot61_15.png",
+      0
+    ],
+    [
+      "lot43369_9.png",
+      0
+    ],
+    [
+      "lot45155_12.png",
+      0
+    ],
+    [
+      "lot176_22.png",
+      0
+    ],
+    [
+      "lot45162_18.png",
+      0
+    ],
+    [
+      "lot239_25.png",
+      0
+    ],
+    [
+      "lot43076_23.png",
+      0
+    ],
+    [
+      "lot45091_4.png",
+      0
+    ],
+    [
+      "lot43306_24.png",
+      0
+    ],
+    [
+      "lot179_19.png",
+      0
+    ],
+    [
+      "lot42988_20.png",
+      0
+    ],
+    [
+      "lot43015_10.png",
+      0
+    ],
+    [
+      "lot42903_15.png",
+      0
+    ],
+    [
+      "lot45236_1.png",
+      0
+    ],
+    [
+      "lot219_15.png",
+      0
+    ],
+    [
+      "lot105_6.png",
+      0
+    ],
+    [
+      "lot45142_17.png",
+      0
+    ],
+    [
+      "lot44892_15.png",
+      0
+    ],
+    [
+      "lot44870_11.png",
+      0
+    ],
+    [
+      "lot43454_22.png",
+      0
+    ],
+    [
+      "lot43322_10.png",
+      0
+    ],
+    [
+      "lot45196_22.png",
+      0
+    ],
+    [
+      "lot145_12.png",
+      0
+    ],
+    [
+      "lot44858_24.png",
+      0
+    ],
+    [
+      "lot47_1.png",
+      0
+    ],
+    [
+      "lot43400_10.png",
+      0
+    ],
+    [
+      "lot45076_8.png",
+      0
+    ],
+    [
+      "lot86_23.png",
+      0
+    ],
+    [
+      "lot246_14.png",
+      0
+    ],
+    [
+      "lot104_11.png",
+      0
+    ],
+    [
+      "lot42887_24.png",
+      0
+    ],
+    [
+      "lot45080_11.png",
+      0
+    ],
+    [
+      "lot45203_22.png",
+      0
+    ],
+    [
+      "lot43231_11.png",
+      0
+    ],
+    [
+      "lot45056_23.png",
+      0
+    ],
+    [
+      "lot44882_11.png",
+      0
+    ],
+    [
+      "lot44899_13.png",
+      0
+    ],
+    [
+      "lot43101_23.png",
+      0
+    ],
+    [
+      "lot15597_5.png",
+      0
+    ],
+    [
+      "lot43169_10.png",
+      0
+    ],
+    [
+      "lot43145_19.png",
+      0
+    ],
+    [
+      "lot279_25.png",
+      0
+    ],
+    [
+      "lot44946_13.png",
+      0
+    ],
+    [
+      "lot132_1.png",
+      0
+    ],
+    [
+      "lot45037_18.png",
+      0
+    ],
+    [
+      "lot43134_8.png",
+      0
+    ],
+    [
+      "lot42989_22.png",
+      0
+    ],
+    [
+      "lot43263_21.png",
+      0
+    ],
+    [
+      "lot45159_19.png",
+      0
+    ],
+    [
+      "lot43314_23.png",
+      0
+    ],
+    [
+      "lot110_3.png",
+      0
+    ],
+    [
+      "lot43016_11.png",
+      0
+    ],
+    [
+      "lot43108_24.png",
+      0
+    ],
+    [
+      "lot43224_25.png",
+      0
+    ],
+    [
+      "lot43330_7.png",
+      0
+    ],
+    [
+      "lot219_6.png",
+      0
+    ],
+    [
+      "lot44943_7.png",
+      0
+    ],
+    [
+      "lot43172_5.png",
+      0
+    ],
+    [
+      "lot43116_17.png",
+      0
+    ],
+    [
+      "lot42939_12.png",
+      0
+    ],
+    [
+      "lot172_12.png",
+      0
+    ],
+    [
+      "lot231_10.png",
+      0
+    ],
+    [
+      "lot64_4.png",
+      0
+    ],
+    [
+      "lot205_22.png",
+      0
+    ],
+    [
+      "lot45201_20.png",
+      0
+    ],
+    [
+      "lot175_20.png",
+      0
+    ],
+    [
+      "lot43006_9.png",
+      0
+    ],
+    [
+      "lot101_24.png",
+      0
+    ],
+    [
+      "lot43419_16.png",
+      0
+    ],
+    [
+      "lot45094_17.png",
+      0
+    ],
+    [
+      "lot156_5.png",
+      0
+    ],
+    [
+      "lot42947_1.png",
+      0
+    ],
+    [
+      "lot42907_18.png",
+      0
+    ],
+    [
+      "lot288_23.png",
+      0
+    ],
+    [
+      "lot15085_12.png",
+      0
+    ],
+    [
+      "lot45094_14.png",
+      0
+    ],
+    [
+      "lot43238_11.png",
+      0
+    ],
+    [
+      "lot126_6.png",
+      0
+    ],
+    [
+      "lot45078_24.png",
+      0
+    ],
+    [
+      "lot43210_23.png",
+      0
+    ],
+    [
+      "lot43138_7.png",
+      0
+    ],
+    [
+      "lot43389_5.png",
+      0
+    ],
+    [
+      "lot42881_14.png",
+      0
+    ],
+    [
+      "lot126_16.png",
+      0
+    ],
+    [
+      "lot15492_23.png",
+      0
+    ],
+    [
+      "lot46714_5.png",
+      0
+    ],
+    [
+      "lot15664_8.png",
+      0
+    ],
+    [
+      "lot46452_3.png",
+      0
+    ],
+    [
+      "lot46706_6.png",
+      0
+    ],
+    [
+      "lot46467_5.png",
+      0
+    ],
+    [
+      "lot15380_11.png",
+      0
+    ],
+    [
+      "lot15644_13.png",
+      0
+    ],
+    [
+      "lot15524_23.png",
+      0
+    ],
+    [
+      "lot45656_11.png",
+      0
+    ],
+    [
+      "lot15524_7.png",
+      0
+    ],
+    [
+      "lot15640_18.png",
+      0
+    ],
+    [
+      "lot15622_2.png",
+      0
+    ],
+    [
+      "lot45685_13.png",
+      0
+    ],
+    [
+      "lot45677_14.png",
+      0
+    ],
+    [
+      "lot15438_20.png",
+      0
+    ],
+    [
+      "lot15628_21.png",
+      0
+    ],
+    [
+      "lot490_3.png",
+      0
+    ],
+    [
+      "lot46716_21.png",
+      0
+    ],
+    [
+      "lot15094_3.png",
+      0
+    ],
+    [
+      "lot15673_7.png",
+      0
+    ],
+    [
+      "lot45662_2.png",
+      0
+    ],
+    [
+      "lot15326_5.png",
+      0
+    ],
+    [
+      "lot46493_24.png",
+      0
+    ],
+    [
+      "lot15560_10.png",
+      0
+    ],
+    [
+      "lot15642_19.png",
+      0
+    ],
+    [
+      "lot1_12.png",
+      0
+    ],
+    [
+      "lot15625_5.png",
+      0
+    ],
+    [
+      "lot46503_4.png",
+      0
+    ],
+    [
+      "lot46505_2.png",
+      0
+    ],
+    [
+      "lot15525_7.png",
+      0
+    ],
+    [
+      "lot3_6.png",
+      0
+    ],
+    [
+      "lot490_19.png",
+      0
+    ],
+    [
+      "lot46703_15.png",
+      0
+    ],
+    [
+      "lot46459_7.png",
+      0
+    ],
+    [
+      "lot15072_20.png",
+      0
+    ],
+    [
+      "lot15564_5.png",
+      0
+    ],
+    [
+      "lot15518_19.png",
+      0
+    ],
+    [
+      "lot46472_17.png",
+      0
+    ],
+    [
+      "lot15339_20.png",
+      0
+    ],
+    [
+      "lot46719_13.png",
+      0
+    ],
+    [
+      "lot15094_21.png",
+      0
+    ],
+    [
+      "lot45673_10.png",
+      0
+    ],
+    [
+      "lot46504_10.png",
+      0
+    ],
+    [
+      "lot46474_8.png",
+      0
+    ],
+    [
+      "lot46462_15.png",
+      0
+    ],
+    [
+      "lot45667_10.png",
+      0
+    ],
+    [
+      "lot46502_20.png",
+      0
+    ],
+    [
+      "lot45673_6.png",
+      0
+    ],
+    [
+      "lot46454_22.png",
+      0
+    ],
+    [
+      "lot46453_15.png",
+      0
+    ],
+    [
+      "lot15446_14.png",
+      0
+    ],
+    [
+      "lot15622_8.png",
+      0
+    ],
+    [
+      "lot15096_15.png",
+      0
+    ],
+    [
+      "lot15439_24.png",
+      0
+    ],
+    [
+      "lot15380_23.png",
+      0
+    ],
+    [
+      "lot15069_5.png",
+      0
+    ],
+    [
+      "lot15446_22.png",
+      0
+    ],
+    [
+      "lot45660_1.png",
+      0
+    ],
+    [
+      "lot45672_15.png",
+      0
+    ],
+    [
+      "lot45667_6.png",
+      0
+    ],
+    [
+      "lot15629_8.png",
+      0
+    ],
+    [
+      "lot46519_11.png",
+      0
+    ],
+    [
+      "lot45679_17.png",
+      0
+    ],
+    [
+      "lot46501_18.png",
+      0
+    ],
+    [
+      "lot46456_10.png",
+      0
+    ],
+    [
+      "lot46699_1.png",
+      0
+    ],
+    [
+      "lot15489_19.png",
+      0
+    ],
+    [
+      "lot46517_20.png",
+      0
+    ],
+    [
+      "lot15329_7.png",
+      0
+    ],
+    [
+      "lot15474_18.png",
+      0
+    ],
+    [
+      "lot46494_13.png",
+      0
+    ],
+    [
+      "lot15330_22.png",
+      0
+    ],
+    [
+      "lot46724_3.png",
+      0
+    ],
+    [
+      "lot46476_20.png",
+      0
+    ],
+    [
+      "lot15372_3.png",
+      0
+    ],
+    [
+      "lot15672_6.png",
+      0
+    ],
+    [
+      "lot15371_23.png",
+      0
+    ],
+    [
+      "lot45664_5.png",
+      0
+    ],
+    [
+      "lot45652_14.png",
+      0
+    ],
+    [
+      "lot15564_20.png",
+      0
+    ],
+    [
+      "lot15564_2.png",
+      0
+    ],
+    [
+      "lot15442_6.png",
+      0
+    ],
+    [
+      "lot15492_12.png",
+      0
+    ],
+    [
+      "lot15577_16.png",
+      0
+    ],
+    [
+      "lot46505_3.png",
+      0
+    ],
+    [
+      "lot15558_20.png",
+      0
+    ],
+    [
+      "lot15380_7.png",
+      0
+    ],
+    [
+      "lot46465_10.png",
+      0
+    ],
+    [
+      "lot45668_4.png",
+      0
+    ],
+    [
+      "lot46469_10.png",
+      0
+    ],
+    [
+      "lot15603_20.png",
+      0
+    ],
+    [
+      "lot15627_10.png",
+      0
+    ],
+    [
+      "lot46517_16.png",
+      0
+    ],
+    [
+      "lot45674_2.png",
+      0
+    ],
+    [
+      "lot46700_14.png",
+      0
+    ],
+    [
+      "lot46514_20.png",
+      0
+    ],
+    [
+      "lot46468_23.png",
+      0
+    ],
+    [
+      "lot45682_10.png",
+      0
+    ],
+    [
+      "lot15326_11.png",
+      0
+    ],
+    [
+      "lot15604_23.png",
+      0
+    ],
+    [
+      "lot15367_20.png",
+      0
+    ],
+    [
+      "lot15378_20.png",
+      0
+    ],
+    [
+      "lot15616_1.png",
+      0
+    ],
+    [
+      "lot15459_2.png",
+      0
+    ],
+    [
+      "lot15575_22.png",
+      0
+    ],
+    [
+      "lot15650_5.png",
+      0
+    ],
+    [
+      "lot1390_17.png",
+      0
+    ],
+    [
+      "lot15356_5.png",
+      0
+    ],
+    [
+      "lot15376_22.png",
+      0
+    ],
+    [
+      "lot290_7.png",
+      0
+    ],
+    [
+      "lot15365_6.png",
+      0
+    ],
+    [
+      "lot15336_17.png",
+      0
+    ],
+    [
+      "lot15624_5.png",
+      0
+    ],
+    [
+      "lot15694_7.png",
+      0
+    ],
+    [
+      "lot15376_17.png",
+      0
+    ],
+    [
+      "lot15522_8.png",
+      0
+    ],
+    [
+      "lot15679_1.png",
+      0
+    ],
+    [
+      "lot15529_24.png",
+      0
+    ],
+    [
+      "lot15679_16.png",
+      0
+    ],
+    [
+      "lot15526_13.png",
+      0
+    ],
+    [
+      "lot15089_18.png",
+      0
+    ],
+    [
+      "lot15520_5.png",
+      0
+    ],
+    [
+      "lot15569_14.png",
+      0
+    ],
+    [
+      "lot15623_3.png",
+      0
+    ],
+    [
+      "lot15522_6.png",
+      0
+    ],
+    [
+      "lot15679_15.png",
+      0
+    ],
+    [
+      "lot15676_8.png",
+      0
+    ],
+    [
+      "lot15616_21.png",
+      0
+    ],
+    [
+      "lot15090_23.png",
+      0
+    ],
+    [
+      "lot15528_5.png",
+      0
+    ],
+    [
+      "lot15529_16.png",
+      0
+    ],
+    [
+      "lot15336_19.png",
+      0
+    ],
+    [
+      "lot15088_8.png",
+      0
+    ],
+    [
+      "lot15335_18.png",
+      0
+    ],
+    [
+      "lot15527_16.png",
+      0
+    ],
+    [
+      "lot15379_25.png",
+      0
+    ],
+    [
+      "lot15623_21.png",
+      0
+    ],
+    [
+      "lot15378_10.png",
+      0
+    ],
+    [
+      "lot15624_21.png",
+      0
+    ],
+    [
+      "lot15376_13.png",
+      0
+    ],
+    [
+      "lot15365_15.png",
+      0
+    ],
+    [
+      "lot15376_11.png",
+      0
+    ],
+    [
+      "lot15088_2.png",
+      0
+    ],
+    [
+      "lot15354_3.png",
+      0
+    ],
+    [
+      "lot15471_4.png",
+      0
+    ],
+    [
+      "lot15366_17.png",
+      0
+    ],
+    [
+      "lot15368_21.png",
+      0
+    ],
+    [
+      "lot15364_8.png",
+      0
+    ],
+    [
+      "lot15070_4.png",
+      0
+    ],
+    [
+      "lot15459_11.png",
+      0
+    ],
+    [
+      "lot15522_24.png",
+      0
+    ],
+    [
+      "lot15087_3.png",
+      0
+    ],
+    [
+      "lot15448_7.png",
+      0
+    ],
+    [
+      "lot15522_25.png",
+      0
+    ],
+    [
+      "lot15091_5.png",
+      0
+    ],
+    [
+      "lot15519_21.png",
+      0
+    ],
+    [
+      "lot15369_9.png",
+      0
+    ],
+    [
+      "lot15519_12.png",
+      0
+    ],
+    [
+      "lot15070_11.png",
+      0
+    ],
+    [
+      "lot15076_15.png",
+      0
+    ],
+    [
+      "lot15448_24.png",
+      0
+    ],
+    [
+      "lot15521_19.png",
+      0
+    ],
+    [
+      "lot15616_20.png",
+      0
+    ],
+    [
+      "lot15090_18.png",
+      0
+    ],
+    [
+      "lot15693_11.png",
+      0
+    ],
+    [
+      "lot15357_24.png",
+      0
+    ],
+    [
+      "lot15616_5.png",
+      0
+    ],
+    [
+      "lot15694_15.png",
+      0
+    ],
+    [
+      "lot15334_24.png",
+      0
+    ],
+    [
+      "lot15356_16.png",
+      0
+    ],
+    [
+      "lot15646_5.png",
+      0
+    ],
+    [
+      "lot15526_12.png",
+      0
+    ],
+    [
+      "lot1390_9.png",
+      0
+    ],
+    [
+      "lot15616_14.png",
+      0
+    ],
+    [
+      "lot290_14.png",
+      0
+    ],
+    [
+      "lot15365_17.png",
+      0
+    ],
+    [
+      "lot15650_18.png",
+      0
+    ],
+    [
+      "lot15090_7.png",
+      0
+    ],
+    [
+      "lot15616_15.png",
+      0
+    ],
+    [
+      "lot15367_17.png",
+      0
+    ],
+    [
+      "lot1390_6.png",
+      0
+    ],
+    [
+      "lot15355_8.png",
+      0
+    ],
+    [
+      "lot15355_7.png",
+      0
+    ],
+    [
+      "lot15569_21.png",
+      0
+    ],
+    [
+      "lot15087_12.png",
+      0
+    ],
+    [
+      "lot15459_8.png",
+      0
+    ],
+    [
+      "lot15378_13.png",
+      0
+    ],
+    [
+      "lot15575_21.png",
+      0
+    ],
+    [
+      "lot15526_25.png",
+      0
+    ],
+    [
+      "lot15070_15.png",
+      0
+    ],
+    [
+      "lot290_6.png",
+      0
+    ],
+    [
+      "lot15528_8.png",
+      0
+    ],
+    [
+      "lot15448_1.png",
+      0
+    ],
+    [
+      "lot15526_7.png",
+      0
+    ],
+    [
+      "lot15092_8.png",
+      0
+    ],
+    [
+      "lot15356_21.png",
+      0
+    ],
+    [
+      "lot15364_22.png",
+      0
+    ],
+    [
+      "lot15520_11.png",
+      0
+    ],
+    [
+      "lot15356_12.png",
+      0
+    ],
+    [
+      "lot19754_14.png",
+      1
+    ],
+    [
+      "lot12847_19.png",
+      1
+    ],
+    [
+      "lot13515_5.png",
+      1
+    ],
+    [
+      "lot22260_21.png",
+      1
+    ],
+    [
+      "lot36895_11.png",
+      1
+    ],
+    [
+      "lot36910_19.png",
+      1
+    ],
+    [
+      "lot24235_1.png",
+      1
+    ],
+    [
+      "lot39444_19.png",
+      1
+    ],
+    [
+      "lot32896_13.png",
+      1
+    ],
+    [
+      "lot36551_23.png",
+      1
+    ],
+    [
+      "lot12970_1.png",
+      1
+    ],
+    [
+      "lot36971_24.png",
+      1
+    ],
+    [
+      "lot36946_1.png",
+      1
+    ],
+    [
+      "lot17627_7.png",
+      1
+    ],
+    [
+      "lot36830_14.png",
+      1
+    ],
+    [
+      "lot36940_4.png",
+      1
+    ],
+    [
+      "lot36898_21.png",
+      1
+    ],
+    [
+      "lot23634_15.png",
+      1
+    ],
+    [
+      "lot36990_24.png",
+      1
+    ],
+    [
+      "lot36709_5.png",
+      1
+    ],
+    [
+      "lot36864_20.png",
+      1
+    ],
+    [
+      "lot36944_13.png",
+      1
+    ],
+    [
+      "lot33071_15.png",
+      1
+    ],
+    [
+      "lot36777_20.png",
+      1
+    ],
+    [
+      "lot17116_20.png",
+      1
+    ],
+    [
+      "lot17181_19.png",
+      1
+    ],
+    [
+      "lot23173_25.png",
+      1
+    ],
+    [
+      "lot36549_12.png",
+      1
+    ],
+    [
+      "lot36742_5.png",
+      1
+    ],
+    [
+      "lot39567_15.png",
+      1
+    ],
+    [
+      "lot23595_22.png",
+      1
+    ],
+    [
+      "lot36781_14.png",
+      1
+    ],
+    [
+      "lot19243_23.png",
+      1
+    ],
+    [
+      "lot23595_16.png",
+      1
+    ],
+    [
+      "lot39558_19.png",
+      1
+    ],
+    [
+      "lot19236_3.png",
+      1
+    ],
+    [
+      "lot9997_12.png",
+      1
+    ],
+    [
+      "lot33081_18.png",
+      1
+    ],
+    [
+      "lot36665_18.png",
+      1
+    ],
+    [
+      "lot18905_12.png",
+      1
+    ],
+    [
+      "lot23656_24.png",
+      1
+    ],
+    [
+      "lot36558_7.png",
+      1
+    ],
+    [
+      "lot33144_8.png",
+      1
+    ],
+    [
+      "lot36726_20.png",
+      1
+    ],
+    [
+      "lot35939_2.png",
+      1
+    ],
+    [
+      "lot37031_8.png",
+      1
+    ],
+    [
+      "lot39479_12.png",
+      1
+    ],
+    [
+      "lot10236_21.png",
+      1
+    ],
+    [
+      "lot36908_23.png",
+      1
+    ],
+    [
+      "lot39594_11.png",
+      1
+    ],
+    [
+      "lot39435_23.png",
+      1
+    ],
+    [
+      "lot39557_22.png",
+      1
+    ],
+    [
+      "lot32946_18.png",
+      1
+    ],
+    [
+      "lot13502_16.png",
+      1
+    ],
+    [
+      "lot39500_2.png",
+      1
+    ],
+    [
+      "lot36566_20.png",
+      1
+    ],
+    [
+      "lot32986_20.png",
+      1
+    ],
+    [
+      "lot35957_15.png",
+      1
+    ],
+    [
+      "lot7540_2.png",
+      1
+    ],
+    [
+      "lot17627_12.png",
+      1
+    ],
+    [
+      "lot39660_8.png",
+      1
+    ],
+    [
+      "lot36901_20.png",
+      1
+    ],
+    [
+      "lot36918_9.png",
+      1
+    ],
+    [
+      "lot35913_3.png",
+      1
+    ],
+    [
+      "lot36973_8.png",
+      1
+    ],
+    [
+      "lot35898_3.png",
+      1
+    ],
+    [
+      "lot39549_16.png",
+      1
+    ],
+    [
+      "lot19754_11.png",
+      1
+    ],
+    [
+      "lot33166_22.png",
+      1
+    ],
+    [
+      "lot36990_3.png",
+      1
+    ],
+    [
+      "lot36783_4.png",
+      1
+    ],
+    [
+      "lot39566_15.png",
+      1
+    ],
+    [
+      "lot36833_9.png",
+      1
+    ],
+    [
+      "lot35898_12.png",
+      1
+    ],
+    [
+      "lot16915_14.png",
+      1
+    ],
+    [
+      "lot36812_9.png",
+      1
+    ],
+    [
+      "lot20331_24.png",
+      1
+    ],
+    [
+      "lot36909_18.png",
+      1
+    ],
+    [
+      "lot36551_21.png",
+      1
+    ],
+    [
+      "lot36549_17.png",
+      1
+    ],
+    [
+      "lot35954_24.png",
+      1
+    ],
+    [
+      "lot44897_16.png",
+      1
+    ],
+    [
+      "lot36766_15.png",
+      1
+    ],
+    [
+      "lot36948_4.png",
+      1
+    ],
+    [
+      "lot39632_24.png",
+      1
+    ],
+    [
+      "lot32851_5.png",
+      1
+    ],
+    [
+      "lot32779_13.png",
+      1
+    ],
+    [
+      "lot19243_17.png",
+      1
+    ],
+    [
+      "lot36829_8.png",
+      1
+    ],
+    [
+      "lot36666_16.png",
+      1
+    ],
+    [
+      "lot36927_24.png",
+      1
+    ],
+    [
+      "lot36902_17.png",
+      1
+    ],
+    [
+      "lot12885_8.png",
+      1
+    ],
+    [
+      "lot39524_22.png",
+      1
+    ],
+    [
+      "lot10280_3.png",
+      1
+    ],
+    [
+      "lot36731_25.png",
+      1
+    ],
+    [
+      "lot18003_25.png",
+      1
+    ],
+    [
+      "lot489_19.png",
+      1
+    ],
+    [
+      "lot36994_22.png",
+      1
+    ],
+    [
+      "lot36718_25.png",
+      1
+    ],
+    [
+      "lot41974_8.png",
+      2
+    ],
+    [
+      "lot41974_18.png",
+      2
+    ],
+    [
+      "lot17178_12.png",
+      2
+    ],
+    [
+      "lot534_11.png",
+      2
+    ],
+    [
+      "lot17174_19.png",
+      2
+    ],
+    [
+      "lot17130_5.png",
+      2
+    ],
+    [
+      "lot17116_21.png",
+      2
+    ],
+    [
+      "lot17125_9.png",
+      2
+    ],
+    [
+      "lot17168_12.png",
+      2
+    ],
+    [
+      "lot17184_24.png",
+      2
+    ],
+    [
+      "lot17181_7.png",
+      2
+    ],
+    [
+      "lot20889_7.png",
+      2
+    ],
+    [
+      "lot22502_1.png",
+      2
+    ],
+    [
+      "lot4397_1.png",
+      2
+    ],
+    [
+      "lot23495_12.png",
+      2
+    ],
+    [
+      "lot17158_5.png",
+      2
+    ],
+    [
+      "lot4397_9.png",
+      2
+    ],
+    [
+      "lot17149_19.png",
+      2
+    ],
+    [
+      "lot17137_6.png",
+      2
+    ],
+    [
+      "lot17141_5.png",
+      2
+    ],
+    [
+      "lot17178_24.png",
+      2
+    ],
+    [
+      "lot19252_18.png",
+      2
+    ],
+    [
+      "lot15069_20.png",
+      2
+    ],
+    [
+      "lot17169_18.png",
+      2
+    ],
+    [
+      "lot22502_20.png",
+      2
+    ],
+    [
+      "lot3953_7.png",
+      2
+    ],
+    [
+      "lot17137_3.png",
+      2
+    ],
+    [
+      "lot17113_19.png",
+      2
+    ],
+    [
+      "lot17121_2.png",
+      2
+    ],
+    [
+      "lot23518_4.png",
+      2
+    ],
+    [
+      "lot41974_15.png",
+      2
+    ],
+    [
+      "lot17134_13.png",
+      2
+    ],
+    [
+      "lot15069_16.png",
+      2
+    ],
+    [
+      "lot17130_18.png",
+      2
+    ],
+    [
+      "lot17174_15.png",
+      2
+    ],
+    [
+      "lot7747_20.png",
+      2
+    ],
+    [
+      "lot17149_6.png",
+      2
+    ],
+    [
+      "lot17191_11.png",
+      2
+    ],
+    [
+      "lot21649_22.png",
+      2
+    ],
+    [
+      "lot17148_8.png",
+      2
+    ],
+    [
+      "lot41974_5.png",
+      2
+    ],
+    [
+      "lot17155_22.png",
+      2
+    ],
+    [
+      "lot17116_19.png",
+      2
+    ],
+    [
+      "lot4348_3.png",
+      2
+    ],
+    [
+      "lot41974_1.png",
+      2
+    ],
+    [
+      "lot17174_16.png",
+      2
+    ],
+    [
+      "lot31961_14.png",
+      2
+    ],
+    [
+      "lot17158_19.png",
+      2
+    ],
+    [
+      "lot17145_2.png",
+      2
+    ],
+    [
+      "lot21649_3.png",
+      2
+    ],
+    [
+      "lot17155_24.png",
+      2
+    ],
+    [
+      "lot17154_15.png",
+      2
+    ],
+    [
+      "lot19252_16.png",
+      2
+    ],
+    [
+      "lot23731_3.png",
+      2
+    ],
+    [
+      "lot41974_21.png",
+      2
+    ],
+    [
+      "lot17137_12.png",
+      2
+    ],
+    [
+      "lot23498_22.png",
+      2
+    ],
+    [
+      "lot31960_14.png",
+      2
+    ],
+    [
+      "lot15069_12.png",
+      2
+    ],
+    [
+      "lot41974_11.png",
+      2
+    ],
+    [
+      "lot17122_20.png",
+      2
+    ],
+    [
+      "lot17192_22.png",
+      2
+    ],
+    [
+      "lot23181_18.png",
+      2
+    ],
+    [
+      "lot17137_1.png",
+      2
+    ],
+    [
+      "lot17127_22.png",
+      2
+    ],
+    [
+      "lot17180_17.png",
+      2
+    ],
+    [
+      "lot17131_3.png",
+      2
+    ],
+    [
+      "lot17192_4.png",
+      2
+    ],
+    [
+      "lot17148_11.png",
+      2
+    ],
+    [
+      "lot21650_18.png",
+      2
+    ],
+    [
+      "lot17154_19.png",
+      2
+    ],
+    [
+      "lot17155_8.png",
+      2
+    ],
+    [
+      "lot1414_12.png",
+      2
+    ],
+    [
+      "lot41974_3.png",
+      2
+    ],
+    [
+      "lot17148_18.png",
+      2
+    ],
+    [
+      "lot22502_11.png",
+      2
+    ],
+    [
+      "lot17113_24.png",
+      2
+    ],
+    [
+      "lot17184_14.png",
+      2
+    ],
+    [
+      "lot17141_15.png",
+      2
+    ],
+    [
+      "lot5471_9.png",
+      2
+    ],
+    [
+      "lot17137_11.png",
+      2
+    ],
+    [
+      "lot36722_12.png",
+      3
+    ],
+    [
+      "lot5686_1.png",
+      3
+    ],
+    [
+      "lot6219_10.png",
+      3
+    ],
+    [
+      "lot37584_4.png",
+      3
+    ],
+    [
+      "lot43014_19.png",
+      3
+    ],
+    [
+      "lot2992_4.png",
+      3
+    ],
+    [
+      "lot5628_23.png",
+      3
+    ],
+    [
+      "lot44864_8.png",
+      3
+    ],
+    [
+      "lot9348_13.png",
+      3
+    ],
+    [
+      "lot23969_20.png",
+      3
+    ],
+    [
+      "lot19480_4.png",
+      3
+    ],
+    [
+      "lot16493_25.png",
+      3
+    ],
+    [
+      "lot4722_9.png",
+      3
+    ],
+    [
+      "lot42939_4.png",
+      3
+    ],
+    [
+      "lot6102_19.png",
+      3
+    ],
+    [
+      "lot24029_18.png",
+      3
+    ],
+    [
+      "lot4497_21.png",
+      3
+    ],
+    [
+      "lot1288_7.png",
+      3
+    ],
+    [
+      "lot35573_8.png",
+      3
+    ],
+    [
+      "lot37578_2.png",
+      3
+    ],
+    [
+      "lot5896_24.png",
+      3
+    ],
+    [
+      "lot35991_25.png",
+      3
+    ],
+    [
+      "lot4717_11.png",
+      3
+    ],
+    [
+      "lot4707_10.png",
+      3
+    ],
+    [
+      "lot1845_21.png",
+      3
+    ],
+    [
+      "lot9992_18.png",
+      3
+    ],
+    [
+      "lot16518_21.png",
+      3
+    ],
+    [
+      "lot6220_14.png",
+      3
+    ],
+    [
+      "lot20686_22.png",
+      3
+    ],
+    [
+      "lot24896_15.png",
+      3
+    ],
+    [
+      "lot46455_23.png",
+      3
+    ],
+    [
+      "lot4082_16.png",
+      3
+    ],
+    [
+      "lot3850_19.png",
+      3
+    ],
+    [
+      "lot5710_12.png",
+      3
+    ],
+    [
+      "lot24539_13.png",
+      3
+    ],
+    [
+      "lot3954_8.png",
+      3
+    ],
+    [
+      "lot134_3.png",
+      3
+    ],
+    [
+      "lot9992_22.png",
+      3
+    ],
+    [
+      "lot16246_24.png",
+      3
+    ],
+    [
+      "lot20263_2.png",
+      3
+    ],
+    [
+      "lot35543_1.png",
+      3
+    ],
+    [
+      "lot20347_25.png",
+      3
+    ],
+    [
+      "lot6428_7.png",
+      3
+    ],
+    [
+      "lot20762_17.png",
+      3
+    ],
+    [
+      "lot19803_15.png",
+      3
+    ],
+    [
+      "lot26472_20.png",
+      3
+    ],
+    [
+      "lot24426_14.png",
+      3
+    ],
+    [
+      "lot18709_17.png",
+      3
+    ],
+    [
+      "lot18710_13.png",
+      3
+    ],
+    [
+      "lot26480_9.png",
+      3
+    ],
+    [
+      "lot2992_8.png",
+      3
+    ],
+    [
+      "lot18705_9.png",
+      3
+    ],
+    [
+      "lot4893_1.png",
+      3
+    ],
+    [
+      "lot3917_24.png",
+      3
+    ],
+    [
+      "lot3634_4.png",
+      3
+    ],
+    [
+      "lot3580_10.png",
+      3
+    ],
+    [
+      "lot4668_10.png",
+      3
+    ],
+    [
+      "lot46492_4.png",
+      3
+    ],
+    [
+      "lot5503_4.png",
+      3
+    ],
+    [
+      "lot4082_24.png",
+      3
+    ],
+    [
+      "lot23180_13.png",
+      3
+    ],
+    [
+      "lot14756_8.png",
+      3
+    ],
+    [
+      "lot6158_9.png",
+      3
+    ],
+    [
+      "lot6119_12.png",
+      3
+    ],
+    [
+      "lot26491_24.png",
+      3
+    ],
+    [
+      "lot6020_3.png",
+      3
+    ],
+    [
+      "lot24896_9.png",
+      3
+    ],
+    [
+      "lot43284_24.png",
+      3
+    ],
+    [
+      "lot3788_6.png",
+      3
+    ],
+    [
+      "lot26468_2.png",
+      3
+    ],
+    [
+      "lot26479_23.png",
+      3
+    ],
+    [
+      "lot3839_10.png",
+      3
+    ],
+    [
+      "lot37104_24.png",
+      3
+    ],
+    [
+      "lot2993_3.png",
+      3
+    ],
+    [
+      "lot4526_23.png",
+      3
+    ],
+    [
+      "lot5908_12.png",
+      3
+    ],
+    [
+      "lot15314_10.png",
+      3
+    ],
+    [
+      "lot36391_18.png",
+      3
+    ],
+    [
+      "lot8962_22.png",
+      3
+    ],
+    [
+      "lot6160_9.png",
+      3
+    ],
+    [
+      "lot33260_25.png",
+      3
+    ],
+    [
+      "lot3882_25.png",
+      3
+    ],
+    [
+      "lot38307_13.png",
+      3
+    ],
+    [
+      "lot204_19.png",
+      3
+    ],
+    [
+      "lot15670_9.png",
+      3
+    ],
+    [
+      "lot26083_15.png",
+      3
+    ],
+    [
+      "lot4667_19.png",
+      3
+    ],
+    [
+      "lot197_10.png",
+      3
+    ],
+    [
+      "lot24321_4.png",
+      3
+    ],
+    [
+      "lot26472_17.png",
+      3
+    ],
+    [
+      "lot38405_7.png",
+      3
+    ],
+    [
+      "lot21552_13.png",
+      3
+    ],
+    [
+      "lot38442_12.png",
+      3
+    ],
+    [
+      "lot4082_23.png",
+      3
+    ],
+    [
+      "lot24743_20.png",
+      3
+    ],
+    [
+      "lot250_17.png",
+      3
+    ],
+    [
+      "lot17934_24.png",
+      3
+    ],
+    [
+      "lot40327_2.png",
+      3
+    ],
+    [
+      "lot22711_3.png",
+      3
+    ],
+    [
+      "lot44868_23.png",
+      3
+    ],
+    [
+      "lot19814_5.png",
+      4
+    ],
+    [
+      "lot2525_7.png",
+      4
+    ],
+    [
+      "lot12760_19.png",
+      4
+    ],
+    [
+      "lot12772_18.png",
+      4
+    ],
+    [
+      "lot12744_21.png",
+      4
+    ],
+    [
+      "lot16428_7.png",
+      4
+    ],
+    [
+      "lot13719_6.png",
+      4
+    ],
+    [
+      "lot13599_4.png",
+      4
+    ],
+    [
+      "lot13965_6.png",
+      4
+    ],
+    [
+      "lot2515_14.png",
+      4
+    ],
+    [
+      "lot20730_1.png",
+      4
+    ],
+    [
+      "lot12751_15.png",
+      4
+    ],
+    [
+      "lot14395_10.png",
+      4
+    ],
+    [
+      "lot5194_13.png",
+      4
+    ],
+    [
+      "lot13961_14.png",
+      4
+    ],
+    [
+      "lot22474_9.png",
+      4
+    ],
+    [
+      "lot12757_16.png",
+      4
+    ],
+    [
+      "lot16475_18.png",
+      4
+    ],
+    [
+      "lot20730_11.png",
+      4
+    ],
+    [
+      "lot16603_17.png",
+      4
+    ],
+    [
+      "lot13969_11.png",
+      4
+    ],
+    [
+      "lot19856_2.png",
+      4
+    ],
+    [
+      "lot10184_2.png",
+      4
+    ],
+    [
+      "lot18021_19.png",
+      4
+    ],
+    [
+      "lot19851_19.png",
+      4
+    ],
+    [
+      "lot2756_4.png",
+      4
+    ],
+    [
+      "lot14822_20.png",
+      4
+    ],
+    [
+      "lot6024_17.png",
+      4
+    ],
+    [
+      "lot19852_9.png",
+      4
+    ],
+    [
+      "lot9333_2.png",
+      4
+    ],
+    [
+      "lot18375_5.png",
+      4
+    ],
+    [
+      "lot10185_12.png",
+      4
+    ],
+    [
+      "lot1542_12.png",
+      4
+    ],
+    [
+      "lot20904_15.png",
+      4
+    ],
+    [
+      "lot14768_2.png",
+      4
+    ],
+    [
+      "lot9151_5.png",
+      4
+    ],
+    [
+      "lot18020_9.png",
+      4
+    ],
+    [
+      "lot14527_19.png",
+      4
+    ],
+    [
+      "lot20732_3.png",
+      4
+    ],
+    [
+      "lot9147_24.png",
+      4
+    ],
+    [
+      "lot7940_22.png",
+      4
+    ],
+    [
+      "lot13966_19.png",
+      4
+    ],
+    [
+      "lot20133_23.png",
+      4
+    ],
+    [
+      "lot2496_22.png",
+      4
+    ],
+    [
+      "lot14328_11.png",
+      4
+    ],
+    [
+      "lot9344_8.png",
+      4
+    ],
+    [
+      "lot18023_5.png",
+      4
+    ],
+    [
+      "lot12761_17.png",
+      4
+    ],
+    [
+      "lot25391_1.png",
+      4
+    ],
+    [
+      "lot12758_25.png",
+      4
+    ],
+    [
+      "lot2488_8.png",
+      4
+    ],
+    [
+      "lot12777_4.png",
+      4
+    ],
+    [
+      "lot3108_25.png",
+      4
+    ],
+    [
+      "lot2495_25.png",
+      4
+    ],
+    [
+      "lot12905_24.png",
+      4
+    ],
+    [
+      "lot21581_5.png",
+      4
+    ],
+    [
+      "lot12754_9.png",
+      4
+    ],
+    [
+      "lot12748_16.png",
+      4
+    ],
+    [
+      "lot17263_10.png",
+      4
+    ],
+    [
+      "lot2517_10.png",
+      4
+    ],
+    [
+      "lot9152_12.png",
+      4
+    ],
+    [
+      "lot22471_11.png",
+      4
+    ],
+    [
+      "lot20610_16.png",
+      4
+    ],
+    [
+      "lot9337_10.png",
+      4
+    ],
+    [
+      "lot22480_8.png",
+      4
+    ],
+    [
+      "lot21623_10.png",
+      4
+    ],
+    [
+      "lot21559_24.png",
+      4
+    ],
+    [
+      "lot2495_12.png",
+      4
+    ],
+    [
+      "lot19849_22.png",
+      4
+    ],
+    [
+      "lot16999_17.png",
+      4
+    ],
+    [
+      "lot15711_11.png",
+      4
+    ],
+    [
+      "lot14529_17.png",
+      4
+    ],
+    [
+      "lot25391_17.png",
+      4
+    ],
+    [
+      "lot23107_6.png",
+      4
+    ],
+    [
+      "lot10009_9.png",
+      4
+    ],
+    [
+      "lot11171_19.png",
+      4
+    ],
+    [
+      "lot15009_16.png",
+      4
+    ],
+    [
+      "lot13963_1.png",
+      4
+    ],
+    [
+      "lot10185_7.png",
+      4
+    ],
+    [
+      "lot12757_23.png",
+      4
+    ],
+    [
+      "lot13968_8.png",
+      4
+    ],
+    [
+      "lot9148_20.png",
+      4
+    ],
+    [
+      "lot16604_17.png",
+      4
+    ],
+    [
+      "lot14538_1.png",
+      4
+    ],
+    [
+      "lot17000_5.png",
+      4
+    ],
+    [
+      "lot2075_22.png",
+      4
+    ],
+    [
+      "lot19864_6.png",
+      4
+    ],
+    [
+      "lot13751_23.png",
+      4
+    ],
+    [
+      "lot16606_3.png",
+      4
+    ],
+    [
+      "lot14393_13.png",
+      4
+    ],
+    [
+      "lot16554_18.png",
+      4
+    ],
+    [
+      "lot10050_19.png",
+      4
+    ],
+    [
+      "lot12769_6.png",
+      4
+    ],
+    [
+      "lot14395_16.png",
+      4
+    ],
+    [
+      "lot26625_11.png",
+      4
+    ],
+    [
+      "lot12761_24.png",
+      4
+    ],
+    [
+      "lot13968_2.png",
+      4
+    ],
+    [
+      "lot23107_3.png",
+      4
+    ],
+    [
+      "lot16999_21.png",
+      4
+    ],
+    [
+      "lot18378_2.png",
+      4
+    ],
+    [
+      "lot20257_8.png",
+      5
+    ],
+    [
+      "lot21715_1.png",
+      5
+    ],
+    [
+      "lot2023_24.png",
+      5
+    ],
+    [
+      "lot140_21.png",
+      5
+    ],
+    [
+      "lot24232_11.png",
+      5
+    ],
+    [
+      "lot15633_24.png",
+      5
+    ],
+    [
+      "lot37845_14.png",
+      5
+    ],
+    [
+      "lot5101_19.png",
+      5
+    ],
+    [
+      "lot24074_4.png",
+      5
+    ],
+    [
+      "lot20421_23.png",
+      5
+    ],
+    [
+      "lot44861_6.png",
+      5
+    ],
+    [
+      "lot38283_25.png",
+      5
+    ],
+    [
+      "lot8329_9.png",
+      5
+    ],
+    [
+      "lot5993_8.png",
+      5
+    ],
+    [
+      "lot16071_6.png",
+      5
+    ],
+    [
+      "lot44906_1.png",
+      5
+    ],
+    [
+      "lot17364_15.png",
+      5
+    ],
+    [
+      "lot17782_14.png",
+      5
+    ],
+    [
+      "lot15678_24.png",
+      5
+    ],
+    [
+      "lot24247_23.png",
+      5
+    ],
+    [
+      "lot6023_14.png",
+      5
+    ],
+    [
+      "lot6228_4.png",
+      5
+    ],
+    [
+      "lot41537_1.png",
+      5
+    ],
+    [
+      "lot23181_5.png",
+      5
+    ],
+    [
+      "lot5957_5.png",
+      5
+    ],
+    [
+      "lot21797_6.png",
+      5
+    ],
+    [
+      "lot16988_25.png",
+      5
+    ],
+    [
+      "lot35449_23.png",
+      5
+    ],
+    [
+      "lot5447_25.png",
+      5
+    ],
+    [
+      "lot293_15.png",
+      5
+    ],
+    [
+      "lot39256_15.png",
+      5
+    ],
+    [
+      "lot8318_25.png",
+      5
+    ],
+    [
+      "lot6953_20.png",
+      5
+    ],
+    [
+      "lot45098_13.png",
+      5
+    ],
+    [
+      "lot19189_17.png",
+      5
+    ],
+    [
+      "lot13993_12.png",
+      5
+    ],
+    [
+      "lot7378_6.png",
+      5
+    ],
+    [
+      "lot16376_1.png",
+      5
+    ],
+    [
+      "lot13921_7.png",
+      5
+    ],
+    [
+      "lot15334_21.png",
+      5
+    ],
+    [
+      "lot16445_9.png",
+      5
+    ],
+    [
+      "lot19240_24.png",
+      5
+    ],
+    [
+      "lot40119_4.png",
+      5
+    ],
+    [
+      "lot1388_12.png",
+      5
+    ],
+    [
+      "lot293_21.png",
+      5
+    ],
+    [
+      "lot7245_24.png",
+      5
+    ],
+    [
+      "lot15092_6.png",
+      5
+    ],
+    [
+      "lot2029_11.png",
+      5
+    ],
+    [
+      "lot7369_3.png",
+      5
+    ],
+    [
+      "lot25177_21.png",
+      5
+    ],
+    [
+      "lot17481_1.png",
+      5
+    ],
+    [
+      "lot38901_24.png",
+      5
+    ],
+    [
+      "lot23180_15.png",
+      5
+    ],
+    [
+      "lot43161_8.png",
+      5
+    ],
+    [
+      "lot39220_4.png",
+      5
+    ],
+    [
+      "lot37238_12.png",
+      5
+    ],
+    [
+      "lot25409_24.png",
+      5
+    ],
+    [
+      "lot39941_7.png",
+      5
+    ],
+    [
+      "lot7243_13.png",
+      5
+    ],
+    [
+      "lot5687_5.png",
+      5
+    ],
+    [
+      "lot40138_21.png",
+      5
+    ],
+    [
+      "lot42912_1.png",
+      5
+    ],
+    [
+      "lot25247_17.png",
+      5
+    ],
+    [
+      "lot5174_10.png",
+      5
+    ],
+    [
+      "lot22463_21.png",
+      5
+    ],
+    [
+      "lot7241_23.png",
+      5
+    ],
+    [
+      "lot7873_11.png",
+      5
+    ],
+    [
+      "lot6331_13.png",
+      5
+    ],
+    [
+      "lot18235_23.png",
+      5
+    ],
+    [
+      "lot5998_24.png",
+      5
+    ],
+    [
+      "lot15286_9.png",
+      5
+    ],
+    [
+      "lot8886_20.png",
+      5
+    ],
+    [
+      "lot7846_7.png",
+      5
+    ],
+    [
+      "lot11286_11.png",
+      5
+    ],
+    [
+      "lot38367_16.png",
+      5
+    ],
+    [
+      "lot20389_9.png",
+      5
+    ],
+    [
+      "lot22421_23.png",
+      5
+    ],
+    [
+      "lot12076_4.png",
+      5
+    ],
+    [
+      "lot40037_1.png",
+      5
+    ],
+    [
+      "lot38816_21.png",
+      5
+    ],
+    [
+      "lot7854_7.png",
+      5
+    ],
+    [
+      "lot7242_14.png",
+      5
+    ],
+    [
+      "lot20916_17.png",
+      5
+    ],
+    [
+      "lot11744_22.png",
+      5
+    ],
+    [
+      "lot87_5.png",
+      5
+    ],
+    [
+      "lot8943_21.png",
+      5
+    ],
+    [
+      "lot22137_4.png",
+      5
+    ],
+    [
+      "lot38206_7.png",
+      5
+    ],
+    [
+      "lot15491_25.png",
+      5
+    ],
+    [
+      "lot17551_17.png",
+      5
+    ],
+    [
+      "lot9574_8.png",
+      5
+    ],
+    [
+      "lot34954_14.png",
+      5
+    ],
+    [
+      "lot17180_22.png",
+      5
+    ],
+    [
+      "lot43050_2.png",
+      5
+    ],
+    [
+      "lot39279_24.png",
+      5
+    ],
+    [
+      "lot17709_2.png",
+      5
+    ],
+    [
+      "lot24598_3.png",
+      5
+    ],
+    [
+      "lot38050_15.png",
+      5
+    ],
+    [
+      "lot19426_4.png",
+      5
+    ],
+    [
+      "lot106_22.png",
+      5
+    ],
+    [
+      "lot15558_3.png",
+      6
+    ],
+    [
+      "lot15437_25.png",
+      6
+    ],
+    [
+      "lot173_23.png",
+      6
+    ],
+    [
+      "lot46506_14.png",
+      6
+    ],
+    [
+      "lot46498_18.png",
+      6
+    ],
+    [
+      "lot15567_16.png",
+      6
+    ],
+    [
+      "lot43010_20.png",
+      6
+    ],
+    [
+      "lot44858_9.png",
+      6
+    ],
+    [
+      "lot216_23.png",
+      6
+    ],
+    [
+      "lot45022_5.png",
+      6
+    ],
+    [
+      "lot8303_5.png",
+      7
+    ],
+    [
+      "lot15133_5.png",
+      7
+    ],
+    [
+      "lot13907_6.png",
+      7
+    ],
+    [
+      "lot16997_17.png",
+      7
+    ],
+    [
+      "lot2375_15.png",
+      7
+    ],
+    [
+      "lot21777_24.png",
+      7
+    ],
+    [
+      "lot2377_10.png",
+      7
+    ],
+    [
+      "lot15128_15.png",
+      7
+    ],
+    [
+      "lot2375_8.png",
+      7
+    ],
+    [
+      "lot2425_22.png",
+      7
+    ],
+    [
+      "lot15352_1.png",
+      7
+    ],
+    [
+      "lot10376_13.png",
+      7
+    ],
+    [
+      "lot14235_1.png",
+      7
+    ],
+    [
+      "lot2428_16.png",
+      7
+    ],
+    [
+      "lot38756_18.png",
+      7
+    ],
+    [
+      "lot8269_4.png",
+      7
+    ],
+    [
+      "lot11432_3.png",
+      7
+    ],
+    [
+      "lot10049_7.png",
+      7
+    ],
+    [
+      "lot2377_12.png",
+      7
+    ],
+    [
+      "lot2432_6.png",
+      7
+    ],
+    [
+      "lot15474_5.png",
+      7
+    ],
+    [
+      "lot35140_13.png",
+      7
+    ],
+    [
+      "lot18264_4.png",
+      7
+    ],
+    [
+      "lot15128_24.png",
+      7
+    ],
+    [
+      "lot15163_6.png",
+      7
+    ],
+    [
+      "lot42900_9.png",
+      7
+    ],
+    [
+      "lot21777_1.png",
+      7
+    ],
+    [
+      "lot12141_14.png",
+      7
+    ],
+    [
+      "lot15130_22.png",
+      7
+    ],
+    [
+      "lot38380_4.png",
+      7
+    ],
+    [
+      "lot15363_21.png",
+      7
+    ],
+    [
+      "lot15600_12.png",
+      7
+    ],
+    [
+      "lot19277_14.png",
+      7
+    ],
+    [
+      "lot2375_22.png",
+      7
+    ],
+    [
+      "lot2312_3.png",
+      7
+    ],
+    [
+      "lot15131_25.png",
+      7
+    ],
+    [
+      "lot2377_18.png",
+      7
+    ],
+    [
+      "lot21535_21.png",
+      7
+    ],
+    [
+      "lot2377_22.png",
+      7
+    ],
+    [
+      "lot2377_14.png",
+      7
+    ],
+    [
+      "lot39760_6.png",
+      7
+    ],
+    [
+      "lot1288_4.png",
+      7
+    ],
+    [
+      "lot171_9.png",
+      7
+    ],
+    [
+      "lot14268_1.png",
+      7
+    ],
+    [
+      "lot21777_25.png",
+      7
+    ],
+    [
+      "lot21463_23.png",
+      7
+    ],
+    [
+      "lot15128_1.png",
+      7
+    ],
+    [
+      "lot36115_1.png",
+      7
+    ],
+    [
+      "lot2420_5.png",
+      7
+    ],
+    [
+      "lot15561_14.png",
+      7
+    ],
+    [
+      "lot21777_3.png",
+      7
+    ],
+    [
+      "lot43219_12.png",
+      7
+    ],
+    [
+      "lot15128_20.png",
+      7
+    ],
+    [
+      "lot2425_1.png",
+      7
+    ],
+    [
+      "lot17102_23.png",
+      7
+    ],
+    [
+      "lot21748_23.png",
+      7
+    ],
+    [
+      "lot13921_9.png",
+      7
+    ],
+    [
+      "lot8270_5.png",
+      7
+    ],
+    [
+      "lot15130_25.png",
+      7
+    ],
+    [
+      "lot13907_12.png",
+      7
+    ],
+    [
+      "lot15131_10.png",
+      7
+    ],
+    [
+      "lot8269_24.png",
+      7
+    ],
+    [
+      "lot2377_11.png",
+      7
+    ],
+    [
+      "lot2377_17.png",
+      7
+    ],
+    [
+      "lot2375_25.png",
+      7
+    ],
+    [
+      "lot43256_10.png",
+      7
+    ],
+    [
+      "lot2377_3.png",
+      7
+    ],
+    [
+      "lot2432_10.png",
+      7
+    ],
+    [
+      "lot43226_15.png",
+      7
+    ],
+    [
+      "lot21758_10.png",
+      7
+    ],
+    [
+      "lot2426_16.png",
+      7
+    ],
+    [
+      "lot2375_12.png",
+      7
+    ],
+    [
+      "lot21535_2.png",
+      7
+    ],
+    [
+      "lot15600_16.png",
+      7
+    ],
+    [
+      "lot8269_12.png",
+      7
+    ],
+    [
+      "lot15131_3.png",
+      7
+    ],
+    [
+      "lot21627_14.png",
+      7
+    ],
+    [
+      "lot40289_7.png",
+      7
+    ],
+    [
+      "lot15130_10.png",
+      7
+    ],
+    [
+      "lot13907_3.png",
+      7
+    ],
+    [
+      "lot43250_9.png",
+      7
+    ],
+    [
+      "lot38810_10.png",
+      7
+    ],
+    [
+      "lot2432_15.png",
+      7
+    ],
+    [
+      "lot20121_24.png",
+      7
+    ],
+    [
+      "lot15561_16.png",
+      7
+    ],
+    [
+      "lot16330_15.png",
+      7
+    ],
+    [
+      "lot13907_15.png",
+      7
+    ],
+    [
+      "lot2377_6.png",
+      7
+    ],
+    [
+      "lot15124_9.png",
+      7
+    ],
+    [
+      "lot15753_9.png",
+      7
+    ],
+    [
+      "lot8210_7.png",
+      7
+    ],
+    [
+      "lot18737_24.png",
+      7
+    ],
+    [
+      "lot2377_2.png",
+      7
+    ],
+    [
+      "lot7837_22.png",
+      7
+    ],
+    [
+      "lot85_9.png",
+      7
+    ],
+    [
+      "lot13234_9.png",
+      7
+    ],
+    [
+      "lot2535_23.png",
+      7
+    ],
+    [
+      "lot2422_15.png",
+      7
+    ],
+    [
+      "lot15087_20.png",
+      7
+    ],
+    [
+      "lot13907_17.png",
+      7
+    ],
+    [
+      "lot19956_3.png",
+      8
+    ],
+    [
+      "lot19977_11.png",
+      8
+    ],
+    [
+      "lot22750_11.png",
+      8
+    ],
+    [
+      "lot19172_17.png",
+      8
+    ],
+    [
+      "lot15437_15.png",
+      8
+    ],
+    [
+      "lot39960_21.png",
+      8
+    ],
+    [
+      "lot22944_12.png",
+      8
+    ],
+    [
+      "lot15152_19.png",
+      8
+    ],
+    [
+      "lot21234_20.png",
+      8
+    ],
+    [
+      "lot16703_18.png",
+      8
+    ],
+    [
+      "lot2557_23.png",
+      8
+    ],
+    [
+      "lot16637_3.png",
+      8
+    ],
+    [
+      "lot11293_6.png",
+      8
+    ],
+    [
+      "lot11300_23.png",
+      8
+    ],
+    [
+      "lot21423_23.png",
+      8
+    ],
+    [
+      "lot16374_10.png",
+      8
+    ],
+    [
+      "lot17292_20.png",
+      8
+    ],
+    [
+      "lot19374_25.png",
+      8
+    ],
+    [
+      "lot15437_19.png",
+      8
+    ],
+    [
+      "lot18618_19.png",
+      8
+    ],
+    [
+      "lot14348_10.png",
+      8
+    ],
+    [
+      "lot20339_16.png",
+      8
+    ],
+    [
+      "lot2659_6.png",
+      8
+    ],
+    [
+      "lot21853_8.png",
+      8
+    ],
+    [
+      "lot15043_7.png",
+      8
+    ],
+    [
+      "lot2564_7.png",
+      8
+    ],
+    [
+      "lot17291_1.png",
+      8
+    ],
+    [
+      "lot30_19.png",
+      8
+    ],
+    [
+      "lot18635_21.png",
+      8
+    ],
+    [
+      "lot19625_1.png",
+      8
+    ],
+    [
+      "lot43379_9.png",
+      8
+    ],
+    [
+      "lot15095_6.png",
+      8
+    ],
+    [
+      "lot210_7.png",
+      8
+    ],
+    [
+      "lot46516_21.png",
+      8
+    ],
+    [
+      "lot17292_15.png",
+      8
+    ],
+    [
+      "lot14245_22.png",
+      8
+    ],
+    [
+      "lot14848_15.png",
+      8
+    ],
+    [
+      "lot15678_9.png",
+      8
+    ],
+    [
+      "lot16949_14.png",
+      8
+    ],
+    [
+      "lot11320_18.png",
+      8
+    ],
+    [
+      "lot18500_5.png",
+      8
+    ],
+    [
+      "lot17022_1.png",
+      8
+    ],
+    [
+      "lot20742_12.png",
+      8
+    ],
+    [
+      "lot16968_19.png",
+      8
+    ],
+    [
+      "lot34351_11.png",
+      8
+    ],
+    [
+      "lot21441_25.png",
+      8
+    ],
+    [
+      "lot37856_6.png",
+      8
+    ],
+    [
+      "lot17958_1.png",
+      8
+    ],
+    [
+      "lot14212_1.png",
+      8
+    ],
+    [
+      "lot22596_8.png",
+      8
+    ],
+    [
+      "lot20146_25.png",
+      8
+    ],
+    [
+      "lot16298_9.png",
+      8
+    ],
+    [
+      "lot14372_7.png",
+      8
+    ],
+    [
+      "lot30429_24.png",
+      8
+    ],
+    [
+      "lot18616_10.png",
+      8
+    ],
+    [
+      "lot4284_19.png",
+      8
+    ],
+    [
+      "lot17291_9.png",
+      8
+    ],
+    [
+      "lot14343_6.png",
+      8
+    ],
+    [
+      "lot16703_14.png",
+      8
+    ],
+    [
+      "lot15095_10.png",
+      8
+    ],
+    [
+      "lot1290_21.png",
+      8
+    ],
+    [
+      "lot26241_5.png",
+      8
+    ],
+    [
+      "lot16826_3.png",
+      8
+    ],
+    [
+      "lot23429_25.png",
+      8
+    ],
+    [
+      "lot17020_3.png",
+      8
+    ],
+    [
+      "lot17292_22.png",
+      8
+    ],
+    [
+      "lot3399_1.png",
+      8
+    ],
+    [
+      "lot11405_22.png",
+      8
+    ],
+    [
+      "lot9442_12.png",
+      8
+    ],
+    [
+      "lot34680_17.png",
+      8
+    ],
+    [
+      "lot18206_1.png",
+      8
+    ],
+    [
+      "lot135_18.png",
+      8
+    ],
+    [
+      "lot17508_18.png",
+      8
+    ],
+    [
+      "lot16677_22.png",
+      8
+    ],
+    [
+      "lot22757_16.png",
+      8
+    ],
+    [
+      "lot8281_11.png",
+      8
+    ],
+    [
+      "lot10954_9.png",
+      8
+    ],
+    [
+      "lot3821_12.png",
+      8
+    ],
+    [
+      "lot3293_2.png",
+      8
+    ],
+    [
+      "lot16514_18.png",
+      8
+    ],
+    [
+      "lot16687_7.png",
+      8
+    ],
+    [
+      "lot15353_14.png",
+      8
+    ],
+    [
+      "lot10900_11.png",
+      8
+    ],
+    [
+      "lot2315_18.png",
+      8
+    ],
+    [
+      "lot44982_10.png",
+      8
+    ],
+    [
+      "lot11177_1.png",
+      8
+    ],
+    [
+      "lot8889_12.png",
+      8
+    ],
+    [
+      "lot15332_10.png",
+      8
+    ],
+    [
+      "lot14376_13.png",
+      8
+    ],
+    [
+      "lot8460_6.png",
+      8
+    ],
+    [
+      "lot17612_8.png",
+      8
+    ],
+    [
+      "lot20114_14.png",
+      8
+    ],
+    [
+      "lot19404_23.png",
+      8
+    ],
+    [
+      "lot17486_25.png",
+      8
+    ],
+    [
+      "lot2548_1.png",
+      8
+    ],
+    [
+      "lot17331_8.png",
+      8
+    ],
+    [
+      "lot29291_13.png",
+      8
+    ],
+    [
+      "lot22671_1.png",
+      8
+    ],
+    [
+      "lot123_11.png",
+      8
+    ],
+    [
+      "lot15325_7.png",
+      8
+    ]
+  ],
+  "validation_true_class_counts": [
+    300,
+    100,
+    81,
+    100,
+    100,
+    100,
+    10,
+    100,
+    100
+  ],
+  "real_Du": {
+    "support": 1024,
+    "gate_pass_counts": {
+      "confidence": 26,
+      "entropy": 9,
+      "mutual_information": 862,
+      "confidence_and_entropy": 9,
+      "entropy_and_mutual_information": 9,
+      "all_gates": 9
+    },
+    "accepted_count": 9,
+    "threshold_at_one_count": 0,
+    "threshold_at_one_fraction": 0.0,
+    "quantiles_p10_p50_p90": {
+      "confidence": [
+        0.4684438407421112,
+        0.6649176478385925,
+        0.91175776720047
+      ],
+      "entropy": [
+        0.38179484009742737,
+        0.9223679304122925,
+        1.2470289468765259
+      ],
+      "mutual_information": [
+        0.01598765328526497,
+        0.047024935483932495,
+        0.1574120968580246
+      ],
+      "threshold": [
+        0.9520862102508545,
+        0.9591309428215027,
+        0.9712573289871216
+      ]
+    },
+    "accepted_fraction": 0.0087890625,
+    "candidate_predicted_class_counts": [
+      400,
+      43,
+      5,
+      55,
+      10,
+      28,
+      6,
+      16,
+      461
+    ],
+    "accepted_predicted_class_counts": [
+      0,
+      2,
+      0,
+      0,
+      2,
+      0,
+      3,
+      2,
+      0
+    ],
+    "class_confidence_statistics": [
+      {
+        "class": "none",
+        "predicted_candidates": 400,
+        "confidence_mean": 0.7295922040939331,
+        "confidence_population_std": 0.16430160403251648,
+        "coefficient_of_variation": 0.22519649073904177,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Center",
+        "predicted_candidates": 43,
+        "confidence_mean": 0.7223817706108093,
+        "confidence_population_std": 0.20999398827552795,
+        "coefficient_of_variation": 0.2906966881209747,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Donut",
+        "predicted_candidates": 5,
+        "confidence_mean": 0.49581584334373474,
+        "confidence_population_std": 0.14164775609970093,
+        "coefficient_of_variation": 0.28568622403116845,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Edge-Loc",
+        "predicted_candidates": 55,
+        "confidence_mean": 0.6692551970481873,
+        "confidence_population_std": 0.1920270472764969,
+        "coefficient_of_variation": 0.2869264939942942,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Edge-Ring",
+        "predicted_candidates": 10,
+        "confidence_mean": 0.785320520401001,
+        "confidence_population_std": 0.19206716120243073,
+        "coefficient_of_variation": 0.24457168278801278,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Loc",
+        "predicted_candidates": 28,
+        "confidence_mean": 0.6045652031898499,
+        "confidence_population_std": 0.164227694272995,
+        "coefficient_of_variation": 0.27164595879234393,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Near-full",
+        "predicted_candidates": 6,
+        "confidence_mean": 0.8747103214263916,
+        "confidence_population_std": 0.1762087047100067,
+        "coefficient_of_variation": 0.2014480684561523,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Random",
+        "predicted_candidates": 16,
+        "confidence_mean": 0.8262588977813721,
+        "confidence_population_std": 0.2019728720188141,
+        "coefficient_of_variation": 0.24444259851378455,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Scratch",
+        "predicted_candidates": 461,
+        "confidence_mean": 0.6131186485290527,
+        "confidence_population_std": 0.1241801455616951,
+        "coefficient_of_variation": 0.2025385231057946,
+        "unobserved_class_uses_zero_CV": false
+      }
+    ],
+    "per_predicted_class": [
+      {
+        "class": "none",
+        "support": 400,
+        "gate_pass_counts": {
+          "confidence": 12,
+          "entropy": 0,
+          "mutual_information": 341,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.5019407272338867,
+            0.7428479194641113,
+            0.9380468130111694
+          ],
+          "entropy": [
+            0.28922802209854126,
+            0.7714865207672119,
+            1.1524031162261963
+          ],
+          "mutual_information": [
+            0.012054339051246643,
+            0.044165730476379395,
+            0.15117378532886505
+          ],
+          "threshold": [
+            0.9549676775932312,
+            0.9625860452651978,
+            0.9722311496734619
+          ]
+        }
+      },
+      {
+        "class": "Center",
+        "support": 43,
+        "gate_pass_counts": {
+          "confidence": 3,
+          "entropy": 2,
+          "mutual_information": 18,
+          "confidence_and_entropy": 2,
+          "entropy_and_mutual_information": 2,
+          "all_gates": 2
+        },
+        "accepted_count": 2,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4463975727558136,
+            0.7695251703262329,
+            0.9628641605377197
+          ],
+          "entropy": [
+            0.1824336051940918,
+            0.7981997132301331,
+            1.2685580253601074
+          ],
+          "mutual_information": [
+            0.015436792746186256,
+            0.1388888955116272,
+            0.22066518664360046
+          ],
+          "threshold": [
+            0.9578845500946045,
+            0.9672917127609253,
+            0.9796070456504822
+          ]
+        }
+      },
+      {
+        "class": "Donut",
+        "support": 5,
+        "gate_pass_counts": {
+          "confidence": 0,
+          "entropy": 0,
+          "mutual_information": 3,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.3673572838306427,
+            0.41387277841567993,
+            0.6728208661079407
+          ],
+          "entropy": [
+            0.8506729602813721,
+            1.228855013847351,
+            1.4748716354370117
+          ],
+          "mutual_information": [
+            0.06676832586526871,
+            0.10575377941131592,
+            0.2607434391975403
+          ],
+          "threshold": [
+            0.9533575177192688,
+            0.9582778215408325,
+            0.9658414721488953
+          ]
+        }
+      },
+      {
+        "class": "Edge-Loc",
+        "support": 55,
+        "gate_pass_counts": {
+          "confidence": 1,
+          "entropy": 0,
+          "mutual_information": 22,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4451274275779724,
+            0.642657458782196,
+            0.9323633909225464
+          ],
+          "entropy": [
+            0.3104575276374817,
+            0.9414657950401306,
+            1.3251687288284302
+          ],
+          "mutual_information": [
+            0.017772817984223366,
+            0.13472402095794678,
+            0.2140626758337021
+          ],
+          "threshold": [
+            0.9564507007598877,
+            0.9641247987747192,
+            0.9767449498176575
+          ]
+        }
+      },
+      {
+        "class": "Edge-Ring",
+        "support": 10,
+        "gate_pass_counts": {
+          "confidence": 4,
+          "entropy": 2,
+          "mutual_information": 5,
+          "confidence_and_entropy": 2,
+          "entropy_and_mutual_information": 2,
+          "all_gates": 2
+        },
+        "accepted_count": 2,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.5737447142601013,
+            0.775864839553833,
+            0.9974747896194458
+          ],
+          "entropy": [
+            0.022044066339731216,
+            0.7335888743400574,
+            1.1584643125534058
+          ],
+          "mutual_information": [
+            0.0003560975310392678,
+            0.11226873099803925,
+            0.19360065460205078
+          ],
+          "threshold": [
+            0.9563964605331421,
+            0.9648939371109009,
+            0.979124903678894
+          ]
+        }
+      },
+      {
+        "class": "Loc",
+        "support": 28,
+        "gate_pass_counts": {
+          "confidence": 0,
+          "entropy": 0,
+          "mutual_information": 22,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4340178072452545,
+            0.566332221031189,
+            0.8505379557609558
+          ],
+          "entropy": [
+            0.5170131325721741,
+            1.05631685256958,
+            1.3396424055099487
+          ],
+          "mutual_information": [
+            0.045774273574352264,
+            0.1004091203212738,
+            0.1663704365491867
+          ],
+          "threshold": [
+            0.9549388289451599,
+            0.9606053233146667,
+            0.9713913798332214
+          ]
+        }
+      },
+      {
+        "class": "Near-full",
+        "support": 6,
+        "gate_pass_counts": {
+          "confidence": 3,
+          "entropy": 3,
+          "mutual_information": 6,
+          "confidence_and_entropy": 3,
+          "entropy_and_mutual_information": 3,
+          "all_gates": 3
+        },
+        "accepted_count": 3,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.642841100692749,
+            0.9832114577293396,
+            0.9980783462524414
+          ],
+          "entropy": [
+            0.016657693311572075,
+            0.0853753387928009,
+            0.9173798561096191
+          ],
+          "mutual_information": [
+            0.00022284407168626785,
+            0.0035953745245933533,
+            0.06673598289489746
+          ],
+          "threshold": [
+            0.9577682614326477,
+            0.9744083285331726,
+            0.9757826924324036
+          ]
+        }
+      },
+      {
+        "class": "Random",
+        "support": 16,
+        "gate_pass_counts": {
+          "confidence": 3,
+          "entropy": 2,
+          "mutual_information": 12,
+          "confidence_and_entropy": 2,
+          "entropy_and_mutual_information": 2,
+          "all_gates": 2
+        },
+        "accepted_count": 2,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.47630518674850464,
+            0.9238508939743042,
+            0.9830886721611023
+          ],
+          "entropy": [
+            0.10354983061552048,
+            0.3304985463619232,
+            1.1115875244140625
+          ],
+          "mutual_information": [
+            0.0029800087213516235,
+            0.019768819212913513,
+            0.13989681005477905
+          ],
+          "threshold": [
+            0.9573236703872681,
+            0.9729454517364502,
+            0.977484405040741
+          ]
+        }
+      },
+      {
+        "class": "Scratch",
+        "support": 461,
+        "gate_pass_counts": {
+          "confidence": 0,
+          "entropy": 0,
+          "mutual_information": 433,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.45787110924720764,
+            0.5957480669021606,
+            0.7850528359413147
+          ],
+          "entropy": [
+            0.7432464361190796,
+            1.0486489534378052,
+            1.2603824138641357
+          ],
+          "mutual_information": [
+            0.02149808406829834,
+            0.04401683807373047,
+            0.09858942031860352
+          ],
+          "threshold": [
+            0.9509954452514648,
+            0.9552301168441772,
+            0.9613381624221802
+          ]
+        }
+      }
+    ],
+    "accepted_accuracy": null,
+    "true_labels_available": false
+  },
+  "validation_fixed_real_Du_CV": {
+    "support": 991,
+    "gate_pass_counts": {
+      "confidence": 323,
+      "entropy": 216,
+      "mutual_information": 900,
+      "confidence_and_entropy": 216,
+      "entropy_and_mutual_information": 216,
+      "all_gates": 216
+    },
+    "accepted_count": 216,
+    "threshold_at_one_count": 0,
+    "threshold_at_one_fraction": 0.0,
+    "quantiles_p10_p50_p90": {
+      "confidence": [
+        0.5133058428764343,
+        0.9108341336250305,
+        0.9951745271682739
+      ],
+      "entropy": [
+        0.038369905203580856,
+        0.37222716212272644,
+        1.123631477355957
+      ],
+      "mutual_information": [
+        0.0005370005965232849,
+        0.022046595811843872,
+        0.11524498462677002
+      ],
+      "threshold": [
+        0.9547675251960754,
+        0.9732155203819275,
+        0.9806239604949951
+      ]
+    },
+    "accepted_fraction": 0.2179616540670395,
+    "candidate_predicted_class_counts": [
+      225,
+      101,
+      87,
+      88,
+      98,
+      99,
+      10,
+      103,
+      180
+    ],
+    "accepted_predicted_class_counts": [
+      16,
+      20,
+      35,
+      5,
+      69,
+      0,
+      8,
+      63,
+      0
+    ],
+    "class_confidence_statistics": [
+      {
+        "class": "none",
+        "predicted_candidates": 400,
+        "confidence_mean": 0.7295922040939331,
+        "confidence_population_std": 0.16430160403251648,
+        "coefficient_of_variation": 0.22519649073904177,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Center",
+        "predicted_candidates": 43,
+        "confidence_mean": 0.7223817706108093,
+        "confidence_population_std": 0.20999398827552795,
+        "coefficient_of_variation": 0.2906966881209747,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Donut",
+        "predicted_candidates": 5,
+        "confidence_mean": 0.49581584334373474,
+        "confidence_population_std": 0.14164775609970093,
+        "coefficient_of_variation": 0.28568622403116845,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Edge-Loc",
+        "predicted_candidates": 55,
+        "confidence_mean": 0.6692551970481873,
+        "confidence_population_std": 0.1920270472764969,
+        "coefficient_of_variation": 0.2869264939942942,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Edge-Ring",
+        "predicted_candidates": 10,
+        "confidence_mean": 0.785320520401001,
+        "confidence_population_std": 0.19206716120243073,
+        "coefficient_of_variation": 0.24457168278801278,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Loc",
+        "predicted_candidates": 28,
+        "confidence_mean": 0.6045652031898499,
+        "confidence_population_std": 0.164227694272995,
+        "coefficient_of_variation": 0.27164595879234393,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Near-full",
+        "predicted_candidates": 6,
+        "confidence_mean": 0.8747103214263916,
+        "confidence_population_std": 0.1762087047100067,
+        "coefficient_of_variation": 0.2014480684561523,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Random",
+        "predicted_candidates": 16,
+        "confidence_mean": 0.8262588977813721,
+        "confidence_population_std": 0.2019728720188141,
+        "coefficient_of_variation": 0.24444259851378455,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Scratch",
+        "predicted_candidates": 461,
+        "confidence_mean": 0.6131186485290527,
+        "confidence_population_std": 0.1241801455616951,
+        "coefficient_of_variation": 0.2025385231057946,
+        "unobserved_class_uses_zero_CV": false
+      }
+    ],
+    "per_predicted_class": [
+      {
+        "class": "none",
+        "support": 225,
+        "gate_pass_counts": {
+          "confidence": 56,
+          "entropy": 16,
+          "mutual_information": 210,
+          "confidence_and_entropy": 16,
+          "entropy_and_mutual_information": 16,
+          "all_gates": 16
+        },
+        "accepted_count": 16,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4793488383293152,
+            0.8761535882949829,
+            0.9873985648155212
+          ],
+          "entropy": [
+            0.08797626942396164,
+            0.4706745743751526,
+            1.1673105955123901
+          ],
+          "mutual_information": [
+            0.0014374718302860856,
+            0.021715939044952393,
+            0.10386686027050018
+          ],
+          "threshold": [
+            0.9546695351600647,
+            0.9686022400856018,
+            0.9762561917304993
+          ]
+        }
+      },
+      {
+        "class": "Center",
+        "support": 101,
+        "gate_pass_counts": {
+          "confidence": 35,
+          "entropy": 20,
+          "mutual_information": 91,
+          "confidence_and_entropy": 20,
+          "entropy_and_mutual_information": 20,
+          "all_gates": 20
+        },
+        "accepted_count": 20,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.7344884872436523,
+            0.9590282440185547,
+            0.991329550743103
+          ],
+          "entropy": [
+            0.06037954241037369,
+            0.1961294710636139,
+            0.6877272129058838
+          ],
+          "mutual_information": [
+            0.0015921778976917267,
+            0.015048608183860779,
+            0.11400872468948364
+          ],
+          "threshold": [
+            0.9695011377334595,
+            0.9793331027030945,
+            0.9820480942726135
+          ]
+        }
+      },
+      {
+        "class": "Donut",
+        "support": 87,
+        "gate_pass_counts": {
+          "confidence": 43,
+          "entropy": 35,
+          "mutual_information": 85,
+          "confidence_and_entropy": 35,
+          "entropy_and_mutual_information": 35,
+          "all_gates": 35
+        },
+        "accepted_count": 35,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.764674723148346,
+            0.9797285199165344,
+            0.9960007071495056
+          ],
+          "entropy": [
+            0.033230043947696686,
+            0.1204303652048111,
+            0.7138927578926086
+          ],
+          "mutual_information": [
+            0.0004203103599138558,
+            0.00563773512840271,
+            0.07516840845346451
+          ],
+          "threshold": [
+            0.9685770273208618,
+            0.9804463386535645,
+            0.9821903109550476
+          ]
+        }
+      },
+      {
+        "class": "Edge-Loc",
+        "support": 88,
+        "gate_pass_counts": {
+          "confidence": 20,
+          "entropy": 5,
+          "mutual_information": 72,
+          "confidence_and_entropy": 5,
+          "entropy_and_mutual_information": 5,
+          "all_gates": 5
+        },
+        "accepted_count": 5,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4998703598976135,
+            0.9211267232894897,
+            0.9864349365234375
+          ],
+          "entropy": [
+            0.0921175554394722,
+            0.34176522493362427,
+            1.054718255996704
+          ],
+          "mutual_information": [
+            0.001678813947364688,
+            0.023868292570114136,
+            0.16499274969100952
+          ],
+          "threshold": [
+            0.9618597030639648,
+            0.976118803024292,
+            0.9811117649078369
+          ]
+        }
+      },
+      {
+        "class": "Edge-Ring",
+        "support": 98,
+        "gate_pass_counts": {
+          "confidence": 79,
+          "entropy": 69,
+          "mutual_information": 95,
+          "confidence_and_entropy": 69,
+          "entropy_and_mutual_information": 69,
+          "all_gates": 69
+        },
+        "accepted_count": 69,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.9393048286437988,
+            0.9967348575592041,
+            0.9978940486907959
+          ],
+          "entropy": [
+            0.01888129487633705,
+            0.027174929156899452,
+            0.2602943480014801
+          ],
+          "mutual_information": [
+            0.00021517481945920736,
+            0.0006817243993282318,
+            0.05111479386687279
+          ],
+          "threshold": [
+            0.9743598699569702,
+            0.9790222644805908,
+            0.9791881442070007
+          ]
+        }
+      },
+      {
+        "class": "Loc",
+        "support": 99,
+        "gate_pass_counts": {
+          "confidence": 6,
+          "entropy": 0,
+          "mutual_information": 81,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.5041681528091431,
+            0.8346111178398132,
+            0.9691455364227295
+          ],
+          "entropy": [
+            0.1763107180595398,
+            0.5795040726661682,
+            1.1745710372924805
+          ],
+          "mutual_information": [
+            0.007190385367721319,
+            0.05703514814376831,
+            0.1466507613658905
+          ],
+          "threshold": [
+            0.9582402110099792,
+            0.970141589641571,
+            0.9782054424285889
+          ]
+        }
+      },
+      {
+        "class": "Near-full",
+        "support": 10,
+        "gate_pass_counts": {
+          "confidence": 8,
+          "entropy": 8,
+          "mutual_information": 10,
+          "confidence_and_entropy": 8,
+          "entropy_and_mutual_information": 8,
+          "all_gates": 8
+        },
+        "accepted_count": 8,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8655207753181458,
+            0.9990683794021606,
+            0.9991530179977417
+          ],
+          "entropy": [
+            0.008434132672846317,
+            0.00911911390721798,
+            0.4063856303691864
+          ],
+          "mutual_information": [
+            9.398935071658343e-05,
+            0.00012181047350168228,
+            0.02803892269730568
+          ],
+          "threshold": [
+            0.967988133430481,
+            0.9759334325790405,
+            0.9759471416473389
+          ]
+        }
+      },
+      {
+        "class": "Random",
+        "support": 103,
+        "gate_pass_counts": {
+          "confidence": 76,
+          "entropy": 63,
+          "mutual_information": 98,
+          "confidence_and_entropy": 63,
+          "entropy_and_mutual_information": 63,
+          "all_gates": 63
+        },
+        "accepted_count": 63,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8586297035217285,
+            0.991827666759491,
+            0.9962105751037598
+          ],
+          "entropy": [
+            0.03149977698922157,
+            0.056469183415174484,
+            0.5493466854095459
+          ],
+          "mutual_information": [
+            0.00026670919032767415,
+            0.00108269602060318,
+            0.0457206629216671
+          ],
+          "threshold": [
+            0.9685684442520142,
+            0.9784259796142578,
+            0.9789254069328308
+          ]
+        }
+      },
+      {
+        "class": "Scratch",
+        "support": 180,
+        "gate_pass_counts": {
+          "confidence": 0,
+          "entropy": 0,
+          "mutual_information": 158,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.44978925585746765,
+            0.6310418844223022,
+            0.778993546962738
+          ],
+          "entropy": [
+            0.7635381817817688,
+            0.9960397481918335,
+            1.2562801837921143
+          ],
+          "mutual_information": [
+            0.025837844237685204,
+            0.05483365058898926,
+            0.12671390175819397
+          ],
+          "threshold": [
+            0.9510774612426758,
+            0.9562823176383972,
+            0.9609323143959045
+          ]
+        }
+      }
+    ],
+    "true_labels_available": true,
+    "prediction_accuracy": 0.8193743824958801,
+    "accepted_accuracy": 1.0,
+    "confusion_matrix": [
+      [
+        196,
+        0,
+        1,
+        1,
+        0,
+        3,
+        0,
+        0,
+        99
+      ],
+      [
+        1,
+        97,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        80,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        7,
+        0,
+        0,
+        82,
+        0,
+        6,
+        0,
+        2,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        98,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        3,
+        2,
+        3,
+        3,
+        0,
+        81,
+        0,
+        2,
+        6
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        98,
+        0
+      ],
+      [
+        18,
+        1,
+        2,
+        1,
+        0,
+        7,
+        0,
+        0,
+        71
+      ]
+    ],
+    "accepted_confusion_matrix": [
+      [
+        16,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        35,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        69,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        63,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "per_true_class": [
+      {
+        "class": "none",
+        "support": 300,
+        "gate_pass_counts": {
+          "confidence": 54,
+          "entropy": 16,
+          "mutual_information": 283,
+          "confidence_and_entropy": 16,
+          "entropy_and_mutual_information": 16,
+          "all_gates": 16
+        },
+        "accepted_count": 16,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4547448754310608,
+            0.7570978999137878,
+            0.9842602610588074
+          ],
+          "entropy": [
+            0.10024986416101456,
+            0.7468999624252319,
+            1.2033227682113647
+          ],
+          "mutual_information": [
+            0.0019288994371891022,
+            0.03342711925506592,
+            0.09778472036123276
+          ],
+          "threshold": [
+            0.9528447389602661,
+            0.96307772397995,
+            0.9760107398033142
+          ]
+        },
+        "accepted_fraction": 0.05333333333333334,
+        "correct_accepted_coverage": 0.05333333333333334,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.653333306312561
+      },
+      {
+        "class": "Center",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 35,
+          "entropy": 20,
+          "mutual_information": 90,
+          "confidence_and_entropy": 20,
+          "entropy_and_mutual_information": 20,
+          "all_gates": 20
+        },
+        "accepted_count": 20,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.7182048559188843,
+            0.9635623097419739,
+            0.99144446849823
+          ],
+          "entropy": [
+            0.05983535200357437,
+            0.18194520473480225,
+            0.7072957754135132
+          ],
+          "mutual_information": [
+            0.001552752684801817,
+            0.014580972492694855,
+            0.11796173453330994
+          ],
+          "threshold": [
+            0.9689573645591736,
+            0.9796167612075806,
+            0.9820590019226074
+          ]
+        },
+        "accepted_fraction": 0.2,
+        "correct_accepted_coverage": 0.2,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.9700000286102295
+      },
+      {
+        "class": "Donut",
+        "support": 81,
+        "gate_pass_counts": {
+          "confidence": 43,
+          "entropy": 35,
+          "mutual_information": 79,
+          "confidence_and_entropy": 35,
+          "entropy_and_mutual_information": 35,
+          "all_gates": 35
+        },
+        "accepted_count": 35,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8228422403335571,
+            0.9830102920532227,
+            0.9960254430770874
+          ],
+          "entropy": [
+            0.032828737050294876,
+            0.10836347192525864,
+            0.6015793085098267
+          ],
+          "mutual_information": [
+            0.0004146955907344818,
+            0.004645295441150665,
+            0.06586527824401855
+          ],
+          "threshold": [
+            0.970823347568512,
+            0.98068767786026,
+            0.9821983575820923
+          ]
+        },
+        "accepted_fraction": 0.43209876543209874,
+        "correct_accepted_coverage": 0.43209876543209874,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.9876543283462524
+      },
+      {
+        "class": "Edge-Loc",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 20,
+          "entropy": 5,
+          "mutual_information": 76,
+          "confidence_and_entropy": 5,
+          "entropy_and_mutual_information": 5,
+          "all_gates": 5
+        },
+        "accepted_count": 5,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4958965480327606,
+            0.8646467328071594,
+            0.9848505258560181
+          ],
+          "entropy": [
+            0.0968196839094162,
+            0.4870673716068268,
+            1.188300609588623
+          ],
+          "mutual_information": [
+            0.001937061664648354,
+            0.04510742425918579,
+            0.16477002203464508
+          ],
+          "threshold": [
+            0.9576749801635742,
+            0.9731591939926147,
+            0.9810177087783813
+          ]
+        },
+        "accepted_fraction": 0.05,
+        "correct_accepted_coverage": 0.05,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.8199999928474426
+      },
+      {
+        "class": "Edge-Ring",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 79,
+          "entropy": 69,
+          "mutual_information": 96,
+          "confidence_and_entropy": 69,
+          "entropy_and_mutual_information": 69,
+          "all_gates": 69
+        },
+        "accepted_count": 69,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.908646821975708,
+            0.9966736435890198,
+            0.99788898229599
+          ],
+          "entropy": [
+            0.018889170140028,
+            0.02730131894350052,
+            0.3750913441181183
+          ],
+          "mutual_information": [
+            0.00021521319285966456,
+            0.0007279189303517342,
+            0.05797937512397766
+          ],
+          "threshold": [
+            0.9721852540969849,
+            0.9790197610855103,
+            0.9791879653930664
+          ]
+        },
+        "accepted_fraction": 0.69,
+        "correct_accepted_coverage": 0.69,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.9800000190734863
+      },
+      {
+        "class": "Loc",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 6,
+          "entropy": 0,
+          "mutual_information": 86,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.5163658261299133,
+            0.8218101263046265,
+            0.9690751433372498
+          ],
+          "entropy": [
+            0.17644812166690826,
+            0.5906202793121338,
+            1.0779647827148438
+          ],
+          "mutual_information": [
+            0.007246543653309345,
+            0.05453053116798401,
+            0.13456135988235474
+          ],
+          "threshold": [
+            0.9578135013580322,
+            0.9699192643165588,
+            0.9782027006149292
+          ]
+        },
+        "accepted_fraction": 0.0,
+        "correct_accepted_coverage": 0.0,
+        "accepted_accuracy": null,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.8100000023841858
+      },
+      {
+        "class": "Near-full",
+        "support": 10,
+        "gate_pass_counts": {
+          "confidence": 8,
+          "entropy": 8,
+          "mutual_information": 10,
+          "confidence_and_entropy": 8,
+          "entropy_and_mutual_information": 8,
+          "all_gates": 8
+        },
+        "accepted_count": 8,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8511484265327454,
+            0.9990683794021606,
+            0.9991530179977417
+          ],
+          "entropy": [
+            0.008434132672846317,
+            0.00911911390721798,
+            0.41637688875198364
+          ],
+          "mutual_information": [
+            9.398935071658343e-05,
+            0.00012181047350168228,
+            0.02443460188806057
+          ],
+          "threshold": [
+            0.9681322574615479,
+            0.9759334325790405,
+            0.9759471416473389
+          ]
+        },
+        "accepted_fraction": 0.8,
+        "correct_accepted_coverage": 0.8,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.8999999761581421
+      },
+      {
+        "class": "Random",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 76,
+          "entropy": 63,
+          "mutual_information": 98,
+          "confidence_and_entropy": 63,
+          "entropy_and_mutual_information": 63,
+          "all_gates": 63
+        },
+        "accepted_count": 63,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8912601470947266,
+            0.9924077987670898,
+            0.9962450265884399
+          ],
+          "entropy": [
+            0.031238703057169914,
+            0.05563424155116081,
+            0.37564361095428467
+          ],
+          "mutual_information": [
+            0.00026429127319715917,
+            0.0009140800684690475,
+            0.022969210520386696
+          ],
+          "threshold": [
+            0.9720425009727478,
+            0.9784427285194397,
+            0.9789305925369263
+          ]
+        },
+        "accepted_fraction": 0.63,
+        "correct_accepted_coverage": 0.63,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.9800000190734863
+      },
+      {
+        "class": "Scratch",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 2,
+          "entropy": 0,
+          "mutual_information": 82,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4806514084339142,
+            0.6322527527809143,
+            0.8235464096069336
+          ],
+          "entropy": [
+            0.6575242877006531,
+            0.9456440210342407,
+            1.1888337135314941
+          ],
+          "mutual_information": [
+            0.02278580702841282,
+            0.058656156063079834,
+            0.13758164644241333
+          ],
+          "threshold": [
+            0.9530168771743774,
+            0.9580942392349243,
+            0.9648759961128235
+          ]
+        },
+        "accepted_fraction": 0.0,
+        "correct_accepted_coverage": 0.0,
+        "accepted_accuracy": null,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.7099999785423279
+      }
+    ],
+    "None_false_positives": {
+      "true_None_support": 300,
+      "ungated_wrong_count": 104,
+      "gated_wrong_count": 0,
+      "ungated_wrong_predicted_class_counts": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        3,
+        0,
+        0,
+        99
+      ],
+      "gated_wrong_predicted_class_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ungated_None_to_Scratch_count": 99,
+      "gated_None_to_Scratch_count": 0,
+      "gated_None_to_Scratch_fraction_of_true_None": 0.0
+    }
+  },
+  "validation_self_CV_baseline": {
+    "support": 991,
+    "gate_pass_counts": {
+      "confidence": 346,
+      "entropy": 216,
+      "mutual_information": 900,
+      "confidence_and_entropy": 216,
+      "entropy_and_mutual_information": 216,
+      "all_gates": 216
+    },
+    "accepted_count": 216,
+    "threshold_at_one_count": 0,
+    "threshold_at_one_fraction": 0.0,
+    "quantiles_p10_p50_p90": {
+      "confidence": [
+        0.5133058428764343,
+        0.9108341336250305,
+        0.9951745271682739
+      ],
+      "entropy": [
+        0.038369905203580856,
+        0.37222716212272644,
+        1.123631477355957
+      ],
+      "mutual_information": [
+        0.0005370005965232849,
+        0.022046595811843872,
+        0.11524498462677002
+      ],
+      "threshold": [
+        0.9537694454193115,
+        0.9667832851409912,
+        0.9762144088745117
+      ]
+    },
+    "accepted_fraction": 0.2179616540670395,
+    "candidate_predicted_class_counts": [
+      225,
+      101,
+      87,
+      88,
+      98,
+      99,
+      10,
+      103,
+      180
+    ],
+    "accepted_predicted_class_counts": [
+      16,
+      20,
+      35,
+      5,
+      69,
+      0,
+      8,
+      63,
+      0
+    ],
+    "class_confidence_statistics": [
+      {
+        "class": "none",
+        "predicted_candidates": 225,
+        "confidence_mean": 0.7928866147994995,
+        "confidence_population_std": 0.20310987532138824,
+        "coefficient_of_variation": 0.25616509539986304,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Center",
+        "predicted_candidates": 101,
+        "confidence_mean": 0.908465564250946,
+        "confidence_population_std": 0.12167929857969284,
+        "coefficient_of_variation": 0.13393936255582858,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Donut",
+        "predicted_candidates": 87,
+        "confidence_mean": 0.9229937195777893,
+        "confidence_population_std": 0.10644159466028214,
+        "coefficient_of_variation": 0.11532212235308857,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Edge-Loc",
+        "predicted_candidates": 88,
+        "confidence_mean": 0.8266763687133789,
+        "confidence_population_std": 0.1914973109960556,
+        "coefficient_of_variation": 0.23164725428658114,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Edge-Ring",
+        "predicted_candidates": 98,
+        "confidence_mean": 0.966090738773346,
+        "confidence_population_std": 0.09505954384803772,
+        "coefficient_of_variation": 0.09839608230665338,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Loc",
+        "predicted_candidates": 99,
+        "confidence_mean": 0.7690340280532837,
+        "confidence_population_std": 0.18687224388122559,
+        "coefficient_of_variation": 0.24299606657753492,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Near-full",
+        "predicted_candidates": 10,
+        "confidence_mean": 0.9588931202888489,
+        "confidence_population_std": 0.08746795356273651,
+        "coefficient_of_variation": 0.09121762552263218,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Random",
+        "predicted_candidates": 103,
+        "confidence_mean": 0.9472391605377197,
+        "confidence_population_std": 0.11159854382276535,
+        "coefficient_of_variation": 0.11781453773449796,
+        "unobserved_class_uses_zero_CV": false
+      },
+      {
+        "class": "Scratch",
+        "predicted_candidates": 180,
+        "confidence_mean": 0.6243335008621216,
+        "confidence_population_std": 0.12294821441173553,
+        "coefficient_of_variation": 0.1969271458955196,
+        "unobserved_class_uses_zero_CV": false
+      }
+    ],
+    "per_predicted_class": [
+      {
+        "class": "none",
+        "support": 225,
+        "gate_pass_counts": {
+          "confidence": 50,
+          "entropy": 16,
+          "mutual_information": 210,
+          "confidence_and_entropy": 16,
+          "entropy_and_mutual_information": 16,
+          "all_gates": 16
+        },
+        "accepted_count": 16,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4793488383293152,
+            0.8761535882949829,
+            0.9873985648155212
+          ],
+          "entropy": [
+            0.08797626942396164,
+            0.4706745743751526,
+            1.1673105955123901
+          ],
+          "mutual_information": [
+            0.0014374718302860856,
+            0.021715939044952393,
+            0.10386686027050018
+          ],
+          "threshold": [
+            0.9571470022201538,
+            0.9710797071456909,
+            0.9787336587905884
+          ]
+        }
+      },
+      {
+        "class": "Center",
+        "support": 101,
+        "gate_pass_counts": {
+          "confidence": 50,
+          "entropy": 20,
+          "mutual_information": 91,
+          "confidence_and_entropy": 20,
+          "entropy_and_mutual_information": 20,
+          "all_gates": 20
+        },
+        "accepted_count": 20,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.7344884872436523,
+            0.9590282440185547,
+            0.991329550743103
+          ],
+          "entropy": [
+            0.06037954241037369,
+            0.1961294710636139,
+            0.6877272129058838
+          ],
+          "mutual_information": [
+            0.0015921778976917267,
+            0.015048608183860779,
+            0.11400872468948364
+          ],
+          "threshold": [
+            0.9569605588912964,
+            0.9667925238609314,
+            0.9695075154304504
+          ]
+        }
+      },
+      {
+        "class": "Donut",
+        "support": 87,
+        "gate_pass_counts": {
+          "confidence": 47,
+          "entropy": 35,
+          "mutual_information": 85,
+          "confidence_and_entropy": 35,
+          "entropy_and_mutual_information": 35,
+          "all_gates": 35
+        },
+        "accepted_count": 35,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.764674723148346,
+            0.9797285199165344,
+            0.9960007071495056
+          ],
+          "entropy": [
+            0.033230043947696686,
+            0.1204303652048111,
+            0.7138927578926086
+          ],
+          "mutual_information": [
+            0.0004203103599138558,
+            0.00563773512840271,
+            0.07516840845346451
+          ],
+          "threshold": [
+            0.9549478888511658,
+            0.9668172001838684,
+            0.9685611724853516
+          ]
+        }
+      },
+      {
+        "class": "Edge-Loc",
+        "support": 88,
+        "gate_pass_counts": {
+          "confidence": 21,
+          "entropy": 5,
+          "mutual_information": 72,
+          "confidence_and_entropy": 5,
+          "entropy_and_mutual_information": 5,
+          "all_gates": 5
+        },
+        "accepted_count": 5,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4998703598976135,
+            0.9211267232894897,
+            0.9864349365234375
+          ],
+          "entropy": [
+            0.0921175554394722,
+            0.34176522493362427,
+            1.054718255996704
+          ],
+          "mutual_information": [
+            0.001678813947364688,
+            0.023868292570114136,
+            0.16499274969100952
+          ],
+          "threshold": [
+            0.9574373960494995,
+            0.9716964960098267,
+            0.9766894578933716
+          ]
+        }
+      },
+      {
+        "class": "Edge-Ring",
+        "support": 98,
+        "gate_pass_counts": {
+          "confidence": 82,
+          "entropy": 69,
+          "mutual_information": 95,
+          "confidence_and_entropy": 69,
+          "entropy_and_mutual_information": 69,
+          "all_gates": 69
+        },
+        "accepted_count": 69,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.9393048286437988,
+            0.9967348575592041,
+            0.9978940486907959
+          ],
+          "entropy": [
+            0.01888129487633705,
+            0.027174929156899452,
+            0.2602943480014801
+          ],
+          "mutual_information": [
+            0.00021517481945920736,
+            0.0006817243993282318,
+            0.05111479386687279
+          ],
+          "threshold": [
+            0.9626657962799072,
+            0.9673281908035278,
+            0.9674940705299377
+          ]
+        }
+      },
+      {
+        "class": "Loc",
+        "support": 99,
+        "gate_pass_counts": {
+          "confidence": 7,
+          "entropy": 0,
+          "mutual_information": 81,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.5041681528091431,
+            0.8346111178398132,
+            0.9691455364227295
+          ],
+          "entropy": [
+            0.1763107180595398,
+            0.5795040726661682,
+            1.1745710372924805
+          ],
+          "mutual_information": [
+            0.007190385367721319,
+            0.05703514814376831,
+            0.1466507613658905
+          ],
+          "threshold": [
+            0.9559482336044312,
+            0.967849612236023,
+            0.9759134650230408
+          ]
+        }
+      },
+      {
+        "class": "Near-full",
+        "support": 10,
+        "gate_pass_counts": {
+          "confidence": 8,
+          "entropy": 8,
+          "mutual_information": 10,
+          "confidence_and_entropy": 8,
+          "entropy_and_mutual_information": 8,
+          "all_gates": 8
+        },
+        "accepted_count": 8,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8655207753181458,
+            0.9990683794021606,
+            0.9991530179977417
+          ],
+          "entropy": [
+            0.008434132672846317,
+            0.00911911390721798,
+            0.4063856303691864
+          ],
+          "mutual_information": [
+            9.398935071658343e-05,
+            0.00012181047350168228,
+            0.02803892269730568
+          ],
+          "threshold": [
+            0.9591696858406067,
+            0.967115044593811,
+            0.9671286940574646
+          ]
+        }
+      },
+      {
+        "class": "Random",
+        "support": 103,
+        "gate_pass_counts": {
+          "confidence": 81,
+          "entropy": 63,
+          "mutual_information": 98,
+          "confidence_and_entropy": 63,
+          "entropy_and_mutual_information": 63,
+          "all_gates": 63
+        },
+        "accepted_count": 63,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8586297035217285,
+            0.991827666759491,
+            0.9962105751037598
+          ],
+          "entropy": [
+            0.03149977698922157,
+            0.056469183415174484,
+            0.5493466854095459
+          ],
+          "mutual_information": [
+            0.00026670919032767415,
+            0.00108269602060318,
+            0.0457206629216671
+          ],
+          "threshold": [
+            0.9584382176399231,
+            0.9682957530021667,
+            0.9687951803207397
+          ]
+        }
+      },
+      {
+        "class": "Scratch",
+        "support": 180,
+        "gate_pass_counts": {
+          "confidence": 0,
+          "entropy": 0,
+          "mutual_information": 158,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.44978925585746765,
+            0.6310418844223022,
+            0.778993546962738
+          ],
+          "entropy": [
+            0.7635381817817688,
+            0.9960397481918335,
+            1.2562801837921143
+          ],
+          "mutual_information": [
+            0.025837844237685204,
+            0.05483365058898926,
+            0.12671390175819397
+          ],
+          "threshold": [
+            0.9506285190582275,
+            0.955833375453949,
+            0.9604833722114563
+          ]
+        }
+      }
+    ],
+    "true_labels_available": true,
+    "prediction_accuracy": 0.8193743824958801,
+    "accepted_accuracy": 1.0,
+    "confusion_matrix": [
+      [
+        196,
+        0,
+        1,
+        1,
+        0,
+        3,
+        0,
+        0,
+        99
+      ],
+      [
+        1,
+        97,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        80,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        7,
+        0,
+        0,
+        82,
+        0,
+        6,
+        0,
+        2,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        98,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        3,
+        2,
+        3,
+        3,
+        0,
+        81,
+        0,
+        2,
+        6
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        98,
+        0
+      ],
+      [
+        18,
+        1,
+        2,
+        1,
+        0,
+        7,
+        0,
+        0,
+        71
+      ]
+    ],
+    "accepted_confusion_matrix": [
+      [
+        16,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        35,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        69,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        63,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "per_true_class": [
+      {
+        "class": "none",
+        "support": 300,
+        "gate_pass_counts": {
+          "confidence": 49,
+          "entropy": 16,
+          "mutual_information": 283,
+          "confidence_and_entropy": 16,
+          "entropy_and_mutual_information": 16,
+          "all_gates": 16
+        },
+        "accepted_count": 16,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4547448754310608,
+            0.7570978999137878,
+            0.9842602610588074
+          ],
+          "entropy": [
+            0.10024986416101456,
+            0.7468999624252319,
+            1.2033227682113647
+          ],
+          "mutual_information": [
+            0.0019288994371891022,
+            0.03342711925506592,
+            0.09778472036123276
+          ],
+          "threshold": [
+            0.9530987739562988,
+            0.9645299911499023,
+            0.9784882068634033
+          ]
+        },
+        "accepted_fraction": 0.05333333333333334,
+        "correct_accepted_coverage": 0.05333333333333334,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.653333306312561
+      },
+      {
+        "class": "Center",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 50,
+          "entropy": 20,
+          "mutual_information": 90,
+          "confidence_and_entropy": 20,
+          "entropy_and_mutual_information": 20,
+          "all_gates": 20
+        },
+        "accepted_count": 20,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.7182048559188843,
+            0.9635623097419739,
+            0.99144446849823
+          ],
+          "entropy": [
+            0.05983535200357437,
+            0.18194520473480225,
+            0.7072957754135132
+          ],
+          "mutual_information": [
+            0.001552752684801817,
+            0.014580972492694855,
+            0.11796173453330994
+          ],
+          "threshold": [
+            0.9569439888000488,
+            0.9670761823654175,
+            0.9695184230804443
+          ]
+        },
+        "accepted_fraction": 0.2,
+        "correct_accepted_coverage": 0.2,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.9700000286102295
+      },
+      {
+        "class": "Donut",
+        "support": 81,
+        "gate_pass_counts": {
+          "confidence": 47,
+          "entropy": 35,
+          "mutual_information": 79,
+          "confidence_and_entropy": 35,
+          "entropy_and_mutual_information": 35,
+          "all_gates": 35
+        },
+        "accepted_count": 35,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8228422403335571,
+            0.9830102920532227,
+            0.9960254430770874
+          ],
+          "entropy": [
+            0.032828737050294876,
+            0.10836347192525864,
+            0.6015793085098267
+          ],
+          "mutual_information": [
+            0.0004146955907344818,
+            0.004645295441150665,
+            0.06586527824401855
+          ],
+          "threshold": [
+            0.9571942090988159,
+            0.967058539390564,
+            0.9685692191123962
+          ]
+        },
+        "accepted_fraction": 0.43209876543209874,
+        "correct_accepted_coverage": 0.43209876543209874,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.9876543283462524
+      },
+      {
+        "class": "Edge-Loc",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 21,
+          "entropy": 5,
+          "mutual_information": 76,
+          "confidence_and_entropy": 5,
+          "entropy_and_mutual_information": 5,
+          "all_gates": 5
+        },
+        "accepted_count": 5,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4958965480327606,
+            0.8646467328071594,
+            0.9848505258560181
+          ],
+          "entropy": [
+            0.0968196839094162,
+            0.4870673716068268,
+            1.188300609588623
+          ],
+          "mutual_information": [
+            0.001937061664648354,
+            0.04510742425918579,
+            0.16477002203464508
+          ],
+          "threshold": [
+            0.9542985558509827,
+            0.9687904715538025,
+            0.976595401763916
+          ]
+        },
+        "accepted_fraction": 0.05,
+        "correct_accepted_coverage": 0.05,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.8199999928474426
+      },
+      {
+        "class": "Edge-Ring",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 82,
+          "entropy": 69,
+          "mutual_information": 96,
+          "confidence_and_entropy": 69,
+          "entropy_and_mutual_information": 69,
+          "all_gates": 69
+        },
+        "accepted_count": 69,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.908646821975708,
+            0.9966736435890198,
+            0.99788898229599
+          ],
+          "entropy": [
+            0.018889170140028,
+            0.02730131894350052,
+            0.3750913441181183
+          ],
+          "mutual_information": [
+            0.00021521319285966456,
+            0.0007279189303517342,
+            0.05797937512397766
+          ],
+          "threshold": [
+            0.9618338942527771,
+            0.9673281908035278,
+            0.9674949645996094
+          ]
+        },
+        "accepted_fraction": 0.69,
+        "correct_accepted_coverage": 0.69,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.9800000190734863
+      },
+      {
+        "class": "Loc",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 7,
+          "entropy": 0,
+          "mutual_information": 86,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.5163658261299133,
+            0.8218101263046265,
+            0.9690751433372498
+          ],
+          "entropy": [
+            0.17644812166690826,
+            0.5906202793121338,
+            1.0779647827148438
+          ],
+          "mutual_information": [
+            0.007246543653309345,
+            0.05453053116798401,
+            0.13456135988235474
+          ],
+          "threshold": [
+            0.9544286131858826,
+            0.9673268795013428,
+            0.9759107232093811
+          ]
+        },
+        "accepted_fraction": 0.0,
+        "correct_accepted_coverage": 0.0,
+        "accepted_accuracy": null,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.8100000023841858
+      },
+      {
+        "class": "Near-full",
+        "support": 10,
+        "gate_pass_counts": {
+          "confidence": 8,
+          "entropy": 8,
+          "mutual_information": 10,
+          "confidence_and_entropy": 8,
+          "entropy_and_mutual_information": 8,
+          "all_gates": 8
+        },
+        "accepted_count": 8,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8511484265327454,
+            0.9990683794021606,
+            0.9991530179977417
+          ],
+          "entropy": [
+            0.008434132672846317,
+            0.00911911390721798,
+            0.41637688875198364
+          ],
+          "mutual_information": [
+            9.398935071658343e-05,
+            0.00012181047350168228,
+            0.02443460188806057
+          ],
+          "threshold": [
+            0.959182620048523,
+            0.967115044593811,
+            0.9671286940574646
+          ]
+        },
+        "accepted_fraction": 0.8,
+        "correct_accepted_coverage": 0.8,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.8999999761581421
+      },
+      {
+        "class": "Random",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 81,
+          "entropy": 63,
+          "mutual_information": 98,
+          "confidence_and_entropy": 63,
+          "entropy_and_mutual_information": 63,
+          "all_gates": 63
+        },
+        "accepted_count": 63,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.8912601470947266,
+            0.9924077987670898,
+            0.9962450265884399
+          ],
+          "entropy": [
+            0.031238703057169914,
+            0.05563424155116081,
+            0.37564361095428467
+          ],
+          "mutual_information": [
+            0.00026429127319715917,
+            0.0009140800684690475,
+            0.022969210520386696
+          ],
+          "threshold": [
+            0.9619122743606567,
+            0.9683125019073486,
+            0.9688003659248352
+          ]
+        },
+        "accepted_fraction": 0.63,
+        "correct_accepted_coverage": 0.63,
+        "accepted_accuracy": 1.0,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.9800000190734863
+      },
+      {
+        "class": "Scratch",
+        "support": 100,
+        "gate_pass_counts": {
+          "confidence": 1,
+          "entropy": 0,
+          "mutual_information": 82,
+          "confidence_and_entropy": 0,
+          "entropy_and_mutual_information": 0,
+          "all_gates": 0
+        },
+        "accepted_count": 0,
+        "threshold_at_one_count": 0,
+        "threshold_at_one_fraction": 0.0,
+        "quantiles_p10_p50_p90": {
+          "confidence": [
+            0.4806514084339142,
+            0.6322527527809143,
+            0.8235464096069336
+          ],
+          "entropy": [
+            0.6575242877006531,
+            0.9456440210342407,
+            1.1888337135314941
+          ],
+          "mutual_information": [
+            0.02278580702841282,
+            0.058656156063079834,
+            0.13758164644241333
+          ],
+          "threshold": [
+            0.9530733227729797,
+            0.9578357934951782,
+            0.9638576507568359
+          ]
+        },
+        "accepted_fraction": 0.0,
+        "correct_accepted_coverage": 0.0,
+        "accepted_accuracy": null,
+        "accepted_wrong_count": 0,
+        "accepted_wrong_predicted_class_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "prediction_accuracy": 0.7099999785423279
+      }
+    ],
+    "None_false_positives": {
+      "true_None_support": 300,
+      "ungated_wrong_count": 104,
+      "gated_wrong_count": 0,
+      "ungated_wrong_predicted_class_counts": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        3,
+        0,
+        0,
+        99
+      ],
+      "gated_wrong_predicted_class_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ungated_None_to_Scratch_count": 99,
+      "gated_None_to_Scratch_count": 0,
+      "gated_None_to_Scratch_fraction_of_true_None": 0.0
+    }
+  },
+  "comparison_uses_identical_validation_MC_predictions": true,
+  "validation_did_not_update_real_Du_statistics": true,
+  "validation_changes_when_switching_CV_source": {
+    "accepted_only_real_Du_CV": 0,
+    "accepted_only_self_CV": 0,
+    "tau_absolute_difference_mean": 0.0060386061668396
+  },
+  "timing_seconds": {
+    "cpu_preparation": 1.5824640419996285,
+    "real_Du_MC": 5.559825250000358,
+    "validation_MC": 5.267644875000769,
+    "total": 12.50748887500049
+  },
+  "model_forward_calls": 640,
+  "limitations": [
+    "Du has no ground truth; its accepted accuracy is unknown.",
+    "The sampled Du gives a noisy estimate of full-Du class CV, especially for rare predictions; unobserved predicted classes use CV=0 as in StageManager.",
+    "Validation was used for earlier checkpoint selection; this is descriptive gate analysis, not independent final evaluation.",
+    "The self-CV baseline uses the entire supplied holdout and can differ from earlier smaller balanced-subset diagnostics.",
+    "No gates were selected, weakened, calibrated, or modified; official Test images were never loaded."
+  ]
+}

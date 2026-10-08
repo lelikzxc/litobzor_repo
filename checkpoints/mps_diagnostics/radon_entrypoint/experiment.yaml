@@ -1,0 +1,48 @@
+checkpoint:
+  metric_name: val_loss
+  mode: min
+  save_dir: checkpoints/mps_diagnostics/radon_entrypoint
+data:
+  allow_train_replacement: false
+  balance_train_batches: true
+  cache_radon: true
+  data_root: datasets/wm811k
+  image_size: 64
+  protocol: balanced
+  test_split: 0.015
+  train_size: 224
+  val_split: 0.015
+evaluation:
+  batch_size: 64
+loss:
+  name: cross_entropy
+metrics:
+- accuracy
+- f1
+- precision
+- recall
+model:
+  in_channels: 1
+  mode: classification
+  name: radon_cnn
+  num_classes: 7
+  radon_theta: 64
+optimizer:
+  lr: 0.0003
+  name: adam
+  weight_decay: 0.0
+scheduler:
+  kwargs:
+    gamma: 0.99
+  name: exponential
+training:
+  amp: false
+  batch_size: 64
+  cpu_threads: 2
+  early_stopping_patience: 30
+  grad_max_norm: null
+  learning_rate: 0.0003
+  lr_decay: 0.99
+  num_epochs: 1
+  seed: 42
+  weight_decay: 0.0

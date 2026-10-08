@@ -41,6 +41,7 @@ if str(_project_root) not in sys.path:
 
 from common.engine.config import EngineConfig
 from common.engine.engine import Engine
+from common.training.utils import resolve_device
 from common.utils.cache import cache_class_counts, cache_stratified_split
 from common.utils.seed import set_seed
 from papers.reproduction import save_protocol
@@ -78,8 +79,8 @@ def parse_args() -> argparse.Namespace:
         "--device",
         type=str,
         default="auto",
-        choices=["auto", "cuda", "cpu"],
-        help="Device to use for training (auto=use CUDA if available)",
+        choices=["auto", "cuda", "mps", "cpu"],
+        help="Training device (auto chooses CUDA, then Apple MPS, then CPU)",
     )
     parser.add_argument(
         "--epochs",
@@ -426,9 +427,7 @@ def main() -> None:
         )
 
     # ── Resolve device ──────────────────────────────────────────────────
-    device = args.device
-    if device == "auto":
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = resolve_device(args.device)
 
     print(f"Using device: {device}")
     if device == "cuda":

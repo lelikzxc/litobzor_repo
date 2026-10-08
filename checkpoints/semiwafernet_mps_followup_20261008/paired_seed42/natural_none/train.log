@@ -1,0 +1,17 @@
+  Loading images for oversample:   0%|          | 0/4881 [00:00<?, ?img/s]  Loading images for oversample:  12%|█▏        | 570/4881 [00:00<00:00, 5692.99img/s]  Loading images for oversample:  24%|██▍       | 1167/4881 [00:00<00:00, 5849.22img/s]  Loading images for oversample:  37%|███▋      | 1788/4881 [00:00<00:00, 6009.65img/s]  Loading images for oversample:  49%|████▉     | 2389/4881 [00:00<00:00, 5883.35img/s]  Loading images for oversample:  61%|██████    | 2978/4881 [00:00<00:00, 5755.86img/s]  Loading images for oversample:  73%|███████▎  | 3555/4881 [00:00<00:00, 5720.76img/s]  Loading images for oversample:  85%|████████▍ | 4141/4881 [00:00<00:00, 5764.15img/s]  Loading images for oversample:  97%|█████████▋| 4720/4881 [00:00<00:00, 5771.83img/s]  Loading images for oversample: 100%|██████████| 4881/4881 [00:00<00:00, 5775.14img/s]
+  SMOTE: 4881 -> 6480 encoded samples
+  Balanced class counts: [720, 720, 720, 720, 720, 720, 720, 720, 720]
+Device=mps; full model=788169 params; train=[720, 720, 328, 720, 720, 720, 44, 509, 400]; val=[300, 100, 81, 100, 100, 100, 10, 100, 100]
+mid_smote: step=150, loss=1.0670, val_acc=0.6620, val_f1=0.6665
+mid_smote: step=300, loss=0.6291, val_acc=0.7235, val_f1=0.7629
+mid_smote: step=450, loss=0.4839, val_acc=0.7447, val_f1=0.7933
+mid_smote: step=600, loss=0.4073, val_acc=0.7407, val_f1=0.8098
+mid_smote: step=750, loss=0.3637, val_acc=0.7235, val_f1=0.7882
+mid_smote: step=900, loss=0.3463, val_acc=0.7639, val_f1=0.8182
+mid_smote: step=1050, loss=0.3078, val_acc=0.7326, val_f1=0.7825
+mid_smote: step=1200, loss=0.2891, val_acc=0.7629, val_f1=0.8071
+mid_smote: step=1350, loss=0.2793, val_acc=0.8042, val_f1=0.8400
+mid_smote: step=1500, loss=0.2763, val_acc=0.6953, val_f1=0.7764
+mid_smote: step=1650, loss=0.2496, val_acc=0.8032, val_f1=0.8162
+mid_smote: step=1800, loss=0.2407, val_acc=0.7386, val_f1=0.7724
+Report: /Users/lelik/Documents/niime/litobzor_repo/checkpoints/semiwafernet_mps_followup_20261008/paired_seed42/natural_none/report.json

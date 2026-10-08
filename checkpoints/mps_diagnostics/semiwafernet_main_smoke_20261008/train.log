@@ -1,0 +1,190 @@
+Using device: mps
+Model mode: classification
+Loading WM-811K dataset from: datasets/wm811k
+  labels.csv format: official
+  Augmentations: enabled
+  Hybrid sampling (None downsampling): enabled (ratio=0.3)
+  Official train/test partition: enabled
+  Official Training labeled: 54355
+  Official Test labeled: 118595
+  Classes: ['none', 'Center', 'Donut', 'Edge-Loc', 'Edge-Ring', 'Loc', 'Near-full', 'Random', 'Scratch']
+  Computing class counts for weighted loss (cached)...
+  Class counts: [36730, 3462, 409, 2417, 8554, 1620, 54, 609, 500]
+  Splitting official Training -> train/val (val_from_train=0.1)...
+  Hybrid sampling: None 33057 -> 9917, others 15862, total 25779
+  Applying data-fraction=0.001 (stratified subsample)...
+  After fraction: train_samples=33, val=20, test=128
+  Loading images for oversample:   0%|          | 0/33 [00:00<?, ?img/s]  Loading images for oversample: 100%|██████████| 33/33 [00:00<00:00, 865.30img/s]
+  Balanced class counts: [10, 10, 10, 10, 10, 10, 10, 10, 10]
+  Natural class counts (prior): [33057, 3116, 368, 2175, 7698, 1458, 49, 548, 450]
+  Hybrid class counts: [10, 3, 2, 2, 8, 2, 2, 2, 2]
+  SMOTE-balanced counts: [10, 10, 10, 10, 10, 10, 10, 10, 10]
+  CE weight source: smote -> [10, 10, 10, 10, 10, 10, 10, 10, 10]
+  Train: 90, Val: 20, Test: 128
+Creating SemiWaferNet model...
+  Parameters: 788,169 total, 788,169 trainable
+  Loss class weights (1/sqrt(n_c)): [0.99999994 0.99999994 0.99999994 0.99999994 0.99999994 0.99999994
+ 0.99999994 0.99999994 0.99999994]
+  Eval prior scale=0.0, SSL prior scale=0.0
+Initializing engine...
+
+============================================================
+Starting training for 3 epochs
+============================================================
+[SSL] unlabeled_max after data-fraction: 256
+  Parsing unlabeled WM-811K rows:   0%|          | 0/811457 [00:00<?, ?row/s]  Parsing unlabeled WM-811K rows:  45%|████▍     | 361799/811457 [00:00<00:00, 3617665.69row/s]  Parsing unlabeled WM-811K rows:  94%|█████████▍| 764598/811457 [00:00<00:00, 3858955.83row/s]                                                                                               [SSL] Loaded 256 unlabeled WM-811K samples (max=256) from datasets/wm811k
+[SSL] Running progressive pseudo-labeling from stage 1 (epochs/stage=1/1/1)
+
+[SSL] Stage 1: supervised warm-up on labeled data
+[SSL Stage 1] supervised warm-up:   0%|          | 0/1 [00:00<?, ?epoch/s]
+  Epoch 1/1:   0%|          | 0/6 [00:00<?, ?batch/s][A
+  Epoch 1/1:   0%|          | 0/6 [00:01<?, ?batch/s, loss=2.4108][A
+  Epoch 1/1:  17%|█▋        | 1/6 [00:01<00:06,  1.26s/batch, loss=2.4108][A
+  Epoch 1/1:  17%|█▋        | 1/6 [00:01<00:06,  1.26s/batch, loss=2.2840][A
+  Epoch 1/1:  17%|█▋        | 1/6 [00:01<00:06,  1.26s/batch, loss=2.5179][A
+  Epoch 1/1:  50%|█████     | 3/6 [00:01<00:01,  2.71batch/s, loss=2.5179][A
+  Epoch 1/1:  50%|█████     | 3/6 [00:01<00:01,  2.71batch/s, loss=2.2064][A
+  Epoch 1/1:  50%|█████     | 3/6 [00:01<00:01,  2.71batch/s, loss=2.0297][A
+  Epoch 1/1:  83%|████████▎ | 5/6 [00:01<00:00,  4.83batch/s, loss=2.0297][A
+  Epoch 1/1:  83%|████████▎ | 5/6 [00:02<00:00,  4.83batch/s, loss=1.8414][A
+                                                                          [A
+Val:   0%|          | 0/1 [00:00<?, ?it/s][A
+Val: 100%|██████████| 1/1 [00:00<00:00,  9.53it/s][AVal: 100%|██████████| 1/1 [00:00<00:00,  9.51it/s]
+  [SSL Stage 1] epoch 1 val_metric=0.0342
+
+Val:   0%|          | 0/1 [00:00<?, ?it/s][AVal: 100%|██████████| 1/1 [00:00<00:00, 68.65it/s]
+[SSL Stage 1] supervised warm-up: 100%|██████████| 1/1 [00:02<00:00,  2.48s/epoch][SSL Stage 1] supervised warm-up: 100%|██████████| 1/1 [00:02<00:00,  2.48s/epoch]
+[SSL Stage 1] restored best teacher (epoch 1, val_metric=0.0342)
+[SSL Stage 1] avg loss: 2.2150
+[SSL] Stage 1 checkpoint saved: checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/run/ssl_stage1.pt
+
+[SSL] Stage 2: pseudo-labels on unlabeled + train Dl U D_pseudo
+[SSL Stage 2] MC pseudo-labels:   0%|          | 0/16 [00:00<?, ?batch/s][SSL Stage 2] MC pseudo-labels:  25%|██▌       | 4/16 [00:00<00:00, 33.03batch/s][SSL Stage 2] MC pseudo-labels:  56%|█████▋    | 9/16 [00:00<00:00, 41.14batch/s][SSL Stage 2] MC pseudo-labels:  88%|████████▊ | 14/16 [00:00<00:00, 43.49batch/s][SSL Stage 2] MC pseudo-labels: 100%|██████████| 16/16 [00:00<00:00, 41.55batch/s]
+[SSL] Pseudo-set ready: 256/256 (100.0%), hard=100.0%, eps_H=100.000, prior=0.00, mean tau=0.000
+[SSL] Pseudo class counts: [2, 0, 0, 4, 52, 0, 87, 0, 111]
+[SSL Stage 2] pseudo-labels + train:   0%|          | 0/1 [00:00<?, ?epoch/s]
+  Epoch 1/1:   0%|          | 0/22 [00:00<?, ?batch/s][A
+  Epoch 1/1:   0%|          | 0/22 [00:00<?, ?batch/s, acc=100%, loss=2.3018, n=256][A
+  Epoch 1/1:   0%|          | 0/22 [00:00<?, ?batch/s, acc=100%, loss=2.3080, n=256][A
+  Epoch 1/1:   9%|▉         | 2/22 [00:00<00:01, 12.49batch/s, acc=100%, loss=2.3080, n=256][A
+  Epoch 1/1:   9%|▉         | 2/22 [00:00<00:01, 12.49batch/s, acc=100%, loss=2.1130, n=256][A
+  Epoch 1/1:   9%|▉         | 2/22 [00:00<00:01, 12.49batch/s, acc=100%, loss=2.1772, n=256][A
+  Epoch 1/1:  18%|█▊        | 4/22 [00:00<00:01, 12.98batch/s, acc=100%, loss=2.1772, n=256][A
+  Epoch 1/1:  18%|█▊        | 4/22 [00:00<00:01, 12.98batch/s, acc=100%, loss=2.3991, n=256][A
+  Epoch 1/1:  18%|█▊        | 4/22 [00:00<00:01, 12.98batch/s, acc=100%, loss=2.0445, n=256][A
+  Epoch 1/1:  27%|██▋       | 6/22 [00:00<00:01, 13.27batch/s, acc=100%, loss=2.0445, n=256][A
+  Epoch 1/1:  27%|██▋       | 6/22 [00:00<00:01, 13.27batch/s, acc=100%, loss=1.8246, n=256][A
+  Epoch 1/1:  27%|██▋       | 6/22 [00:00<00:01, 13.27batch/s, acc=100%, loss=1.9491, n=256][A
+  Epoch 1/1:  36%|███▋      | 8/22 [00:00<00:00, 14.02batch/s, acc=100%, loss=1.9491, n=256][A
+  Epoch 1/1:  36%|███▋      | 8/22 [00:00<00:00, 14.02batch/s, acc=100%, loss=1.9530, n=256][A
+  Epoch 1/1:  36%|███▋      | 8/22 [00:00<00:00, 14.02batch/s, acc=100%, loss=1.7648, n=256][A
+  Epoch 1/1:  45%|████▌     | 10/22 [00:00<00:00, 14.63batch/s, acc=100%, loss=1.7648, n=256][A
+  Epoch 1/1:  45%|████▌     | 10/22 [00:00<00:00, 14.63batch/s, acc=100%, loss=1.5051, n=256][A
+  Epoch 1/1:  45%|████▌     | 10/22 [00:00<00:00, 14.63batch/s, acc=100%, loss=1.9746, n=256][A
+  Epoch 1/1:  55%|█████▍    | 12/22 [00:00<00:00, 14.92batch/s, acc=100%, loss=1.9746, n=256][A
+  Epoch 1/1:  55%|█████▍    | 12/22 [00:00<00:00, 14.92batch/s, acc=100%, loss=2.1649, n=256][A
+  Epoch 1/1:  55%|█████▍    | 12/22 [00:00<00:00, 14.92batch/s, acc=100%, loss=2.0030, n=256][A
+  Epoch 1/1:  64%|██████▎   | 14/22 [00:00<00:00, 15.52batch/s, acc=100%, loss=2.0030, n=256][A
+  Epoch 1/1:  64%|██████▎   | 14/22 [00:01<00:00, 15.52batch/s, acc=100%, loss=1.7643, n=256][A
+  Epoch 1/1:  64%|██████▎   | 14/22 [00:01<00:00, 15.52batch/s, acc=100%, loss=2.3510, n=256][A
+  Epoch 1/1:  73%|███████▎  | 16/22 [00:01<00:00, 15.94batch/s, acc=100%, loss=2.3510, n=256][A
+  Epoch 1/1:  73%|███████▎  | 16/22 [00:01<00:00, 15.94batch/s, acc=100%, loss=1.5523, n=256][A
+  Epoch 1/1:  73%|███████▎  | 16/22 [00:01<00:00, 15.94batch/s, acc=100%, loss=1.9591, n=256][A
+  Epoch 1/1:  82%|████████▏ | 18/22 [00:01<00:00, 16.41batch/s, acc=100%, loss=1.9591, n=256][A
+  Epoch 1/1:  82%|████████▏ | 18/22 [00:01<00:00, 16.41batch/s, acc=100%, loss=1.5238, n=256][A
+  Epoch 1/1:  82%|████████▏ | 18/22 [00:01<00:00, 16.41batch/s, acc=100%, loss=1.7530, n=256][A
+  Epoch 1/1:  91%|█████████ | 20/22 [00:01<00:00, 16.59batch/s, acc=100%, loss=1.7530, n=256][A
+  Epoch 1/1:  91%|█████████ | 20/22 [00:01<00:00, 16.59batch/s, acc=100%, loss=1.4558, n=256][A
+  Epoch 1/1:  91%|█████████ | 20/22 [00:01<00:00, 16.59batch/s, acc=100%, loss=1.8689, n=256][A
+  Epoch 1/1: 100%|██████████| 22/22 [00:01<00:00, 16.75batch/s, acc=100%, loss=1.8689, n=256][A
+                                                                                             [A
+Val:   0%|          | 0/1 [00:00<?, ?it/s][AVal: 100%|██████████| 1/1 [00:00<00:00, 91.05it/s]
+
+Val:   0%|          | 0/1 [00:00<?, ?it/s][AVal: 100%|██████████| 1/1 [00:00<00:00, 123.17it/s]
+[SSL Stage 2] pseudo-labels + train: 100%|██████████| 1/1 [00:01<00:00,  1.54s/epoch][SSL Stage 2] pseudo-labels + train: 100%|██████████| 1/1 [00:01<00:00,  1.54s/epoch]
+[SSL Stage 2] avg loss: 1.9414, pseudo accept: 100.0%
+[SSL] Stage 2 checkpoint saved: checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/run/ssl_stage2.pt
+
+[SSL] Stage 3: refresh teacher + regenerate + retrain
+[SSL Stage 3] MC pseudo-labels:   0%|          | 0/16 [00:00<?, ?batch/s][SSL Stage 3] MC pseudo-labels:  38%|███▊      | 6/16 [00:00<00:00, 59.46batch/s][SSL Stage 3] MC pseudo-labels:  75%|███████▌  | 12/16 [00:00<00:00, 50.26batch/s][SSL Stage 3] MC pseudo-labels: 100%|██████████| 16/16 [00:00<00:00, 51.13batch/s]
+[SSL] Pseudo-set ready: 256/256 (100.0%), hard=100.0%, eps_H=100.000, prior=0.00, mean tau=0.000
+[SSL] Pseudo class counts: [0, 0, 0, 0, 1, 0, 83, 0, 172]
+[SSL Stage 3] refresh + retrain:   0%|          | 0/1 [00:00<?, ?epoch/s]
+  Epoch 1/1:   0%|          | 0/22 [00:00<?, ?batch/s][A
+  Epoch 1/1:   0%|          | 0/22 [00:00<?, ?batch/s, acc=100%, loss=1.3488, n=256][A
+  Epoch 1/1:   0%|          | 0/22 [00:00<?, ?batch/s, acc=100%, loss=1.4502, n=256][A
+  Epoch 1/1:   9%|▉         | 2/22 [00:00<00:01, 14.27batch/s, acc=100%, loss=1.4502, n=256][A
+  Epoch 1/1:   9%|▉         | 2/22 [00:00<00:01, 14.27batch/s, acc=100%, loss=1.7201, n=256][A
+  Epoch 1/1:   9%|▉         | 2/22 [00:00<00:01, 14.27batch/s, acc=100%, loss=1.0977, n=256][A
+  Epoch 1/1:  18%|█▊        | 4/22 [00:00<00:01, 14.45batch/s, acc=100%, loss=1.0977, n=256][A
+  Epoch 1/1:  18%|█▊        | 4/22 [00:00<00:01, 14.45batch/s, acc=100%, loss=1.7745, n=256][A
+  Epoch 1/1:  18%|█▊        | 4/22 [00:00<00:01, 14.45batch/s, acc=100%, loss=1.5190, n=256][A
+  Epoch 1/1:  27%|██▋       | 6/22 [00:00<00:01, 14.38batch/s, acc=100%, loss=1.5190, n=256][A
+  Epoch 1/1:  27%|██▋       | 6/22 [00:00<00:01, 14.38batch/s, acc=100%, loss=1.7348, n=256][A
+  Epoch 1/1:  27%|██▋       | 6/22 [00:00<00:01, 14.38batch/s, acc=100%, loss=1.7285, n=256][A
+  Epoch 1/1:  36%|███▋      | 8/22 [00:00<00:00, 14.65batch/s, acc=100%, loss=1.7285, n=256][A
+  Epoch 1/1:  36%|███▋      | 8/22 [00:00<00:00, 14.65batch/s, acc=100%, loss=1.7487, n=256][A
+  Epoch 1/1:  36%|███▋      | 8/22 [00:00<00:00, 14.65batch/s, acc=100%, loss=1.4276, n=256][A
+  Epoch 1/1:  45%|████▌     | 10/22 [00:00<00:00, 15.16batch/s, acc=100%, loss=1.4276, n=256][A
+  Epoch 1/1:  45%|████▌     | 10/22 [00:00<00:00, 15.16batch/s, acc=100%, loss=0.9882, n=256][A
+  Epoch 1/1:  45%|████▌     | 10/22 [00:00<00:00, 15.16batch/s, acc=100%, loss=1.4596, n=256][A
+  Epoch 1/1:  55%|█████▍    | 12/22 [00:00<00:00, 15.44batch/s, acc=100%, loss=1.4596, n=256][A
+  Epoch 1/1:  55%|█████▍    | 12/22 [00:00<00:00, 15.44batch/s, acc=100%, loss=1.5042, n=256][A
+  Epoch 1/1:  55%|█████▍    | 12/22 [00:00<00:00, 15.44batch/s, acc=100%, loss=1.3546, n=256][A
+  Epoch 1/1:  64%|██████▎   | 14/22 [00:00<00:00, 15.69batch/s, acc=100%, loss=1.3546, n=256][A
+  Epoch 1/1:  64%|██████▎   | 14/22 [00:00<00:00, 15.69batch/s, acc=100%, loss=1.5713, n=256][A
+  Epoch 1/1:  64%|██████▎   | 14/22 [00:01<00:00, 15.69batch/s, acc=100%, loss=1.7240, n=256][A
+  Epoch 1/1:  73%|███████▎  | 16/22 [00:01<00:00, 15.79batch/s, acc=100%, loss=1.7240, n=256][A
+  Epoch 1/1:  73%|███████▎  | 16/22 [00:01<00:00, 15.79batch/s, acc=100%, loss=1.2593, n=256][A
+  Epoch 1/1:  73%|███████▎  | 16/22 [00:01<00:00, 15.79batch/s, acc=100%, loss=1.1622, n=256][A
+  Epoch 1/1:  82%|████████▏ | 18/22 [00:01<00:00, 15.90batch/s, acc=100%, loss=1.1622, n=256][A
+  Epoch 1/1:  82%|████████▏ | 18/22 [00:01<00:00, 15.90batch/s, acc=100%, loss=1.1505, n=256][A
+  Epoch 1/1:  82%|████████▏ | 18/22 [00:01<00:00, 15.90batch/s, acc=100%, loss=0.7994, n=256][A
+  Epoch 1/1:  91%|█████████ | 20/22 [00:01<00:00, 15.16batch/s, acc=100%, loss=0.7994, n=256][A
+  Epoch 1/1:  91%|█████████ | 20/22 [00:01<00:00, 15.16batch/s, acc=100%, loss=1.3189, n=256][A
+  Epoch 1/1:  91%|█████████ | 20/22 [00:01<00:00, 15.16batch/s, acc=100%, loss=1.1356, n=256][A
+  Epoch 1/1: 100%|██████████| 22/22 [00:01<00:00, 15.16batch/s, acc=100%, loss=1.1356, n=256][A
+                                                                                             [A
+Val:   0%|          | 0/1 [00:00<?, ?it/s][AVal: 100%|██████████| 1/1 [00:00<00:00, 77.89it/s]
+
+Val:   0%|          | 0/1 [00:00<?, ?it/s][AVal: 100%|██████████| 1/1 [00:00<00:00, 88.73it/s]
+[SSL Stage 3] refresh + retrain: 100%|██████████| 1/1 [00:01<00:00,  1.58s/epoch][SSL Stage 3] refresh + retrain: 100%|██████████| 1/1 [00:01<00:00,  1.58s/epoch]
+[SSL Stage 3] avg loss: 1.4081, pseudo accept: 100.0%
+
+[SSL] Training complete: {'stage1': {'loss': 2.2150416572888694, 'best_val_metric': 0.034188032150268555, 'best_epoch': 1.0}, 'stage2': {'loss': 1.9414206363938071, 'supervised_loss': 1.9414206363938071, 'pseudo_loss': 0.0, 'consistency_loss': 0.0, 'pseudo_accept_rate': 100.0}, 'stage3': {'loss': 1.4080715856768868, 'supervised_loss': 1.4080715856768868, 'pseudo_loss': 0.0, 'consistency_loss': 0.0, 'pseudo_accept_rate': 100.0}}
+
+============================================================
+Validating after SSL...
+============================================================
+Val:   0%|          | 0/1 [00:00<?, ?it/s]Val: 100%|██████████| 1/1 [00:00<00:00, 78.88it/s]
+  Val Loss: 3.0252
+  Val accuracy: 0.2000
+  Val f1: 0.1333
+  Val precision: 0.1235
+  Val recall: 0.2222
+
+============================================================
+Training complete!
+============================================================
+
+Final training metrics:
+
+
+
+============================================================
+Evaluating on test set...
+============================================================
+Loading best checkpoint for test: checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/run/best.pt
+Test:   0%|          | 0/2 [00:00<?, ?it/s]Test:  50%|█████     | 1/2 [00:00<00:00,  4.53it/s]Test: 100%|██████████| 2/2 [00:00<00:00,  7.24it/s]
+
+Test Results:
+  Loss: 4.2228
+  accuracy: 0.0312
+  f1: 0.1146
+  precision: 0.1129
+  recall: 0.2222
+
+Checkpoint saved to: checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/run/last.pt
+Best validation metric: 0.1333
+
+Done!

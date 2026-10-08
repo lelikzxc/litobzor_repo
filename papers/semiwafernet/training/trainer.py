@@ -58,7 +58,9 @@ class Trainer:
     ) -> None:
         self.student = student
         self.stage_manager = stage_manager
-        self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        from common.training.utils import resolve_device
+
+        self.device = device or torch.device(resolve_device("auto"))
         self.student.to(self.device)
 
         self.optimizer: torch.optim.Optimizer | None = optimizer

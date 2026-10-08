@@ -15,6 +15,24 @@ from torch import nn
 from torch.cuda.amp import GradScaler
 
 
+def resolve_device(requested: str = "auto") -> str:
+    """Choose an available backend without silently downgrading an explicit GPU request."""
+    if requested == "auto":
+        if torch.cuda.is_available():
+            return "cuda"
+        return "mps" if torch.backends.mps.is_available() else "cpu"
+    if requested not in {"cpu", "cuda", "mps"}:
+        raise ValueError(f"Unsupported training device: {requested}")
+    if requested == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("CUDA was requested but is not available in this Python environment")
+    if requested == "mps" and not torch.backends.mps.is_available():
+        raise RuntimeError(
+            "MPS was requested but is not available in this Python environment; "
+            "check PyTorch/macOS support and GPU access restrictions"
+        )
+    return requested
+
+
 def move_batch_to_device(
     batch: Any,
     device: torch.device,

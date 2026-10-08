@@ -1,0 +1,44 @@
+Using device: mps
+Using seed: 42
+Loading WM-811K dataset from: datasets/wm811k
+  Total samples: 25370
+  Classes: ['Center', 'Donut', 'Edge-Loc', 'Edge-Ring', 'Loc', 'Random', 'Scratch']
+  Protocol: balanced; unique wafers: {'train': 224, 'val': 56, 'test': 56}
+  Train: 224, Val: 56, Test: 56
+Creating RadonCNN model...
+  Parameters: 1,462,327
+
+Starting training for 1 epochs...
+  LR: 0.0003, Decay: 0.99/epoch
+  Early stopping patience: 30
+  Checkpoints: checkpoints/mps_diagnostics/radon_entrypoint
+Epoch 1 | Train Loss: 1.5603 | Val Loss: 1.9215 | Val Acc: 0.1786 | Val F1: 0.0732 | LR: 3.00e-04 | Time: 1.74s
+------------------------------------------------------------
+
+============================================================
+Final evaluation on test set
+============================================================
+  Test accuracy: 0.2143
+  Test f1:       0.0963
+  Test precision:0.0660
+  Test recall:   0.2143
+
+Training complete!
+
+
+Train:   0%|          | 0/3 [00:00<?, ?it/s]
+Train:   0%|          | 0/3 [00:00<?, ?it/s, loss=1.9689]
+Train:  33%|███▎      | 1/3 [00:00<00:01,  1.54it/s, loss=1.9689]
+Train:  33%|███▎      | 1/3 [00:01<00:01,  1.54it/s, loss=1.4074]
+Train:  67%|██████▋   | 2/3 [00:01<00:00,  2.06it/s, loss=1.4074]
+Train:  67%|██████▋   | 2/3 [00:01<00:00,  2.06it/s, loss=1.3046]
+Train: 100%|██████████| 3/3 [00:01<00:00,  2.30it/s, loss=1.3046]
+Train: 100%|██████████| 3/3 [00:01<00:00,  2.15it/s, loss=1.3046]
+
+Val:   0%|          | 0/1 [00:00<?, ?it/s]
+Val: 100%|██████████| 1/1 [00:00<00:00,  2.95it/s]
+Val: 100%|██████████| 1/1 [00:00<00:00,  2.94it/s]
+
+Val:   0%|          | 0/1 [00:00<?, ?it/s]
+Val: 100%|██████████| 1/1 [00:00<00:00,  3.65it/s]
+Val: 100%|██████████| 1/1 [00:00<00:00,  3.65it/s]

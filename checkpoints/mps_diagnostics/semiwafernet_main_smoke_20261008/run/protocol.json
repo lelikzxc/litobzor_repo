@@ -1,0 +1,393 @@
+{
+  "seed": 42,
+  "torch_version": "2.13.0",
+  "config": {
+    "seed": 42,
+    "model": {
+      "name": "semiwafernet",
+      "mode": "classification",
+      "num_classes": 9,
+      "seg_classes": 1,
+      "backbone": {
+        "type": "cnn",
+        "in_channels": 3,
+        "channels": [
+          64,
+          128
+        ],
+        "depths": [
+          1,
+          1
+        ],
+        "norm": "bn",
+        "activation": "relu"
+      },
+      "transformer": {
+        "embed_dim": 128,
+        "num_heads": 8,
+        "num_layers": 4,
+        "mlp_ratio": 2,
+        "dropout": 0.2,
+        "dropout_cls": 0.5
+      },
+      "decoder": {
+        "base_channels": 66,
+        "embed_dim": 160,
+        "mlp_ratio": 2
+      },
+      "input": {
+        "in_channels": 3,
+        "image_size": 32
+      }
+    },
+    "training": {
+      "num_epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 5e-05,
+      "weight_decay": 0.0004,
+      "grad_max_norm": 1.0
+    },
+    "seg_training": {
+      "num_epochs": 50,
+      "batch_size": 32,
+      "learning_rate": 0.0001,
+      "weight_decay": 0.01
+    },
+    "optimizer": {
+      "name": "adamw",
+      "lr": 5e-05,
+      "weight_decay": 0.0004
+    },
+    "scheduler": {
+      "name": null
+    },
+    "loss": {
+      "name": "cross_entropy"
+    },
+    "metrics": [
+      "accuracy",
+      "f1",
+      "precision",
+      "recall"
+    ],
+    "checkpoint": {
+      "save_dir": "checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/run",
+      "metric_name": "val_f1",
+      "mode": "max"
+    },
+    "evaluation": {
+      "batch_size": 64
+    },
+    "data": {
+      "data_root": "datasets/wm811k",
+      "image_size": 32,
+      "seg_data_root": "datasets/semiwafernet_seg",
+      "seg_image_size": 64,
+      "use_official_split": true,
+      "val_from_train": 0.1,
+      "pseudo_eval_fraction": 0.0,
+      "train_split": 0.8,
+      "val_split": 0.1,
+      "test_split": 0.1,
+      "hybrid_sampling": {
+        "enabled": true,
+        "none_downsample_ratio": 0.3
+      },
+      "augmentation": {
+        "enabled": true
+      },
+      "eval_prior_scale": 0.0,
+      "ce_count_source": "smote",
+      "oversample_method": "random"
+    },
+    "semi_supervised": {
+      "enabled": true,
+      "stages": 3,
+      "unlabeled_max_samples": 64,
+      "epochs_per_stage": [
+        1,
+        1,
+        1
+      ],
+      "ema_decay": 0.999,
+      "confidence_threshold": 0.0,
+      "alpha": 0.0,
+      "beta": 0.0,
+      "entropy_threshold": 100.0,
+      "mutual_information_threshold": 100.0,
+      "mc_passes": 2,
+      "ssl_prior_scale": 0.0,
+      "calibrate_on_pseudo_eval": false,
+      "max_none_to_defect_ratio": null,
+      "consistency_weight": 0.0
+    }
+  },
+  "sample_digest": "f58ebdb528d904c465d9b21dec91cd01ddc257391ce2fa162d85502417a00993",
+  "splits": {
+    "test": [
+      47689,
+      36196,
+      65579,
+      81925,
+      41525,
+      370,
+      108436,
+      21947,
+      41410,
+      38157,
+      44617,
+      30980,
+      57382,
+      2438,
+      3781,
+      42614,
+      95410,
+      86204,
+      44266,
+      65632,
+      5755,
+      516,
+      54984,
+      107952,
+      8850,
+      26684,
+      56899,
+      33741,
+      33268,
+      105871,
+      28047,
+      64641,
+      2051,
+      68822,
+      4460,
+      76266,
+      62520,
+      81174,
+      16553,
+      81575,
+      76043,
+      1583,
+      1620,
+      69719,
+      87053,
+      51567,
+      71388,
+      25808,
+      17171,
+      7015,
+      39006,
+      24986,
+      104834,
+      105906,
+      117709,
+      57167,
+      84538,
+      22920,
+      69243,
+      51797,
+      8497,
+      26395,
+      12694,
+      46074,
+      77622,
+      25456,
+      106816,
+      87056,
+      101159,
+      91996,
+      33683,
+      117942,
+      84161,
+      66924,
+      77700,
+      92438,
+      62789,
+      25955,
+      109668,
+      111793,
+      18616,
+      76934,
+      111356,
+      36508,
+      80789,
+      15807,
+      56929,
+      113813,
+      93770,
+      74264,
+      89361,
+      107856,
+      100084,
+      16894,
+      55972,
+      21918,
+      59358,
+      92996,
+      69412,
+      38532,
+      78605,
+      78784,
+      75931,
+      42363,
+      66031,
+      98587,
+      68503,
+      99241,
+      12550,
+      57114,
+      85474,
+      1979,
+      20016,
+      116874,
+      116889,
+      32483,
+      69619,
+      34042,
+      46782,
+      21185,
+      2562,
+      96434,
+      59552,
+      96074,
+      66627,
+      43860,
+      110525,
+      52352
+    ],
+    "train_samples": [
+      [
+        "lot16382_25.png",
+        5
+      ],
+      [
+        "lot214_21.png",
+        0
+      ],
+      [
+        "lot15619_8.png",
+        6
+      ],
+      [
+        "lot21717_5.png",
+        3
+      ],
+      [
+        "lot1290_24.png",
+        8
+      ],
+      [
+        "lot534_12.png",
+        2
+      ],
+      [
+        "lot45171_14.png",
+        0
+      ],
+      [
+        "lot12865_9.png",
+        1
+      ],
+      [
+        "lot46699_8.png",
+        0
+      ],
+      [
+        "lot43051_16.png",
+        3
+      ],
+      [
+        "lot11884_13.png",
+        4
+      ],
+      [
+        "lot14527_21.png",
+        4
+      ],
+      [
+        "lot15070_17.png",
+        0
+      ],
+      [
+        "lot42871_8.png",
+        0
+      ],
+      [
+        "lot2514_22.png",
+        4
+      ],
+      [
+        "lot18737_16.png",
+        7
+      ],
+      [
+        "lot281_18.png",
+        0
+      ],
+      [
+        "lot2375_22.png",
+        7
+      ],
+      [
+        "lot42895_22.png",
+        0
+      ],
+      [
+        "lot23494_8.png",
+        5
+      ],
+      [
+        "lot43144_19.png",
+        0
+      ],
+      [
+        "lot15680_3.png",
+        0
+      ],
+      [
+        "lot22488_19.png",
+        4
+      ],
+      [
+        "lot2690_10.png",
+        4
+      ],
+      [
+        "lot43465_8.png",
+        0
+      ],
+      [
+        "lot43046_16.png",
+        6
+      ],
+      [
+        "lot2521_9.png",
+        4
+      ],
+      [
+        "lot36694_23.png",
+        1
+      ],
+      [
+        "lot2517_9.png",
+        4
+      ],
+      [
+        "lot15661_11.png",
+        1
+      ],
+      [
+        "lot17130_14.png",
+        2
+      ],
+      [
+        "lot8915_14.png",
+        8
+      ],
+      [
+        "lot9151_8.png",
+        4
+      ]
+    ],
+    "pseudo_eval": []
+  }
+}

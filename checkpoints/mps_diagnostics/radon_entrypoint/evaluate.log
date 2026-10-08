@@ -1,0 +1,28 @@
+Using device: mps
+Loading WM-811K dataset from: datasets/wm811k
+  Total samples: 25370
+  Classes: ['Center', 'Donut', 'Edge-Loc', 'Edge-Ring', 'Loc', 'Random', 'Scratch']
+  Test samples: 56
+Loading checkpoint from: checkpoints/mps_diagnostics/radon_entrypoint/best.pt
+  Parameters: 1,462,327
+
+Evaluating...
+
+========================================
+Test Results
+========================================
+  Accuracy:  0.2143
+  F1 Score:  0.0963
+  Precision: 0.0660
+  Recall:    0.2143
+========================================
+
+Per-class accuracy:
+  Center      : 0.0000  (n=8)
+  Donut       : 0.0000  (n=8)
+  Edge-Loc    : 0.0000  (n=8)
+  Edge-Ring   : 0.5000  (n=8)
+  Loc         : 0.0000  (n=8)
+  Random      : 1.0000  (n=8)
+  Scratch     : 0.0000  (n=8)
+

@@ -1,0 +1,45 @@
+{
+  "started_utc": "2026-10-08T17:08:40.309767+00:00",
+  "device": "mps",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "status": "complete",
+  "runs": [
+    {
+      "seed": 42,
+      "directory": "checkpoints/radon_cnn_mps_full_20261008/seed42",
+      "status": "complete",
+      "training_process_seconds": 627.5952586249996,
+      "training_exit_code": 0,
+      "evaluation_process_seconds": 4.172985041999709,
+      "evaluation_exit_code": 0
+    },
+    {
+      "seed": 43,
+      "directory": "checkpoints/radon_cnn_mps_full_20261008/seed43",
+      "status": "complete",
+      "training_process_seconds": 359.6982644999989,
+      "training_exit_code": 0,
+      "evaluation_process_seconds": 4.046928249999837,
+      "evaluation_exit_code": 0
+    },
+    {
+      "seed": 44,
+      "directory": "checkpoints/radon_cnn_mps_full_20261008/seed44",
+      "status": "complete",
+      "training_process_seconds": 379.8587105000006,
+      "training_exit_code": 0,
+      "evaluation_process_seconds": 4.063735499999893,
+      "evaluation_exit_code": 0
+    }
+  ],
+  "selection": "Each best.pt minimizes its own validation loss; no run selected by test metrics.",
+  "config_source": "papers/radon_cnn/configs/config_balanced.yaml",
+  "validation_loss": "Sample-weighted cross entropy; Radon-local Trainer corrects final incomplete batch weighting.",
+  "superseded_run": "superseded_before_loss_fix/seed42; interrupted before any test evaluation and excluded from results",
+  "protocol_note": "6400 training presentations with training-only replacement; documented interpretation of the paper, not a recovered author split.",
+  "finished_utc": "2026-10-08T17:31:39.910426+00:00"
+}

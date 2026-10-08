@@ -15,6 +15,7 @@ from tqdm import tqdm
 
 from common.engine.config import EngineConfig
 from common.training.metrics import accuracy, f1, precision, recall
+from common.training.utils import resolve_device
 from papers.reproduction import load_holdout
 from papers.semiwafernet.data_utils import WaferSegmentationDataset, WaferWM811KDataset
 from papers.semiwafernet.models.semiwafernet import SemiWaferNet
@@ -46,7 +47,7 @@ def parse_args():
     parser.add_argument(
         "--config", default=None, help="Optional config: must match saved model and data"
     )
-    parser.add_argument("--device", default="auto", choices=["auto", "cpu", "cuda"])
+    parser.add_argument("--device", default="auto", choices=["auto", "cpu", "cuda", "mps"])
     return parser.parse_args()
 
 
@@ -69,9 +70,7 @@ def main():
                 raise ValueError(
                     f"Supplied {section} config differs from saved training protocol; omit --config"
                 )
-    device = args.device
-    if device == "auto":
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = resolve_device(args.device)
     seg = config.get("model.mode") == "segmentation"
     if seg:
         dataset = WaferSegmentationDataset(

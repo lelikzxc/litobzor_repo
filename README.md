@@ -38,6 +38,16 @@ litobzor_repo/
 | Transformer + Atrous | [`papers/transformer_segmentation/`](papers/transformer_segmentation/) | Segmentation |
 | Tiny ViT | [`papers/vit_tiny/`](papers/vit_tiny/) | Classification |
 
+## Accepted experimental results
+
+The user accepted the full RadonCNN MPS result on 2026-10-08 as sufficient for
+this project: **87.10% accuracy +/- 0.65 percentage points** and **87.05%
+macro-F1 +/- 0.80 percentage points**, mean and sample standard deviation over
+seeds 42, 43 and 44. This is an accepted project result, with the paper
+comparison limitations retained in the [RadonCNN documentation](papers/radon_cnn/README.md#completed-full-balanced-mps-runs).
+The [acceptance record](papers/radon_cnn/results/accepted_mps_20261008.json)
+stores the exact metrics, protocol, checkpoint locations and checksums.
+
 ## Getting Started
 
 ```bash

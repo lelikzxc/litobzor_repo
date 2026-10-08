@@ -1,0 +1,54 @@
+{
+  "purpose": "Mechanics only: synthetic permissive gates and tiny data do not measure quality",
+  "checks": [
+    {
+      "name": "train",
+      "command": [
+        "/opt/anaconda3/bin/python",
+        "-u",
+        "papers/semiwafernet/train.py",
+        "--config",
+        "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/config.yaml",
+        "--device",
+        "mps",
+        "--data-fraction",
+        "0.001"
+      ],
+      "timeout_seconds": 30,
+      "elapsed_seconds": 11.825849250000374,
+      "exit_code": 0,
+      "log": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/train.log"
+    },
+    {
+      "name": "evaluate",
+      "command": [
+        "/opt/anaconda3/bin/python",
+        "-u",
+        "papers/semiwafernet/evaluate.py",
+        "--checkpoint",
+        "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/run/best.pt",
+        "--device",
+        "mps"
+      ],
+      "timeout_seconds": 30,
+      "elapsed_seconds": 2.1429109999999127,
+      "exit_code": 0,
+      "log": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/evaluate.log"
+    },
+    {
+      "name": "ssl_hardware_test",
+      "command": [
+        "/opt/anaconda3/bin/python",
+        "-m",
+        "pytest",
+        "papers/semiwafernet/tests/test_mps_diagnostic.py::test_full_model_ssl_three_stages_train_on_mps",
+        "-q",
+        "-s"
+      ],
+      "timeout_seconds": 15,
+      "elapsed_seconds": 3.1682894589998796,
+      "exit_code": 0,
+      "log": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/ssl_hardware_test.log"
+    }
+  ]
+}

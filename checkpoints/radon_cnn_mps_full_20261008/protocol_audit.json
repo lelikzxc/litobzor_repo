@@ -1,0 +1,209 @@
+{
+  "updated_utc": "2026-10-08T17:25:21.181649+00:00",
+  "audit_status": "All three corrected saved split manifests verified; same full recipe apart from seed and destination.",
+  "source_configuration": "papers/radon_cnn/configs/config_balanced.yaml",
+  "dataset_label_file": "datasets/wm811k/labels.csv",
+  "dataset_sha256": "c5408c8a8d003d27df85727d74346b60bdd3f1da5899f03cac7681fd80271113",
+  "source_defect_wafers": 25370,
+  "class_names": [
+    "Center",
+    "Donut",
+    "Edge-Loc",
+    "Edge-Ring",
+    "Loc",
+    "Random",
+    "Scratch"
+  ],
+  "expected_each_run": {
+    "train_presentations": 6400,
+    "unique_training_wafers": 5710,
+    "repeated_training_presentations": 690,
+    "unique_validation_wafers": 385,
+    "unique_test_wafers": 385,
+    "train_batches_per_epoch_at_64": 100,
+    "validation_batches_at_64": [
+      64,
+      64,
+      64,
+      64,
+      64,
+      64,
+      1
+    ]
+  },
+  "per_class": [
+    {
+      "class": "Center",
+      "source_originals": 4294,
+      "original_train_pool": 3436,
+      "train_presentations": 915,
+      "unique_train_originals": 915,
+      "repeated_presentations": 0,
+      "unique_validation_originals": 55,
+      "unique_test_originals": 55
+    },
+    {
+      "class": "Donut",
+      "source_originals": 555,
+      "original_train_pool": 445,
+      "train_presentations": 915,
+      "unique_train_originals": 445,
+      "repeated_presentations": 470,
+      "unique_validation_originals": 55,
+      "unique_test_originals": 55
+    },
+    {
+      "class": "Edge-Loc",
+      "source_originals": 5189,
+      "original_train_pool": 4153,
+      "train_presentations": 914,
+      "unique_train_originals": 914,
+      "repeated_presentations": 0,
+      "unique_validation_originals": 55,
+      "unique_test_originals": 55
+    },
+    {
+      "class": "Edge-Ring",
+      "source_originals": 9680,
+      "original_train_pool": 7744,
+      "train_presentations": 914,
+      "unique_train_originals": 914,
+      "repeated_presentations": 0,
+      "unique_validation_originals": 55,
+      "unique_test_originals": 55
+    },
+    {
+      "class": "Loc",
+      "source_originals": 3593,
+      "original_train_pool": 2875,
+      "train_presentations": 914,
+      "unique_train_originals": 914,
+      "repeated_presentations": 0,
+      "unique_validation_originals": 55,
+      "unique_test_originals": 55
+    },
+    {
+      "class": "Random",
+      "source_originals": 866,
+      "original_train_pool": 694,
+      "train_presentations": 914,
+      "unique_train_originals": 694,
+      "repeated_presentations": 220,
+      "unique_validation_originals": 55,
+      "unique_test_originals": 55
+    },
+    {
+      "class": "Scratch",
+      "source_originals": 1193,
+      "original_train_pool": 955,
+      "train_presentations": 914,
+      "unique_train_originals": 914,
+      "repeated_presentations": 0,
+      "unique_validation_originals": 55,
+      "unique_test_originals": 55
+    }
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "generated_manifest_sha256": {
+    "42": "258db8acd4c27093ae3e4842e9a7bcd520c1b370110270552cd54e6cfc4ca27d",
+    "43": "90a84feb3d04024ca7458e3973531648d1d59dfc62ce9d325a27c7b7b1adbbd4",
+    "44": "794a19f2fdb893e0e13266f7d2411b95bdeddc9a146f461324b56006585b7fcf"
+  },
+  "saved_manifest_checks": [
+    {
+      "path": "checkpoints/radon_cnn_mps_full_20261008/seed42/split.json",
+      "seed": 42,
+      "matches_expected_seeded_protocol": true,
+      "wafer_overlap_train_val_test": false,
+      "evaluation_has_duplicates": false,
+      "superseded_before_loss_fix": false,
+      "configurations_matching_original_except_seed_and_destination": [
+        "checkpoints/radon_cnn_mps_full_20261008/seed42/config.yaml",
+        "checkpoints/radon_cnn_mps_full_20261008/seed42/experiment.yaml"
+      ]
+    },
+    {
+      "path": "checkpoints/radon_cnn_mps_full_20261008/superseded_before_loss_fix/seed42/split.json",
+      "seed": 42,
+      "matches_expected_seeded_protocol": true,
+      "wafer_overlap_train_val_test": false,
+      "evaluation_has_duplicates": false,
+      "superseded_before_loss_fix": true
+    },
+    {
+      "path": "checkpoints/radon_cnn_mps_full_20261008/seed43/split.json",
+      "seed": 43,
+      "matches_expected_seeded_protocol": true,
+      "wafer_overlap_train_val_test": false,
+      "evaluation_has_duplicates": false,
+      "superseded_before_loss_fix": false,
+      "configurations_matching_original_except_seed_and_destination": [
+        "checkpoints/radon_cnn_mps_full_20261008/seed43/config.yaml",
+        "checkpoints/radon_cnn_mps_full_20261008/seed43/experiment.yaml"
+      ]
+    },
+    {
+      "path": "checkpoints/radon_cnn_mps_full_20261008/seed44/split.json",
+      "seed": 44,
+      "matches_expected_seeded_protocol": true,
+      "wafer_overlap_train_val_test": false,
+      "evaluation_has_duplicates": false,
+      "superseded_before_loss_fix": false,
+      "configurations_matching_original_except_seed_and_destination": [
+        "checkpoints/radon_cnn_mps_full_20261008/seed44/config.yaml",
+        "checkpoints/radon_cnn_mps_full_20261008/seed44/experiment.yaml"
+      ]
+    }
+  ],
+  "loss_aggregation": {
+    "corrected_implementation": "papers/radon_cnn/trainer.py:RadonTrainer.validate",
+    "criterion": "Unweighted mean CrossEntropyLoss",
+    "correct_mean": "sum(batch_loss * batch_sample_count) / total_sample_count",
+    "previous_bug": "Averaging seven batch means gave the final singleton 1/7 weight instead of 1/385, 55 times too much.",
+    "superseded_runs_are_excluded": true,
+    "empty_validation_rejected": true,
+    "regression_tests": "4 sample-weighting regressions, 11 Radon regressions and 81 common training tests passed (96 total)."
+  },
+  "aggregation_plan": {
+    "include": "All completed corrected seeds 42,43,44; exclude superseded runs.",
+    "per_seed_model_selection": "Minimum sample-weighted validation loss; never test metrics.",
+    "best_epoch_source": "best.pt epoch field, checked against history.json minimum val_loss.",
+    "reported_metrics": [
+      "accuracy",
+      "macro_f1",
+      "macro_precision",
+      "macro_recall"
+    ],
+    "summary": "Unweighted arithmetic mean and sample standard deviation (ddof=1) across the three run-level metrics.",
+    "prohibited_selection": [
+      "Do not select or omit seeds based on test scores.",
+      "Do not tune hyperparameters or choose epochs using test results.",
+      "Do not ensemble predictions from different test sets."
+    ],
+    "limitations": [
+      "Three seeds are not the article's 20 repeats.",
+      "Test sets differ across seeds; each test has 55 originals per class.",
+      "Exact author split, Radon projection settings and rare-class balancing method are unrecovered."
+    ]
+  },
+  "primary_article_count_note": {
+    "status": "Verified in primary Nature PDF text extraction; no local PDF download available.",
+    "source_url": "https://www.nature.com/articles/s41598-023-34147-2.pdf",
+    "location": "Page 6, Table 1",
+    "short_excerpt": "Random (C6) 886 0.5",
+    "reported_random_count": 886,
+    "local_csv_random_count": 866,
+    "local_pdf_download_attempt": "Nature HTTP returned HTML; no unverified PDF was saved.",
+    "interpretation": "A table/data count mismatch is observed; its cause is unknown. The experiment uses the verified local label inventory, without altering labels to match the table."
+  },
+  "source_files_sha256": {
+    "papers/radon_cnn/configs/config_balanced.yaml": "8305816d21997eb6e45287f83c44a9c82e0bd37e4864f1e967eb514ae00cb38d",
+    "papers/radon_cnn/data_utils/protocol.py": "84f6e01d29a682d8aedd839adae0915c84eb39ca95f15c6b00cfcb602a21bf85",
+    "papers/radon_cnn/trainer.py": "15675ebd66a046d128e087550aa32942fce7375f5484362df8fa1d4a5155b5be",
+    "papers/radon_cnn/train.py": "7a7140b454897829f5571a7129fb8ea1ea57a03f0c560437d8c29e9dfb95c9a0"
+  }
+}

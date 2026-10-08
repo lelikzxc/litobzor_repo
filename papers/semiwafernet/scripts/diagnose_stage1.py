@@ -23,6 +23,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from common.engine.config import EngineConfig
+from common.training.utils import resolve_device
 from papers.semiwafernet.data_utils.wafer_dataset import (
     WM811K_CLASSES,
     WaferWM811KDataset,
@@ -124,7 +125,7 @@ def main() -> None:
         type=str,
         default="papers/semiwafernet/configs/config.yaml",
     )
-    parser.add_argument("--device", type=str, default="cuda")
+    parser.add_argument("--device", default="auto", choices=["auto", "cpu", "cuda", "mps"])
     parser.add_argument("--batch-size", type=int, default=256)
     parser.add_argument(
         "--max-test",
@@ -134,7 +135,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    device = torch.device(args.device if torch.cuda.is_available() else "cpu")
+    device = torch.device(resolve_device(args.device))
     config = EngineConfig.from_yaml(args.config)
     data_root = config.get("data.data_root", "datasets/wm811k")
     image_size = int(config.get("data.image_size", 32))

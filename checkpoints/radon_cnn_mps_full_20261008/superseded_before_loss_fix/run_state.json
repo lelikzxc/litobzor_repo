@@ -1,0 +1,24 @@
+{
+  "started_utc": "2026-10-08T17:01:59.525294+00:00",
+  "device": "mps",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "status": "superseded_before_validation_loss_fix",
+  "runs": [
+    {
+      "seed": 42,
+      "directory": "checkpoints/radon_cnn_mps_full_20261008/seed42",
+      "status": "failed",
+      "training_process_seconds": 224.52914412500013,
+      "training_exit_code": 1
+    }
+  ],
+  "selection": "Each best.pt minimizes its own validation loss; no run selected by test metrics.",
+  "config_source": "papers/radon_cnn/configs/config_balanced.yaml",
+  "protocol_note": "6400 training presentations with training-only replacement; documented interpretation of the paper, not a recovered author split.",
+  "excluded_from_final_results": true,
+  "reason": "Validation loss used an unweighted mean of batch means; final singleton distorted checkpoint selection. No test evaluation was performed."
+}

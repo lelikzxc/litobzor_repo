@@ -1,0 +1,11 @@
+{
+  "epoch": 1,
+  "best_metric": 0.034188032150268555,
+  "best_metric_name": "val_f1",
+  "current_metric": null,
+  "global_step": 0,
+  "training_finished": false,
+  "checkpoint_path": "checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/run/last.pt",
+  "mode": "max",
+  "extra": {}
+}

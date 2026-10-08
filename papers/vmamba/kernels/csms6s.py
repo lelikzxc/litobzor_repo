@@ -6,9 +6,9 @@ Provides ``selective_scan_fn`` with automatic fallback:
     1. CUDA kernels (selective_scan_cuda_oflex / selective_scan_cuda_core / selective_scan_cuda)
     2. Pure-PyTorch fallback (``selective_scan_torch``) when CUDA is unavailable
 
-The pure-PyTorch fallback walks the sequence step-by-step and never materialises
-full ``[B, D, L, N]`` tensors (those OOMed 8GB GPUs). Prefer installing
-``selective_scan_cuda_oflex`` for real training speed.
+The CPU reference walks the sequence step-by-step. MPS uses bounded, checkpointed
+affine-prefix blocks instead. Neither retains full ``[B, D, L, N]`` histories
+(those OOMed 8GB GPUs). Prefer ``selective_scan_cuda_oflex`` for CUDA training.
 """
 
 from __future__ import annotations
@@ -17,6 +17,7 @@ import warnings
 
 import torch
 import torch.nn.functional as F
+from torch.utils.checkpoint import checkpoint
 
 # ── CUDA kernel availability ──────────────────────────────────────────────
 
@@ -103,6 +104,89 @@ def selective_scan_torch(
     return out if oflex else out.to(dtype=dtype_in)
 
 
+def _scan_chunk(delta, u, A, B, C, state):
+    """Stable affine prefix scan: (a, b) compose as (a2*a1, b2+a2*b1)."""
+    a = torch.exp(delta.unsqueeze(-1) * A)
+    b = delta.unsqueeze(-1) * B.unsqueeze(2) * u.unsqueeze(-1)
+    offset = 1
+    while offset < u.shape[-1]:
+        right_a = a[..., offset:, :]
+        b = torch.cat(
+            (b[..., :offset, :], b[..., offset:, :] + right_a * b[..., :-offset, :]),
+            dim=-2,
+        )
+        a = torch.cat((a[..., :offset, :], right_a * a[..., :-offset, :]), dim=-2)
+        offset *= 2
+    states = b + a * state.unsqueeze(-2)
+    values = (states * C.unsqueeze(2)).sum(-1)
+    # A view of the final token would keep the entire block's state allocation
+    # alive across checkpoints. Save an independent, small boundary state.
+    return states[..., -1, :].clone(), values
+
+
+def selective_scan_chunked(
+    u: torch.Tensor,
+    delta: torch.Tensor,
+    A: torch.Tensor,
+    B: torch.Tensor,
+    C: torch.Tensor,
+    D: torch.Tensor | None = None,
+    delta_bias: torch.Tensor | None = None,
+    delta_softplus: bool = True,
+    oflex: bool = True,
+    *args,
+    chunk_size: int = 128,
+    **kwargs,
+) -> torch.Tensor:
+    """Exact recurrence with blockwise parallel prefixes for the MPS backend.
+
+    Multiplication/addition use the same affine recurrence as the reference,
+    with a different floating-point association. Unlike division by cumulative
+    products, this stays finite even when transition products underflow to 0.
+    Checkpoint each block during training: the full [B,D,L,N] state history is
+    never retained; backward recomputes one block at a time. CUDA dispatch and
+    the simple CPU reference remain unchanged.
+    """
+    if chunk_size <= 0:
+        raise ValueError("chunk_size must be positive")
+    dtype_in = u.dtype
+    batch, groups, state_dim, length = B.shape
+    channels = u.shape[1] // groups
+    if delta_bias is not None:
+        delta = delta + delta_bias[..., None]
+    if delta_softplus:
+        delta = F.softplus(delta)
+    u_float = u.float()
+    us = u_float.reshape(batch, groups, channels, length)
+    ds = delta.float().reshape(batch, groups, channels, length)
+    As = A.float().reshape(groups, channels, 1, state_dim)
+    Bs = B.float().permute(0, 1, 3, 2)
+    Cs = C.float().permute(0, 1, 3, 2)
+    state = u_float.new_zeros(batch, groups, channels, state_dim)
+    outputs = []
+    use_checkpoint = torch.is_grad_enabled() and any(
+        tensor.requires_grad for tensor in (u, delta, A, B, C)
+    )
+    for start in range(0, length, chunk_size):
+        end = min(start + chunk_size, length)
+        inputs = (
+            ds[..., start:end],
+            us[..., start:end],
+            As,
+            Bs[..., start:end, :],
+            Cs[..., start:end, :],
+            state,
+        )
+        if use_checkpoint:
+            state, values = checkpoint(_scan_chunk, *inputs, use_reentrant=False)
+        else:
+            state, values = _scan_chunk(*inputs)
+        outputs.append(values.reshape(batch, groups * channels, end - start))
+    y = torch.cat(outputs, dim=-1)
+    out = y if D is None else y + u_float * D.float().unsqueeze(-1)
+    return out if oflex else out.to(dtype=dtype_in)
+
+
 # ── CUDA autograd wrapper ─────────────────────────────────────────────────
 
 
@@ -136,17 +220,27 @@ class SelectiveScanCuda(torch.autograd.Function):
                 backend = "torch"
         # If a specific backend was requested but not installed, fall back.
         if backend == "oflex" and not WITH_SELECTIVESCAN_OFLEX:
-            backend = "core" if WITH_SELECTIVESCAN_CORE else ("mamba" if WITH_SELECTIVESCAN_MAMBA else "torch")
+            backend = (
+                "core"
+                if WITH_SELECTIVESCAN_CORE
+                else ("mamba" if WITH_SELECTIVESCAN_MAMBA else "torch")
+            )
         if backend == "core" and not WITH_SELECTIVESCAN_CORE:
-            backend = "oflex" if WITH_SELECTIVESCAN_OFLEX else ("mamba" if WITH_SELECTIVESCAN_MAMBA else "torch")
+            backend = (
+                "oflex"
+                if WITH_SELECTIVESCAN_OFLEX
+                else ("mamba" if WITH_SELECTIVESCAN_MAMBA else "torch")
+            )
         if backend == "mamba" and not WITH_SELECTIVESCAN_MAMBA:
-            backend = "oflex" if WITH_SELECTIVESCAN_OFLEX else ("core" if WITH_SELECTIVESCAN_CORE else "torch")
+            backend = (
+                "oflex"
+                if WITH_SELECTIVESCAN_OFLEX
+                else ("core" if WITH_SELECTIVESCAN_CORE else "torch")
+            )
         ctx.backend = backend
 
         if backend == "torch":
-            return selective_scan_torch(
-                u, delta, A, B, C, D, delta_bias, delta_softplus, oflex
-            )
+            return selective_scan_torch(u, delta, A, B, C, D, delta_bias, delta_softplus, oflex)
         if backend == "oflex":
             out, x, *rest = selective_scan_cuda_oflex.fwd(u, delta, A, B, C, D, delta_bias, delta_softplus, 1, oflex)  # type: ignore[attr-defined]
         elif backend == "core":
@@ -178,7 +272,20 @@ class SelectiveScanCuda(torch.autograd.Function):
             )
         elif backend == "mamba":
             du, ddelta, dA, dB, dC, dD, ddelta_bias, *rest = selective_scan_cuda.bwd(  # type: ignore[attr-defined]
-                u, delta, A, B, C, D, None, delta_bias, dout, x, None, None, ctx.delta_softplus, False
+                u,
+                delta,
+                A,
+                B,
+                C,
+                D,
+                None,
+                delta_bias,
+                dout,
+                x,
+                None,
+                None,
+                ctx.delta_softplus,
+                False,
             )
         else:
             raise ValueError(f"Unknown backend: {backend}")
@@ -219,5 +326,7 @@ def selective_scan_fn(
         Scanned output ``[B, K*C, L]``.
     """
     has_cuda = WITH_SELECTIVESCAN_OFLEX or WITH_SELECTIVESCAN_CORE or WITH_SELECTIVESCAN_MAMBA
+    if u.device.type == "mps":
+        return selective_scan_chunked(u, delta, A, B, C, D, delta_bias, delta_softplus, oflex)
     fn = selective_scan_torch if not u.is_cuda or backend == "torch" or (not has_cuda) else SelectiveScanCuda.apply  # type: ignore[assignment]
     return fn(u, delta, A, B, C, D, delta_bias, delta_softplus, oflex, backend)

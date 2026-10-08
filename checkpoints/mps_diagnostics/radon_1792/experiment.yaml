@@ -1,0 +1,12 @@
+data:
+  cache_radon: true
+  data_root: datasets/wm811k
+  image_size: 64
+evaluation:
+  batch_size: 64
+model:
+  num_classes: 7
+  radon_theta: 64
+training:
+  cpu_threads: 2
+  seed: 42

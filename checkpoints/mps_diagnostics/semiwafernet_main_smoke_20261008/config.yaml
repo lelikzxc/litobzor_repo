@@ -1,0 +1,99 @@
+seed: 42
+model:
+  name: semiwafernet
+  mode: classification
+  num_classes: 9
+  seg_classes: 1
+  backbone:
+    type: cnn
+    in_channels: 3
+    channels:
+    - 64
+    - 128
+    depths:
+    - 1
+    - 1
+    norm: bn
+    activation: relu
+  transformer:
+    embed_dim: 128
+    num_heads: 8
+    num_layers: 4
+    mlp_ratio: 2
+    dropout: 0.2
+    dropout_cls: 0.5
+  decoder:
+    base_channels: 66
+    embed_dim: 160
+    mlp_ratio: 2
+  input:
+    in_channels: 3
+    image_size: 32
+training:
+  num_epochs: 3
+  batch_size: 16
+  learning_rate: 5.0e-05
+  weight_decay: 0.0004
+  grad_max_norm: 1.0
+seg_training:
+  num_epochs: 50
+  batch_size: 32
+  learning_rate: 0.0001
+  weight_decay: 0.01
+optimizer:
+  name: adamw
+  lr: 5.0e-05
+  weight_decay: 0.0004
+scheduler:
+  name: null
+loss:
+  name: cross_entropy
+metrics:
+- accuracy
+- f1
+- precision
+- recall
+checkpoint:
+  save_dir: checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008/run
+  metric_name: val_f1
+  mode: max
+evaluation:
+  batch_size: 64
+data:
+  data_root: datasets/wm811k
+  image_size: 32
+  seg_data_root: datasets/semiwafernet_seg
+  seg_image_size: 64
+  use_official_split: true
+  val_from_train: 0.1
+  pseudo_eval_fraction: 0.0
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  hybrid_sampling:
+    enabled: true
+    none_downsample_ratio: 0.3
+  augmentation:
+    enabled: true
+  eval_prior_scale: 0.0
+  ce_count_source: smote
+  oversample_method: random
+semi_supervised:
+  enabled: true
+  stages: 3
+  unlabeled_max_samples: 64
+  epochs_per_stage:
+  - 1
+  - 1
+  - 1
+  ema_decay: 0.999
+  confidence_threshold: 0.0
+  alpha: 0.0
+  beta: 0.0
+  entropy_threshold: 100.0
+  mutual_information_threshold: 100.0
+  mc_passes: 2
+  ssl_prior_scale: 0.0
+  calibrate_on_pseudo_eval: false
+  max_none_to_defect_ratio: null
+  consistency_weight: 0.0

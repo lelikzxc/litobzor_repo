@@ -1,0 +1,646 @@
+{
+  "date": "2026-10-08",
+  "timezone": "Europe/Moscow",
+  "hardware": {
+    "model": "MacBook Air",
+    "chip": "Apple M3",
+    "unified_memory_GB": 8,
+    "torch_version": "2.13.0"
+  },
+  "scope": "Fast bounded real-data diagnostics and MPS code support; no complete paper training was run.",
+  "selection": "Validation only; reduced datasets, splits, resolution and diagnostic hyperparameter overrides are explicit in individual reports.",
+  "paper_metrics_reproduced": false,
+  "semiwafernet": {
+    "paper_target": {
+      "macro_f1": 0.9861,
+      "accuracy": 0.9872,
+      "source": "semiwafernet.pdf Table 6"
+    },
+    "runs": [
+      {
+        "report": "checkpoints/mps_diagnostics/semiwafernet_20261008/report.json",
+        "device": "mps",
+        "parameters": 788169,
+        "base_train_samples": 1484,
+        "balanced_validation_samples": 330,
+        "none_stress_counts": null,
+        "none_stress_none_fraction": null,
+        "variants": [
+          {
+            "variant": "paper_smote",
+            "learning_rate": 5e-05,
+            "steps": 180,
+            "seconds": 16.03660720799985,
+            "validation_macro_f1": 0.6876596628471818,
+            "none_stress_macro_f1": null,
+            "training_counts": [
+              180,
+              180,
+              180,
+              180,
+              180,
+              180,
+              44,
+              180,
+              180
+            ],
+            "pseudo_gate_diagnostic": {
+              "mc_passes": 3,
+              "sample_count": 330,
+              "accepted_count": 0,
+              "accepted_fraction": 0.0,
+              "accepted_accuracy": null,
+              "accepted_class_counts": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "mean_confidence": 0.536300778388977,
+              "mean_entropy": 1.3381867408752441,
+              "mean_threshold": 0.9498243927955627,
+              "note": "Validation labels only diagnose gate precision; not used for pseudo-training or calibration."
+            }
+          },
+          {
+            "variant": "fast_smote",
+            "learning_rate": 0.0005,
+            "steps": 180,
+            "seconds": 10.52922820799995,
+            "validation_macro_f1": 0.8062169528247142,
+            "none_stress_macro_f1": null,
+            "training_counts": [
+              180,
+              180,
+              180,
+              180,
+              180,
+              180,
+              44,
+              180,
+              180
+            ],
+            "pseudo_gate_diagnostic": {
+              "mc_passes": 3,
+              "sample_count": 330,
+              "accepted_count": 18,
+              "accepted_fraction": 0.05454545454545454,
+              "accepted_accuracy": 1.0,
+              "accepted_class_counts": [
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                8,
+                8,
+                0
+              ],
+              "mean_confidence": 0.7853031754493713,
+              "mean_entropy": 0.615143358707428,
+              "mean_threshold": 0.9615703225135803,
+              "note": "Validation labels only diagnose gate precision; not used for pseudo-training or calibration."
+            }
+          },
+          {
+            "variant": "fast_real",
+            "learning_rate": 0.0005,
+            "steps": 180,
+            "seconds": 10.450496541999883,
+            "validation_macro_f1": 0.8016485182548156,
+            "none_stress_macro_f1": null,
+            "training_counts": [
+              180,
+              180,
+              180,
+              180,
+              180,
+              180,
+              44,
+              180,
+              180
+            ],
+            "pseudo_gate_diagnostic": {
+              "mc_passes": 3,
+              "sample_count": 330,
+              "accepted_count": 10,
+              "accepted_fraction": 0.030303030303030304,
+              "accepted_accuracy": 1.0,
+              "accepted_class_counts": [
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                9,
+                0,
+                0
+              ],
+              "mean_confidence": 0.7584824562072754,
+              "mean_entropy": 0.6907343864440918,
+              "mean_threshold": 0.9626576900482178,
+              "note": "Validation labels only diagnose gate precision; not used for pseudo-training or calibration."
+            }
+          }
+        ]
+      },
+      {
+        "report": "checkpoints/mps_diagnostics/semiwafernet_extension_20261008/report.json",
+        "device": "mps",
+        "parameters": 788169,
+        "base_train_samples": 1484,
+        "balanced_validation_samples": 330,
+        "none_stress_counts": [
+          3040,
+          40,
+          40,
+          40,
+          40,
+          40,
+          10,
+          40,
+          40
+        ],
+        "none_stress_none_fraction": 0.912912905216217,
+        "variants": [
+          {
+            "variant": "paper_smote",
+            "learning_rate": 5e-05,
+            "steps": 600,
+            "seconds": 34.696267416999945,
+            "validation_macro_f1": 0.7676002151865807,
+            "none_stress_macro_f1": 0.6897994393902712,
+            "training_counts": [
+              180,
+              180,
+              180,
+              180,
+              180,
+              180,
+              44,
+              180,
+              180
+            ],
+            "pseudo_gate_diagnostic": {
+              "mc_passes": 20,
+              "sample_count": 72,
+              "accepted_count": 0,
+              "accepted_fraction": 0.0,
+              "accepted_accuracy": null,
+              "accepted_class_counts": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "mean_confidence": 0.695505678653717,
+              "mean_entropy": 0.8785111308097839,
+              "mean_threshold": 0.9572233557701111,
+              "elapsed_seconds": 0.6463971250000213,
+              "note": "Validation labels only diagnose gate precision; not used for pseudo-training or calibration."
+            }
+          },
+          {
+            "variant": "fast_smote",
+            "learning_rate": 0.0005,
+            "steps": 600,
+            "seconds": 35.94720750000033,
+            "validation_macro_f1": 0.883614282362205,
+            "none_stress_macro_f1": 0.7354002503681971,
+            "training_counts": [
+              180,
+              180,
+              180,
+              180,
+              180,
+              180,
+              44,
+              180,
+              180
+            ],
+            "pseudo_gate_diagnostic": {
+              "mc_passes": 20,
+              "sample_count": 72,
+              "accepted_count": 27,
+              "accepted_fraction": 0.375,
+              "accepted_accuracy": 1.0,
+              "accepted_class_counts": [
+                0,
+                2,
+                6,
+                0,
+                7,
+                0,
+                7,
+                5,
+                0
+              ],
+              "mean_confidence": 0.8593440055847168,
+              "mean_entropy": 0.39139413833618164,
+              "mean_threshold": 0.962539792060852,
+              "elapsed_seconds": 0.3589677909999409,
+              "note": "Validation labels only diagnose gate precision; not used for pseudo-training or calibration."
+            }
+          }
+        ]
+      },
+      {
+        "report": "checkpoints/mps_diagnostics/semiwafernet_none_diversity_20261008/report.json",
+        "device": "mps",
+        "parameters": 788169,
+        "base_train_samples": 1484,
+        "balanced_validation_samples": 330,
+        "none_stress_counts": [
+          3040,
+          40,
+          40,
+          40,
+          40,
+          40,
+          10,
+          40,
+          40
+        ],
+        "none_stress_none_fraction": 0.912912905216217,
+        "variants": [
+          {
+            "variant": "fast_real",
+            "learning_rate": 0.0005,
+            "steps": 600,
+            "seconds": 34.50775658399971,
+            "validation_macro_f1": 0.8780070298066964,
+            "none_stress_macro_f1": 0.7450643465912064,
+            "training_counts": [
+              180,
+              180,
+              180,
+              180,
+              180,
+              180,
+              44,
+              180,
+              180
+            ],
+            "pseudo_gate_diagnostic": {
+              "mc_passes": 20,
+              "sample_count": 72,
+              "accepted_count": 22,
+              "accepted_fraction": 0.3055555555555556,
+              "accepted_accuracy": 1.0,
+              "accepted_class_counts": [
+                0,
+                1,
+                0,
+                3,
+                7,
+                0,
+                7,
+                4,
+                0
+              ],
+              "mean_confidence": 0.8663093447685242,
+              "mean_entropy": 0.39626774191856384,
+              "mean_threshold": 0.9627605080604553,
+              "elapsed_seconds": 0.39624487500032046,
+              "note": "Validation labels only diagnose gate precision; not used for pseudo-training or calibration."
+            }
+          },
+          {
+            "variant": "fast_real_diverse_none",
+            "learning_rate": 0.0005,
+            "steps": 600,
+            "seconds": 34.36903674999985,
+            "validation_macro_f1": 0.8652324586173807,
+            "none_stress_macro_f1": 0.6141679833877851,
+            "training_counts": [
+              720,
+              180,
+              180,
+              180,
+              180,
+              180,
+              44,
+              180,
+              180
+            ],
+            "pseudo_gate_diagnostic": {
+              "mc_passes": 20,
+              "sample_count": 72,
+              "accepted_count": 18,
+              "accepted_fraction": 0.25,
+              "accepted_accuracy": 1.0,
+              "accepted_class_counts": [
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                7,
+                3,
+                0
+              ],
+              "mean_confidence": 0.847122848033905,
+              "mean_entropy": 0.45277902483940125,
+              "mean_threshold": 0.9627922773361206,
+              "elapsed_seconds": 0.37369216700017205,
+              "note": "Validation labels only diagnose gate precision; not used for pseudo-training or calibration."
+            }
+          }
+        ]
+      }
+    ],
+    "findings": [
+      "The full repository classifier learns quickly on MPS. A larger diagnostic learning rate helps short-run learning; the published default is unchanged.",
+      "SMOTE and real-map random oversampling produce similar quality at matched faster learning rate.",
+      "Normal-to-Scratch false positives substantially reduce minority precision under a high None prior.",
+      "More distinct None maps alone made the matched fixed-budget experiment worse; it is not a validated fix.",
+      "Strict published 20-pass MC gates exclude the currently weak Loc, Scratch and Edge-Loc categories.",
+      "Short supervised subset results cannot establish full three-stage SSL paper quality."
+    ],
+    "publication_protocol_ambiguity": {
+      "condition": "If Table 6 Acc is global accuracy and Cohen Kappa is standard unweighted Kappa measured on the same Table 1 test split.",
+      "table1_none_test_fraction": 0.9334373287238079,
+      "table6_accuracy": 0.9872,
+      "table6_kappa": 0.9854,
+      "implied_chance_agreement_single_confusion": 0.1232876712328712,
+      "minimum_chance_agreement_at_stated_accuracy": 0.8593572488473734,
+      "maximum_kappa_at_stated_accuracy": 0.9089892661008219,
+      "interpretation": "Reported values require clarification of accuracy aggregation and evaluation class distribution. Macro/balanced accuracy or a different evaluation distribution could explain the ambiguity. This does not establish author intent.",
+      "source": "semiwafernet.pdf Tables 1, 5, 6"
+    },
+    "next_controlled_experiment": "Measure full official-validation per-class false positives and weak-class pseudo-label coverage; compare warm-up convergence before SSL. Do not promote the larger learning rate or extra-None change to the paper default from these diagnostics alone."
+  },
+  "radon_cnn": {
+    "project_status": "accepted_by_user_2026-10-08",
+    "acceptance_record": "papers/radon_cnn/results/accepted_mps_20261008.json",
+    "paper_targets": {
+      "accuracy_800": 0.8583,
+      "accuracy_1600": 0.8797,
+      "accuracy_6400": 0.9084,
+      "accuracy_6400_sd": 0.0081,
+      "source": "https://www.nature.com/articles/s41598-023-34147-2.pdf Table 3"
+    },
+    "runs": [
+      {
+        "report": "checkpoints/mps_diagnostics/radon/report.json",
+        "device": "mps",
+        "parameters": 1462327,
+        "training_samples": 896,
+        "training_seconds": 39.33344750000015,
+        "total_seconds": 44.222429624999904,
+        "best_epoch": 9,
+        "test_accuracy": 0.7455357142857143,
+        "test_macro_f1": 0.7405684594733287
+      },
+      {
+        "report": "checkpoints/mps_diagnostics/radon_1792/report.json",
+        "device": "mps",
+        "parameters": 1462327,
+        "training_samples": 1792,
+        "training_seconds": 68.888143958,
+        "total_seconds": 82.63440125000011,
+        "best_epoch": 8,
+        "test_accuracy": 0.8035714285714286,
+        "test_macro_f1": 0.7986366580158863
+      }
+    ],
+    "evaluation": "Same original validation and test wafers in both runs, 224 maps in each set; seven balanced classes, 32 maps per class.",
+    "findings": [
+      "Increasing unique training data improves held-out quality. Training already reaches 100%, so simply adding epochs is not sufficient.",
+      "The Loc category remains weak; the original paper split/preprocessing is not fully specified."
+    ],
+    "full_balanced_mps_experiment": {
+      "report": "checkpoints/radon_cnn_mps_full_20261008/summary.json",
+      "seeds": [42, 43, 44],
+      "training_presentations_per_seed": 6400,
+      "unique_training_wafers_per_seed": 5710,
+      "validation_wafers_per_seed": 385,
+      "test_wafers_per_seed": 385,
+      "best_epochs": [32, 6, 6],
+      "stopped_epochs": [62, 36, 36],
+      "test_accuracy_mean": 0.8709956709956709,
+      "test_accuracy_sample_sd": 0.006536653190710608,
+      "test_macro_f1_mean": 0.8704757327939094,
+      "test_macro_f1_sample_sd": 0.00795164468401198,
+      "training_process_seconds": [627.5952586249996, 359.6982644999989, 379.8587105000006],
+      "selection": "All three declared seeds, each own minimum sample-weighted validation-loss checkpoint; test never selects seeds or epochs.",
+      "verification": "Standalone MPS and independent CPU evaluation agree; saved splits verified disjoint with unique held-out wafers.",
+      "correction": "Radon-local validation now weights cross entropy by sample count; legacy batch-mean averaging overweighted the final singleton. Interrupted pre-fix run excluded before test evaluation.",
+      "paper_metrics_reproduced": false
+    },
+    "next_controlled_experiment": "User accepted the full three-seed result as sufficient for the project. Retain metrics, checkpoints and comparison caveats; further RadonCNN tuning is outside the current requested scope."
+  },
+  "vmamba": {
+    "paper_target": {
+      "accuracy": 0.8791,
+      "macro_f1": 0.8606,
+      "source": "vmamba.pdf Table 3, author 902-image Subset A"
+    },
+    "report": "checkpoints/mps_diagnostics/vmamba/full64/report.json",
+    "device": "mps",
+    "parameters": 1082697,
+    "source_images": 902,
+    "source_image_size": 32,
+    "diagnostic_input_size": 64,
+    "train_samples": 144,
+    "holdout_samples": 181,
+    "steps": 156,
+    "training_seconds": 170.45130987500033,
+    "total_seconds": 197.11453199999983,
+    "untrained": {
+      "loss": 2.2239550490405677,
+      "accuracy": 0.11049723756906077,
+      "macro_f1": 0.03235529902196568,
+      "class_report": {
+        "none": {
+          "precision": 0.04,
+          "recall": 0.05,
+          "f1-score": 0.044444444444444446,
+          "support": 20.0
+        },
+        "Center": {
+          "precision": 0.1417910447761194,
+          "recall": 0.95,
+          "f1-score": 0.24675324675324675,
+          "support": 20.0
+        },
+        "Donut": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 20.0
+        },
+        "Edge-Loc": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 21.0
+        },
+        "Edge-Ring": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 21.0
+        },
+        "Loc": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 20.0
+        },
+        "Near-full": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 19.0
+        },
+        "Random": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 20.0
+        },
+        "Scratch": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 20.0
+        },
+        "accuracy": 0.11049723756906077,
+        "macro avg": {
+          "precision": 0.020199004975124377,
+          "recall": 0.1111111111111111,
+          "f1-score": 0.03235529902196568,
+          "support": 181.0
+        },
+        "weighted avg": {
+          "precision": 0.02008740826255463,
+          "recall": 0.11049723756906077,
+          "f1-score": 0.03217654046383329,
+          "support": 181.0
+        }
+      },
+      "samples": 181
+    },
+    "final_holdout": {
+      "loss": 1.531176092874938,
+      "accuracy": 0.43646408839779005,
+      "macro_f1": 0.33674642446572267,
+      "class_report": {
+        "none": {
+          "precision": 0.28169014084507044,
+          "recall": 1.0,
+          "f1-score": 0.43956043956043955,
+          "support": 20.0
+        },
+        "Center": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 20.0
+        },
+        "Donut": {
+          "precision": 0.5,
+          "recall": 0.8,
+          "f1-score": 0.6153846153846154,
+          "support": 20.0
+        },
+        "Edge-Loc": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 21.0
+        },
+        "Edge-Ring": {
+          "precision": 0.38095238095238093,
+          "recall": 0.7619047619047619,
+          "f1-score": 0.5079365079365079,
+          "support": 21.0
+        },
+        "Loc": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 20.0
+        },
+        "Near-full": {
+          "precision": 0.9411764705882353,
+          "recall": 0.8421052631578947,
+          "f1-score": 0.8888888888888888,
+          "support": 19.0
+        },
+        "Random": {
+          "precision": 0.6111111111111112,
+          "recall": 0.55,
+          "f1-score": 0.5789473684210527,
+          "support": 20.0
+        },
+        "Scratch": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 20.0
+        },
+        "accuracy": 0.43646408839779005,
+        "macro avg": {
+          "precision": 0.30165890038853305,
+          "recall": 0.439334447229184,
+          "f1-score": 0.33674642446572267,
+          "support": 181.0
+        },
+        "weighted avg": {
+          "precision": 0.29689711591326023,
+          "recall": 0.43646408839779005,
+          "f1-score": 0.3327812376954569,
+          "support": 181.0
+        }
+      },
+      "samples": 181
+    },
+    "original_resolution_profile": {
+      "report": "checkpoints/mps_diagnostics/vmamba/profile224_batch4/report.json",
+      "input_size": 224,
+      "batch_size": 4,
+      "warm_batch_seconds": 12.969677457999751,
+      "rough_50_epoch_training_hours": 32.604328054138264,
+      "caveat": "Two profiled batches; extrapolation, not a measured full training run."
+    },
+    "findings": [
+      "Early learning and finite gradients are present; closeness to paper quality is not established.",
+      "MPS scan values and all input gradients match the CPU recurrence, with bounded checkpointed memory. CUDA kernels are unchanged.",
+      "Full 224-pixel MPS training is slow on this Mac. Use reduced diagnostics here and accelerated CUDA scan for full runs."
+    ],
+    "next_controlled_experiment": "Full 721-image training split for 50 epochs at the paper resolution on CUDA, then compare seeds and explicit FA/SFS/CLCA ablations."
+  },
+  "entrypoint_verification": {
+    "semiwafernet": "checkpoints/mps_diagnostics/semiwafernet_main_smoke_20261008",
+    "radon_cnn": "checkpoints/mps_diagnostics/radon_entrypoint",
+    "vmamba": "checkpoints/mps_diagnostics/vmamba/entrypoint",
+    "status": "All actual train/evaluate entrypoints succeeded on MPS with isolated short-run checkpoints."
+  },
+  "regression_verification": {
+    "focused_suite_passed": 161,
+    "focused_suite_skipped": 5,
+    "skip_breakdown": {
+      "cuda_unavailable": 1,
+      "mps_hidden_by_sandbox": 4
+    },
+    "mps_hardware_checks": "All four MPS cases skipped inside the sandbox passed separately with actual Metal access.",
+    "subsequent_radon_validation_fix": "4 new uneven-batch/empty-validation tests, 11 Radon regressions and 81 common training tests passed (96 total). Full MPS runs independently checked on CPU.",
+    "static_checks": "git diff --check and compileall passed."
+  },
+  "unchanged": "Paper training defaults and the successful vit-tiny, transformer-segmentation and segmentation+classification implementations were not modified."
+}

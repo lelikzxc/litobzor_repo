@@ -1,0 +1,32 @@
+model:
+  name: radon_cnn
+  mode: classification
+  num_classes: 7
+  in_channels: 1
+  radon_theta: 64
+training:
+  num_epochs: 500
+  batch_size: 64
+  learning_rate: 0.0003
+  weight_decay: 0.0
+  lr_decay: 0.99
+  early_stopping_patience: 30
+  grad_max_norm: null
+  seed: 44
+  amp: false
+  cpu_threads: 2
+checkpoint:
+  save_dir: checkpoints/radon_cnn_mps_full_20261008/seed44
+  metric_name: val_loss
+  mode: min
+evaluation:
+  batch_size: 64
+data:
+  data_root: datasets/wm811k
+  image_size: 64
+  protocol: balanced
+  train_size: 6400
+  allow_train_replacement: true
+  val_split: 0.1
+  test_split: 0.1
+  cache_radon: true
