@@ -1,0 +1,25 @@
+model:
+  name: polar_cnn
+  num_classes: 8
+  input_adapter: nearest
+training:
+  num_epochs: 300
+  batch_size: 256
+  learning_rate: 0.001
+  seed: 42
+  num_workers: 0
+  cpu_threads: 2
+  selection_metric: f1
+data:
+  data_root: datasets/wm811k
+  selection: all_maps
+  reviewed_ids: null
+  denoise_threshold: 3
+  test_fraction: 0.3
+  val_fraction_of_development: 0.2
+  train_per_class: null
+  map_resolution: native_scaled
+  denoise_order: before_resize
+  count_transform: log1p
+checkpoint:
+  save_dir: /Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/selected_full

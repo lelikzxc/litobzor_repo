@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-11",
+  "paper": "https://doi.org/10.3390/electronics13071360",
+  "implemented_variant": "Model 4: single polar-sector CNN",
+  "parameters": 93192,
+  "dataset": "datasets/wm811k",
+  "original_defect_wafers": 25519,
+  "class_names": [
+    "Center",
+    "Donut",
+    "Edge-Loc",
+    "Edge-Ring",
+    "Loc",
+    "Near-full",
+    "Random",
+    "Scratch"
+  ],
+  "original_class_counts": [
+    4294,
+    555,
+    5189,
+    9680,
+    3593,
+    149,
+    866,
+    1193
+  ],
+  "default_preparation": {
+    "train": 16076,
+    "val": 1787,
+    "test": 7656,
+    "all_images_decoded": true
+  },
+  "small_preparation": {
+    "train": 1400,
+    "val": 1787,
+    "test": 7656,
+    "all_images_decoded": true
+  },
+  "paper_preparation": {
+    "train": 17863,
+    "val": 0,
+    "test": 7656,
+    "all_images_decoded": true
+  },
+  "optimizer_convention": "keras_2.15_epsilon_hat",
+  "exact_reproduction_established": false,
+  "tests": {
+    "paper_passed": 26,
+    "cuda_skipped": 2,
+    "shared_passed": 52
+  },
+  "checks": [
+    "original-wafer split before augmentation",
+    "PNG content fingerprint",
+    "finite CPU/MPS backward and Adam",
+    "spawn DataLoader",
+    "exact CPU resumed/uninterrupted weights",
+    "independent checkpoint evaluation",
+    "CLI outside repo",
+    "real MPS batch of 256 and checkpoint roundtrip",
+    "ruff and diff whitespace"
+  ],
+  "cuda_hardware_checked": false,
+  "full_training_started": true,
+  "awaiting_user_training_approval": false,
+  "limitations": [
+    "7x7-to-26x26 input bridge unpublished; nearest is explicit local assumption",
+    "Table 4 channel count inconsistent with parameter count",
+    "author curated/synthetic subset not recovered",
+    "author split IDs and seeds unavailable; diagnostic config uses separate validation",
+    "3-fold versus 7:3 interaction unspecified",
+    "MPS/CPU ReLU bias subgradients differ at tiny near-zero convolution residuals"
+  ],
+  "completed_baseline": {
+    "epochs": 300,
+    "accuracy": 0.8215778474399164,
+    "macro_f1": 0.7270666534034818,
+    "checkpoint": "checkpoints/polar_cnn_paper_all_maps_seed42/final.pt"
+  },
+  "f1_study": {
+    "status": "complete",
+    "variants": 18,
+    "selection": "validation macro F1",
+    "split": "56/14/30; same historical test IDs",
+    "winner": "native_sectors_augmented",
+    "screening_val_f1": 0.8599862092090265,
+    "exact_author_implementation": false,
+    "final_refit_macro_f1": 0.8359810678229135,
+    "final_refit_accuracy": 0.88662486938349,
+    "final_checkpoint": "checkpoints/polar_cnn_f1_refit_seed42/final.pt",
+    "target_reached": false
+  },
+  "project_status": "accepted_project_result",
+  "acceptance_record": "papers/polar_cnn/results/accepted_mps_20261011.json",
+  "further_tuning_required": false
+}

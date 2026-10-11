@@ -1,0 +1,11 @@
+{
+  "selection_source": "checkpoints/polar_cnn_f1_study_20261011/selected_full/best.pt",
+  "validation_selected_epoch": 30,
+  "train_fraction": 0.7,
+  "test_fraction": 0.3,
+  "test_ids_unchanged": true,
+  "hyperparameters_frozen_before_refit": true,
+  "historical_test_already_seen": true,
+  "test_not_used_to_choose_epoch_or_hyperparameters": true,
+  "note": "Final development-pool refit performed after reporting selected-model test; this is not a new blind benchmark."
+}

@@ -1,0 +1,23 @@
+# Kim & Kim, Electronics 2024, 13(7), 1360, Model 4.
+# Architecture and preprocessing omissions are documented in README.md.
+model:
+  name: polar_cnn
+  num_classes: 8
+  input_adapter: nearest  # Explicit local bridge 7x7 -> Table 4's 26x26.
+training:
+  num_epochs: 300
+  batch_size: 256
+  learning_rate: 0.01
+  seed: 42
+  num_workers: 0  # Safe default for Windows spawn and compact RAM tensors.
+  cpu_threads: 2
+data:
+  data_root: datasets/wm811k
+  selection: all_maps
+  reviewed_ids: null
+  denoise_threshold: 3
+  test_fraction: 0.30
+  val_fraction_of_development: 0.10  # 63/7/30: local validation for best.pt.
+  train_per_class: null  # Natural distribution, as in the all-size experiment.
+checkpoint:
+  save_dir: checkpoints/polar_cnn_all_maps_seed42

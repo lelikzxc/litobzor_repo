@@ -1,0 +1,99 @@
+{
+  "status": "accepted_project_result",
+  "accepted_by": "user",
+  "accepted_date": "2026-10-11",
+  "model": "Polar CNN",
+  "variant": "native_sectors_augmented, final 70/30 refit",
+  "training_device": "mps",
+  "torch_version": "2.10.0",
+  "project_scope": "User considers this result sufficient; further Polar CNN tuning is not required in the current scope.",
+  "paper_metrics_reproduced": false,
+  "exact_author_implementation": false,
+  "test_metrics": {
+    "accuracy": 0.88662486938349,
+    "macro_f1": 0.8359810678229135,
+    "macro_precision": 0.8188503720193834,
+    "macro_recall": 0.8570767505502889,
+    "weighted_f1": 0.8884678871483008
+  },
+  "protocol": {
+    "seed": 42,
+    "epochs": 30,
+    "original_train_wafers": 17863,
+    "training_presentations_per_epoch": 21929,
+    "test_wafers": 7656,
+    "classes": [
+      "Center",
+      "Donut",
+      "Edge-Loc",
+      "Edge-Ring",
+      "Loc",
+      "Near-full",
+      "Random",
+      "Scratch"
+    ],
+    "selection": "Hyperparameters and 30 epochs selected by validation macro F1; frozen refit on all 70% development originals.",
+    "dataset_sha256": "70574bacea224f447f00817c6b66830847b4c250144d35a07b319212613595fb",
+    "same_historical_test": true,
+    "test_already_seen": true
+  },
+  "reproducible_config": "papers/polar_cnn/configs/config_f1_refit.yaml",
+  "source_run": "checkpoints/polar_cnn_f1_refit_seed42",
+  "archive": "checkpoints/polar_cnn_accepted_mps_20261011",
+  "files": {
+    "final.pt": {
+      "path": "checkpoints/polar_cnn_accepted_mps_20261011/final.pt",
+      "sha256": "501341705a86c65fc19f60bd0ccfcc287f6a209436947c3e49023c44fa04ffc3"
+    },
+    "experiment.yaml": {
+      "path": "checkpoints/polar_cnn_accepted_mps_20261011/experiment.yaml",
+      "sha256": "98857f9c7f7cfc4f6b2884d31ea64d1a07739158b271950475ed8b96665ee104"
+    },
+    "split.json": {
+      "path": "checkpoints/polar_cnn_accepted_mps_20261011/split.json",
+      "sha256": "939c74b7b6319949336e36292d918ed8f9c10682af865fd1f4346de6e7d7cee6"
+    },
+    "test_metrics.json": {
+      "path": "checkpoints/polar_cnn_accepted_mps_20261011/test_metrics.json",
+      "sha256": "5833e3e8c344f63e045ad4b810739fe2cc16a08073d5e2c51b187bb0f237ebfb"
+    },
+    "history.json": {
+      "path": "checkpoints/polar_cnn_accepted_mps_20261011/history.json",
+      "sha256": "a8c206a1b242cee90bbd1b6e441e3b3f3ba4694c218fbd7f200a7c533229df00"
+    },
+    "train.log": {
+      "path": "checkpoints/polar_cnn_accepted_mps_20261011/train.log",
+      "sha256": "d452d6555293b8b9cf3b10e9aa173b0c55fb975af78e8e97d83af571973d422d"
+    }
+  },
+  "source_snapshot_sha256": {
+    "papers/polar_cnn/__init__.py": "3b7ed910ccac99076151f642f1b2f2f9be6e9dbc61e324873495a67d17570f84",
+    "papers/polar_cnn/data_utils/__init__.py": "186e6e9d7c57c124bd18f72404000ef6d4e9db561702e8039d4f9259c049d5d3",
+    "papers/polar_cnn/data_utils/dataset.py": "313dd26bb11c8cf3917713ab40a8d4c2a1c4e346193eab343616bdb78b7dce43",
+    "papers/polar_cnn/data_utils/preprocessing.py": "81f6f4595772f9d4f7d1f08660d0e6ba383e2df7dd15fb267f83f68dd44731a9",
+    "papers/polar_cnn/data_utils/protocol.py": "75b78a4a62ed5a6e983412fb551ad392737e2258d48a214e4a2a553c70ae9693",
+    "papers/polar_cnn/evaluate.py": "71334c5f5fab29cf1afe39a11ea00433dea57cbeaad2cd7063e8a3c5642af963",
+    "papers/polar_cnn/experiments.py": "54db27940c82172fae9ec2820024f172a50947bc86ddec8eb28efccbcfe828c5",
+    "papers/polar_cnn/models/__init__.py": "b4faa4a42aabec9e64cef3a872d8fbf13e98390f14b565c6938f3ac861d309d4",
+    "papers/polar_cnn/models/polar_cnn.py": "9584f2b6596533903c0a01b27b4d73ca02e23e600a2b26ff8f57ffa725cb2b54",
+    "papers/polar_cnn/optim.py": "9bd13ef1bf949ee843e0c108840102cb30c8bda86d5a87bff45be2630cbd35ed",
+    "papers/polar_cnn/tests/test_polar_cnn.py": "fa2fa178a6597e55b24a740dfe6e7e3bf21dbf14756052c7f7c165f115d88fa7",
+    "papers/polar_cnn/train.py": "bc4541df49b4630b97b4527f5c7607429e9cedeaba1c1d3318300e53e75562f2",
+    "papers/polar_cnn/trainer.py": "8753b4a66cceb342b70dcda51ea80e24ef12e09dccf353d3ff8d95221218e3b7",
+    "papers/polar_cnn/verify.py": "8887bd91e615d5a4003f9550b8ce4643b4258182a11cedd5ed3f6104785efa0f",
+    "papers/polar_cnn/configs/config.yaml": "c6ea9558a51d1b5db7388f888c6032ce7822334aa4b642b2499c8a10e3f8033b",
+    "papers/polar_cnn/configs/config_f1_optimized.yaml": "90aa346aa9bcf042b5552a4dab9e57f7ab193412564a7f77f73b616edf1ffe8c",
+    "papers/polar_cnn/configs/config_f1_refit.yaml": "6923335013b7632c9c292e7a3ad62335178544fad27c69d91e62352588e5f863",
+    "papers/polar_cnn/configs/config_paper_all_maps.yaml": "c9d59daf447ae01a367f0539adbe39f0463a7fd18d0736166eff988c76aaaab4",
+    "papers/polar_cnn/configs/config_small.yaml": "0676a43f2296c4ca86bb79f26093f932d65bc8e3c8bd29f250f716832738db2a",
+    "papers/wafer_encoding.py": "509494c1e6c292eac67efcefcc31099d45463842d8ee3c3b9595b84a151f8df6",
+    "common/training/utils.py": "4cd143fb9e710f9cad314331b94150a4ca6741bdc95344123815d6aeccb22a1d",
+    "common/utils/seed.py": "1341de52bcd708a85d13f558789a51b7347eb2279b126df2d8eb0b4f91edfc7a"
+  },
+  "comparison_limitations": [
+    "Paper rounded all-size macro F1 is 0.87; accepted result is 0.83598.",
+    "Native sector preservation, training-only augmentation, balanced sampling and 30-epoch refit are experimental departures.",
+    "Author input bridge and exact curated/synthetic data and evaluation protocol remain unrecovered.",
+    "Single seed/split; historical test inspected previously; no new blind benchmark."
+  ]
+}

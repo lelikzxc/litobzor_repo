@@ -1,0 +1,72 @@
+{
+  "device": "mps",
+  "torch": "2.10.0",
+  "original_wafers": 25519,
+  "dataset_sha256": "70574bacea224f447f00817c6b66830847b4c250144d35a07b319212613595fb",
+  "batch_size": 256,
+  "parameters": 93192,
+  "input_adapter": "nearest",
+  "initial_loss": 2.177870512008667,
+  "max_logit_difference_from_cpu": 4.187226295471191e-06,
+  "max_gradient_difference_from_cpu": 0.00838162936270237,
+  "gradient_details": {
+    "features.0.weight": {
+      "max_absolute_difference": 1.4901161193847656e-07,
+      "cpu_norm": 1.398963212966919,
+      "device_norm": 1.398963212966919
+    },
+    "features.0.bias": {
+      "max_absolute_difference": 0.008331949822604656,
+      "cpu_norm": 0.05246724933385849,
+      "device_norm": 0.04537305608391762
+    },
+    "features.3.weight": {
+      "max_absolute_difference": 3.725290298461914e-07,
+      "cpu_norm": 2.0336759090423584,
+      "device_norm": 2.0336785316467285
+    },
+    "features.3.bias": {
+      "max_absolute_difference": 0.00838162936270237,
+      "cpu_norm": 0.09787195175886154,
+      "device_norm": 0.09660313278436661
+    },
+    "features.6.weight": {
+      "max_absolute_difference": 2.4586915969848633e-07,
+      "cpu_norm": 3.1245763301849365,
+      "device_norm": 3.124591588973999
+    },
+    "features.6.bias": {
+      "max_absolute_difference": 0.0027274866588413715,
+      "cpu_norm": 0.1304825246334076,
+      "device_norm": 0.12986302375793457
+    },
+    "classifier.1.weight": {
+      "max_absolute_difference": 8.195638656616211e-08,
+      "cpu_norm": 2.379347801208496,
+      "device_norm": 2.3793551921844482
+    },
+    "classifier.1.bias": {
+      "max_absolute_difference": 1.4901161193847656e-08,
+      "cpu_norm": 0.1387072205543518,
+      "device_norm": 0.138707235455513
+    },
+    "classifier.3.weight": {
+      "max_absolute_difference": 9.313225746154785e-08,
+      "cpu_norm": 0.8411821722984314,
+      "device_norm": 0.8411821126937866
+    },
+    "classifier.3.bias": {
+      "max_absolute_difference": 4.470348358154297e-08,
+      "cpu_norm": 0.12645867466926575,
+      "device_norm": 0.12645870447158813
+    }
+  },
+  "gradient_note": "Sparse zero regions: CPU positive residuals <=1.1e-5 versus exact MPS zeros can change ReLU bias subgradients; weight gradients agree closely. This explains this Mac preflight, not all possible backend differences.",
+  "one_training_batch_seconds": 0.08144783299940173,
+  "finite_optimizer_step": true,
+  "optimizer_convention": "keras_2.15_epsilon_hat",
+  "checkpoint_roundtrip": true,
+  "full_training_started": false,
+  "note": "One-batch execution check, not an accuracy experiment or epoch-time benchmark",
+  "preflight_loss": 2.177870512008667
+}

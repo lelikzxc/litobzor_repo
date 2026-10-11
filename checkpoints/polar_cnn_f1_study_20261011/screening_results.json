@@ -1,0 +1,663 @@
+[
+  {
+    "variant": "baseline",
+    "val_f1": 0.8057076605770896,
+    "val_accuracy": 0.8600615729079205,
+    "val_scratch_f1": 0.43478260869565216,
+    "selected_epoch": 9,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.01,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/baseline"
+      }
+    }
+  },
+  {
+    "variant": "lower_lr",
+    "val_f1": 0.8212052688415852,
+    "val_accuracy": 0.8642597257206829,
+    "val_scratch_f1": 0.5329949238578681,
+    "selected_epoch": 23,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/lower_lr"
+      }
+    }
+  },
+  {
+    "variant": "no_denoise",
+    "val_f1": 0.8100731029517978,
+    "val_accuracy": 0.8600615729079205,
+    "val_scratch_f1": 0.37037037037037035,
+    "selected_epoch": 14,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 0,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/no_denoise"
+      }
+    }
+  },
+  {
+    "variant": "threshold2",
+    "val_f1": 0.8091891698052933,
+    "val_accuracy": 0.8690176322418136,
+    "val_scratch_f1": 0.4375,
+    "selected_epoch": 17,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 2,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/threshold2"
+      }
+    }
+  },
+  {
+    "variant": "native_denoise",
+    "val_f1": 0.8404998649586236,
+    "val_accuracy": 0.883851105513574,
+    "val_scratch_f1": 0.5217391304347826,
+    "selected_epoch": 17,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "denoise_order": "before_resize"
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/native_denoise"
+      }
+    }
+  },
+  {
+    "variant": "bilinear",
+    "val_f1": 0.8224255655152105,
+    "val_accuracy": 0.8670584942625245,
+    "val_scratch_f1": 0.5087281795511222,
+    "selected_epoch": 23,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "bilinear"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/bilinear"
+      }
+    }
+  },
+  {
+    "variant": "log_counts",
+    "val_f1": 0.8076208471503508,
+    "val_accuracy": 0.8645396025748671,
+    "val_scratch_f1": 0.4342105263157895,
+    "selected_epoch": 26,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "count_transform": "log1p"
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/log_counts"
+      }
+    }
+  },
+  {
+    "variant": "balanced",
+    "val_f1": 0.8126143843169504,
+    "val_accuracy": 0.8527847746991324,
+    "val_scratch_f1": 0.4986449864498645,
+    "selected_epoch": 13,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1",
+        "balanced_sampling": true
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/balanced"
+      }
+    }
+  },
+  {
+    "variant": "log_balanced",
+    "val_f1": 0.8179200499776177,
+    "val_accuracy": 0.8592219423453681,
+    "val_scratch_f1": 0.47146401985111663,
+    "selected_epoch": 28,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1",
+        "balanced_sampling": true
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "count_transform": "log1p"
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/log_balanced"
+      }
+    }
+  },
+  {
+    "variant": "log_balanced_no_denoise",
+    "val_f1": 0.7998163710315103,
+    "val_accuracy": 0.8354324097397146,
+    "val_scratch_f1": 0.38403990024937656,
+    "selected_epoch": 27,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1",
+        "balanced_sampling": true
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 0,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "count_transform": "log1p"
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/log_balanced_no_denoise"
+      }
+    }
+  },
+  {
+    "variant": "native_log",
+    "val_f1": 0.8383919691137323,
+    "val_accuracy": 0.889168765743073,
+    "val_scratch_f1": 0.5697674418604651,
+    "selected_epoch": 16,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "denoise_order": "before_resize",
+        "count_transform": "log1p"
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/native_log"
+      }
+    }
+  },
+  {
+    "variant": "native_balanced",
+    "val_f1": 0.8434083291880947,
+    "val_accuracy": 0.8866498740554156,
+    "val_scratch_f1": 0.5399449035812672,
+    "selected_epoch": 37,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1",
+        "balanced_sampling": true
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "denoise_order": "before_resize"
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/native_balanced"
+      }
+    }
+  },
+  {
+    "variant": "native_log_balanced",
+    "val_f1": 0.8441494271972846,
+    "val_accuracy": 0.8765743073047859,
+    "val_scratch_f1": 0.5630498533724341,
+    "selected_epoch": 27,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1",
+        "balanced_sampling": true
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "denoise_order": "before_resize",
+        "count_transform": "log1p"
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/native_log_balanced"
+      }
+    }
+  },
+  {
+    "variant": "native_sectors",
+    "val_f1": 0.8496915239766245,
+    "val_accuracy": 0.8970053176602295,
+    "val_scratch_f1": 0.5957446808510638,
+    "selected_epoch": 40,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "map_resolution": "native_scaled",
+        "denoise_order": "before_resize"
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/native_sectors"
+      }
+    }
+  },
+  {
+    "variant": "native_sectors_log",
+    "val_f1": 0.8501622577981787,
+    "val_accuracy": 0.8970053176602295,
+    "val_scratch_f1": 0.6194690265486725,
+    "selected_epoch": 31,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1"
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "map_resolution": "native_scaled",
+        "denoise_order": "before_resize",
+        "count_transform": "log1p"
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/native_sectors_log"
+      }
+    }
+  },
+  {
+    "variant": "native_augmented",
+    "val_f1": 0.8462430551887361,
+    "val_accuracy": 0.8936467954100196,
+    "val_scratch_f1": 0.5769230769230769,
+    "selected_epoch": 15,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1",
+        "balanced_sampling": true
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "denoise_order": "before_resize",
+        "train_min_per_class": 1500
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/native_augmented"
+      }
+    }
+  },
+  {
+    "variant": "native_sectors_augmented",
+    "val_f1": 0.8599862092090265,
+    "val_accuracy": 0.9000839630562553,
+    "val_scratch_f1": 0.6648199445983379,
+    "selected_epoch": 30,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1",
+        "balanced_sampling": true
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "map_resolution": "native_scaled",
+        "denoise_order": "before_resize",
+        "train_min_per_class": 1500
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/native_sectors_augmented"
+      }
+    }
+  },
+  {
+    "variant": "native_sectors_log_augmented",
+    "val_f1": 0.854245331572574,
+    "val_accuracy": 0.9000839630562553,
+    "val_scratch_f1": 0.6525679758308157,
+    "selected_epoch": 31,
+    "changes": {
+      "model": {
+        "name": "polar_cnn",
+        "num_classes": 8,
+        "input_adapter": "nearest"
+      },
+      "training": {
+        "num_epochs": 40,
+        "batch_size": 256,
+        "learning_rate": 0.001,
+        "seed": 42,
+        "num_workers": 0,
+        "cpu_threads": 2,
+        "selection_metric": "f1",
+        "balanced_sampling": true
+      },
+      "data": {
+        "data_root": "datasets/wm811k",
+        "selection": "all_maps",
+        "reviewed_ids": null,
+        "denoise_threshold": 3,
+        "test_fraction": 0.3,
+        "val_fraction_of_development": 0.2,
+        "train_per_class": null,
+        "map_resolution": "native_scaled",
+        "denoise_order": "before_resize",
+        "count_transform": "log1p",
+        "train_min_per_class": 1500
+      },
+      "checkpoint": {
+        "save_dir": "/Users/lelik/Documents/niime/litobzor_repo/checkpoints/polar_cnn_f1_study_20261011/native_sectors_log_augmented"
+      }
+    }
+  }
+]

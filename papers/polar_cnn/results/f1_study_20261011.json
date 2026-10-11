@@ -1,0 +1,170 @@
+{
+  "date": "2026-10-11",
+  "device": "mps",
+  "dataset_sha256": "70574bacea224f447f00817c6b66830847b4c250144d35a07b319212613595fb",
+  "paper": "https://doi.org/10.3390/electronics13071360",
+  "paper_table10_macro_f1_rounded": 0.87,
+  "target_reached": false,
+  "exact_paper_reproduction": false,
+  "baseline": {
+    "accuracy": 0.8215778474399164,
+    "macro_f1": 0.7270666534034818,
+    "macro_precision": 0.7208402053641892,
+    "macro_recall": 0.741708811877389,
+    "scratch_f1": 0.3261943986820428,
+    "test_originals": 7656
+  },
+  "validation_selected_model": {
+    "accuracy": 0.8874085684430512,
+    "macro_f1": 0.8253995747145725,
+    "macro_precision": 0.8092545175700535,
+    "macro_recall": 0.8475996651955426,
+    "scratch_f1": 0.5902061855670103,
+    "test_originals": 7656
+  },
+  "final_refit": {
+    "accuracy": 0.88662486938349,
+    "macro_f1": 0.8359810678229135,
+    "macro_precision": 0.8188503720193834,
+    "macro_recall": 0.8570767505502889,
+    "scratch_f1": 0.5754838709677419,
+    "test_originals": 7656
+  },
+  "macro_f1_gain_absolute": 0.10891441441943173,
+  "remaining_gap_to_rounded_paper_f1": 0.034018932177086514,
+  "winner": "native_sectors_augmented",
+  "screening_epochs_per_variant": 40,
+  "screening_variants": [
+    {
+      "variant": "baseline",
+      "val_f1": 0.8057076605770896,
+      "val_scratch_f1": 0.43478260869565216,
+      "selected_epoch": 9
+    },
+    {
+      "variant": "lower_lr",
+      "val_f1": 0.8212052688415852,
+      "val_scratch_f1": 0.5329949238578681,
+      "selected_epoch": 23
+    },
+    {
+      "variant": "no_denoise",
+      "val_f1": 0.8100731029517978,
+      "val_scratch_f1": 0.37037037037037035,
+      "selected_epoch": 14
+    },
+    {
+      "variant": "threshold2",
+      "val_f1": 0.8091891698052933,
+      "val_scratch_f1": 0.4375,
+      "selected_epoch": 17
+    },
+    {
+      "variant": "native_denoise",
+      "val_f1": 0.8404998649586236,
+      "val_scratch_f1": 0.5217391304347826,
+      "selected_epoch": 17
+    },
+    {
+      "variant": "bilinear",
+      "val_f1": 0.8224255655152105,
+      "val_scratch_f1": 0.5087281795511222,
+      "selected_epoch": 23
+    },
+    {
+      "variant": "log_counts",
+      "val_f1": 0.8076208471503508,
+      "val_scratch_f1": 0.4342105263157895,
+      "selected_epoch": 26
+    },
+    {
+      "variant": "balanced",
+      "val_f1": 0.8126143843169504,
+      "val_scratch_f1": 0.4986449864498645,
+      "selected_epoch": 13
+    },
+    {
+      "variant": "log_balanced",
+      "val_f1": 0.8179200499776177,
+      "val_scratch_f1": 0.47146401985111663,
+      "selected_epoch": 28
+    },
+    {
+      "variant": "log_balanced_no_denoise",
+      "val_f1": 0.7998163710315103,
+      "val_scratch_f1": 0.38403990024937656,
+      "selected_epoch": 27
+    },
+    {
+      "variant": "native_log",
+      "val_f1": 0.8383919691137323,
+      "val_scratch_f1": 0.5697674418604651,
+      "selected_epoch": 16
+    },
+    {
+      "variant": "native_balanced",
+      "val_f1": 0.8434083291880947,
+      "val_scratch_f1": 0.5399449035812672,
+      "selected_epoch": 37
+    },
+    {
+      "variant": "native_log_balanced",
+      "val_f1": 0.8441494271972846,
+      "val_scratch_f1": 0.5630498533724341,
+      "selected_epoch": 27
+    },
+    {
+      "variant": "native_sectors",
+      "val_f1": 0.8496915239766245,
+      "val_scratch_f1": 0.5957446808510638,
+      "selected_epoch": 40
+    },
+    {
+      "variant": "native_sectors_log",
+      "val_f1": 0.8501622577981787,
+      "val_scratch_f1": 0.6194690265486725,
+      "selected_epoch": 31
+    },
+    {
+      "variant": "native_augmented",
+      "val_f1": 0.8462430551887361,
+      "val_scratch_f1": 0.5769230769230769,
+      "selected_epoch": 15
+    },
+    {
+      "variant": "native_sectors_augmented",
+      "val_f1": 0.8599862092090265,
+      "val_scratch_f1": 0.6648199445983379,
+      "selected_epoch": 30
+    },
+    {
+      "variant": "native_sectors_log_augmented",
+      "val_f1": 0.854245331572574,
+      "val_scratch_f1": 0.6525679758308157,
+      "selected_epoch": 31
+    }
+  ],
+  "full_validation_run_epochs": 300,
+  "selected_epoch": 30,
+  "final_refit_epochs": 30,
+  "final_checkpoint": "checkpoints/polar_cnn_f1_refit_seed42/final.pt",
+  "final_config": "papers/polar_cnn/configs/config_f1_refit.yaml",
+  "protocol": "Settings and epoch selected on 56/14/30 validation split; frozen 30-epoch refit on original 70/30 development/test split. Same historical test IDs; rotation augmentation and balanced sampling on training only.",
+  "test_already_seen": true,
+  "selection_by_test_metrics": false,
+  "search_adaptive": true,
+  "caveats": [
+    "Historical test was inspected before and during this work; this is not a new blind benchmark.",
+    "Native area-weighted sectors, balancing and 30-epoch refit are experimental changes, not recovered author choices.",
+    "Unknown author input bridge, curated subset, synthetic maps and ambiguous full-size evaluation protocol remain.",
+    "Only one seed/split; validation macro F1 includes 21 Near-full originals.",
+    "CUDA hardware was unavailable; actual runtime checks used CPU and MPS."
+  ],
+  "verification": {
+    "tests_passed": 26,
+    "cuda_tests_skipped": 2,
+    "mps_real_batch_preflight": true,
+    "experimental_balanced_resume_exact_cpu": true,
+    "independent_evaluation_matches": true
+  }
+}

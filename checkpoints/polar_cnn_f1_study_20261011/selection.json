@@ -1,0 +1,7 @@
+{
+  "criterion": "validation macro F1 only",
+  "winner": "native_sectors_augmented",
+  "test_used_for_selection": false,
+  "historical_test_already_seen": true,
+  "note": "Existing test was previously reported; final comparison is not a new blind benchmark."
+}

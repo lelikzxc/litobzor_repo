@@ -16,6 +16,7 @@ litobzor_repo/
 │   ├── transformer_segmentation/
 │   ├── semiwafernet/
 │   ├── radon_cnn/
+│   ├── polar_cnn/
 │   └── wafer_defect_classifier/
 ├── datasets/                       # Local data (gitignored)
 ├── configs/                        # Global defaults
@@ -31,6 +32,7 @@ litobzor_repo/
 | Paper | Directory | Task |
 |-------|-----------|------|
 | RadonCNN | [`papers/radon_cnn/`](papers/radon_cnn/) | Classification |
+| Polar CNN | [`papers/polar_cnn/`](papers/polar_cnn/) | Polar-sector classification, CPU/MPS/CUDA |
 | Wafer Defect Classifier | [`papers/wafer_defect_classifier/`](papers/wafer_defect_classifier/) | Segmentation + classification |
 | SemiWaferNet | [`papers/semiwafernet/`](papers/semiwafernet/) | HybridCNN-ViT SSL + ConvoFormer-UNet |
 | FCS-VMamba | [`papers/vmamba/`](papers/vmamba/) | Classification |
@@ -47,6 +49,14 @@ seeds 42, 43 and 44. This is an accepted project result, with the paper
 comparison limitations retained in the [RadonCNN documentation](papers/radon_cnn/README.md#completed-full-balanced-mps-runs).
 The [acceptance record](papers/radon_cnn/results/accepted_mps_20261008.json)
 stores the exact metrics, protocol, checkpoint locations and checksums.
+
+The user accepted the Polar CNN MPS result on 2026-10-11: **88.66% accuracy**
+and **0.83598 macro F1** on 7,656 test wafers, seed 42. Further Polar CNN tuning
+is not required in the current scope. This is an accepted project result;
+exact author reproduction and the paper's rounded F1 of 0.87 are not claimed.
+The [acceptance record](papers/polar_cnn/results/accepted_mps_20261011.json)
+records an archived checkpoint, metrics, split, config, source snapshot and
+SHA-256 checksums.
 
 ## Getting Started
 

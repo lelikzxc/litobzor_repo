@@ -1,0 +1,78 @@
+{
+  "device": "mps",
+  "torch": "2.10.0",
+  "original_wafers": 25519,
+  "dataset_sha256": "70574bacea224f447f00817c6b66830847b4c250144d35a07b319212613595fb",
+  "batch_size": 256,
+  "parameters": 93192,
+  "input_adapter": "nearest",
+  "preprocessing": {
+    "denoise_threshold": 3,
+    "denoise_order": "before_resize",
+    "count_transform": "raw",
+    "map_resolution": "native_scaled"
+  },
+  "initial_loss": 2.181839942932129,
+  "max_logit_difference_from_cpu": 4.187226295471191e-06,
+  "max_gradient_difference_from_cpu": 0.0070200031623244286,
+  "gradient_details": {
+    "features.0.weight": {
+      "max_absolute_difference": 1.1693686246871948e-05,
+      "cpu_norm": 1.4082447290420532,
+      "device_norm": 1.4082368612289429
+    },
+    "features.0.bias": {
+      "max_absolute_difference": 0.0070200031623244286,
+      "cpu_norm": 0.05423549935221672,
+      "device_norm": 0.047084834426641464
+    },
+    "features.3.weight": {
+      "max_absolute_difference": 8.070841431617737e-06,
+      "cpu_norm": 2.04040789604187,
+      "device_norm": 2.040402412414551
+    },
+    "features.3.bias": {
+      "max_absolute_difference": 0.005707219708710909,
+      "cpu_norm": 0.10092533379793167,
+      "device_norm": 0.10266122967004776
+    },
+    "features.6.weight": {
+      "max_absolute_difference": 2.6654452085494995e-05,
+      "cpu_norm": 3.1015217304229736,
+      "device_norm": 3.1015286445617676
+    },
+    "features.6.bias": {
+      "max_absolute_difference": 0.0015323255211114883,
+      "cpu_norm": 0.13250182569026947,
+      "device_norm": 0.13357602059841156
+    },
+    "classifier.1.weight": {
+      "max_absolute_difference": 8.195638656616211e-08,
+      "cpu_norm": 2.3350000381469727,
+      "device_norm": 2.3350069522857666
+    },
+    "classifier.1.bias": {
+      "max_absolute_difference": 1.1175870895385742e-08,
+      "cpu_norm": 0.13942652940750122,
+      "device_norm": 0.13942652940750122
+    },
+    "classifier.3.weight": {
+      "max_absolute_difference": 8.940696716308594e-08,
+      "cpu_norm": 0.8273555040359497,
+      "device_norm": 0.8273555040359497
+    },
+    "classifier.3.bias": {
+      "max_absolute_difference": 3.725290298461914e-08,
+      "cpu_norm": 0.12518775463104248,
+      "device_norm": 0.12518776953220367
+    }
+  },
+  "gradient_note": "Sparse ReLU regions can have different near-zero convolution roundoff across CPU/MPS. Bias-gradient differences are recorded; finite gradients and weight-gradient parity are checked. This is not a claim of exact backend equivalence.",
+  "one_training_batch_seconds": 0.09390625000014552,
+  "finite_optimizer_step": true,
+  "optimizer_convention": "keras_2.15_epsilon_hat",
+  "checkpoint_roundtrip": true,
+  "full_training_started": false,
+  "note": "One-batch execution check, not an accuracy experiment or epoch-time benchmark",
+  "preflight_loss": 2.181839942932129
+}

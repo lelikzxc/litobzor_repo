@@ -1,0 +1,23 @@
+# Closest specified all-size experiment, Sec.4.1.3 / Table 10.
+# Exact input bridge and split seeds remain unpublished: see reproduction_audit.md.
+model:
+  name: polar_cnn
+  num_classes: 8
+  input_adapter: nearest
+training:
+  num_epochs: 300
+  batch_size: 256
+  learning_rate: 0.01
+  seed: 42
+  num_workers: 0
+  cpu_threads: 2
+data:
+  data_root: datasets/wm811k
+  selection: all_maps
+  reviewed_ids: null
+  denoise_threshold: 3
+  test_fraction: 0.30
+  val_fraction_of_development: 0.0
+  train_per_class: null
+checkpoint:
+  save_dir: checkpoints/polar_cnn_paper_all_maps_seed42
