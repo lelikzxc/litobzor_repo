@@ -2,30 +2,19 @@
 
 Source: https://github.com/MzeroMiko/VMamba (classification/models/csm_triton.py)
 
-Provides ``cross_scan_fn`` and ``cross_merge_fn`` with automatic fallback:
-    1. Triton kernels (when ``triton`` is installed and input is on CUDA)
-    2. Pure-PyTorch fallback (``CrossScanF`` / ``CrossMergeF``)
-
-The pure-PyTorch fallback uses ``torch.flip``, ``torch.stack``, and
-``torch.transpose`` to implement the 4-directional scanning without
-compiled Triton kernels.
+Provides ``cross_scan_fn`` and ``cross_merge_fn`` using complete PyTorch
+autograd implementations on CPU, CUDA and MPS. Cross scan uses ``torch.flip``,
+``torch.stack`` and ``torch.transpose`` for four directions. The historical
+filename is retained for compatibility; Triton is neither imported nor needed.
 """
 
 from __future__ import annotations
 
-import warnings
-
 import torch
 
-# ── Triton availability ───────────────────────────────────────────────────
-
-WITH_TRITON = True
-try:
-    import triton  # type: ignore[import-untyped]  # noqa: F401
-    import triton.language as tl  # type: ignore[import-untyped]  # noqa: F401
-except ImportError:
-    WITH_TRITON = False
-    warnings.warn("triton not installed — using pure-PyTorch cross-scan/merge")
+# Compatibility flag only. No optional DLL should be loaded for PyTorch-only
+# operations; a broken Windows Triton installation must not prevent training.
+WITH_TRITON = False
 
 
 # ── Pure-PyTorch forward helpers ──────────────────────────────────────────
@@ -244,7 +233,7 @@ def cross_scan_fn(
     scans: int = 0,
     force_torch: bool = False,
 ) -> torch.Tensor:
-    """Cross-scan with automatic Triton / PyTorch fallback.
+    """Four-directional cross scan with PyTorch autograd on every device.
 
     Args:
         x: Input ``[B, C, H, W]`` (channel-first) or ``[B, H, W, C]``.
@@ -252,7 +241,7 @@ def cross_scan_fn(
         out_channel_first: Whether output is channel-first.
         one_by_one: Use one-by-one scanning variant.
         scans: Scan mode (0=cross, 1=unidirectional, 2=bidirectional).
-        force_torch: Force pure-PyTorch implementation.
+        force_torch: Retained for API compatibility; PyTorch is always used.
 
     Returns:
         Scanned tensor ``[B, 4, C, L]`` or equivalent.
@@ -272,7 +261,7 @@ def cross_merge_fn(
     scans: int = 0,
     force_torch: bool = False,
 ) -> torch.Tensor:
-    """Cross-merge with automatic Triton / PyTorch fallback.
+    """Merge scan directions with PyTorch autograd on every device.
 
     Args:
         y: Input ``[B, 4, C, H, W]`` (channel-first) or ``[B, H, W, 4, C]``.
@@ -280,7 +269,7 @@ def cross_merge_fn(
         out_channel_first: Whether output is channel-first.
         one_by_one: Use one-by-one merging variant.
         scans: Scan mode (0=cross, 1=unidirectional, 2=bidirectional).
-        force_torch: Force pure-PyTorch implementation.
+        force_torch: Retained for API compatibility; PyTorch is always used.
 
     Returns:
         Merged tensor ``[B, C, H*W]`` or equivalent.

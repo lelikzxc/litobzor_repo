@@ -12,6 +12,7 @@ constant runs that explode selective-scan grads (~1e18 on LayerNorm).
 
 from __future__ import annotations
 
+import csv
 from pathlib import Path
 from typing import Any, Callable
 
@@ -63,9 +64,10 @@ def parse_wm811k_labeled_samples(
     samples: list[tuple[str, int]] = []
     split_filter = split.lower() if split else None
 
-    with open(labels_path, "r", encoding="utf-8") as f:
-        header = f.readline().strip()
-        cols = [c.strip().lower() for c in header.split(",")]
+    with labels_path.open("r", encoding="utf-8-sig", newline="") as f:
+        reader = csv.reader(f)
+        header = next(reader, [])
+        cols = [c.strip().lower() for c in header]
 
         if "failuretype" not in cols:
             raise ValueError(
@@ -76,14 +78,15 @@ def parse_wm811k_labeled_samples(
         ft_idx = cols.index("failuretype")
         fn_idx = cols.index("filename") if "filename" in cols else 0
         split_idx = cols.index("triantestlabel") if "triantestlabel" in cols else None
+        if split_filter is not None and split_idx is None:
+            raise ValueError(f"Split filter requires trianTestLabel in {labels_path}")
 
-        for line in f:
-            line = line.strip()
-            if not line:
+        for row_number, parts in enumerate(reader, start=2):
+            if not parts or not any(part.strip() for part in parts):
                 continue
-            parts = line.split(",")
-            if len(parts) <= ft_idx:
-                continue
+            required = [ft_idx, fn_idx] + ([split_idx] if split_idx is not None else [])
+            if len(parts) <= max(required):
+                raise ValueError(f"Malformed CSV row {row_number} in {labels_path}")
             failure = parts[ft_idx].strip()
             if _is_unlabeled(failure):
                 continue
@@ -91,13 +94,22 @@ def parse_wm811k_labeled_samples(
             if label_idx is None:
                 try:
                     label_idx = int(failure)
-                except ValueError:
-                    continue
+                except ValueError as exc:
+                    raise ValueError(
+                        f"Unknown failureType {failure!r} at row {row_number} in {labels_path}"
+                    ) from exc
+            if not 0 <= label_idx < len(WM811K_CLASSES):
+                raise ValueError(
+                    f"Label {label_idx} at row {row_number} in {labels_path} is outside 0..8"
+                )
             if split_filter is not None and split_idx is not None:
                 row_split = parts[split_idx].strip().lower()
                 if row_split != split_filter:
                     continue
-            samples.append((parts[fn_idx].strip(), label_idx))
+            filename = parts[fn_idx].strip()
+            if not filename:
+                raise ValueError(f"Empty filename at row {row_number} in {labels_path}")
+            samples.append((filename, label_idx))
 
     return samples
 
@@ -180,7 +192,8 @@ class WaferWM811KDataset(BaseDataset):
         if not image_path.exists():
             raise FileNotFoundError(f"Image not found: {image_path}")
 
-        image = Image.open(image_path).convert("L")
+        with Image.open(image_path) as source:
+            image = source.convert("L")
 
         if self.transform is not None:
             image = self.transform(image)

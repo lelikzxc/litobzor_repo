@@ -14,6 +14,8 @@ Audited 2026-10-06 against the repository's `vmamba.pdf`, particularly Figure 2,
 | Evaluation independently split all raw maps at 80/20/0 | Empty evaluation set, or overlap with a different training run under altered ratios | Persisted run protocol with exact holdout indices |
 | Triton wrappers called an autograd Function inside another Function's forward and had no backward | GPU backpropagation would fail when Triton was installed | Direct complete PyTorch scan/merge autograd, also on CUDA |
 | CPU dispatch could select a CUDA extension merely because it was installed | CPU failed in CUDA-equipped environments | Dispatch checks the input device |
+| CUDA training required a compiled selective-scan extension | Native Windows launch depended on a Unix-oriented build | Checkpointed PyTorch prefix scan on CUDA when the extension is unavailable; explicit backend selection and real-batch preflight |
+| Unused optional Triton import could fail on a broken Windows DLL | PyTorch-only cross scan could not even import | Remove the unused import and preserve complete PyTorch autograd |
 | Final reporting loaded best and then saved last | Destroyed the resumable final state | Best loaded for reporting only; last preserved |
 | No global RNG seed, learning rate differed from the paper | Split seed alone did not make runs reproducible; optimiser recipe differed | Seed Python/NumPy/PyTorch and use paper AdamW lr=0.001, batch=4, 50 epochs |
 
@@ -32,3 +34,13 @@ The authors do not publish exact split seeds, normalisation values, augmentation
 The paper's 86.06% is macro-precision in the abstract and also macro-F1 in Table 3; report accuracy, macro-precision, macro-recall and macro-F1 separately. Table 4 gives multi-run macro-F1 85.91% +/- 1.65%. Eq. 9 is ordinary spatial dot-product attention and is quadratic in token count, despite the text's linear-complexity claim.
 
 CPU verification covers full-resolution forward, short real-image training/evaluation, finite gradients, residual/CLCA placement, scan/merge gradients and checkpoint/split consistency. A GPU-only test compares accelerated selective scan with the recurrent reference in forward and backward. That test is skipped here because no GPU is available. Full training accuracy remains unmeasured.
+
+Windows-readiness follow-up, 2026-10-11: the CUDA fallback uses the same
+checkpointed 128-token affine-prefix recurrence already used on MPS. CPU tests
+verify outputs and all scan input gradients, long sequences and underflow. The
+full 224-pixel author-dataset preflight succeeded with train batch 4 and holdout
+batch 16; all parameter gradients and updated weights were finite. Resume keeps
+the checkpoint epoch authoritative, restores AdamW and cosine state, and preserves
+the historical selected checkpoint. Standalone evaluation reconstructs the saved
+effective configuration and holdout. GPU-specific correctness, peak memory and
+speed must still be checked on Windows with the documented CUDA preflight.

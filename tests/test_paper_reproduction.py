@@ -240,11 +240,7 @@ def test_vmamba_cpu_optimizer_step_finite():
 
 @pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA backend parity requires GPU")
 def test_cuda_scan_parity_and_backward():
-    assert (
-        csms6s.WITH_SELECTIVESCAN_OFLEX
-        or csms6s.WITH_SELECTIVESCAN_CORE
-        or csms6s.WITH_SELECTIVESCAN_MAMBA
-    ), "Install compiled selective-scan kernels before GPU training"
+    assert csms6s.get_scan_backend("cuda") in {"oflex", "core", "mamba", "chunked"}
     torch.manual_seed(11)
     tensors = [
         torch.randn(2, 8, 12, device="cuda"),

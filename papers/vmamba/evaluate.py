@@ -1,12 +1,9 @@
-"""Evaluate a trained FCS-VMamba model on WM-811K test set.
-
-Usage:
-    python papers/vmamba/evaluate.py --checkpoint checkpoints/vmamba_wm811k/best.pt
-"""
+"""Evaluate FCS-VMamba using the checkpoint's saved validation holdout."""
 
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -20,158 +17,141 @@ if str(_project_root) not in sys.path:
 from common.engine.config import EngineConfig
 from common.training.metrics import accuracy, f1, precision, recall
 from common.training.utils import resolve_device
-from papers.vmamba.data_utils.author_dataset import build_dataset
+from papers.reproduction import load_holdout
+from papers.vmamba.data_utils.author_dataset import build_dataset, validate_dataset_images
+from papers.vmamba.kernels import csms6s
 from papers.vmamba.models.vmamba import FCSVMamba
+from papers.vmamba.utils.checkpoint import checkpoint_model_state
+from papers.vmamba.utils.console import ProgressLoader, training_output
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Evaluate FCS-VMamba on WM-811K test set")
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Evaluate FCS-VMamba on its saved holdout")
     parser.add_argument(
         "--checkpoint",
-        type=str,
-        default="checkpoints/vmamba_wm811k/best.pt",
-        help="Path to checkpoint .pt file",
+        type=Path,
+        default=Path("checkpoints/vmamba_fcs_reproduction/best.pt"),
+        help="Checkpoint with protocol.json in the same directory",
     )
     parser.add_argument(
         "--config",
-        type=str,
-        default="papers/vmamba/configs/config.yaml",
-        help="Path to YAML configuration file",
+        type=Path,
+        default=None,
+        help="Optional YAML; model and evaluation data must match the saved protocol",
     )
-    parser.add_argument(
-        "--device",
-        type=str,
-        default="auto",
-        choices=["auto", "cuda", "mps", "cpu"],
-    )
-    return parser.parse_args()
+    parser.add_argument("--device", default="auto", choices=["auto", "cuda", "mps", "cpu"])
+    parser.add_argument("--scan-backend", default="auto", choices=["auto", "chunked", "compiled"])
+    parser.add_argument("--log-file", type=Path, default=None)
+    return parser.parse_args(argv)
+
+
+def checkpoint_config(args) -> EngineConfig:
+    if not args.checkpoint.is_file():
+        raise FileNotFoundError(f"Checkpoint not found: {args.checkpoint}")
+    protocol_path = args.checkpoint.parent / "protocol.json"
+    if not protocol_path.is_file():
+        raise FileNotFoundError(f"Missing {protocol_path}: evaluation requires the training split")
+    saved = EngineConfig(json.loads(protocol_path.read_text(encoding="utf-8"))["config"])
+    if args.config is None:
+        return saved
+    supplied = EngineConfig.from_yaml(args.config)
+    if supplied.get("model") != saved.get("model"):
+        raise ValueError("Model config differs from the checkpoint training protocol")
+    # Training-only overrides do not affect inference; source, pixels and
+    # normalization must remain exactly the same.
+    for key, default in (
+        ("data.source", "raw_maps"),
+        ("data.data_root", None),
+        ("data.image_size", 224),
+        ("data.mean", [0.485, 0.456, 0.406]),
+        ("data.std", [0.229, 0.224, 0.225]),
+        ("data.verify_author_archive", True),
+    ):
+        if supplied.get(key, default) != saved.get(key, default):
+            raise ValueError(f"{key} differs from the checkpoint training protocol")
+    # Saved configuration stays authoritative, including effective CLI overrides.
+    return saved
+
+
+def main() -> None:
+    args = parse_args()
+    with training_output(args.log_file):
+        _run_evaluation(args)
 
 
 @torch.no_grad()
-def main() -> None:
-    args = parse_args()
-
+def _run_evaluation(args) -> dict[str, float]:
+    config = checkpoint_config(args)
+    batch_size = config.get("evaluation.batch_size", 16)
+    if type(batch_size) is not int or batch_size <= 0:
+        raise ValueError("evaluation.batch_size must be a positive integer")
     device = resolve_device(args.device)
+    csms6s.set_scan_backend(args.scan_backend)
     print(f"Using device: {device}")
-
-    # ── Load config ─────────────────────────────────────────────────────
-    config_path = Path(args.config)
-    if not config_path.exists():
-        print(f"Error: Config not found: {config_path}")
-        sys.exit(1)
-    config = EngineConfig.from_yaml(config_path)
-
-    # ── Create dataset ──────────────────────────────────────────────────
-    data_root = config.get("data.data_root", "datasets/wm811k")
-
-    print(f"Loading WM-811K dataset from: {data_root}")
-    full_dataset = build_dataset(config, train=False)
-    print(f"  Total samples: {len(full_dataset)}")
-    print(f"  Classes: {full_dataset.class_names}")
-
-    from papers.reproduction import load_holdout
-
-    holdout, saved_config = load_holdout(args.checkpoint, full_dataset._samples)
-    if saved_config["model"] != config.to_dict()["model"]:
-        raise ValueError("Model config differs from the checkpoint training protocol")
-    test_dataset = Subset(full_dataset, holdout)
-    print(f"  Saved holdout samples: {len(test_dataset)}")
-
-    # ── DataLoader ──────────────────────────────────────────────────────
-    eval_batch_size = config.get("evaluation.batch_size", 128)
+    print(f"Selective scan backend: {csms6s.get_scan_backend(device)}")
+    print(f"Loading saved dataset: {config.get('data.data_root')}")
+    dataset = build_dataset(config, train=False)
+    holdout, _ = load_holdout(args.checkpoint, dataset._samples)
+    if not holdout or any(type(i) is not int or not 0 <= i < len(dataset) for i in holdout):
+        raise ValueError("The saved holdout is empty or contains invalid sample indices")
+    if len(set(holdout)) != len(holdout):
+        raise ValueError("The saved holdout contains duplicate sample indices")
+    validate_dataset_images(dataset, holdout)
+    print(f"  Saved holdout samples: {len(holdout)}")
 
     def collate_fn(batch):
         images = torch.stack([item["image"] for item in batch])
         labels = torch.tensor([item["label"] for item in batch], dtype=torch.long)
         return images, labels
 
-    test_loader = DataLoader(
-        test_dataset,
-        batch_size=eval_batch_size,
+    loader = DataLoader(
+        Subset(dataset, holdout),
+        batch_size=batch_size,
         shuffle=False,
         num_workers=0,
         collate_fn=collate_fn,
     )
-
-    # ── Create model ────────────────────────────────────────────────────
-    print("Creating FCS-VMamba model...")
     model = FCSVMamba.from_config(config)
-    model = model.to(device)
+    print(f"Loading checkpoint: {args.checkpoint}")
+    state = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
+    model.load_state_dict(checkpoint_model_state(state))
+    if isinstance(state, dict) and "epoch" in state:
+        print(f"  Loaded epoch: {state['epoch']}")
+    model.to(device).eval()
 
-    # ── Load checkpoint ─────────────────────────────────────────────────
-    checkpoint_path = Path(args.checkpoint)
-    if not checkpoint_path.exists():
-        print(f"Error: Checkpoint not found: {checkpoint_path}")
-        sys.exit(1)
-
-    print(f"Loading checkpoint: {checkpoint_path}")
-    state = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
-
-    if "model" in state:
-        model.load_state_dict(state["model"])
-        epoch = state.get("epoch", 0)
-        metric = state.get("metric", None)
-        print(f"  Loaded from epoch {epoch}, best metric: {metric}")
-    elif "model_state_dict" in state:
-        model.load_state_dict(state["model_state_dict"])
-        print(f"  Loaded from epoch {state.get('epoch', 0)}")
-    else:
-        model.load_state_dict(state)
-        print("  Loaded state_dict directly")
-
-    model.eval()
-
-    # ── Evaluate ────────────────────────────────────────────────────────
-    print(f"\n{'=' * 60}")
-    print("Evaluating on test set...")
-    print(f"{'=' * 60}")
-
-    all_logits = []
-    all_targets = []
-    total_loss = 0.0
-    num_batches = 0
-    loss_fn = torch.nn.CrossEntropyLoss()
-
-    for images, labels in test_loader:
-        images = images.to(device)
-        labels = labels.to(device)
-
-        logits = model(images)
-        loss = loss_fn(logits, labels)
-
-        total_loss += loss.item()
-        num_batches += 1
-        all_logits.append(logits)
-        all_targets.append(labels)
-
-    logits = torch.cat(all_logits)
-    targets = torch.cat(all_targets)
-
-    avg_loss = total_loss / max(num_batches, 1)
+    all_logits, all_targets = [], []
+    total_loss, total_samples = 0.0, 0
+    for images, labels in ProgressLoader(loader, desc="Holdout"):
+        logits = model(images.to(device))
+        loss = torch.nn.functional.cross_entropy(logits, labels.to(device))
+        if not torch.isfinite(logits).all() or not torch.isfinite(loss):
+            raise RuntimeError("Evaluation produced nonfinite outputs")
+        total_loss += loss.item() * len(labels)
+        total_samples += len(labels)
+        all_logits.append(logits.cpu())
+        all_targets.append(labels.cpu())
+    logits, targets = torch.cat(all_logits), torch.cat(all_targets)
     num_classes = config.get("model.num_classes", 9)
-    acc = accuracy(logits, targets)
-    f1_score = f1(logits, targets, num_classes=num_classes)
-    prec = precision(logits, targets, num_classes=num_classes)
-    rec = recall(logits, targets, num_classes=num_classes)
-
-    print("\nTest Results:")
-    print(f"  Loss:      {avg_loss:.4f}")
-    print(f"  Accuracy:  {acc:.4f}")
-    print(f"  F1:        {f1_score:.4f}")
-    print(f"  Precision: {prec:.4f}")
-    print(f"  Recall:    {rec:.4f}")
-
+    metrics = {
+        "loss": total_loss / total_samples,
+        "accuracy": accuracy(logits, targets),
+        "f1": f1(logits, targets, num_classes=num_classes),
+        "precision": precision(logits, targets, num_classes=num_classes),
+        "recall": recall(logits, targets, num_classes=num_classes),
+    }
+    print("\nHoldout Results (used for checkpoint selection during training):")
+    for name, value in metrics.items():
+        print(f"  {name}: {value:.4f}")
     preds = logits.argmax(dim=1)
-    print("\nPer-class accuracy:")
+    print("\nPer-class recall:")
     for c in range(num_classes):
         mask = targets == c
         if mask.any():
-            class_acc = (preds[mask] == targets[mask]).float().mean().item()
-            print(f"  Class {c} ({full_dataset.class_names[c]}): {class_acc:.4f}")
+            class_recall = (preds[mask] == targets[mask]).float().mean().item()
+            print(f"  Class {c} ({dataset.class_names[c]}): {class_recall:.4f}")
         else:
             print(f"  Class {c}: N/A (no samples)")
-
-    print("\nDone!")
+    return metrics
 
 
 if __name__ == "__main__":

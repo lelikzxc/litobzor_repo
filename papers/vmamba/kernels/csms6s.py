@@ -4,16 +4,18 @@ Source: https://github.com/MzeroMiko/VMamba (classification/models/csms6s.py)
 
 Provides ``selective_scan_fn`` with automatic fallback:
     1. CUDA kernels (selective_scan_cuda_oflex / selective_scan_cuda_core / selective_scan_cuda)
-    2. Pure-PyTorch fallback (``selective_scan_torch``) when CUDA is unavailable
+    2. Checkpointed PyTorch prefix scan on CUDA / MPS without native extensions
+    3. Pure-PyTorch recurrence on CPU (also available as an explicit reference)
 
-The CPU reference walks the sequence step-by-step. MPS uses bounded, checkpointed
+The CPU reference walks the sequence step-by-step. CUDA fallback and MPS use bounded, checkpointed
 affine-prefix blocks instead. Neither retains full ``[B, D, L, N]`` histories
 (those OOMed 8GB GPUs). Prefer ``selective_scan_cuda_oflex`` for CUDA training.
 """
 
 from __future__ import annotations
 
-import warnings
+import importlib
+from functools import partial
 
 import torch
 import torch.nn.functional as F
@@ -21,25 +23,100 @@ from torch.utils.checkpoint import checkpoint
 
 # ── CUDA kernel availability ──────────────────────────────────────────────
 
-WITH_SELECTIVESCAN_OFLEX = True
-WITH_SELECTIVESCAN_CORE = True
-WITH_SELECTIVESCAN_MAMBA = True
+SCAN_IMPORT_ERRORS: dict[str, str] = {}
 
-try:
-    import selective_scan_cuda_oflex  # type: ignore[import-untyped]
-except ImportError:
-    WITH_SELECTIVESCAN_OFLEX = False
-    warnings.warn("selective_scan_cuda_oflex not available — using pure-PyTorch fallback")
 
-try:
-    import selective_scan_cuda_core  # type: ignore[import-untyped]
-except ImportError:
-    WITH_SELECTIVESCAN_CORE = False
+def _load_scan_extension(name: str):
+    """A missing or incompatible Windows DLL must not break the portable scan."""
+    try:
+        return importlib.import_module(name)
+    except (ImportError, OSError) as error:
+        SCAN_IMPORT_ERRORS[name] = f"{type(error).__name__}: {error}"
+        return None
 
-try:
-    import selective_scan_cuda  # type: ignore[import-untyped]
-except ImportError:
-    WITH_SELECTIVESCAN_MAMBA = False
+
+selective_scan_cuda_oflex = _load_scan_extension("selective_scan_cuda_oflex")
+selective_scan_cuda_core = _load_scan_extension("selective_scan_cuda_core")
+selective_scan_cuda = _load_scan_extension("selective_scan_cuda")
+WITH_SELECTIVESCAN_OFLEX = selective_scan_cuda_oflex is not None
+WITH_SELECTIVESCAN_CORE = selective_scan_cuda_core is not None
+WITH_SELECTIVESCAN_MAMBA = selective_scan_cuda is not None
+_SCAN_BACKEND = "auto"
+
+
+def set_scan_backend(backend: str = "auto") -> None:
+    """Select the scan execution method without changing the model recurrence.
+
+    ``compiled`` requires an installed CUDA extension; ``chunked`` is the native
+    Windows-compatible PyTorch prefix scan. ``torch`` is the slow reference.
+    """
+    if backend not in {"auto", "chunked", "compiled", "torch"}:
+        raise ValueError(f"Unknown scan backend: {backend}")
+    global _SCAN_BACKEND
+    _SCAN_BACKEND = backend
+
+
+def _compiled_backends() -> list[str]:
+    return [
+        name
+        for name, available in (
+            ("oflex", WITH_SELECTIVESCAN_OFLEX),
+            ("core", WITH_SELECTIVESCAN_CORE),
+            ("mamba", WITH_SELECTIVESCAN_MAMBA),
+        )
+        if available
+    ]
+
+
+def get_scan_backend(device: str | torch.device, backend: str | None = None) -> str:
+    """Resolve the actual execution backend, including SS2D's preferred kernel."""
+    if backend not in {None, "auto", "chunked", "compiled", "torch", "oflex", "core", "mamba"}:
+        raise ValueError(f"Unknown scan backend: {backend}")
+    device_type = torch.device(device).type
+    # Explicit reference calls remain available for numerical comparisons even
+    # when the training entry point has selected a compiled/chunked method.
+    if backend in {"torch", "chunked"}:
+        return backend
+    requested = _SCAN_BACKEND if _SCAN_BACKEND != "auto" else backend
+    if requested in {"torch", "chunked"}:
+        return requested
+    if device_type != "cuda":
+        if requested == "compiled":
+            raise RuntimeError("Compiled selective scan requires a CUDA device")
+        return "chunked" if device_type == "mps" else "torch"
+    available = _compiled_backends()
+    if requested in available:
+        return requested
+    if available:
+        return available[0]
+    if requested == "compiled":
+        raise RuntimeError(
+            "No compiled selective-scan extension is available. Use --scan-backend "
+            "chunked for native Windows CUDA, or install an extension built for "
+            "this Python/PyTorch/CUDA environment."
+        )
+    return "chunked"
+
+
+def scan_backend_info(
+    device: str | torch.device, backend: str | None = None
+) -> dict[str, object]:
+    """Return truthful startup diagnostics without importing optional packages."""
+    return {
+        "backend": get_scan_backend(device, backend),
+        "compiled_backends": _compiled_backends(),
+        "import_errors": dict(SCAN_IMPORT_ERRORS),
+    }
+
+
+# PyTorch 2.1 (the paper environment) uses the old location; newer versions
+# require device_type explicitly and otherwise warn on every module import.
+if hasattr(torch.amp, "custom_fwd"):
+    _custom_fwd = partial(torch.amp.custom_fwd, device_type="cuda")
+    _custom_bwd = partial(torch.amp.custom_bwd, device_type="cuda")
+else:
+    _custom_fwd = torch.cuda.amp.custom_fwd
+    _custom_bwd = torch.cuda.amp.custom_bwd
 
 
 # ── Pure-PyTorch fallback ─────────────────────────────────────────────────
@@ -138,14 +215,14 @@ def selective_scan_chunked(
     chunk_size: int = 128,
     **kwargs,
 ) -> torch.Tensor:
-    """Exact recurrence with blockwise parallel prefixes for the MPS backend.
+    """Exact recurrence with blockwise parallel prefixes for CUDA / MPS.
 
     Multiplication/addition use the same affine recurrence as the reference,
     with a different floating-point association. Unlike division by cumulative
     products, this stays finite even when transition products underflow to 0.
     Checkpoint each block during training: the full [B,D,L,N] state history is
-    never retained; backward recomputes one block at a time. CUDA dispatch and
-    the simple CPU reference remain unchanged.
+    never retained; backward recomputes one block at a time. No compiler, Triton
+    or platform-specific extension is required.
     """
     if chunk_size <= 0:
         raise ValueError("chunk_size must be positive")
@@ -194,7 +271,7 @@ class SelectiveScanCuda(torch.autograd.Function):
     """Autograd wrapper around CUDA selective scan kernels."""
 
     @staticmethod
-    @torch.cuda.amp.custom_fwd
+    @_custom_fwd
     def forward(
         ctx,
         u: torch.Tensor,
@@ -209,38 +286,18 @@ class SelectiveScanCuda(torch.autograd.Function):
         backend: str | None = None,
     ) -> torch.Tensor:
         ctx.delta_softplus = delta_softplus
-        if backend is None:
-            if WITH_SELECTIVESCAN_OFLEX:
-                backend = "oflex"
-            elif WITH_SELECTIVESCAN_CORE:
-                backend = "core"
-            elif WITH_SELECTIVESCAN_MAMBA:
-                backend = "mamba"
-            else:
-                backend = "torch"
-        # If a specific backend was requested but not installed, fall back.
-        if backend == "oflex" and not WITH_SELECTIVESCAN_OFLEX:
-            backend = (
-                "core"
-                if WITH_SELECTIVESCAN_CORE
-                else ("mamba" if WITH_SELECTIVESCAN_MAMBA else "torch")
-            )
-        if backend == "core" and not WITH_SELECTIVESCAN_CORE:
-            backend = (
-                "oflex"
-                if WITH_SELECTIVESCAN_OFLEX
-                else ("mamba" if WITH_SELECTIVESCAN_MAMBA else "torch")
-            )
-        if backend == "mamba" and not WITH_SELECTIVESCAN_MAMBA:
-            backend = (
-                "oflex"
-                if WITH_SELECTIVESCAN_OFLEX
-                else ("core" if WITH_SELECTIVESCAN_CORE else "torch")
-            )
+        backend = get_scan_backend(u.device, backend)
+        if backend not in {"oflex", "core", "mamba"} or not u.is_cuda:
+            # Calling a differentiable PyTorch scan inside Function.forward
+            # would discard its graph. Portable dispatch belongs outside apply.
+            raise RuntimeError("SelectiveScanCuda requires an available compiled CUDA backend")
         ctx.backend = backend
-
-        if backend == "torch":
-            return selective_scan_torch(u, delta, A, B, C, D, delta_bias, delta_softplus, oflex)
+        u = u.contiguous() if u.stride(-1) != 1 else u
+        delta = delta.contiguous() if delta.stride(-1) != 1 else delta
+        B = B.contiguous() if B.stride(-1) != 1 else B
+        C = C.contiguous() if C.stride(-1) != 1 else C
+        D = D.contiguous() if D is not None else None
+        delta_bias = delta_bias.contiguous() if delta_bias is not None else None
         if backend == "oflex":
             out, x, *rest = selective_scan_cuda_oflex.fwd(u, delta, A, B, C, D, delta_bias, delta_softplus, 1, oflex)  # type: ignore[attr-defined]
         elif backend == "core":
@@ -254,7 +311,7 @@ class SelectiveScanCuda(torch.autograd.Function):
         return out
 
     @staticmethod
-    @torch.cuda.amp.custom_bwd
+    @_custom_bwd
     def backward(ctx, dout: torch.Tensor, *args) -> tuple:
         u, delta, A, B, C, D, delta_bias, x = ctx.saved_tensors
         backend = ctx.backend
@@ -290,7 +347,12 @@ class SelectiveScanCuda(torch.autograd.Function):
         else:
             raise ValueError(f"Unknown backend: {backend}")
 
-        return du, ddelta, dA, dB, dC, dD, ddelta_bias, None, None, None
+        return (
+            du, ddelta, dA, dB, dC,
+            dD if D is not None else None,
+            ddelta_bias if delta_bias is not None else None,
+            None, None, None,
+        )
 
 
 # ── Public API ────────────────────────────────────────────────────────────
@@ -320,13 +382,13 @@ def selective_scan_fn(
         delta_bias: Bias ``[K*C]`` (optional).
         delta_softplus: Apply ``softplus`` to delta.
         oflex: Keep output in fp32.
-        backend: Force specific backend (``"torch"``, ``"oflex"``, ``"core"``, ``"mamba"``).
+        backend: Preferred compiled kernel, or explicit ``"torch"`` / ``"chunked"``.
 
     Returns:
         Scanned output ``[B, K*C, L]``.
     """
-    has_cuda = WITH_SELECTIVESCAN_OFLEX or WITH_SELECTIVESCAN_CORE or WITH_SELECTIVESCAN_MAMBA
-    if u.device.type == "mps":
+    backend = get_scan_backend(u.device, backend)
+    if backend == "chunked":
         return selective_scan_chunked(u, delta, A, B, C, D, delta_bias, delta_softplus, oflex)
-    fn = selective_scan_torch if not u.is_cuda or backend == "torch" or (not has_cuda) else SelectiveScanCuda.apply  # type: ignore[assignment]
+    fn = selective_scan_torch if backend == "torch" else SelectiveScanCuda.apply  # type: ignore[assignment]
     return fn(u, delta, A, B, C, D, delta_bias, delta_softplus, oflex, backend)
