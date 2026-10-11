@@ -14,7 +14,7 @@ from torch import nn
 from torch.utils.data import DataLoader, Dataset, TensorDataset, ConcatDataset
 
 from common.training.utils import clip_gradients
-from papers.semiwafernet.training.progress import batch_progress, epoch_progress
+from papers.semiwafernet.training.progress import batch_progress, progress_write
 from papers.semiwafernet.training.stage_manager import StageManager
 
 
@@ -95,7 +95,7 @@ class Trainer:
         stage1_metrics = self.train_stage1(labeled_data=labeled_data, num_epochs=num_epochs)
 
         if unlabeled_data is None:
-            print("[SSL] No unlabeled data available — running supervised-only (Stage 1).")
+            progress_write("[SSL] No unlabeled data available - running supervised-only (Stage 1).")
             return {"stage1": stage1_metrics}
 
         stage2_metrics = self.train_stage2(
@@ -174,35 +174,32 @@ class Trainer:
         best_scheduler = None
         epoch_callback = kwargs.get("epoch_callback")
 
-        for epoch in epoch_progress(
-            num_epochs, stage=1, title="supervised warm-up", disable=not self.verbose
-        ):
+        for epoch in range(num_epochs):
             self.student.train()
             epoch_loss = 0.0
             batch_count = 0
-            batches = batch_progress(
+            with batch_progress(
                 self._iter_labeled_pairs(labeled_data),
-                desc=f"  Epoch {epoch + 1}/{num_epochs}",
+                desc=f"[SSL Stage 1] Epoch {epoch + 1}/{num_epochs}",
                 total=batch_total,
                 disable=not self.verbose,
-            )
-            for images, labels in batches:
-                images = images.to(self.device)
-                labels = labels.to(self.device)
-                loss = self._ce_step(images, labels)
-                epoch_loss += loss.item()
-                batch_count += 1
-                batches.set_postfix(loss=f"{loss.item():.4f}")
+            ) as batches:
+                for images, labels in batches:
+                    images = images.to(self.device)
+                    labels = labels.to(self.device)
+                    loss = self._ce_step(images, labels)
+                    epoch_loss += loss.item()
+                    batch_count += 1
+                    batches.set_postfix(loss=f"{loss.item():.4f}", refresh=False)
 
             if self.scheduler is not None:
                 self.scheduler.step()
             total_loss += epoch_loss
             num_batches += batch_count
 
+            metric = None
             if val_eval_fn is not None:
                 metric = float(val_eval_fn())
-                if self.verbose:
-                    print(f"  [SSL Stage 1] epoch {epoch + 1} val_metric={metric:.4f}")
                 if metric > best_metric:
                     best_metric = metric
                     best_epoch = epoch + 1
@@ -211,6 +208,13 @@ class Trainer:
                     best_scheduler = (
                         copy.deepcopy(self.scheduler.state_dict()) if self.scheduler else None
                     )
+
+            if self.verbose:
+                val_text = f" val_metric={metric:.4f}" if metric is not None else ""
+                progress_write(
+                    f"[SSL Stage 1] epoch {epoch + 1}/{num_epochs} "
+                    f"loss={epoch_loss / max(batch_count, 1):.4f}{val_text}"
+                )
 
             self.current_epoch += 1
             if epoch_callback is not None:
@@ -222,7 +226,7 @@ class Trainer:
             if self.scheduler is not None and best_scheduler is not None:
                 self.scheduler.load_state_dict(best_scheduler)
             if self.verbose:
-                print(
+                progress_write(
                     f"[SSL Stage 1] restored best teacher "
                     f"(epoch {best_epoch}, val_metric={best_metric:.4f})"
                 )
@@ -234,7 +238,7 @@ class Trainer:
             out["best_val_metric"] = best_metric
             out["best_epoch"] = float(best_epoch)
         if self.verbose:
-            print(f"[SSL Stage 1] avg loss: {avg_loss:.4f}")
+            progress_write(f"[SSL Stage 1] avg loss: {avg_loss:.4f}")
         return out
 
     def _build_union_loader(
@@ -306,7 +310,6 @@ class Trainer:
         val_eval_fn = kwargs.get("val_eval_fn")
         best_metric = float("-inf")
         best_state = best_optimizer = best_scheduler = None
-        stage_title = "pseudo-labels + train" if stage_num == 2 else "refresh + retrain"
 
         pseudo_ds, pseudo_stats = self.stage_manager.build_pseudo_dataset(
             unlabeled_loader=unlabeled_data,
@@ -317,37 +320,36 @@ class Trainer:
         total_loss = 0.0
         num_batches = 0
 
-        for epoch in epoch_progress(
-            num_epochs, stage=stage_num, title=stage_title, disable=not self.verbose
-        ):
+        for epoch in range(num_epochs):
             self.student.train()
             # Rebuild union each epoch so labeled geometric augs refresh
             union_loader = self._build_union_loader(labeled_data, pseudo_ds)
-            batches = batch_progress(
-                union_loader,
-                desc=f"  Epoch {epoch + 1}/{num_epochs}",
-                total=len(union_loader),
-                disable=not self.verbose,
-            )
             epoch_loss = 0.0
             batch_count = 0
-            for images, labels in batches:
-                images = images.to(self.device)
-                labels = labels.to(self.device)
-                loss = self._ce_step(images, labels)
-                epoch_loss += loss.item()
-                batch_count += 1
-                batches.set_postfix(
-                    loss=f"{loss.item():.4f}",
-                    acc=f"{pseudo_stats.get('accept_rate', 0.0):.0f}%",
-                    n=f"{int(pseudo_stats.get('n_accepted', 0))}",
-                )
+            with batch_progress(
+                union_loader,
+                desc=f"[SSL Stage {stage_num}] Epoch {epoch + 1}/{num_epochs}",
+                total=len(union_loader),
+                disable=not self.verbose,
+            ) as batches:
+                for images, labels in batches:
+                    images = images.to(self.device)
+                    labels = labels.to(self.device)
+                    loss = self._ce_step(images, labels)
+                    epoch_loss += loss.item()
+                    batch_count += 1
+                    batches.set_postfix(
+                        loss=f"{loss.item():.4f}",
+                        pseudo=f"{int(pseudo_stats.get('n_accepted', 0))}",
+                        refresh=False,
+                    )
 
             if self.scheduler is not None:
                 self.scheduler.step()
             total_loss += epoch_loss
             num_batches += batch_count
 
+            metric = None
             if val_eval_fn is not None:
                 metric = float(val_eval_fn())
                 if metric > best_metric:
@@ -357,6 +359,12 @@ class Trainer:
                     best_scheduler = (
                         copy.deepcopy(self.scheduler.state_dict()) if self.scheduler else None
                     )
+            if self.verbose:
+                val_text = f" val_metric={metric:.4f}" if metric is not None else ""
+                progress_write(
+                    f"[SSL Stage {stage_num}] epoch {epoch + 1}/{num_epochs} "
+                    f"loss={epoch_loss / max(batch_count, 1):.4f}{val_text}"
+                )
             self.current_epoch += 1
             if epoch_callback is not None:
                 epoch_callback(self.current_epoch, stage_num, epoch_loss / max(batch_count, 1))
@@ -370,7 +378,7 @@ class Trainer:
         n = max(num_batches, 1)
         accept_pct = float(pseudo_stats.get("accept_rate", 0.0))
         if self.verbose:
-            print(
+            progress_write(
                 f"[SSL Stage {stage_num}] avg loss: {total_loss / n:.4f}, "
                 f"pseudo accept: {accept_pct:.1f}%"
             )

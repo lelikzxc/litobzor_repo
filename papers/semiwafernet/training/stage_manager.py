@@ -16,11 +16,11 @@ from typing import Any
 import torch
 from torch import nn
 from torch.utils.data import Dataset, TensorDataset, SequentialSampler
-from tqdm import tqdm
 
 from papers.semiwafernet.training.adaptive_threshold import AdaptiveThreshold
 from papers.semiwafernet.training.ema import EMATeacher
 from papers.semiwafernet.training.mc_dropout import MonteCarloDropout, enable_mc_dropout
+from papers.semiwafernet.training.progress import progress_bar, progress_write
 from papers.semiwafernet.training.uncertainty import UncertaintyFilter
 
 
@@ -216,51 +216,50 @@ class StageManager:
         mis: list[torch.Tensor] = []
         labels: list[torch.Tensor] = []
 
-        iterator = loader
-        if verbose:
-            total = len(loader) if hasattr(loader, "__len__") else None
-            iterator = tqdm(loader, desc=desc, total=total, unit="batch")
-
-        for batch in iterator:
-            if with_labels:
-                if isinstance(batch, (list, tuple)) and len(batch) >= 2:
-                    inputs_u, y = batch[0], batch[1]
-                elif isinstance(batch, dict):
-                    inputs_u, y = batch["image"], batch["label"]
+        total = len(loader) if hasattr(loader, "__len__") else None
+        with progress_bar(
+            loader, desc=desc, total=total, unit="batch", disable=not verbose
+        ) as iterator:
+            for batch in iterator:
+                if with_labels:
+                    if isinstance(batch, (list, tuple)) and len(batch) >= 2:
+                        inputs_u, y = batch[0], batch[1]
+                    elif isinstance(batch, dict):
+                        inputs_u, y = batch["image"], batch["label"]
+                    else:
+                        raise TypeError(f"Expected (x,y) batch, got {type(batch)}")
+                    labels.append(y.detach().cpu().view(-1).long())
                 else:
-                    raise TypeError(f"Expected (x,y) batch, got {type(batch)}")
-                labels.append(y.detach().cpu().view(-1).long())
-            else:
-                inputs_u = batch
-                if isinstance(inputs_u, (list, tuple)):
-                    inputs_u = inputs_u[0]
-            inputs_u = inputs_u.to(device)
+                    inputs_u = batch
+                    if isinstance(inputs_u, (list, tuple)):
+                        inputs_u = inputs_u[0]
+                inputs_u = inputs_u.to(device)
 
-            enable_mc_dropout(self.teacher.teacher)
-            pass_probs: list[torch.Tensor] = []
-            for _ in range(self.mc_dropout.num_passes):
-                logits = self.teacher.teacher(inputs_u)["classification"]
-                if bias is not None:
-                    logits = logits + bias.to(device=logits.device, dtype=logits.dtype)
-                pass_probs.append(torch.softmax(logits, dim=1))
-            self.teacher.teacher.eval()
+                enable_mc_dropout(self.teacher.teacher)
+                pass_probs: list[torch.Tensor] = []
+                for _ in range(self.mc_dropout.num_passes):
+                    logits = self.teacher.teacher(inputs_u)["classification"]
+                    if bias is not None:
+                        logits = logits + bias.to(device=logits.device, dtype=logits.dtype)
+                    pass_probs.append(torch.softmax(logits, dim=1))
+                self.teacher.teacher.eval()
 
-            probs_stack = torch.stack(pass_probs, dim=0)
-            mean_probs = probs_stack.mean(dim=0)
-            conf, pred = mean_probs.max(dim=1)
-            ent = MonteCarloDropout._entropy(mean_probs)
-            per_pass_ent = torch.stack(
-                [MonteCarloDropout._entropy(pass_probs[i]) for i in range(len(pass_probs))],
-                dim=0,
-            )
-            mi = (ent - per_pass_ent.mean(dim=0)).clamp(min=0.0)
+                probs_stack = torch.stack(pass_probs, dim=0)
+                mean_probs = probs_stack.mean(dim=0)
+                conf, pred = mean_probs.max(dim=1)
+                ent = MonteCarloDropout._entropy(mean_probs)
+                per_pass_ent = torch.stack(
+                    [MonteCarloDropout._entropy(pass_probs[i]) for i in range(len(pass_probs))],
+                    dim=0,
+                )
+                mi = (ent - per_pass_ent.mean(dim=0)).clamp(min=0.0)
 
-            if not indexed:
-                images.append(inputs_u.detach().cpu())
-            confs.append(conf.detach().cpu())
-            preds.append(pred.detach().cpu())
-            ents.append(ent.detach().cpu())
-            mis.append(mi.detach().cpu())
+                if not indexed:
+                    images.append(inputs_u.detach().cpu())
+                confs.append(conf.detach().cpu())
+                preds.append(pred.detach().cpu())
+                ents.append(ent.detach().cpu())
+                mis.append(mi.detach().cpu())
 
         if not confs:
             raise ValueError("Pseudo-label source is empty")
@@ -409,7 +408,7 @@ class StageManager:
 
         if best is None:
             if verbose:
-                print("[SSL] pe-calibration found no viable gate; keeping paper defaults")
+                progress_write("[SSL] pe-calibration found no viable gate; keeping paper defaults")
             return {
                 "eps_h": float(self._paper_eps_h),
                 "prior_scale": float(self.ssl_prior_scale),
@@ -419,7 +418,7 @@ class StageManager:
         self.uncertainty_filter.entropy_threshold = best["eps_h"]
         self.set_ssl_prior_scale(best["prior_scale"])
         if verbose:
-            print(
+            progress_write(
                 f"[SSL] pe-calibrated: eps_H={best['eps_h']:.3f}, "
                 f"prior_scale={best['prior_scale']:.2f}, "
                 f"Macro-F1(accepted)={best['macro_f1']:.4f}, "
@@ -475,7 +474,7 @@ class StageManager:
         }
         if n_accepted == 0:
             if verbose:
-                print(
+                progress_write(
                     f"[SSL] Pseudo-set empty: 0/{n_total} passed gates "
                     f"(mean conf={float(all_conf.mean()):.3f}, "
                     f"mean H={float(all_ent.mean()):.3f}, "
@@ -484,7 +483,7 @@ class StageManager:
             return None, stats
 
         if verbose and n_hard != n_accepted:
-            print(
+            progress_write(
                 f"[SSL] none-cap: {n_hard} -> {n_accepted} "
                 f"(max_none_to_defect_ratio={self.max_none_to_defect_ratio:.2f})"
             )
@@ -497,14 +496,14 @@ class StageManager:
             pseudo_ds = TensorDataset(all_x[final_mask], all_y[final_mask].long())
         if verbose:
             hist = torch.bincount(all_y[final_mask], minlength=self.num_classes).tolist()
-            print(
+            progress_write(
                 f"[SSL] Pseudo-set ready: {n_accepted}/{n_total} "
                 f"({stats['accept_rate']:.1f}%), hard={stats['hard_accept_rate']:.1f}%, "
                 f"eps_H={stats['selection_eps_h']:.3f}, "
                 f"prior={stats['ssl_prior_scale']:.2f}, "
                 f"mean tau={stats['mean_tau']:.3f}"
             )
-            print(f"[SSL] Pseudo class counts: {hist}")
+            progress_write(f"[SSL] Pseudo class counts: {hist}")
         return pseudo_ds, stats
 
     def refresh_teacher(self) -> None:

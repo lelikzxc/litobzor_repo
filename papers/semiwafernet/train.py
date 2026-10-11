@@ -9,7 +9,7 @@ Supports CUDA automatically when available.
 Classification mode (HybridCNN-ViT):
     - Weighted Cross-Entropy loss with w_c = 1/sqrt(n_c)
     - Batch size 256, lr=5e-5, weight_decay=4e-4
-    - Data augmentation: RandomHorizontalFlip, RandomRotation, ColorJitter
+    - Category-preserving flips and 90-degree rotations
     - Hybrid sampling: None class downsampled to 30%
 
 Segmentation mode (ConvoFormer-UNet):
@@ -26,7 +26,9 @@ Semi-supervised (3-stage progressive pseudo-labeling):
 from __future__ import annotations
 
 import argparse
+import math
 import sys
+from itertools import chain
 from pathlib import Path
 
 import numpy as np
@@ -52,8 +54,10 @@ from papers.semiwafernet.data_utils import (
     WaferWM811KDataset,
 )
 from papers.semiwafernet.data_utils.wafer_dataset import (
+    UnlabeledWM811KDirectoryDataset,
     apply_hybrid_sampling,
     inspect_wm811k_labels,
+    validate_image_inventory,
 )
 from papers.semiwafernet.models.semiwafernet import SemiWaferNet
 from papers.semiwafernet.training.segmentation import (
@@ -61,12 +65,14 @@ from papers.semiwafernet.training.segmentation import (
     SegmentationWrapper,
     metric_functions,
 )
+from papers.semiwafernet.training.console import training_output
+from papers.semiwafernet.training.progress import ProgressLoader
 from papers.semiwafernet.training.stage_manager import StageManager
 from papers.semiwafernet.training.trainer import Trainer as SemiWaferTrainer
 from papers.semiwafernet.utils.checkpoint import resume_semiwafernet_engine
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description="Train SemiWaferNet on WM-811K wafer map dataset")
     parser.add_argument(
@@ -152,7 +158,19 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Disable semi-supervised stages (supervised-only training).",
     )
-    return parser.parse_args()
+    parser.add_argument(
+        "--save-dir",
+        type=Path,
+        default=None,
+        help="Override checkpoint directory; use a fresh directory for a new experiment.",
+    )
+    parser.add_argument(
+        "--log-file",
+        type=Path,
+        default=None,
+        help="Save messages and epoch results without piping or logging progress redraws.",
+    )
+    return parser.parse_args(argv)
 
 
 def stratified_subsample_pairs(
@@ -368,10 +386,172 @@ def seg_collate_fn(batch):
     return images, masks
 
 
-def main() -> None:
-    """Run the training loop."""
-    args = parse_args()
+def stage_epoch_counts(config: EngineConfig, override: bool = False) -> tuple[int, int, int]:
+    """Resolve the three stages before loading images or changing checkpoints."""
+    epochs = config.get("training.num_epochs", 50)
+    counts = config.get("semi_supervised.epochs_per_stage")
+    if override or counts is None:
+        counts = [(epochs // 3) + int(i < epochs % 3) for i in range(3)]
+    if (
+        not isinstance(counts, (list, tuple))
+        or len(counts) != 3
+        or any(type(value) is not int or value < 0 for value in counts)
+        or sum(counts) != epochs
+    ):
+        raise ValueError(
+            "epochs_per_stage must contain three nonnegative integers "
+            "summing to training.num_epochs"
+        )
+    return tuple(counts)
 
+
+def validate_run_config(config: EngineConfig, args: argparse.Namespace) -> None:
+    """Fail early for invalid inputs that otherwise reach a loader or CUDA loss."""
+    mode = config.get("model.mode", "classification")
+    if mode not in {"classification", "segmentation"}:
+        raise ValueError("model.mode must be classification or segmentation")
+    prefix = "seg_training" if mode == "segmentation" else "training"
+    for key, default in (
+        (f"{prefix}.num_epochs", 50),
+        (f"{prefix}.batch_size", 32 if mode == "segmentation" else 256),
+        ("evaluation.batch_size", 64),
+        ("data.image_size", 32),
+    ):
+        value = config.get(key, default)
+        if type(value) is not int or value <= 0:
+            raise ValueError(f"{key} must be a positive integer")
+    for key, default, positive in (
+        ("optimizer.lr", 5e-5, True), ("optimizer.weight_decay", 4e-4, False),
+    ):
+        value = float(config.get(key, default))
+        if not math.isfinite(value) or (value <= 0 if positive else value < 0):
+            requirement = "positive" if positive else "nonnegative"
+            raise ValueError(f"{key} must be finite and {requirement}")
+    if args.ssl_fast and args.no_ssl:
+        raise ValueError("--ssl-fast and --no-ssl cannot be combined")
+    if args.data_fraction is not None and not 0 < args.data_fraction <= 1:
+        raise ValueError("--data-fraction must be in (0, 1]")
+    ssl_enabled = mode == "classification" and bool(config.get("semi_supervised.enabled", False))
+    if args.ssl_start_stage > 1 and (not ssl_enabled or args.resume is None):
+        raise ValueError("--ssl-start-stage 2/3 requires enabled classification SSL and --resume")
+    if ssl_enabled and args.resume is not None and args.ssl_start_stage == 1:
+        raise ValueError(
+            "SSL resume requires a preceding boundary checkpoint and --ssl-start-stage 2 or 3"
+        )
+    if mode == "segmentation":
+        return
+    if config.get("model.num_classes", 9) != 9:
+        raise ValueError("WM-811K classification requires model.num_classes=9 (labels 0..8)")
+    if (
+        config.get("model.input.in_channels", 3) != 3
+        or config.get("model.backbone.in_channels", 3) != 3
+    ):
+        raise ValueError("WM-811K classification requires three categorical input channels")
+    if not 0 < float(config.get("data.val_from_train", 0.1)) < 1:
+        raise ValueError("data.val_from_train must be in (0, 1)")
+    if not 0 <= float(config.get("data.pseudo_eval_fraction", 0.05)) < 1:
+        raise ValueError("data.pseudo_eval_fraction must be in [0, 1)")
+    if not 0 < float(config.get("data.hybrid_sampling.none_downsample_ratio", 0.3)) <= 1:
+        raise ValueError("data.hybrid_sampling.none_downsample_ratio must be in (0, 1]")
+    if str(config.get("data.ce_count_source", "natural")).lower() not in {
+        "natural", "hybrid", "smote",
+    }:
+        raise ValueError("data.ce_count_source must be natural, hybrid or smote")
+    if str(config.get("data.oversample_method", "smote")) not in {"smote", "random"}:
+        raise ValueError("data.oversample_method must be smote or random")
+    if ssl_enabled:
+        stage_epoch_counts(config, override=args.epochs is not None)
+        for key, default, minimum in (
+            ("unlabeled_max_samples", 150_000, 1), ("mc_passes", 20, 2),
+        ):
+            value = config.get(f"semi_supervised.{key}", default)
+            if type(value) is not int or value < minimum:
+                raise ValueError(f"semi_supervised.{key} must be an integer >= {minimum}")
+        if config.get("checkpoint.mode", "max") != "max":
+            raise ValueError("SSL stage selection requires checkpoint.mode=max")
+
+
+def resume_path(config: EngineConfig, args: argparse.Namespace) -> Path | None:
+    """Check restart paths before expensive SMOTE preparation."""
+    directory = Path(config.get("checkpoint.save_dir", "checkpoints/semiwafernet_reproduction"))
+    if args.resume is None:
+        if directory.is_dir() and any(directory.glob("*.pt")):
+            raise ValueError(
+                f"Checkpoints already exist in {directory}; "
+                "use a new --save-dir or resume the existing run"
+            )
+        return None
+    path = (
+        directory / f"{args.resume}.pt"
+        if args.resume in {"last", "best"} else Path(args.resume)
+    )
+    if not path.is_file():
+        raise FileNotFoundError(f"Resume checkpoint not found: {path}")
+    if (
+        config.get("model.mode", "classification") == "classification"
+        and config.get("semi_supervised.enabled", False)
+    ):
+        expected = f"ssl_stage{args.ssl_start_stage - 1}.pt"
+        if path.name != expected:
+            raise ValueError(
+                f"SSL restart requires {expected}, not an intermediate last/best checkpoint"
+            )
+    return path
+
+
+def validate_boundary_epoch(
+    epoch: int, start_stage: int, stage_epochs: tuple[int, int, int],
+) -> None:
+    expected = sum(stage_epochs[:start_stage - 1])
+    if epoch != expected:
+        raise ValueError(
+            f"SSL stage {start_stage} requires a boundary checkpoint "
+            f"at epoch {expected}, got {epoch}"
+        )
+
+
+def _dataset_samples(dataset):
+    if isinstance(dataset, Subset):
+        return [dataset.dataset._samples[int(i)] for i in dataset.indices]
+    return dataset._samples
+
+
+def _prepare_unlabeled_dataset(config, args, data_root, image_size, seed, label_info):
+    if not config.get("semi_supervised.enabled", False):
+        return None
+    maximum = config.get("semi_supervised.unlabeled_max_samples", 150_000)
+    if args.data_fraction is not None and args.data_fraction < 1:
+        maximum = max(256, int(maximum * args.data_fraction))
+    root = config.get("data.unlabeled_root")
+    if root:
+        dataset = UnlabeledWM811KDirectoryDataset(root, image_size, maximum, seed)
+    else:
+        if not label_info.get("has_failure_type"):
+            raise ValueError(
+                "SSL requires the full WM-811K unlabeled pool or data.unlabeled_root; "
+                "otherwise use --no-ssl"
+            )
+        dataset = UnlabeledWM811KDataset(
+            data_root=data_root, image_size=image_size, max_samples=maximum, train=False, seed=seed,
+        )
+    if not len(dataset):
+        raise ValueError("SSL unlabeled pool is empty; provide unlabeled WM-811K maps or use --no-ssl")
+    print(
+        f"[SSL] Loaded {len(dataset)} unlabeled samples "
+        f"(max={maximum}) from {dataset.images_dir}"
+    )
+    return dataset
+
+
+def main() -> None:
+    """Run the training loop with an optional log and an interactive terminal."""
+    args = parse_args()
+    with training_output(args.log_file):
+        _run_training(args)
+
+
+def _run_training(args: argparse.Namespace) -> None:
+    """Build datasets and execute supervised or progressive SSL training."""
     # ── Load configuration ──────────────────────────────────────────────
     config_path = Path(args.config)
     if not config_path.exists():
@@ -413,19 +593,6 @@ def main() -> None:
         print("[SSL] Disabled via --no-ssl (supervised-only)")
         print("[data] pseudo_eval_fraction forced to 0 (keep full Dl)")
 
-    if args.epochs is not None and args.epochs <= 0:
-        raise ValueError("--epochs must be positive")
-    if args.data_fraction is not None and not 0 < args.data_fraction <= 1:
-        raise ValueError("--data-fraction must be in (0, 1]")
-    if (
-        config.get("semi_supervised.enabled", False)
-        and args.resume is not None
-        and args.ssl_start_stage == 1
-    ):
-        raise ValueError(
-            "SSL resume requires a preceding boundary checkpoint and --ssl-start-stage 2 or 3"
-        )
-
     # ── Resolve device ──────────────────────────────────────────────────
     device = resolve_device(args.device)
 
@@ -450,6 +617,10 @@ def main() -> None:
             config._data["seg_training"]["batch_size"] = args.batch_size
         if args.epochs is not None:
             config._data["seg_training"]["num_epochs"] = args.epochs
+    if args.save_dir is not None:
+        config._data.setdefault("checkpoint", {})["save_dir"] = str(args.save_dir)
+    validate_run_config(config, args)
+    checkpoint_path = resume_path(config, args)
     print(f"Model mode: {model_mode}")
 
     # ── Create dataset ──────────────────────────────────────────────────
@@ -653,6 +824,30 @@ def main() -> None:
                 f"val={len(val_dataset)}, test={len(test_dataset)}"
             )
 
+        # Preflight every selected image and the restart protocol before SMOTE.
+        unlabeled_ds = _prepare_unlabeled_dataset(
+            config, args, data_root, image_size, seed, label_info,
+        )
+        selected = chain(
+            train_samples, _dataset_samples(val_dataset), _dataset_samples(test_dataset), pe_samples,
+        )
+        images_dir = Path(data_root) / "images"
+        if unlabeled_ds is not None and unlabeled_ds.images_dir == images_dir:
+            selected = chain(selected, unlabeled_ds._filenames)
+        checked = validate_image_inventory(images_dir, selected)
+        if unlabeled_ds is not None and unlabeled_ds.images_dir != images_dir:
+            checked += validate_image_inventory(unlabeled_ds.images_dir, unlabeled_ds._filenames)
+        print(f"  Image inventory verified: {checked} selected files")
+        base_test = test_dataset.dataset if isinstance(test_dataset, Subset) else test_dataset
+        test_indices = (
+            list(map(int, test_dataset.indices))
+            if isinstance(test_dataset, Subset) else list(range(len(base_test)))
+        )
+        save_protocol(
+            config.get("checkpoint.save_dir"), config, base_test._samples,
+            {"test": test_indices, "train_samples": train_samples, "pseudo_eval": pe_samples}, seed,
+        )
+
         # Apply SMOTE to minority classes to construct a balanced training set
         # (Section 4.1: "downsampling the majority None class and applying SMOTE
         #  to minority classes")
@@ -692,22 +887,7 @@ def main() -> None:
         if pe_samples:
             print(f"  Pseudo-eval holdout kept out of Dl: {len(pe_samples)}")
 
-    if not is_segmentation:
-        base_test = test_dataset.dataset if isinstance(test_dataset, Subset) else test_dataset
-        test_indices = (
-            list(map(int, test_dataset.indices))
-            if isinstance(test_dataset, Subset)
-            else list(range(len(base_test)))
-        )
-        save_protocol(
-            config.get("checkpoint.save_dir"),
-            config,
-            base_test._samples,
-            {"test": test_indices, "train_samples": train_samples, "pseudo_eval": pe_samples},
-            seed,
-        )
-
-    else:
+    if is_segmentation:
         save_protocol(
             config.get("checkpoint.save_dir"),
             config,
@@ -815,6 +995,10 @@ def main() -> None:
         config=config,
         device=device,
     )
+    # SemiWaferNet owns its single terminal-aware bar; common models are unchanged.
+    engine.trainer.verbose = False
+    validation_progress = ProgressLoader(val_loader, desc="Validation")
+    test_progress = ProgressLoader(test_loader, desc="Test")
 
     if is_segmentation:
         engine.metric_fns = metric_functions()
@@ -829,15 +1013,7 @@ def main() -> None:
 
     # ── Resume from checkpoint ───────────────────────────────────────────
     if args.resume is not None:
-        if args.resume == "last":
-            checkpoint_path = engine.checkpoint_manager.last_path
-            print(f"\nResuming from last checkpoint: {checkpoint_path}")
-        elif args.resume == "best":
-            checkpoint_path = engine.checkpoint_manager.best_path
-            print(f"\nResuming from best checkpoint: {checkpoint_path}")
-        else:
-            checkpoint_path = Path(args.resume)
-            print(f"\nResuming from checkpoint: {checkpoint_path}")
+        print(f"\nResuming from checkpoint: {checkpoint_path}")
         resumed_epoch = resume_semiwafernet_engine(engine, checkpoint_path)
         print(f"  Resumed at epoch {resumed_epoch}")
 
@@ -864,53 +1040,17 @@ def main() -> None:
     unlabeled_loader = None
 
     if ssl_enabled and not is_segmentation:
-        unlabeled_max = int(ssl_cfg.get("unlabeled_max_samples", 150_000))
-        if args.data_fraction is not None and args.data_fraction < 1.0:
-            unlabeled_max = max(256, int(unlabeled_max * args.data_fraction))
-            print(f"[SSL] unlabeled_max after data-fraction: {unlabeled_max}")
-        unlabeled_root = config.get("data.unlabeled_root", None)
-
-        if not label_info.get("has_failure_type") and not (
-            unlabeled_root and Path(unlabeled_root).exists()
-        ):
-            raise ValueError(
-                "SSL enabled but no unlabeled pool exists; unpack full WM-811K or explicitly use --no-ssl"
-            )
-
         def unlabeled_collate(batch):
             # Yield plain image tensors for the SSL trainer.
             return torch.stack([item["image"] for item in batch])
 
-        if ssl_enabled:
-            if unlabeled_root and Path(unlabeled_root).exists():
-                from papers.semiwafernet.data_utils import UnlabeledWaferDataset
-
-                unlabeled_ds = UnlabeledWaferDataset(
-                    image_dir=unlabeled_root,
-                    image_size=image_size,
-                )
-                print(f"[SSL] Loaded {len(unlabeled_ds)} unlabeled samples from {unlabeled_root}")
-            else:
-                # Default: unlabeled pool from the same WM-811K labels.csv
-                unlabeled_ds = UnlabeledWM811KDataset(
-                    data_root=data_root,
-                    image_size=image_size,
-                    max_samples=unlabeled_max,
-                    train=False,  # deterministic maps for MC pseudo-labels (paper §2.2)
-                    seed=seed,
-                )
-                print(
-                    f"[SSL] Loaded {len(unlabeled_ds)} unlabeled WM-811K samples "
-                    f"(max={unlabeled_max}) from {data_root}"
-                )
-
-            unlabeled_loader = DataLoader(
-                unlabeled_ds,
-                batch_size=batch_size,
-                shuffle=False,
-                num_workers=num_workers,
-                collate_fn=unlabeled_collate,
-            )
+        unlabeled_loader = DataLoader(
+            unlabeled_ds,
+            batch_size=batch_size,
+            shuffle=False,
+            num_workers=num_workers,
+            collate_fn=unlabeled_collate,
+        )
 
     if ssl_enabled and not is_segmentation and unlabeled_loader is not None:
         ssl_student = base_model
@@ -961,20 +1101,12 @@ def main() -> None:
 
         # Split total epochs across the three SSL stages (paper: 50 epochs total)
         # CLI --epochs overrides fixed epochs_per_stage from config.
-        stage_epochs_cfg = ssl_cfg.get("epochs_per_stage", None)
+        e1, e2, e3 = stage_epoch_counts(config, override=args.epochs is not None)
         if args.epochs is not None:
-            e1, e2, e3 = [(epochs // 3) + int(i < epochs % 3) for i in range(3)]
             print(
                 f"[SSL] WARNING: --epochs={epochs} overrides paper epochs_per_stage "
                 f"[17,17,16] -> {e1}/{e2}/{e3}. Prefer omitting --epochs for a full run."
             )
-        elif isinstance(stage_epochs_cfg, list) and len(stage_epochs_cfg) == 3:
-            e1, e2, e3 = [int(x) for x in stage_epochs_cfg]
-        else:
-            e1, e2, e3 = [(epochs // 3) + int(i < epochs % 3) for i in range(3)]
-
-        if sum((e1, e2, e3)) != epochs or any(e < 0 for e in (e1, e2, e3)):
-            raise ValueError("epochs_per_stage must be nonnegative and sum to training.num_epochs")
 
         # Base natural log-pi; StageManager applies ssl_prior_scale (calibrated on pe).
         base_ssl_log_prior = torch.log(prior.clamp(min=1e-12))
@@ -1013,15 +1145,7 @@ def main() -> None:
         )
         start_stage = int(args.ssl_start_stage)
         if args.resume is not None:
-            expected = f"ssl_stage{start_stage - 1}.pt"
-            if Path(checkpoint_path).name != expected:
-                raise ValueError(
-                    f"SSL restart requires {expected}, not an intermediate last/best checkpoint"
-                )
-        if start_stage > 1 and args.resume is None:
-            raise ValueError(
-                "--ssl-start-stage > 1 requires --resume with the preceding stage checkpoint"
-            )
+            validate_boundary_epoch(resumed_epoch, start_stage, (e1, e2, e3))
         print(
             f"[SSL] Running progressive pseudo-labeling from stage {start_stage} "
             f"(epochs/stage={e1}/{e2}/{e3})"
@@ -1068,22 +1192,30 @@ def main() -> None:
                 verbose=True,
             )
 
+        latest_val_metrics: dict[str, float] = {}
+
         def _ssl_val_metric() -> float:
-            metrics = engine.validate(val_loader)
+            nonlocal latest_val_metrics
+            metrics = engine.validate(validation_progress)
+            latest_val_metrics = metrics
             key = config.get("checkpoint.metric_name", "val_f1").removeprefix("val_")
             if key not in metrics:
                 raise ValueError(f"Validation did not produce {key}")
             return float(metrics[key])
 
         def _ssl_epoch_finished(epoch: int, stage: int, loss: float) -> None:
-            metric = _ssl_val_metric()
+            key = config.get("checkpoint.metric_name", "val_f1").removeprefix("val_")
+            metric = float(latest_val_metrics[key])
             engine.trainer.current_epoch = epoch
             engine.state.epoch = epoch
             engine.checkpoint_manager.save_best(
                 engine.model, engine.optimizer, engine.scheduler, epoch, metric
             )
             engine.state.best_metric = engine.checkpoint_manager.best_metric
-            engine.logger.log_epoch(train_loss=loss, ssl_stage=stage, val_metric=metric)
+            engine.logger.log_epoch(
+                train_loss=loss, ssl_stage=stage, val_metric=metric,
+                **{f"val_{key}": value for key, value in latest_val_metrics.items()},
+            )
             engine.save()
 
         stage1_metrics: dict[str, float] = {"loss": float("nan"), "skipped": True}
@@ -1145,7 +1277,7 @@ def main() -> None:
         print(f"\n{'=' * 60}")
         print("Validating after SSL...")
         print(f"{'=' * 60}")
-        val_metrics = engine.validate(val_loader)
+        val_metrics = engine.validate(validation_progress)
         print(f"  Val Loss: {val_metrics.get('loss', 'N/A'):.4f}")
         for key, value in val_metrics.items():
             if key != "loss":
@@ -1172,11 +1304,19 @@ def main() -> None:
         # SSL path skips engine.fit(); ensure history exists for downstream logging
         # Per-epoch callbacks already populated the logger.
     else:
-        logger = engine.fit(
-            train_loader=train_loader,
-            val_loader=val_loader,
-            epochs=epochs,
-        )
+        remaining_epochs = max(0, epochs - engine.trainer.current_epoch)
+        if remaining_epochs:
+            print(f"Training {remaining_epochs} remaining epochs (target total: {epochs})")
+            logger = engine.fit(
+                train_loader=ProgressLoader(
+                    train_loader, desc=lambda: f"Epoch {engine.trainer.current_epoch}/{epochs}",
+                ),
+                val_loader=validation_progress,
+                epochs=remaining_epochs,
+            )
+        else:
+            print(f"Target {epochs} epochs already completed; evaluating the saved run")
+            logger = engine.logger
 
     # -- Final metrics ---------------------------------------------------
     print(f"\n{'=' * 60}")
@@ -1185,12 +1325,12 @@ def main() -> None:
 
     history = logger.history
     if history:
-        final = history[-1]
+        final = next((row for row in reversed(history) if "train_loss" in row), history[-1])
         print("\nFinal training metrics:")
-        print(
-            f"  Train Loss: {final.get('train_loss', 'N/A'):.4f}" if "train_loss" in final else ""
-        )
-        print(f"  Val Loss:   {final.get('val_loss', 'N/A'):.4f}" if "val_loss" in final else "")
+        if "train_loss" in final:
+            print(f"  Train Loss: {final['train_loss']:.4f}")
+        if "val_loss" in final:
+            print(f"  Val Loss:   {final['val_loss']:.4f}")
         for key in ["train_accuracy", "train_f1", "train_recall", "train_precision"]:
             if key in final:
                 print(f"  {key}: {final[key]:.4f}")
@@ -1211,7 +1351,7 @@ def main() -> None:
             state = torch.load(best_path, map_location="cpu", weights_only=False)
             engine.model.load_state_dict(state["model"])
 
-    test_metrics = engine.test(test_loader)
+    test_metrics = engine.test(test_progress)
     print("\nTest Results:")
     print(f"  Loss: {test_metrics.get('loss', 'N/A'):.4f}")
     for name, value in test_metrics.items():

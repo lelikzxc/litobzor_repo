@@ -11,7 +11,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, Subset
-from tqdm import tqdm
 
 from common.engine.config import EngineConfig
 from common.training.metrics import accuracy, f1, precision, recall
@@ -19,6 +18,7 @@ from common.training.utils import resolve_device
 from papers.reproduction import load_holdout
 from papers.semiwafernet.data_utils import WaferSegmentationDataset, WaferWM811KDataset
 from papers.semiwafernet.models.semiwafernet import SemiWaferNet
+from papers.semiwafernet.training.progress import progress_bar
 from papers.semiwafernet.training.segmentation import (
     SegmentationLoss,
     SegmentationWrapper,
@@ -107,7 +107,7 @@ def main():
     )
     logits_all, targets_all = [], []
     loss_sum, count = 0.0, 0
-    for batch in tqdm(loader, desc="Test"):
+    for batch in progress_bar(loader, desc="Test"):
         x = batch["image"].to(device)
         y = batch["mask" if seg else "label"].to(device)
         logits = model(x)

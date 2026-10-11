@@ -2,7 +2,7 @@
 
 import copy
 import json
-from argparse import Namespace
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -86,10 +86,14 @@ def test_semiwafernet_entrypoint_reuses_protocol_on_stage2_resume(tmp_path, monk
 
     root = tmp_path / "wm811k"
     root.mkdir()
+    (root / "images").mkdir()
     rows = ["filename,failureType,trianTestLabel"]
     for label in WM811K_CLASSES:
         rows.extend(f"{label}_{i}.png,{label},Training" for i in range(60))
         rows.extend(f"{label}_test_{i}.png,{label},Test" for i in range(10))
+    rows.append("unlabeled.png,,")
+    for row in rows[1:]:
+        (root / "images" / row.split(",")[0]).touch()
     (root / "labels.csv").write_text("\n".join(rows))
     run = tmp_path / "checkpoints"
     config = {
@@ -116,13 +120,17 @@ def test_semiwafernet_entrypoint_reuses_protocol_on_stage2_resume(tmp_path, monk
 
     monkeypatch.setattr(train, "SMOTEDataset", NoImageOversample)
     monkeypatch.setattr(train, "DataLoader", stop_after_protocol)
+    original_parse_args = train.parse_args
     before = None
     for resume, stage in [(None, 1), (str(run / "ssl_stage1.pt"), 2)]:
-        monkeypatch.setattr(train, "parse_args", lambda: Namespace(
-            config=str(config_path), device="cpu", epochs=None, batch_size=None,
-            lr=None, mode=None, ssl_fast=False, no_ssl=False, resume=resume,
-            ssl_start_stage=stage, data_fraction=None,
-        ))
+        if resume is not None:
+            Path(resume).touch()  # This test stops before checkpoint deserialization.
+        argv = ["--config", str(config_path), "--device", "cpu", "--ssl-start-stage", str(stage)]
+        if resume is not None:
+            argv.extend(["--resume", resume])
+        # Use real defaults, including any new CLI options.
+        args = original_parse_args(argv)
+        monkeypatch.setattr(train, "parse_args", lambda: args)
         with pytest.raises(DataPrepared):
             train.main()
         current = (run / "protocol.json").read_bytes()
