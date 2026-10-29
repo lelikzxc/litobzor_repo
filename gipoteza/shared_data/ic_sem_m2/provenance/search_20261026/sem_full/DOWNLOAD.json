@@ -1,0 +1,137 @@
+{
+  "url": "https://edmond.mpg.de/api/access/datafile/223856",
+  "persistent_id": "doi:10.17617/3.HY5SYN",
+  "source_license": "CC BY 4.0",
+  "files": [
+    {
+      "name": "dataset/LICENSE",
+      "bytes": 18656,
+      "sha256": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94"
+    },
+    {
+      "name": "dataset/README",
+      "bytes": 1348,
+      "sha256": "07dbd5523df49935370fe3c5be99f53e552e554d32e7a0e4cc60a1fa79494429"
+    },
+    {
+      "name": "dataset/labels/m2/label0148.svg",
+      "bytes": 142708,
+      "sha256": "93b5c65d1c3291ac063f5148a8d0fee0cba894c9dee225a85010932ab6ea3b84"
+    },
+    {
+      "name": "dataset/sems/m2/sem0148.png",
+      "bytes": 9617112,
+      "sha256": "9e9d7a4790a2ec4870e1647939dd2127f3e76b80df09276db666fdef2558f294"
+    },
+    {
+      "name": "dataset/labels/m2/label0282.svg",
+      "bytes": 143179,
+      "sha256": "afa62824bcbc907e0dad182d9984d836c69d2ec8746a79cb4f55d830411f65b6"
+    },
+    {
+      "name": "dataset/sems/m2/sem0282.png",
+      "bytes": 9619750,
+      "sha256": "66956bb5b63fc4902e4dfcc0e94e12ea3d1df6f1b78bc52428f6daaa1065ff57"
+    },
+    {
+      "name": "dataset/labels/m2/label0152.svg",
+      "bytes": 96115,
+      "sha256": "8f024b53c0a64defb52889101c33af2efbe9e0b0e0b0fcd1d4f5c0e0286b7ad2"
+    },
+    {
+      "name": "dataset/sems/m2/sem0152.png",
+      "bytes": 9590228,
+      "sha256": "4a793511850792f3d0b6a1bb062266037a92e5a88aa5b3b8e5b64444874ed02b"
+    },
+    {
+      "name": "dataset/labels/m2/label0180.svg",
+      "bytes": 173274,
+      "sha256": "2879d5a73ba6a2ea018ee41fba5dd1709f62c3e4428244374bd4b3b191c0d46c"
+    },
+    {
+      "name": "dataset/sems/m2/sem0180.png",
+      "bytes": 9659458,
+      "sha256": "fd125111e57ef872a977412c34e40e0d974eac70848a489a6a152c5484a42e61"
+    },
+    {
+      "name": "dataset/labels/m2/label0271.svg",
+      "bytes": 159162,
+      "sha256": "03dfac9f196eddda3fadb596d672eb73d44ebee516cb9ffd71f213a262e5414d"
+    },
+    {
+      "name": "dataset/sems/m2/sem0271.png",
+      "bytes": 9650607,
+      "sha256": "a1881b24132263993eb2cc7f78bf88722424ee356d408ea464c15476c2897345"
+    },
+    {
+      "name": "dataset/labels/m2/label0153.svg",
+      "bytes": 144568,
+      "sha256": "94713120773af40461525fc8e4e862aa2bea70e26d425551359af68d46b54eae"
+    },
+    {
+      "name": "dataset/sems/m2/sem0153.png",
+      "bytes": 9617064,
+      "sha256": "fb8157d76cbc83bd20afb0140f13d6a95a1c606373eda408e2fdc8cc50a809c2"
+    },
+    {
+      "name": "dataset/labels/m2/label0043.svg",
+      "bytes": 99436,
+      "sha256": "86ec431f189d139314c2096f569407d8d11c3fe0f1d245462165285f35e86271"
+    },
+    {
+      "name": "dataset/sems/m2/sem0043.png",
+      "bytes": 9595192,
+      "sha256": "29599de6424b396c64abafab8cdfda26f2c541f5be3c6387736de65c5a91cb48"
+    },
+    {
+      "name": "dataset/labels/m2/label0314.svg",
+      "bytes": 142850,
+      "sha256": "3d7053873e845e515b89c1d67bf161f14d924914bced3993152e75c1b2c9e1ae"
+    },
+    {
+      "name": "dataset/sems/m2/sem0314.png",
+      "bytes": 9626412,
+      "sha256": "9e8c917baebfaba56163e3473d91ca062bd00e9e7032788d3a0de281a8fb8f16"
+    },
+    {
+      "name": "dataset/labels/m2/label0116.svg",
+      "bytes": 142633,
+      "sha256": "59e8c98539405837faa64ccf6fd074dd0d206674d58e748779091ff7a8380ac7"
+    },
+    {
+      "name": "dataset/sems/m2/sem0116.png",
+      "bytes": 9647668,
+      "sha256": "b8d0f372344ef4a4ec0af9924bd3462b6842efe9ef5329c0fcdc3a8f9937d1fa"
+    },
+    {
+      "name": "dataset/labels/m2/label0057.svg",
+      "bytes": 117493,
+      "sha256": "5473cf65d2b4ba6511a71dda04bae3545e762db62fecf79d3a95b2b2f4c8bac5"
+    },
+    {
+      "name": "dataset/sems/m2/sem0057.png",
+      "bytes": 9613027,
+      "sha256": "084523adc53bdf260215ae43b8d4705bb762e027adeb64bcdf06e0441526d9f7"
+    },
+    {
+      "name": "dataset/labels/m2/label0184.svg",
+      "bytes": 128093,
+      "sha256": "cc0255014613e6fdd2f53db7d47f1cc1f00cbb804c8ff2a5986318803fe19fde"
+    },
+    {
+      "name": "dataset/sems/m2/sem0184.png",
+      "bytes": 9612079,
+      "sha256": "95384095e7db70553b7653138d2f83316a085938f36a67933b3372d0a9edb2ad"
+    },
+    {
+      "name": "dataset/labels/m2/label0293.svg",
+      "bytes": 157784,
+      "sha256": "a9d475637aa4fb073ce3a49f7753a02011b6b1ca4ba915d32cf9628b71fa1be9"
+    },
+    {
+      "name": "dataset/sems/m2/sem0293.png",
+      "bytes": 9651241,
+      "sha256": "9e949b6043e2bd5781fc636f54d0a194b0d4f5ee6295a8a8bb13cb17af6a45cc"
+    }
+  ]
+}

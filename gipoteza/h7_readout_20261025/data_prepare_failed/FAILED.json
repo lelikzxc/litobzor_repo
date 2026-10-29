@@ -1,0 +1,5 @@
+{
+  "status": "FAILED_BEFORE_RI",
+  "reason": "Stored upstream target hash uses original PIL bool bytes; canonical 0/1 array has a different byte representation",
+  "ri_decoded": false
+}

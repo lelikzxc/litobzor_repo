@@ -1,0 +1,36 @@
+{
+  "status": "COMPLETE",
+  "scientific_status": "PASS_PILOT",
+  "technical_audit": "PASS_AUDIT",
+  "test_examples": 16707,
+  "test_frame_count": 8,
+  "physical_ICs": 1,
+  "final_seeds": [
+    2801,
+    2833,
+    2887
+  ],
+  "original_hypothesis_document_unchanged": true,
+  "data_gate_amendment": "AMENDMENT_01.md; before training and TEST preparation",
+  "frozen_hashes": {
+    "PROTOCOL.md": "26e173270d773efd102a1125724bccf2c95d9a9f77df9b04fcbf72b4924a7033",
+    "FROZEN.json": "a095093b49fb5a278dbfd868667b0d3ed2005d044f42ec1810319c33abe12ac3",
+    "DATA.npz": "cc3d43fbffdbe005239d4796ce695e09132a5800014d28918eed734be1cc8ab6",
+    "SELECTION.json": "22e468fe45238f6bd629fa7975583ed7566c2fe62774da7e741f5436aff0ccdf",
+    "TRAINING_COMPLETE.json": "5c2aba5846cb03f0947c7a2765ef76ba634eb6d9c68a44b92f8c93998be6848c",
+    "RESULT.json": "668e146e7575b529aa28c5f27d6ce76170e7f9d6e20e9144eb5ae30787d79540",
+    "AUDIT.json": "8172315a49cfd4dc10c176a3ed51ac3a3eea94cb170b5ab96adc99e37ab6fc51",
+    "REPORT.md": "13ed996cfc472f2f1b2e51bffcbd2d7643dd0eb150d29cafba012ef254ac0ff6"
+  },
+  "code_sha256": {
+    "audit.py": "6320df74071966fa2274433eabdd168b2573067edfab788ec1f12efc01d75cce",
+    "physics_adapter.py": "4419a21d7c9e5883880ed58565254e82000161e70ced3e7406ec9a7f71be2b4f",
+    "train.py": "d8ab48ab14cc83df3700d91af0b171f82cb084107fc3a08d66180b1c79217c51",
+    "evaluate.py": "02e43fb72f6f171348bec243b6876f8c01c299dd609f5d4f4f4aad364e03ea75",
+    "report.py": "033ce26e1d0ca8476a1d0a74b04084fd3d179d2d7a2674aa13073cb1109fe4e7",
+    "prepare.py": "f9507b803f8a8dc7bd11ae1083eb8e6fc9bd84c8386282c7361fe8b43d4fd3ab"
+  },
+  "links_checked": 24,
+  "broken_links": [],
+  "scope": "One completed same-information, same-chip pilot; not independent chip replication."
+}

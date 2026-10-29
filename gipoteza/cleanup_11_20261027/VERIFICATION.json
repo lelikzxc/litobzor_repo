@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "gates": {
+    "retained_hashes": true,
+    "delete_roots_absent": true,
+    "three_internal_symlinks": true,
+    "eleven_ordered_hypotheses": true,
+    "current_document_links": true,
+    "historical_record_hashes": true,
+    "historical_code_hashes": true,
+    "ten_option_snapshot_matches": true,
+    "frozen_helpers_unchanged": true,
+    "nine_restored_reports_match": true,
+    "plan_matches_completion": true,
+    "wafer_independent_reaudit": true,
+    "retained_runtime_tests": true
+  },
+  "retained_sha256_checked": 4364,
+  "H7_original_unchanged_files": 292,
+  "historical_records": 151,
+  "historical_source_files": 60,
+  "python_sources_parsed": 128,
+  "local_document_links_checked": 85,
+  "changed_retained_files": [],
+  "remaining_deleted_roots": [],
+  "broken_current_links": [],
+  "reaudit_path": "gipoteza/cleanup_11_20261027/wafer_reaudit/INDEPENDENT_AUDIT.json",
+  "tests": {
+    "status": "PASS",
+    "passed": 30,
+    "seconds": 14.6,
+    "exit_code": 0,
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m pytest -p no:cacheprovider tests/test_imports.py tests/test_paper_reproduction.py gipoteza/h7_readout_20261025/test_core.py -q",
+    "scope": "Retained imports, native die encodings, entry points and H7 geometric bounds/policy correctness."
+  },
+  "scope": "Preservation, source hashes, arithmetic and runtime checks after cleanup; no model training and no new hypothesis confirmation."
+}

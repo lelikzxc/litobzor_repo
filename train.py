@@ -1,8 +1,8 @@
 """Dispatch to a paper-specific training entry point.
 
 Usage:
-    python train.py papers/semiwafernet
-    python train.py papers/semiwafernet --config papers/semiwafernet/configs/config.yaml
+    python train.py papers/polar_cnn
+    python train.py papers/polar_cnn --config papers/polar_cnn/configs/config.yaml
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ def _usage() -> None:
     for name in available:
         print(f"  - {name}")
     print("\nExample:")
-    print("  python train.py semiwafernet --config papers/semiwafernet/configs/config.yaml")
+    print("  python train.py polar_cnn --config papers/polar_cnn/configs/config.yaml")
 
 
 def main() -> None:

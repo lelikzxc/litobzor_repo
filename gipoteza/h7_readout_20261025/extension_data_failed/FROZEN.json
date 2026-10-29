@@ -1,0 +1,349 @@
+{
+  "created_utc": "2026-10-25T16:39:11.247180+00:00",
+  "purpose": "PROSPECTIVE_H7_COST_ENDPOINT_ON_OTHER_KNOWN_DESIGNS",
+  "geometries": [
+    "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+    "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+    "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+    "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+    "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+    "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+    "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+    "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+    "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+    "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c"
+  ],
+  "records": [
+    {
+      "recipe_index": 0,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "group": "19803",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/19787_to_20869.complete.tar",
+      "source_folder": "confirmation",
+      "file": "recipe_000.npz",
+      "cache_sha256": "385112092a7e95c8595830c7da4c5e7a7288b45a4b2f27e2ed27fac85d9402a3",
+      "bytes": 73331,
+      "layout_file_sha256": "f7277cef221a0d6689922129f92d9f4cc4243deaaa38c122134e19a982648f45",
+      "mask_file_sha256": "7b99447d3b419334ccd3b9a2b65012a6b7bfe4f9b9fdea4b40a75d53e5b35280",
+      "source_file_sha256": "376628adc129dc04a0749a4788a56a6f826db49eb22a61342aff37c4c1b1135f",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 3413.5,
+      "source_total_intensity_saved": 3413.5,
+      "spec_sha256": "c09376181ff3b62739039bfccc4ff7f0fe5384a33ef8d852aac4b588cd4d82c5",
+      "regions_sha256": "6742a733a4bc5300821237c13d4bfc92fbc393812823db02d7b185094e4170c2",
+      "source_curve_sha256": "376630ecae74fee2c7384389fab75db14888e5f029ec1bf7d1661b80b53cff6d",
+      "state_count": 33,
+      "event_count": 56
+    },
+    {
+      "recipe_index": 2,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "group": "144",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/14381_to_15443.complete.tar",
+      "source_folder": "confirmation",
+      "file": "recipe_002.npz",
+      "cache_sha256": "f6836c3c7530183a07fcd90b36f9256267891c09a9bdf3fcf2029c5991b4e84c",
+      "bytes": 43910,
+      "layout_file_sha256": "e4ab4f37153a231adc40291a6f4cdd7677a3f26873fbb53358ec4d1451eb6e62",
+      "mask_file_sha256": "872db9d529fb66a96c4badb5fc6dcd20aec5d91fc67d75c2a43a4d4aebd71f68",
+      "source_file_sha256": "3f614e45c97989524e1c14593bf0ab42bfb81a89b01bd3d1ac18c5a9aaaec7a5",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 2666.5,
+      "source_total_intensity_saved": 2666.5,
+      "spec_sha256": "58284016e09f02d010acc8a9d56d0a459f1534b13410a9e060b718309f0943aa",
+      "regions_sha256": "6c35ef5ea3065df4854a44bf9eb8b9ef3b67e3032d6d6987df0eebaf53d4f195",
+      "source_curve_sha256": "376630ecae74fee2c7384389fab75db14888e5f029ec1bf7d1661b80b53cff6d",
+      "state_count": 33,
+      "event_count": 56
+    },
+    {
+      "recipe_index": 4,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "group": "9988",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/hypothesis_search_20261024/lithosim_audit/9987_to_9998.tar.gz",
+      "source_folder": "development_canonical",
+      "file": "recipe_004.npz",
+      "cache_sha256": "92aa3473170cb4622af383495cc6394ccaa00d1f27522857c85abec094c4837e",
+      "bytes": 66914,
+      "layout_file_sha256": "a70d95ab377e7a21f0a13de8c787ae1a5b6de563343677ac4539ffb0a23514f5",
+      "mask_file_sha256": "bbe8ca1554b71784d317e5be9da2bc7dfbdbff604bf91012e9f24c5e5189d5a5",
+      "source_file_sha256": "ebb226cdf72dfc4757af1d80cd2e7357c3d5e1d96f1cf2e55b018f2a8eff0d7b",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 2327.5,
+      "source_total_intensity_saved": 2327.5,
+      "spec_sha256": "9fa71d0754d20bb7300851b0de4d7d4808c34d53a5320575bcfac61df02e1caf",
+      "regions_sha256": "e0542e54505c0ef726a3ffaa38f9e5309c91a38c3ad8853f8751a4912a1f5fd2",
+      "source_curve_sha256": "595352ef6517411f177f1e35aa8534684feacee5911b5df88e50ab9b9b6da128",
+      "state_count": 33,
+      "event_count": 56
+    },
+    {
+      "recipe_index": 7,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "group": "14393",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/14381_to_15443.complete.tar",
+      "source_folder": "confirmation",
+      "file": "recipe_007.npz",
+      "cache_sha256": "0e309479ee9e47aaaa3f8ba3cbd6bed47347e320b90c64840134b86f3a48b029",
+      "bytes": 63714,
+      "layout_file_sha256": "b292bc1dd385454edb5458b003861c0cdb3a092c1a6e459fc548d894b57750b3",
+      "mask_file_sha256": "e63fc86add1bd0475981c5c4531d120a09de05c82c5ec6f32c6693fdb23149da",
+      "source_file_sha256": "79f16ac9457fa6226abe5db17242b45c64ebc35efb16d5416d7749aa9cce96a0",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 4011.0,
+      "source_total_intensity_saved": 4011.0,
+      "spec_sha256": "ef882669aee58dbc00f981e6faa0dfad8c7a8af473f6bc0caafbc473e10fe0a4",
+      "regions_sha256": "89d5168618bad107546c60c4f435137731198d53b586b57c19923ec81f9de74b",
+      "source_curve_sha256": "376630ecae74fee2c7384389fab75db14888e5f029ec1bf7d1661b80b53cff6d",
+      "state_count": 33,
+      "event_count": 56
+    },
+    {
+      "recipe_index": 10,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "group": "5633",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/5626_to_6729.complete.tar",
+      "source_folder": "confirmation",
+      "file": "recipe_010.npz",
+      "cache_sha256": "8f6bb59ecbf1230326f2a045f8a236a57bde10c48b8394c4c6083f17f025575b",
+      "bytes": 72733,
+      "layout_file_sha256": "acd5a913bc9ec551fba888d30b592832307c2b3c8406caa15df465c66e543c03",
+      "mask_file_sha256": "79bebf19871a10d1d293619e4bc1c914c54dee93f664b100ddb172880741a251",
+      "source_file_sha256": "d851b6d31910e96933b9a03aa9db5055dffc13276b4af902aa13f8ac4e2944b9",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 3523.6000000000004,
+      "source_total_intensity_saved": 3523.6000196039677,
+      "spec_sha256": "8a791d561b1bb4c266dac76fa1ca3e014f733d1684cf6e4f8e5490aef5a5b97c",
+      "regions_sha256": "500cecfedea9d11bcc9f3575e37562710a79ab60446127ef6d8dfa6c48c4212e",
+      "source_curve_sha256": "376630ecae74fee2c7384389fab75db14888e5f029ec1bf7d1661b80b53cff6d",
+      "state_count": 33,
+      "event_count": 56
+    },
+    {
+      "recipe_index": 12,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "group": "26365",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/26351_to_27435.complete.tar",
+      "source_folder": "confirmation",
+      "file": "recipe_012.npz",
+      "cache_sha256": "13f670abcaaeedc2b3df377674c7b894a3f85f43fbfdb28e6cad3dfc084d9cc0",
+      "bytes": 61543,
+      "layout_file_sha256": "ff7618bdbea0d55c2122370f5f306244d781902ac351d638b12d3b2919dee6f2",
+      "mask_file_sha256": "7f5ebdb987f491cebb95a49671a8841fb5b4396a936fe38fb44cbf38880941eb",
+      "source_file_sha256": "f34242d0f416bb2fc24f6f0193214377c78871a176ef3b48dc6bf325d9c27538",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 3403.4000000000005,
+      "source_total_intensity_saved": 3403.4000283926725,
+      "spec_sha256": "57e371d4b8166b8a82fed4ced38e70e2b1e9dae1e2f9670459b9d03ad4267694",
+      "regions_sha256": "ed4bfb72e0f56469e08f6e6d4653e566cfca80b5e0b3690637da9cf0d1c226f7",
+      "source_curve_sha256": "376630ecae74fee2c7384389fab75db14888e5f029ec1bf7d1661b80b53cff6d",
+      "state_count": 33,
+      "event_count": 56
+    },
+    {
+      "recipe_index": 13,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "group": "14395",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/14381_to_15443.complete.tar",
+      "source_folder": "confirmation",
+      "file": "recipe_013.npz",
+      "cache_sha256": "1577de126d260571465cf21be06750f8d7c6cbdd392a4b3a26ce4560417fdffc",
+      "bytes": 72634,
+      "layout_file_sha256": "ce5e2039cafe976319969127b82edf8b16a46db1db46cb9da2e8421a8d0736b9",
+      "mask_file_sha256": "09ce26b77c679f92450a2e0e48ca3f9660afa675d0a3e7056071ff834130e171",
+      "source_file_sha256": "79f16ac9457fa6226abe5db17242b45c64ebc35efb16d5416d7749aa9cce96a0",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 4011.0,
+      "source_total_intensity_saved": 4011.0,
+      "spec_sha256": "97318d975b26572ebdf8d63b290a560658e7086cbfa6f37619b6f87131ecb0a6",
+      "regions_sha256": "07f21b85a3a89300e7f647bae1e810e80260272dc57bfeb9613087dccd79b799",
+      "source_curve_sha256": "376630ecae74fee2c7384389fab75db14888e5f029ec1bf7d1661b80b53cff6d",
+      "state_count": 33,
+      "event_count": 56
+    },
+    {
+      "recipe_index": 16,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "group": "999",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/hypothesis_search_20261024/lithosim_audit/9987_to_9998.tar.gz",
+      "source_folder": "development_canonical",
+      "file": "recipe_016.npz",
+      "cache_sha256": "ae4df3546386e656c65a8a18f526bd38f12ced19600458475696363c1e60b0d8",
+      "bytes": 44558,
+      "layout_file_sha256": "774e6252d9f2b9d278ddbbfa49bf6222cd0b79a2c20ce02f500f83b1f3f7acb8",
+      "mask_file_sha256": "23a362bb0b4b8434b5c308f22bed1a96156c732329eaf294b37a47b12196f0be",
+      "source_file_sha256": "2b3fa97b55e752d38ac88c6248857d250da3eae117ecf4bb56d75db5e75010c8",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 3891.9,
+      "source_total_intensity_saved": 3891.9000240042806,
+      "spec_sha256": "95ea254671fe98d6e6cb253a97977a0555987b37cca80efc6c5246265eecb252",
+      "regions_sha256": "8c14288931f681aa8a1e47709a7a584da9a4b4d653cfb457653c7f698f5f0571",
+      "source_curve_sha256": "595352ef6517411f177f1e35aa8534684feacee5911b5df88e50ab9b9b6da128",
+      "state_count": 33,
+      "event_count": 56
+    },
+    {
+      "recipe_index": 17,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "group": "9987",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/hypothesis_search_20261024/lithosim_audit/9987_to_9998.tar.gz",
+      "source_folder": "development_canonical",
+      "file": "recipe_017.npz",
+      "cache_sha256": "7481bc7d30bca6766e87a4e065002d4980aa1ac29f9e23bb2a9a2878c826998f",
+      "bytes": 44904,
+      "layout_file_sha256": "eb81b920459d59e2a6ba6fb59586ab7709bca04a9149b043d38e0db8a99d5070",
+      "mask_file_sha256": "35ebd18bdfff40a84aee9e1f02a4b0ec2930330f4f3670cee26a4238c7266ca4",
+      "source_file_sha256": "d100d80c41f19496da1cf6d07068c5cdd1ac6c61cbdc2950f884e38be9fe4e69",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 3789.0,
+      "source_total_intensity_saved": 3789.0,
+      "spec_sha256": "0876f249fe1d585fcbf507bea1082fc4927bbe13bdb5b10699c23b62834b0966",
+      "regions_sha256": "a2152b7d169dc9f4f7a773934bbd1bb808db8876c69daddebe82a440fcf143b5",
+      "source_curve_sha256": "595352ef6517411f177f1e35aa8534684feacee5911b5df88e50ab9b9b6da128",
+      "state_count": 33,
+      "event_count": 56
+    },
+    {
+      "recipe_index": 23,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "group": "5626",
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/5626_to_6729.complete.tar",
+      "source_folder": "confirmation",
+      "file": "recipe_023.npz",
+      "cache_sha256": "928435d12e96bd9475ae30225884b4c414a666e0303c72aecbb3af2d4c0fba5c",
+      "bytes": 70048,
+      "layout_file_sha256": "6f4c17a64d7ecb454961a031c0f7f9bc957822dd2d76e93f5a844a1a131a485b",
+      "mask_file_sha256": "2eeec2f73784b8c8f277278195dae61a7ff786d8389d29ad147f35e15417f7d1",
+      "source_file_sha256": "b932c9ce508b07fb47840104d8cacb08b6b5ddab1040f491f67a7624999d381b",
+      "source_point_count": 7180,
+      "source_min": [
+        -0.821,
+        -0.821,
+        0.0
+      ],
+      "source_max": [
+        0.821,
+        0.821,
+        1.0
+      ],
+      "source_total_intensity_float64": 3913.5,
+      "source_total_intensity_saved": 3913.5,
+      "spec_sha256": "377ce9608611f1fd00273c14e7158a7507aec2db26f81470bbe0fd3e95516d78",
+      "regions_sha256": "3f0d7c48a27a0cd1ff0ba2a4651b7b84957ef959d4be2888c0859c2fa581006b",
+      "source_curve_sha256": "376630ecae74fee2c7384389fab75db14888e5f029ec1bf7d1661b80b53cff6d",
+      "state_count": 33,
+      "event_count": 56
+    }
+  ],
+  "state_indices": [
+    0,
+    5,
+    10,
+    11,
+    16,
+    21,
+    22,
+    27,
+    32
+  ],
+  "hashes": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/prepare_extension.py": "0b83c398f7f6f031238fc5c3240855579b4d2b0005502afd4d0055c8a39d4358",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/core.py": "2aa49f2feca069c036262096bce31f07a62fbba810227d9bd62693ec5a4c7047",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/prepare.py": "3b4eb547e5b8b30ddcde15050cfeeba122a7a12e7f50a4660e009902c0fde751",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/COST_EXTENSION_PROTOCOL.md": "33245f80851d895743d5e4eacfe5a915736b4e32505bd0459fef2ba834d459cd",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/pilot_20261025/cache/manifest.json": "7ecb6b2c7f8655a1e71126d9caa189f219c8250eb33dc24d95dcdcb6050f63bc",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/evaluation/SUMMARY.json": "5a8babe7d3ff8c559d182a5a2f410b67e2f26c25de0721121051d23b4e733791"
+  },
+  "published_test_used": false,
+  "new_training": false
+}

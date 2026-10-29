@@ -1,0 +1,134 @@
+{
+  "records": [
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "target_hash": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "recipe_index": 0,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_000.npz",
+      "sha256": "0cd176cb5b1b781f4cee0709721c039ca452984135b48e5871f3d4b77b0d01dd"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8891",
+      "target_hash": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "recipe_index": 1,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_001.npz",
+      "sha256": "ffb4c66e6cc5111a53f76f0da6e4fd294be34bf732b1cb6c14915f41401f7c0c"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "target_hash": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "recipe_index": 2,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_002.npz",
+      "sha256": "6797e54c72d234027fe84e8fb29201e3143d5661320fa4f9130fb3d3ae39b872"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11094",
+      "target_hash": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "recipe_index": 3,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_003.npz",
+      "sha256": "ecd6be60e8ac807ea52f8c08c908abadf4fdd8d289549eec7d3af78d9ed08518"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "target_hash": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "recipe_index": 4,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_004.npz",
+      "sha256": "93893ed4731ae98bd26ceb504c768b1d033bbb99d079f82923eddc73e1ae3452"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/23041_to_24149.complete.tar",
+      "group": "23045",
+      "target_hash": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "recipe_index": 5,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_005.npz",
+      "sha256": "f34f6c61eaf1272b576d8864e4882d742c4a8c3660582c7d5ba1d96424363bae"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "target_hash": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "recipe_index": 6,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_006.npz",
+      "sha256": "195c788350e7993906ec6146e2223eb5dc7aafd62d4662271492c03098c70063"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/21954_to_23040.complete.tar",
+      "group": "21964",
+      "target_hash": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "recipe_index": 7,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_007.npz",
+      "sha256": "121608c650d6b7ee6f61f3f4abb0efd8b0a6b0f094db97e8fb0809474a0ca5e7"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "target_hash": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "recipe_index": 8,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_008.npz",
+      "sha256": "1aa667ece5100722d5c7b5ea5fb09680b699b57112f33e16a25d7c60af43cacf"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12171",
+      "target_hash": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "recipe_index": 9,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_009.npz",
+      "sha256": "599a0d252c8582f657f3a7d6e68fb6b0e8587bb7608f53fabfb900e5aa7df552"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "target_hash": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "recipe_index": 10,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_010.npz",
+      "sha256": "985b33d1a377eee7e0bb4b2ba69547766c79cc828fde0926280715a8b2567f6a"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11095",
+      "target_hash": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "recipe_index": 11,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_011.npz",
+      "sha256": "ecc0779dbf04c8a64a5b3547efdada56f4c86c1871e36d25747bca607aace0e9"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "target_hash": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "recipe_index": 12,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_012.npz",
+      "sha256": "bea671237c9994f6b69dff906d64c37f924079664eca940bb7b7172990a5f714"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4559",
+      "target_hash": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "recipe_index": 13,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_013.npz",
+      "sha256": "3c2190e549d3b4c92ddaccdefef8d599966e2827293ae2dce7c4cdf128a550f7"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "target_hash": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "recipe_index": 14,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_014.npz",
+      "sha256": "99e03895f774079945e7cfe2a231a54e2b6a36986cd772d822570ccea0262b07"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4565",
+      "target_hash": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "recipe_index": 15,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_015.npz",
+      "sha256": "640c8eafd317c72d5173c994824aad97f83085feadd12b07e0cf0c14d3517214"
+    }
+  ],
+  "inputs_sha256": "edf6175812322a5d19ae7365a84e2c4e2bd524e3492c06649322bca897879863",
+  "model_sha256": "ff218c77e89171d553f51e4c59f15777811240d0215ccf5cfa6d88829ef69cd4"
+}

@@ -1,0 +1,771 @@
+{
+  "status": "COMPLETE",
+  "benchmark_sha256": "6cc7b3521401e66f813b74455340a5634cd4d8ffdd8aa83ba618bc9c56232b66",
+  "frozen_sha256": "4ca02a26395974c1013ebe5a2bafb9f3f41b77de0972a154d336620911acdf7c",
+  "states": [
+    {
+      "state_id": 0,
+      "geometry": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "upstream_state_index": 0,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "dose": -0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 1,
+      "geometry": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "upstream_state_index": 5,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "dose": 0,
+      "focus": -40
+    },
+    {
+      "state_id": 2,
+      "geometry": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "upstream_state_index": 10,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "dose": 0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 3,
+      "geometry": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "upstream_state_index": 11,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "dose": -0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 4,
+      "geometry": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "upstream_state_index": 16,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "dose": 0,
+      "focus": 0
+    },
+    {
+      "state_id": 5,
+      "geometry": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "upstream_state_index": 21,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "dose": 0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 6,
+      "geometry": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "upstream_state_index": 22,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "dose": -0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 7,
+      "geometry": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "upstream_state_index": 27,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "dose": 0,
+      "focus": 40
+    },
+    {
+      "state_id": 8,
+      "geometry": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "upstream_state_index": 32,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "dose": 0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 9,
+      "geometry": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "upstream_state_index": 0,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "dose": -0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 10,
+      "geometry": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "upstream_state_index": 5,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "dose": 0,
+      "focus": -40
+    },
+    {
+      "state_id": 11,
+      "geometry": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "upstream_state_index": 10,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "dose": 0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 12,
+      "geometry": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "upstream_state_index": 11,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "dose": -0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 13,
+      "geometry": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "upstream_state_index": 16,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "dose": 0,
+      "focus": 0
+    },
+    {
+      "state_id": 14,
+      "geometry": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "upstream_state_index": 21,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "dose": 0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 15,
+      "geometry": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "upstream_state_index": 22,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "dose": -0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 16,
+      "geometry": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "upstream_state_index": 27,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "dose": 0,
+      "focus": 40
+    },
+    {
+      "state_id": 17,
+      "geometry": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "upstream_state_index": 32,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "dose": 0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 18,
+      "geometry": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "upstream_state_index": 0,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "dose": -0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 19,
+      "geometry": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "upstream_state_index": 5,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "dose": 0,
+      "focus": -40
+    },
+    {
+      "state_id": 20,
+      "geometry": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "upstream_state_index": 10,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "dose": 0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 21,
+      "geometry": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "upstream_state_index": 11,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "dose": -0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 22,
+      "geometry": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "upstream_state_index": 16,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "dose": 0,
+      "focus": 0
+    },
+    {
+      "state_id": 23,
+      "geometry": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "upstream_state_index": 21,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "dose": 0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 24,
+      "geometry": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "upstream_state_index": 22,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "dose": -0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 25,
+      "geometry": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "upstream_state_index": 27,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "dose": 0,
+      "focus": 40
+    },
+    {
+      "state_id": 26,
+      "geometry": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "upstream_state_index": 32,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "dose": 0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 27,
+      "geometry": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "upstream_state_index": 0,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "dose": -0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 28,
+      "geometry": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "upstream_state_index": 5,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "dose": 0,
+      "focus": -40
+    },
+    {
+      "state_id": 29,
+      "geometry": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "upstream_state_index": 10,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "dose": 0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 30,
+      "geometry": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "upstream_state_index": 11,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "dose": -0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 31,
+      "geometry": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "upstream_state_index": 16,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "dose": 0,
+      "focus": 0
+    },
+    {
+      "state_id": 32,
+      "geometry": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "upstream_state_index": 21,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "dose": 0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 33,
+      "geometry": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "upstream_state_index": 22,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "dose": -0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 34,
+      "geometry": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "upstream_state_index": 27,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "dose": 0,
+      "focus": 40
+    },
+    {
+      "state_id": 35,
+      "geometry": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "upstream_state_index": 32,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "dose": 0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 36,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "upstream_state_index": 0,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "dose": -0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 37,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "upstream_state_index": 5,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "dose": 0,
+      "focus": -40
+    },
+    {
+      "state_id": 38,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "upstream_state_index": 10,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "dose": 0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 39,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "upstream_state_index": 11,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "dose": -0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 40,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "upstream_state_index": 16,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "dose": 0,
+      "focus": 0
+    },
+    {
+      "state_id": 41,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "upstream_state_index": 21,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "dose": 0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 42,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "upstream_state_index": 22,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "dose": -0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 43,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "upstream_state_index": 27,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "dose": 0,
+      "focus": 40
+    },
+    {
+      "state_id": 44,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "upstream_state_index": 32,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "dose": 0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 45,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "upstream_state_index": 0,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "dose": -0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 46,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "upstream_state_index": 5,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "dose": 0,
+      "focus": -40
+    },
+    {
+      "state_id": 47,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "upstream_state_index": 10,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "dose": 0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 48,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "upstream_state_index": 11,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "dose": -0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 49,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "upstream_state_index": 16,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "dose": 0,
+      "focus": 0
+    },
+    {
+      "state_id": 50,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "upstream_state_index": 21,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "dose": 0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 51,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "upstream_state_index": 22,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "dose": -0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 52,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "upstream_state_index": 27,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "dose": 0,
+      "focus": 40
+    },
+    {
+      "state_id": 53,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "upstream_state_index": 32,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "dose": 0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 54,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "upstream_state_index": 0,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "dose": -0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 55,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "upstream_state_index": 5,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "dose": 0,
+      "focus": -40
+    },
+    {
+      "state_id": 56,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "upstream_state_index": 10,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "dose": 0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 57,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "upstream_state_index": 11,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "dose": -0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 58,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "upstream_state_index": 16,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "dose": 0,
+      "focus": 0
+    },
+    {
+      "state_id": 59,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "upstream_state_index": 21,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "dose": 0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 60,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "upstream_state_index": 22,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "dose": -0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 61,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "upstream_state_index": 27,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "dose": 0,
+      "focus": 40
+    },
+    {
+      "state_id": 62,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "upstream_state_index": 32,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "dose": 0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 63,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "upstream_state_index": 0,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "dose": -0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 64,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "upstream_state_index": 5,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "dose": 0,
+      "focus": -40
+    },
+    {
+      "state_id": 65,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "upstream_state_index": 10,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "dose": 0.1,
+      "focus": -40
+    },
+    {
+      "state_id": 66,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "upstream_state_index": 11,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "dose": -0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 67,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "upstream_state_index": 16,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "dose": 0,
+      "focus": 0
+    },
+    {
+      "state_id": 68,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "upstream_state_index": 21,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "dose": 0.1,
+      "focus": 0
+    },
+    {
+      "state_id": 69,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "upstream_state_index": 22,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "dose": -0.1,
+      "focus": 40
+    },
+    {
+      "state_id": 70,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "upstream_state_index": 27,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "dose": 0,
+      "focus": 40
+    },
+    {
+      "state_id": 71,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "upstream_state_index": 32,
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "dose": 0.1,
+      "focus": 40
+    }
+  ],
+  "support": {
+    "train": {
+      "states": 36,
+      "events": 2016,
+      "positive_states": [
+        5,
+        6,
+        8
+      ],
+      "positive_geometries": [
+        3,
+        2,
+        4
+      ],
+      "local_class_counts": [
+        1957,
+        42,
+        17
+      ]
+    },
+    "evaluation": {
+      "states": 36,
+      "events": 2016,
+      "positive_states": [
+        4,
+        5,
+        5
+      ],
+      "positive_geometries": [
+        2,
+        3,
+        4
+      ],
+      "local_class_counts": [
+        1973,
+        27,
+        16
+      ]
+    }
+  },
+  "raw_source_members_sha256": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar::15455/RI_dose_-0.1_defocus_-40.png": "030d0370535eeb3c29dd66a76e76988547c2e58037e7f177a6ae39ddf51bc44e",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar::15455/RI_dose_0_defocus_-40.png": "e1b5a000c9f468abc2a0834f681271095fb475b333441661021fd52c3f1e0d31",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar::15455/RI_dose_0.1_defocus_-40.png": "5c7add3a14205dbdb576bdf80a17cfb8a3a0d471ea000f3e766e3286dd64921c",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar::15455/RI_dose_-0.1_defocus_0.png": "e96c9039bd86ec275a292bb6bb9c49b525bf1bada0e07126305428bb7b11bcd7",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar::15455/RI_dose_0_defocus_0.png": "bbe5e58bdd41d2337e2d910cf82dd272d8a32bfaa9b95aca59e3dc41694abfec",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar::15455/RI_dose_0.1_defocus_0.png": "2029cc8c8de1d71c387ee78d61b2870919557e024f5a89e5678c0d951bc25ab8",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar::15455/RI_dose_-0.1_defocus_40.png": "f6fd32afdac2204fa0eb0d1246524f124165259f6b91ec9e94b9c652695b3ec6",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar::15455/RI_dose_0_defocus_40.png": "ef171dca2609c579246a2060f9516b935bb5d18c40f63b61335bfea1c3e1e2a8",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar::15455/RI_dose_0.1_defocus_40.png": "544bdf526fe3e36698ffff1cb37798abbc278dd098162efefd2d9aad9aa3a3d9",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11092/RI_dose_-0.1_defocus_-40.png": "625019492f8c830b6e44880b99450920f881bca3e5784aea86457ea5ced34c28",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11092/RI_dose_0_defocus_-40.png": "be52e81278b80f1066bdc145c205cf61bf817f00c181448ee0737afb2bcd2a14",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11092/RI_dose_0.1_defocus_-40.png": "e6c046e2357fb2d6e5243f74b15008846d98e97a670f312664f83ed30eb7b4e6",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11092/RI_dose_-0.1_defocus_0.png": "52431d217a71f7fbe5676c6d1bc1a4bf37e0c4a66abeff1a8c29e992b2f1b46d",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11092/RI_dose_0_defocus_0.png": "43ea77c453ef3f6bb358f40cae51316ee2d0948c8c1ec29a4c9375fe804abec1",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11092/RI_dose_0.1_defocus_0.png": "23f6fecde556d748283b5d17ea9d7966abd7a8b6e931260c994116e0abec05ea",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11092/RI_dose_-0.1_defocus_40.png": "b114ddbc37eae713d56f4738c393088dc167c76c951a9e9cbc8212a49df5638a",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11092/RI_dose_0_defocus_40.png": "4447a60bdd8188c6581839529eaa2c06a634c63f1177f863cd2445a92cd879b0",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11092/RI_dose_0.1_defocus_40.png": "d06fdd0cd9b7c99846f94375772d48b827669ceeccf1bca8df83d96d078a0777",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar::8890/RI_dose_-0.1_defocus_-40.png": "cd6114124fec25ef78b636669c655625177b427b417d54a873aea765b1949ffb",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar::8890/RI_dose_0_defocus_-40.png": "f83f2a52bdf480df7a26a8d7e556764d357f88d975f2cde198d231c581c990ba",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar::8890/RI_dose_0.1_defocus_-40.png": "86e3339aa6f26d98336d03b4fd61f9a38b5ffc7d0f1caa81011c6c44e5c2f90e",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar::8890/RI_dose_-0.1_defocus_0.png": "a44849bf80c2827b16250b3e09cb4dbf49c7dbd0b5c5e972a0b516be2a7ed6f6",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar::8890/RI_dose_0_defocus_0.png": "564bf751881225cd5dba38bb0a70df0ef5faaaf3f80f56034fe4fbfb36ae812c",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar::8890/RI_dose_0.1_defocus_0.png": "8e8a2de7481c2e4e43934389a9a6032bd036ee3990ec753d6eb99c476e351bbf",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar::8890/RI_dose_-0.1_defocus_40.png": "632fd8662ce11c47992b4ca2eb599047a8ed7cc44cc82e8c16cc34dbd372c579",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar::8890/RI_dose_0_defocus_40.png": "0799e8abd8b40ff56330fb34ec7967fb7dbe934f7cd1092fe4cf64b9149d6a45",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar::8890/RI_dose_0.1_defocus_40.png": "fdeb1afbbada7b1dcbe425f9276b4204f6bb9fc3b1a031092ee8892ffa406e3c",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar::18730/RI_dose_-0.1_defocus_-40.png": "81a720bc5f6644a710c14ee3cf1651adf45436780b7eb68eac53f521a6e4567f",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar::18730/RI_dose_0_defocus_-40.png": "1d41dd6a56313d13bc4dc97b8125766902428067ea7b4b58ac32b7dd77de5610",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar::18730/RI_dose_0.1_defocus_-40.png": "de8559b6162b60ee09c205abfd5a0612f4410fe484a9f5f248939307195daadb",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar::18730/RI_dose_-0.1_defocus_0.png": "faf8bb56e3012090bb3c56b16b70c600bddf9f621bfa5224ab3d79eed4c568b5",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar::18730/RI_dose_0_defocus_0.png": "42a80bcf3e3090d173359976c77bea7e6ade1e5ad475d776dcc3a22a52695152",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar::18730/RI_dose_0.1_defocus_0.png": "ca47206b928f01b3875287acfb4e694d108cdc8bed46206e3cd4b995574fdbe6",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar::18730/RI_dose_-0.1_defocus_40.png": "f2cad9d9f7e65faab7ebf43865722c7476f1bf37c5d08aeb96b4b564c20b89b2",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar::18730/RI_dose_0_defocus_40.png": "7cd46792040e6f423b827546ee8646412564b0d1ffcf077f7e533a2891609393",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar::18730/RI_dose_0.1_defocus_40.png": "2d8099b7413ea8c2f357162d79e58257a868ee08193d3dad1043f5fe8ec5c359",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar::12170/RI_dose_-0.1_defocus_-40.png": "4d27997fa9e6402752526c9a8baa08d9cfb33782cf890fb4efc2d24ca8e0a084",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar::12170/RI_dose_0_defocus_-40.png": "f4e9b1513736c43a54943a2919e4cd91191aacae2b710ee65d73e4967c82ed2d",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar::12170/RI_dose_0.1_defocus_-40.png": "ad38d6d59a810611fb5901afc00f04843e3757782631836730bc29be22ffc456",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar::12170/RI_dose_-0.1_defocus_0.png": "5180ee5b85a457212e504c2854fb15f2810c8f65dcf97bfea41953dca12a0906",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar::12170/RI_dose_0_defocus_0.png": "230f36ac939fa64a51c50e4d23738670673baef77f7d4e0361cde533ea809fcf",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar::12170/RI_dose_0.1_defocus_0.png": "492c19f88c4285bb28ee9fa8dc03456331cf1dd3e65f55b25b8f732aa0fac737",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar::12170/RI_dose_-0.1_defocus_40.png": "e5c5ce001c8ccdf17134a67e277945be911e23bbf7542ae4822a05e9d322531b",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar::12170/RI_dose_0_defocus_40.png": "c704a9897b25eb5e61e4ac95fa0a1be74fe41a6f205604980b8506de84fb382c",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar::12170/RI_dose_0.1_defocus_40.png": "aeb50a64ab7b6ad281788fee62615a24901c8afc80858797201227464cc2376e",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4557/RI_dose_-0.1_defocus_-40.png": "9e9d06708e63aba8973c287de7095d773e5243756fb9ac31bd3c7944f55b65af",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4557/RI_dose_0_defocus_-40.png": "49cb6e997bef798d7c0163b7681c89c121b5d61efcbf03caf100f8fbfae5bb07",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4557/RI_dose_0.1_defocus_-40.png": "241ba6020bc496cf0185d4cd9ee4ce45285caef93fc40a7901ab14c35d5815cf",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4557/RI_dose_-0.1_defocus_0.png": "a98da97fa7729a8ccb543a8b31703c18d09e4e5ed451318f782906532edfbe57",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4557/RI_dose_0_defocus_0.png": "08f776765b8360c5aa3587b47f0a9de4b22a95b5fcd45cc14d47ce64d60e1412",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4557/RI_dose_0.1_defocus_0.png": "6b7a54d62a51122d419213a34cf5f93dce7b4dabb0e5cfec2bce108b997283a5",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4557/RI_dose_-0.1_defocus_40.png": "252a4f812fe4ceb2de1a3605b85ce270b25005c999762bc7ab0b8d19e5a16a4b",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4557/RI_dose_0_defocus_40.png": "f6ce0d7fafbf633458538fe1b4136315f8eb6ee6f25eb85589050270ba789228",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4557/RI_dose_0.1_defocus_40.png": "1d30ac4f4b0372ba75e3f83f0e9f0cfb5ada6089af0a71c966e251bf460e061f",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4562/RI_dose_-0.1_defocus_-40.png": "888fffa577d0ec8008aae4ece964c9e9b76dc09caaffdb5cc8ac790476c3d33c",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4562/RI_dose_0_defocus_-40.png": "5c45ae736c30e5e6d7c719c479386554ec0d4f847e871cd770c3eca7e1dedc83",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4562/RI_dose_0.1_defocus_-40.png": "ec7793875d97f6adbb0937564114b3fe79c9e17bf96346aa7b30d176736a25c9",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4562/RI_dose_-0.1_defocus_0.png": "ade6e0a07aac0d343e2e2e7b6c6f6eeba0698353e6441acc3296aa8c9a3bb825",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4562/RI_dose_0_defocus_0.png": "7bfe7ef7ed60db7ec6c1470508d22dab9999e9a09921d015c09abd4a46910faa",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4562/RI_dose_0.1_defocus_0.png": "316738c631c8af3db5434d9197bdd65e31df45dc22e01eda8662c0d40507b8eb",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4562/RI_dose_-0.1_defocus_40.png": "92212ddfe1e7370b35f5c757d10ecfdd6ee82855c2cd1a34a9a013fc7f832605",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4562/RI_dose_0_defocus_40.png": "f1107b98cb764467ffdafdc55bc21936e17eae2ec52c8020e43ab6d0e7c1439f",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar::4562/RI_dose_0.1_defocus_40.png": "bf1ed2cf9c3d3b4c208f00793962c92e6398fc84812d2768763827d4a39f8daf",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11093/RI_dose_-0.1_defocus_-40.png": "0654c442336c832fb2f98a0ccb52eac3dbd242740c7d8cb21fe99e208f2bd3e9",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11093/RI_dose_0_defocus_-40.png": "1b4ec240991a7077d060713bfe9133a7807dfbb64112b0afbea010179d9bb69b",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11093/RI_dose_0.1_defocus_-40.png": "eac2c8af2d83e22cbca42f62cd3ba33d9642be8f915d771ce22b4c88f40b3538",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11093/RI_dose_-0.1_defocus_0.png": "2ecd6778611ce936ddb29c6d6b0894066bc0ce189bde0be9422a703da883c63f",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11093/RI_dose_0_defocus_0.png": "061d767538f16e994991e820d4921ed6ccdb68e23be58ff4fc882e4419b5e1c1",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11093/RI_dose_0.1_defocus_0.png": "a87e46ee1fc35caf4e810143a8e6bcbbcf7dc8345cd4edb7f614c14dcc554b6d",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11093/RI_dose_-0.1_defocus_40.png": "0fa0ec010e5b74c7b4483dccd80ea59109bd4700471ea4ac157e0831dc82972f",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11093/RI_dose_0_defocus_40.png": "a84dab15738eb9577b09435b140a1b2275d663e826e9bb41e8c80c88d1ebffd4",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar::11093/RI_dose_0.1_defocus_40.png": "9ea524cf1895815777b1bb3bde22735a7da1e437d7302323661a99262ce65857"
+  },
+  "native_labels_match_old_cache": true,
+  "full_reveal_certificate_matches_labels": true
+}

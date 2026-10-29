@@ -1,0 +1,19 @@
+{"geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842", "states": 9, "events": 504}
+{"geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c", "states": 18, "events": 1008}
+Traceback (most recent call last):
+  File "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/prepare_extension.py", line 69, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/prepare_extension.py", line 40, in main
+    with tarfile.open(record['archive'],'r:') as tar:
+         ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lelik/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/tarfile.py", line 1898, in open
+    return func(name, filemode, fileobj, **kwargs)
+  File "/Users/lelik/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/tarfile.py", line 1930, in taropen
+    return cls(name, mode, fileobj, **kwargs)
+  File "/Users/lelik/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/tarfile.py", line 1788, in __init__
+    self.firstmember = self.next()
+                       ~~~~~~~~~^^
+  File "/Users/lelik/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/tarfile.py", line 2786, in next
+    raise ReadError(str(e)) from None
+tarfile.ReadError: invalid header

@@ -1,0 +1,252 @@
+{
+  "status": "PASS_PILOT",
+  "primary_controls": [
+    "replay",
+    "head9"
+  ],
+  "test_examples": 16707,
+  "test_frames": [
+    37,
+    77,
+    84,
+    88,
+    171,
+    179,
+    199,
+    206
+  ],
+  "test_class_counts": [
+    7342,
+    733,
+    480,
+    4876,
+    515,
+    214,
+    2093,
+    191,
+    263
+  ],
+  "seeds": [
+    2801,
+    2833,
+    2887
+  ],
+  "metrics": {
+    "base": {
+      "mask_F1": 0.7031530144330266,
+      "per_seed_mask_F1": [
+        0.7148586837943278,
+        0.6764050255860352,
+        0.7181953339187166
+      ],
+      "IoU": 0.8483125270492794
+    },
+    "replay": {
+      "mask_F1": 0.681304602534874,
+      "per_seed_mask_F1": [
+        0.6758283085794724,
+        0.6902235388150324,
+        0.6778619602101175
+      ],
+      "IoU": 0.8346603877403564
+    },
+    "soft": {
+      "mask_F1": 0.7633838617085513,
+      "per_seed_mask_F1": [
+        0.7469869472826933,
+        0.7742289754856203,
+        0.7689356623573406
+      ],
+      "IoU": 0.8679394340152304
+    },
+    "head9": {
+      "mask_F1": 0.7297169189107171,
+      "per_seed_mask_F1": [
+        0.7337233429181158,
+        0.7268467237070219,
+        0.728580690107014
+      ],
+      "IoU": 0.8472971403533124,
+      "direct_head_F1": 0.5951543921896307,
+      "per_seed_direct_head_F1": [
+        0.6258817272097598,
+        0.5892398070413197,
+        0.5703416423178127
+      ]
+    },
+    "head4": {
+      "mask_F1": 0.7202040811009506,
+      "per_seed_mask_F1": [
+        0.7259302728189614,
+        0.723990886404631,
+        0.7106910840792594
+      ],
+      "IoU": 0.8472071022649142,
+      "direct_head_F1": 0.6093410434909979,
+      "per_seed_direct_head_F1": [
+        0.6179252340296087,
+        0.5986303648754655,
+        0.6114675315679197
+      ]
+    }
+  },
+  "soft_minus_control": {
+    "base": {
+      "delta": 0.060230847275524746,
+      "CI95": [
+        0.03273145921803282,
+        0.09537383303466616
+      ],
+      "IoU_delta": 0.01962690696595104,
+      "gates": {
+        "gain_at_least_one_pp": true,
+        "positive_CI_lower": true,
+        "IoU_guard": true
+      },
+      "per_seed_deltas": [
+        0.032128263488365505,
+        0.0978239498995851,
+        0.05074032843862397
+      ]
+    },
+    "replay": {
+      "delta": 0.08207925917367731,
+      "CI95": [
+        0.06964494938218785,
+        0.09606246459922023
+      ],
+      "IoU_delta": 0.03327904627487399,
+      "gates": {
+        "gain_at_least_one_pp": true,
+        "positive_CI_lower": true,
+        "IoU_guard": true
+      },
+      "per_seed_deltas": [
+        0.07115863870322092,
+        0.08400543667058791,
+        0.0910737021472231
+      ]
+    },
+    "head9": {
+      "delta": 0.03366694279783422,
+      "CI95": [
+        0.015389659373045378,
+        0.04988137827213982
+      ],
+      "IoU_delta": 0.020642293661918054,
+      "gates": {
+        "gain_at_least_one_pp": true,
+        "positive_CI_lower": true,
+        "IoU_guard": true
+      },
+      "per_seed_deltas": [
+        0.01326360436457752,
+        0.04738225177859845,
+        0.04035497225032658
+      ]
+    },
+    "head4": {
+      "delta": 0.04317978060760075,
+      "CI95": [
+        0.022656569738470408,
+        0.06240443940363114
+      ],
+      "IoU_delta": 0.02073233175031619,
+      "gates": {
+        "gain_at_least_one_pp": true,
+        "positive_CI_lower": true,
+        "IoU_guard": true
+      },
+      "per_seed_deltas": [
+        0.02105667446373194,
+        0.05023808908098926,
+        0.05824457827808116
+      ]
+    }
+  },
+  "selection": {
+    "status": "FROZEN_BEFORE_TEST",
+    "chosen": {
+      "soft": {
+        "family": "soft",
+        "weight": 1.0,
+        "mask_F1": 0.8298528078694476,
+        "IoU": 0.8957690064577521
+      },
+      "head9": {
+        "family": "head9",
+        "weight": 0.1,
+        "mask_F1": 0.7999401054270495,
+        "IoU": 0.8870745723465102
+      },
+      "head4": {
+        "family": "head4",
+        "weight": 0.4,
+        "mask_F1": 0.7974316750249513,
+        "IoU": 0.8869294366561061
+      }
+    },
+    "primary_head": "head9",
+    "all_VAL_configurations": [
+      {
+        "family": "soft",
+        "weight": 0.1,
+        "mask_F1": 0.8232961812838611,
+        "IoU": 0.8928550985416633
+      },
+      {
+        "family": "soft",
+        "weight": 0.4,
+        "mask_F1": 0.829679508821306,
+        "IoU": 0.8952264015799072
+      },
+      {
+        "family": "soft",
+        "weight": 1.0,
+        "mask_F1": 0.8298528078694476,
+        "IoU": 0.8957690064577521
+      },
+      {
+        "family": "head9",
+        "weight": 0.1,
+        "mask_F1": 0.7999401054270495,
+        "IoU": 0.8870745723465102
+      },
+      {
+        "family": "head9",
+        "weight": 0.4,
+        "mask_F1": 0.7866520283518875,
+        "IoU": 0.886064612929834
+      },
+      {
+        "family": "head9",
+        "weight": 1.0,
+        "mask_F1": 0.7952129870866684,
+        "IoU": 0.8878615571218784
+      },
+      {
+        "family": "head4",
+        "weight": 0.1,
+        "mask_F1": 0.7824548713723661,
+        "IoU": 0.8823686758201903
+      },
+      {
+        "family": "head4",
+        "weight": 0.4,
+        "mask_F1": 0.7974316750249513,
+        "IoU": 0.8869294366561061
+      },
+      {
+        "family": "head4",
+        "weight": 1.0,
+        "mask_F1": 0.7855658004967915,
+        "IoU": 0.8862419452805805
+      }
+    ],
+    "rule": "highest VAL mask-F1, then IoU, then lower weight"
+  },
+  "seconds": 20.5432624999994,
+  "predictions_sha256": "07b6b4539673e8767f9886fb5376a9d81c87b3994d75fb8c998ac9091ca828ea",
+  "analysis_sha256": "02e43fb72f6f171348bec243b6876f8c01c299dd609f5d4f4f4aad364e03ea75",
+  "scope": "New same-chip pilot with matched weak images/class labels. Primary output is class from binary segmentation. Direct head metrics secondary. No external chip replication or publication novelty claim."
+}

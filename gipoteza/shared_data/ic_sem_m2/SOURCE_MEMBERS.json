@@ -1,0 +1,2178 @@
+{
+  "doi": "10.17617/3.HY5SYN",
+  "license": "CC BY 4.0",
+  "members": [
+    {
+      "member": "dataset/labels/m2/label0000.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0000.svg",
+      "bytes": 148925,
+      "sha256": "7d622aede3da0200d490c6abe79c1364a9eda904998c0ca57f1b1e943dcb1656"
+    },
+    {
+      "member": "dataset/labels/m2/label0001.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0001.svg",
+      "bytes": 148742,
+      "sha256": "55679cfe1cc09802f6e46b699430859d8e30a04ee673d11c715da0608d54a371"
+    },
+    {
+      "member": "dataset/labels/m2/label0002.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0002.svg",
+      "bytes": 118043,
+      "sha256": "b335370096aff05a5fa402351430044b7bdab43b18e644cb71d616f44ac1297b"
+    },
+    {
+      "member": "dataset/labels/m2/label0003.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0003.svg",
+      "bytes": 119132,
+      "sha256": "9d531aaeaaa64480200e89e99ede240ab536e3edda79c0b8a9fe3b07407f3226"
+    },
+    {
+      "member": "dataset/labels/m2/label0004.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0004.svg",
+      "bytes": 145934,
+      "sha256": "80435e93661e59e573f5c8f2fbe248958206b102b5ea5d3c5620b0e940a40aa0"
+    },
+    {
+      "member": "dataset/labels/m2/label0005.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0005.svg",
+      "bytes": 144235,
+      "sha256": "88d3bbf3bdc7b12cd69ca561b31e4d18cc2d3ecf3cd2c9bffc3315017b36ceb3"
+    },
+    {
+      "member": "dataset/labels/m2/label0006.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0006.svg",
+      "bytes": 163685,
+      "sha256": "9f93e7da0380940cb31238e0dc3ef144860a63a540d0b789b3a5e2ca3676bad5"
+    },
+    {
+      "member": "dataset/labels/m2/label0007.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0007.svg",
+      "bytes": 121905,
+      "sha256": "8c9a1cfd5deb41b4feb5e26ce2cf28556256a71b51910ecac5abe3a944c7ea1b"
+    },
+    {
+      "member": "dataset/labels/m2/label0008.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0008.svg",
+      "bytes": 119739,
+      "sha256": "18df76d07c49dc82129f2427b5e03e33784b97cc054a6897871660da4a1c5e44"
+    },
+    {
+      "member": "dataset/labels/m2/label0009.svg",
+      "path": "gipoteza/search_20261026/sem_author/dataset/labels/label0009.svg",
+      "bytes": 177306,
+      "sha256": "b7c435f4284c58324eb7a444658e8c4fa3d09d32590383bf79855b2a761f5732"
+    },
+    {
+      "member": "dataset/labels/m2/label0010.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0010.svg",
+      "bytes": 137058,
+      "sha256": "88179078af957cb3995f0234ba036c39d48e36e7250b5f6f4a45b70c0de56539"
+    },
+    {
+      "member": "dataset/labels/m2/label0011.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0011.svg",
+      "bytes": 152031,
+      "sha256": "70dd8301c748024d3425ba375b7b85a75ad45b892116c03d26ddeb1e1768a1e5"
+    },
+    {
+      "member": "dataset/labels/m2/label0012.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0012.svg",
+      "bytes": 118936,
+      "sha256": "3f9f95268570723e9788461433b025bc8c7e3bfca1ce47ffd13dff68cccf53ca"
+    },
+    {
+      "member": "dataset/labels/m2/label0013.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0013.svg",
+      "bytes": 174704,
+      "sha256": "c2b8bf132dfbc8b39397bc0e422b1e962180e48189d98b407e6b5c0211ca8ee3"
+    },
+    {
+      "member": "dataset/labels/m2/label0014.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0014.svg",
+      "bytes": 150223,
+      "sha256": "c45c7ea65ee82930c198de03f19991b47d9f4be9e4373d40e5d615aead7e27d0"
+    },
+    {
+      "member": "dataset/labels/m2/label0015.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0015.svg",
+      "bytes": 148553,
+      "sha256": "67c744f0a462b1599feb92808513c6714193b20410f7166bb2b4813a527d0a96"
+    },
+    {
+      "member": "dataset/labels/m2/label0016.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0016.svg",
+      "bytes": 162317,
+      "sha256": "169884465cb892e721b4ff58f17dc3c96fd1e77691ca7a532a410ef9a66b500f"
+    },
+    {
+      "member": "dataset/labels/m2/label0017.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0017.svg",
+      "bytes": 164997,
+      "sha256": "67ea9ecb14e67317ca43f39e6cf66cd7269ccdba6ced102cb1372fc82a55eadc"
+    },
+    {
+      "member": "dataset/labels/m2/label0018.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0018.svg",
+      "bytes": 140810,
+      "sha256": "044924f1c4f5aa2b08ce15f623188ebf0116db2d62b2ca6947935dbca5ed82c0"
+    },
+    {
+      "member": "dataset/labels/m2/label0019.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0019.svg",
+      "bytes": 124660,
+      "sha256": "0bbae6fc65d3814c7a09a4af8c1dd7e3839d3800afd59dc769d771deaea2b1d7"
+    },
+    {
+      "member": "dataset/labels/m2/label0020.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0020.svg",
+      "bytes": 149289,
+      "sha256": "e158fbe2326c91b01f8a05ce193f48657a2a9972bb1005d889a66f492ae0595d"
+    },
+    {
+      "member": "dataset/labels/m2/label0021.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0021.svg",
+      "bytes": 154398,
+      "sha256": "21d6d0a80a0cf40fa9db64e960c9e5a51d4fb95e8444a5abef4db804d843ee3c"
+    },
+    {
+      "member": "dataset/labels/m2/label0022.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0022.svg",
+      "bytes": 124543,
+      "sha256": "2ec8282ae1d38fd44af3b705590c8979225a9501ac1c96346520b69d32d259ab"
+    },
+    {
+      "member": "dataset/labels/m2/label0023.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0023.svg",
+      "bytes": 132964,
+      "sha256": "75cb54a347c8795c4984456302d702785a7008239e53f552e27189000070b696"
+    },
+    {
+      "member": "dataset/labels/m2/label0024.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0024.svg",
+      "bytes": 105461,
+      "sha256": "a15890a229648837753e48a64b1cf08a2abdf57ea7a6544ead707bc58d2d9d2e"
+    },
+    {
+      "member": "dataset/labels/m2/label0025.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0025.svg",
+      "bytes": 146687,
+      "sha256": "641a0bde8626b03b62c455f5f18216ce13193f4a304ae085765cc5747640fc3c"
+    },
+    {
+      "member": "dataset/labels/m2/label0026.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0026.svg",
+      "bytes": 157993,
+      "sha256": "eee3c9f9089932b6742a8d42528e7ba9ed879e5622fc71750ab0ccb721b85960"
+    },
+    {
+      "member": "dataset/labels/m2/label0027.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0027.svg",
+      "bytes": 116134,
+      "sha256": "acdc6c6b48f83dda7e8e39938356076d723549041c19bbe2756a1122a96e30c0"
+    },
+    {
+      "member": "dataset/labels/m2/label0028.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0028.svg",
+      "bytes": 146338,
+      "sha256": "96d32cb5552a517759244772b0f38d8397c4dc3b0d597ea17e03168969ec4b61"
+    },
+    {
+      "member": "dataset/labels/m2/label0029.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0029.svg",
+      "bytes": 162964,
+      "sha256": "0c32d0bb0a0f3ed4f4b163335156242bb0213b907b71aaf586c318081c27dcd9"
+    },
+    {
+      "member": "dataset/labels/m2/label0030.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0030.svg",
+      "bytes": 124947,
+      "sha256": "7834412950a2f50a5c95f594b6d84fba8e3a254d8aa1bbfb1b3a86a5c0f180ae"
+    },
+    {
+      "member": "dataset/labels/m2/label0031.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0031.svg",
+      "bytes": 117474,
+      "sha256": "5806f174d1bbd25195116c83dee15ea7ed2583fc12b8d534ba4dcc0459817056"
+    },
+    {
+      "member": "dataset/labels/m2/label0032.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0032.svg",
+      "bytes": 130628,
+      "sha256": "dcc7dc7baefb9c1fee37146b18c97210458808b4cbbbc3146d9ba3a4d3e96ebf"
+    },
+    {
+      "member": "dataset/labels/m2/label0033.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0033.svg",
+      "bytes": 144085,
+      "sha256": "9d201d802f6a06db063e0de2c62529ee3e816a68895176477af1bc1569286a02"
+    },
+    {
+      "member": "dataset/labels/m2/label0034.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0034.svg",
+      "bytes": 145640,
+      "sha256": "7283b43ea514f1388f584cb66008102fc9639bd5a59e3f379f183b875a3f9da6"
+    },
+    {
+      "member": "dataset/labels/m2/label0035.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0035.svg",
+      "bytes": 143186,
+      "sha256": "eb03e60184a8ea89bf0212c0d9b624c8fb086ae708508b8cee145b942abedfff"
+    },
+    {
+      "member": "dataset/labels/m2/label0036.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0036.svg",
+      "bytes": 168252,
+      "sha256": "3ac312e76d5838215e5f4bfba164c7046745cf3f99d3c2564ccc93d2a0ecfe97"
+    },
+    {
+      "member": "dataset/labels/m2/label0037.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0037.svg",
+      "bytes": 151084,
+      "sha256": "fbc8feb86a9693bffbd0f459c7374ee305280e79a9c3cfe8c6bf971f933789a5"
+    },
+    {
+      "member": "dataset/labels/m2/label0038.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0038.svg",
+      "bytes": 149438,
+      "sha256": "6a23f11f98804de4dbe6cde5e2299de143759ac0408b80da60b03ce502dde125"
+    },
+    {
+      "member": "dataset/labels/m2/label0039.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0039.svg",
+      "bytes": 119349,
+      "sha256": "d205d192c2262bfaa485e9797da0fb6cd44b8a06df6b0db05186a879f383c1b0"
+    },
+    {
+      "member": "dataset/labels/m2/label0040.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0040.svg",
+      "bytes": 122617,
+      "sha256": "88a9649326d8acc1aa8463fe675e0d2f974ccb0dab7886826ac9e8f6cf7ade75"
+    },
+    {
+      "member": "dataset/labels/m2/label0041.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0041.svg",
+      "bytes": 160947,
+      "sha256": "ed5f3c9c328d7969c9a1cb5cdbfb0712e7db1e6ce9fd773f3ac4a9eae1ac6020"
+    },
+    {
+      "member": "dataset/labels/m2/label0042.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0042.svg",
+      "bytes": 126112,
+      "sha256": "223546b93e82458356ccc60992caaa5c3c1e4a33a87c1ede5604eb312265388f"
+    },
+    {
+      "member": "dataset/labels/m2/label0043.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0043.svg",
+      "bytes": 99436,
+      "sha256": "86ec431f189d139314c2096f569407d8d11c3fe0f1d245462165285f35e86271"
+    },
+    {
+      "member": "dataset/labels/m2/label0044.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0044.svg",
+      "bytes": 160447,
+      "sha256": "a07a39db152250fa371c83efd8ff3b46a39abc40f280452455b172cae8801d59"
+    },
+    {
+      "member": "dataset/labels/m2/label0045.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0045.svg",
+      "bytes": 167835,
+      "sha256": "22b99f881a24fc579c823debadf9b2ed85c2c33c5097d756c380c6f8be383c59"
+    },
+    {
+      "member": "dataset/labels/m2/label0046.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0046.svg",
+      "bytes": 116406,
+      "sha256": "0d42a1b875684c7942e47529face4c7207679dbbf8990efbb433ad7b62bd3d09"
+    },
+    {
+      "member": "dataset/labels/m2/label0047.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0047.svg",
+      "bytes": 145718,
+      "sha256": "910c7ca9a26cfdc7cb8faaa5650c2e3a98043a71ff750b701b6fc64200b2e11f"
+    },
+    {
+      "member": "dataset/labels/m2/label0048.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0048.svg",
+      "bytes": 153941,
+      "sha256": "0cae29f3cda80ac22e0d5474c68054ae3e9533b81e84b72dd88085c24d995149"
+    },
+    {
+      "member": "dataset/labels/m2/label0049.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0049.svg",
+      "bytes": 171160,
+      "sha256": "f7009165762c186fff65e4605d6328560b5c684a95cb489e48d48cec1d8ed694"
+    },
+    {
+      "member": "dataset/labels/m2/label0050.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0050.svg",
+      "bytes": 152775,
+      "sha256": "2689966d198aad86103066f2b70cff1d3cf194d659038fb47af731a9a634d394"
+    },
+    {
+      "member": "dataset/labels/m2/label0051.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0051.svg",
+      "bytes": 147520,
+      "sha256": "51204cc3c0e6fc88527a109e002febe6fb9f56720aacd80dc851e1e2e6c5ce67"
+    },
+    {
+      "member": "dataset/labels/m2/label0052.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0052.svg",
+      "bytes": 146191,
+      "sha256": "04d48d4f09cf1d53a9e473c956d87230ce56bb584c4f68c9e4e7a884a92e1568"
+    },
+    {
+      "member": "dataset/labels/m2/label0053.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0053.svg",
+      "bytes": 148271,
+      "sha256": "87691938c11560afc255a543adb6696bae42a7e4f3202008af094dcbc714d501"
+    },
+    {
+      "member": "dataset/labels/m2/label0054.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0054.svg",
+      "bytes": 153313,
+      "sha256": "cda9c7c07e4231d483d2b91cbf2cb9ff844ce9a00c44a7309f0e8b55c856b1f9"
+    },
+    {
+      "member": "dataset/labels/m2/label0055.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0055.svg",
+      "bytes": 131625,
+      "sha256": "f2623704becf2b11c8a6a597030b514d45fa0c493ffc29f4ecba9cd7746d156f"
+    },
+    {
+      "member": "dataset/labels/m2/label0056.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0056.svg",
+      "bytes": 88345,
+      "sha256": "f6ed1836b0a538c25d0c8b8e5594193ef8223cb7437961c27ba7d6bda1a4fddd"
+    },
+    {
+      "member": "dataset/labels/m2/label0057.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0057.svg",
+      "bytes": 117493,
+      "sha256": "5473cf65d2b4ba6511a71dda04bae3545e762db62fecf79d3a95b2b2f4c8bac5"
+    },
+    {
+      "member": "dataset/labels/m2/label0058.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0058.svg",
+      "bytes": 136180,
+      "sha256": "796ef5f1a1ded813dc57e0e6039a49833c9555da17af893c79f0fcb46d5486ed"
+    },
+    {
+      "member": "dataset/labels/m2/label0059.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0059.svg",
+      "bytes": 162507,
+      "sha256": "a9a1396777f4fe56b711eb550ae78958644199da19cbe6d2ce6b2e3e6ce22b82"
+    },
+    {
+      "member": "dataset/labels/m2/label0060.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0060.svg",
+      "bytes": 141438,
+      "sha256": "0f2d222a862903236e8d6f30ef23c2b062f83fb5f300e662fc6246fe9acd19e9"
+    },
+    {
+      "member": "dataset/labels/m2/label0061.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0061.svg",
+      "bytes": 130925,
+      "sha256": "bcf2b439cd24980c4bd4fea705ee9d65defabfcf7ac2e306d8f6c86822d0e7f1"
+    },
+    {
+      "member": "dataset/labels/m2/label0062.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0062.svg",
+      "bytes": 150872,
+      "sha256": "89236ea800f63a6946eb3508c840786fb25254c1fb525324abbd00b925ac28d7"
+    },
+    {
+      "member": "dataset/labels/m2/label0063.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0063.svg",
+      "bytes": 119267,
+      "sha256": "d840c56c49b54a498bf1e01ee965383680e8e60ea98614539e6202be00752fb4"
+    },
+    {
+      "member": "dataset/labels/m2/label0064.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0064.svg",
+      "bytes": 140165,
+      "sha256": "383deadf283b56abe523bf0c481674e7fb824212019ecfe17cdb17036d3824ef"
+    },
+    {
+      "member": "dataset/labels/m2/label0065.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0065.svg",
+      "bytes": 155934,
+      "sha256": "1872ca6c9c94839942c350c0fc4a9baa91da7ccf817cfcd0d5f6b3402f9f7e47"
+    },
+    {
+      "member": "dataset/labels/m2/label0066.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0066.svg",
+      "bytes": 125097,
+      "sha256": "50298ceeae3b5e32bf6a351ed739491ccd263afab42584061670c9a2caf809e3"
+    },
+    {
+      "member": "dataset/labels/m2/label0067.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0067.svg",
+      "bytes": 119523,
+      "sha256": "4bb6bfc92f0117c42d1e033a8adfd3a21fb2652a03c5e8231848404914a2ab2e"
+    },
+    {
+      "member": "dataset/labels/m2/label0068.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0068.svg",
+      "bytes": 133458,
+      "sha256": "f487af29b2b5def3b9f200d655da95e6323b3e3675759c388a1341468cae1c49"
+    },
+    {
+      "member": "dataset/labels/m2/label0069.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0069.svg",
+      "bytes": 130751,
+      "sha256": "80ee398c1b3b11ebd3b205959b31a241cbe4f30e6a142e8d6b45d4353b8cd6b5"
+    },
+    {
+      "member": "dataset/labels/m2/label0070.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0070.svg",
+      "bytes": 156230,
+      "sha256": "6bc1034b82db9a9ebffc5b3de7360a1083199fd426cf1f9a74bcabe34c210d38"
+    },
+    {
+      "member": "dataset/labels/m2/label0071.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0071.svg",
+      "bytes": 158693,
+      "sha256": "ff435286ccb1be2e1e3cab0054b2e4b1257402dbc3b4cdafabceccc191620c8b"
+    },
+    {
+      "member": "dataset/labels/m2/label0072.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0072.svg",
+      "bytes": 113427,
+      "sha256": "53c3a15afbda40fc9b8b405c94a2e676a47ba4fb155248ff718861b1f95ac7f5"
+    },
+    {
+      "member": "dataset/labels/m2/label0073.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0073.svg",
+      "bytes": 126151,
+      "sha256": "7fab1b8797767959735570ae390d40a7220a8ee829d203d5f823a6f98fd3de02"
+    },
+    {
+      "member": "dataset/labels/m2/label0074.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0074.svg",
+      "bytes": 161835,
+      "sha256": "06447edf4c9331d71f30162837cac943714c759bd38ef0394b92512e8972492b"
+    },
+    {
+      "member": "dataset/labels/m2/label0075.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0075.svg",
+      "bytes": 152338,
+      "sha256": "1bfb3f54a0466a6fcc5b9f28299c490bb7da02fb4ef42f51ef00f4107a9a6830"
+    },
+    {
+      "member": "dataset/labels/m2/label0076.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0076.svg",
+      "bytes": 162344,
+      "sha256": "56cf2e14312f102e3c2429cd87d158ec4a8a9b02bd7f319afaed1c31b9fd96be"
+    },
+    {
+      "member": "dataset/labels/m2/label0077.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0077.svg",
+      "bytes": 149435,
+      "sha256": "e11c85cceb91e7e2bfa78593fbdfeba66bbee2bcb32244a7f5af93716ce6f44a"
+    },
+    {
+      "member": "dataset/labels/m2/label0078.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0078.svg",
+      "bytes": 170955,
+      "sha256": "feeabcad30c338bc2ddfd23a695c00f3f06b3d6737f7a0d845344bda80e0e95c"
+    },
+    {
+      "member": "dataset/labels/m2/label0079.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0079.svg",
+      "bytes": 148530,
+      "sha256": "f0f028e71f7597e24b645734fa220b0b75db39cdc8531d37bec7c6dc57acc952"
+    },
+    {
+      "member": "dataset/labels/m2/label0080.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0080.svg",
+      "bytes": 156791,
+      "sha256": "7f841ff33d86b42135337004e80f0826606d410a574f7b75990162d8d3a8220b"
+    },
+    {
+      "member": "dataset/labels/m2/label0081.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0081.svg",
+      "bytes": 150374,
+      "sha256": "31fa763a7b7d661463342e65b3ab73aa9b70fc9c7433df7989ca2a426df2d5f6"
+    },
+    {
+      "member": "dataset/labels/m2/label0082.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0082.svg",
+      "bytes": 134778,
+      "sha256": "0e65a09ab7e02d1215745c4cae6fecc0bfaec92d5fd541010e64cff843fd89fa"
+    },
+    {
+      "member": "dataset/labels/m2/label0083.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0083.svg",
+      "bytes": 176860,
+      "sha256": "dd4aef0bb097e1f1ca22b65400504db0bed2025fc368f80ca49c5d1a6eb48415"
+    },
+    {
+      "member": "dataset/labels/m2/label0084.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0084.svg",
+      "bytes": 178403,
+      "sha256": "66849e92652223ebe4c66c6258a0d89482d81b2fcc36975b7318e73476447d6d"
+    },
+    {
+      "member": "dataset/labels/m2/label0085.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0085.svg",
+      "bytes": 101812,
+      "sha256": "bfc5e70da9ab432e9921392b3ff45acf928de03aa311ac9e720ec80e7b4843e2"
+    },
+    {
+      "member": "dataset/labels/m2/label0086.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0086.svg",
+      "bytes": 145717,
+      "sha256": "890ad16eac2ee7d255fbac76195573892d7e232d2a2324d2d08ba73a77f1a3b3"
+    },
+    {
+      "member": "dataset/labels/m2/label0087.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0087.svg",
+      "bytes": 141668,
+      "sha256": "89829a378b8d5567b575943a1928293a97557adf896595af591de30d921c8418"
+    },
+    {
+      "member": "dataset/labels/m2/label0088.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0088.svg",
+      "bytes": 161824,
+      "sha256": "6781bbdd615e9c96fb913dd855b26c33952301947ec042634803aa11c62de100"
+    },
+    {
+      "member": "dataset/labels/m2/label0089.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0089.svg",
+      "bytes": 124019,
+      "sha256": "6a16edf4750ad4eb9fb63b3547ad94c5419e3257ec9d69ebd43057b29c571c61"
+    },
+    {
+      "member": "dataset/labels/m2/label0090.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0090.svg",
+      "bytes": 137710,
+      "sha256": "2895b7c366db398052277d837ae2e124b2675de9262b9b48b63ad1587f1098ee"
+    },
+    {
+      "member": "dataset/labels/m2/label0091.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0091.svg",
+      "bytes": 166449,
+      "sha256": "4b9bf82baab824c85ed50bbcac5e301d23d1d67626e8cc1477aad4a2e3a72a5c"
+    },
+    {
+      "member": "dataset/labels/m2/label0092.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0092.svg",
+      "bytes": 120859,
+      "sha256": "58ffb48a84ec56c5bbcefea225f68b892140065c3f915f3cfd66d6ff668584e8"
+    },
+    {
+      "member": "dataset/labels/m2/label0093.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0093.svg",
+      "bytes": 160515,
+      "sha256": "24203932a88b0652715b49f4327bf91416bd6db473a0fa2e3a8fb35b33d628e1"
+    },
+    {
+      "member": "dataset/labels/m2/label0094.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0094.svg",
+      "bytes": 152436,
+      "sha256": "9d35795587c7d9efc53a263c43fbea99e38bf9efdcb3db76f1200656b55aa4b7"
+    },
+    {
+      "member": "dataset/labels/m2/label0095.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0095.svg",
+      "bytes": 120226,
+      "sha256": "a3cde7529ddcf158041563d0eeab64b079c8654df29183aa52e8eb0cc0fefd6e"
+    },
+    {
+      "member": "dataset/labels/m2/label0096.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0096.svg",
+      "bytes": 119055,
+      "sha256": "b6f51ee991beaa28ce76d8593dbdb2897d86f7b7f9e436400124cef7fca1d50e"
+    },
+    {
+      "member": "dataset/labels/m2/label0097.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0097.svg",
+      "bytes": 125023,
+      "sha256": "03d4cad4c75a544f961cc87a1112b6d69b6dd38533843c7286e1c8e6d0164bd9"
+    },
+    {
+      "member": "dataset/labels/m2/label0098.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0098.svg",
+      "bytes": 121215,
+      "sha256": "57cf443b69e593d2586aeb432978ad036c679fb9d9e37d579f49a0f943f67aff"
+    },
+    {
+      "member": "dataset/labels/m2/label0099.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0099.svg",
+      "bytes": 157831,
+      "sha256": "ace001f7fef34217cd2c1cb2e6031908554abe963dd9002dd340d2c4f4b77071"
+    },
+    {
+      "member": "dataset/labels/m2/label0100.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0100.svg",
+      "bytes": 121589,
+      "sha256": "66acf6acdb9353bc88bd473f199b2d7ff8494dce6e3729b3f0028ab95a5853a8"
+    },
+    {
+      "member": "dataset/labels/m2/label0101.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0101.svg",
+      "bytes": 113161,
+      "sha256": "3a26af0547fc81becc0938db7a9a6c250dfb36ce4e6ff51b01c8eed79781d617"
+    },
+    {
+      "member": "dataset/labels/m2/label0102.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0102.svg",
+      "bytes": 101697,
+      "sha256": "78379453562fd780192d3db1771c2335c8045c8baf675c0affc1fce14a4711ed"
+    },
+    {
+      "member": "dataset/labels/m2/label0103.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0103.svg",
+      "bytes": 129147,
+      "sha256": "51eeca33be2b2e960d28f56b28686777c321afca057fd2aa528294953911303e"
+    },
+    {
+      "member": "dataset/labels/m2/label0104.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0104.svg",
+      "bytes": 155046,
+      "sha256": "7dbb5b583b19d1ad371c629804c8eaeb06a8a79a12caccdf1ed6f4b515306716"
+    },
+    {
+      "member": "dataset/labels/m2/label0105.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0105.svg",
+      "bytes": 144050,
+      "sha256": "4433232f1007a8eb7bc65bf5ceef538a6f50885451d2bad9d85d4bb97e1f0d64"
+    },
+    {
+      "member": "dataset/labels/m2/label0106.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0106.svg",
+      "bytes": 149855,
+      "sha256": "710b710ff789378754b377a238c4866ee6591f22baabde9d1c875472e5fa6341"
+    },
+    {
+      "member": "dataset/labels/m2/label0107.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0107.svg",
+      "bytes": 169321,
+      "sha256": "5ba4be21b82010a835cf024a9f3cfd634f13b46f059d972f4fa78939f72a86d9"
+    },
+    {
+      "member": "dataset/labels/m2/label0108.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0108.svg",
+      "bytes": 131857,
+      "sha256": "d4f1d3f12ee5a0eb9dd4178603c3e9fa9cf262f5149736fc20805dfcae05ec5d"
+    },
+    {
+      "member": "dataset/labels/m2/label0109.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0109.svg",
+      "bytes": 148037,
+      "sha256": "910953bc9751c0cc29ae1aeb174e8c9e194eb0e48041a8585fe41b1e2ba67f28"
+    },
+    {
+      "member": "dataset/labels/m2/label0110.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0110.svg",
+      "bytes": 147384,
+      "sha256": "deb8ef0dd4a785b70447e0d54f1d772155a9883b6404bb26178f2e391316e555"
+    },
+    {
+      "member": "dataset/labels/m2/label0111.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0111.svg",
+      "bytes": 114678,
+      "sha256": "e51fc63e3a1f753f214ab21d070a7b0b95d79fbbbe529dbb7f0665a71a4143b0"
+    },
+    {
+      "member": "dataset/labels/m2/label0112.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0112.svg",
+      "bytes": 99967,
+      "sha256": "b2c5619f3e68307b643e35fd910294d9a946a080482cd64c4001d51d599c43a4"
+    },
+    {
+      "member": "dataset/labels/m2/label0113.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0113.svg",
+      "bytes": 151600,
+      "sha256": "5937169f14647f19a1a2a944dcf5c9e34c8b9dc4982f34ea87211a2ea2c2f512"
+    },
+    {
+      "member": "dataset/labels/m2/label0114.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0114.svg",
+      "bytes": 149376,
+      "sha256": "63e21a9649b82e867ef072d2673aeeebd34068763d59430182cb5d1f13bb6eb1"
+    },
+    {
+      "member": "dataset/labels/m2/label0115.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0115.svg",
+      "bytes": 144966,
+      "sha256": "2b80f53fadeb1e2e9f04307f7a7b69719a785cd136619112bea9b21988a5b961"
+    },
+    {
+      "member": "dataset/labels/m2/label0116.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0116.svg",
+      "bytes": 142633,
+      "sha256": "59e8c98539405837faa64ccf6fd074dd0d206674d58e748779091ff7a8380ac7"
+    },
+    {
+      "member": "dataset/labels/m2/label0117.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0117.svg",
+      "bytes": 118060,
+      "sha256": "ce988cf8731f3cdf95b00c69470b8b8d10d68f7b10d241a9a60753abd7955cf9"
+    },
+    {
+      "member": "dataset/labels/m2/label0118.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0118.svg",
+      "bytes": 146275,
+      "sha256": "f6cc51fc261108e2ff04eca745cd74348462c1b78b11daacd771e0071e551e56"
+    },
+    {
+      "member": "dataset/labels/m2/label0119.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0119.svg",
+      "bytes": 140229,
+      "sha256": "5347c86dfa1fc6fa2c0d04ff5cb1da8100203e27654b26f93fa29f584a822457"
+    },
+    {
+      "member": "dataset/labels/m2/label0120.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0120.svg",
+      "bytes": 136381,
+      "sha256": "db94f59c449fadeafefb3819cf142ed7215f698a21461abb5a02b5bae07ba674"
+    },
+    {
+      "member": "dataset/labels/m2/label0121.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0121.svg",
+      "bytes": 128369,
+      "sha256": "365e315a8b10aa5071a2f59193bda9a7ca01dc8957f21be793fd5e0e61eae3b1"
+    },
+    {
+      "member": "dataset/labels/m2/label0122.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0122.svg",
+      "bytes": 152983,
+      "sha256": "e76f76289cbab8412d7a3301ab65d666206c0b839f9ed491d1e7e7f3d42deb6a"
+    },
+    {
+      "member": "dataset/labels/m2/label0123.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0123.svg",
+      "bytes": 124770,
+      "sha256": "a5d073daeb89535dfd2d874bb21fbfd7ec22b486cf7cc1cbef2e2078c450bae1"
+    },
+    {
+      "member": "dataset/labels/m2/label0124.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0124.svg",
+      "bytes": 152905,
+      "sha256": "71b46e9cec7532fed5ab17b42f0cdd1d75e8433cb7b5c30c3d17dae249e33697"
+    },
+    {
+      "member": "dataset/labels/m2/label0125.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0125.svg",
+      "bytes": 125801,
+      "sha256": "04b76167812a1648fd41e038e14af4a47b1d1923088338531d64af0310a7f5c2"
+    },
+    {
+      "member": "dataset/labels/m2/label0126.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0126.svg",
+      "bytes": 112917,
+      "sha256": "4700111c1a0b6857f4b8734c737f38bb376b321d8a26f8a3eefbda29a92e88ad"
+    },
+    {
+      "member": "dataset/labels/m2/label0127.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0127.svg",
+      "bytes": 129577,
+      "sha256": "fe3a3cee2766f67ee9b29c0ba98d70e8536ce45f2a202940c32a33226a40a46b"
+    },
+    {
+      "member": "dataset/labels/m2/label0128.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0128.svg",
+      "bytes": 146249,
+      "sha256": "342e2e5834009f6415b2075b53a8895ef91e352ba24d553d77ab71fbd96afda2"
+    },
+    {
+      "member": "dataset/labels/m2/label0129.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0129.svg",
+      "bytes": 120799,
+      "sha256": "14999e4459eba001f3303757ee17bee9ec8ab6a27601fd86355c18b336b6596e"
+    },
+    {
+      "member": "dataset/labels/m2/label0130.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0130.svg",
+      "bytes": 139122,
+      "sha256": "e1ecac1583cda1885c20355667b613d99288d610785afd3a3e03340be8011ab3"
+    },
+    {
+      "member": "dataset/labels/m2/label0131.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0131.svg",
+      "bytes": 116741,
+      "sha256": "641a7517c741304f3628c39235b10839fbb17b325ecba07dfca57a4ff097674d"
+    },
+    {
+      "member": "dataset/labels/m2/label0132.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0132.svg",
+      "bytes": 144389,
+      "sha256": "882db1dfece43618c52bec614d0b6d2ce05ba8628c73d7eaf19362b217d6f77c"
+    },
+    {
+      "member": "dataset/labels/m2/label0133.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0133.svg",
+      "bytes": 148830,
+      "sha256": "2c05d187f5303bddb177fcdcd0e17b424494573aaff3a6045644d17aefd9cbf6"
+    },
+    {
+      "member": "dataset/labels/m2/label0134.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0134.svg",
+      "bytes": 141136,
+      "sha256": "7c20ca6829e5ffcf39525dbf4596ab65025a4061efdbb24a47f26a0571e1e74f"
+    },
+    {
+      "member": "dataset/labels/m2/label0135.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0135.svg",
+      "bytes": 160860,
+      "sha256": "dbc00e831fcb146afec33d00336e66aad34a3afbd3e24de5438c2a1114392816"
+    },
+    {
+      "member": "dataset/labels/m2/label0136.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0136.svg",
+      "bytes": 105198,
+      "sha256": "56bf91a2a6e77365168e47633c15831864503287e4f742aceafd298ad7ae2976"
+    },
+    {
+      "member": "dataset/labels/m2/label0137.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0137.svg",
+      "bytes": 99213,
+      "sha256": "7c1c47d5110634153a08162391a0d1e42cb39d2e578e0bd9412c4aea0ae1c924"
+    },
+    {
+      "member": "dataset/labels/m2/label0138.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0138.svg",
+      "bytes": 128832,
+      "sha256": "2ba47f9e2daa909c4485b2209ffe89fd6211470fa5401c89953173a9725f55be"
+    },
+    {
+      "member": "dataset/labels/m2/label0139.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0139.svg",
+      "bytes": 155874,
+      "sha256": "e28e2fa30053ccabb7aaab541019f42a43302c7264c573d58135ec5faec4a384"
+    },
+    {
+      "member": "dataset/labels/m2/label0140.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0140.svg",
+      "bytes": 166894,
+      "sha256": "e640cb2d5468f7af03a1267c5f6da40a8d58db8f3cb2e5e3d12206c1388aecf8"
+    },
+    {
+      "member": "dataset/labels/m2/label0141.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0141.svg",
+      "bytes": 115265,
+      "sha256": "0e8eec97b115d11d59069bb31e423dd9a500eebf345f04e8794c854d4385b8df"
+    },
+    {
+      "member": "dataset/labels/m2/label0142.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0142.svg",
+      "bytes": 125093,
+      "sha256": "6b4aaa8ea5b606d404b57ec7c91d0cc816e6162f8908477c9b8ed4a1f5bf3460"
+    },
+    {
+      "member": "dataset/labels/m2/label0143.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0143.svg",
+      "bytes": 139283,
+      "sha256": "916664ae2ffd573f02f8c2a2bc612a7321db50eda53e06000fafd110457415f9"
+    },
+    {
+      "member": "dataset/labels/m2/label0144.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0144.svg",
+      "bytes": 152227,
+      "sha256": "6c8cd38e358fe0c179364e159faf9889687b08cafe4af8e82e617b3ca273e8ae"
+    },
+    {
+      "member": "dataset/labels/m2/label0145.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0145.svg",
+      "bytes": 133438,
+      "sha256": "bb328bb50e5bbf40c3803b26380d18384aab249249d40f976c16e032cfc13a13"
+    },
+    {
+      "member": "dataset/labels/m2/label0146.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0146.svg",
+      "bytes": 92913,
+      "sha256": "de394822d05fc1b5734b2d056db0d986d8e5571d76545653f3465d9768589d95"
+    },
+    {
+      "member": "dataset/labels/m2/label0147.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0147.svg",
+      "bytes": 131781,
+      "sha256": "703f951cbb9d4b329cbc030109288893341ba51e73eb1f71cc926194b5088bed"
+    },
+    {
+      "member": "dataset/labels/m2/label0148.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0148.svg",
+      "bytes": 142708,
+      "sha256": "93b5c65d1c3291ac063f5148a8d0fee0cba894c9dee225a85010932ab6ea3b84"
+    },
+    {
+      "member": "dataset/labels/m2/label0149.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0149.svg",
+      "bytes": 124413,
+      "sha256": "5b1186f30cc563e611c9244367888c07df928b93ab99b18b5c40ae294a310dda"
+    },
+    {
+      "member": "dataset/labels/m2/label0150.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0150.svg",
+      "bytes": 97897,
+      "sha256": "e66b2d6e0b5f9dcec40596fba261d900b7f24ed36431c932f7b908b84beb9dd5"
+    },
+    {
+      "member": "dataset/labels/m2/label0151.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0151.svg",
+      "bytes": 149888,
+      "sha256": "b81a6da6c96cbd91eace1ccd7265df396a019e92f551470e7f6caa9180b20809"
+    },
+    {
+      "member": "dataset/labels/m2/label0152.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0152.svg",
+      "bytes": 96115,
+      "sha256": "8f024b53c0a64defb52889101c33af2efbe9e0b0e0b0fcd1d4f5c0e0286b7ad2"
+    },
+    {
+      "member": "dataset/labels/m2/label0153.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0153.svg",
+      "bytes": 144568,
+      "sha256": "94713120773af40461525fc8e4e862aa2bea70e26d425551359af68d46b54eae"
+    },
+    {
+      "member": "dataset/labels/m2/label0154.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0154.svg",
+      "bytes": 147167,
+      "sha256": "55efbd5a4fdb598a114017df6fbcf082a541105b37f66ecfe04de8ae6168555a"
+    },
+    {
+      "member": "dataset/labels/m2/label0155.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0155.svg",
+      "bytes": 165047,
+      "sha256": "a41840b332752c1337b3e0d11293777ff57b88ab3fc922efa419cec65faf4d4c"
+    },
+    {
+      "member": "dataset/labels/m2/label0156.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0156.svg",
+      "bytes": 130079,
+      "sha256": "07905ee85d54e0f6287b0a7a9b0b03875734aa0f79c3264bef47506139f7fe64"
+    },
+    {
+      "member": "dataset/labels/m2/label0157.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0157.svg",
+      "bytes": 166504,
+      "sha256": "e022cc9ce9c1faea8a8c3d47cf6d20ce0485f35e054e473b3cc058ae58bc4b92"
+    },
+    {
+      "member": "dataset/labels/m2/label0158.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0158.svg",
+      "bytes": 130898,
+      "sha256": "6f831bbf60f6c6df806702f1739191c05494ba4cd92273883b887dd95076e465"
+    },
+    {
+      "member": "dataset/labels/m2/label0159.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0159.svg",
+      "bytes": 181332,
+      "sha256": "c0dcc83a1e2368297264edfd07b5d2362d69c43528b2a1bbe63d14e58a10f84e"
+    },
+    {
+      "member": "dataset/labels/m2/label0160.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0160.svg",
+      "bytes": 125717,
+      "sha256": "6f2e698ce76c45cc6210777e5e3df6916bd5c30312d3b92c7cdf987b150759d7"
+    },
+    {
+      "member": "dataset/labels/m2/label0161.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0161.svg",
+      "bytes": 154368,
+      "sha256": "1be9768b2af0e9e8b2771375da41a74d7960b4695ad3090fc9043f52a25d3af6"
+    },
+    {
+      "member": "dataset/labels/m2/label0162.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0162.svg",
+      "bytes": 126558,
+      "sha256": "0ad7a5def932a213363e4d85c6fe5df1286bf585c1b2f2d4addb6935fd7eb860"
+    },
+    {
+      "member": "dataset/labels/m2/label0163.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0163.svg",
+      "bytes": 139142,
+      "sha256": "1dda53caf708c91991a85f5d3afecd7e3069984a10abc1f32149a2d2d95bb0bf"
+    },
+    {
+      "member": "dataset/labels/m2/label0164.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0164.svg",
+      "bytes": 115874,
+      "sha256": "3ac102da2c780c7bafe94971d29a4d00792ced76d80a3d4c2ae0191c8e035851"
+    },
+    {
+      "member": "dataset/labels/m2/label0165.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0165.svg",
+      "bytes": 182904,
+      "sha256": "cf59f8188d0cb3c91cfbbc6532fb4c04016103c5ebb16e4fc0ec64ef2553a037"
+    },
+    {
+      "member": "dataset/labels/m2/label0166.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0166.svg",
+      "bytes": 153360,
+      "sha256": "53beaaf6f85fadc6565c227f5ac3849257ad90cb504968a83fc130ee4864d965"
+    },
+    {
+      "member": "dataset/labels/m2/label0167.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0167.svg",
+      "bytes": 147634,
+      "sha256": "4800c57e89b0562e561978762be1255f240bcaabebe246b3d8332f2833e6235b"
+    },
+    {
+      "member": "dataset/labels/m2/label0168.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0168.svg",
+      "bytes": 156515,
+      "sha256": "6b5d6056dc6b8875d55008ca38e925fa0c60ec054d0211aad0a4fe1255abd86d"
+    },
+    {
+      "member": "dataset/labels/m2/label0169.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0169.svg",
+      "bytes": 106608,
+      "sha256": "a55129fd131902701b49f660741f9c957dc6bf725c8499c05d48313b1b2853f6"
+    },
+    {
+      "member": "dataset/labels/m2/label0170.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0170.svg",
+      "bytes": 132194,
+      "sha256": "34365e8edd0d60b23a0b8869603ef6444c5a56cfc9dbdb721e54f6ad16c8c0d6"
+    },
+    {
+      "member": "dataset/labels/m2/label0171.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0171.svg",
+      "bytes": 182172,
+      "sha256": "e87b677eed10d94297acc8eb53e6d5bc9eb2e18b8fecf15e7f3d1fd21abcc86c"
+    },
+    {
+      "member": "dataset/labels/m2/label0172.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0172.svg",
+      "bytes": 136220,
+      "sha256": "66d8f43fc50e92b90e90f3d1c8b3c401aa5402996d2f6588c6ceac84999e6f83"
+    },
+    {
+      "member": "dataset/labels/m2/label0173.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0173.svg",
+      "bytes": 159367,
+      "sha256": "0bcbeac48e371dd3566ab2b06d4e93b0f24c539e57b7a0a02a5cfa51263d8211"
+    },
+    {
+      "member": "dataset/labels/m2/label0174.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0174.svg",
+      "bytes": 138798,
+      "sha256": "0cde9bc68f0ef041a38a78601880044475447fa7f8ae5ad2e301dadd767156fa"
+    },
+    {
+      "member": "dataset/labels/m2/label0175.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0175.svg",
+      "bytes": 123303,
+      "sha256": "ce70f6c60a738ab166efc7009db462d3d26ad61d414343cdb14ba9ca1d9bc4de"
+    },
+    {
+      "member": "dataset/labels/m2/label0176.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0176.svg",
+      "bytes": 146075,
+      "sha256": "c0f3a0d3ee9ec06cb6686a791c08ce5f79aa62989f1eb9256ca648dddd26668a"
+    },
+    {
+      "member": "dataset/labels/m2/label0177.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0177.svg",
+      "bytes": 151730,
+      "sha256": "13924f5858180944ca8d94cbe39e0e9b1360011631b9b9f1ebe20518d19f74af"
+    },
+    {
+      "member": "dataset/labels/m2/label0178.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0178.svg",
+      "bytes": 128775,
+      "sha256": "2100247694e41eae0280fc0e655fde8a00734503ffdf248c27fcfcfd38798a86"
+    },
+    {
+      "member": "dataset/labels/m2/label0179.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0179.svg",
+      "bytes": 112602,
+      "sha256": "e2e06f19cac911784b15540a3ff29b179f9a502b35b4eb6012b779224cf22c03"
+    },
+    {
+      "member": "dataset/labels/m2/label0180.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0180.svg",
+      "bytes": 173274,
+      "sha256": "2879d5a73ba6a2ea018ee41fba5dd1709f62c3e4428244374bd4b3b191c0d46c"
+    },
+    {
+      "member": "dataset/labels/m2/label0181.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0181.svg",
+      "bytes": 129559,
+      "sha256": "a9743277ee174b286e92195c00bb73bab1191c1637b9e189758cb7be16e65fa2"
+    },
+    {
+      "member": "dataset/labels/m2/label0182.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0182.svg",
+      "bytes": 214031,
+      "sha256": "f14ccfc8d96980de13431fe7650c8a367283ab50bf36ad880fb6972f9ef5f868"
+    },
+    {
+      "member": "dataset/labels/m2/label0183.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0183.svg",
+      "bytes": 144046,
+      "sha256": "3b336169d2650873d84ccdb229676db6195568d284b9dace844f7d83731904c4"
+    },
+    {
+      "member": "dataset/labels/m2/label0184.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0184.svg",
+      "bytes": 128093,
+      "sha256": "cc0255014613e6fdd2f53db7d47f1cc1f00cbb804c8ff2a5986318803fe19fde"
+    },
+    {
+      "member": "dataset/labels/m2/label0185.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0185.svg",
+      "bytes": 72315,
+      "sha256": "90137a66accce23d8951e3c8756603b3c12e612895755fc8f015b3cf133e5924"
+    },
+    {
+      "member": "dataset/labels/m2/label0186.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0186.svg",
+      "bytes": 126801,
+      "sha256": "64ba901fa951e323f7d13db4369301c77fe6e1d5744dc51f9c6a773b8810a84d"
+    },
+    {
+      "member": "dataset/labels/m2/label0187.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0187.svg",
+      "bytes": 115590,
+      "sha256": "0a47b664432db0e7e49af3b566b8921b993a29e6ce2f5102353f66599b6c3f21"
+    },
+    {
+      "member": "dataset/labels/m2/label0188.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0188.svg",
+      "bytes": 158640,
+      "sha256": "77226866b4689660413daf8120fb26c484d404310e1eff879927e0edcbf811c2"
+    },
+    {
+      "member": "dataset/labels/m2/label0189.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0189.svg",
+      "bytes": 100731,
+      "sha256": "bd142fb9b342e3ee0bd9a5c390c07d3c0edfa60e3e1d440b9b72790682cd32ee"
+    },
+    {
+      "member": "dataset/labels/m2/label0190.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0190.svg",
+      "bytes": 171131,
+      "sha256": "7ebee08e09a05fa236d4ac19a638bc63f763398912712eba8b0363ae61412f65"
+    },
+    {
+      "member": "dataset/labels/m2/label0191.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0191.svg",
+      "bytes": 108031,
+      "sha256": "6e795d9dd58379f81dc3409fc9cd860500c15854706eca81540dd1b0e8192ad4"
+    },
+    {
+      "member": "dataset/labels/m2/label0192.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0192.svg",
+      "bytes": 146527,
+      "sha256": "e1f9f732f6e7fb76d244e14fbb0653c17d66cde3e7ff12f2b64d666f0f2d90c2"
+    },
+    {
+      "member": "dataset/labels/m2/label0193.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0193.svg",
+      "bytes": 126785,
+      "sha256": "0990c17d226a8f56d6ca47ea7d95a0ad7ca6ff8aaab2209e72bc340f8668e032"
+    },
+    {
+      "member": "dataset/labels/m2/label0194.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0194.svg",
+      "bytes": 162059,
+      "sha256": "62d5a412cbcbe97bf6e385617dbafaa79c018f1cf4eafa6b6b02eade980ad1ac"
+    },
+    {
+      "member": "dataset/labels/m2/label0195.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0195.svg",
+      "bytes": 108402,
+      "sha256": "21a7649ab2605b61a7f504fdb865ba7a6da276c090d757840d392a9eed8e2ba0"
+    },
+    {
+      "member": "dataset/labels/m2/label0196.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0196.svg",
+      "bytes": 143260,
+      "sha256": "ccb5079e6e76c9d11a49e68f38e1006180ceb6aa0fe60abc9acb7a12bd6e3db9"
+    },
+    {
+      "member": "dataset/labels/m2/label0197.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0197.svg",
+      "bytes": 169837,
+      "sha256": "26769da51fd527e578de1b9d25737dcae04d349192a9c72328b0f43544b3dc1c"
+    },
+    {
+      "member": "dataset/labels/m2/label0198.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0198.svg",
+      "bytes": 138304,
+      "sha256": "40725ed8d1ae22c9f0d08b9c141a90fb0225d0c941e237d33c3d4764627bd2ac"
+    },
+    {
+      "member": "dataset/labels/m2/label0199.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0199.svg",
+      "bytes": 150946,
+      "sha256": "e989d9d2b1264951f571d54c05a85f0e5ec1c9a906c1be00453229e2c54121c9"
+    },
+    {
+      "member": "dataset/labels/m2/label0200.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0200.svg",
+      "bytes": 127643,
+      "sha256": "5471126b98287fafdd00a5951714b0044159009d4dd6efface5255c3c246f38e"
+    },
+    {
+      "member": "dataset/labels/m2/label0201.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0201.svg",
+      "bytes": 134692,
+      "sha256": "a1bb58078af79fc7dfaec31b16c4ba90c5d63aedea7ad51938ea955af2cdacbc"
+    },
+    {
+      "member": "dataset/labels/m2/label0202.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0202.svg",
+      "bytes": 154116,
+      "sha256": "f853044e8fd2a7430091860014711f16a0a4d5687e0ad6478475b4246b45c689"
+    },
+    {
+      "member": "dataset/labels/m2/label0203.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0203.svg",
+      "bytes": 131476,
+      "sha256": "163bef2e4027af4333be3fee13a5cebbe379511e919a32cfcb6b98bbd7af9509"
+    },
+    {
+      "member": "dataset/labels/m2/label0204.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0204.svg",
+      "bytes": 161535,
+      "sha256": "464c226b4fdbb6d1c07a9d64480927dd5fb14278e7ef7e879dc8c5c3948db6d4"
+    },
+    {
+      "member": "dataset/labels/m2/label0205.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0205.svg",
+      "bytes": 173187,
+      "sha256": "b1e92da6e5a23ded343b77f7c3e086f643213abf690130b068faf9af57c76b30"
+    },
+    {
+      "member": "dataset/labels/m2/label0206.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0206.svg",
+      "bytes": 95817,
+      "sha256": "3825015f12303ccc2f92b75b140aed3529b6e0595ef6d4df96092a61b6b84f71"
+    },
+    {
+      "member": "dataset/labels/m2/label0207.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0207.svg",
+      "bytes": 128194,
+      "sha256": "d35ab7e473ff5ac46b3e3dfdb277b355734b8384e51d7f5ed55e0f0c7e35ef22"
+    },
+    {
+      "member": "dataset/labels/m2/label0208.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0208.svg",
+      "bytes": 157969,
+      "sha256": "4440811a0f7e1a623c14d86350d9b92d452f011efeddb2c852dfd36239306f94"
+    },
+    {
+      "member": "dataset/labels/m2/label0209.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0209.svg",
+      "bytes": 121442,
+      "sha256": "6cb3516f1ff666b3ed0c9ef249d240e9d722e3575f062c3046f1ab0a8f2f6372"
+    },
+    {
+      "member": "dataset/labels/m2/label0210.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0210.svg",
+      "bytes": 144964,
+      "sha256": "54c4c4f77a0190d23fcb30bcba844afbc9cbbed428afd155ba077d96f264bcb5"
+    },
+    {
+      "member": "dataset/labels/m2/label0211.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0211.svg",
+      "bytes": 115162,
+      "sha256": "5a42b97f4fce75efcb627ab6f6ac82926c1e0a72f82a9261e3de27e69297515e"
+    },
+    {
+      "member": "dataset/labels/m2/label0212.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0212.svg",
+      "bytes": 164057,
+      "sha256": "a2ea045116096a2a56769e9b07c29195abdb1f5277ca35da4946d3efa3939203"
+    },
+    {
+      "member": "dataset/labels/m2/label0213.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0213.svg",
+      "bytes": 120802,
+      "sha256": "b818c25fb6c8c2f80e5cee5b3f62e41236140f33a514734bd97dc2375ab71769"
+    },
+    {
+      "member": "dataset/labels/m2/label0214.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0214.svg",
+      "bytes": 145849,
+      "sha256": "1598d4eed13d6dd562158d614ed0d6a6ae40a501cd29cbc9806f844590367002"
+    },
+    {
+      "member": "dataset/labels/m2/label0215.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0215.svg",
+      "bytes": 149900,
+      "sha256": "4a0f2baa8c13eea0a51dbaccca07eeeaa3637622b2628137c414c5e3d2ed6b31"
+    },
+    {
+      "member": "dataset/labels/m2/label0216.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0216.svg",
+      "bytes": 169456,
+      "sha256": "6544b366d4d07833623fc65e7360e4935bddf0dbfc6b1854946140119ddd86ef"
+    },
+    {
+      "member": "dataset/labels/m2/label0217.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0217.svg",
+      "bytes": 136627,
+      "sha256": "9a35c3b98c94cb221b450304cd56272c04b87ad01fe074cf266bada576be7e01"
+    },
+    {
+      "member": "dataset/labels/m2/label0218.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0218.svg",
+      "bytes": 148907,
+      "sha256": "7b7dd27ff4ee28adc1dec938e370f7bec7710f3570c12995564e7bfe3aa9e7ed"
+    },
+    {
+      "member": "dataset/labels/m2/label0219.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0219.svg",
+      "bytes": 129926,
+      "sha256": "efc06326850db3f7dc9b2969df2ad3a700d5a318bc1a79e0ea8e17b9b31060f4"
+    },
+    {
+      "member": "dataset/labels/m2/label0220.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0220.svg",
+      "bytes": 133049,
+      "sha256": "b3d93bc0ee135b8acd0f2484c42bea0594d5bd092e5f957e2ef0b1d5807c9832"
+    },
+    {
+      "member": "dataset/labels/m2/label0221.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0221.svg",
+      "bytes": 153927,
+      "sha256": "ef2d8f29b0ae030cb6db352ff828e792000455f3fa58a49930d0de8fc18e1bb3"
+    },
+    {
+      "member": "dataset/labels/m2/label0222.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0222.svg",
+      "bytes": 152450,
+      "sha256": "5d88843c8fc47fb0cbdc9468b0dbe2f027d05d84cdd4a49ac21d0bbfb0afb45f"
+    },
+    {
+      "member": "dataset/labels/m2/label0223.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0223.svg",
+      "bytes": 155151,
+      "sha256": "06b4ca143b3952d56a0de05762c0c1c763ec112210028034c4b76288e68b5e1d"
+    },
+    {
+      "member": "dataset/labels/m2/label0224.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0224.svg",
+      "bytes": 143108,
+      "sha256": "a8e608ea209f888f427e250271ce00a27baa4061c361b5afa619465a2e9f1b14"
+    },
+    {
+      "member": "dataset/labels/m2/label0225.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0225.svg",
+      "bytes": 122754,
+      "sha256": "27e284a8384d513c61a0a33fe7e5bb8b5dd17f64760089dad8c10292a7239b43"
+    },
+    {
+      "member": "dataset/labels/m2/label0226.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0226.svg",
+      "bytes": 129139,
+      "sha256": "37bbc8484920a8cad69b1e3edfdd648a8954a1d517ba91b0bed6da079792ae1e"
+    },
+    {
+      "member": "dataset/labels/m2/label0227.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0227.svg",
+      "bytes": 142683,
+      "sha256": "af04d946f7f9c263cab58b18c0db968e665d03910d00a2634e90b0daac13a165"
+    },
+    {
+      "member": "dataset/labels/m2/label0228.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0228.svg",
+      "bytes": 187203,
+      "sha256": "dd86166776094ec12fbaa2d25374cd4d9869b2a28873d708cf525c4c96a699b1"
+    },
+    {
+      "member": "dataset/labels/m2/label0229.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0229.svg",
+      "bytes": 129243,
+      "sha256": "a9ccc5f1fea4e9a5e4d4ec5684a0c72e143c0873ab127a7f50df501da5751305"
+    },
+    {
+      "member": "dataset/labels/m2/label0230.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0230.svg",
+      "bytes": 120267,
+      "sha256": "e4119e8abc25fa90e817504bd586eede034ab3e8f78b97303d91350d7a1907e8"
+    },
+    {
+      "member": "dataset/labels/m2/label0231.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0231.svg",
+      "bytes": 157897,
+      "sha256": "9929f75213ee543ff0b13c85b296b7923107ed0cf9994b01ec9a82d17bdd5ece"
+    },
+    {
+      "member": "dataset/labels/m2/label0232.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0232.svg",
+      "bytes": 141700,
+      "sha256": "3937f1060acb46f2c0e8e480e151e44ddbe21d8d99d1af57c4a6e9d7bbc88be2"
+    },
+    {
+      "member": "dataset/labels/m2/label0233.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0233.svg",
+      "bytes": 181037,
+      "sha256": "6e1114ae138708f938c63cf4d05bc48934a9fd601bddd6f2b413e16543dbf905"
+    },
+    {
+      "member": "dataset/labels/m2/label0234.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0234.svg",
+      "bytes": 121126,
+      "sha256": "34d2f2269b0f98709fb78731140c6530594e6d97ee314d76a8843140b129eaf3"
+    },
+    {
+      "member": "dataset/labels/m2/label0235.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0235.svg",
+      "bytes": 149930,
+      "sha256": "3c701467e9d094d106b53660b256eacc1ae334748eab0408a39e8e013f6c3f00"
+    },
+    {
+      "member": "dataset/labels/m2/label0236.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0236.svg",
+      "bytes": 144841,
+      "sha256": "418c832ddefeaa9166480c2eb6c0295e34eec5e16f88e004e9493c44b08c0b86"
+    },
+    {
+      "member": "dataset/labels/m2/label0237.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0237.svg",
+      "bytes": 116714,
+      "sha256": "0ad02150aa22f477e94bcfe6157be8337e52175bdd64ed39bf0828379bd3d534"
+    },
+    {
+      "member": "dataset/labels/m2/label0238.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0238.svg",
+      "bytes": 153278,
+      "sha256": "13c6798cbeda7e2296267e33422de79afc845c8b37ed4aba45e2249ee634c8de"
+    },
+    {
+      "member": "dataset/labels/m2/label0239.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0239.svg",
+      "bytes": 86560,
+      "sha256": "8637781b7a7826a4783ea0d8ddc375d92d4e536aa56d6a32dd98291535c12aba"
+    },
+    {
+      "member": "dataset/labels/m2/label0240.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0240.svg",
+      "bytes": 131010,
+      "sha256": "9d9cc4323bd5d02a7260992614d32e028ea826515cc925f3391ea6abc5ea40d9"
+    },
+    {
+      "member": "dataset/labels/m2/label0241.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0241.svg",
+      "bytes": 162078,
+      "sha256": "a8d245a9b9fedc7c651a76ab0eea766cb0443a1a5aaec4a6295f42c05e3415a3"
+    },
+    {
+      "member": "dataset/labels/m2/label0242.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0242.svg",
+      "bytes": 172166,
+      "sha256": "ee957a5dc026190c93d5a1db4af70f5e60730d49aef50416a9b74c2994eb58cb"
+    },
+    {
+      "member": "dataset/labels/m2/label0243.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0243.svg",
+      "bytes": 152980,
+      "sha256": "de54968443af3cb8880dd839e0aba29faf9e088c474a117478479a5f1fa6e08e"
+    },
+    {
+      "member": "dataset/labels/m2/label0244.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0244.svg",
+      "bytes": 137320,
+      "sha256": "708ce3429f95dc7573037dbbca8d50df620a6ecb26754c7323f99049ee749530"
+    },
+    {
+      "member": "dataset/labels/m2/label0245.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0245.svg",
+      "bytes": 159006,
+      "sha256": "7a6193d07c22eb24e70976cecece57e211b1ae432d127421d878184cb7b2986a"
+    },
+    {
+      "member": "dataset/labels/m2/label0246.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0246.svg",
+      "bytes": 152774,
+      "sha256": "b28a87ba53c7c09ad2b7f9942d6b04e83ed41aa318c0974615670a8563971f4f"
+    },
+    {
+      "member": "dataset/labels/m2/label0247.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0247.svg",
+      "bytes": 175574,
+      "sha256": "5d3d3d63e5c465db5af5179a98caaa533f854d85d8161e1f7844a46d06d18ed0"
+    },
+    {
+      "member": "dataset/labels/m2/label0248.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0248.svg",
+      "bytes": 153464,
+      "sha256": "42706fcf30a4c9f724bcc1914abdbf19ac21d2820ceb83a3cb9cc3f2549eee1b"
+    },
+    {
+      "member": "dataset/labels/m2/label0249.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0249.svg",
+      "bytes": 121374,
+      "sha256": "531f0738b742590da75f2d425fdf6cadce4a3e3825a672884fb6f4052031c008"
+    },
+    {
+      "member": "dataset/labels/m2/label0250.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0250.svg",
+      "bytes": 97000,
+      "sha256": "d58a91e8b5cfc3f1eb70a4ecc723e9b8f9efa193cd18e8650acac8a0c59a13d9"
+    },
+    {
+      "member": "dataset/labels/m2/label0251.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0251.svg",
+      "bytes": 151809,
+      "sha256": "77f614ad800ba63cab34db543110c043dcf8cff8ec0ae5fe4f96079c75c4b4a9"
+    },
+    {
+      "member": "dataset/labels/m2/label0252.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0252.svg",
+      "bytes": 160254,
+      "sha256": "43c30dc4804493d47db50f68d5a8d36b2f3ef180037610c6e1ef679a0e1944f5"
+    },
+    {
+      "member": "dataset/labels/m2/label0253.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0253.svg",
+      "bytes": 162347,
+      "sha256": "c53b97483055aa4b2adc2c6e2574f81f194ce9bae19a277eb4f70335d4c791f1"
+    },
+    {
+      "member": "dataset/labels/m2/label0254.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0254.svg",
+      "bytes": 153231,
+      "sha256": "2e99cb974d24a8ddd8fb5965380ea078f625d3272a2b2df2a6774baf4c41adfb"
+    },
+    {
+      "member": "dataset/labels/m2/label0255.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0255.svg",
+      "bytes": 120157,
+      "sha256": "1665dc810cb2c5a61f6350d1d4d19256fdda058687af957f862bdb6307af71ca"
+    },
+    {
+      "member": "dataset/labels/m2/label0256.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0256.svg",
+      "bytes": 180011,
+      "sha256": "93a48acfa6967962f59177c7d139d8cb6726a82126158fd397adc5948c28b342"
+    },
+    {
+      "member": "dataset/labels/m2/label0257.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0257.svg",
+      "bytes": 176278,
+      "sha256": "04ecfdc6b7dbd5a416b5077b0d28d38921e14c0739c4af4755d5a7fd4c9c8593"
+    },
+    {
+      "member": "dataset/labels/m2/label0258.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0258.svg",
+      "bytes": 154279,
+      "sha256": "c756b6d429ebd7421001e13c51d96b45ce90063b99a9795f3738ce2c71c73ec1"
+    },
+    {
+      "member": "dataset/labels/m2/label0259.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0259.svg",
+      "bytes": 141034,
+      "sha256": "23ca089fd4724a1a2c450c100b9342d1b18631ae80e29f7ad88b87d7491bedc9"
+    },
+    {
+      "member": "dataset/labels/m2/label0260.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0260.svg",
+      "bytes": 124725,
+      "sha256": "2e622b5119312e41a471f7f77a0deb3c03b195ddebbeb788c9530420c9ed3404"
+    },
+    {
+      "member": "dataset/labels/m2/label0261.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0261.svg",
+      "bytes": 184138,
+      "sha256": "4ce8424576834d573b5e71a3763f1ac42250b6c598b75c499b486f62c4c8002b"
+    },
+    {
+      "member": "dataset/labels/m2/label0262.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0262.svg",
+      "bytes": 157387,
+      "sha256": "dd4b798bd99b56bec205dbf251fb5e824ff8544236a53656c69c832cb8dd4d90"
+    },
+    {
+      "member": "dataset/labels/m2/label0263.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0263.svg",
+      "bytes": 136063,
+      "sha256": "7934f469d28292168ed24be3f52349eb9fe89d3e533d58558ece63a3b7cc7673"
+    },
+    {
+      "member": "dataset/labels/m2/label0264.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0264.svg",
+      "bytes": 132254,
+      "sha256": "ca7880df1fbab6d92813e8d12ab9329ee8be983f415294e48f6dd2328be162b4"
+    },
+    {
+      "member": "dataset/labels/m2/label0265.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0265.svg",
+      "bytes": 153348,
+      "sha256": "a030d5be96764e03c7f9e7cb9641ddd34e1949eea8887324f1d7a0b5816e9aa8"
+    },
+    {
+      "member": "dataset/labels/m2/label0266.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0266.svg",
+      "bytes": 154698,
+      "sha256": "e79e09c05bb5debda99d94ce2b2875e16a4484fb5433672e60a27fd61e1ade20"
+    },
+    {
+      "member": "dataset/labels/m2/label0267.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0267.svg",
+      "bytes": 143717,
+      "sha256": "6437d6fe9f0b2c4f8720537cbec7717b01ac7132a8b0afa363a62f0395c2d005"
+    },
+    {
+      "member": "dataset/labels/m2/label0268.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0268.svg",
+      "bytes": 180204,
+      "sha256": "74bccaed1cc3b95ff092cb1db1c578798b91d5b831e758e0419832200e0e57b1"
+    },
+    {
+      "member": "dataset/labels/m2/label0269.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0269.svg",
+      "bytes": 136550,
+      "sha256": "4bf16ffeec05671bcf03a01cd513049a22a557392e09a390a8581ad9565c8f7c"
+    },
+    {
+      "member": "dataset/labels/m2/label0270.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0270.svg",
+      "bytes": 104728,
+      "sha256": "ff3c3e7d1d2bac1207e2f4ac8c8fdf13eff8248bdf669b11818f1d9085469ef9"
+    },
+    {
+      "member": "dataset/labels/m2/label0271.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0271.svg",
+      "bytes": 159162,
+      "sha256": "03dfac9f196eddda3fadb596d672eb73d44ebee516cb9ffd71f213a262e5414d"
+    },
+    {
+      "member": "dataset/labels/m2/label0272.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0272.svg",
+      "bytes": 152611,
+      "sha256": "a7a7845e04a0a35a6fe25acca3b2098248b570a2d28e715ba178440fd1be14c5"
+    },
+    {
+      "member": "dataset/labels/m2/label0273.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0273.svg",
+      "bytes": 135258,
+      "sha256": "eb4b37fef70de2aeb79142c51095122bed4018c2778c056644266bab64ec2db4"
+    },
+    {
+      "member": "dataset/labels/m2/label0274.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0274.svg",
+      "bytes": 120918,
+      "sha256": "73df7103fcd489fb71d937c8c02ec4ae2618877d1b638fcf2cb2c413d0994229"
+    },
+    {
+      "member": "dataset/labels/m2/label0275.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0275.svg",
+      "bytes": 131050,
+      "sha256": "7b7b01f676f76016102be277f73893a006df2c3a07f45a8d280b255942aed7a9"
+    },
+    {
+      "member": "dataset/labels/m2/label0276.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0276.svg",
+      "bytes": 144873,
+      "sha256": "ff2b3b72560d30c8a018371c368197e23b2716f7615d3e32c5230993c91cc8bc"
+    },
+    {
+      "member": "dataset/labels/m2/label0277.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0277.svg",
+      "bytes": 156134,
+      "sha256": "03b0118ac7f65a27b456f4ad6168d74d77694681ba5f93584269be003c9b129b"
+    },
+    {
+      "member": "dataset/labels/m2/label0278.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0278.svg",
+      "bytes": 134829,
+      "sha256": "ab363beb7fa35cc03e3f2501fe9fc25c7433a24876cbc4cab6617fe854fd36bf"
+    },
+    {
+      "member": "dataset/labels/m2/label0279.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0279.svg",
+      "bytes": 160938,
+      "sha256": "e65d3f617c1de2c2e3bd633dea7f7ed12fcfbde7dac2cf01b677bafe983139aa"
+    },
+    {
+      "member": "dataset/labels/m2/label0280.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0280.svg",
+      "bytes": 133822,
+      "sha256": "77f4be9f2d5f135cd28c2080498916d989bff9ceb3086398d99e3f2acf1f4425"
+    },
+    {
+      "member": "dataset/labels/m2/label0281.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0281.svg",
+      "bytes": 122659,
+      "sha256": "fd4fa823f8c98e5c9d393e101a660b9db3ae763c193ad099815468c25b6d6eaa"
+    },
+    {
+      "member": "dataset/labels/m2/label0282.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0282.svg",
+      "bytes": 143179,
+      "sha256": "afa62824bcbc907e0dad182d9984d836c69d2ec8746a79cb4f55d830411f65b6"
+    },
+    {
+      "member": "dataset/labels/m2/label0283.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0283.svg",
+      "bytes": 149881,
+      "sha256": "ce81168c00fb43f61a56bb2bf3255dfa2afcc4955a2c17f7c3a9c69f5911ec7d"
+    },
+    {
+      "member": "dataset/labels/m2/label0284.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0284.svg",
+      "bytes": 160584,
+      "sha256": "1999000550726e8dc12580a0798995f412f74b18a44800bc55367e4e69bd93de"
+    },
+    {
+      "member": "dataset/labels/m2/label0285.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0285.svg",
+      "bytes": 134449,
+      "sha256": "8d89f751d9d0380627a8c4013322e20a1994954df61f1765fb630560ae1d6ed9"
+    },
+    {
+      "member": "dataset/labels/m2/label0286.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0286.svg",
+      "bytes": 152270,
+      "sha256": "c734f15d0c0f6aa841b3d80a81cddc8d097d968f9a5ea1bd34cbb64dda9920db"
+    },
+    {
+      "member": "dataset/labels/m2/label0287.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0287.svg",
+      "bytes": 139256,
+      "sha256": "a749889456fe5d9774587ef3c08d88c7e5d2d7bb21cf1150f9881794a5e37702"
+    },
+    {
+      "member": "dataset/labels/m2/label0288.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0288.svg",
+      "bytes": 106778,
+      "sha256": "a9728ddb45d5b78c618d713d3b3dee9df7c3ac16cc792f5bbf8f80d6a7db8e2d"
+    },
+    {
+      "member": "dataset/labels/m2/label0289.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0289.svg",
+      "bytes": 156012,
+      "sha256": "cd8fe4d148978824103868442c7179ef82f7365f59f7d1cfec8917e9683f225f"
+    },
+    {
+      "member": "dataset/labels/m2/label0290.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0290.svg",
+      "bytes": 150260,
+      "sha256": "e09f25923ab201f972af6e1c12bd1579ce89896b7fed389c206337554b5caabe"
+    },
+    {
+      "member": "dataset/labels/m2/label0291.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0291.svg",
+      "bytes": 129854,
+      "sha256": "01c48f8f4530413ff8938ca029fc13834b22cc7df81c68180124f756299a107b"
+    },
+    {
+      "member": "dataset/labels/m2/label0292.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0292.svg",
+      "bytes": 148212,
+      "sha256": "c48f9427dcbc593288fc728d12cbe71bef5d94d1696c6515f9be5aa89f406bd6"
+    },
+    {
+      "member": "dataset/labels/m2/label0293.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0293.svg",
+      "bytes": 157784,
+      "sha256": "a9d475637aa4fb073ce3a49f7753a02011b6b1ca4ba915d32cf9628b71fa1be9"
+    },
+    {
+      "member": "dataset/labels/m2/label0294.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0294.svg",
+      "bytes": 134694,
+      "sha256": "62cf4a3b64694e244bcb4212ef795a06fcb82c84470dd527d35b43bc11940365"
+    },
+    {
+      "member": "dataset/labels/m2/label0295.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0295.svg",
+      "bytes": 156289,
+      "sha256": "cfdcfa8d14901c1aea542f78c88b30ecc70ec75b4815d1a2a3e5d68405b3f484"
+    },
+    {
+      "member": "dataset/labels/m2/label0296.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0296.svg",
+      "bytes": 186229,
+      "sha256": "717235de20fd68bd71feefee98c02eb0c2967bc1d73b0b2ec857dae43a5bbe31"
+    },
+    {
+      "member": "dataset/labels/m2/label0297.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0297.svg",
+      "bytes": 163637,
+      "sha256": "31e08408ffc8b565ea7b039f47dc88c32128b055563809e89932d8052b0fe5f8"
+    },
+    {
+      "member": "dataset/labels/m2/label0298.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0298.svg",
+      "bytes": 172720,
+      "sha256": "c1f4ab1bfbd53a685027a13689efa16b9e2a01067d108532b55c2bd10e7fac18"
+    },
+    {
+      "member": "dataset/labels/m2/label0299.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0299.svg",
+      "bytes": 138168,
+      "sha256": "5585145dde8a53be85c7bcebf3a228a004c2261d52942cbbd5daa563f1f8bbf4"
+    },
+    {
+      "member": "dataset/labels/m2/label0300.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0300.svg",
+      "bytes": 150469,
+      "sha256": "4fbb82d1d210227cc80941f92ec50d28a16333ef889c8e094e70178b3c80b019"
+    },
+    {
+      "member": "dataset/labels/m2/label0301.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0301.svg",
+      "bytes": 142981,
+      "sha256": "ce55a226b117c8bcf920d27f8a81348273a51d355144c79053203648be65ad29"
+    },
+    {
+      "member": "dataset/labels/m2/label0302.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0302.svg",
+      "bytes": 164566,
+      "sha256": "fbf097699802561e212f925ce933cb474410078c9612362f0752cf03c06e79e1"
+    },
+    {
+      "member": "dataset/labels/m2/label0303.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0303.svg",
+      "bytes": 151022,
+      "sha256": "bf3cd79229d85757dccf2695e7b1d267886bb6c095a543736b81a0708b13b30a"
+    },
+    {
+      "member": "dataset/labels/m2/label0304.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0304.svg",
+      "bytes": 148984,
+      "sha256": "8aed872734890cfd0f58da4e38850c58cdc532bcd6a9fe2e9755e4a2137492f7"
+    },
+    {
+      "member": "dataset/labels/m2/label0305.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0305.svg",
+      "bytes": 155504,
+      "sha256": "1bb32a52bc63d5418794accb2bab849a0e7163c42df366493411639cfbc9a7fc"
+    },
+    {
+      "member": "dataset/labels/m2/label0306.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0306.svg",
+      "bytes": 156467,
+      "sha256": "d6d855c09f7e4442a773ac8edbf4c3cba5bc11a1b7aac69ea333fdca0e54f52f"
+    },
+    {
+      "member": "dataset/labels/m2/label0307.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0307.svg",
+      "bytes": 131719,
+      "sha256": "5db34b7ecbd2ae275f4afb1d0fb2fe843e392e6d854f9b02bfc764cb2a12298d"
+    },
+    {
+      "member": "dataset/labels/m2/label0308.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0308.svg",
+      "bytes": 121929,
+      "sha256": "4201b0fb8e6eff3a074bac83a76606566505a8cf84ca83b94bf21aa3047357e5"
+    },
+    {
+      "member": "dataset/labels/m2/label0309.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0309.svg",
+      "bytes": 153515,
+      "sha256": "2f69d2d934cb2458b13fce655ea976fd7f5e6246254e88a26cf13bfa140ba51c"
+    },
+    {
+      "member": "dataset/labels/m2/label0310.svg",
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/labels/m2/label0310.svg",
+      "bytes": 135514,
+      "sha256": "a8e57cc4e660f2dadafd74085fe8a5e43c658c8b9845ea9d6de20d1d417992d4"
+    },
+    {
+      "member": "dataset/labels/m2/label0311.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0311.svg",
+      "bytes": 108485,
+      "sha256": "8980afec1c904f2dc5f4e595b1bca446429c2ea7305ea8e0a62e772579c66198"
+    },
+    {
+      "member": "dataset/labels/m2/label0312.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0312.svg",
+      "bytes": 107678,
+      "sha256": "0d2940e35cba02e30a1da4c413b79cfaf0f04e9ca2f40cbca942980422402c63"
+    },
+    {
+      "member": "dataset/labels/m2/label0313.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0313.svg",
+      "bytes": 156954,
+      "sha256": "05aa16dcd6a9217a6a63dd48c594a18476c1735a9ac03d5baf3fe98cedd2ca0e"
+    },
+    {
+      "member": "dataset/labels/m2/label0314.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0314.svg",
+      "bytes": 142850,
+      "sha256": "3d7053873e845e515b89c1d67bf161f14d924914bced3993152e75c1b2c9e1ae"
+    },
+    {
+      "member": "dataset/labels/m2/label0315.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0315.svg",
+      "bytes": 134999,
+      "sha256": "61374b1b6b32a443ed0877d36a9b1f9a13967aa82e2fd98eb81e95a50e48ae8d"
+    },
+    {
+      "member": "dataset/labels/m2/label0316.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0316.svg",
+      "bytes": 169239,
+      "sha256": "1e871bd43682d59b7a444d416622c52badd3879368a0a59661b17a4f5d72df94"
+    },
+    {
+      "member": "dataset/labels/m2/label0317.svg",
+      "path": "gipoteza/search_20261026/sem_full/dataset/labels/m2/label0317.svg",
+      "bytes": 145429,
+      "sha256": "5cc03742e207a4300a8c93684bc4876751938e603364af7253f8ef08a0b2ec12"
+    },
+    {
+      "member": "dataset/labels/m2/label0318.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0318.svg",
+      "bytes": 104421,
+      "sha256": "5e48d57e22186d161a6c46bf0a9b3e438fb5d3c16f45e4bf8e0a81b4168e3ce7"
+    },
+    {
+      "member": "dataset/labels/m2/label0319.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0319.svg",
+      "bytes": 167661,
+      "sha256": "01c257d8be11bc672f58b089829773bf14539e6edfd96950ef990766c23f2a05"
+    },
+    {
+      "member": "dataset/labels/m2/label0320.svg",
+      "path": "gipoteza/larger_separator_20261026/data/sources/dataset/labels/m2/label0320.svg",
+      "bytes": 161572,
+      "sha256": "a02ad90b62a06c96354a3e30af6dfad36a3471fb2ade45fd2d8cc7845cf258a2"
+    },
+    {
+      "member": "dataset/LICENSE",
+      "path": "gipoteza/search_20261026/sem_author/dataset/LICENSE",
+      "bytes": 18656,
+      "sha256": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94"
+    },
+    {
+      "member": "dataset/README",
+      "path": "gipoteza/search_20261026/sem_full/dataset/README",
+      "bytes": 1348,
+      "sha256": "07dbd5523df49935370fe3c5be99f53e552e554d32e7a0e4cc60a1fa79494429"
+    }
+  ],
+  "png_original_sources": [
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0000.png",
+      "bytes": 9649843,
+      "sha256": "ae44442ed8d175b5c0ac453f820bcae0df45dbd4154d422788c826dafddb7246"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0001.png",
+      "bytes": 9653953,
+      "sha256": "3cc57bae75cc068ee120c262eb7211b139797712dc7c7a40ef374a7563820a32"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0002.png",
+      "bytes": 9598589,
+      "sha256": "6c45d7baec55af78647ce7ece2278bb1c18d3a69181019dad4f88b36a5844de4"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0003.png",
+      "bytes": 9617060,
+      "sha256": "a932e226e956c4e91e4fd70fd5f5dfafc3066d53f93076c3e61633fd23d5004b"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0004.png",
+      "bytes": 9619790,
+      "sha256": "54cd90c3f908af60c1262d1ead1f1a413c393dfc7b46ddc3bda9544c7cf217ab"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0005.png",
+      "bytes": 9617255,
+      "sha256": "dd90369406fa9d7b82ad68efd5efb1aa0a551a9843658f2525c297b6afe1eed1"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0006.png",
+      "bytes": 9629402,
+      "sha256": "af05178903599add85ce210990e13aba67c1c840a3f2c7572822ccca3e9956e5"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0007.png",
+      "bytes": 9631728,
+      "sha256": "62679daf1650132864af28a3a2a615c0b7fd1fb3c4b24c124043f290277f7fc5"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0008.png",
+      "bytes": 9614107,
+      "sha256": "9263e121681fb48745dfe1a77a71bf31cba4563f44ac407e5ef5da2f67e3267f"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_author/dataset/sems/sem0009.png",
+      "bytes": 9661081,
+      "sha256": "9ebd857d7044e30086ecc576fbb69e01f65907e3374fa5727a9ed19fe28337ed"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0015.png",
+      "bytes": 9633470,
+      "sha256": "e7d964b9b6fba7486912a8ac06ed57f1b77dd03a0e379b92a04f8bfc3cccc617"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0027.png",
+      "bytes": 9608246,
+      "sha256": "d95dace0a63bef62085e1329502760a8185564ed8bdbe36a2e217dd22c48a8ad"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0043.png",
+      "bytes": 9595192,
+      "sha256": "29599de6424b396c64abafab8cdfda26f2c541f5be3c6387736de65c5a91cb48"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0055.png",
+      "bytes": 9636552,
+      "sha256": "eca53a6ff375dd2c8e219e6169fc1af3918a35b94c1d86670ef850131717889d"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0057.png",
+      "bytes": 9613027,
+      "sha256": "084523adc53bdf260215ae43b8d4705bb762e027adeb64bcdf06e0441526d9f7"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0067.png",
+      "bytes": 9619947,
+      "sha256": "8b6312c652be378d25eb476bdd7d5c77c90e180876833d7413f0c2e9bf2d055c"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0116.png",
+      "bytes": 9647668,
+      "sha256": "b8d0f372344ef4a4ec0af9924bd3462b6842efe9ef5329c0fcdc3a8f9937d1fa"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0148.png",
+      "bytes": 9617112,
+      "sha256": "9e9d7a4790a2ec4870e1647939dd2127f3e76b80df09276db666fdef2558f294"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0152.png",
+      "bytes": 9590228,
+      "sha256": "4a793511850792f3d0b6a1bb062266037a92e5a88aa5b3b8e5b64444874ed02b"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0153.png",
+      "bytes": 9617064,
+      "sha256": "fb8157d76cbc83bd20afb0140f13d6a95a1c606373eda408e2fdc8cc50a809c2"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0180.png",
+      "bytes": 9659458,
+      "sha256": "fd125111e57ef872a977412c34e40e0d974eac70848a489a6a152c5484a42e61"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0184.png",
+      "bytes": 9612079,
+      "sha256": "95384095e7db70553b7653138d2f83316a085938f36a67933b3372d0a9edb2ad"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0193.png",
+      "bytes": 9604765,
+      "sha256": "e9edc36b1df23b6befa3f16f87949e0ce589baa64334f29990d7e207199e4f4a"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0201.png",
+      "bytes": 9626083,
+      "sha256": "889b638660486566ecfdbbad8454e031c4ca8e3c89358b802e9e32c129b89336"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0243.png",
+      "bytes": 9647297,
+      "sha256": "5fecd4a9e1fce75ba1f32b772842c337babeecbb3edd7ce1c1365d9ef5bb76dc"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0266.png",
+      "bytes": 9653647,
+      "sha256": "3b62856c70ff3e380e65fece491f1bdea0e404496eb14688c8fc41c704b436a8"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0271.png",
+      "bytes": 9650607,
+      "sha256": "a1881b24132263993eb2cc7f78bf88722424ee356d408ea464c15476c2897345"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0282.png",
+      "bytes": 9619750,
+      "sha256": "66956bb5b63fc4902e4dfcc0e94e12ea3d1df6f1b78bc52428f6daaa1065ff57"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0284.png",
+      "bytes": 9630603,
+      "sha256": "4c518b53fd643a1c8fc1b287f37b53656d4f8d19c002b23b26ac8a08715840c1"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0291.png",
+      "bytes": 9632221,
+      "sha256": "90babcac4bebaee7db43b0f37d01dc187ac70ce4e0661003038b831fb344d5d0"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0293.png",
+      "bytes": 9651241,
+      "sha256": "9e949b6043e2bd5781fc636f54d0a194b0d4f5ee6295a8a8bb13cb17af6a45cc"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0295.png",
+      "bytes": 9634436,
+      "sha256": "56a7107d51a741ce8b7af0c4acd3dd3f634a244a4eab8e295db189ed70e69ea0"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0314.png",
+      "bytes": 9626412,
+      "sha256": "9e8c917baebfaba56163e3473d91ca062bd00e9e7032788d3a0de281a8fb8f16"
+    },
+    {
+      "path": "gipoteza/search_20261026/sem_full/dataset/sems/m2/sem0317.png",
+      "bytes": 9649357,
+      "sha256": "55fea49f5f778c854e01c030df0afb053daefc2a1bb7547d7117977991a656b2"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0045.png",
+      "bytes": 9647028,
+      "sha256": "b073ee69bb900ddd7b0529eb6467158096f09894749e658a7e307d0b997f7392"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0062.png",
+      "bytes": 9631843,
+      "sha256": "e48db83e06b55b96f6923e5c6fe5e4549e6a6cbcef35cb887029f9d2249b2a20"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0112.png",
+      "bytes": 9593092,
+      "sha256": "958cb84284fc88c20dbf66ecfe7e1ed66ac6af8d619b7a8d6ed8bd21784386dd"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0124.png",
+      "bytes": 9647478,
+      "sha256": "72ee76a2fbcc2efefcd1e65dc2d2942902e1ba02c0fe735276b14c41b05a10e7"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0133.png",
+      "bytes": 9629455,
+      "sha256": "1e08378579685b6782263cd2133e47fb4291015f2b8ef669ad5a58a0dfdb6ce3"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0159.png",
+      "bytes": 9634606,
+      "sha256": "c0e772d31a2a7d38dcdda126a31eaaaa006e5bd1236a6aff27d136dcb55d3457"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0191.png",
+      "bytes": 9595997,
+      "sha256": "d0768c31a451fb7119f515a0d47a5d7308d34d248c4651b32310b5fefd98a94a"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0198.png",
+      "bytes": 9649404,
+      "sha256": "cdee08030a0cefb574ea3538f83f5e7a56b6927e27be08453c8e93567cb79855"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0207.png",
+      "bytes": 9618410,
+      "sha256": "dd7efe388264a6f97df5fa46903670111d31642f308f660263cc432f601b117a"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0211.png",
+      "bytes": 9622521,
+      "sha256": "b70560a0d669da455735f3ae055a721b93d6c5c5f2adc58eb200abcc357f39d5"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0228.png",
+      "bytes": 9645178,
+      "sha256": "b05a6d0510148f8d88f7d9950164ed744f8d55e3093465bd8509884168b649e4"
+    },
+    {
+      "path": "gipoteza/longer_20261026/holdout/newdata/dataset/sems/m2/sem0310.png",
+      "bytes": 9640590,
+      "sha256": "fce6eb03c49bfc4f60363119993779b3e5e95354cf149fae485f0abf30c7d7a2"
+    }
+  ],
+  "original_pngs_not_retained": true,
+  "remote_zip_url": "https://edmond.mpg.de/api/access/datafile/223856"
+}

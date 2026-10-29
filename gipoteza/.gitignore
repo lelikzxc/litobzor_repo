@@ -1,0 +1,10 @@
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.cache/
+tmp/
+sem_daft/**/*.tarpart
+sem_daft/**/*.tar
+sem_daft/**/*.zip
+sem_daft/**/members/
+sem_daft/data/

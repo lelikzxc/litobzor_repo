@@ -1,0 +1,41 @@
+"""MPS-safe transfer adapter; identical mathematical loss to the saved example."""
+from pathlib import Path
+import ast
+import math
+import sys
+import torch
+from torch import nn
+from torch.nn import functional as F
+
+G = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(G / 'sem_physics_materials'))
+import physics_loss_example as original
+
+_text = (G / 'sem_physics_materials/physics_loss_example.py').read_text()
+_old = ".to(device='cpu', dtype=torch.float64)"
+assert _text.count(_old) == 1
+_adapted = _text.replace(_old, ".to(device='cpu').to(dtype=torch.float64)")
+_nodes = [n for n in ast.parse(_adapted).body if isinstance(n, ast.FunctionDef)
+          and n.name in ('soft_conductance', 'geometry_loss')]
+_scope = dict(torch=torch, nn=nn, F=F, math=math)
+exec(compile(ast.Module(body=_nodes, type_ignores=[]), '<CPU-before-float64 adapter>', 'exec'), _scope)
+geometry_loss = _scope['geometry_loss']
+make_segmenter = original.make_segmenter
+
+
+def smoke_check():
+    result = original.smoke_check()
+    x = torch.randn((3, 1, 12, 12), dtype=torch.float64, requires_grad=True)
+    c = torch.tensor([[0, 1], [1, 2], [2, 0]])
+    reference = original.geometry_loss(x, c)
+    adapted = geometry_loss(x, c)
+    g1 = torch.autograd.grad(reference, x)[0]
+    g2 = torch.autograd.grad(adapted, x)[0]
+    assert torch.equal(reference, adapted) and torch.equal(g1, g2)
+    assert torch.backends.mps.is_available()
+    mps_x = x.detach().float().to('mps').requires_grad_()
+    actual = geometry_loss(mps_x, c.to('mps'))
+    gradient = torch.autograd.grad(actual, mps_x)[0]
+    assert torch.isfinite(actual) and torch.isfinite(gradient).all() and gradient.abs().sum() > 0
+    return dict(result, CPU_adapter_exact_loss_and_gradient_match=True, MPS_forward_backward='PASS',
+                transfer='CPU first, float64 second; original example file unchanged')

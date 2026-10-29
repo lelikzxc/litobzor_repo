@@ -1,8 +1,8 @@
 """Dispatch to a paper-specific evaluation entry point.
 
 Usage:
-    python evaluate.py papers/semiwafernet
-    python evaluate.py semiwafernet --config papers/semiwafernet/configs/config.yaml
+    python evaluate.py papers/polar_cnn
+    python evaluate.py polar_cnn --config papers/polar_cnn/configs/config.yaml
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ def _usage() -> None:
     for name in available:
         print(f"  - {name}")
     print("\nExample:")
-    print("  python evaluate.py semiwafernet --config papers/semiwafernet/configs/config.yaml")
+    print("  python evaluate.py polar_cnn --config papers/polar_cnn/configs/config.yaml")
 
 
 def main() -> None:

@@ -1,0 +1,18 @@
+{
+  "status": "FAIL_DATA_GATE_BEFORE_TRAINING",
+  "failed_split": "VAL",
+  "class_counts": [
+    1905,
+    179,
+    91,
+    1474,
+    167,
+    48,
+    546,
+    31,
+    45
+  ],
+  "old_minimum_per_class": 32,
+  "no_models_trained": true,
+  "no_TEST_frames_prepared_or_scored": true
+}

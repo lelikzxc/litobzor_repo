@@ -1,0 +1,24 @@
+{
+  "purpose": "DEVELOPMENT_QUERY_COMPARISON",
+  "workers": 3,
+  "policies": [
+    "entropy",
+    "center",
+    "random",
+    "witness"
+  ],
+  "budgets": [
+    0,
+    8,
+    32,
+    128
+  ],
+  "random_order_seed": 17,
+  "all_cases": 4032,
+  "hashes": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/run_queries.py": "9357e1563d81b2daac16fdc18c4d30491c75c507f7544efb57b2ca5d2f7454ac",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/core.py": "2aa49f2feca069c036262096bce31f07a62fbba810227d9bd62693ec5a4c7047",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/PROTOCOL.md": "5f838fe58a2b24e6a63a81fa2e773b7496b227e99f36247d40c005c6ccbb9983",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/data/MANIFEST.json": "7290ea670bfe5a955434f1b35c4053dfff560dc81117bff74ae8efb13ed04ad3"
+  }
+}

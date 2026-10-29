@@ -1,0 +1,743 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/y90nupkv",
+    "id": "y90nupkv",
+    "slide": 1,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "Титульный бакалаврская работа",
+    "layoutType": "blank",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 960,
+      "height": 540
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Simple Light",
+    "colors": {
+      "accent1": "#FFAB40",
+      "accent2": "#212121",
+      "accent3": "#78909C",
+      "accent4": "#FFAB40",
+      "accent5": "#0097A7",
+      "accent6": "#EEFF41",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#595959",
+      "lt2": "#EEEEEE",
+      "hlink": "#0097A7",
+      "folHlink": "#0097A7"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Arial"
+      },
+      "minorFont": {
+        "latinTypeface": "Arial"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Calibri Light"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "Титульный бакалаврская работа",
+      "type": "blank",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "backgroundColor": "lt1",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "image",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/8",
+          "id": "8",
+          "name": "Shape 55",
+          "bbox": [
+            735.99,
+            3.4,
+            222.69,
+            115.73
+          ],
+          "contentType": "image/jpeg",
+          "imageCrop": {
+            "left": 0.07092,
+            "top": 0,
+            "right": 0.07258,
+            "bottom": 0
+          },
+          "asset": {
+            "assetId": "/ppt/media/image1.jpeg",
+            "contentType": "image/jpeg",
+            "byteLength": 51509
+          },
+          "fillImage": {
+            "assetId": "/ppt/media/image1.jpeg",
+            "contentType": "image/jpeg",
+            "byteLength": 51509
+          }
+        },
+        {
+          "order": 2,
+          "kind": "image",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/9",
+          "id": "9",
+          "name": "Рисунок 1",
+          "bbox": [
+            14.78,
+            31.48,
+            188.26,
+            73.21
+          ],
+          "contentType": "image/png",
+          "asset": {
+            "assetId": "/ppt/media/image2.png",
+            "contentType": "image/png",
+            "byteLength": 10418
+          },
+          "fillImage": {
+            "assetId": "/ppt/media/image2.png",
+            "contentType": "image/png",
+            "byteLength": 10418
+          }
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/4",
+          "id": "4",
+          "name": "PlaceHolder 1",
+          "bbox": [
+            0,
+            115.84,
+            959.89,
+            44.79
+          ],
+          "geometry": "rect",
+          "text": "Click to edit the outline text format\nSecond Outline Level\nThird Outline Level\nFourth Outline Level\nFifth Outline Level\nSixth Outline Level\nSeventh Outline Level",
+          "textPreview": "Click to edit the outline text format | Second Outline Level | Third Outline Level | Fourth Outline Level | Fifth Outline Level | Sixth O...",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.72,
+              "right": 9.45,
+              "bottom": 4.72,
+              "left": 9.45
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit the outline text format",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit the outline text format",
+                  "fontSize": 26.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Second Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Second Outline Level",
+                  "fontSize": 26.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Third Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Third Outline Level",
+                  "fontSize": 26.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Fourth Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fourth Outline Level",
+                  "fontSize": 26.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Fifth Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fifth Outline Level",
+                  "fontSize": 26.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 6,
+              "text": "Sixth Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Sixth Outline Level",
+                  "fontSize": 26.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 7,
+              "text": "Seventh Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Seventh Outline Level",
+                  "fontSize": 26.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/5",
+          "id": "5",
+          "name": "PlaceHolder 2",
+          "bbox": [
+            410.65,
+            349.27,
+            456.08,
+            153.75
+          ],
+          "geometry": "rect",
+          "text": "Click to edit the outline text format\nSecond Outline Level\nThird Outline Level\nFourth Outline Level\nFifth Outline Level\nSixth Outline Level\nSeventh Outline Level",
+          "textPreview": "Click to edit the outline text format | Second Outline Level | Third Outline Level | Fourth Outline Level | Fifth Outline Level | Sixth O...",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.72,
+              "right": 9.45,
+              "bottom": 4.72,
+              "left": 9.45
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit the outline text format",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit the outline text format",
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Second Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Second Outline Level",
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Third Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Third Outline Level",
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Fourth Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fourth Outline Level",
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Fifth Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fifth Outline Level",
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 6,
+              "text": "Sixth Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Sixth Outline Level",
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 7,
+              "text": "Seventh Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Seventh Outline Level",
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/6",
+          "id": "6",
+          "name": "PlaceHolder 3",
+          "bbox": [
+            56.31,
+            169.02,
+            847.22,
+            171.67
+          ],
+          "geometry": "rect",
+          "text": "Click to edit the title text format",
+          "textPreview": "Click to edit the title text format",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit the title text format",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit the title text format",
+                  "fontSize": 37.33,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        },
+        {
+          "order": 6,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/7",
+          "id": "7",
+          "name": "Прямоугольник 4",
+          "bbox": [
+            0,
+            70.94,
+            959.89,
+            44.79
+          ],
+          "geometry": "rect",
+          "text": "ВКР бакалавра",
+          "textPreview": "ВКР бакалавра",
+          "resolvedTextStyle": {
+            "anchor": 1,
+            "verticalAlignment": "top",
+            "autoFit": "resizeShapeToFitText",
+            "insets": {
+              "top": 4.72,
+              "right": 9.45,
+              "bottom": 4.72,
+              "left": 9.45
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "ВКР бакалавра",
+              "lineSpacingPercent": 115000,
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "ВКР бакалавра",
+                  "fontSize": 26.67,
+                  "typeface": "Calibri Light",
+                  "color": "#3333B3"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mx4v6hoz",
+      "id": "27",
+      "name": "PlaceHolder 1",
+      "bbox": [
+        0,
+        115.84,
+        959.89,
+        44.79
+      ],
+      "geometry": "rect",
+      "text": "Титов Алексей Евгеньевич",
+      "textPreview": "Титов Алексей Евгеньевич",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "verticalAlignment": "middle",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.72,
+          "right": 9.45,
+          "bottom": 4.72,
+          "left": 9.45
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Титов Алексей Евгеньевич"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Титов Алексей Евгеньевич",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Титов Алексей Евгеньевич",
+              "fontSize": 26.67,
+              "typeface": "Calibri Light",
+              "color": "#000000"
+            }
+          ]
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p4bu5s76",
+      "id": "28",
+      "name": "PlaceHolder 2",
+      "bbox": [
+        410.65,
+        349.27,
+        456.08,
+        153.75
+      ],
+      "geometry": "rect",
+      "text": "Научный руководитель:\nЖевненко Д.А., к. ф-м. н.\n\nНаучный консультант:\nМещанинов Ф.П., к. ф-м. н.",
+      "textPreview": "Научный руководитель: | Жевненко Д.А., к. ф-м. н. |  | Научный консультант: | Мещанинов Ф.П., к. ф-м. н.",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "verticalAlignment": "middle",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.72,
+          "right": 9.45,
+          "bottom": 4.72,
+          "left": 9.45
+        }
+      },
+      "textLayout": {
+        "lineCount": 5,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Научный руководитель:"
+          },
+          {
+            "index": 2,
+            "text": "Жевненко Д.А., к. ф-м. н."
+          },
+          {
+            "index": 3,
+            "text": ""
+          },
+          {
+            "index": 4,
+            "text": "Научный консультант:"
+          },
+          {
+            "index": 5,
+            "text": "Мещанинов Ф.П., к. ф-м. н."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Научный руководитель:",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Научный руководитель",
+              "fontSize": 24,
+              "typeface": "Calibri Light",
+              "color": "#000000"
+            },
+            {
+              "index": 2,
+              "text": ":",
+              "fontSize": 24,
+              "typeface": "Calibri Light",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "text": "Жевненко Д.А., к. ф-м. н.",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Жевненко Д.А., к. ф-м. н.",
+              "fontSize": 24,
+              "typeface": "Calibri Light",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "text": "Научный консультант:",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Научный консультант",
+              "fontSize": 24,
+              "typeface": "Calibri Light",
+              "color": "#000000"
+            },
+            {
+              "index": 2,
+              "text": ":",
+              "fontSize": 24,
+              "typeface": "Calibri Light",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "text": "Мещанинов Ф.П., к. ф-м. н.",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Мещанинов Ф.П., к. ф-м. н.",
+              "fontSize": 24,
+              "typeface": "Calibri Light",
+              "color": "#000000"
+            }
+          ]
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/432dwn6l",
+      "id": "29",
+      "name": "PlaceHolder 3",
+      "bbox": [
+        56.31,
+        169.02,
+        847.22,
+        171.67
+      ],
+      "geometry": "rect",
+      "text": "Сегментация и классификация дефектов на кремниевых пластинах с использованием глубокого обучения",
+      "textPreview": "Сегментация и классификация дефектов на кремниевых пластинах с использованием глубокого обучения",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "verticalAlignment": "middle",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Сегментация и классификация дефектов на"
+          },
+          {
+            "index": 2,
+            "text": "кремниевых пластинах с использованием"
+          },
+          {
+            "index": 3,
+            "text": "глубокого обучения"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Сегментация и классификация дефектов на кремниевых пластинах с использованием глубокого обучения",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Сегментация и классификация дефектов на кремниевых пластинах с использованием глубокого обучения",
+              "fontSize": 37.33,
+              "typeface": "Calibri Light",
+              "color": "#3333B3"
+            }
+          ]
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

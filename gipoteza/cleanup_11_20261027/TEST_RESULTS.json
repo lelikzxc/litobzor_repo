@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "passed": 30,
+  "seconds": 14.6,
+  "exit_code": 0,
+  "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m pytest -p no:cacheprovider tests/test_imports.py tests/test_paper_reproduction.py gipoteza/h7_readout_20261025/test_core.py -q",
+  "scope": "Retained imports, native die encodings, entry points and H7 geometric bounds/policy correctness."
+}

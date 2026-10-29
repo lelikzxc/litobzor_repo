@@ -1,0 +1,5864 @@
+[
+  {
+    "name": "dataset/",
+    "size": 0,
+    "compressed": 0,
+    "offset": 0
+  },
+  {
+    "name": "dataset/LICENSE",
+    "size": 18656,
+    "compressed": 18656,
+    "offset": 70
+  },
+  {
+    "name": "dataset/README",
+    "size": 1348,
+    "compressed": 1348,
+    "offset": 18827
+  },
+  {
+    "name": "dataset/labels/",
+    "size": 0,
+    "compressed": 0,
+    "offset": 20275
+  },
+  {
+    "name": "dataset/labels/m2/",
+    "size": 0,
+    "compressed": 0,
+    "offset": 20352
+  },
+  {
+    "name": "dataset/labels/m2/label0000.svg",
+    "size": 148925,
+    "compressed": 148925,
+    "offset": 20432
+  },
+  {
+    "name": "dataset/labels/m2/label0001.svg",
+    "size": 148742,
+    "compressed": 148742,
+    "offset": 169474
+  },
+  {
+    "name": "dataset/labels/m2/label0002.svg",
+    "size": 118043,
+    "compressed": 118043,
+    "offset": 318333
+  },
+  {
+    "name": "dataset/labels/m2/label0003.svg",
+    "size": 119132,
+    "compressed": 119132,
+    "offset": 436493
+  },
+  {
+    "name": "dataset/labels/m2/label0004.svg",
+    "size": 145934,
+    "compressed": 145934,
+    "offset": 555742
+  },
+  {
+    "name": "dataset/labels/m2/label0005.svg",
+    "size": 144235,
+    "compressed": 144235,
+    "offset": 701793
+  },
+  {
+    "name": "dataset/labels/m2/label0006.svg",
+    "size": 163685,
+    "compressed": 163685,
+    "offset": 846145
+  },
+  {
+    "name": "dataset/labels/m2/label0007.svg",
+    "size": 121905,
+    "compressed": 121905,
+    "offset": 1009947
+  },
+  {
+    "name": "dataset/labels/m2/label0008.svg",
+    "size": 119739,
+    "compressed": 119739,
+    "offset": 1131969
+  },
+  {
+    "name": "dataset/labels/m2/label0009.svg",
+    "size": 177306,
+    "compressed": 177306,
+    "offset": 1251825
+  },
+  {
+    "name": "dataset/labels/m2/label0010.svg",
+    "size": 137058,
+    "compressed": 137058,
+    "offset": 1429248
+  },
+  {
+    "name": "dataset/labels/m2/label0011.svg",
+    "size": 152031,
+    "compressed": 152031,
+    "offset": 1566423
+  },
+  {
+    "name": "dataset/labels/m2/label0012.svg",
+    "size": 118936,
+    "compressed": 118936,
+    "offset": 1718571
+  },
+  {
+    "name": "dataset/labels/m2/label0013.svg",
+    "size": 174704,
+    "compressed": 174704,
+    "offset": 1837624
+  },
+  {
+    "name": "dataset/labels/m2/label0014.svg",
+    "size": 150223,
+    "compressed": 150223,
+    "offset": 2012445
+  },
+  {
+    "name": "dataset/labels/m2/label0015.svg",
+    "size": 148553,
+    "compressed": 148553,
+    "offset": 2162785
+  },
+  {
+    "name": "dataset/labels/m2/label0016.svg",
+    "size": 162317,
+    "compressed": 162317,
+    "offset": 2311455
+  },
+  {
+    "name": "dataset/labels/m2/label0017.svg",
+    "size": 164997,
+    "compressed": 164997,
+    "offset": 2473889
+  },
+  {
+    "name": "dataset/labels/m2/label0018.svg",
+    "size": 140810,
+    "compressed": 140810,
+    "offset": 2639003
+  },
+  {
+    "name": "dataset/labels/m2/label0019.svg",
+    "size": 124660,
+    "compressed": 124660,
+    "offset": 2779930
+  },
+  {
+    "name": "dataset/labels/m2/label0020.svg",
+    "size": 149289,
+    "compressed": 149289,
+    "offset": 2904707
+  },
+  {
+    "name": "dataset/labels/m2/label0021.svg",
+    "size": 154398,
+    "compressed": 154398,
+    "offset": 3054113
+  },
+  {
+    "name": "dataset/labels/m2/label0022.svg",
+    "size": 124543,
+    "compressed": 124543,
+    "offset": 3208628
+  },
+  {
+    "name": "dataset/labels/m2/label0023.svg",
+    "size": 132964,
+    "compressed": 132964,
+    "offset": 3333288
+  },
+  {
+    "name": "dataset/labels/m2/label0024.svg",
+    "size": 105461,
+    "compressed": 105461,
+    "offset": 3466369
+  },
+  {
+    "name": "dataset/labels/m2/label0025.svg",
+    "size": 146687,
+    "compressed": 146687,
+    "offset": 3571947
+  },
+  {
+    "name": "dataset/labels/m2/label0026.svg",
+    "size": 157993,
+    "compressed": 157993,
+    "offset": 3718751
+  },
+  {
+    "name": "dataset/labels/m2/label0027.svg",
+    "size": 116134,
+    "compressed": 116134,
+    "offset": 3876861
+  },
+  {
+    "name": "dataset/labels/m2/label0028.svg",
+    "size": 146338,
+    "compressed": 146338,
+    "offset": 3993112
+  },
+  {
+    "name": "dataset/labels/m2/label0029.svg",
+    "size": 162964,
+    "compressed": 162964,
+    "offset": 4139567
+  },
+  {
+    "name": "dataset/labels/m2/label0030.svg",
+    "size": 124947,
+    "compressed": 124947,
+    "offset": 4302648
+  },
+  {
+    "name": "dataset/labels/m2/label0031.svg",
+    "size": 117474,
+    "compressed": 117474,
+    "offset": 4427712
+  },
+  {
+    "name": "dataset/labels/m2/label0032.svg",
+    "size": 130628,
+    "compressed": 130628,
+    "offset": 4545303
+  },
+  {
+    "name": "dataset/labels/m2/label0033.svg",
+    "size": 144085,
+    "compressed": 144085,
+    "offset": 4676048
+  },
+  {
+    "name": "dataset/labels/m2/label0034.svg",
+    "size": 145640,
+    "compressed": 145640,
+    "offset": 4820250
+  },
+  {
+    "name": "dataset/labels/m2/label0035.svg",
+    "size": 143186,
+    "compressed": 143186,
+    "offset": 4966007
+  },
+  {
+    "name": "dataset/labels/m2/label0036.svg",
+    "size": 168252,
+    "compressed": 168252,
+    "offset": 5109310
+  },
+  {
+    "name": "dataset/labels/m2/label0037.svg",
+    "size": 151084,
+    "compressed": 151084,
+    "offset": 5277679
+  },
+  {
+    "name": "dataset/labels/m2/label0038.svg",
+    "size": 149438,
+    "compressed": 149438,
+    "offset": 5428880
+  },
+  {
+    "name": "dataset/labels/m2/label0039.svg",
+    "size": 119349,
+    "compressed": 119349,
+    "offset": 5578435
+  },
+  {
+    "name": "dataset/labels/m2/label0040.svg",
+    "size": 122617,
+    "compressed": 122617,
+    "offset": 5697901
+  },
+  {
+    "name": "dataset/labels/m2/label0041.svg",
+    "size": 160947,
+    "compressed": 160947,
+    "offset": 5820635
+  },
+  {
+    "name": "dataset/labels/m2/label0042.svg",
+    "size": 126112,
+    "compressed": 126112,
+    "offset": 5981699
+  },
+  {
+    "name": "dataset/labels/m2/label0043.svg",
+    "size": 99436,
+    "compressed": 99436,
+    "offset": 6107928
+  },
+  {
+    "name": "dataset/labels/m2/label0044.svg",
+    "size": 160447,
+    "compressed": 160447,
+    "offset": 6207481
+  },
+  {
+    "name": "dataset/labels/m2/label0045.svg",
+    "size": 167835,
+    "compressed": 167835,
+    "offset": 6368045
+  },
+  {
+    "name": "dataset/labels/m2/label0046.svg",
+    "size": 116406,
+    "compressed": 116406,
+    "offset": 6535997
+  },
+  {
+    "name": "dataset/labels/m2/label0047.svg",
+    "size": 145718,
+    "compressed": 145718,
+    "offset": 6652520
+  },
+  {
+    "name": "dataset/labels/m2/label0048.svg",
+    "size": 153941,
+    "compressed": 153941,
+    "offset": 6798355
+  },
+  {
+    "name": "dataset/labels/m2/label0049.svg",
+    "size": 171160,
+    "compressed": 171160,
+    "offset": 6952413
+  },
+  {
+    "name": "dataset/labels/m2/label0050.svg",
+    "size": 152775,
+    "compressed": 152775,
+    "offset": 7123690
+  },
+  {
+    "name": "dataset/labels/m2/label0051.svg",
+    "size": 147520,
+    "compressed": 147520,
+    "offset": 7276582
+  },
+  {
+    "name": "dataset/labels/m2/label0052.svg",
+    "size": 146191,
+    "compressed": 146191,
+    "offset": 7424219
+  },
+  {
+    "name": "dataset/labels/m2/label0053.svg",
+    "size": 148271,
+    "compressed": 148271,
+    "offset": 7570527
+  },
+  {
+    "name": "dataset/labels/m2/label0054.svg",
+    "size": 153313,
+    "compressed": 153313,
+    "offset": 7718915
+  },
+  {
+    "name": "dataset/labels/m2/label0055.svg",
+    "size": 131625,
+    "compressed": 131625,
+    "offset": 7872345
+  },
+  {
+    "name": "dataset/labels/m2/label0056.svg",
+    "size": 88345,
+    "compressed": 88345,
+    "offset": 8004087
+  },
+  {
+    "name": "dataset/labels/m2/label0057.svg",
+    "size": 117493,
+    "compressed": 117493,
+    "offset": 8092549
+  },
+  {
+    "name": "dataset/labels/m2/label0058.svg",
+    "size": 136180,
+    "compressed": 136180,
+    "offset": 8210159
+  },
+  {
+    "name": "dataset/labels/m2/label0059.svg",
+    "size": 162507,
+    "compressed": 162507,
+    "offset": 8346456
+  },
+  {
+    "name": "dataset/labels/m2/label0060.svg",
+    "size": 141438,
+    "compressed": 141438,
+    "offset": 8509080
+  },
+  {
+    "name": "dataset/labels/m2/label0061.svg",
+    "size": 130925,
+    "compressed": 130925,
+    "offset": 8650635
+  },
+  {
+    "name": "dataset/labels/m2/label0062.svg",
+    "size": 150872,
+    "compressed": 150872,
+    "offset": 8781677
+  },
+  {
+    "name": "dataset/labels/m2/label0063.svg",
+    "size": 119267,
+    "compressed": 119267,
+    "offset": 8932666
+  },
+  {
+    "name": "dataset/labels/m2/label0064.svg",
+    "size": 140165,
+    "compressed": 140165,
+    "offset": 9052050
+  },
+  {
+    "name": "dataset/labels/m2/label0065.svg",
+    "size": 155934,
+    "compressed": 155934,
+    "offset": 9192332
+  },
+  {
+    "name": "dataset/labels/m2/label0066.svg",
+    "size": 125097,
+    "compressed": 125097,
+    "offset": 9348383
+  },
+  {
+    "name": "dataset/labels/m2/label0067.svg",
+    "size": 119523,
+    "compressed": 119523,
+    "offset": 9473597
+  },
+  {
+    "name": "dataset/labels/m2/label0068.svg",
+    "size": 133458,
+    "compressed": 133458,
+    "offset": 9593237
+  },
+  {
+    "name": "dataset/labels/m2/label0069.svg",
+    "size": 130751,
+    "compressed": 130751,
+    "offset": 9726812
+  },
+  {
+    "name": "dataset/labels/m2/label0070.svg",
+    "size": 156230,
+    "compressed": 156230,
+    "offset": 9857680
+  },
+  {
+    "name": "dataset/labels/m2/label0071.svg",
+    "size": 158693,
+    "compressed": 158693,
+    "offset": 10014027
+  },
+  {
+    "name": "dataset/labels/m2/label0072.svg",
+    "size": 113427,
+    "compressed": 113427,
+    "offset": 10172837
+  },
+  {
+    "name": "dataset/labels/m2/label0073.svg",
+    "size": 126151,
+    "compressed": 126151,
+    "offset": 10286381
+  },
+  {
+    "name": "dataset/labels/m2/label0074.svg",
+    "size": 161835,
+    "compressed": 161835,
+    "offset": 10412649
+  },
+  {
+    "name": "dataset/labels/m2/label0075.svg",
+    "size": 152338,
+    "compressed": 152338,
+    "offset": 10574601
+  },
+  {
+    "name": "dataset/labels/m2/label0076.svg",
+    "size": 162344,
+    "compressed": 162344,
+    "offset": 10727056
+  },
+  {
+    "name": "dataset/labels/m2/label0077.svg",
+    "size": 149435,
+    "compressed": 149435,
+    "offset": 10889517
+  },
+  {
+    "name": "dataset/labels/m2/label0078.svg",
+    "size": 170955,
+    "compressed": 170955,
+    "offset": 11039069
+  },
+  {
+    "name": "dataset/labels/m2/label0079.svg",
+    "size": 148530,
+    "compressed": 148530,
+    "offset": 11210141
+  },
+  {
+    "name": "dataset/labels/m2/label0080.svg",
+    "size": 156791,
+    "compressed": 156791,
+    "offset": 11358788
+  },
+  {
+    "name": "dataset/labels/m2/label0081.svg",
+    "size": 150374,
+    "compressed": 150374,
+    "offset": 11515696
+  },
+  {
+    "name": "dataset/labels/m2/label0082.svg",
+    "size": 134778,
+    "compressed": 134778,
+    "offset": 11666187
+  },
+  {
+    "name": "dataset/labels/m2/label0083.svg",
+    "size": 176860,
+    "compressed": 176860,
+    "offset": 11801082
+  },
+  {
+    "name": "dataset/labels/m2/label0084.svg",
+    "size": 178403,
+    "compressed": 178403,
+    "offset": 11978059
+  },
+  {
+    "name": "dataset/labels/m2/label0085.svg",
+    "size": 101812,
+    "compressed": 101812,
+    "offset": 12156579
+  },
+  {
+    "name": "dataset/labels/m2/label0086.svg",
+    "size": 145717,
+    "compressed": 145717,
+    "offset": 12258508
+  },
+  {
+    "name": "dataset/labels/m2/label0087.svg",
+    "size": 141668,
+    "compressed": 141668,
+    "offset": 12404342
+  },
+  {
+    "name": "dataset/labels/m2/label0088.svg",
+    "size": 161824,
+    "compressed": 161824,
+    "offset": 12546127
+  },
+  {
+    "name": "dataset/labels/m2/label0089.svg",
+    "size": 124019,
+    "compressed": 124019,
+    "offset": 12708068
+  },
+  {
+    "name": "dataset/labels/m2/label0090.svg",
+    "size": 137710,
+    "compressed": 137710,
+    "offset": 12832204
+  },
+  {
+    "name": "dataset/labels/m2/label0091.svg",
+    "size": 166449,
+    "compressed": 166449,
+    "offset": 12970031
+  },
+  {
+    "name": "dataset/labels/m2/label0092.svg",
+    "size": 120859,
+    "compressed": 120859,
+    "offset": 13136597
+  },
+  {
+    "name": "dataset/labels/m2/label0093.svg",
+    "size": 160515,
+    "compressed": 160515,
+    "offset": 13257573
+  },
+  {
+    "name": "dataset/labels/m2/label0094.svg",
+    "size": 152436,
+    "compressed": 152436,
+    "offset": 13418205
+  },
+  {
+    "name": "dataset/labels/m2/label0095.svg",
+    "size": 120226,
+    "compressed": 120226,
+    "offset": 13570758
+  },
+  {
+    "name": "dataset/labels/m2/label0096.svg",
+    "size": 119055,
+    "compressed": 119055,
+    "offset": 13691101
+  },
+  {
+    "name": "dataset/labels/m2/label0097.svg",
+    "size": 125023,
+    "compressed": 125023,
+    "offset": 13810273
+  },
+  {
+    "name": "dataset/labels/m2/label0098.svg",
+    "size": 121215,
+    "compressed": 121215,
+    "offset": 13935413
+  },
+  {
+    "name": "dataset/labels/m2/label0099.svg",
+    "size": 157831,
+    "compressed": 157831,
+    "offset": 14056745
+  },
+  {
+    "name": "dataset/labels/m2/label0100.svg",
+    "size": 121589,
+    "compressed": 121589,
+    "offset": 14214693
+  },
+  {
+    "name": "dataset/labels/m2/label0101.svg",
+    "size": 113161,
+    "compressed": 113161,
+    "offset": 14336399
+  },
+  {
+    "name": "dataset/labels/m2/label0102.svg",
+    "size": 101697,
+    "compressed": 101697,
+    "offset": 14449677
+  },
+  {
+    "name": "dataset/labels/m2/label0103.svg",
+    "size": 129147,
+    "compressed": 129147,
+    "offset": 14551491
+  },
+  {
+    "name": "dataset/labels/m2/label0104.svg",
+    "size": 155046,
+    "compressed": 155046,
+    "offset": 14680755
+  },
+  {
+    "name": "dataset/labels/m2/label0105.svg",
+    "size": 144050,
+    "compressed": 144050,
+    "offset": 14835918
+  },
+  {
+    "name": "dataset/labels/m2/label0106.svg",
+    "size": 149855,
+    "compressed": 149855,
+    "offset": 14980085
+  },
+  {
+    "name": "dataset/labels/m2/label0107.svg",
+    "size": 169321,
+    "compressed": 169321,
+    "offset": 15130057
+  },
+  {
+    "name": "dataset/labels/m2/label0108.svg",
+    "size": 131857,
+    "compressed": 131857,
+    "offset": 15299495
+  },
+  {
+    "name": "dataset/labels/m2/label0109.svg",
+    "size": 148037,
+    "compressed": 148037,
+    "offset": 15431469
+  },
+  {
+    "name": "dataset/labels/m2/label0110.svg",
+    "size": 147384,
+    "compressed": 147384,
+    "offset": 15579623
+  },
+  {
+    "name": "dataset/labels/m2/label0111.svg",
+    "size": 114678,
+    "compressed": 114678,
+    "offset": 15727124
+  },
+  {
+    "name": "dataset/labels/m2/label0112.svg",
+    "size": 99967,
+    "compressed": 99967,
+    "offset": 15841919
+  },
+  {
+    "name": "dataset/labels/m2/label0113.svg",
+    "size": 151600,
+    "compressed": 151600,
+    "offset": 15942003
+  },
+  {
+    "name": "dataset/labels/m2/label0114.svg",
+    "size": 149376,
+    "compressed": 149376,
+    "offset": 16093720
+  },
+  {
+    "name": "dataset/labels/m2/label0115.svg",
+    "size": 144966,
+    "compressed": 144966,
+    "offset": 16243213
+  },
+  {
+    "name": "dataset/labels/m2/label0116.svg",
+    "size": 142633,
+    "compressed": 142633,
+    "offset": 16388296
+  },
+  {
+    "name": "dataset/labels/m2/label0117.svg",
+    "size": 118060,
+    "compressed": 118060,
+    "offset": 16531046
+  },
+  {
+    "name": "dataset/labels/m2/label0118.svg",
+    "size": 146275,
+    "compressed": 146275,
+    "offset": 16649223
+  },
+  {
+    "name": "dataset/labels/m2/label0119.svg",
+    "size": 140229,
+    "compressed": 140229,
+    "offset": 16795615
+  },
+  {
+    "name": "dataset/labels/m2/label0120.svg",
+    "size": 136381,
+    "compressed": 136381,
+    "offset": 16935961
+  },
+  {
+    "name": "dataset/labels/m2/label0121.svg",
+    "size": 128369,
+    "compressed": 128369,
+    "offset": 17072459
+  },
+  {
+    "name": "dataset/labels/m2/label0122.svg",
+    "size": 152983,
+    "compressed": 152983,
+    "offset": 17200945
+  },
+  {
+    "name": "dataset/labels/m2/label0123.svg",
+    "size": 124770,
+    "compressed": 124770,
+    "offset": 17354045
+  },
+  {
+    "name": "dataset/labels/m2/label0124.svg",
+    "size": 152905,
+    "compressed": 152905,
+    "offset": 17478932
+  },
+  {
+    "name": "dataset/labels/m2/label0125.svg",
+    "size": 125801,
+    "compressed": 125801,
+    "offset": 17631954
+  },
+  {
+    "name": "dataset/labels/m2/label0126.svg",
+    "size": 112917,
+    "compressed": 112917,
+    "offset": 17757872
+  },
+  {
+    "name": "dataset/labels/m2/label0127.svg",
+    "size": 129577,
+    "compressed": 129577,
+    "offset": 17870906
+  },
+  {
+    "name": "dataset/labels/m2/label0128.svg",
+    "size": 146249,
+    "compressed": 146249,
+    "offset": 18000600
+  },
+  {
+    "name": "dataset/labels/m2/label0129.svg",
+    "size": 120799,
+    "compressed": 120799,
+    "offset": 18146966
+  },
+  {
+    "name": "dataset/labels/m2/label0130.svg",
+    "size": 139122,
+    "compressed": 139122,
+    "offset": 18267882
+  },
+  {
+    "name": "dataset/labels/m2/label0131.svg",
+    "size": 116741,
+    "compressed": 116741,
+    "offset": 18407121
+  },
+  {
+    "name": "dataset/labels/m2/label0132.svg",
+    "size": 144389,
+    "compressed": 144389,
+    "offset": 18523979
+  },
+  {
+    "name": "dataset/labels/m2/label0133.svg",
+    "size": 148830,
+    "compressed": 148830,
+    "offset": 18668485
+  },
+  {
+    "name": "dataset/labels/m2/label0134.svg",
+    "size": 141136,
+    "compressed": 141136,
+    "offset": 18817432
+  },
+  {
+    "name": "dataset/labels/m2/label0135.svg",
+    "size": 160860,
+    "compressed": 160860,
+    "offset": 18958685
+  },
+  {
+    "name": "dataset/labels/m2/label0136.svg",
+    "size": 105198,
+    "compressed": 105198,
+    "offset": 19119662
+  },
+  {
+    "name": "dataset/labels/m2/label0137.svg",
+    "size": 99213,
+    "compressed": 99213,
+    "offset": 19224977
+  },
+  {
+    "name": "dataset/labels/m2/label0138.svg",
+    "size": 128832,
+    "compressed": 128832,
+    "offset": 19324307
+  },
+  {
+    "name": "dataset/labels/m2/label0139.svg",
+    "size": 155874,
+    "compressed": 155874,
+    "offset": 19453256
+  },
+  {
+    "name": "dataset/labels/m2/label0140.svg",
+    "size": 166894,
+    "compressed": 166894,
+    "offset": 19609247
+  },
+  {
+    "name": "dataset/labels/m2/label0141.svg",
+    "size": 115265,
+    "compressed": 115265,
+    "offset": 19776258
+  },
+  {
+    "name": "dataset/labels/m2/label0142.svg",
+    "size": 125093,
+    "compressed": 125093,
+    "offset": 19891640
+  },
+  {
+    "name": "dataset/labels/m2/label0143.svg",
+    "size": 139283,
+    "compressed": 139283,
+    "offset": 20016850
+  },
+  {
+    "name": "dataset/labels/m2/label0144.svg",
+    "size": 152227,
+    "compressed": 152227,
+    "offset": 20156250
+  },
+  {
+    "name": "dataset/labels/m2/label0145.svg",
+    "size": 133438,
+    "compressed": 133438,
+    "offset": 20308594
+  },
+  {
+    "name": "dataset/labels/m2/label0146.svg",
+    "size": 92913,
+    "compressed": 92913,
+    "offset": 20442149
+  },
+  {
+    "name": "dataset/labels/m2/label0147.svg",
+    "size": 131781,
+    "compressed": 131781,
+    "offset": 20535179
+  },
+  {
+    "name": "dataset/labels/m2/label0148.svg",
+    "size": 142708,
+    "compressed": 142708,
+    "offset": 20667077
+  },
+  {
+    "name": "dataset/labels/m2/label0149.svg",
+    "size": 124413,
+    "compressed": 124413,
+    "offset": 20809902
+  },
+  {
+    "name": "dataset/labels/m2/label0150.svg",
+    "size": 97897,
+    "compressed": 97897,
+    "offset": 20934432
+  },
+  {
+    "name": "dataset/labels/m2/label0151.svg",
+    "size": 149888,
+    "compressed": 149888,
+    "offset": 21032446
+  },
+  {
+    "name": "dataset/labels/m2/label0152.svg",
+    "size": 96115,
+    "compressed": 96115,
+    "offset": 21182451
+  },
+  {
+    "name": "dataset/labels/m2/label0153.svg",
+    "size": 144568,
+    "compressed": 144568,
+    "offset": 21278683
+  },
+  {
+    "name": "dataset/labels/m2/label0154.svg",
+    "size": 147167,
+    "compressed": 147167,
+    "offset": 21423368
+  },
+  {
+    "name": "dataset/labels/m2/label0155.svg",
+    "size": 165047,
+    "compressed": 165047,
+    "offset": 21570652
+  },
+  {
+    "name": "dataset/labels/m2/label0156.svg",
+    "size": 130079,
+    "compressed": 130079,
+    "offset": 21735816
+  },
+  {
+    "name": "dataset/labels/m2/label0157.svg",
+    "size": 166504,
+    "compressed": 166504,
+    "offset": 21866012
+  },
+  {
+    "name": "dataset/labels/m2/label0158.svg",
+    "size": 130898,
+    "compressed": 130898,
+    "offset": 22032633
+  },
+  {
+    "name": "dataset/labels/m2/label0159.svg",
+    "size": 181332,
+    "compressed": 181332,
+    "offset": 22163648
+  },
+  {
+    "name": "dataset/labels/m2/label0160.svg",
+    "size": 125717,
+    "compressed": 125717,
+    "offset": 22345097
+  },
+  {
+    "name": "dataset/labels/m2/label0161.svg",
+    "size": 154368,
+    "compressed": 154368,
+    "offset": 22470931
+  },
+  {
+    "name": "dataset/labels/m2/label0162.svg",
+    "size": 126558,
+    "compressed": 126558,
+    "offset": 22625416
+  },
+  {
+    "name": "dataset/labels/m2/label0163.svg",
+    "size": 139142,
+    "compressed": 139142,
+    "offset": 22752091
+  },
+  {
+    "name": "dataset/labels/m2/label0164.svg",
+    "size": 115874,
+    "compressed": 115874,
+    "offset": 22891350
+  },
+  {
+    "name": "dataset/labels/m2/label0165.svg",
+    "size": 182904,
+    "compressed": 182904,
+    "offset": 23007341
+  },
+  {
+    "name": "dataset/labels/m2/label0166.svg",
+    "size": 153360,
+    "compressed": 153360,
+    "offset": 23190362
+  },
+  {
+    "name": "dataset/labels/m2/label0167.svg",
+    "size": 147634,
+    "compressed": 147634,
+    "offset": 23343839
+  },
+  {
+    "name": "dataset/labels/m2/label0168.svg",
+    "size": 156515,
+    "compressed": 156515,
+    "offset": 23491590
+  },
+  {
+    "name": "dataset/labels/m2/label0169.svg",
+    "size": 106608,
+    "compressed": 106608,
+    "offset": 23648222
+  },
+  {
+    "name": "dataset/labels/m2/label0170.svg",
+    "size": 132194,
+    "compressed": 132194,
+    "offset": 23754947
+  },
+  {
+    "name": "dataset/labels/m2/label0171.svg",
+    "size": 182172,
+    "compressed": 182172,
+    "offset": 23887258
+  },
+  {
+    "name": "dataset/labels/m2/label0172.svg",
+    "size": 136220,
+    "compressed": 136220,
+    "offset": 24069547
+  },
+  {
+    "name": "dataset/labels/m2/label0173.svg",
+    "size": 159367,
+    "compressed": 159367,
+    "offset": 24205884
+  },
+  {
+    "name": "dataset/labels/m2/label0174.svg",
+    "size": 138798,
+    "compressed": 138798,
+    "offset": 24365368
+  },
+  {
+    "name": "dataset/labels/m2/label0175.svg",
+    "size": 123303,
+    "compressed": 123303,
+    "offset": 24504283
+  },
+  {
+    "name": "dataset/labels/m2/label0176.svg",
+    "size": 146075,
+    "compressed": 146075,
+    "offset": 24627703
+  },
+  {
+    "name": "dataset/labels/m2/label0177.svg",
+    "size": 151730,
+    "compressed": 151730,
+    "offset": 24773895
+  },
+  {
+    "name": "dataset/labels/m2/label0178.svg",
+    "size": 128775,
+    "compressed": 128775,
+    "offset": 24925742
+  },
+  {
+    "name": "dataset/labels/m2/label0179.svg",
+    "size": 112602,
+    "compressed": 112602,
+    "offset": 25054634
+  },
+  {
+    "name": "dataset/labels/m2/label0180.svg",
+    "size": 173274,
+    "compressed": 173274,
+    "offset": 25167353
+  },
+  {
+    "name": "dataset/labels/m2/label0181.svg",
+    "size": 129559,
+    "compressed": 129559,
+    "offset": 25340744
+  },
+  {
+    "name": "dataset/labels/m2/label0182.svg",
+    "size": 214031,
+    "compressed": 214031,
+    "offset": 25470420
+  },
+  {
+    "name": "dataset/labels/m2/label0183.svg",
+    "size": 144046,
+    "compressed": 144046,
+    "offset": 25684568
+  },
+  {
+    "name": "dataset/labels/m2/label0184.svg",
+    "size": 128093,
+    "compressed": 128093,
+    "offset": 25828731
+  },
+  {
+    "name": "dataset/labels/m2/label0185.svg",
+    "size": 72315,
+    "compressed": 72315,
+    "offset": 25956941
+  },
+  {
+    "name": "dataset/labels/m2/label0186.svg",
+    "size": 126801,
+    "compressed": 126801,
+    "offset": 26029373
+  },
+  {
+    "name": "dataset/labels/m2/label0187.svg",
+    "size": 115590,
+    "compressed": 115590,
+    "offset": 26156291
+  },
+  {
+    "name": "dataset/labels/m2/label0188.svg",
+    "size": 158640,
+    "compressed": 158640,
+    "offset": 26271998
+  },
+  {
+    "name": "dataset/labels/m2/label0189.svg",
+    "size": 100731,
+    "compressed": 100731,
+    "offset": 26430755
+  },
+  {
+    "name": "dataset/labels/m2/label0190.svg",
+    "size": 171131,
+    "compressed": 171131,
+    "offset": 26531603
+  },
+  {
+    "name": "dataset/labels/m2/label0191.svg",
+    "size": 108031,
+    "compressed": 108031,
+    "offset": 26702851
+  },
+  {
+    "name": "dataset/labels/m2/label0192.svg",
+    "size": 146527,
+    "compressed": 146527,
+    "offset": 26810999
+  },
+  {
+    "name": "dataset/labels/m2/label0193.svg",
+    "size": 126785,
+    "compressed": 126785,
+    "offset": 26957643
+  },
+  {
+    "name": "dataset/labels/m2/label0194.svg",
+    "size": 162059,
+    "compressed": 162059,
+    "offset": 27084545
+  },
+  {
+    "name": "dataset/labels/m2/label0195.svg",
+    "size": 108402,
+    "compressed": 108402,
+    "offset": 27246721
+  },
+  {
+    "name": "dataset/labels/m2/label0196.svg",
+    "size": 143260,
+    "compressed": 143260,
+    "offset": 27355240
+  },
+  {
+    "name": "dataset/labels/m2/label0197.svg",
+    "size": 169837,
+    "compressed": 169837,
+    "offset": 27498617
+  },
+  {
+    "name": "dataset/labels/m2/label0198.svg",
+    "size": 138304,
+    "compressed": 138304,
+    "offset": 27668571
+  },
+  {
+    "name": "dataset/labels/m2/label0199.svg",
+    "size": 150946,
+    "compressed": 150946,
+    "offset": 27806992
+  },
+  {
+    "name": "dataset/labels/m2/label0200.svg",
+    "size": 127643,
+    "compressed": 127643,
+    "offset": 27958055
+  },
+  {
+    "name": "dataset/labels/m2/label0201.svg",
+    "size": 134692,
+    "compressed": 134692,
+    "offset": 28085815
+  },
+  {
+    "name": "dataset/labels/m2/label0202.svg",
+    "size": 154116,
+    "compressed": 154116,
+    "offset": 28220624
+  },
+  {
+    "name": "dataset/labels/m2/label0203.svg",
+    "size": 131476,
+    "compressed": 131476,
+    "offset": 28374857
+  },
+  {
+    "name": "dataset/labels/m2/label0204.svg",
+    "size": 161535,
+    "compressed": 161535,
+    "offset": 28506450
+  },
+  {
+    "name": "dataset/labels/m2/label0205.svg",
+    "size": 173187,
+    "compressed": 173187,
+    "offset": 28668102
+  },
+  {
+    "name": "dataset/labels/m2/label0206.svg",
+    "size": 95817,
+    "compressed": 95817,
+    "offset": 28841406
+  },
+  {
+    "name": "dataset/labels/m2/label0207.svg",
+    "size": 128194,
+    "compressed": 128194,
+    "offset": 28937340
+  },
+  {
+    "name": "dataset/labels/m2/label0208.svg",
+    "size": 157969,
+    "compressed": 157969,
+    "offset": 29065651
+  },
+  {
+    "name": "dataset/labels/m2/label0209.svg",
+    "size": 121442,
+    "compressed": 121442,
+    "offset": 29223737
+  },
+  {
+    "name": "dataset/labels/m2/label0210.svg",
+    "size": 144964,
+    "compressed": 144964,
+    "offset": 29345296
+  },
+  {
+    "name": "dataset/labels/m2/label0211.svg",
+    "size": 115162,
+    "compressed": 115162,
+    "offset": 29490377
+  },
+  {
+    "name": "dataset/labels/m2/label0212.svg",
+    "size": 164057,
+    "compressed": 164057,
+    "offset": 29605656
+  },
+  {
+    "name": "dataset/labels/m2/label0213.svg",
+    "size": 120802,
+    "compressed": 120802,
+    "offset": 29769830
+  },
+  {
+    "name": "dataset/labels/m2/label0214.svg",
+    "size": 145849,
+    "compressed": 145849,
+    "offset": 29890749
+  },
+  {
+    "name": "dataset/labels/m2/label0215.svg",
+    "size": 149900,
+    "compressed": 149900,
+    "offset": 30036715
+  },
+  {
+    "name": "dataset/labels/m2/label0216.svg",
+    "size": 169456,
+    "compressed": 169456,
+    "offset": 30186732
+  },
+  {
+    "name": "dataset/labels/m2/label0217.svg",
+    "size": 136627,
+    "compressed": 136627,
+    "offset": 30356305
+  },
+  {
+    "name": "dataset/labels/m2/label0218.svg",
+    "size": 148907,
+    "compressed": 148907,
+    "offset": 30493049
+  },
+  {
+    "name": "dataset/labels/m2/label0219.svg",
+    "size": 129926,
+    "compressed": 129926,
+    "offset": 30642073
+  },
+  {
+    "name": "dataset/labels/m2/label0220.svg",
+    "size": 133049,
+    "compressed": 133049,
+    "offset": 30772116
+  },
+  {
+    "name": "dataset/labels/m2/label0221.svg",
+    "size": 153927,
+    "compressed": 153927,
+    "offset": 30905282
+  },
+  {
+    "name": "dataset/labels/m2/label0222.svg",
+    "size": 152450,
+    "compressed": 152450,
+    "offset": 31059326
+  },
+  {
+    "name": "dataset/labels/m2/label0223.svg",
+    "size": 155151,
+    "compressed": 155151,
+    "offset": 31211893
+  },
+  {
+    "name": "dataset/labels/m2/label0224.svg",
+    "size": 143108,
+    "compressed": 143108,
+    "offset": 31367161
+  },
+  {
+    "name": "dataset/labels/m2/label0225.svg",
+    "size": 122754,
+    "compressed": 122754,
+    "offset": 31510386
+  },
+  {
+    "name": "dataset/labels/m2/label0226.svg",
+    "size": 129139,
+    "compressed": 129139,
+    "offset": 31633257
+  },
+  {
+    "name": "dataset/labels/m2/label0227.svg",
+    "size": 142683,
+    "compressed": 142683,
+    "offset": 31762513
+  },
+  {
+    "name": "dataset/labels/m2/label0228.svg",
+    "size": 187203,
+    "compressed": 187203,
+    "offset": 31905313
+  },
+  {
+    "name": "dataset/labels/m2/label0229.svg",
+    "size": 129243,
+    "compressed": 129243,
+    "offset": 32092633
+  },
+  {
+    "name": "dataset/labels/m2/label0230.svg",
+    "size": 120267,
+    "compressed": 120267,
+    "offset": 32221993
+  },
+  {
+    "name": "dataset/labels/m2/label0231.svg",
+    "size": 157897,
+    "compressed": 157897,
+    "offset": 32342377
+  },
+  {
+    "name": "dataset/labels/m2/label0232.svg",
+    "size": 141700,
+    "compressed": 141700,
+    "offset": 32500391
+  },
+  {
+    "name": "dataset/labels/m2/label0233.svg",
+    "size": 181037,
+    "compressed": 181037,
+    "offset": 32642208
+  },
+  {
+    "name": "dataset/labels/m2/label0234.svg",
+    "size": 121126,
+    "compressed": 121126,
+    "offset": 32823362
+  },
+  {
+    "name": "dataset/labels/m2/label0235.svg",
+    "size": 149930,
+    "compressed": 149930,
+    "offset": 32944605
+  },
+  {
+    "name": "dataset/labels/m2/label0236.svg",
+    "size": 144841,
+    "compressed": 144841,
+    "offset": 33094652
+  },
+  {
+    "name": "dataset/labels/m2/label0237.svg",
+    "size": 116714,
+    "compressed": 116714,
+    "offset": 33239610
+  },
+  {
+    "name": "dataset/labels/m2/label0238.svg",
+    "size": 153278,
+    "compressed": 153278,
+    "offset": 33356441
+  },
+  {
+    "name": "dataset/labels/m2/label0239.svg",
+    "size": 86560,
+    "compressed": 86560,
+    "offset": 33509836
+  },
+  {
+    "name": "dataset/labels/m2/label0240.svg",
+    "size": 131010,
+    "compressed": 131010,
+    "offset": 33596513
+  },
+  {
+    "name": "dataset/labels/m2/label0241.svg",
+    "size": 162078,
+    "compressed": 162078,
+    "offset": 33727640
+  },
+  {
+    "name": "dataset/labels/m2/label0242.svg",
+    "size": 172166,
+    "compressed": 172166,
+    "offset": 33889835
+  },
+  {
+    "name": "dataset/labels/m2/label0243.svg",
+    "size": 152980,
+    "compressed": 152980,
+    "offset": 34062118
+  },
+  {
+    "name": "dataset/labels/m2/label0244.svg",
+    "size": 137320,
+    "compressed": 137320,
+    "offset": 34215215
+  },
+  {
+    "name": "dataset/labels/m2/label0245.svg",
+    "size": 159006,
+    "compressed": 159006,
+    "offset": 34352652
+  },
+  {
+    "name": "dataset/labels/m2/label0246.svg",
+    "size": 152774,
+    "compressed": 152774,
+    "offset": 34511775
+  },
+  {
+    "name": "dataset/labels/m2/label0247.svg",
+    "size": 175574,
+    "compressed": 175574,
+    "offset": 34664666
+  },
+  {
+    "name": "dataset/labels/m2/label0248.svg",
+    "size": 153464,
+    "compressed": 153464,
+    "offset": 34840357
+  },
+  {
+    "name": "dataset/labels/m2/label0249.svg",
+    "size": 121374,
+    "compressed": 121374,
+    "offset": 34993938
+  },
+  {
+    "name": "dataset/labels/m2/label0250.svg",
+    "size": 97000,
+    "compressed": 97000,
+    "offset": 35115429
+  },
+  {
+    "name": "dataset/labels/m2/label0251.svg",
+    "size": 151809,
+    "compressed": 151809,
+    "offset": 35212546
+  },
+  {
+    "name": "dataset/labels/m2/label0252.svg",
+    "size": 160254,
+    "compressed": 160254,
+    "offset": 35364472
+  },
+  {
+    "name": "dataset/labels/m2/label0253.svg",
+    "size": 162347,
+    "compressed": 162347,
+    "offset": 35524843
+  },
+  {
+    "name": "dataset/labels/m2/label0254.svg",
+    "size": 153231,
+    "compressed": 153231,
+    "offset": 35687307
+  },
+  {
+    "name": "dataset/labels/m2/label0255.svg",
+    "size": 120157,
+    "compressed": 120157,
+    "offset": 35840655
+  },
+  {
+    "name": "dataset/labels/m2/label0256.svg",
+    "size": 180011,
+    "compressed": 180011,
+    "offset": 35960929
+  },
+  {
+    "name": "dataset/labels/m2/label0257.svg",
+    "size": 176278,
+    "compressed": 176278,
+    "offset": 36141057
+  },
+  {
+    "name": "dataset/labels/m2/label0258.svg",
+    "size": 154279,
+    "compressed": 154279,
+    "offset": 36317452
+  },
+  {
+    "name": "dataset/labels/m2/label0259.svg",
+    "size": 141034,
+    "compressed": 141034,
+    "offset": 36471848
+  },
+  {
+    "name": "dataset/labels/m2/label0260.svg",
+    "size": 124725,
+    "compressed": 124725,
+    "offset": 36612999
+  },
+  {
+    "name": "dataset/labels/m2/label0261.svg",
+    "size": 184138,
+    "compressed": 184138,
+    "offset": 36737841
+  },
+  {
+    "name": "dataset/labels/m2/label0262.svg",
+    "size": 157387,
+    "compressed": 157387,
+    "offset": 36922096
+  },
+  {
+    "name": "dataset/labels/m2/label0263.svg",
+    "size": 136063,
+    "compressed": 136063,
+    "offset": 37079600
+  },
+  {
+    "name": "dataset/labels/m2/label0264.svg",
+    "size": 132254,
+    "compressed": 132254,
+    "offset": 37215780
+  },
+  {
+    "name": "dataset/labels/m2/label0265.svg",
+    "size": 153348,
+    "compressed": 153348,
+    "offset": 37348151
+  },
+  {
+    "name": "dataset/labels/m2/label0266.svg",
+    "size": 154698,
+    "compressed": 154698,
+    "offset": 37501616
+  },
+  {
+    "name": "dataset/labels/m2/label0267.svg",
+    "size": 143717,
+    "compressed": 143717,
+    "offset": 37656431
+  },
+  {
+    "name": "dataset/labels/m2/label0268.svg",
+    "size": 180204,
+    "compressed": 180204,
+    "offset": 37800265
+  },
+  {
+    "name": "dataset/labels/m2/label0269.svg",
+    "size": 136550,
+    "compressed": 136550,
+    "offset": 37980586
+  },
+  {
+    "name": "dataset/labels/m2/label0270.svg",
+    "size": 104728,
+    "compressed": 104728,
+    "offset": 38117253
+  },
+  {
+    "name": "dataset/labels/m2/label0271.svg",
+    "size": 159162,
+    "compressed": 159162,
+    "offset": 38222098
+  },
+  {
+    "name": "dataset/labels/m2/label0272.svg",
+    "size": 152611,
+    "compressed": 152611,
+    "offset": 38381377
+  },
+  {
+    "name": "dataset/labels/m2/label0273.svg",
+    "size": 135258,
+    "compressed": 135258,
+    "offset": 38534105
+  },
+  {
+    "name": "dataset/labels/m2/label0274.svg",
+    "size": 120918,
+    "compressed": 120918,
+    "offset": 38669480
+  },
+  {
+    "name": "dataset/labels/m2/label0275.svg",
+    "size": 131050,
+    "compressed": 131050,
+    "offset": 38790515
+  },
+  {
+    "name": "dataset/labels/m2/label0276.svg",
+    "size": 144873,
+    "compressed": 144873,
+    "offset": 38921682
+  },
+  {
+    "name": "dataset/labels/m2/label0277.svg",
+    "size": 156134,
+    "compressed": 156134,
+    "offset": 39066672
+  },
+  {
+    "name": "dataset/labels/m2/label0278.svg",
+    "size": 134829,
+    "compressed": 134829,
+    "offset": 39222923
+  },
+  {
+    "name": "dataset/labels/m2/label0279.svg",
+    "size": 160938,
+    "compressed": 160938,
+    "offset": 39357869
+  },
+  {
+    "name": "dataset/labels/m2/label0280.svg",
+    "size": 133822,
+    "compressed": 133822,
+    "offset": 39518924
+  },
+  {
+    "name": "dataset/labels/m2/label0281.svg",
+    "size": 122659,
+    "compressed": 122659,
+    "offset": 39652863
+  },
+  {
+    "name": "dataset/labels/m2/label0282.svg",
+    "size": 143179,
+    "compressed": 143179,
+    "offset": 39775639
+  },
+  {
+    "name": "dataset/labels/m2/label0283.svg",
+    "size": 149881,
+    "compressed": 149881,
+    "offset": 39918935
+  },
+  {
+    "name": "dataset/labels/m2/label0284.svg",
+    "size": 160584,
+    "compressed": 160584,
+    "offset": 40068933
+  },
+  {
+    "name": "dataset/labels/m2/label0285.svg",
+    "size": 134449,
+    "compressed": 134449,
+    "offset": 40229634
+  },
+  {
+    "name": "dataset/labels/m2/label0286.svg",
+    "size": 152270,
+    "compressed": 152270,
+    "offset": 40364200
+  },
+  {
+    "name": "dataset/labels/m2/label0287.svg",
+    "size": 139256,
+    "compressed": 139256,
+    "offset": 40516587
+  },
+  {
+    "name": "dataset/labels/m2/label0288.svg",
+    "size": 106778,
+    "compressed": 106778,
+    "offset": 40655960
+  },
+  {
+    "name": "dataset/labels/m2/label0289.svg",
+    "size": 156012,
+    "compressed": 156012,
+    "offset": 40762855
+  },
+  {
+    "name": "dataset/labels/m2/label0290.svg",
+    "size": 150260,
+    "compressed": 150260,
+    "offset": 40918984
+  },
+  {
+    "name": "dataset/labels/m2/label0291.svg",
+    "size": 129854,
+    "compressed": 129854,
+    "offset": 41069361
+  },
+  {
+    "name": "dataset/labels/m2/label0292.svg",
+    "size": 148212,
+    "compressed": 148212,
+    "offset": 41199332
+  },
+  {
+    "name": "dataset/labels/m2/label0293.svg",
+    "size": 157784,
+    "compressed": 157784,
+    "offset": 41347661
+  },
+  {
+    "name": "dataset/labels/m2/label0294.svg",
+    "size": 134694,
+    "compressed": 134694,
+    "offset": 41505562
+  },
+  {
+    "name": "dataset/labels/m2/label0295.svg",
+    "size": 156289,
+    "compressed": 156289,
+    "offset": 41640373
+  },
+  {
+    "name": "dataset/labels/m2/label0296.svg",
+    "size": 186229,
+    "compressed": 186229,
+    "offset": 41796779
+  },
+  {
+    "name": "dataset/labels/m2/label0297.svg",
+    "size": 163637,
+    "compressed": 163637,
+    "offset": 41983125
+  },
+  {
+    "name": "dataset/labels/m2/label0298.svg",
+    "size": 172720,
+    "compressed": 172720,
+    "offset": 42146879
+  },
+  {
+    "name": "dataset/labels/m2/label0299.svg",
+    "size": 138168,
+    "compressed": 138168,
+    "offset": 42319716
+  },
+  {
+    "name": "dataset/labels/m2/label0300.svg",
+    "size": 150469,
+    "compressed": 150469,
+    "offset": 42458001
+  },
+  {
+    "name": "dataset/labels/m2/label0301.svg",
+    "size": 142981,
+    "compressed": 142981,
+    "offset": 42608587
+  },
+  {
+    "name": "dataset/labels/m2/label0302.svg",
+    "size": 164566,
+    "compressed": 164566,
+    "offset": 42751685
+  },
+  {
+    "name": "dataset/labels/m2/label0303.svg",
+    "size": 151022,
+    "compressed": 151022,
+    "offset": 42916368
+  },
+  {
+    "name": "dataset/labels/m2/label0304.svg",
+    "size": 148984,
+    "compressed": 148984,
+    "offset": 43067507
+  },
+  {
+    "name": "dataset/labels/m2/label0305.svg",
+    "size": 155504,
+    "compressed": 155504,
+    "offset": 43216608
+  },
+  {
+    "name": "dataset/labels/m2/label0306.svg",
+    "size": 156467,
+    "compressed": 156467,
+    "offset": 43372229
+  },
+  {
+    "name": "dataset/labels/m2/label0307.svg",
+    "size": 131719,
+    "compressed": 131719,
+    "offset": 43528813
+  },
+  {
+    "name": "dataset/labels/m2/label0308.svg",
+    "size": 121929,
+    "compressed": 121929,
+    "offset": 43660649
+  },
+  {
+    "name": "dataset/labels/m2/label0309.svg",
+    "size": 153515,
+    "compressed": 153515,
+    "offset": 43782695
+  },
+  {
+    "name": "dataset/labels/m2/label0310.svg",
+    "size": 135514,
+    "compressed": 135514,
+    "offset": 43936327
+  },
+  {
+    "name": "dataset/labels/m2/label0311.svg",
+    "size": 108485,
+    "compressed": 108485,
+    "offset": 44071958
+  },
+  {
+    "name": "dataset/labels/m2/label0312.svg",
+    "size": 107678,
+    "compressed": 107678,
+    "offset": 44180560
+  },
+  {
+    "name": "dataset/labels/m2/label0313.svg",
+    "size": 156954,
+    "compressed": 156954,
+    "offset": 44288355
+  },
+  {
+    "name": "dataset/labels/m2/label0314.svg",
+    "size": 142850,
+    "compressed": 142850,
+    "offset": 44445426
+  },
+  {
+    "name": "dataset/labels/m2/label0315.svg",
+    "size": 134999,
+    "compressed": 134999,
+    "offset": 44588393
+  },
+  {
+    "name": "dataset/labels/m2/label0316.svg",
+    "size": 169239,
+    "compressed": 169239,
+    "offset": 44723509
+  },
+  {
+    "name": "dataset/labels/m2/label0317.svg",
+    "size": 145429,
+    "compressed": 145429,
+    "offset": 44892865
+  },
+  {
+    "name": "dataset/labels/m2/label0318.svg",
+    "size": 104421,
+    "compressed": 104421,
+    "offset": 45038411
+  },
+  {
+    "name": "dataset/labels/m2/label0319.svg",
+    "size": 167661,
+    "compressed": 167661,
+    "offset": 45142949
+  },
+  {
+    "name": "dataset/labels/m2/label0320.svg",
+    "size": 161572,
+    "compressed": 161572,
+    "offset": 45310727
+  },
+  {
+    "name": "dataset/sems/",
+    "size": 0,
+    "compressed": 0,
+    "offset": 45472416
+  },
+  {
+    "name": "dataset/sems/m1/",
+    "size": 0,
+    "compressed": 0,
+    "offset": 45472491
+  },
+  {
+    "name": "dataset/sems/m1/sem0000.png",
+    "size": 9980298,
+    "compressed": 9980298,
+    "offset": 45472569
+  },
+  {
+    "name": "dataset/sems/m1/sem0001.png",
+    "size": 9873470,
+    "compressed": 9873470,
+    "offset": 55452980
+  },
+  {
+    "name": "dataset/sems/m1/sem0002.png",
+    "size": 9960581,
+    "compressed": 9960581,
+    "offset": 65326563
+  },
+  {
+    "name": "dataset/sems/m1/sem0003.png",
+    "size": 9956714,
+    "compressed": 9956714,
+    "offset": 75287257
+  },
+  {
+    "name": "dataset/sems/m1/sem0004.png",
+    "size": 9936166,
+    "compressed": 9936166,
+    "offset": 85244084
+  },
+  {
+    "name": "dataset/sems/m1/sem0005.png",
+    "size": 9992647,
+    "compressed": 9992647,
+    "offset": 95180363
+  },
+  {
+    "name": "dataset/sems/m1/sem0006.png",
+    "size": 9984586,
+    "compressed": 9984586,
+    "offset": 105173123
+  },
+  {
+    "name": "dataset/sems/m1/sem0007.png",
+    "size": 9992080,
+    "compressed": 9992080,
+    "offset": 115157822
+  },
+  {
+    "name": "dataset/sems/m1/sem0008.png",
+    "size": 9983518,
+    "compressed": 9983518,
+    "offset": 125150015
+  },
+  {
+    "name": "dataset/sems/m1/sem0009.png",
+    "size": 9951957,
+    "compressed": 9951957,
+    "offset": 135133646
+  },
+  {
+    "name": "dataset/sems/m1/sem0010.png",
+    "size": 9969144,
+    "compressed": 9969144,
+    "offset": 145085716
+  },
+  {
+    "name": "dataset/sems/m1/sem0011.png",
+    "size": 9965253,
+    "compressed": 9965253,
+    "offset": 155054973
+  },
+  {
+    "name": "dataset/sems/m1/sem0012.png",
+    "size": 9972705,
+    "compressed": 9972705,
+    "offset": 165020339
+  },
+  {
+    "name": "dataset/sems/m1/sem0013.png",
+    "size": 9959842,
+    "compressed": 9959842,
+    "offset": 174993157
+  },
+  {
+    "name": "dataset/sems/m1/sem0014.png",
+    "size": 9963693,
+    "compressed": 9963693,
+    "offset": 184953112
+  },
+  {
+    "name": "dataset/sems/m1/sem0015.png",
+    "size": 9988918,
+    "compressed": 9988918,
+    "offset": 194916918
+  },
+  {
+    "name": "dataset/sems/m1/sem0016.png",
+    "size": 9914690,
+    "compressed": 9914690,
+    "offset": 204905949
+  },
+  {
+    "name": "dataset/sems/m1/sem0017.png",
+    "size": 9944331,
+    "compressed": 9944331,
+    "offset": 214820752
+  },
+  {
+    "name": "dataset/sems/m1/sem0018.png",
+    "size": 9923610,
+    "compressed": 9923610,
+    "offset": 224765196
+  },
+  {
+    "name": "dataset/sems/m1/sem0019.png",
+    "size": 9948924,
+    "compressed": 9948924,
+    "offset": 234688919
+  },
+  {
+    "name": "dataset/sems/m1/sem0020.png",
+    "size": 9973827,
+    "compressed": 9973827,
+    "offset": 244637956
+  },
+  {
+    "name": "dataset/sems/m1/sem0021.png",
+    "size": 9973098,
+    "compressed": 9973098,
+    "offset": 254611896
+  },
+  {
+    "name": "dataset/sems/m1/sem0022.png",
+    "size": 9978382,
+    "compressed": 9978382,
+    "offset": 264585107
+  },
+  {
+    "name": "dataset/sems/m1/sem0023.png",
+    "size": 9957932,
+    "compressed": 9957932,
+    "offset": 274563602
+  },
+  {
+    "name": "dataset/sems/m1/sem0024.png",
+    "size": 9999070,
+    "compressed": 9999070,
+    "offset": 284521647
+  },
+  {
+    "name": "dataset/sems/m1/sem0025.png",
+    "size": 9978170,
+    "compressed": 9978170,
+    "offset": 294520830
+  },
+  {
+    "name": "dataset/sems/m1/sem0026.png",
+    "size": 9993967,
+    "compressed": 9993967,
+    "offset": 304499113
+  },
+  {
+    "name": "dataset/sems/m1/sem0027.png",
+    "size": 9967315,
+    "compressed": 9967315,
+    "offset": 314493193
+  },
+  {
+    "name": "dataset/sems/m1/sem0028.png",
+    "size": 9947056,
+    "compressed": 9947056,
+    "offset": 324460621
+  },
+  {
+    "name": "dataset/sems/m1/sem0029.png",
+    "size": 9928736,
+    "compressed": 9928736,
+    "offset": 334407790
+  },
+  {
+    "name": "dataset/sems/m1/sem0030.png",
+    "size": 9991889,
+    "compressed": 9991889,
+    "offset": 344336639
+  },
+  {
+    "name": "dataset/sems/m1/sem0031.png",
+    "size": 9973782,
+    "compressed": 9973782,
+    "offset": 354328641
+  },
+  {
+    "name": "dataset/sems/m1/sem0032.png",
+    "size": 9992127,
+    "compressed": 9992127,
+    "offset": 364302536
+  },
+  {
+    "name": "dataset/sems/m1/sem0033.png",
+    "size": 9989849,
+    "compressed": 9989849,
+    "offset": 374294776
+  },
+  {
+    "name": "dataset/sems/m1/sem0034.png",
+    "size": 9964112,
+    "compressed": 9964112,
+    "offset": 384284738
+  },
+  {
+    "name": "dataset/sems/m1/sem0035.png",
+    "size": 9962587,
+    "compressed": 9962587,
+    "offset": 394248963
+  },
+  {
+    "name": "dataset/sems/m1/sem0036.png",
+    "size": 9962089,
+    "compressed": 9962089,
+    "offset": 404211663
+  },
+  {
+    "name": "dataset/sems/m1/sem0037.png",
+    "size": 9954353,
+    "compressed": 9954353,
+    "offset": 414173865
+  },
+  {
+    "name": "dataset/sems/m1/sem0038.png",
+    "size": 9934763,
+    "compressed": 9934763,
+    "offset": 424128331
+  },
+  {
+    "name": "dataset/sems/m1/sem0039.png",
+    "size": 9964060,
+    "compressed": 9964060,
+    "offset": 434063207
+  },
+  {
+    "name": "dataset/sems/m1/sem0040.png",
+    "size": 9955362,
+    "compressed": 9955362,
+    "offset": 444027380
+  },
+  {
+    "name": "dataset/sems/m1/sem0041.png",
+    "size": 9965608,
+    "compressed": 9965608,
+    "offset": 453982855
+  },
+  {
+    "name": "dataset/sems/m1/sem0042.png",
+    "size": 9983026,
+    "compressed": 9983026,
+    "offset": 463948576
+  },
+  {
+    "name": "dataset/sems/m1/sem0043.png",
+    "size": 9986958,
+    "compressed": 9986958,
+    "offset": 473931715
+  },
+  {
+    "name": "dataset/sems/m1/sem0044.png",
+    "size": 9975786,
+    "compressed": 9975786,
+    "offset": 483918786
+  },
+  {
+    "name": "dataset/sems/m1/sem0045.png",
+    "size": 9955847,
+    "compressed": 9955847,
+    "offset": 493894685
+  },
+  {
+    "name": "dataset/sems/m1/sem0046.png",
+    "size": 10001814,
+    "compressed": 10001814,
+    "offset": 503850645
+  },
+  {
+    "name": "dataset/sems/m1/sem0047.png",
+    "size": 9944723,
+    "compressed": 9944723,
+    "offset": 513852572
+  },
+  {
+    "name": "dataset/sems/m1/sem0048.png",
+    "size": 9980290,
+    "compressed": 9980290,
+    "offset": 523797408
+  },
+  {
+    "name": "dataset/sems/m1/sem0049.png",
+    "size": 9999008,
+    "compressed": 9999008,
+    "offset": 533777811
+  },
+  {
+    "name": "dataset/sems/m1/sem0050.png",
+    "size": 9954656,
+    "compressed": 9954656,
+    "offset": 543776932
+  },
+  {
+    "name": "dataset/sems/m1/sem0051.png",
+    "size": 9955197,
+    "compressed": 9955197,
+    "offset": 553731701
+  },
+  {
+    "name": "dataset/sems/m1/sem0052.png",
+    "size": 9969124,
+    "compressed": 9969124,
+    "offset": 563687011
+  },
+  {
+    "name": "dataset/sems/m1/sem0053.png",
+    "size": 9994342,
+    "compressed": 9994342,
+    "offset": 573656248
+  },
+  {
+    "name": "dataset/sems/m1/sem0054.png",
+    "size": 9964062,
+    "compressed": 9964062,
+    "offset": 583650703
+  },
+  {
+    "name": "dataset/sems/m1/sem0055.png",
+    "size": 9972922,
+    "compressed": 9972922,
+    "offset": 593614878
+  },
+  {
+    "name": "dataset/sems/m1/sem0056.png",
+    "size": 10001700,
+    "compressed": 10001700,
+    "offset": 603587913
+  },
+  {
+    "name": "dataset/sems/m1/sem0057.png",
+    "size": 9957873,
+    "compressed": 9957873,
+    "offset": 613589726
+  },
+  {
+    "name": "dataset/sems/m1/sem0058.png",
+    "size": 9931452,
+    "compressed": 9931452,
+    "offset": 623547712
+  },
+  {
+    "name": "dataset/sems/m1/sem0059.png",
+    "size": 9991780,
+    "compressed": 9991780,
+    "offset": 633479277
+  },
+  {
+    "name": "dataset/sems/m1/sem0060.png",
+    "size": 9972248,
+    "compressed": 9972248,
+    "offset": 643471170
+  },
+  {
+    "name": "dataset/sems/m1/sem0061.png",
+    "size": 9951403,
+    "compressed": 9951403,
+    "offset": 653443531
+  },
+  {
+    "name": "dataset/sems/m1/sem0062.png",
+    "size": 9982049,
+    "compressed": 9982049,
+    "offset": 663395047
+  },
+  {
+    "name": "dataset/sems/m1/sem0063.png",
+    "size": 9992286,
+    "compressed": 9992286,
+    "offset": 673377209
+  },
+  {
+    "name": "dataset/sems/m1/sem0064.png",
+    "size": 9954967,
+    "compressed": 9954967,
+    "offset": 683369608
+  },
+  {
+    "name": "dataset/sems/m1/sem0065.png",
+    "size": 9965438,
+    "compressed": 9965438,
+    "offset": 693324688
+  },
+  {
+    "name": "dataset/sems/m1/sem0066.png",
+    "size": 9996815,
+    "compressed": 9996815,
+    "offset": 703290239
+  },
+  {
+    "name": "dataset/sems/m1/sem0067.png",
+    "size": 9991938,
+    "compressed": 9991938,
+    "offset": 713287167
+  },
+  {
+    "name": "dataset/sems/m1/sem0068.png",
+    "size": 9967239,
+    "compressed": 9967239,
+    "offset": 723279218
+  },
+  {
+    "name": "dataset/sems/m1/sem0069.png",
+    "size": 9960803,
+    "compressed": 9960803,
+    "offset": 733246570
+  },
+  {
+    "name": "dataset/sems/m1/sem0070.png",
+    "size": 9975742,
+    "compressed": 9975742,
+    "offset": 743207486
+  },
+  {
+    "name": "dataset/sems/m1/sem0071.png",
+    "size": 9970431,
+    "compressed": 9970431,
+    "offset": 753183341
+  },
+  {
+    "name": "dataset/sems/m1/sem0072.png",
+    "size": 9997964,
+    "compressed": 9997964,
+    "offset": 763153885
+  },
+  {
+    "name": "dataset/sems/m1/sem0073.png",
+    "size": 9952819,
+    "compressed": 9952819,
+    "offset": 773151962
+  },
+  {
+    "name": "dataset/sems/m1/sem0074.png",
+    "size": 9994805,
+    "compressed": 9994805,
+    "offset": 783104894
+  },
+  {
+    "name": "dataset/sems/m1/sem0075.png",
+    "size": 9966338,
+    "compressed": 9966338,
+    "offset": 793099812
+  },
+  {
+    "name": "dataset/sems/m1/sem0076.png",
+    "size": 10001158,
+    "compressed": 10001158,
+    "offset": 803066263
+  },
+  {
+    "name": "dataset/sems/m1/sem0077.png",
+    "size": 9967010,
+    "compressed": 9967010,
+    "offset": 813067534
+  },
+  {
+    "name": "dataset/sems/m1/sem0078.png",
+    "size": 9947369,
+    "compressed": 9947369,
+    "offset": 823034657
+  },
+  {
+    "name": "dataset/sems/m1/sem0079.png",
+    "size": 9932236,
+    "compressed": 9932236,
+    "offset": 832982139
+  },
+  {
+    "name": "dataset/sems/m1/sem0080.png",
+    "size": 9957647,
+    "compressed": 9957647,
+    "offset": 842914488
+  },
+  {
+    "name": "dataset/sems/m1/sem0081.png",
+    "size": 9971434,
+    "compressed": 9971434,
+    "offset": 852872248
+  },
+  {
+    "name": "dataset/sems/m1/sem0082.png",
+    "size": 9957705,
+    "compressed": 9957705,
+    "offset": 862843795
+  },
+  {
+    "name": "dataset/sems/m1/sem0083.png",
+    "size": 9968697,
+    "compressed": 9968697,
+    "offset": 872801613
+  },
+  {
+    "name": "dataset/sems/m1/sem0084.png",
+    "size": 9963611,
+    "compressed": 9963611,
+    "offset": 882770423
+  },
+  {
+    "name": "dataset/sems/m1/sem0085.png",
+    "size": 9977624,
+    "compressed": 9977624,
+    "offset": 892734147
+  },
+  {
+    "name": "dataset/sems/m1/sem0086.png",
+    "size": 10000491,
+    "compressed": 10000491,
+    "offset": 902711884
+  },
+  {
+    "name": "dataset/sems/m1/sem0087.png",
+    "size": 9966493,
+    "compressed": 9966493,
+    "offset": 912712488
+  },
+  {
+    "name": "dataset/sems/m1/sem0088.png",
+    "size": 9978083,
+    "compressed": 9978083,
+    "offset": 922679094
+  },
+  {
+    "name": "dataset/sems/m1/sem0089.png",
+    "size": 9980029,
+    "compressed": 9980029,
+    "offset": 932657290
+  },
+  {
+    "name": "dataset/sems/m1/sem0090.png",
+    "size": 9957936,
+    "compressed": 9957936,
+    "offset": 942637432
+  },
+  {
+    "name": "dataset/sems/m1/sem0091.png",
+    "size": 9990978,
+    "compressed": 9990978,
+    "offset": 952595481
+  },
+  {
+    "name": "dataset/sems/m1/sem0092.png",
+    "size": 9998219,
+    "compressed": 9998219,
+    "offset": 962586572
+  },
+  {
+    "name": "dataset/sems/m1/sem0093.png",
+    "size": 9988838,
+    "compressed": 9988838,
+    "offset": 972584904
+  },
+  {
+    "name": "dataset/sems/m1/sem0094.png",
+    "size": 9950929,
+    "compressed": 9950929,
+    "offset": 982573855
+  },
+  {
+    "name": "dataset/sems/m1/sem0095.png",
+    "size": 9979929,
+    "compressed": 9979929,
+    "offset": 992524897
+  },
+  {
+    "name": "dataset/sems/m1/sem0096.png",
+    "size": 9983021,
+    "compressed": 9983021,
+    "offset": 1002504939
+  },
+  {
+    "name": "dataset/sems/m1/sem0097.png",
+    "size": 9981415,
+    "compressed": 9981415,
+    "offset": 1012488073
+  },
+  {
+    "name": "dataset/sems/m1/sem0098.png",
+    "size": 9985077,
+    "compressed": 9985077,
+    "offset": 1022469601
+  },
+  {
+    "name": "dataset/sems/m1/sem0099.png",
+    "size": 9975313,
+    "compressed": 9975313,
+    "offset": 1032454791
+  },
+  {
+    "name": "dataset/sems/m1/sem0100.png",
+    "size": 9984748,
+    "compressed": 9984748,
+    "offset": 1042430217
+  },
+  {
+    "name": "dataset/sems/m1/sem0101.png",
+    "size": 9974585,
+    "compressed": 9974585,
+    "offset": 1052415078
+  },
+  {
+    "name": "dataset/sems/m1/sem0102.png",
+    "size": 9959576,
+    "compressed": 9959576,
+    "offset": 1062389776
+  },
+  {
+    "name": "dataset/sems/m1/sem0103.png",
+    "size": 9966467,
+    "compressed": 9966467,
+    "offset": 1072349465
+  },
+  {
+    "name": "dataset/sems/m1/sem0104.png",
+    "size": 9966286,
+    "compressed": 9966286,
+    "offset": 1082316045
+  },
+  {
+    "name": "dataset/sems/m1/sem0105.png",
+    "size": 9972203,
+    "compressed": 9972203,
+    "offset": 1092282444
+  },
+  {
+    "name": "dataset/sems/m1/sem0106.png",
+    "size": 9938967,
+    "compressed": 9938967,
+    "offset": 1102254760
+  },
+  {
+    "name": "dataset/sems/m1/sem0107.png",
+    "size": 9963836,
+    "compressed": 9963836,
+    "offset": 1112193840
+  },
+  {
+    "name": "dataset/sems/m1/sem0108.png",
+    "size": 9973981,
+    "compressed": 9973981,
+    "offset": 1122157789
+  },
+  {
+    "name": "dataset/sems/m1/sem0109.png",
+    "size": 9966131,
+    "compressed": 9966131,
+    "offset": 1132131883
+  },
+  {
+    "name": "dataset/sems/m1/sem0110.png",
+    "size": 9947404,
+    "compressed": 9947404,
+    "offset": 1142098127
+  },
+  {
+    "name": "dataset/sems/m1/sem0111.png",
+    "size": 9952617,
+    "compressed": 9952617,
+    "offset": 1152045644
+  },
+  {
+    "name": "dataset/sems/m1/sem0112.png",
+    "size": 9967966,
+    "compressed": 9967966,
+    "offset": 1161998374
+  },
+  {
+    "name": "dataset/sems/m1/sem0113.png",
+    "size": 9931070,
+    "compressed": 9931070,
+    "offset": 1171966453
+  },
+  {
+    "name": "dataset/sems/m1/sem0114.png",
+    "size": 9968576,
+    "compressed": 9968576,
+    "offset": 1181897636
+  },
+  {
+    "name": "dataset/sems/m1/sem0115.png",
+    "size": 9948563,
+    "compressed": 9948563,
+    "offset": 1191866325
+  },
+  {
+    "name": "dataset/sems/m1/sem0116.png",
+    "size": 9946038,
+    "compressed": 9946038,
+    "offset": 1201815001
+  },
+  {
+    "name": "dataset/sems/m1/sem0117.png",
+    "size": 9974131,
+    "compressed": 9974131,
+    "offset": 1211761152
+  },
+  {
+    "name": "dataset/sems/m1/sem0118.png",
+    "size": 9937270,
+    "compressed": 9937270,
+    "offset": 1221735396
+  },
+  {
+    "name": "dataset/sems/m1/sem0119.png",
+    "size": 10002934,
+    "compressed": 10002934,
+    "offset": 1231672779
+  },
+  {
+    "name": "dataset/sems/m1/sem0120.png",
+    "size": 9984428,
+    "compressed": 9984428,
+    "offset": 1241675826
+  },
+  {
+    "name": "dataset/sems/m1/sem0121.png",
+    "size": 9979539,
+    "compressed": 9979539,
+    "offset": 1251660367
+  },
+  {
+    "name": "dataset/sems/m1/sem0122.png",
+    "size": 9959258,
+    "compressed": 9959258,
+    "offset": 1261640019
+  },
+  {
+    "name": "dataset/sems/m1/sem0123.png",
+    "size": 9943549,
+    "compressed": 9943549,
+    "offset": 1271599390
+  },
+  {
+    "name": "dataset/sems/m1/sem0124.png",
+    "size": 9946663,
+    "compressed": 9946663,
+    "offset": 1281543052
+  },
+  {
+    "name": "dataset/sems/m1/sem0125.png",
+    "size": 9990220,
+    "compressed": 9990220,
+    "offset": 1291489828
+  },
+  {
+    "name": "dataset/sems/m1/sem0126.png",
+    "size": 9982518,
+    "compressed": 9982518,
+    "offset": 1301480161
+  },
+  {
+    "name": "dataset/sems/m1/sem0127.png",
+    "size": 9967651,
+    "compressed": 9967651,
+    "offset": 1311462792
+  },
+  {
+    "name": "dataset/sems/m1/sem0128.png",
+    "size": 9973617,
+    "compressed": 9973617,
+    "offset": 1321430556
+  },
+  {
+    "name": "dataset/sems/m1/sem0129.png",
+    "size": 10010054,
+    "compressed": 10010054,
+    "offset": 1331404286
+  },
+  {
+    "name": "dataset/sems/m1/sem0130.png",
+    "size": 9973531,
+    "compressed": 9973531,
+    "offset": 1341414453
+  },
+  {
+    "name": "dataset/sems/m1/sem0131.png",
+    "size": 9982285,
+    "compressed": 9982285,
+    "offset": 1351388097
+  },
+  {
+    "name": "dataset/sems/m1/sem0132.png",
+    "size": 9966875,
+    "compressed": 9966875,
+    "offset": 1361370495
+  },
+  {
+    "name": "dataset/sems/m1/sem0133.png",
+    "size": 9964691,
+    "compressed": 9964691,
+    "offset": 1371337483
+  },
+  {
+    "name": "dataset/sems/m1/sem0134.png",
+    "size": 9944139,
+    "compressed": 9944139,
+    "offset": 1381302287
+  },
+  {
+    "name": "dataset/sems/m1/sem0135.png",
+    "size": 9962933,
+    "compressed": 9962933,
+    "offset": 1391246539
+  },
+  {
+    "name": "dataset/sems/m1/sem0136.png",
+    "size": 9982733,
+    "compressed": 9982733,
+    "offset": 1401209585
+  },
+  {
+    "name": "dataset/sems/m1/sem0137.png",
+    "size": 10001964,
+    "compressed": 10001964,
+    "offset": 1411192431
+  },
+  {
+    "name": "dataset/sems/m1/sem0138.png",
+    "size": 9980892,
+    "compressed": 9980892,
+    "offset": 1421194508
+  },
+  {
+    "name": "dataset/sems/m1/sem0139.png",
+    "size": 9971833,
+    "compressed": 9971833,
+    "offset": 1431175513
+  },
+  {
+    "name": "dataset/sems/m1/sem0140.png",
+    "size": 9943046,
+    "compressed": 9943046,
+    "offset": 1441147459
+  },
+  {
+    "name": "dataset/sems/m1/sem0141.png",
+    "size": 9952866,
+    "compressed": 9952866,
+    "offset": 1451090618
+  },
+  {
+    "name": "dataset/sems/m1/sem0142.png",
+    "size": 9973947,
+    "compressed": 9973947,
+    "offset": 1461043597
+  },
+  {
+    "name": "dataset/sems/m1/sem0143.png",
+    "size": 9973146,
+    "compressed": 9973146,
+    "offset": 1471017657
+  },
+  {
+    "name": "dataset/sems/m1/sem0144.png",
+    "size": 9990053,
+    "compressed": 9990053,
+    "offset": 1480990916
+  },
+  {
+    "name": "dataset/sems/m1/sem0145.png",
+    "size": 9980133,
+    "compressed": 9980133,
+    "offset": 1490981082
+  },
+  {
+    "name": "dataset/sems/m1/sem0146.png",
+    "size": 9984735,
+    "compressed": 9984735,
+    "offset": 1500961328
+  },
+  {
+    "name": "dataset/sems/m1/sem0147.png",
+    "size": 9977352,
+    "compressed": 9977352,
+    "offset": 1510946176
+  },
+  {
+    "name": "dataset/sems/m1/sem0148.png",
+    "size": 9957724,
+    "compressed": 9957724,
+    "offset": 1520923641
+  },
+  {
+    "name": "dataset/sems/m1/sem0149.png",
+    "size": 9948338,
+    "compressed": 9948338,
+    "offset": 1530881478
+  },
+  {
+    "name": "dataset/sems/m1/sem0150.png",
+    "size": 9979734,
+    "compressed": 9979734,
+    "offset": 1540829929
+  },
+  {
+    "name": "dataset/sems/m1/sem0151.png",
+    "size": 9958335,
+    "compressed": 9958335,
+    "offset": 1550809776
+  },
+  {
+    "name": "dataset/sems/m1/sem0152.png",
+    "size": 9952598,
+    "compressed": 9952598,
+    "offset": 1560768224
+  },
+  {
+    "name": "dataset/sems/m1/sem0153.png",
+    "size": 9965445,
+    "compressed": 9965445,
+    "offset": 1570720935
+  },
+  {
+    "name": "dataset/sems/m1/sem0154.png",
+    "size": 9953253,
+    "compressed": 9953253,
+    "offset": 1580686493
+  },
+  {
+    "name": "dataset/sems/m1/sem0155.png",
+    "size": 10001474,
+    "compressed": 10001474,
+    "offset": 1590639859
+  },
+  {
+    "name": "dataset/sems/m1/sem0156.png",
+    "size": 10004227,
+    "compressed": 10004227,
+    "offset": 1600641446
+  },
+  {
+    "name": "dataset/sems/m1/sem0157.png",
+    "size": 9966506,
+    "compressed": 9966506,
+    "offset": 1610645786
+  },
+  {
+    "name": "dataset/sems/m1/sem0158.png",
+    "size": 9975839,
+    "compressed": 9975839,
+    "offset": 1620612405
+  },
+  {
+    "name": "dataset/sems/m1/sem0159.png",
+    "size": 9972814,
+    "compressed": 9972814,
+    "offset": 1630588357
+  },
+  {
+    "name": "dataset/sems/m1/sem0160.png",
+    "size": 9971563,
+    "compressed": 9971563,
+    "offset": 1640561284
+  },
+  {
+    "name": "dataset/sems/m1/sem0161.png",
+    "size": 9983014,
+    "compressed": 9983014,
+    "offset": 1650532960
+  },
+  {
+    "name": "dataset/sems/m1/sem0162.png",
+    "size": 9963713,
+    "compressed": 9963713,
+    "offset": 1660516087
+  },
+  {
+    "name": "dataset/sems/m1/sem0163.png",
+    "size": 9944848,
+    "compressed": 9944848,
+    "offset": 1670479913
+  },
+  {
+    "name": "dataset/sems/m1/sem0164.png",
+    "size": 9981751,
+    "compressed": 9981751,
+    "offset": 1680424874
+  },
+  {
+    "name": "dataset/sems/m1/sem0165.png",
+    "size": 9996694,
+    "compressed": 9996694,
+    "offset": 1690406738
+  },
+  {
+    "name": "dataset/sems/m1/sem0166.png",
+    "size": 9943058,
+    "compressed": 9943058,
+    "offset": 1700403545
+  },
+  {
+    "name": "dataset/sems/m1/sem0167.png",
+    "size": 9983493,
+    "compressed": 9983493,
+    "offset": 1710346716
+  },
+  {
+    "name": "dataset/sems/m1/sem0168.png",
+    "size": 9994821,
+    "compressed": 9994821,
+    "offset": 1720330322
+  },
+  {
+    "name": "dataset/sems/m1/sem0169.png",
+    "size": 9952837,
+    "compressed": 9952837,
+    "offset": 1730325256
+  },
+  {
+    "name": "dataset/sems/m1/sem0170.png",
+    "size": 9945733,
+    "compressed": 9945733,
+    "offset": 1740278206
+  },
+  {
+    "name": "dataset/sems/m1/sem0171.png",
+    "size": 9974560,
+    "compressed": 9974560,
+    "offset": 1750224052
+  },
+  {
+    "name": "dataset/sems/m1/sem0172.png",
+    "size": 9987003,
+    "compressed": 9987003,
+    "offset": 1760198725
+  },
+  {
+    "name": "dataset/sems/m1/sem0173.png",
+    "size": 9960575,
+    "compressed": 9960575,
+    "offset": 1770185841
+  },
+  {
+    "name": "dataset/sems/m1/sem0174.png",
+    "size": 9961338,
+    "compressed": 9961338,
+    "offset": 1780146529
+  },
+  {
+    "name": "dataset/sems/m1/sem0175.png",
+    "size": 9972081,
+    "compressed": 9972081,
+    "offset": 1790107980
+  },
+  {
+    "name": "dataset/sems/m1/sem0176.png",
+    "size": 9954314,
+    "compressed": 9954314,
+    "offset": 1800080174
+  },
+  {
+    "name": "dataset/sems/m1/sem0177.png",
+    "size": 9991466,
+    "compressed": 9991466,
+    "offset": 1810034601
+  },
+  {
+    "name": "dataset/sems/m1/sem0178.png",
+    "size": 9931774,
+    "compressed": 9931774,
+    "offset": 1820026180
+  },
+  {
+    "name": "dataset/sems/m1/sem0179.png",
+    "size": 9939131,
+    "compressed": 9939131,
+    "offset": 1829958067
+  },
+  {
+    "name": "dataset/sems/m1/sem0180.png",
+    "size": 9979632,
+    "compressed": 9979632,
+    "offset": 1839897311
+  },
+  {
+    "name": "dataset/sems/m1/sem0181.png",
+    "size": 9990814,
+    "compressed": 9990814,
+    "offset": 1849877056
+  },
+  {
+    "name": "dataset/sems/m1/sem0182.png",
+    "size": 9987278,
+    "compressed": 9987278,
+    "offset": 1859867983
+  },
+  {
+    "name": "dataset/sems/m1/sem0183.png",
+    "size": 9963039,
+    "compressed": 9963039,
+    "offset": 1869855374
+  },
+  {
+    "name": "dataset/sems/m1/sem0184.png",
+    "size": 9926806,
+    "compressed": 9926806,
+    "offset": 1879818526
+  },
+  {
+    "name": "dataset/sems/m1/sem0185.png",
+    "size": 9945630,
+    "compressed": 9945630,
+    "offset": 1889745445
+  },
+  {
+    "name": "dataset/sems/m1/sem0186.png",
+    "size": 9967972,
+    "compressed": 9967972,
+    "offset": 1899691188
+  },
+  {
+    "name": "dataset/sems/m1/sem0187.png",
+    "size": 9966124,
+    "compressed": 9966124,
+    "offset": 1909659273
+  },
+  {
+    "name": "dataset/sems/m1/sem0188.png",
+    "size": 9987055,
+    "compressed": 9987055,
+    "offset": 1919625510
+  },
+  {
+    "name": "dataset/sems/m1/sem0189.png",
+    "size": 9969845,
+    "compressed": 9969845,
+    "offset": 1929612678
+  },
+  {
+    "name": "dataset/sems/m1/sem0190.png",
+    "size": 9988917,
+    "compressed": 9988917,
+    "offset": 1939582636
+  },
+  {
+    "name": "dataset/sems/m1/sem0191.png",
+    "size": 9971547,
+    "compressed": 9971547,
+    "offset": 1949571666
+  },
+  {
+    "name": "dataset/sems/m1/sem0192.png",
+    "size": 9965290,
+    "compressed": 9965290,
+    "offset": 1959543326
+  },
+  {
+    "name": "dataset/sems/m1/sem0193.png",
+    "size": 9977195,
+    "compressed": 9977195,
+    "offset": 1969508729
+  },
+  {
+    "name": "dataset/sems/m1/sem0194.png",
+    "size": 9994368,
+    "compressed": 9994368,
+    "offset": 1979486037
+  },
+  {
+    "name": "dataset/sems/m1/sem0195.png",
+    "size": 9929330,
+    "compressed": 9929330,
+    "offset": 1989480518
+  },
+  {
+    "name": "dataset/sems/m1/sem0196.png",
+    "size": 9988944,
+    "compressed": 9988944,
+    "offset": 1999409961
+  },
+  {
+    "name": "dataset/sems/m1/sem0197.png",
+    "size": 10009675,
+    "compressed": 10009675,
+    "offset": 2009399018
+  },
+  {
+    "name": "dataset/sems/m1/sem0198.png",
+    "size": 9936783,
+    "compressed": 9936783,
+    "offset": 2019408806
+  },
+  {
+    "name": "dataset/sems/m1/sem0199.png",
+    "size": 9962782,
+    "compressed": 9962782,
+    "offset": 2029345702
+  },
+  {
+    "name": "dataset/sems/m1/sem0200.png",
+    "size": 9963302,
+    "compressed": 9963302,
+    "offset": 2039308597
+  },
+  {
+    "name": "dataset/sems/m1/sem0201.png",
+    "size": 9969839,
+    "compressed": 9969839,
+    "offset": 2049272012
+  },
+  {
+    "name": "dataset/sems/m1/sem0202.png",
+    "size": 9984515,
+    "compressed": 9984515,
+    "offset": 2059241964
+  },
+  {
+    "name": "dataset/sems/m1/sem0203.png",
+    "size": 9984984,
+    "compressed": 9984984,
+    "offset": 2069226592
+  },
+  {
+    "name": "dataset/sems/m1/sem0204.png",
+    "size": 9999815,
+    "compressed": 9999815,
+    "offset": 2079211689
+  },
+  {
+    "name": "dataset/sems/m1/sem0205.png",
+    "size": 10001494,
+    "compressed": 10001494,
+    "offset": 2089211617
+  },
+  {
+    "name": "dataset/sems/m1/sem0206.png",
+    "size": 9998854,
+    "compressed": 9998854,
+    "offset": 2099213224
+  },
+  {
+    "name": "dataset/sems/m1/sem0207.png",
+    "size": 9940644,
+    "compressed": 9940644,
+    "offset": 2109212191
+  },
+  {
+    "name": "dataset/sems/m1/sem0208.png",
+    "size": 9960400,
+    "compressed": 9960400,
+    "offset": 2119152948
+  },
+  {
+    "name": "dataset/sems/m1/sem0209.png",
+    "size": 9986587,
+    "compressed": 9986587,
+    "offset": 2129113461
+  },
+  {
+    "name": "dataset/sems/m1/sem0210.png",
+    "size": 9982266,
+    "compressed": 9982266,
+    "offset": 2139100161
+  },
+  {
+    "name": "dataset/sems/m1/sem0211.png",
+    "size": 9953417,
+    "compressed": 9953417,
+    "offset": 2149082540
+  },
+  {
+    "name": "dataset/sems/m1/sem0212.png",
+    "size": 9889975,
+    "compressed": 9889975,
+    "offset": 2159036070
+  },
+  {
+    "name": "dataset/sems/m1/sem0213.png",
+    "size": 9949184,
+    "compressed": 9949184,
+    "offset": 2168926158
+  },
+  {
+    "name": "dataset/sems/m1/sem0214.png",
+    "size": 9981606,
+    "compressed": 9981606,
+    "offset": 2178875455
+  },
+  {
+    "name": "dataset/sems/m1/sem0215.png",
+    "size": 9877182,
+    "compressed": 9877182,
+    "offset": 2188857174
+  },
+  {
+    "name": "dataset/sems/m1/sem0216.png",
+    "size": 9947106,
+    "compressed": 9947106,
+    "offset": 2198734469
+  },
+  {
+    "name": "dataset/sems/m1/sem0217.png",
+    "size": 9976413,
+    "compressed": 9976413,
+    "offset": 2208681688
+  },
+  {
+    "name": "dataset/sems/m1/sem0218.png",
+    "size": 9985652,
+    "compressed": 9985652,
+    "offset": 2218658214
+  },
+  {
+    "name": "dataset/sems/m1/sem0219.png",
+    "size": 9982194,
+    "compressed": 9982194,
+    "offset": 2228643979
+  },
+  {
+    "name": "dataset/sems/m1/sem0220.png",
+    "size": 9960302,
+    "compressed": 9960302,
+    "offset": 2238626286
+  },
+  {
+    "name": "dataset/sems/m1/sem0221.png",
+    "size": 9991523,
+    "compressed": 9991523,
+    "offset": 2248586701
+  },
+  {
+    "name": "dataset/sems/m1/sem0222.png",
+    "size": 9951807,
+    "compressed": 9951807,
+    "offset": 2258578337
+  },
+  {
+    "name": "dataset/sems/m1/sem0223.png",
+    "size": 9984803,
+    "compressed": 9984803,
+    "offset": 2268530257
+  },
+  {
+    "name": "dataset/sems/m1/sem0224.png",
+    "size": 9942742,
+    "compressed": 9942742,
+    "offset": 2278515173
+  },
+  {
+    "name": "dataset/sems/m1/sem0225.png",
+    "size": 9974473,
+    "compressed": 9974473,
+    "offset": 2288458028
+  },
+  {
+    "name": "dataset/sems/m1/sem0226.png",
+    "size": 9970764,
+    "compressed": 9970764,
+    "offset": 2298432614
+  },
+  {
+    "name": "dataset/sems/m1/sem0227.png",
+    "size": 9995856,
+    "compressed": 9995856,
+    "offset": 2308403491
+  },
+  {
+    "name": "dataset/sems/m1/sem0228.png",
+    "size": 9963531,
+    "compressed": 9963531,
+    "offset": 2318399460
+  },
+  {
+    "name": "dataset/sems/m1/sem0229.png",
+    "size": 9943151,
+    "compressed": 9943151,
+    "offset": 2328363104
+  },
+  {
+    "name": "dataset/sems/m1/sem0230.png",
+    "size": 9958909,
+    "compressed": 9958909,
+    "offset": 2338306368
+  },
+  {
+    "name": "dataset/sems/m1/sem0231.png",
+    "size": 10008189,
+    "compressed": 10008189,
+    "offset": 2348265390
+  },
+  {
+    "name": "dataset/sems/m1/sem0232.png",
+    "size": 9989415,
+    "compressed": 9989415,
+    "offset": 2358273692
+  },
+  {
+    "name": "dataset/sems/m1/sem0233.png",
+    "size": 9960788,
+    "compressed": 9960788,
+    "offset": 2368263220
+  },
+  {
+    "name": "dataset/sems/m1/sem0234.png",
+    "size": 9949920,
+    "compressed": 9949920,
+    "offset": 2378224121
+  },
+  {
+    "name": "dataset/sems/m1/sem0235.png",
+    "size": 9912014,
+    "compressed": 9912014,
+    "offset": 2388174154
+  },
+  {
+    "name": "dataset/sems/m1/sem0236.png",
+    "size": 9961596,
+    "compressed": 9961596,
+    "offset": 2398086281
+  },
+  {
+    "name": "dataset/sems/m1/sem0237.png",
+    "size": 9946828,
+    "compressed": 9946828,
+    "offset": 2408047990
+  },
+  {
+    "name": "dataset/sems/m1/sem0238.png",
+    "size": 9991903,
+    "compressed": 9991903,
+    "offset": 2417994931
+  },
+  {
+    "name": "dataset/sems/m1/sem0239.png",
+    "size": 9963521,
+    "compressed": 9963521,
+    "offset": 2427986947
+  },
+  {
+    "name": "dataset/sems/m1/sem0240.png",
+    "size": 9931005,
+    "compressed": 9931005,
+    "offset": 2437950581
+  },
+  {
+    "name": "dataset/sems/m1/sem0241.png",
+    "size": 9996352,
+    "compressed": 9996352,
+    "offset": 2447881699
+  },
+  {
+    "name": "dataset/sems/m1/sem0242.png",
+    "size": 9977523,
+    "compressed": 9977523,
+    "offset": 2457878164
+  },
+  {
+    "name": "dataset/sems/m1/sem0243.png",
+    "size": 9997785,
+    "compressed": 9997785,
+    "offset": 2467855800
+  },
+  {
+    "name": "dataset/sems/m1/sem0244.png",
+    "size": 9970944,
+    "compressed": 9970944,
+    "offset": 2477853698
+  },
+  {
+    "name": "dataset/sems/m1/sem0245.png",
+    "size": 9957779,
+    "compressed": 9957779,
+    "offset": 2487824755
+  },
+  {
+    "name": "dataset/sems/m1/sem0246.png",
+    "size": 10000478,
+    "compressed": 10000478,
+    "offset": 2497782647
+  },
+  {
+    "name": "dataset/sems/m1/sem0247.png",
+    "size": 9996291,
+    "compressed": 9996291,
+    "offset": 2507783238
+  },
+  {
+    "name": "dataset/sems/m1/sem0248.png",
+    "size": 9965783,
+    "compressed": 9965783,
+    "offset": 2517779642
+  },
+  {
+    "name": "dataset/sems/m1/sem0249.png",
+    "size": 9976308,
+    "compressed": 9976308,
+    "offset": 2527745538
+  },
+  {
+    "name": "dataset/sems/m1/sem0250.png",
+    "size": 9991978,
+    "compressed": 9991978,
+    "offset": 2537721959
+  },
+  {
+    "name": "dataset/sems/m1/sem0251.png",
+    "size": 9970866,
+    "compressed": 9970866,
+    "offset": 2547714050
+  },
+  {
+    "name": "dataset/sems/m1/sem0252.png",
+    "size": 9970759,
+    "compressed": 9970759,
+    "offset": 2557685029
+  },
+  {
+    "name": "dataset/sems/m1/sem0253.png",
+    "size": 9945059,
+    "compressed": 9945059,
+    "offset": 2567655901
+  },
+  {
+    "name": "dataset/sems/m1/sem0254.png",
+    "size": 9979341,
+    "compressed": 9979341,
+    "offset": 2577601073
+  },
+  {
+    "name": "dataset/sems/m1/sem0255.png",
+    "size": 9997850,
+    "compressed": 9997850,
+    "offset": 2587580527
+  },
+  {
+    "name": "dataset/sems/m1/sem0256.png",
+    "size": 9985494,
+    "compressed": 9985494,
+    "offset": 2597578490
+  },
+  {
+    "name": "dataset/sems/m1/sem0257.png",
+    "size": 9945784,
+    "compressed": 9945784,
+    "offset": 2607564097
+  },
+  {
+    "name": "dataset/sems/m1/sem0258.png",
+    "size": 9960089,
+    "compressed": 9960089,
+    "offset": 2617509994
+  },
+  {
+    "name": "dataset/sems/m1/sem0259.png",
+    "size": 9968503,
+    "compressed": 9968503,
+    "offset": 2627470196
+  },
+  {
+    "name": "dataset/sems/m1/sem0260.png",
+    "size": 10003722,
+    "compressed": 10003722,
+    "offset": 2637438812
+  },
+  {
+    "name": "dataset/sems/m1/sem0261.png",
+    "size": 9995775,
+    "compressed": 9995775,
+    "offset": 2647442647
+  },
+  {
+    "name": "dataset/sems/m1/sem0262.png",
+    "size": 9969110,
+    "compressed": 9969110,
+    "offset": 2657438535
+  },
+  {
+    "name": "dataset/sems/m1/sem0263.png",
+    "size": 9967356,
+    "compressed": 9967356,
+    "offset": 2667407758
+  },
+  {
+    "name": "dataset/sems/m1/sem0264.png",
+    "size": 9972933,
+    "compressed": 9972933,
+    "offset": 2677375227
+  },
+  {
+    "name": "dataset/sems/m1/sem0265.png",
+    "size": 9962156,
+    "compressed": 9962156,
+    "offset": 2687348273
+  },
+  {
+    "name": "dataset/sems/m1/sem0266.png",
+    "size": 9955900,
+    "compressed": 9955900,
+    "offset": 2697310542
+  },
+  {
+    "name": "dataset/sems/m1/sem0267.png",
+    "size": 9985857,
+    "compressed": 9985857,
+    "offset": 2707266555
+  },
+  {
+    "name": "dataset/sems/m1/sem0268.png",
+    "size": 9975137,
+    "compressed": 9975137,
+    "offset": 2717252525
+  },
+  {
+    "name": "dataset/sems/m1/sem0269.png",
+    "size": 9948682,
+    "compressed": 9948682,
+    "offset": 2727227775
+  },
+  {
+    "name": "dataset/sems/m1/sem0270.png",
+    "size": 9952240,
+    "compressed": 9952240,
+    "offset": 2737176570
+  },
+  {
+    "name": "dataset/sems/m1/sem0271.png",
+    "size": 9992854,
+    "compressed": 9992854,
+    "offset": 2747128923
+  },
+  {
+    "name": "dataset/sems/m1/sem0272.png",
+    "size": 9979715,
+    "compressed": 9979715,
+    "offset": 2757121890
+  },
+  {
+    "name": "dataset/sems/m1/sem0273.png",
+    "size": 9953093,
+    "compressed": 9953093,
+    "offset": 2767101718
+  },
+  {
+    "name": "dataset/sems/m1/sem0274.png",
+    "size": 9959601,
+    "compressed": 9959601,
+    "offset": 2777054924
+  },
+  {
+    "name": "dataset/sems/m1/sem0275.png",
+    "size": 9969333,
+    "compressed": 9969333,
+    "offset": 2787014638
+  },
+  {
+    "name": "dataset/sems/m1/sem0276.png",
+    "size": 9976575,
+    "compressed": 9976575,
+    "offset": 2796984084
+  },
+  {
+    "name": "dataset/sems/m1/sem0277.png",
+    "size": 9973638,
+    "compressed": 9973638,
+    "offset": 2806960772
+  },
+  {
+    "name": "dataset/sems/m1/sem0278.png",
+    "size": 9980296,
+    "compressed": 9980296,
+    "offset": 2816934523
+  },
+  {
+    "name": "dataset/sems/m1/sem0279.png",
+    "size": 9947783,
+    "compressed": 9947783,
+    "offset": 2826914932
+  },
+  {
+    "name": "dataset/sems/m1/sem0280.png",
+    "size": 9982678,
+    "compressed": 9982678,
+    "offset": 2836862828
+  },
+  {
+    "name": "dataset/sems/m1/sem0281.png",
+    "size": 9943939,
+    "compressed": 9943939,
+    "offset": 2846845619
+  },
+  {
+    "name": "dataset/sems/m1/sem0282.png",
+    "size": 9965659,
+    "compressed": 9965659,
+    "offset": 2856789671
+  },
+  {
+    "name": "dataset/sems/m1/sem0283.png",
+    "size": 9959603,
+    "compressed": 9959603,
+    "offset": 2866755443
+  },
+  {
+    "name": "dataset/sems/m1/sem0284.png",
+    "size": 9980757,
+    "compressed": 9980757,
+    "offset": 2876715159
+  },
+  {
+    "name": "dataset/sems/m1/sem0285.png",
+    "size": 9958095,
+    "compressed": 9958095,
+    "offset": 2886696029
+  },
+  {
+    "name": "dataset/sems/m1/sem0286.png",
+    "size": 9960757,
+    "compressed": 9960757,
+    "offset": 2896654237
+  },
+  {
+    "name": "dataset/sems/m1/sem0287.png",
+    "size": 9966170,
+    "compressed": 9966170,
+    "offset": 2906615107
+  },
+  {
+    "name": "dataset/sems/m1/sem0288.png",
+    "size": 9970587,
+    "compressed": 9970587,
+    "offset": 2916581390
+  },
+  {
+    "name": "dataset/sems/m1/sem0289.png",
+    "size": 9958918,
+    "compressed": 9958918,
+    "offset": 2926552090
+  },
+  {
+    "name": "dataset/sems/m1/sem0290.png",
+    "size": 9961212,
+    "compressed": 9961212,
+    "offset": 2936511121
+  },
+  {
+    "name": "dataset/sems/m1/sem0291.png",
+    "size": 9953460,
+    "compressed": 9953460,
+    "offset": 2946472446
+  },
+  {
+    "name": "dataset/sems/m1/sem0292.png",
+    "size": 9929686,
+    "compressed": 9929686,
+    "offset": 2956426019
+  },
+  {
+    "name": "dataset/sems/m1/sem0293.png",
+    "size": 9947404,
+    "compressed": 9947404,
+    "offset": 2966355818
+  },
+  {
+    "name": "dataset/sems/m1/sem0294.png",
+    "size": 9964283,
+    "compressed": 9964283,
+    "offset": 2976303335
+  },
+  {
+    "name": "dataset/sems/m1/sem0295.png",
+    "size": 9968965,
+    "compressed": 9968965,
+    "offset": 2986267731
+  },
+  {
+    "name": "dataset/sems/m1/sem0296.png",
+    "size": 9964522,
+    "compressed": 9964522,
+    "offset": 2996236809
+  },
+  {
+    "name": "dataset/sems/m1/sem0297.png",
+    "size": 9965774,
+    "compressed": 9965774,
+    "offset": 3006201444
+  },
+  {
+    "name": "dataset/sems/m1/sem0298.png",
+    "size": 9954753,
+    "compressed": 9954753,
+    "offset": 3016167331
+  },
+  {
+    "name": "dataset/sems/m1/sem0299.png",
+    "size": 9981575,
+    "compressed": 9981575,
+    "offset": 3026122197
+  },
+  {
+    "name": "dataset/sems/m1/sem0300.png",
+    "size": 9943468,
+    "compressed": 9943468,
+    "offset": 3036103885
+  },
+  {
+    "name": "dataset/sems/m1/sem0301.png",
+    "size": 9995845,
+    "compressed": 9995845,
+    "offset": 3046047466
+  },
+  {
+    "name": "dataset/sems/m1/sem0302.png",
+    "size": 9964092,
+    "compressed": 9964092,
+    "offset": 3056043424
+  },
+  {
+    "name": "dataset/sems/m1/sem0303.png",
+    "size": 9959324,
+    "compressed": 9959324,
+    "offset": 3066007629
+  },
+  {
+    "name": "dataset/sems/m1/sem0304.png",
+    "size": 9977300,
+    "compressed": 9977300,
+    "offset": 3075967066
+  },
+  {
+    "name": "dataset/sems/m1/sem0305.png",
+    "size": 9923413,
+    "compressed": 9923413,
+    "offset": 3085944479
+  },
+  {
+    "name": "dataset/sems/m1/sem0306.png",
+    "size": 9940766,
+    "compressed": 9940766,
+    "offset": 3095868005
+  },
+  {
+    "name": "dataset/sems/m1/sem0307.png",
+    "size": 9984009,
+    "compressed": 9984009,
+    "offset": 3105808884
+  },
+  {
+    "name": "dataset/sems/m1/sem0308.png",
+    "size": 9990826,
+    "compressed": 9990826,
+    "offset": 3115793006
+  },
+  {
+    "name": "dataset/sems/m1/sem0309.png",
+    "size": 9966234,
+    "compressed": 9966234,
+    "offset": 3125783945
+  },
+  {
+    "name": "dataset/sems/m1/sem0310.png",
+    "size": 9988102,
+    "compressed": 9988102,
+    "offset": 3135750292
+  },
+  {
+    "name": "dataset/sems/m1/sem0311.png",
+    "size": 9970497,
+    "compressed": 9970497,
+    "offset": 3145738507
+  },
+  {
+    "name": "dataset/sems/m1/sem0312.png",
+    "size": 9956796,
+    "compressed": 9956796,
+    "offset": 3155709117
+  },
+  {
+    "name": "dataset/sems/m1/sem0313.png",
+    "size": 9957141,
+    "compressed": 9957141,
+    "offset": 3165666026
+  },
+  {
+    "name": "dataset/sems/m1/sem0314.png",
+    "size": 9983175,
+    "compressed": 9983175,
+    "offset": 3175623280
+  },
+  {
+    "name": "dataset/sems/m1/sem0315.png",
+    "size": 9956251,
+    "compressed": 9956251,
+    "offset": 3185606568
+  },
+  {
+    "name": "dataset/sems/m1/sem0316.png",
+    "size": 9952756,
+    "compressed": 9952756,
+    "offset": 3195562932
+  },
+  {
+    "name": "dataset/sems/m1/sem0317.png",
+    "size": 9896736,
+    "compressed": 9896736,
+    "offset": 3205515801
+  },
+  {
+    "name": "dataset/sems/m1/sem0318.png",
+    "size": 9966972,
+    "compressed": 9966972,
+    "offset": 3215412650
+  },
+  {
+    "name": "dataset/sems/m1/sem0319.png",
+    "size": 9945779,
+    "compressed": 9945779,
+    "offset": 3225379735
+  },
+  {
+    "name": "dataset/sems/m1/sem0320.png",
+    "size": 9964769,
+    "compressed": 9964769,
+    "offset": 3235325627
+  },
+  {
+    "name": "dataset/sems/m1/sem0321.png",
+    "size": 9965253,
+    "compressed": 9965253,
+    "offset": 3245290509
+  },
+  {
+    "name": "dataset/sems/m1/sem0322.png",
+    "size": 9936681,
+    "compressed": 9936681,
+    "offset": 3255255875
+  },
+  {
+    "name": "dataset/sems/m1/sem0323.png",
+    "size": 9949989,
+    "compressed": 9949989,
+    "offset": 3265192669
+  },
+  {
+    "name": "dataset/sems/m1/sem0324.png",
+    "size": 9940711,
+    "compressed": 9940711,
+    "offset": 3275142771
+  },
+  {
+    "name": "dataset/sems/m1/sem0325.png",
+    "size": 9943939,
+    "compressed": 9943939,
+    "offset": 3285083595
+  },
+  {
+    "name": "dataset/sems/m1/sem0326.png",
+    "size": 9964741,
+    "compressed": 9964741,
+    "offset": 3295027647
+  },
+  {
+    "name": "dataset/sems/m2/",
+    "size": 0,
+    "compressed": 0,
+    "offset": 3304992501
+  },
+  {
+    "name": "dataset/sems/m2/sem0000.png",
+    "size": 9649843,
+    "compressed": 9649843,
+    "offset": 3304992579
+  },
+  {
+    "name": "dataset/sems/m2/sem0001.png",
+    "size": 9653953,
+    "compressed": 9653953,
+    "offset": 3314642535
+  },
+  {
+    "name": "dataset/sems/m2/sem0002.png",
+    "size": 9598589,
+    "compressed": 9598589,
+    "offset": 3324296601
+  },
+  {
+    "name": "dataset/sems/m2/sem0003.png",
+    "size": 9617060,
+    "compressed": 9617060,
+    "offset": 3333895303
+  },
+  {
+    "name": "dataset/sems/m2/sem0004.png",
+    "size": 9619790,
+    "compressed": 9619790,
+    "offset": 3343512476
+  },
+  {
+    "name": "dataset/sems/m2/sem0005.png",
+    "size": 9617255,
+    "compressed": 9617255,
+    "offset": 3353132379
+  },
+  {
+    "name": "dataset/sems/m2/sem0006.png",
+    "size": 9629402,
+    "compressed": 9629402,
+    "offset": 3362749747
+  },
+  {
+    "name": "dataset/sems/m2/sem0007.png",
+    "size": 9631728,
+    "compressed": 9631728,
+    "offset": 3372379262
+  },
+  {
+    "name": "dataset/sems/m2/sem0008.png",
+    "size": 9614107,
+    "compressed": 9614107,
+    "offset": 3382011103
+  },
+  {
+    "name": "dataset/sems/m2/sem0009.png",
+    "size": 9661081,
+    "compressed": 9661081,
+    "offset": 3391625323
+  },
+  {
+    "name": "dataset/sems/m2/sem0010.png",
+    "size": 9629818,
+    "compressed": 9629818,
+    "offset": 3401286517
+  },
+  {
+    "name": "dataset/sems/m2/sem0011.png",
+    "size": 9644485,
+    "compressed": 9644485,
+    "offset": 3410916448
+  },
+  {
+    "name": "dataset/sems/m2/sem0012.png",
+    "size": 9611262,
+    "compressed": 9611262,
+    "offset": 3420561046
+  },
+  {
+    "name": "dataset/sems/m2/sem0013.png",
+    "size": 9650819,
+    "compressed": 9650819,
+    "offset": 3430172421
+  },
+  {
+    "name": "dataset/sems/m2/sem0014.png",
+    "size": 9626025,
+    "compressed": 9626025,
+    "offset": 3439823353
+  },
+  {
+    "name": "dataset/sems/m2/sem0015.png",
+    "size": 9633470,
+    "compressed": 9633470,
+    "offset": 3449449491
+  },
+  {
+    "name": "dataset/sems/m2/sem0016.png",
+    "size": 9641500,
+    "compressed": 9641500,
+    "offset": 3459083074
+  },
+  {
+    "name": "dataset/sems/m2/sem0017.png",
+    "size": 9644356,
+    "compressed": 9644356,
+    "offset": 3468724687
+  },
+  {
+    "name": "dataset/sems/m2/sem0018.png",
+    "size": 9652864,
+    "compressed": 9652864,
+    "offset": 3478369156
+  },
+  {
+    "name": "dataset/sems/m2/sem0019.png",
+    "size": 9618244,
+    "compressed": 9618244,
+    "offset": 3488022133
+  },
+  {
+    "name": "dataset/sems/m2/sem0020.png",
+    "size": 9637559,
+    "compressed": 9637559,
+    "offset": 3497640490
+  },
+  {
+    "name": "dataset/sems/m2/sem0021.png",
+    "size": 9655714,
+    "compressed": 9655714,
+    "offset": 3507278162
+  },
+  {
+    "name": "dataset/sems/m2/sem0022.png",
+    "size": 9625416,
+    "compressed": 9625416,
+    "offset": 3516933989
+  },
+  {
+    "name": "dataset/sems/m2/sem0023.png",
+    "size": 9613757,
+    "compressed": 9613757,
+    "offset": 3526559518
+  },
+  {
+    "name": "dataset/sems/m2/sem0024.png",
+    "size": 9607051,
+    "compressed": 9607051,
+    "offset": 3536173388
+  },
+  {
+    "name": "dataset/sems/m2/sem0025.png",
+    "size": 9647352,
+    "compressed": 9647352,
+    "offset": 3545780552
+  },
+  {
+    "name": "dataset/sems/m2/sem0026.png",
+    "size": 9636377,
+    "compressed": 9636377,
+    "offset": 3555428017
+  },
+  {
+    "name": "dataset/sems/m2/sem0027.png",
+    "size": 9608246,
+    "compressed": 9608246,
+    "offset": 3565064507
+  },
+  {
+    "name": "dataset/sems/m2/sem0028.png",
+    "size": 9643135,
+    "compressed": 9643135,
+    "offset": 3574672866
+  },
+  {
+    "name": "dataset/sems/m2/sem0029.png",
+    "size": 9626865,
+    "compressed": 9626865,
+    "offset": 3584316114
+  },
+  {
+    "name": "dataset/sems/m2/sem0030.png",
+    "size": 9630666,
+    "compressed": 9630666,
+    "offset": 3593943092
+  },
+  {
+    "name": "dataset/sems/m2/sem0031.png",
+    "size": 9605420,
+    "compressed": 9605420,
+    "offset": 3603573871
+  },
+  {
+    "name": "dataset/sems/m2/sem0032.png",
+    "size": 9634457,
+    "compressed": 9634457,
+    "offset": 3613179404
+  },
+  {
+    "name": "dataset/sems/m2/sem0033.png",
+    "size": 9632858,
+    "compressed": 9632858,
+    "offset": 3622813974
+  },
+  {
+    "name": "dataset/sems/m2/sem0034.png",
+    "size": 9639437,
+    "compressed": 9639437,
+    "offset": 3632446945
+  },
+  {
+    "name": "dataset/sems/m2/sem0035.png",
+    "size": 9652342,
+    "compressed": 9652342,
+    "offset": 3642086495
+  },
+  {
+    "name": "dataset/sems/m2/sem0036.png",
+    "size": 9650105,
+    "compressed": 9650105,
+    "offset": 3651738950
+  },
+  {
+    "name": "dataset/sems/m2/sem0037.png",
+    "size": 9633810,
+    "compressed": 9633810,
+    "offset": 3661389168
+  },
+  {
+    "name": "dataset/sems/m2/sem0038.png",
+    "size": 9621148,
+    "compressed": 9621148,
+    "offset": 3671023091
+  },
+  {
+    "name": "dataset/sems/m2/sem0039.png",
+    "size": 9600016,
+    "compressed": 9600016,
+    "offset": 3680644352
+  },
+  {
+    "name": "dataset/sems/m2/sem0040.png",
+    "size": 9599061,
+    "compressed": 9599061,
+    "offset": 3690244481
+  },
+  {
+    "name": "dataset/sems/m2/sem0041.png",
+    "size": 9654978,
+    "compressed": 9654978,
+    "offset": 3699843655
+  },
+  {
+    "name": "dataset/sems/m2/sem0042.png",
+    "size": 9601223,
+    "compressed": 9601223,
+    "offset": 3709498746
+  },
+  {
+    "name": "dataset/sems/m2/sem0043.png",
+    "size": 9595192,
+    "compressed": 9595192,
+    "offset": 3719100082
+  },
+  {
+    "name": "dataset/sems/m2/sem0044.png",
+    "size": 9633567,
+    "compressed": 9633567,
+    "offset": 3728695387
+  },
+  {
+    "name": "dataset/sems/m2/sem0045.png",
+    "size": 9647028,
+    "compressed": 9647028,
+    "offset": 3738329067
+  },
+  {
+    "name": "dataset/sems/m2/sem0046.png",
+    "size": 9594502,
+    "compressed": 9594502,
+    "offset": 3747976208
+  },
+  {
+    "name": "dataset/sems/m2/sem0047.png",
+    "size": 9631683,
+    "compressed": 9631683,
+    "offset": 3757570823
+  },
+  {
+    "name": "dataset/sems/m2/sem0048.png",
+    "size": 9656470,
+    "compressed": 9656470,
+    "offset": 3767202619
+  },
+  {
+    "name": "dataset/sems/m2/sem0049.png",
+    "size": 9659436,
+    "compressed": 9659436,
+    "offset": 3776859202
+  },
+  {
+    "name": "dataset/sems/m2/sem0050.png",
+    "size": 9646677,
+    "compressed": 9646677,
+    "offset": 3786518751
+  },
+  {
+    "name": "dataset/sems/m2/sem0051.png",
+    "size": 9638283,
+    "compressed": 9638283,
+    "offset": 3796165541
+  },
+  {
+    "name": "dataset/sems/m2/sem0052.png",
+    "size": 9623704,
+    "compressed": 9623704,
+    "offset": 3805803937
+  },
+  {
+    "name": "dataset/sems/m2/sem0053.png",
+    "size": 9632842,
+    "compressed": 9632842,
+    "offset": 3815427754
+  },
+  {
+    "name": "dataset/sems/m2/sem0054.png",
+    "size": 9645813,
+    "compressed": 9645813,
+    "offset": 3825060709
+  },
+  {
+    "name": "dataset/sems/m2/sem0055.png",
+    "size": 9636552,
+    "compressed": 9636552,
+    "offset": 3834706635
+  },
+  {
+    "name": "dataset/sems/m2/sem0056.png",
+    "size": 9588170,
+    "compressed": 9588170,
+    "offset": 3844343300
+  },
+  {
+    "name": "dataset/sems/m2/sem0057.png",
+    "size": 9613027,
+    "compressed": 9613027,
+    "offset": 3853931583
+  },
+  {
+    "name": "dataset/sems/m2/sem0058.png",
+    "size": 9620698,
+    "compressed": 9620698,
+    "offset": 3863544723
+  },
+  {
+    "name": "dataset/sems/m2/sem0059.png",
+    "size": 9655167,
+    "compressed": 9655167,
+    "offset": 3873165534
+  },
+  {
+    "name": "dataset/sems/m2/sem0060.png",
+    "size": 9633021,
+    "compressed": 9633021,
+    "offset": 3882820814
+  },
+  {
+    "name": "dataset/sems/m2/sem0061.png",
+    "size": 9635021,
+    "compressed": 9635021,
+    "offset": 3892453948
+  },
+  {
+    "name": "dataset/sems/m2/sem0062.png",
+    "size": 9631843,
+    "compressed": 9631843,
+    "offset": 3902089082
+  },
+  {
+    "name": "dataset/sems/m2/sem0063.png",
+    "size": 9611717,
+    "compressed": 9611717,
+    "offset": 3911721038
+  },
+  {
+    "name": "dataset/sems/m2/sem0064.png",
+    "size": 9644836,
+    "compressed": 9644836,
+    "offset": 3921332868
+  },
+  {
+    "name": "dataset/sems/m2/sem0065.png",
+    "size": 9631634,
+    "compressed": 9631634,
+    "offset": 3930977817
+  },
+  {
+    "name": "dataset/sems/m2/sem0066.png",
+    "size": 9605776,
+    "compressed": 9605776,
+    "offset": 3940609564
+  },
+  {
+    "name": "dataset/sems/m2/sem0067.png",
+    "size": 9619947,
+    "compressed": 9619947,
+    "offset": 3950215453
+  },
+  {
+    "name": "dataset/sems/m2/sem0068.png",
+    "size": 9613565,
+    "compressed": 9613565,
+    "offset": 3959835513
+  },
+  {
+    "name": "dataset/sems/m2/sem0069.png",
+    "size": 9617921,
+    "compressed": 9617921,
+    "offset": 3969449191
+  },
+  {
+    "name": "dataset/sems/m2/sem0070.png",
+    "size": 9621338,
+    "compressed": 9621338,
+    "offset": 3979067225
+  },
+  {
+    "name": "dataset/sems/m2/sem0071.png",
+    "size": 9630296,
+    "compressed": 9630296,
+    "offset": 3988688676
+  },
+  {
+    "name": "dataset/sems/m2/sem0072.png",
+    "size": 9612630,
+    "compressed": 9612630,
+    "offset": 3998319085
+  },
+  {
+    "name": "dataset/sems/m2/sem0073.png",
+    "size": 9625509,
+    "compressed": 9625509,
+    "offset": 4007931828
+  },
+  {
+    "name": "dataset/sems/m2/sem0074.png",
+    "size": 9647991,
+    "compressed": 9647991,
+    "offset": 4017557450
+  },
+  {
+    "name": "dataset/sems/m2/sem0075.png",
+    "size": 9626149,
+    "compressed": 9626149,
+    "offset": 4027205554
+  },
+  {
+    "name": "dataset/sems/m2/sem0076.png",
+    "size": 9639318,
+    "compressed": 9639318,
+    "offset": 4036831816
+  },
+  {
+    "name": "dataset/sems/m2/sem0077.png",
+    "size": 9637875,
+    "compressed": 9637875,
+    "offset": 4046471247
+  },
+  {
+    "name": "dataset/sems/m2/sem0078.png",
+    "size": 9653918,
+    "compressed": 9653918,
+    "offset": 4056109235
+  },
+  {
+    "name": "dataset/sems/m2/sem0079.png",
+    "size": 9634781,
+    "compressed": 9634781,
+    "offset": 4065763266
+  },
+  {
+    "name": "dataset/sems/m2/sem0080.png",
+    "size": 9633000,
+    "compressed": 9633000,
+    "offset": 4075398160
+  },
+  {
+    "name": "dataset/sems/m2/sem0081.png",
+    "size": 9651506,
+    "compressed": 9651506,
+    "offset": 4085031273
+  },
+  {
+    "name": "dataset/sems/m2/sem0082.png",
+    "size": 9633577,
+    "compressed": 9633577,
+    "offset": 4094682892
+  },
+  {
+    "name": "dataset/sems/m2/sem0083.png",
+    "size": 9642871,
+    "compressed": 9642871,
+    "offset": 4104316582
+  },
+  {
+    "name": "dataset/sems/m2/sem0084.png",
+    "size": 9635857,
+    "compressed": 9635857,
+    "offset": 4113959566
+  },
+  {
+    "name": "dataset/sems/m2/sem0085.png",
+    "size": 9602840,
+    "compressed": 9602840,
+    "offset": 4123595536
+  },
+  {
+    "name": "dataset/sems/m2/sem0086.png",
+    "size": 9620903,
+    "compressed": 9620903,
+    "offset": 4133198489
+  },
+  {
+    "name": "dataset/sems/m2/sem0087.png",
+    "size": 9658046,
+    "compressed": 9658046,
+    "offset": 4142819505
+  },
+  {
+    "name": "dataset/sems/m2/sem0088.png",
+    "size": 9648979,
+    "compressed": 9648979,
+    "offset": 4152477664
+  },
+  {
+    "name": "dataset/sems/m2/sem0089.png",
+    "size": 9634949,
+    "compressed": 9634949,
+    "offset": 4162126756
+  },
+  {
+    "name": "dataset/sems/m2/sem0090.png",
+    "size": 9642835,
+    "compressed": 9642835,
+    "offset": 4171761818
+  },
+  {
+    "name": "dataset/sems/m2/sem0091.png",
+    "size": 9660501,
+    "compressed": 9660501,
+    "offset": 4181404766
+  },
+  {
+    "name": "dataset/sems/m2/sem0092.png",
+    "size": 9613973,
+    "compressed": 9613973,
+    "offset": 4191065380
+  },
+  {
+    "name": "dataset/sems/m2/sem0093.png",
+    "size": 9637648,
+    "compressed": 9637648,
+    "offset": 4200679466
+  },
+  {
+    "name": "dataset/sems/m2/sem0094.png",
+    "size": 9639965,
+    "compressed": 9639965,
+    "offset": 4210317227
+  },
+  {
+    "name": "dataset/sems/m2/sem0095.png",
+    "size": 9616520,
+    "compressed": 9616520,
+    "offset": 4219957305
+  },
+  {
+    "name": "dataset/sems/m2/sem0096.png",
+    "size": 9622232,
+    "compressed": 9622232,
+    "offset": 4229573938
+  },
+  {
+    "name": "dataset/sems/m2/sem0097.png",
+    "size": 9640822,
+    "compressed": 9640822,
+    "offset": 4239196283
+  },
+  {
+    "name": "dataset/sems/m2/sem0098.png",
+    "size": 9608488,
+    "compressed": 9608488,
+    "offset": 4248837218
+  },
+  {
+    "name": "dataset/sems/m2/sem0099.png",
+    "size": 9642415,
+    "compressed": 9642415,
+    "offset": 4258445819
+  },
+  {
+    "name": "dataset/sems/m2/sem0100.png",
+    "size": 9607176,
+    "compressed": 9607176,
+    "offset": 4268088347
+  },
+  {
+    "name": "dataset/sems/m2/sem0101.png",
+    "size": 9612501,
+    "compressed": 9612501,
+    "offset": 4277695636
+  },
+  {
+    "name": "dataset/sems/m2/sem0102.png",
+    "size": 9597945,
+    "compressed": 9597945,
+    "offset": 4287308250
+  },
+  {
+    "name": "dataset/sems/m2/sem0103.png",
+    "size": 9636322,
+    "compressed": 9636322,
+    "offset": 4296906308
+  },
+  {
+    "name": "dataset/sems/m2/sem0104.png",
+    "size": 9628982,
+    "compressed": 9628982,
+    "offset": 4306542743
+  },
+  {
+    "name": "dataset/sems/m2/sem0105.png",
+    "size": 9635414,
+    "compressed": 9635414,
+    "offset": 4316171838
+  },
+  {
+    "name": "dataset/sems/m2/sem0106.png",
+    "size": 9636362,
+    "compressed": 9636362,
+    "offset": 4325807365
+  },
+  {
+    "name": "dataset/sems/m2/sem0107.png",
+    "size": 9663246,
+    "compressed": 9663246,
+    "offset": 4335443840
+  },
+  {
+    "name": "dataset/sems/m2/sem0108.png",
+    "size": 9631950,
+    "compressed": 9631950,
+    "offset": 4345107199
+  },
+  {
+    "name": "dataset/sems/m2/sem0109.png",
+    "size": 9641386,
+    "compressed": 9641386,
+    "offset": 4354739262
+  },
+  {
+    "name": "dataset/sems/m2/sem0110.png",
+    "size": 9633330,
+    "compressed": 9633330,
+    "offset": 4364380761
+  },
+  {
+    "name": "dataset/sems/m2/sem0111.png",
+    "size": 9608518,
+    "compressed": 9608518,
+    "offset": 4374014204
+  },
+  {
+    "name": "dataset/sems/m2/sem0112.png",
+    "size": 9593092,
+    "compressed": 9593092,
+    "offset": 4383622835
+  },
+  {
+    "name": "dataset/sems/m2/sem0113.png",
+    "size": 9654833,
+    "compressed": 9654833,
+    "offset": 4393216040
+  },
+  {
+    "name": "dataset/sems/m2/sem0114.png",
+    "size": 9625965,
+    "compressed": 9625965,
+    "offset": 4402870986
+  },
+  {
+    "name": "dataset/sems/m2/sem0115.png",
+    "size": 9649099,
+    "compressed": 9649099,
+    "offset": 4412497064
+  },
+  {
+    "name": "dataset/sems/m2/sem0116.png",
+    "size": 9647668,
+    "compressed": 9647668,
+    "offset": 4422146276
+  },
+  {
+    "name": "dataset/sems/m2/sem0117.png",
+    "size": 9604274,
+    "compressed": 9604274,
+    "offset": 4431794057
+  },
+  {
+    "name": "dataset/sems/m2/sem0118.png",
+    "size": 9638178,
+    "compressed": 9638178,
+    "offset": 4441398444
+  },
+  {
+    "name": "dataset/sems/m2/sem0119.png",
+    "size": 9653132,
+    "compressed": 9653132,
+    "offset": 4451036735
+  },
+  {
+    "name": "dataset/sems/m2/sem0120.png",
+    "size": 9649176,
+    "compressed": 9649176,
+    "offset": 4460689980
+  },
+  {
+    "name": "dataset/sems/m2/sem0121.png",
+    "size": 9613677,
+    "compressed": 9613677,
+    "offset": 4470339269
+  },
+  {
+    "name": "dataset/sems/m2/sem0122.png",
+    "size": 9633420,
+    "compressed": 9633420,
+    "offset": 4479953059
+  },
+  {
+    "name": "dataset/sems/m2/sem0123.png",
+    "size": 9621321,
+    "compressed": 9621321,
+    "offset": 4489586592
+  },
+  {
+    "name": "dataset/sems/m2/sem0124.png",
+    "size": 9647478,
+    "compressed": 9647478,
+    "offset": 4499208026
+  },
+  {
+    "name": "dataset/sems/m2/sem0125.png",
+    "size": 9631669,
+    "compressed": 9631669,
+    "offset": 4508855617
+  },
+  {
+    "name": "dataset/sems/m2/sem0126.png",
+    "size": 9605050,
+    "compressed": 9605050,
+    "offset": 4518487399
+  },
+  {
+    "name": "dataset/sems/m2/sem0127.png",
+    "size": 9624740,
+    "compressed": 9624740,
+    "offset": 4528092562
+  },
+  {
+    "name": "dataset/sems/m2/sem0128.png",
+    "size": 9627537,
+    "compressed": 9627537,
+    "offset": 4537717415
+  },
+  {
+    "name": "dataset/sems/m2/sem0129.png",
+    "size": 9609211,
+    "compressed": 9609211,
+    "offset": 4547345065
+  },
+  {
+    "name": "dataset/sems/m2/sem0130.png",
+    "size": 9633640,
+    "compressed": 9633640,
+    "offset": 4556954389
+  },
+  {
+    "name": "dataset/sems/m2/sem0131.png",
+    "size": 9619155,
+    "compressed": 9619155,
+    "offset": 4566588142
+  },
+  {
+    "name": "dataset/sems/m2/sem0132.png",
+    "size": 9653628,
+    "compressed": 9653628,
+    "offset": 4576207410
+  },
+  {
+    "name": "dataset/sems/m2/sem0133.png",
+    "size": 9629455,
+    "compressed": 9629455,
+    "offset": 4585861151
+  },
+  {
+    "name": "dataset/sems/m2/sem0134.png",
+    "size": 9617789,
+    "compressed": 9617789,
+    "offset": 4595490719
+  },
+  {
+    "name": "dataset/sems/m2/sem0135.png",
+    "size": 9649229,
+    "compressed": 9649229,
+    "offset": 4605108621
+  },
+  {
+    "name": "dataset/sems/m2/sem0136.png",
+    "size": 9606508,
+    "compressed": 9606508,
+    "offset": 4614757963
+  },
+  {
+    "name": "dataset/sems/m2/sem0137.png",
+    "size": 9586510,
+    "compressed": 9586510,
+    "offset": 4624364584
+  },
+  {
+    "name": "dataset/sems/m2/sem0138.png",
+    "size": 9604940,
+    "compressed": 9604940,
+    "offset": 4633951207
+  },
+  {
+    "name": "dataset/sems/m2/sem0139.png",
+    "size": 9653432,
+    "compressed": 9653432,
+    "offset": 4643556260
+  },
+  {
+    "name": "dataset/sems/m2/sem0140.png",
+    "size": 9608698,
+    "compressed": 9608698,
+    "offset": 4653209805
+  },
+  {
+    "name": "dataset/sems/m2/sem0141.png",
+    "size": 9599615,
+    "compressed": 9599615,
+    "offset": 4662818616
+  },
+  {
+    "name": "dataset/sems/m2/sem0142.png",
+    "size": 9620972,
+    "compressed": 9620972,
+    "offset": 4672418344
+  },
+  {
+    "name": "dataset/sems/m2/sem0143.png",
+    "size": 9634750,
+    "compressed": 9634750,
+    "offset": 4682039429
+  },
+  {
+    "name": "dataset/sems/m2/sem0144.png",
+    "size": 9619747,
+    "compressed": 9619747,
+    "offset": 4691674292
+  },
+  {
+    "name": "dataset/sems/m2/sem0145.png",
+    "size": 9625347,
+    "compressed": 9625347,
+    "offset": 4701294152
+  },
+  {
+    "name": "dataset/sems/m2/sem0146.png",
+    "size": 9588428,
+    "compressed": 9588428,
+    "offset": 4710919612
+  },
+  {
+    "name": "dataset/sems/m2/sem0147.png",
+    "size": 9630361,
+    "compressed": 9630361,
+    "offset": 4720508153
+  },
+  {
+    "name": "dataset/sems/m2/sem0148.png",
+    "size": 9617112,
+    "compressed": 9617112,
+    "offset": 4730138627
+  },
+  {
+    "name": "dataset/sems/m2/sem0149.png",
+    "size": 9619591,
+    "compressed": 9619591,
+    "offset": 4739755852
+  },
+  {
+    "name": "dataset/sems/m2/sem0150.png",
+    "size": 9593592,
+    "compressed": 9593592,
+    "offset": 4749375556
+  },
+  {
+    "name": "dataset/sems/m2/sem0151.png",
+    "size": 9637002,
+    "compressed": 9637002,
+    "offset": 4758969261
+  },
+  {
+    "name": "dataset/sems/m2/sem0152.png",
+    "size": 9590228,
+    "compressed": 9590228,
+    "offset": 4768606376
+  },
+  {
+    "name": "dataset/sems/m2/sem0153.png",
+    "size": 9617064,
+    "compressed": 9617064,
+    "offset": 4778196717
+  },
+  {
+    "name": "dataset/sems/m2/sem0154.png",
+    "size": 9637403,
+    "compressed": 9637403,
+    "offset": 4787813894
+  },
+  {
+    "name": "dataset/sems/m2/sem0155.png",
+    "size": 9638223,
+    "compressed": 9638223,
+    "offset": 4797451410
+  },
+  {
+    "name": "dataset/sems/m2/sem0156.png",
+    "size": 9607152,
+    "compressed": 9607152,
+    "offset": 4807089746
+  },
+  {
+    "name": "dataset/sems/m2/sem0157.png",
+    "size": 9648042,
+    "compressed": 9648042,
+    "offset": 4816697011
+  },
+  {
+    "name": "dataset/sems/m2/sem0158.png",
+    "size": 9605174,
+    "compressed": 9605174,
+    "offset": 4826345166
+  },
+  {
+    "name": "dataset/sems/m2/sem0159.png",
+    "size": 9634606,
+    "compressed": 9634606,
+    "offset": 4835950453
+  },
+  {
+    "name": "dataset/sems/m2/sem0160.png",
+    "size": 9623246,
+    "compressed": 9623246,
+    "offset": 4845585172
+  },
+  {
+    "name": "dataset/sems/m2/sem0161.png",
+    "size": 9647607,
+    "compressed": 9647607,
+    "offset": 4855208531
+  },
+  {
+    "name": "dataset/sems/m2/sem0162.png",
+    "size": 9631340,
+    "compressed": 9631340,
+    "offset": 4864856251
+  },
+  {
+    "name": "dataset/sems/m2/sem0163.png",
+    "size": 9631983,
+    "compressed": 9631983,
+    "offset": 4874487704
+  },
+  {
+    "name": "dataset/sems/m2/sem0164.png",
+    "size": 9623312,
+    "compressed": 9623312,
+    "offset": 4884119800
+  },
+  {
+    "name": "dataset/sems/m2/sem0165.png",
+    "size": 9603274,
+    "compressed": 9603274,
+    "offset": 4893743225
+  },
+  {
+    "name": "dataset/sems/m2/sem0166.png",
+    "size": 9644251,
+    "compressed": 9644251,
+    "offset": 4903346612
+  },
+  {
+    "name": "dataset/sems/m2/sem0167.png",
+    "size": 9647234,
+    "compressed": 9647234,
+    "offset": 4912990976
+  },
+  {
+    "name": "dataset/sems/m2/sem0168.png",
+    "size": 9644152,
+    "compressed": 9644152,
+    "offset": 4922638323
+  },
+  {
+    "name": "dataset/sems/m2/sem0169.png",
+    "size": 9607127,
+    "compressed": 9607127,
+    "offset": 4932282588
+  },
+  {
+    "name": "dataset/sems/m2/sem0170.png",
+    "size": 9607936,
+    "compressed": 9607936,
+    "offset": 4941889828
+  },
+  {
+    "name": "dataset/sems/m2/sem0171.png",
+    "size": 9628811,
+    "compressed": 9628811,
+    "offset": 4951497877
+  },
+  {
+    "name": "dataset/sems/m2/sem0172.png",
+    "size": 9640776,
+    "compressed": 9640776,
+    "offset": 4961126801
+  },
+  {
+    "name": "dataset/sems/m2/sem0173.png",
+    "size": 9651563,
+    "compressed": 9651563,
+    "offset": 4970767690
+  },
+  {
+    "name": "dataset/sems/m2/sem0174.png",
+    "size": 9627412,
+    "compressed": 9627412,
+    "offset": 4980419366
+  },
+  {
+    "name": "dataset/sems/m2/sem0175.png",
+    "size": 9617633,
+    "compressed": 9617633,
+    "offset": 4990046891
+  },
+  {
+    "name": "dataset/sems/m2/sem0176.png",
+    "size": 9626495,
+    "compressed": 9626495,
+    "offset": 4999664637
+  },
+  {
+    "name": "dataset/sems/m2/sem0177.png",
+    "size": 9634600,
+    "compressed": 9634600,
+    "offset": 5009291245
+  },
+  {
+    "name": "dataset/sems/m2/sem0178.png",
+    "size": 9619260,
+    "compressed": 9619260,
+    "offset": 5018925958
+  },
+  {
+    "name": "dataset/sems/m2/sem0179.png",
+    "size": 9612588,
+    "compressed": 9612588,
+    "offset": 5028545331
+  },
+  {
+    "name": "dataset/sems/m2/sem0180.png",
+    "size": 9659458,
+    "compressed": 9659458,
+    "offset": 5038158032
+  },
+  {
+    "name": "dataset/sems/m2/sem0181.png",
+    "size": 9619717,
+    "compressed": 9619717,
+    "offset": 5047817603
+  },
+  {
+    "name": "dataset/sems/m2/sem0182.png",
+    "size": 9669416,
+    "compressed": 9669416,
+    "offset": 5057437433
+  },
+  {
+    "name": "dataset/sems/m2/sem0183.png",
+    "size": 9619046,
+    "compressed": 9619046,
+    "offset": 5067106962
+  },
+  {
+    "name": "dataset/sems/m2/sem0184.png",
+    "size": 9612079,
+    "compressed": 9612079,
+    "offset": 5076726121
+  },
+  {
+    "name": "dataset/sems/m2/sem0185.png",
+    "size": 9618923,
+    "compressed": 9618923,
+    "offset": 5086338313
+  },
+  {
+    "name": "dataset/sems/m2/sem0186.png",
+    "size": 9616965,
+    "compressed": 9616965,
+    "offset": 5095957349
+  },
+  {
+    "name": "dataset/sems/m2/sem0187.png",
+    "size": 9615552,
+    "compressed": 9615552,
+    "offset": 5105574427
+  },
+  {
+    "name": "dataset/sems/m2/sem0188.png",
+    "size": 9650430,
+    "compressed": 9650430,
+    "offset": 5115190092
+  },
+  {
+    "name": "dataset/sems/m2/sem0189.png",
+    "size": 9587977,
+    "compressed": 9587977,
+    "offset": 5124840635
+  },
+  {
+    "name": "dataset/sems/m2/sem0190.png",
+    "size": 9652311,
+    "compressed": 9652311,
+    "offset": 5134428725
+  },
+  {
+    "name": "dataset/sems/m2/sem0191.png",
+    "size": 9595997,
+    "compressed": 9595997,
+    "offset": 5144081149
+  },
+  {
+    "name": "dataset/sems/m2/sem0192.png",
+    "size": 9640674,
+    "compressed": 9640674,
+    "offset": 5153677259
+  },
+  {
+    "name": "dataset/sems/m2/sem0193.png",
+    "size": 9604765,
+    "compressed": 9604765,
+    "offset": 5163318046
+  },
+  {
+    "name": "dataset/sems/m2/sem0194.png",
+    "size": 9656441,
+    "compressed": 9656441,
+    "offset": 5172922924
+  },
+  {
+    "name": "dataset/sems/m2/sem0195.png",
+    "size": 9591471,
+    "compressed": 9591471,
+    "offset": 5182579478
+  },
+  {
+    "name": "dataset/sems/m2/sem0196.png",
+    "size": 9651271,
+    "compressed": 9651271,
+    "offset": 5192171062
+  },
+  {
+    "name": "dataset/sems/m2/sem0197.png",
+    "size": 9627779,
+    "compressed": 9627779,
+    "offset": 5201822446
+  },
+  {
+    "name": "dataset/sems/m2/sem0198.png",
+    "size": 9649404,
+    "compressed": 9649404,
+    "offset": 5211450338
+  },
+  {
+    "name": "dataset/sems/m2/sem0199.png",
+    "size": 9618918,
+    "compressed": 9618918,
+    "offset": 5221099855
+  },
+  {
+    "name": "dataset/sems/m2/sem0200.png",
+    "size": 9627694,
+    "compressed": 9627694,
+    "offset": 5230718886
+  },
+  {
+    "name": "dataset/sems/m2/sem0201.png",
+    "size": 9626083,
+    "compressed": 9626083,
+    "offset": 5240346693
+  },
+  {
+    "name": "dataset/sems/m2/sem0202.png",
+    "size": 9636984,
+    "compressed": 9636984,
+    "offset": 5249972889
+  },
+  {
+    "name": "dataset/sems/m2/sem0203.png",
+    "size": 9615481,
+    "compressed": 9615481,
+    "offset": 5259609986
+  },
+  {
+    "name": "dataset/sems/m2/sem0204.png",
+    "size": 9653184,
+    "compressed": 9653184,
+    "offset": 5269225580
+  },
+  {
+    "name": "dataset/sems/m2/sem0205.png",
+    "size": 9651429,
+    "compressed": 9651429,
+    "offset": 5278878877
+  },
+  {
+    "name": "dataset/sems/m2/sem0206.png",
+    "size": 9582768,
+    "compressed": 9582768,
+    "offset": 5288530419
+  },
+  {
+    "name": "dataset/sems/m2/sem0207.png",
+    "size": 9618410,
+    "compressed": 9618410,
+    "offset": 5298113300
+  },
+  {
+    "name": "dataset/sems/m2/sem0208.png",
+    "size": 9646453,
+    "compressed": 9646453,
+    "offset": 5307731823
+  },
+  {
+    "name": "dataset/sems/m2/sem0209.png",
+    "size": 9613837,
+    "compressed": 9613837,
+    "offset": 5317378389
+  },
+  {
+    "name": "dataset/sems/m2/sem0210.png",
+    "size": 9644312,
+    "compressed": 9644312,
+    "offset": 5326992339
+  },
+  {
+    "name": "dataset/sems/m2/sem0211.png",
+    "size": 9622521,
+    "compressed": 9622521,
+    "offset": 5336636764
+  },
+  {
+    "name": "dataset/sems/m2/sem0212.png",
+    "size": 9647807,
+    "compressed": 9647807,
+    "offset": 5346259398
+  },
+  {
+    "name": "dataset/sems/m2/sem0213.png",
+    "size": 9616938,
+    "compressed": 9616938,
+    "offset": 5355907318
+  },
+  {
+    "name": "dataset/sems/m2/sem0214.png",
+    "size": 9629959,
+    "compressed": 9629959,
+    "offset": 5365524369
+  },
+  {
+    "name": "dataset/sems/m2/sem0215.png",
+    "size": 9643934,
+    "compressed": 9643934,
+    "offset": 5375154441
+  },
+  {
+    "name": "dataset/sems/m2/sem0216.png",
+    "size": 9651188,
+    "compressed": 9651188,
+    "offset": 5384798488
+  },
+  {
+    "name": "dataset/sems/m2/sem0217.png",
+    "size": 9639109,
+    "compressed": 9639109,
+    "offset": 5394449789
+  },
+  {
+    "name": "dataset/sems/m2/sem0218.png",
+    "size": 9639746,
+    "compressed": 9639746,
+    "offset": 5404089011
+  },
+  {
+    "name": "dataset/sems/m2/sem0219.png",
+    "size": 9638992,
+    "compressed": 9638992,
+    "offset": 5413728870
+  },
+  {
+    "name": "dataset/sems/m2/sem0220.png",
+    "size": 9634209,
+    "compressed": 9634209,
+    "offset": 5423367975
+  },
+  {
+    "name": "dataset/sems/m2/sem0221.png",
+    "size": 9644549,
+    "compressed": 9644549,
+    "offset": 5433002297
+  },
+  {
+    "name": "dataset/sems/m2/sem0222.png",
+    "size": 9646886,
+    "compressed": 9646886,
+    "offset": 5442646959
+  },
+  {
+    "name": "dataset/sems/m2/sem0223.png",
+    "size": 9634917,
+    "compressed": 9634917,
+    "offset": 5452293958
+  },
+  {
+    "name": "dataset/sems/m2/sem0224.png",
+    "size": 9626518,
+    "compressed": 9626518,
+    "offset": 5461928988
+  },
+  {
+    "name": "dataset/sems/m2/sem0225.png",
+    "size": 9612947,
+    "compressed": 9612947,
+    "offset": 5471555619
+  },
+  {
+    "name": "dataset/sems/m2/sem0226.png",
+    "size": 9604317,
+    "compressed": 9604317,
+    "offset": 5481168679
+  },
+  {
+    "name": "dataset/sems/m2/sem0227.png",
+    "size": 9647862,
+    "compressed": 9647862,
+    "offset": 5490773109
+  },
+  {
+    "name": "dataset/sems/m2/sem0228.png",
+    "size": 9645178,
+    "compressed": 9645178,
+    "offset": 5500421084
+  },
+  {
+    "name": "dataset/sems/m2/sem0229.png",
+    "size": 9617470,
+    "compressed": 9617470,
+    "offset": 5510066375
+  },
+  {
+    "name": "dataset/sems/m2/sem0230.png",
+    "size": 9603528,
+    "compressed": 9603528,
+    "offset": 5519683958
+  },
+  {
+    "name": "dataset/sems/m2/sem0231.png",
+    "size": 9657301,
+    "compressed": 9657301,
+    "offset": 5529287599
+  },
+  {
+    "name": "dataset/sems/m2/sem0232.png",
+    "size": 9654358,
+    "compressed": 9654358,
+    "offset": 5538945013
+  },
+  {
+    "name": "dataset/sems/m2/sem0233.png",
+    "size": 9654213,
+    "compressed": 9654213,
+    "offset": 5548599484
+  },
+  {
+    "name": "dataset/sems/m2/sem0234.png",
+    "size": 9595007,
+    "compressed": 9595007,
+    "offset": 5558253810
+  },
+  {
+    "name": "dataset/sems/m2/sem0235.png",
+    "size": 9653728,
+    "compressed": 9653728,
+    "offset": 5567848930
+  },
+  {
+    "name": "dataset/sems/m2/sem0236.png",
+    "size": 9643581,
+    "compressed": 9643581,
+    "offset": 5577502771
+  },
+  {
+    "name": "dataset/sems/m2/sem0237.png",
+    "size": 9616363,
+    "compressed": 9616363,
+    "offset": 5587146465
+  },
+  {
+    "name": "dataset/sems/m2/sem0238.png",
+    "size": 9633824,
+    "compressed": 9633824,
+    "offset": 5596762941
+  },
+  {
+    "name": "dataset/sems/m2/sem0239.png",
+    "size": 9626619,
+    "compressed": 9626619,
+    "offset": 5606396878
+  },
+  {
+    "name": "dataset/sems/m2/sem0240.png",
+    "size": 9605309,
+    "compressed": 9605309,
+    "offset": 5616023610
+  },
+  {
+    "name": "dataset/sems/m2/sem0241.png",
+    "size": 9649344,
+    "compressed": 9649344,
+    "offset": 5625629032
+  },
+  {
+    "name": "dataset/sems/m2/sem0242.png",
+    "size": 9651956,
+    "compressed": 9651956,
+    "offset": 5635278489
+  },
+  {
+    "name": "dataset/sems/m2/sem0243.png",
+    "size": 9647297,
+    "compressed": 9647297,
+    "offset": 5644930558
+  },
+  {
+    "name": "dataset/sems/m2/sem0244.png",
+    "size": 9641657,
+    "compressed": 9641657,
+    "offset": 5654577968
+  },
+  {
+    "name": "dataset/sems/m2/sem0245.png",
+    "size": 9646715,
+    "compressed": 9646715,
+    "offset": 5664219738
+  },
+  {
+    "name": "dataset/sems/m2/sem0246.png",
+    "size": 9646660,
+    "compressed": 9646660,
+    "offset": 5673866566
+  },
+  {
+    "name": "dataset/sems/m2/sem0247.png",
+    "size": 9647936,
+    "compressed": 9647936,
+    "offset": 5683513339
+  },
+  {
+    "name": "dataset/sems/m2/sem0248.png",
+    "size": 9624983,
+    "compressed": 9624983,
+    "offset": 5693161388
+  },
+  {
+    "name": "dataset/sems/m2/sem0249.png",
+    "size": 9633931,
+    "compressed": 9633931,
+    "offset": 5702786484
+  },
+  {
+    "name": "dataset/sems/m2/sem0250.png",
+    "size": 9604263,
+    "compressed": 9604263,
+    "offset": 5712420528
+  },
+  {
+    "name": "dataset/sems/m2/sem0251.png",
+    "size": 9628595,
+    "compressed": 9628595,
+    "offset": 5722024904
+  },
+  {
+    "name": "dataset/sems/m2/sem0252.png",
+    "size": 9639787,
+    "compressed": 9639787,
+    "offset": 5731653612
+  },
+  {
+    "name": "dataset/sems/m2/sem0253.png",
+    "size": 9638613,
+    "compressed": 9638613,
+    "offset": 5741293512
+  },
+  {
+    "name": "dataset/sems/m2/sem0254.png",
+    "size": 9637039,
+    "compressed": 9637039,
+    "offset": 5750932238
+  },
+  {
+    "name": "dataset/sems/m2/sem0255.png",
+    "size": 9638500,
+    "compressed": 9638500,
+    "offset": 5760569390
+  },
+  {
+    "name": "dataset/sems/m2/sem0256.png",
+    "size": 9645009,
+    "compressed": 9645009,
+    "offset": 5770208003
+  },
+  {
+    "name": "dataset/sems/m2/sem0257.png",
+    "size": 9648289,
+    "compressed": 9648289,
+    "offset": 5779853125
+  },
+  {
+    "name": "dataset/sems/m2/sem0258.png",
+    "size": 9642978,
+    "compressed": 9642978,
+    "offset": 5789501527
+  },
+  {
+    "name": "dataset/sems/m2/sem0259.png",
+    "size": 9627979,
+    "compressed": 9627979,
+    "offset": 5799144618
+  },
+  {
+    "name": "dataset/sems/m2/sem0260.png",
+    "size": 9630194,
+    "compressed": 9630194,
+    "offset": 5808772710
+  },
+  {
+    "name": "dataset/sems/m2/sem0261.png",
+    "size": 9660251,
+    "compressed": 9660251,
+    "offset": 5818403017
+  },
+  {
+    "name": "dataset/sems/m2/sem0262.png",
+    "size": 9630055,
+    "compressed": 9630055,
+    "offset": 5828063381
+  },
+  {
+    "name": "dataset/sems/m2/sem0263.png",
+    "size": 9631724,
+    "compressed": 9631724,
+    "offset": 5837693549
+  },
+  {
+    "name": "dataset/sems/m2/sem0264.png",
+    "size": 9625637,
+    "compressed": 9625637,
+    "offset": 5847325386
+  },
+  {
+    "name": "dataset/sems/m2/sem0265.png",
+    "size": 9646400,
+    "compressed": 9646400,
+    "offset": 5856951136
+  },
+  {
+    "name": "dataset/sems/m2/sem0266.png",
+    "size": 9653647,
+    "compressed": 9653647,
+    "offset": 5866597649
+  },
+  {
+    "name": "dataset/sems/m2/sem0267.png",
+    "size": 9650595,
+    "compressed": 9650595,
+    "offset": 5876251409
+  },
+  {
+    "name": "dataset/sems/m2/sem0268.png",
+    "size": 9637473,
+    "compressed": 9637473,
+    "offset": 5885902117
+  },
+  {
+    "name": "dataset/sems/m2/sem0269.png",
+    "size": 9616250,
+    "compressed": 9616250,
+    "offset": 5895539703
+  },
+  {
+    "name": "dataset/sems/m2/sem0270.png",
+    "size": 9599981,
+    "compressed": 9599981,
+    "offset": 5905156066
+  },
+  {
+    "name": "dataset/sems/m2/sem0271.png",
+    "size": 9650607,
+    "compressed": 9650607,
+    "offset": 5914756160
+  },
+  {
+    "name": "dataset/sems/m2/sem0272.png",
+    "size": 9631715,
+    "compressed": 9631715,
+    "offset": 5924406880
+  },
+  {
+    "name": "dataset/sems/m2/sem0273.png",
+    "size": 9644272,
+    "compressed": 9644272,
+    "offset": 5934038708
+  },
+  {
+    "name": "dataset/sems/m2/sem0274.png",
+    "size": 9625436,
+    "compressed": 9625436,
+    "offset": 5943683093
+  },
+  {
+    "name": "dataset/sems/m2/sem0275.png",
+    "size": 9640702,
+    "compressed": 9640702,
+    "offset": 5953308642
+  },
+  {
+    "name": "dataset/sems/m2/sem0276.png",
+    "size": 9630742,
+    "compressed": 9630742,
+    "offset": 5962949457
+  },
+  {
+    "name": "dataset/sems/m2/sem0277.png",
+    "size": 9646247,
+    "compressed": 9646247,
+    "offset": 5972580312
+  },
+  {
+    "name": "dataset/sems/m2/sem0278.png",
+    "size": 9612049,
+    "compressed": 9612049,
+    "offset": 5982226672
+  },
+  {
+    "name": "dataset/sems/m2/sem0279.png",
+    "size": 9647419,
+    "compressed": 9647419,
+    "offset": 5991838834
+  },
+  {
+    "name": "dataset/sems/m2/sem0280.png",
+    "size": 9616621,
+    "compressed": 9616621,
+    "offset": 6001486366
+  },
+  {
+    "name": "dataset/sems/m2/sem0281.png",
+    "size": 9605700,
+    "compressed": 9605700,
+    "offset": 6011103100
+  },
+  {
+    "name": "dataset/sems/m2/sem0282.png",
+    "size": 9619750,
+    "compressed": 9619750,
+    "offset": 6020708913
+  },
+  {
+    "name": "dataset/sems/m2/sem0283.png",
+    "size": 9632523,
+    "compressed": 9632523,
+    "offset": 6030328776
+  },
+  {
+    "name": "dataset/sems/m2/sem0284.png",
+    "size": 9630603,
+    "compressed": 9630603,
+    "offset": 6039961412
+  },
+  {
+    "name": "dataset/sems/m2/sem0285.png",
+    "size": 9620361,
+    "compressed": 9620361,
+    "offset": 6049592128
+  },
+  {
+    "name": "dataset/sems/m2/sem0286.png",
+    "size": 9637137,
+    "compressed": 9637137,
+    "offset": 6059212602
+  },
+  {
+    "name": "dataset/sems/m2/sem0287.png",
+    "size": 9630831,
+    "compressed": 9630831,
+    "offset": 6068849852
+  },
+  {
+    "name": "dataset/sems/m2/sem0288.png",
+    "size": 9602777,
+    "compressed": 9602777,
+    "offset": 6078480796
+  },
+  {
+    "name": "dataset/sems/m2/sem0289.png",
+    "size": 9625240,
+    "compressed": 9625240,
+    "offset": 6088083686
+  },
+  {
+    "name": "dataset/sems/m2/sem0290.png",
+    "size": 9650775,
+    "compressed": 9650775,
+    "offset": 6097709039
+  },
+  {
+    "name": "dataset/sems/m2/sem0291.png",
+    "size": 9632221,
+    "compressed": 9632221,
+    "offset": 6107359927
+  },
+  {
+    "name": "dataset/sems/m2/sem0292.png",
+    "size": 9638427,
+    "compressed": 9638427,
+    "offset": 6116992261
+  },
+  {
+    "name": "dataset/sems/m2/sem0293.png",
+    "size": 9651241,
+    "compressed": 9651241,
+    "offset": 6126630801
+  },
+  {
+    "name": "dataset/sems/m2/sem0294.png",
+    "size": 9650165,
+    "compressed": 9650165,
+    "offset": 6136282155
+  },
+  {
+    "name": "dataset/sems/m2/sem0295.png",
+    "size": 9634436,
+    "compressed": 9634436,
+    "offset": 6145932433
+  },
+  {
+    "name": "dataset/sems/m2/sem0296.png",
+    "size": 9645628,
+    "compressed": 9645628,
+    "offset": 6155566982
+  },
+  {
+    "name": "dataset/sems/m2/sem0297.png",
+    "size": 9647525,
+    "compressed": 9647525,
+    "offset": 6165212723
+  },
+  {
+    "name": "dataset/sems/m2/sem0298.png",
+    "size": 9631416,
+    "compressed": 9631416,
+    "offset": 6174860361
+  },
+  {
+    "name": "dataset/sems/m2/sem0299.png",
+    "size": 9634747,
+    "compressed": 9634747,
+    "offset": 6184491890
+  },
+  {
+    "name": "dataset/sems/m2/sem0300.png",
+    "size": 9650052,
+    "compressed": 9650052,
+    "offset": 6194126750
+  },
+  {
+    "name": "dataset/sems/m2/sem0301.png",
+    "size": 9616110,
+    "compressed": 9616110,
+    "offset": 6203776915
+  },
+  {
+    "name": "dataset/sems/m2/sem0302.png",
+    "size": 9641965,
+    "compressed": 9641965,
+    "offset": 6213393138
+  },
+  {
+    "name": "dataset/sems/m2/sem0303.png",
+    "size": 9646003,
+    "compressed": 9646003,
+    "offset": 6223035216
+  },
+  {
+    "name": "dataset/sems/m2/sem0304.png",
+    "size": 9626932,
+    "compressed": 9626932,
+    "offset": 6232681332
+  },
+  {
+    "name": "dataset/sems/m2/sem0305.png",
+    "size": 9651336,
+    "compressed": 9651336,
+    "offset": 6242308377
+  },
+  {
+    "name": "dataset/sems/m2/sem0306.png",
+    "size": 9643229,
+    "compressed": 9643229,
+    "offset": 6251959826
+  },
+  {
+    "name": "dataset/sems/m2/sem0307.png",
+    "size": 9630995,
+    "compressed": 9630995,
+    "offset": 6261603168
+  },
+  {
+    "name": "dataset/sems/m2/sem0308.png",
+    "size": 9638534,
+    "compressed": 9638534,
+    "offset": 6271234276
+  },
+  {
+    "name": "dataset/sems/m2/sem0309.png",
+    "size": 9653926,
+    "compressed": 9653926,
+    "offset": 6280872923
+  },
+  {
+    "name": "dataset/sems/m2/sem0310.png",
+    "size": 9640590,
+    "compressed": 9640590,
+    "offset": 6290526962
+  },
+  {
+    "name": "dataset/sems/m2/sem0311.png",
+    "size": 9612680,
+    "compressed": 9612680,
+    "offset": 6300167665
+  },
+  {
+    "name": "dataset/sems/m2/sem0312.png",
+    "size": 9611675,
+    "compressed": 9611675,
+    "offset": 6309780458
+  },
+  {
+    "name": "dataset/sems/m2/sem0313.png",
+    "size": 9641699,
+    "compressed": 9641699,
+    "offset": 6319392246
+  },
+  {
+    "name": "dataset/sems/m2/sem0314.png",
+    "size": 9626412,
+    "compressed": 9626412,
+    "offset": 6329034058
+  },
+  {
+    "name": "dataset/sems/m2/sem0315.png",
+    "size": 9631862,
+    "compressed": 9631862,
+    "offset": 6338660583
+  },
+  {
+    "name": "dataset/sems/m2/sem0316.png",
+    "size": 9655002,
+    "compressed": 9655002,
+    "offset": 6348292558
+  },
+  {
+    "name": "dataset/sems/m2/sem0317.png",
+    "size": 9649357,
+    "compressed": 9649357,
+    "offset": 6357947673
+  },
+  {
+    "name": "dataset/sems/m2/sem0318.png",
+    "size": 9593077,
+    "compressed": 9593077,
+    "offset": 6367597143
+  },
+  {
+    "name": "dataset/sems/m2/sem0319.png",
+    "size": 9637643,
+    "compressed": 9637643,
+    "offset": 6377190333
+  },
+  {
+    "name": "dataset/sems/m2/sem0320.png",
+    "size": 9591906,
+    "compressed": 9591906,
+    "offset": 6386828089
+  }
+]

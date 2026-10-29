@@ -1,0 +1,39 @@
+{
+  "purpose": "DEVELOPMENT_FEASIBILITY_ONLY_NO_NEW_SELECTION",
+  "primary_policy": "witness",
+  "primary_control": "entropy",
+  "primary_budget": 32,
+  "hashes": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/evaluate.py": "0f15f4920ea794f1b268b14a86eada7da4342d75c7091f7fed309f4ba6ad291f",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/learning.py": "f91c08881633c117519567f9d0809d81449e9232eefae8b8a17812553bb403f0",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/PROTOCOL.md": "5f838fe58a2b24e6a63a81fa2e773b7496b227e99f36247d40c005c6ccbb9983",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/models/COMPLETE.json": "32c3afec6652845e637bb02a41f4e422fe5264417444b8a7f7d4fc14f130a2b3",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/COMPLETE.json": "2c9af00a6207bcd1eac9c159864480860a2a6abdf3d49256b261e776f7a0ea8b",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/data/MANIFEST.json": "7290ea670bfe5a955434f1b35c4053dfff560dc81117bff74ae8efb13ed04ad3",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/models/seed17.pt": "a01ba7819e58879d02382873d3595be0e81ac482622db92c9e00fa25507adff6",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/models/seed41.pt": "1918326fbcee8d60ba597ede9f012d562fb3ec3a63cc19110f8b70395c3fcd91",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/entropy_budget0.npz": "a8a4f409580902266ab032ecce9647c9a09c418d13389aa1871ed9ef632a848e",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/entropy_budget8.npz": "87ff81533e47bb6e3a0adb323b941c39ffbc8e26bbc06ca7550f238e258f96d0",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/entropy_budget32.npz": "ccc8e697d297cd3f0e171e7728bd0f675ec58ac6e5da1b9fa6340dba6b619c67",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/entropy_budget128.npz": "8dad6066c925f13b3336d4ca8daf87a67dc977ae9c537bd3f849af5faf835d4a",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/center_budget0.npz": "a8a4f409580902266ab032ecce9647c9a09c418d13389aa1871ed9ef632a848e",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/center_budget8.npz": "36ee1bb9404452a2edcea56c26f2401a68190cfe7bc818eb7b0965565015e48e",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/center_budget32.npz": "da04bf4095b7bc8a7b9143f8e69bcce78b0091c9aa1fa4e156f52357d8ed03ab",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/center_budget128.npz": "487a7ee3a8b65269f01386bf6ec19e1f75b2c2b10350e4a6b57d4e3b62a38c84",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/random_budget0.npz": "a8a4f409580902266ab032ecce9647c9a09c418d13389aa1871ed9ef632a848e",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/random_budget8.npz": "f16d7b6627a2c8f0f611fade23ad9bdff32dd3dc29f177e4bcb0f3a79bbb7af4",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/random_budget32.npz": "62dc1520ac712720af66cb82f55894708908330188acf8d6b85cc2bd53541046",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/random_budget128.npz": "5b47bc2b4313b594169924c8fb68c034a53915bc8abaf67d6a54642fe41d3c63",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/witness_budget0.npz": "a8a4f409580902266ab032ecce9647c9a09c418d13389aa1871ed9ef632a848e",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/witness_budget8.npz": "a2e1637c7abab90f97aa91c60711ebd12e163240161d09cccd2dde5b1f9827ce",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/witness_budget32.npz": "a71f8b64fdc66f5a613e18553dbf944b3bf8f18d4630337e2de82e3630e7ffc4",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/queries/witness_budget128.npz": "e672c89b8873752ad2d4362466e412d3ae6cf5d4872d7013137bd6cc734760df"
+  },
+  "evaluation_geometry": [
+    "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+    "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+    "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+    "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2"
+  ],
+  "optimizer_steps": 0
+}

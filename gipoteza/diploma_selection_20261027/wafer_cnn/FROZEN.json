@@ -1,0 +1,24 @@
+{
+  "utc": "2026-10-27T13:56:39Z",
+  "script_sha256": "d8750a2123fb0224be64e64da5ede238ad672406d5fce8276bf7c8a9d865ce2a",
+  "protocol_sha256": "775f47690568a47dd9392a36cd5a3ad25b3ebcb881701a43cc4276d279beeb1c",
+  "input_sha256": "a8bde56ada6fafde60ed803f4c84a93d1d881ad8bd5c7ba25b02e29ca8dba604",
+  "manifest_sha256": "b75f8e0dee045db78c9e4f855a7c880bdc12fc76edbb093893381c758a0468e3",
+  "device": "mps",
+  "seeds": [
+    3101,
+    3102,
+    3103
+  ],
+  "arms": [
+    "binary_natural",
+    "support_natural",
+    "support_balanced",
+    "tristate_balanced",
+    "support_noaug"
+  ],
+  "steps": 600,
+  "test_predictions_computed": false,
+  "parameters": 89849,
+  "torch": "2.10.0"
+}

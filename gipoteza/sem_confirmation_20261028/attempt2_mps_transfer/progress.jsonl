@@ -1,0 +1,4 @@
+{"seconds": 1.146694250001019, "completed_backbone_steps": 100, "total_backbone_steps": 44000, "stage": "base", "seed": 1701, "step": 100, "target_steps": 400}
+{"seconds": 1.4796864160016412, "completed_backbone_steps": 200, "total_backbone_steps": 44000, "stage": "base", "seed": 1701, "step": 200, "target_steps": 400}
+{"seconds": 1.8708721660004812, "completed_backbone_steps": 300, "total_backbone_steps": 44000, "stage": "base", "seed": 1701, "step": 300, "target_steps": 400}
+{"seconds": 2.2272851250017993, "completed_backbone_steps": 400, "total_backbone_steps": 44000, "stage": "base", "seed": 1701, "step": 400, "target_steps": 400}

@@ -1,0 +1,20 @@
+{
+  "status": "COMPLETE",
+  "seeds": [
+    {
+      "seed": 17,
+      "steps": 1200,
+      "weights_sha256": "a01ba7819e58879d02382873d3595be0e81ac482622db92c9e00fa25507adff6"
+    },
+    {
+      "seed": 41,
+      "steps": 1200,
+      "weights_sha256": "1918326fbcee8d60ba597ede9f012d562fb3ec3a63cc19110f8b70395c3fcd91"
+    }
+  ],
+  "elapsed_seconds": 29.96236662500087,
+  "parameters": 8619,
+  "device": "mps",
+  "cpu_fallback": false,
+  "frozen_sha256": "71b8244ef59a50bf8ad0711b5879df2e7bf2238c9160e365c4718857646163ac"
+}

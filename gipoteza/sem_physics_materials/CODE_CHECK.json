@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "model_parameters": 10681,
+  "uniform_grid_max_error": 6.772360450213455e-15,
+  "binary_bar_approximation_max_error": 8.35320154279895e-06,
+  "archived_loss_absolute_error": 0.0,
+  "archived_gradient_max_error": 1.7585759237714882e-15,
+  "finite_nonzero_gradients": true,
+  "scope": "Synthetic tensors and archived-function equivalence only; no SEM training or empirical performance result."
+}

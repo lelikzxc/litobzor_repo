@@ -1,0 +1,134 @@
+{
+  "purpose": "Historical reanalysis, not new training or a new prospective hypothesis test",
+  "archive_entry_count": 252,
+  "source_archives": {
+    "rejected_results_20261025.json": "3894616b8163c664f8765c09150470a7b2818f88ab0cd3951ea8ca7b1f926b46",
+    "rejected_results_20261026.json": "86b862304c0110815b1534955653af0bc7eca427265ab5cad2ef9225d6cfe2af"
+  },
+  "recovered": [
+    {
+      "original_path": "sem_daft/pilot_v2/REPORT.md",
+      "archive": "rejected_results_20261025.json",
+      "saved": "sources/SEM_CELL_REPORT.md",
+      "text_sha256": "5d6cd5089cd910759d95620558b2dba3bde1fe8a122e815f5836bf81ec1d4829",
+      "historical_sha256": "5d6cd5089cd910759d95620558b2dba3bde1fe8a122e815f5836bf81ec1d4829",
+      "text_matches_historical_sha256": true
+    },
+    {
+      "original_path": "gipoteza/search_20261026/sem_graded_test/RESULT.json",
+      "archive": "rejected_results_20261026.json",
+      "saved": "sources/SEM_GRADED_RESULT.json",
+      "text_sha256": "fa8b06160a36ef8edb52bfbbbf358b12d2b2a5dbd7a67be29f8961dcdf468cd7",
+      "historical_sha256": "fa8b06160a36ef8edb52bfbbbf358b12d2b2a5dbd7a67be29f8961dcdf468cd7",
+      "text_matches_historical_sha256": true
+    },
+    {
+      "original_path": "gipoteza/search_20261026/sem_replication/RESULT.json",
+      "archive": "rejected_results_20261026.json",
+      "saved": "sources/SEM_REPLICATION_RESULT.json",
+      "text_sha256": "e53c8b0484bb1f7174c38b926baab78a72571f4024f2fa05a8acc90645d9c3d5",
+      "historical_sha256": "e53c8b0484bb1f7174c38b926baab78a72571f4024f2fa05a8acc90645d9c3d5",
+      "text_matches_historical_sha256": true
+    },
+    {
+      "original_path": "gipoteza/longer_20261026/RESULT.md",
+      "archive": "rejected_results_20261026.json",
+      "saved": "sources/LONGER_REPORT.md",
+      "text_sha256": "6d949ea9e4b183a9e785ad8d6e0d10e7e497d5fef737d8bcdb37015fa98fefb1",
+      "historical_sha256": "6d949ea9e4b183a9e785ad8d6e0d10e7e497d5fef737d8bcdb37015fa98fefb1",
+      "text_matches_historical_sha256": true
+    },
+    {
+      "original_path": "gipoteza/longer_20261026/evaluation/RESULT.json",
+      "archive": "rejected_results_20261026.json",
+      "saved": "sources/LONGER_RESULT.json",
+      "text_sha256": "fe6f991a56e28f0ae0aef31883cd824ac132bdf48d95dbe9c1f60da8303085f4",
+      "historical_sha256": "fe6f991a56e28f0ae0aef31883cd824ac132bdf48d95dbe9c1f60da8303085f4",
+      "text_matches_historical_sha256": true
+    },
+    {
+      "original_path": "gipoteza/search_next_20261026/functional_observability/ep2/core_confirmation/REPORT.md",
+      "archive": "rejected_results_20261026.json",
+      "saved": "sources/EP2_CORE_REPORT.md",
+      "text_sha256": "239de5e404c9c66d04f24877cfcda160fe7b6ecdd02871e74e2ef7bc34613322",
+      "historical_sha256": "239de5e404c9c66d04f24877cfcda160fe7b6ecdd02871e74e2ef7bc34613322",
+      "text_matches_historical_sha256": true
+    },
+    {
+      "original_path": "gipoteza/search_next_20261026/functional_observability/ep2/probe/REPORT.md",
+      "archive": "rejected_results_20261026.json",
+      "saved": "sources/EP2_PILOT_REPORT.md",
+      "text_sha256": "1f1bab8c9babc44b38f70b6f593511f80234e1b2f81c3e8ed201310bef3e7702",
+      "historical_sha256": "1f1bab8c9babc44b38f70b6f593511f80234e1b2f81c3e8ed201310bef3e7702",
+      "text_matches_historical_sha256": true
+    },
+    {
+      "original_path": "gipoteza/larger_separator_20261026/RESULT.md",
+      "archive": "rejected_results_20261026.json",
+      "saved": "sources/EP2_LARGER_REPORT.md",
+      "text_sha256": "3b3a615c1a0b2d867c328a967c863159989fdc533012f9edce5c6eabf83086a5",
+      "historical_sha256": "3b3a615c1a0b2d867c328a967c863159989fdc533012f9edce5c6eabf83086a5",
+      "text_matches_historical_sha256": true
+    },
+    {
+      "original_path": "gipoteza/NOVELTY_SCREEN_20261025.md",
+      "archive": "rejected_results_20261026.json",
+      "saved": "sources/NOVELTY_SCREEN.md",
+      "text_sha256": "1f577ad3582ce4b0060bd5b8c687fb8b9c747c579b7381043a102c876d5e49ef",
+      "historical_sha256": "1f577ad3582ce4b0060bd5b8c687fb8b9c747c579b7381043a102c876d5e49ef",
+      "text_matches_historical_sha256": true
+    }
+  ],
+  "descriptive_control_effects": {
+    "strong_soft": {
+      "macro_F1_percent": 77.83560811378437,
+      "base_macro_F1_percent": 73.3737732568291,
+      "difference_pp": 4.461834856955271,
+      "per_seed_differences_pp": [
+        3.9723192111084993,
+        6.5900873265238635,
+        5.151762022570871,
+        4.067998208020384,
+        3.0092874608292686,
+        4.606403238786649,
+        3.8078767342023756,
+        4.488944653600213
+      ],
+      "positive_all_eight_seeds": true
+    },
+    "connectivity": {
+      "macro_F1_percent": 75.65109515653836,
+      "base_macro_F1_percent": 73.3737732568291,
+      "difference_pp": 2.2773218997092615,
+      "per_seed_differences_pp": [
+        2.921946087651006,
+        4.380996972937313,
+        2.617525969444212,
+        0.587403052299662,
+        0.8177619747743003,
+        2.6312888139439328,
+        2.1962926045112408,
+        2.065359722112381
+      ],
+      "positive_all_eight_seeds": true
+    },
+    "joint": {
+      "macro_F1_percent": 76.78160882554997,
+      "base_macro_F1_percent": 73.3737732568291,
+      "difference_pp": 3.407835568720863,
+      "per_seed_differences_pp": [
+        3.542179055193051,
+        5.520915296318874,
+        5.237217280404893,
+        1.2872403178873726,
+        1.32036308605612,
+        3.4060970656448974,
+        4.436646786056397,
+        2.5120256622052306
+      ],
+      "positive_all_eight_seeds": true
+    }
+  },
+  "original_joint_hypothesis_status": "FAIL unchanged",
+  "warning": "Controls were not separately preregistered as new hypotheses. Positive seed differences do not establish cross-chip transfer."
+}

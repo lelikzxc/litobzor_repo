@@ -1,0 +1,18 @@
+{
+  "archive_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/main/lithosim/opc_metal/train_val/9987_to_9998.tar.gz",
+  "paper_url": "https://www.cse.cuhk.edu.hk/~byu/papers/C300-NeurIPS2025-LithoSim.pdf",
+  "files_sha256": {
+    "six_panel_train.png": "b332e76dcbea58b45a4508fd43742f90be6f61a4299159c7cbe6711b999ee934",
+    "LithoSim_NeurIPS2025.txt": "c0eaf0bee5bdb7fa478345649bee2cd08a4f58eda1061ac57ea5e9c83147243b",
+    "9987_to_9998.tar.gz": "249f469433d297eec065b17a40bd6ffbabab0406d881443e11e5713639d638b3",
+    "LithoSim_NeurIPS2025.pdf": "ae5e0817cebdf7b6bc4a9a9f3979fedb2779be453ee8e03a28e8978e2fd85d7f",
+    "audit_train_shard.py": "a1b3c2621aa0524db476f3313ebb634c57a8490d4f7d3d69d9f456a26a3db05f",
+    "AUDIT_RESULTS.json": "45afbc7d1da55150c7131c230f380ac21d16b12c4027f689e820886fa93ec7a2",
+    "README.md": "297e660c0273a32e9b9e61cdd2fafce3c1c7cb2ea7fdaee783cfffbf40088532"
+  },
+  "visual_qa": {
+    "file": "six_panel_train.png",
+    "status": "PASS",
+    "notes": "Target, OPC correction, and rounded RI contours visible; white geometry decreases as filename dose increases; no clinical/electrical label asserted."
+  }
+}

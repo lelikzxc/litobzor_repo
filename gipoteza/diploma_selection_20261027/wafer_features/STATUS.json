@@ -1,0 +1,52 @@
+{
+  "status": "PREDICTIONS_COMPLETE",
+  "test_evaluated": true,
+  "models": [
+    {
+      "method": "raw",
+      "seed": 3101,
+      "calibration_F1": 0.7461706790390842,
+      "fit_seconds": 0.31346483300148975,
+      "test_predict_seconds": 0.013884959000279196
+    },
+    {
+      "method": "raw",
+      "seed": 3102,
+      "calibration_F1": 0.744387854420598,
+      "fit_seconds": 0.30228687500130036,
+      "test_predict_seconds": 0.013708250000490807
+    },
+    {
+      "method": "raw",
+      "seed": 3103,
+      "calibration_F1": 0.7564248121167655,
+      "fit_seconds": 0.28841237500091665,
+      "test_predict_seconds": 0.023774999997840496
+    },
+    {
+      "method": "raw_z",
+      "seed": 3101,
+      "calibration_F1": 0.7487677659269474,
+      "fit_seconds": 0.3109485000022687,
+      "test_predict_seconds": 0.014016832999914186
+    },
+    {
+      "method": "raw_z",
+      "seed": 3102,
+      "calibration_F1": 0.7424696944929403,
+      "fit_seconds": 0.3115996250016906,
+      "test_predict_seconds": 0.014335708001453895
+    },
+    {
+      "method": "raw_z",
+      "seed": 3103,
+      "calibration_F1": 0.7507383454540504,
+      "fit_seconds": 0.308924749999278,
+      "test_predict_seconds": 0.01524466599948937
+    }
+  ],
+  "feature_preparation_seconds": 1.609744541998225,
+  "total_seconds": 4.9725932920009654,
+  "maxrss_bytes": 247267328,
+  "script_unchanged": true
+}

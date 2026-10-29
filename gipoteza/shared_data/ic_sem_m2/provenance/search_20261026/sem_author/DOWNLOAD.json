@@ -1,0 +1,156 @@
+{
+  "source": "Rothaug et al. ASHES 2023 author repository; dataset CC BY 4.0",
+  "files": [
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/README.md",
+      "bytes": 2917,
+      "sha256": "a32ed24214d43701712e44794fe001f996b865aa8431909501f59186aba77838"
+    },
+    {
+      "path": "dataset/LICENSE",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/LICENSE",
+      "bytes": 18656,
+      "sha256": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94"
+    },
+    {
+      "path": "dataset/labels/label0000.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0000.svg",
+      "bytes": 148925,
+      "sha256": "7d622aede3da0200d490c6abe79c1364a9eda904998c0ca57f1b1e943dcb1656"
+    },
+    {
+      "path": "dataset/labels/label0001.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0001.svg",
+      "bytes": 148742,
+      "sha256": "55679cfe1cc09802f6e46b699430859d8e30a04ee673d11c715da0608d54a371"
+    },
+    {
+      "path": "dataset/labels/label0002.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0002.svg",
+      "bytes": 118043,
+      "sha256": "b335370096aff05a5fa402351430044b7bdab43b18e644cb71d616f44ac1297b"
+    },
+    {
+      "path": "dataset/labels/label0003.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0003.svg",
+      "bytes": 119132,
+      "sha256": "9d531aaeaaa64480200e89e99ede240ab536e3edda79c0b8a9fe3b07407f3226"
+    },
+    {
+      "path": "dataset/labels/label0004.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0004.svg",
+      "bytes": 145934,
+      "sha256": "80435e93661e59e573f5c8f2fbe248958206b102b5ea5d3c5620b0e940a40aa0"
+    },
+    {
+      "path": "dataset/labels/label0005.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0005.svg",
+      "bytes": 144235,
+      "sha256": "88d3bbf3bdc7b12cd69ca561b31e4d18cc2d3ecf3cd2c9bffc3315017b36ceb3"
+    },
+    {
+      "path": "dataset/labels/label0006.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0006.svg",
+      "bytes": 163685,
+      "sha256": "9f93e7da0380940cb31238e0dc3ef144860a63a540d0b789b3a5e2ca3676bad5"
+    },
+    {
+      "path": "dataset/labels/label0007.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0007.svg",
+      "bytes": 121905,
+      "sha256": "8c9a1cfd5deb41b4feb5e26ce2cf28556256a71b51910ecac5abe3a944c7ea1b"
+    },
+    {
+      "path": "dataset/labels/label0008.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0008.svg",
+      "bytes": 119739,
+      "sha256": "18df76d07c49dc82129f2427b5e03e33784b97cc054a6897871660da4a1c5e44"
+    },
+    {
+      "path": "dataset/labels/label0009.svg",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/labels/label0009.svg",
+      "bytes": 177306,
+      "sha256": "b7c435f4284c58324eb7a444658e8c4fa3d09d32590383bf79855b2a761f5732"
+    },
+    {
+      "path": "dataset/sems/sem0000.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0000.png",
+      "bytes": 9649843,
+      "sha256": "ae44442ed8d175b5c0ac453f820bcae0df45dbd4154d422788c826dafddb7246"
+    },
+    {
+      "path": "dataset/sems/sem0001.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0001.png",
+      "bytes": 9653953,
+      "sha256": "3cc57bae75cc068ee120c262eb7211b139797712dc7c7a40ef374a7563820a32"
+    },
+    {
+      "path": "dataset/sems/sem0002.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0002.png",
+      "bytes": 9598589,
+      "sha256": "6c45d7baec55af78647ce7ece2278bb1c18d3a69181019dad4f88b36a5844de4"
+    },
+    {
+      "path": "dataset/sems/sem0003.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0003.png",
+      "bytes": 9617060,
+      "sha256": "a932e226e956c4e91e4fd70fd5f5dfafc3066d53f93076c3e61633fd23d5004b"
+    },
+    {
+      "path": "dataset/sems/sem0004.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0004.png",
+      "bytes": 9619790,
+      "sha256": "54cd90c3f908af60c1262d1ead1f1a413c393dfc7b46ddc3bda9544c7cf217ab"
+    },
+    {
+      "path": "dataset/sems/sem0005.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0005.png",
+      "bytes": 9617255,
+      "sha256": "dd90369406fa9d7b82ad68efd5efb1aa0a551a9843658f2525c297b6afe1eed1"
+    },
+    {
+      "path": "dataset/sems/sem0006.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0006.png",
+      "bytes": 9629402,
+      "sha256": "af05178903599add85ce210990e13aba67c1c840a3f2c7572822ccca3e9956e5"
+    },
+    {
+      "path": "dataset/sems/sem0007.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0007.png",
+      "bytes": 9631728,
+      "sha256": "62679daf1650132864af28a3a2a615c0b7fd1fb3c4b24c124043f290277f7fc5"
+    },
+    {
+      "path": "dataset/sems/sem0008.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0008.png",
+      "bytes": 9614107,
+      "sha256": "9263e121681fb48745dfe1a77a71bf31cba4563f44ac407e5ef5da2f67e3267f"
+    },
+    {
+      "path": "dataset/sems/sem0009.png",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/dataset/sems/sem0009.png",
+      "bytes": 9661081,
+      "sha256": "9ebd857d7044e30086ecc576fbb69e01f65907e3374fa5727a9ed19fe28337ed"
+    },
+    {
+      "path": "eval.py",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/eval.py",
+      "bytes": 5822,
+      "sha256": "1e16209b7d0ec97972e4999f06abf5ae6c43bef8283cc0be1278652994edf1a4"
+    },
+    {
+      "path": "libs/datasets.py",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/libs/datasets.py",
+      "bytes": 4372,
+      "sha256": "9f08f968586f205faac269eb60c2e36d064a2bf66ad570a563eb76c87876470e"
+    },
+    {
+      "path": "libs/labels.py",
+      "url": "https://raw.githubusercontent.com/emsec/unsupervised-ic-sem-segmentation/main/libs/labels.py",
+      "bytes": 8610,
+      "sha256": "369cd1240c064b50e781edb459ca6bb5dfeb41c1e35e9b1d9989e19d01a38a71"
+    }
+  ],
+  "seconds": 20.59787120799956
+}

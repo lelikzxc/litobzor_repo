@@ -1,0 +1,112 @@
+{
+  "status": "PASS_AUDIT",
+  "hashes": {
+    "cnn_script": true,
+    "cnn_protocol": true,
+    "cnn_input": true,
+    "feature_script": true,
+    "feature_protocol": true,
+    "feature_input": true,
+    "feature_values": true,
+    "analysis_script": true,
+    "cnn_predictions": true,
+    "feature_predictions": true,
+    "checkpoint_binary_natural_3101": true,
+    "checkpoint_support_natural_3101": true,
+    "checkpoint_support_balanced_3101": true,
+    "checkpoint_tristate_balanced_3101": true,
+    "checkpoint_support_noaug_3101": true,
+    "checkpoint_binary_natural_3102": true,
+    "checkpoint_support_natural_3102": true,
+    "checkpoint_support_balanced_3102": true,
+    "checkpoint_tristate_balanced_3102": true,
+    "checkpoint_support_noaug_3102": true,
+    "checkpoint_binary_natural_3103": true,
+    "checkpoint_support_natural_3103": true,
+    "checkpoint_support_balanced_3103": true,
+    "checkpoint_tristate_balanced_3103": true,
+    "checkpoint_support_noaug_3103": true
+  },
+  "lot_split_disjoint": true,
+  "exact_D4_unique": true,
+  "source_PNG_hashes_match": true,
+  "CPU_MPS_max_probability_error": 9.5367431640625e-07,
+  "CPU_MPS_all_fixture_classes_equal": true,
+  "independent_sklearn_point_error": 0.0,
+  "independent_group_confusion_CI_max_error": 1.942890293094024e-16,
+  "reported_gate_statuses_consistent": true,
+  "intervals": {
+    "C1": {
+      "descriptive_CI95": [
+        -0.014435694279910538,
+        0.011257336282379715
+      ],
+      "Bonferroni_7_questions_CI": [
+        -0.01986623959272389,
+        0.015872323485592952
+      ]
+    },
+    "C2": {
+      "descriptive_CI95": [
+        0.01633606593173165,
+        0.05469574843569472
+      ],
+      "Bonferroni_7_questions_CI": [
+        0.009032409091958163,
+        0.06054978737561102
+      ]
+    },
+    "C5": {
+      "descriptive_CI95": [
+        0.08041163842261186,
+        0.11513079271914844
+      ],
+      "Bonferroni_7_questions_CI": [
+        0.07605444130653267,
+        0.12089070983967462
+      ]
+    },
+    "C7": {
+      "descriptive_CI95": [
+        -0.0145631234041389,
+        0.0034848850544431788
+      ],
+      "Bonferroni_7_questions_CI": [
+        -0.017505118743001067,
+        0.006688892312544917
+      ]
+    },
+    "C6": {
+      "descriptive_CI95": [
+        -0.023761424007350363,
+        0.03168547975408578
+      ],
+      "Bonferroni_7_questions_CI": [
+        -0.030790027653325423,
+        0.04144863265467811
+      ]
+    },
+    "C3_F1": {
+      "descriptive_CI95": [
+        0.01355544811118157,
+        0.03857409943016557
+      ],
+      "Bonferroni_7_questions_CI": [
+        0.008968536453096585,
+        0.04386442008977661
+      ]
+    },
+    "C4": {
+      "descriptive_CI95": [
+        0.06321161904441877,
+        0.09121887620486524
+      ],
+      "Bonferroni_7_questions_CI": [
+        0.058588508319688475,
+        0.0972593059311655
+      ]
+    }
+  },
+  "seconds": 1.0883194169982744,
+  "scope": "Independent arithmetic/provenance audit; no model fitting. Simultaneous intervals supplementary, original gates unchanged."
+}

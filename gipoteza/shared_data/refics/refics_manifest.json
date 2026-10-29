@@ -1,0 +1,4034 @@
+[
+  {
+    "uid": "08860076797714",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID08860076797714",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/08860076797714_32_M1_100_10_227_30_21_10_10.png",
+        "member": "32_M1/08860076797714_32_M1_100_10_227_30_21_10_10.png",
+        "bytes": 50404,
+        "sha256": "08dc27cbd53cab9eadfd817240f97d7773e729ec1bcad4005fd53248cde5ee3c"
+      },
+      "mask": {
+        "path": "subset/32/mask/08860076797714_32_M1_100.png",
+        "member": "32_M1/08860076797714_32_M1_100.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/32/layout/08860076797714_32_M1_100_gt.png",
+        "member": "32_M1/08860076797714_32_M1_100_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/08860076797714_32_M1_100.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/08860076797714_32_M1_100_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "227",
+      "foreground_std": "30",
+      "background_mean": "21",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "41002165892",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID41002165892",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/41002165892_32_M1_200_15_249_20_68_20_10.png",
+        "member": "32_M1/41002165892_32_M1_200_15_249_20_68_20_10.png",
+        "bytes": 58376,
+        "sha256": "0a6db450eda1faf1a2a736cc9883a7a92a4109671c4a57ee9b139c0d9633c26e"
+      },
+      "mask": {
+        "path": "subset/32/mask/41002165892_32_M1_200.png",
+        "member": "32_M1/41002165892_32_M1_200.png",
+        "bytes": 4752,
+        "sha256": "9aba2a29fdf85450f9632d5dfff0ff7d0586122e1d58e8494414e439d45d33d0"
+      },
+      "layout": {
+        "path": "subset/32/layout/41002165892_32_M1_200_gt.png",
+        "member": "32_M1/41002165892_32_M1_200_gt.png",
+        "bytes": 1905,
+        "sha256": "24b2c5c88b6945b9995dc9d09cc291cda3d72f6a448cab921282bdb9e8da3163"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/41002165892_32_M1_200.png",
+        "bytes": 5121,
+        "sha256": "b03353e7609f368b3cbd18374f713460983a0dd7cecee789eafe885a8e650f29",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/41002165892_32_M1_200_gt.png",
+        "bytes": 627,
+        "sha256": "2014a3cc22c6b13d499559949707c656a89d8b793b57e827e2aa9e6ce9b3615f",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "249",
+      "foreground_std": "20",
+      "background_mean": "68",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "06520230621529",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "300",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID06520230621529",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/06520230621529_32_M1_300_5_217_30_82_20_3$2.png",
+        "member": "32_M1/06520230621529_32_M1_300_5_217_30_82_20_3$2.png",
+        "bytes": 59413,
+        "sha256": "60dbd74daa244434e9fc93be000c6c2b06235977e88ad9ec2884ad40a8e4df6d"
+      },
+      "mask": {
+        "path": "subset/32/mask/06520230621529_32_M1_300.png",
+        "member": "32_M1/06520230621529_32_M1_300.png",
+        "bytes": 3980,
+        "sha256": "c5628bdfdd87e0dbed13c6747c57309f0f4858b5f2ae4eec58cb7d14b02bf5b2"
+      },
+      "layout": {
+        "path": "subset/32/layout/06520230621529_32_M1_300_gt.png",
+        "member": "32_M1/06520230621529_32_M1_300_gt.png",
+        "bytes": 3142,
+        "sha256": "322b2b29415aeff46eaa80a65a8aed7a1f1dafcaac5b8030abe24affcf7ce58b"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/06520230621529_32_M1_300.png",
+        "bytes": 1862,
+        "sha256": "dae1f39bab34951fb304c79f515b6eeaa15763dfb8c5193fd498f82b93989c42",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/06520230621529_32_M1_300_gt.png",
+        "bytes": 410,
+        "sha256": "1ce92ef52ecbafb8fc9535118e5e0335557cfa73ae519b65342c275f8a57603d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "5",
+      "foreground_mean": "217",
+      "foreground_std": "30",
+      "background_mean": "82",
+      "background_std": "20",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 3.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "870542444",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID870542444",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/870542444_32_M1_400_10_223_30_41_5_3$2.png",
+        "member": "32_M1/870542444_32_M1_400_10_223_30_41_5_3$2.png",
+        "bytes": 50610,
+        "sha256": "5c7219bd9363e734ee23472b2e18fbae8423716cddac3e4fdf84f74b2d3f448b"
+      },
+      "mask": {
+        "path": "subset/32/mask/870542444_32_M1_400.png",
+        "member": "32_M1/870542444_32_M1_400.png",
+        "bytes": 1758,
+        "sha256": "24afb36f25980c5ea5eae718e0c78dc0c82f0d5b5754165a78f29b7d92b23357"
+      },
+      "layout": {
+        "path": "subset/32/layout/870542444_32_M1_400_gt.png",
+        "member": "32_M1/870542444_32_M1_400_gt.png",
+        "bytes": 1436,
+        "sha256": "0ab18913539fbe4fffbdbf84d5334cb903ba5e5d150044fd74a1ca58b2c2f801"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/870542444_32_M1_400.png",
+        "bytes": 1471,
+        "sha256": "2b909bf77cdabb04f656c5000958e6056f76040d78a76fc9dadabc6c5f33fc47",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/870542444_32_M1_400_gt.png",
+        "bytes": 486,
+        "sha256": "75ff2e28ef611c4bed29df237768ba5e4aa49b76e6621e90fe78d7bef3372f3d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "223",
+      "foreground_std": "30",
+      "background_mean": "41",
+      "background_std": "5",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "22833617007051",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID22833617007051",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/22833617007051_32_M1_100_15_233_5_53_10_10.png",
+        "member": "32_M1/22833617007051_32_M1_100_15_233_5_53_10_10.png",
+        "bytes": 54010,
+        "sha256": "843df898533012eb0690375e88c25e70c1aa13acd90124481de694444a98f592"
+      },
+      "mask": {
+        "path": "subset/32/mask/22833617007051_32_M1_100.png",
+        "member": "32_M1/22833617007051_32_M1_100.png",
+        "bytes": 4975,
+        "sha256": "5993c95bb98051a41c543bd69336df5c405f6bc1d553c1b62c8cbecd47712e3a"
+      },
+      "layout": {
+        "path": "subset/32/layout/22833617007051_32_M1_100_gt.png",
+        "member": "32_M1/22833617007051_32_M1_100_gt.png",
+        "bytes": 3605,
+        "sha256": "d10fa076e136c8c6471643a9a7ffd141281fa5d85d7fa0f3325c95160d3b6d37"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/22833617007051_32_M1_100.png",
+        "bytes": 4800,
+        "sha256": "b42ce75ab39aa90c607e60b133543b97fd146fb43debc3149d28d4ba3d0af722",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/22833617007051_32_M1_100_gt.png",
+        "bytes": 848,
+        "sha256": "ae65393e77845f7510419d33f98ff9f0370def5446c0ac03354fe302c1c126e3",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "233",
+      "foreground_std": "5",
+      "background_mean": "53",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "4719622908384",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID4719622908384",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/4719622908384_32_M1_200_15_265_5_56_30_10.png",
+        "member": "32_M1/4719622908384_32_M1_200_15_265_5_56_30_10.png",
+        "bytes": 55241,
+        "sha256": "31df976ce29c5eac6ece62ae9f5886d2245f7e8bbf664589728ac61d87884f2c"
+      },
+      "mask": {
+        "path": "subset/32/mask/4719622908384_32_M1_200.png",
+        "member": "32_M1/4719622908384_32_M1_200.png",
+        "bytes": 4484,
+        "sha256": "2fa27063e3b85f62ba7f3ec9e9c49b51e60fc9c5772bd7fb116eba0031c780f5"
+      },
+      "layout": {
+        "path": "subset/32/layout/4719622908384_32_M1_200_gt.png",
+        "member": "32_M1/4719622908384_32_M1_200_gt.png",
+        "bytes": 2633,
+        "sha256": "7f45a726db3cc671c439f5c8438ea22c093c9f9daae613b52842e27da9dbf900"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/4719622908384_32_M1_200.png",
+        "bytes": 2706,
+        "sha256": "f8cb8ba59df6d56428a63a0595992aef7fc0359cddcfa3ff19d7fed43261fed7",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/4719622908384_32_M1_200_gt.png",
+        "bytes": 573,
+        "sha256": "eda6dd45ce4574af4e75a9e52de127b95bb06514ee3c8a82752fb61589553403",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "265",
+      "foreground_std": "5",
+      "background_mean": "56",
+      "background_std": "30",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "10096881725299",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "300",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID10096881725299",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/10096881725299_32_M1_300_10_218_5_58_30_10.png",
+        "member": "32_M1/10096881725299_32_M1_300_10_218_5_58_30_10.png",
+        "bytes": 59563,
+        "sha256": "a31e8dce1fb6ea3055e4fa89f3349c33f93233bc8051523f2c9e2c8d003be8a4"
+      },
+      "mask": {
+        "path": "subset/32/mask/10096881725299_32_M1_300.png",
+        "member": "32_M1/10096881725299_32_M1_300.png",
+        "bytes": 2191,
+        "sha256": "d6cca6c99ef67f83cd59157927201f355bc15448b22efedc87e0f9af1f2d3f46"
+      },
+      "layout": {
+        "path": "subset/32/layout/10096881725299_32_M1_300_gt.png",
+        "member": "32_M1/10096881725299_32_M1_300_gt.png",
+        "bytes": 1441,
+        "sha256": "2b44ad2004f5e21be76feb02df332e6e11f2565c3048c04adbcdec6316321fc5"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/10096881725299_32_M1_300.png",
+        "bytes": 2048,
+        "sha256": "485f62f1b0e8eb6c8e74d7f3796bed6c21ffa038e4079177bc5db9c95ee83036",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/10096881725299_32_M1_300_gt.png",
+        "bytes": 486,
+        "sha256": "360d6990ddac18110e8724549084521fde80a2697ec77810f44b3d44441e5b1d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "218",
+      "foreground_std": "5",
+      "background_mean": "58",
+      "background_std": "30",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 3.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "691842313451",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID691842313451",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/691842313451_32_M1_400_15_239_5_58_5_10.png",
+        "member": "32_M1/691842313451_32_M1_400_15_239_5_58_5_10.png",
+        "bytes": 45435,
+        "sha256": "b0deab45eb5ee775f2ac8cbb14bf00768d67d137482d329aa61591688cfd1675"
+      },
+      "mask": {
+        "path": "subset/32/mask/691842313451_32_M1_400.png",
+        "member": "32_M1/691842313451_32_M1_400.png",
+        "bytes": 1378,
+        "sha256": "710ea3c92d51ad67521b5d827c21861ae804827fefea8b34437ccc24178cad78"
+      },
+      "layout": {
+        "path": "subset/32/layout/691842313451_32_M1_400_gt.png",
+        "member": "32_M1/691842313451_32_M1_400_gt.png",
+        "bytes": 968,
+        "sha256": "e73179e5cb6b457486f152254441b7a364e37d25c276c4f42b26b2340642f3b1"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/691842313451_32_M1_400.png",
+        "bytes": 1233,
+        "sha256": "626934452fc227fe3d8b99d22f53f1297a56c0dd4dc9339c83789a3498b4e3b1",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/691842313451_32_M1_400_gt.png",
+        "bytes": 422,
+        "sha256": "5953811b29f8662a912e86621136f4361f1b856603e382eaf7c902f960d444c3",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "239",
+      "foreground_std": "5",
+      "background_mean": "58",
+      "background_std": "5",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "25742963346656",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID25742963346656",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/25742963346656_32_M1_100_10_238_20_48_20_10.png",
+        "member": "32_M1/25742963346656_32_M1_100_10_238_20_48_20_10.png",
+        "bytes": 58579,
+        "sha256": "a593f92cc8ac3f45daeb87d170d00be54cd4f50b49e5bdc3b043e9e76d8ee212"
+      },
+      "mask": {
+        "path": "subset/32/mask/25742963346656_32_M1_100.png",
+        "member": "32_M1/25742963346656_32_M1_100.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/32/layout/25742963346656_32_M1_100_gt.png",
+        "member": "32_M1/25742963346656_32_M1_100_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/25742963346656_32_M1_100.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/25742963346656_32_M1_100_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "238",
+      "foreground_std": "20",
+      "background_mean": "48",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "8452667209705",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID8452667209705",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/8452667209705_32_M1_200_15_223_5_76_20_3$2.png",
+        "member": "32_M1/8452667209705_32_M1_200_15_223_5_76_20_3$2.png",
+        "bytes": 58474,
+        "sha256": "c147b73037bc3cec60cf4064c5b0d426ad98eefe1b7282c390cf97ad900236e1"
+      },
+      "mask": {
+        "path": "subset/32/mask/8452667209705_32_M1_200.png",
+        "member": "32_M1/8452667209705_32_M1_200.png",
+        "bytes": 4706,
+        "sha256": "26688b41886b2ec8ea54bab24b531dc5aad8533e72b8dc270356840ca51a49bf"
+      },
+      "layout": {
+        "path": "subset/32/layout/8452667209705_32_M1_200_gt.png",
+        "member": "32_M1/8452667209705_32_M1_200_gt.png",
+        "bytes": 1844,
+        "sha256": "a92f41a1eac998b5ecbda13b078339ad920bfeb09a63601a03daf57ed94e84ff"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/8452667209705_32_M1_200.png",
+        "bytes": 5008,
+        "sha256": "f021c66c3b9ac5d3b0ebb5773638d1420aa139ee818491f357dad31daaa2ec8d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/8452667209705_32_M1_200_gt.png",
+        "bytes": 636,
+        "sha256": "ee9d2f41d3dfefe70fd12bdb41300f99ad39c1739903ac4be5016442708a2884",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "223",
+      "foreground_std": "5",
+      "background_mean": "76",
+      "background_std": "20",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "26199728720825",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "300",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID26199728720825",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/26199728720825_32_M1_300_15_204_20_45_30_10.png",
+        "member": "32_M1/26199728720825_32_M1_300_15_204_20_45_30_10.png",
+        "bytes": 61466,
+        "sha256": "26156900d3e3f38ae93e97f9b3db9852627fb8909225c89488ec605df657ff92"
+      },
+      "mask": {
+        "path": "subset/32/mask/26199728720825_32_M1_300.png",
+        "member": "32_M1/26199728720825_32_M1_300.png",
+        "bytes": 3389,
+        "sha256": "530b501888ff0c3af998a00d5471f934e426d962f0181918d022da98fe4bdc46"
+      },
+      "layout": {
+        "path": "subset/32/layout/26199728720825_32_M1_300_gt.png",
+        "member": "32_M1/26199728720825_32_M1_300_gt.png",
+        "bytes": 2020,
+        "sha256": "bceb3ec4bfab6d01fd63d9a2ab9a03f14ed5230e1f581de68b3a791b9b679bfb"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/26199728720825_32_M1_300.png",
+        "bytes": 1983,
+        "sha256": "0dbfcdc4f04b774a4850896c441a8731057c962a757b1451f0676187cbd097f8",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/26199728720825_32_M1_300_gt.png",
+        "bytes": 548,
+        "sha256": "b121612c824056bc42a623eb4a5f45d47dffe23ba28d1596bcb8e9bef777ef91",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "204",
+      "foreground_std": "20",
+      "background_mean": "45",
+      "background_std": "30",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 3.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "3887303182699",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID3887303182699",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/3887303182699_32_M1_400_15_213_10_58_10_3$2.png",
+        "member": "32_M1/3887303182699_32_M1_400_15_213_10_58_10_3$2.png",
+        "bytes": 53146,
+        "sha256": "621b7a8cf0bbe32a7539bcff4d3d0213e6c2615552d876d8be5f81c26c2941df"
+      },
+      "mask": {
+        "path": "subset/32/mask/3887303182699_32_M1_400.png",
+        "member": "32_M1/3887303182699_32_M1_400.png",
+        "bytes": 1536,
+        "sha256": "14588b5eaeac7145c43ed2bf2981b0d361e9b97d50682e82e085344316dc06fd"
+      },
+      "layout": {
+        "path": "subset/32/layout/3887303182699_32_M1_400_gt.png",
+        "member": "32_M1/3887303182699_32_M1_400_gt.png",
+        "bytes": 791,
+        "sha256": "fd441964e2db0c5906d38d4bb1566d92e86be7412203cf11b8ac5fb5ea50e2a6"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/3887303182699_32_M1_400.png",
+        "bytes": 1045,
+        "sha256": "4ced32ddd5af19050aab75a48ddf8728fd81167a00f5b9bcbf6a70800be0c983",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/3887303182699_32_M1_400_gt.png",
+        "bytes": 404,
+        "sha256": "f5bc08a0f4f8684953a48ea83445daea8f6dc054de0c13829cd9bdc7932a4a38",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "213",
+      "foreground_std": "10",
+      "background_mean": "58",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "27872468573152",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID27872468573152",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/27872468573152_32_M1_100_15_231_30_61_10_10.png",
+        "member": "32_M1/27872468573152_32_M1_100_15_231_30_61_10_10.png",
+        "bytes": 58350,
+        "sha256": "8d5f487d640bd2057d88c2cecd192bdd3031bbee872971b8293b807588709f08"
+      },
+      "mask": {
+        "path": "subset/32/mask/27872468573152_32_M1_100.png",
+        "member": "32_M1/27872468573152_32_M1_100.png",
+        "bytes": 7176,
+        "sha256": "664ed5d7735f8dc53bf85089975b2503414d22dee75d41ccf7308e718dab9570"
+      },
+      "layout": {
+        "path": "subset/32/layout/27872468573152_32_M1_100_gt.png",
+        "member": "32_M1/27872468573152_32_M1_100_gt.png",
+        "bytes": 4486,
+        "sha256": "ce5cdd718bb189248acc03af30f7ef85e7c3f94e89d2e00284b7778f0ad18f4b"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/27872468573152_32_M1_100.png",
+        "bytes": 7147,
+        "sha256": "8ec1615f1090410696e9d670a1c103c52f48f028e3aa581760a44500b3d4601a",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/27872468573152_32_M1_100_gt.png",
+        "bytes": 963,
+        "sha256": "f37e115df681282cb3c3fec11c655a0242f1549e3704c02fc74e19a31e01048f",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "231",
+      "foreground_std": "30",
+      "background_mean": "61",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "012949798520416",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID012949798520416",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/012949798520416_32_M1_200_10_229_20_55_5_10.png",
+        "member": "32_M1/012949798520416_32_M1_200_10_229_20_55_5_10.png",
+        "bytes": 49781,
+        "sha256": "e46316ed6383eeb0965e44c9df9549401845d5c5875da0784ea58160a5e6ce4a"
+      },
+      "mask": {
+        "path": "subset/32/mask/012949798520416_32_M1_200.png",
+        "member": "32_M1/012949798520416_32_M1_200.png",
+        "bytes": 5290,
+        "sha256": "0c6469cbbbf63f8a44dc6463dc57e81ca8d656e8bfcf47d5b3627b61d2a9d781"
+      },
+      "layout": {
+        "path": "subset/32/layout/012949798520416_32_M1_200_gt.png",
+        "member": "32_M1/012949798520416_32_M1_200_gt.png",
+        "bytes": 4576,
+        "sha256": "6a3e340c4d56ded1746edd2de07493ddc37133fe3db2b2997957b70406f9692d"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/012949798520416_32_M1_200.png",
+        "bytes": 2768,
+        "sha256": "468210c6956297312fa7eb3fd0ecb6bfef6ea01dfeec28e779259b3a13c26fb1",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/012949798520416_32_M1_200_gt.png",
+        "bytes": 602,
+        "sha256": "617f10cf62a745bd36cb8d64d5618e05e1fdca9a4974ce045f90a73e645d6613",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "229",
+      "foreground_std": "20",
+      "background_mean": "55",
+      "background_std": "5",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "27478598262107",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "300",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID27478598262107",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/27478598262107_32_M1_300_15_260_20_41_10_3$2.png",
+        "member": "32_M1/27478598262107_32_M1_300_15_260_20_41_10_3$2.png",
+        "bytes": 52185,
+        "sha256": "5248f2e11d84cf6c44a67979ee2f719d4f11fb4394e3c72c264e6a5fdbef45e2"
+      },
+      "mask": {
+        "path": "subset/32/mask/27478598262107_32_M1_300.png",
+        "member": "32_M1/27478598262107_32_M1_300.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/32/layout/27478598262107_32_M1_300_gt.png",
+        "member": "32_M1/27478598262107_32_M1_300_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/27478598262107_32_M1_300.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/27478598262107_32_M1_300_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "260",
+      "foreground_std": "20",
+      "background_mean": "41",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 3.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "5381902859181",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID5381902859181",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/5381902859181_32_M1_400_10_207_30_65_30_3$2.png",
+        "member": "32_M1/5381902859181_32_M1_400_10_207_30_65_30_3$2.png",
+        "bytes": 62334,
+        "sha256": "0652d0987e9636afd70460de7d45b3f7ef08996dfc3982f051f0390d0c9e535d"
+      },
+      "mask": {
+        "path": "subset/32/mask/5381902859181_32_M1_400.png",
+        "member": "32_M1/5381902859181_32_M1_400.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/32/layout/5381902859181_32_M1_400_gt.png",
+        "member": "32_M1/5381902859181_32_M1_400_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/5381902859181_32_M1_400.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/5381902859181_32_M1_400_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "207",
+      "foreground_std": "30",
+      "background_mean": "65",
+      "background_std": "30",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "31957560132258",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID31957560132258",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/31957560132258_32_M1_100_15_208_30_90_5_10.png",
+        "member": "32_M1/31957560132258_32_M1_100_15_208_30_90_5_10.png",
+        "bytes": 51651,
+        "sha256": "e2bde24b91765e6bf9ff7561542b46be5161a506937804394a1d97d7de68edec"
+      },
+      "mask": {
+        "path": "subset/32/mask/31957560132258_32_M1_100.png",
+        "member": "32_M1/31957560132258_32_M1_100.png",
+        "bytes": 4402,
+        "sha256": "1fb2d7598b3ee7a26a20f8f79c8ed8d01f19e4be175cc4c08e4f04168607425e"
+      },
+      "layout": {
+        "path": "subset/32/layout/31957560132258_32_M1_100_gt.png",
+        "member": "32_M1/31957560132258_32_M1_100_gt.png",
+        "bytes": 3420,
+        "sha256": "84b23c9682d226e77f3f69165dc08ea967c96e58fb29d36e11869ac31d7153c1"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/31957560132258_32_M1_100.png",
+        "bytes": 4638,
+        "sha256": "f9dc8d8270a2930bb4522844bd4658770cc42f2e52778b92cfd825386964b449",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/31957560132258_32_M1_100_gt.png",
+        "bytes": 730,
+        "sha256": "2219ec1406e61edaadc3b7c48240e1874560dd0c0fa18da1069518b5344a8c88",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "208",
+      "foreground_std": "30",
+      "background_mean": "90",
+      "background_std": "5",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "13339520073376",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID13339520073376",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/13339520073376_32_M1_200_15_260_20_41_10_3$2.png",
+        "member": "32_M1/13339520073376_32_M1_200_15_260_20_41_10_3$2.png",
+        "bytes": 52864,
+        "sha256": "a41adac19b9cc23b965aba0929101b348d2f5c336bca6a5262f7ddb83fc747f4"
+      },
+      "mask": {
+        "path": "subset/32/mask/13339520073376_32_M1_200.png",
+        "member": "32_M1/13339520073376_32_M1_200.png",
+        "bytes": 2667,
+        "sha256": "f1c1d46fba2762357e0f1007c7eedda59a04eb20327f06247e8bc5d5971cf083"
+      },
+      "layout": {
+        "path": "subset/32/layout/13339520073376_32_M1_200_gt.png",
+        "member": "32_M1/13339520073376_32_M1_200_gt.png",
+        "bytes": 1893,
+        "sha256": "c3b55731450208902162e1e03de3680a20c5aa60e77460a54b781281e514b3c8"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/13339520073376_32_M1_200.png",
+        "bytes": 2499,
+        "sha256": "547f0018da602b7ed6035368e8d700f0ab21e4071c68b65397cbbc5b2a1b4c27",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/13339520073376_32_M1_200_gt.png",
+        "bytes": 561,
+        "sha256": "e8511b4bd647014793f49a7f9c49e07f469d9f64e798c4fc70f0a441e65d0fd9",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "260",
+      "foreground_std": "20",
+      "background_mean": "41",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "27698960199303",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "300",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID27698960199303",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/27698960199303_32_M1_300_2_204_20_51_30_10.png",
+        "member": "32_M1/27698960199303_32_M1_300_2_204_20_51_30_10.png",
+        "bytes": 59938,
+        "sha256": "882f958ca9ce5258cee0d7ae170ff481dd13a4b054e88bf7b5e65ff31353b338"
+      },
+      "mask": {
+        "path": "subset/32/mask/27698960199303_32_M1_300.png",
+        "member": "32_M1/27698960199303_32_M1_300.png",
+        "bytes": 2706,
+        "sha256": "27e79cb6528ef42eba9d83b4b58154e95a18a07f336902fb97a861a9500576c6"
+      },
+      "layout": {
+        "path": "subset/32/layout/27698960199303_32_M1_300_gt.png",
+        "member": "32_M1/27698960199303_32_M1_300_gt.png",
+        "bytes": 2321,
+        "sha256": "875bafeea22a2f51fca943f81045786187e2e5b58faa3f32738db9896db915b5"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/27698960199303_32_M1_300.png",
+        "bytes": 1342,
+        "sha256": "fd36b30c77eca5a34a260052169037c53661da37579967a06f980e51f4d7ffe8",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/27698960199303_32_M1_300_gt.png",
+        "bytes": 501,
+        "sha256": "c921a03e1fa862ce402286634f9a6890cef57f93d76ffe2753be949ba6e08374",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "2",
+      "foreground_mean": "204",
+      "foreground_std": "20",
+      "background_mean": "51",
+      "background_std": "30",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 3.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "5399210541945",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID5399210541945",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/5399210541945_32_M1_400_2_216_30_61_5_10.png",
+        "member": "32_M1/5399210541945_32_M1_400_2_216_30_61_5_10.png",
+        "bytes": 50933,
+        "sha256": "f9bfe74e033b7b052d59619094156678782b558a98476af0a93c4fda9152119e"
+      },
+      "mask": {
+        "path": "subset/32/mask/5399210541945_32_M1_400.png",
+        "member": "32_M1/5399210541945_32_M1_400.png",
+        "bytes": 3199,
+        "sha256": "662189d96f3e5c7d6683f4e4ecfb9094c02be3d116f69254528b2ff8cf47d698"
+      },
+      "layout": {
+        "path": "subset/32/layout/5399210541945_32_M1_400_gt.png",
+        "member": "32_M1/5399210541945_32_M1_400_gt.png",
+        "bytes": 2106,
+        "sha256": "e7b2b4b34a0cb1f96afa2a50f5df58f1971e533b553b1a0abc5fa09dcfdc03c4"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/5399210541945_32_M1_400.png",
+        "bytes": 2406,
+        "sha256": "676c041e131c962043aee3108f812b251e3e2ddef8f050e0a3dcea23c6dcb53c",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/5399210541945_32_M1_400_gt.png",
+        "bytes": 530,
+        "sha256": "ddab771d1744eba7fbfa482fb4dc2bd25877177ea557f1cd056756e5bfde291d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "2",
+      "foreground_mean": "216",
+      "foreground_std": "30",
+      "background_mean": "61",
+      "background_std": "5",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "33339495674595",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID33339495674595",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/33339495674595_32_M1_100_20_261_20_88_5_3$2.png",
+        "member": "32_M1/33339495674595_32_M1_100_20_261_20_88_5_3$2.png",
+        "bytes": 50013,
+        "sha256": "74e1b11882847416fe9f06ccbd77ebcfb5be4f15015cd8d6fa1e4fd4e61a874a"
+      },
+      "mask": {
+        "path": "subset/32/mask/33339495674595_32_M1_100.png",
+        "member": "32_M1/33339495674595_32_M1_100.png",
+        "bytes": 6709,
+        "sha256": "5ae77010f180daeac53204aaf5a5e351922f5706b975bc585f97d18d55d312e6"
+      },
+      "layout": {
+        "path": "subset/32/layout/33339495674595_32_M1_100_gt.png",
+        "member": "32_M1/33339495674595_32_M1_100_gt.png",
+        "bytes": 3372,
+        "sha256": "f751ef17632b3cd17d9efb8e9719317b44a4aefc65319feab98fe6eede842cb9"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/33339495674595_32_M1_100.png",
+        "bytes": 4385,
+        "sha256": "9e8b16f4a02a2c4435657ee723ef85dee0262edfea91cf1deca855ce9440537c",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/33339495674595_32_M1_100_gt.png",
+        "bytes": 722,
+        "sha256": "93afd571142953d9a9059e43799b85e5d8095d8afa1617277e0ac01309524c30",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "20",
+      "foreground_mean": "261",
+      "foreground_std": "20",
+      "background_mean": "88",
+      "background_std": "5",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "16124375636972",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID16124375636972",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/16124375636972_32_M1_200_20_227_5_33_20_10.png",
+        "member": "32_M1/16124375636972_32_M1_200_20_227_5_33_20_10.png",
+        "bytes": 57763,
+        "sha256": "60ebb482a75e57d4f45d3aa97126bf7a254e14e46543d24c55e4d483536448fe"
+      },
+      "mask": {
+        "path": "subset/32/mask/16124375636972_32_M1_200.png",
+        "member": "32_M1/16124375636972_32_M1_200.png",
+        "bytes": 3036,
+        "sha256": "34eb9c54a9f12d174c165dc0cb0c3d520e9b256d9fae846df836ade400683d41"
+      },
+      "layout": {
+        "path": "subset/32/layout/16124375636972_32_M1_200_gt.png",
+        "member": "32_M1/16124375636972_32_M1_200_gt.png",
+        "bytes": 2218,
+        "sha256": "e4f0d3c73c0e950768a36078d7bc9d3d5083108bc3631bd10b66674b8327b14b"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/16124375636972_32_M1_200.png",
+        "bytes": 2874,
+        "sha256": "d18e9d6434c179d838406bd4fd03c36174c6d19efa1bdce509a8a8238c98ec66",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/16124375636972_32_M1_200_gt.png",
+        "bytes": 588,
+        "sha256": "fce22c3b02638726509290e45bc6a3331ea7206438faa6be59f07def4a0d9774",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "20",
+      "foreground_mean": "227",
+      "foreground_std": "5",
+      "background_mean": "33",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "28862740609739",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "300",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID28862740609739",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/28862740609739_32_M1_300_15_196_5_45_10_3$2.png",
+        "member": "32_M1/28862740609739_32_M1_300_15_196_5_45_10_3$2.png",
+        "bytes": 52182,
+        "sha256": "eda5d351425927bb1bb11011dc4e6a2a261c585c9b7a2732adf45247597af5eb"
+      },
+      "mask": {
+        "path": "subset/32/mask/28862740609739_32_M1_300.png",
+        "member": "32_M1/28862740609739_32_M1_300.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/32/layout/28862740609739_32_M1_300_gt.png",
+        "member": "32_M1/28862740609739_32_M1_300_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/28862740609739_32_M1_300.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/28862740609739_32_M1_300_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "196",
+      "foreground_std": "5",
+      "background_mean": "45",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 3.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "5688583797992",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID5688583797992",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/5688583797992_32_M1_400_10_187_20_77_20_3$2.png",
+        "member": "32_M1/5688583797992_32_M1_400_10_187_20_77_20_3$2.png",
+        "bytes": 59550,
+        "sha256": "534ffef4d079e02286dd606d52e81842d65a2ba72e5bcff457d4205a7def18db"
+      },
+      "mask": {
+        "path": "subset/32/mask/5688583797992_32_M1_400.png",
+        "member": "32_M1/5688583797992_32_M1_400.png",
+        "bytes": 2334,
+        "sha256": "bfaa3ccb612671ece973a8fec23b79fe606578e1ec4e661473bd1308c6e6735e"
+      },
+      "layout": {
+        "path": "subset/32/layout/5688583797992_32_M1_400_gt.png",
+        "member": "32_M1/5688583797992_32_M1_400_gt.png",
+        "bytes": 1529,
+        "sha256": "b120261b6593e762d26116ac144b0961eb8c828e315d3785e0a94c9d2a6a9cc3"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/5688583797992_32_M1_400.png",
+        "bytes": 1418,
+        "sha256": "dc9d9d1df16e1ea5c2dfbdea10c27b56ba0eecfbb26235518e0468e91202e387",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/5688583797992_32_M1_400_gt.png",
+        "bytes": 470,
+        "sha256": "12cd1d96fa3759e1ebf31902adac33502a09382eed1ca6fe056457a962c020f9",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "187",
+      "foreground_std": "20",
+      "background_mean": "77",
+      "background_std": "20",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "0033380328040159",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID0033380328040159",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/0033380328040159_32_M1_100_10_188_10_44_20_3$2.png",
+        "member": "32_M1/0033380328040159_32_M1_100_10_188_10_44_20_3$2.png",
+        "bytes": 59848,
+        "sha256": "3dcbc5ead02bb034042e6dd105c3b012e395816cbadde6c2ffd89a2979f15a2f"
+      },
+      "mask": {
+        "path": "subset/32/mask/0033380328040159_32_M1_100.png",
+        "member": "32_M1/0033380328040159_32_M1_100.png",
+        "bytes": 4944,
+        "sha256": "1266f1afba3679cf60184a151aa08477b668d800d1bb00436302242159905057"
+      },
+      "layout": {
+        "path": "subset/32/layout/0033380328040159_32_M1_100_gt.png",
+        "member": "32_M1/0033380328040159_32_M1_100_gt.png",
+        "bytes": 3696,
+        "sha256": "cdbc835e8cb23d067c53e883abc3153df024764da96c931712acc01784489ed0"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/0033380328040159_32_M1_100.png",
+        "bytes": 5249,
+        "sha256": "1bfe324fe7142ebfb82e5688b08d5402f0c506dee49bec5c88256e8da130df23",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/0033380328040159_32_M1_100_gt.png",
+        "bytes": 819,
+        "sha256": "fc2ad10def91fb173896ce07cd2f457f1448c332bcbe5659d21feb56ca1eb969",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "188",
+      "foreground_std": "10",
+      "background_mean": "44",
+      "background_std": "20",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "21801074826473",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID21801074826473",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/21801074826473_32_M1_200_2_250_20_48_10_3$2.png",
+        "member": "32_M1/21801074826473_32_M1_200_2_250_20_48_10_3$2.png",
+        "bytes": 52110,
+        "sha256": "bd59aa1834499bc9858bed58765fc01338347519db633eda618122ba96cc26a2"
+      },
+      "mask": {
+        "path": "subset/32/mask/21801074826473_32_M1_200.png",
+        "member": "32_M1/21801074826473_32_M1_200.png",
+        "bytes": 4183,
+        "sha256": "013a67dc5d865c561d6ffecf6d6afd8b2834071320d71f0b70fdbc15b4145f81"
+      },
+      "layout": {
+        "path": "subset/32/layout/21801074826473_32_M1_200_gt.png",
+        "member": "32_M1/21801074826473_32_M1_200_gt.png",
+        "bytes": 2885,
+        "sha256": "81f43fc8bb47980ef8a241bf6ece3596986a089015aca0836ed71285a92bbf2e"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/21801074826473_32_M1_200.png",
+        "bytes": 4376,
+        "sha256": "632c9e9f83b3efe547b11b48b4ff4b7ff4229e00a11c478e302bad2aea209a72",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/21801074826473_32_M1_200_gt.png",
+        "bytes": 642,
+        "sha256": "451f9b3edc562c0735bc35ff19a97f839f426a340e90a32c8983e64065388f75",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "2",
+      "foreground_mean": "250",
+      "foreground_std": "20",
+      "background_mean": "48",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "30739689773558",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "300",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID30739689773558",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/30739689773558_32_M1_300_2_233_20_96_5_3$2.png",
+        "member": "32_M1/30739689773558_32_M1_300_2_233_20_96_5_3$2.png",
+        "bytes": 51003,
+        "sha256": "b4448600b24bef303fe22dfe71eab7e1d3961edb155bce15e2b4235e5dc50be7"
+      },
+      "mask": {
+        "path": "subset/32/mask/30739689773558_32_M1_300.png",
+        "member": "32_M1/30739689773558_32_M1_300.png",
+        "bytes": 3496,
+        "sha256": "5e44bb644c2c0290950c4e25a9e7a17865e5d8dafa14469c647a6535e41aac29"
+      },
+      "layout": {
+        "path": "subset/32/layout/30739689773558_32_M1_300_gt.png",
+        "member": "32_M1/30739689773558_32_M1_300_gt.png",
+        "bytes": 2298,
+        "sha256": "ca136f109bd4999d387a276881f22b6dbb6a70d2e4cb83a44588e072d984377e"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/30739689773558_32_M1_300.png",
+        "bytes": 3247,
+        "sha256": "2116d836e32f3188e680b52cb5824853fce1fd28934f2c67f4c8d2a56be14f3f",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/30739689773558_32_M1_300_gt.png",
+        "bytes": 548,
+        "sha256": "beac53076c102d1a7dda213e59cc1e14c7c67974dfe1e2e0279e39aed563d740",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "2",
+      "foreground_mean": "233",
+      "foreground_std": "20",
+      "background_mean": "96",
+      "background_std": "5",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 3.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "9769030654896",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID9769030654896",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/9769030654896_32_M1_400_15_196_5_45_10_3$2.png",
+        "member": "32_M1/9769030654896_32_M1_400_15_196_5_45_10_3$2.png",
+        "bytes": 52379,
+        "sha256": "441d3236f93b7b4180296170b7eacd2fc09164ffe876ef6bf341c7f7fc622dea"
+      },
+      "mask": {
+        "path": "subset/32/mask/9769030654896_32_M1_400.png",
+        "member": "32_M1/9769030654896_32_M1_400.png",
+        "bytes": 4054,
+        "sha256": "6bfe4f4113c00da838cf6e039e589466aa5482b8623d31fe5125b002b295855e"
+      },
+      "layout": {
+        "path": "subset/32/layout/9769030654896_32_M1_400_gt.png",
+        "member": "32_M1/9769030654896_32_M1_400_gt.png",
+        "bytes": 3084,
+        "sha256": "7b2078c6ca414e24f47c00d50b30edf9c3d6bc1a59862481ce666f12897b706b"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/9769030654896_32_M1_400.png",
+        "bytes": 2500,
+        "sha256": "05fcacf6ce51d7197ca42557f89aeac584c3765fafb4434b19c7b48a3a8ea727",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/9769030654896_32_M1_400_gt.png",
+        "bytes": 501,
+        "sha256": "a7fd545532d99b434f04432e6487048a13074b27ea077bdfb076c8f3fbf75123",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "196",
+      "foreground_std": "5",
+      "background_mean": "45",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "34308478521299",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID34308478521299",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/34308478521299_32_M1_100_10_214_5_61_20_10.png",
+        "member": "32_M1/34308478521299_32_M1_100_10_214_5_61_20_10.png",
+        "bytes": 59812,
+        "sha256": "95c9703c2fbeb9da966d3ebcb9f30cfbb1c27dee5c53b5426ac46064b542316a"
+      },
+      "mask": {
+        "path": "subset/32/mask/34308478521299_32_M1_100.png",
+        "member": "32_M1/34308478521299_32_M1_100.png",
+        "bytes": 4035,
+        "sha256": "9c43ab775c39f102b99a344fc9afa085c1422321521ce09f058b2eed8175f421"
+      },
+      "layout": {
+        "path": "subset/32/layout/34308478521299_32_M1_100_gt.png",
+        "member": "32_M1/34308478521299_32_M1_100_gt.png",
+        "bytes": 2746,
+        "sha256": "0066233fe9ebfb8642aacb84405df146f2c7d5497976d530b97ac30c649e940e"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/34308478521299_32_M1_100.png",
+        "bytes": 4348,
+        "sha256": "ed4e830c07c70dbedcb094ff56a5f12366e30fe2f9255f59f81f119ff84d88f2",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/34308478521299_32_M1_100_gt.png",
+        "bytes": 717,
+        "sha256": "3efd0634b9fd51e86a32018079785fe41f7ce8dee8ff973b371d8fc26589d721",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "214",
+      "foreground_std": "5",
+      "background_mean": "61",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "24961460659668",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID24961460659668",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/24961460659668_32_M1_200_15_217_10_47_5_3$2.png",
+        "member": "32_M1/24961460659668_32_M1_200_15_217_10_47_5_3$2.png",
+        "bytes": 49630,
+        "sha256": "060e131f3fc3b052d7caaf52a95aa0154f249e3fa72ccca522dc7c9747d472e6"
+      },
+      "mask": {
+        "path": "subset/32/mask/24961460659668_32_M1_200.png",
+        "member": "32_M1/24961460659668_32_M1_200.png",
+        "bytes": 5723,
+        "sha256": "393a5d6623812985e117fb6b37de4d2205d954de447098d149c32a21232ed5e3"
+      },
+      "layout": {
+        "path": "subset/32/layout/24961460659668_32_M1_200_gt.png",
+        "member": "32_M1/24961460659668_32_M1_200_gt.png",
+        "bytes": 4638,
+        "sha256": "47f9709cf713f70bd3091fd23e531c6d8848f167cc5bbe81cd2695218dd72d69"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/24961460659668_32_M1_200.png",
+        "bytes": 2889,
+        "sha256": "ab8eaa6b34d3a3a26715c92d7b74fd37471a966df07d28e8dd5c6b0c378a58d2",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/24961460659668_32_M1_200_gt.png",
+        "bytes": 556,
+        "sha256": "488e954fa47c0aaf74cafb4675986f5edf93edd534caa5d5e152b6304b7dfb58",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "217",
+      "foreground_std": "10",
+      "background_mean": "47",
+      "background_std": "5",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "30755164109609",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "300",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID30755164109609",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/30755164109609_32_M1_300_10_183_20_98_10_10.png",
+        "member": "32_M1/30755164109609_32_M1_300_10_183_20_98_10_10.png",
+        "bytes": 56704,
+        "sha256": "41db7630f876c64e7e93865a93bc97e533f9adc3e5cbef15b88a370787ac8f88"
+      },
+      "mask": {
+        "path": "subset/32/mask/30755164109609_32_M1_300.png",
+        "member": "32_M1/30755164109609_32_M1_300.png",
+        "bytes": 3195,
+        "sha256": "edaa6b2147eee91f4cc8e7fd9997568282a7e0c67e6adf69c2f4844d1e95fd18"
+      },
+      "layout": {
+        "path": "subset/32/layout/30755164109609_32_M1_300_gt.png",
+        "member": "32_M1/30755164109609_32_M1_300_gt.png",
+        "bytes": 1465,
+        "sha256": "c53873b8fc6aebe7f70c3da29fdf7f6325aaae181e51b13a996c5c532c300f4b"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/30755164109609_32_M1_300.png",
+        "bytes": 3393,
+        "sha256": "c01480a8c3fa00df1a4c8802758a01165417914212e6c2f2b4ec46cd9fffd2b8",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/30755164109609_32_M1_300_gt.png",
+        "bytes": 529,
+        "sha256": "84daaa5ef47068da9fb1d7dd7a764de8710ec075190a0f16ec9f7f7233e86452",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "183",
+      "foreground_std": "20",
+      "background_mean": "98",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 3.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "9930158654026",
+    "node_nm": 32,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_32nm",
+    "layout_group": "REFICS_32_M1_UID9930158654026",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/32/sem/9930158654026_32_M1_400_15_198_10_77_20_10.png",
+        "member": "32_M1/9930158654026_32_M1_400_15_198_10_77_20_10.png",
+        "bytes": 59062,
+        "sha256": "4b1489a72f2950564765937247826ee5bbec1890f48acea1dc026554a222fa0e"
+      },
+      "mask": {
+        "path": "subset/32/mask/9930158654026_32_M1_400.png",
+        "member": "32_M1/9930158654026_32_M1_400.png",
+        "bytes": 2367,
+        "sha256": "a4067a45fb9cb5f52bae0897c46ae356997a5620581b4d144717ad2a9cbb59b8"
+      },
+      "layout": {
+        "path": "subset/32/layout/9930158654026_32_M1_400_gt.png",
+        "member": "32_M1/9930158654026_32_M1_400_gt.png",
+        "bytes": 1707,
+        "sha256": "4dc5332f605833a84912f874be52bc03e512c850aab34eb0b4576ac11d5300ec"
+      },
+      "mask_binary": {
+        "path": "subset/32/mask_binary/9930158654026_32_M1_400.png",
+        "bytes": 1793,
+        "sha256": "962ccac26ba0cb2a935ffeedf60a02edf6e0a6362602291983b97f419302a32e",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/32/layout_binary/9930158654026_32_M1_400_gt.png",
+        "bytes": 463,
+        "sha256": "2766da1cf40b98497f870f30978383074d7c2683a85dc532b4f2eb5e60e04a62",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "198",
+      "foreground_std": "10",
+      "background_mean": "77",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_32nm.png",
+    "source_layout_sha256": "7f2f9d762d89a170f9dd6b5db1d1a834937e16cd8c3bd66a5cf570d5b96af12c",
+    "source_layout_pixels": [
+      18500,
+      18500
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "02001228471548",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID02001228471548",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/02001228471548_90_M1_100_10_238_30_53_20_3$2.png",
+        "member": "90_M1/02001228471548_90_M1_100_10_238_30_53_20_3$2.png",
+        "bytes": 59042,
+        "sha256": "80fbd2648cad66462cfe814fb5d5ef0853dc6be5df0862165c6a829947a85222"
+      },
+      "mask": {
+        "path": "subset/90/mask/02001228471548_90_M1_100.png",
+        "member": "90_M1/02001228471548_90_M1_100.png",
+        "bytes": 1829,
+        "sha256": "2b926218c229c07f39dc1f6375fb829858de3670e3052c425e61a76c461342f5"
+      },
+      "layout": {
+        "path": "subset/90/layout/02001228471548_90_M1_100_gt.png",
+        "member": "90_M1/02001228471548_90_M1_100_gt.png",
+        "bytes": 1409,
+        "sha256": "142d97dd4273965144596e0a916f747870c9b9efb42f701fc8136f15fadfe709"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/02001228471548_90_M1_100.png",
+        "bytes": 1665,
+        "sha256": "27b0196f7e6dad2e6af44e3b3ea99c3d21509c21aecf4744a7fdd34e8efe39cd",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/02001228471548_90_M1_100_gt.png",
+        "bytes": 455,
+        "sha256": "d1c09eee596efb4a5a1b8e33c2d97e9c0f7d8a3c136924ef7eafff19a0ce10e6",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "238",
+      "foreground_std": "30",
+      "background_mean": "53",
+      "background_std": "20",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "01082649050244",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID01082649050244",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/01082649050244_90_M1_200_10_218_5_52_5_10.png",
+        "member": "90_M1/01082649050244_90_M1_200_10_218_5_52_5_10.png",
+        "bytes": 46604,
+        "sha256": "008af6ec092e29f5aa6376ac841b00a4cf5c6df3daef190681caf91fbfab7903"
+      },
+      "mask": {
+        "path": "subset/90/mask/01082649050244_90_M1_200.png",
+        "member": "90_M1/01082649050244_90_M1_200.png",
+        "bytes": 4337,
+        "sha256": "a218eb92213ea3dc91ac21c6e66a691fbee0bce5a96181aa2580f05f6e7018e4"
+      },
+      "layout": {
+        "path": "subset/90/layout/01082649050244_90_M1_200_gt.png",
+        "member": "90_M1/01082649050244_90_M1_200_gt.png",
+        "bytes": 3380,
+        "sha256": "f9bd81d8de541754acfffcf068fc11a109a6788eb638ff728ad80d5eea16157f"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/01082649050244_90_M1_200.png",
+        "bytes": 3827,
+        "sha256": "c87b692a4dc671c6bd40a8de45bca48561fa1f02e6a48acae136dfab53daaece",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/01082649050244_90_M1_200_gt.png",
+        "bytes": 605,
+        "sha256": "c352928eb071c2f6a45ca1a1704b70e350c55267e42e00620d8261618c7622e2",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "218",
+      "foreground_std": "5",
+      "background_mean": "52",
+      "background_std": "5",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "3763965083616",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID3763965083616",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/3763965083616_90_M1_400_2_204_10_73_30_10.png",
+        "member": "90_M1/3763965083616_90_M1_400_2_204_10_73_30_10.png",
+        "bytes": 59699,
+        "sha256": "bc346ad5c3a6b62e57b35968e27749fd38f9a2f6ccafae8db4a4b4474dc4e27e"
+      },
+      "mask": {
+        "path": "subset/90/mask/3763965083616_90_M1_400.png",
+        "member": "90_M1/3763965083616_90_M1_400.png",
+        "bytes": 3451,
+        "sha256": "6c0a138dd190d31952cc7cf4bb915ba365aec9476383e2b19a2cd3104b38afff"
+      },
+      "layout": {
+        "path": "subset/90/layout/3763965083616_90_M1_400_gt.png",
+        "member": "90_M1/3763965083616_90_M1_400_gt.png",
+        "bytes": 2574,
+        "sha256": "130c6f8db4930b105ab8ae9711e42911eed0cae22d53d7a62b7b2d2ef3339c87"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/3763965083616_90_M1_400.png",
+        "bytes": 3299,
+        "sha256": "2181d50bdf276f5aec3905f6136a0e0429633e28b0fb84a1385349441880e8a2",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/3763965083616_90_M1_400_gt.png",
+        "bytes": 626,
+        "sha256": "f8c3e0850da4aa9c3c673cb7f4893a26ceb544c503e246b8f4e95d46676962ca",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "2",
+      "foreground_mean": "204",
+      "foreground_std": "10",
+      "background_mean": "73",
+      "background_std": "30",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "3115460153417",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "600",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID3115460153417",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/3115460153417_90_M1_600_2_220_20_59_20_3$2.png",
+        "member": "90_M1/3115460153417_90_M1_600_2_220_20_59_20_3$2.png",
+        "bytes": 57052,
+        "sha256": "9bd52fc32f1fc1807af30703bcb68751c91a42b3c6da13b136f97a451a3b94fc"
+      },
+      "mask": {
+        "path": "subset/90/mask/3115460153417_90_M1_600.png",
+        "member": "90_M1/3115460153417_90_M1_600.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/90/layout/3115460153417_90_M1_600_gt.png",
+        "member": "90_M1/3115460153417_90_M1_600_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/3115460153417_90_M1_600.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/3115460153417_90_M1_600_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "2",
+      "foreground_mean": "220",
+      "foreground_std": "20",
+      "background_mean": "59",
+      "background_std": "20",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 6.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "5130136521325",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID5130136521325",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/5130136521325_90_M1_100_20_231_20_71_20_10.png",
+        "member": "90_M1/5130136521325_90_M1_100_20_231_20_71_20_10.png",
+        "bytes": 59257,
+        "sha256": "f1b3974d6ad4c59ec7a52f3333b1fb6edf1e56c931ebf0a5f39915d52fc8ad70"
+      },
+      "mask": {
+        "path": "subset/90/mask/5130136521325_90_M1_100.png",
+        "member": "90_M1/5130136521325_90_M1_100.png",
+        "bytes": 3398,
+        "sha256": "4aa92d3f3b887325122e6b441342f60182e3fac735a6bb68f356c04d19271b81"
+      },
+      "layout": {
+        "path": "subset/90/layout/5130136521325_90_M1_100_gt.png",
+        "member": "90_M1/5130136521325_90_M1_100_gt.png",
+        "bytes": 2555,
+        "sha256": "5c23f95e1e3ae113b9b7a851a07276d454473bef61f56dedbc9fb51258460005"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/5130136521325_90_M1_100.png",
+        "bytes": 3087,
+        "sha256": "e3395fa289bed51262f6e1ea99934823a9bab494d216fe5757d42c7ac49bcf2d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/5130136521325_90_M1_100_gt.png",
+        "bytes": 568,
+        "sha256": "6f2a46eec0b6f6f8c312c646ae8533991ab7b099e6f625bed0b71aa6a417d959",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "20",
+      "foreground_mean": "231",
+      "foreground_std": "20",
+      "background_mean": "71",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "2367036411751",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID2367036411751",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/2367036411751_90_M1_200_10_247_30_66_10_3$2.png",
+        "member": "90_M1/2367036411751_90_M1_200_10_247_30_66_10_3$2.png",
+        "bytes": 51644,
+        "sha256": "85ffa3977eb6c33d5489a95798b9b10b4e64f9767eb14e5eb6b685b9c88d0f20"
+      },
+      "mask": {
+        "path": "subset/90/mask/2367036411751_90_M1_200.png",
+        "member": "90_M1/2367036411751_90_M1_200.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/90/layout/2367036411751_90_M1_200_gt.png",
+        "member": "90_M1/2367036411751_90_M1_200_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/2367036411751_90_M1_200.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/2367036411751_90_M1_200_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "247",
+      "foreground_std": "30",
+      "background_mean": "66",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "4793838372015",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID4793838372015",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/4793838372015_90_M1_400_10_223_5_71_20_3$2.png",
+        "member": "90_M1/4793838372015_90_M1_400_10_223_5_71_20_3$2.png",
+        "bytes": 59190,
+        "sha256": "f0357616e1c2f7c6a94bd501792762558f2392eb6c0f1dad2cf0c8b8b1acb83c"
+      },
+      "mask": {
+        "path": "subset/90/mask/4793838372015_90_M1_400.png",
+        "member": "90_M1/4793838372015_90_M1_400.png",
+        "bytes": 1209,
+        "sha256": "a6390617016b3175f3a7f128136a3a7a3ae97556750bae9f21bc49e8aa3b4a3a"
+      },
+      "layout": {
+        "path": "subset/90/layout/4793838372015_90_M1_400_gt.png",
+        "member": "90_M1/4793838372015_90_M1_400_gt.png",
+        "bytes": 945,
+        "sha256": "f0a54850b6740a1702ddd79abe58f6ff7a6ec9d71f9765f59b58ec7f9f6ff5d2"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/4793838372015_90_M1_400.png",
+        "bytes": 1147,
+        "sha256": "af475f2ba8d5d2f41f0f49e33259eac75a089c21914a862d288e557f5e88c40c",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/4793838372015_90_M1_400_gt.png",
+        "bytes": 354,
+        "sha256": "08eec2a10365f4cd07dcc36af484f7ee4debde0bfec106046be068ed47cc96a7",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "223",
+      "foreground_std": "5",
+      "background_mean": "71",
+      "background_std": "20",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "03902127228857",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "600",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID03902127228857",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/03902127228857_90_M1_600_15_226_30_50_20_3$2.png",
+        "member": "90_M1/03902127228857_90_M1_600_15_226_30_50_20_3$2.png",
+        "bytes": 61105,
+        "sha256": "543fc93907971238a83360eead2586715bada8f915e760767a9dfbfe30bd2d31"
+      },
+      "mask": {
+        "path": "subset/90/mask/03902127228857_90_M1_600.png",
+        "member": "90_M1/03902127228857_90_M1_600.png",
+        "bytes": 7459,
+        "sha256": "0c20cb00f4f5d5c7d9109600bfe768ca71315f04e82cfe98d46318548662107d"
+      },
+      "layout": {
+        "path": "subset/90/layout/03902127228857_90_M1_600_gt.png",
+        "member": "90_M1/03902127228857_90_M1_600_gt.png",
+        "bytes": 4759,
+        "sha256": "0a4e7df3799d14626832770b4548401ef220297474d01541714f21641e7f3028"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/03902127228857_90_M1_600.png",
+        "bytes": 7839,
+        "sha256": "85111fe5ac1c552e4c69cd053fe0eee8033914e7f07eedc2b59bd3c64683787b",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/03902127228857_90_M1_600_gt.png",
+        "bytes": 867,
+        "sha256": "052fff2371aa6445e7db00fffd3b7a3fe126c766cc796f8355be5afeb0f34dcf",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "226",
+      "foreground_std": "30",
+      "background_mean": "50",
+      "background_std": "20",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 6.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "6927866264301",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID6927866264301",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/6927866264301_90_M1_100_20_189_5_74_5_10.png",
+        "member": "90_M1/6927866264301_90_M1_100_20_189_5_74_5_10.png",
+        "bytes": 47342,
+        "sha256": "0adf3ce5a514135d48beae8eb712d86c457c897a01d798bef7e232e74952bbc7"
+      },
+      "mask": {
+        "path": "subset/90/mask/6927866264301_90_M1_100.png",
+        "member": "90_M1/6927866264301_90_M1_100.png",
+        "bytes": 3128,
+        "sha256": "7888ffd458f0898b1b8099227e05810be14a2ee27c0d80ab4f73b32a62e8b85e"
+      },
+      "layout": {
+        "path": "subset/90/layout/6927866264301_90_M1_100_gt.png",
+        "member": "90_M1/6927866264301_90_M1_100_gt.png",
+        "bytes": 2071,
+        "sha256": "2654d846f9492f6ab86d7d2d949d43910722629d3051d35828b969eeb408411d"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/6927866264301_90_M1_100.png",
+        "bytes": 3464,
+        "sha256": "d93c272b670facf0f60b55c7175000093618711bcbaaeaeb9c30d2bd423d1c05",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/6927866264301_90_M1_100_gt.png",
+        "bytes": 525,
+        "sha256": "668ad129276a9a0a95725c8bd083c2b6db1ddc13d8609d60c43a8d059afbca82",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "20",
+      "foreground_mean": "189",
+      "foreground_std": "5",
+      "background_mean": "74",
+      "background_std": "5",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "04535828647633",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID04535828647633",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/04535828647633_90_M1_200_10_216_20_55_5_3$2.png",
+        "member": "90_M1/04535828647633_90_M1_200_10_216_20_55_5_3$2.png",
+        "bytes": 46510,
+        "sha256": "b47da12e7e4772e78c26c06c02c6f8551cdcfc3f718264d2e0e625b0c66d6c82"
+      },
+      "mask": {
+        "path": "subset/90/mask/04535828647633_90_M1_200.png",
+        "member": "90_M1/04535828647633_90_M1_200.png",
+        "bytes": 1215,
+        "sha256": "b7da2f53db88b1fe4527c442845e7c6e3e0fea7905c1491861ff246b02b877bf"
+      },
+      "layout": {
+        "path": "subset/90/layout/04535828647633_90_M1_200_gt.png",
+        "member": "90_M1/04535828647633_90_M1_200_gt.png",
+        "bytes": 976,
+        "sha256": "98592a58d5f5f10af2fc7241fe5f5e1df44a3e5db7a444b516b3bba8fd1749c1"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/04535828647633_90_M1_200.png",
+        "bytes": 1109,
+        "sha256": "7e2d95f3083beeda7700e76773ef43408e8e135607dbc9e89b2ae2275907a972",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/04535828647633_90_M1_200_gt.png",
+        "bytes": 456,
+        "sha256": "c10e8acf636e52f4899f9e70f2d9457bca51f135eae46b688aedd818f1a99e04",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "216",
+      "foreground_std": "20",
+      "background_mean": "55",
+      "background_std": "5",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "4857850737546",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID4857850737546",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/4857850737546_90_M1_400_15_218_20_59_30_3$2.png",
+        "member": "90_M1/4857850737546_90_M1_400_15_218_20_59_30_3$2.png",
+        "bytes": 62472,
+        "sha256": "2bc46bbaa0c88ed2070f3dccca670c66b704a8fcb26d0980bc1f0d12f7d3876b"
+      },
+      "mask": {
+        "path": "subset/90/mask/4857850737546_90_M1_400.png",
+        "member": "90_M1/4857850737546_90_M1_400.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/90/layout/4857850737546_90_M1_400_gt.png",
+        "member": "90_M1/4857850737546_90_M1_400_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/4857850737546_90_M1_400.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/4857850737546_90_M1_400_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "218",
+      "foreground_std": "20",
+      "background_mean": "59",
+      "background_std": "30",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "4601217612663",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "600",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID4601217612663",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/4601217612663_90_M1_600_5_247_5_57_20_10.png",
+        "member": "90_M1/4601217612663_90_M1_600_5_247_5_57_20_10.png",
+        "bytes": 56329,
+        "sha256": "86e0192cccbb8c7a133e137e1515bce5dc5b22c4391edf186bdc1831c4296692"
+      },
+      "mask": {
+        "path": "subset/90/mask/4601217612663_90_M1_600.png",
+        "member": "90_M1/4601217612663_90_M1_600.png",
+        "bytes": 6714,
+        "sha256": "71dfd8d0b94282c0d864fe5d8dc9de592d45b977314a1d91469c0fc2429bc854"
+      },
+      "layout": {
+        "path": "subset/90/layout/4601217612663_90_M1_600_gt.png",
+        "member": "90_M1/4601217612663_90_M1_600_gt.png",
+        "bytes": 4358,
+        "sha256": "195a77b2b7e3d8787c6e2a53da25b13609292666db2dea420f71cc46381b4077"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/4601217612663_90_M1_600.png",
+        "bytes": 7136,
+        "sha256": "4145afac8514edf3ffbdba69a6151239f807dc183c39a1eca421b1a6620752c0",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/4601217612663_90_M1_600_gt.png",
+        "bytes": 856,
+        "sha256": "a766083a1c68079811bdfc39104c446a69c1ec10f40d701e608edb01dee6f196",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "5",
+      "foreground_mean": "247",
+      "foreground_std": "5",
+      "background_mean": "57",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 6.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "6993594975639",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID6993594975639",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/6993594975639_90_M1_100_15_221_10_58_10_10.png",
+        "member": "90_M1/6993594975639_90_M1_100_15_221_10_58_10_10.png",
+        "bytes": 53758,
+        "sha256": "85f02ce91b18bca48528d78cbff71cb4fd40a76b2c8f9b6629e43ba7a1702128"
+      },
+      "mask": {
+        "path": "subset/90/mask/6993594975639_90_M1_100.png",
+        "member": "90_M1/6993594975639_90_M1_100.png",
+        "bytes": 2743,
+        "sha256": "308e3dd926890bc61c2c48c081c520e8319dc9116ac646816f18744925045a75"
+      },
+      "layout": {
+        "path": "subset/90/layout/6993594975639_90_M1_100_gt.png",
+        "member": "90_M1/6993594975639_90_M1_100_gt.png",
+        "bytes": 1882,
+        "sha256": "cc2b2ad39077e7133afbb759ce402ed399adb03072640a28350a3429e5b60727"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/6993594975639_90_M1_100.png",
+        "bytes": 2629,
+        "sha256": "65aebdb5945df6cf99408187186e751a4a764f458da08cffa941a85569815902",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/6993594975639_90_M1_100_gt.png",
+        "bytes": 543,
+        "sha256": "cb1b65708a17ce38fbb918ed509af88ac2fe1086cd4d9d50b6c707d8e94a3f39",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "221",
+      "foreground_std": "10",
+      "background_mean": "58",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "5688032641724",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID5688032641724",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/5688032641724_90_M1_200_5_232_20_58_5_10.png",
+        "member": "90_M1/5688032641724_90_M1_200_5_232_20_58_5_10.png",
+        "bytes": 52376,
+        "sha256": "b9d16ed9aafb0c6c67ccd6781f89b8355aa4824e7caffe0d058f94904b306973"
+      },
+      "mask": {
+        "path": "subset/90/mask/5688032641724_90_M1_200.png",
+        "member": "90_M1/5688032641724_90_M1_200.png",
+        "bytes": 3943,
+        "sha256": "49bbc397590cd760e94a35102a154ebb9da3ecd08a564aae6a7353211e75e72c"
+      },
+      "layout": {
+        "path": "subset/90/layout/5688032641724_90_M1_200_gt.png",
+        "member": "90_M1/5688032641724_90_M1_200_gt.png",
+        "bytes": 2917,
+        "sha256": "1d98f745cc4f3c7036a9a387c83db650aa6a72f1d4351679be989f26dcd0be2e"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/5688032641724_90_M1_200.png",
+        "bytes": 4181,
+        "sha256": "0b6ce8d9a0105e0acb6a84a32d8af17c007fe887360ce0a9dd608d4295f1c0fe",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/5688032641724_90_M1_200_gt.png",
+        "bytes": 631,
+        "sha256": "9ad9a206f0ee4c818690f14434f8a800049d78277d4216e3fb189e893081ef43",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "5",
+      "foreground_mean": "232",
+      "foreground_std": "20",
+      "background_mean": "58",
+      "background_std": "5",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "024474084742793",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID024474084742793",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/024474084742793_90_M1_400_10_212_30_59_20_10.png",
+        "member": "90_M1/024474084742793_90_M1_400_10_212_30_59_20_10.png",
+        "bytes": 60389,
+        "sha256": "c562a34c2abd73e9c5853e89d0cf33e75a65cf7a749f3373eea024daf5a1ff38"
+      },
+      "mask": {
+        "path": "subset/90/mask/024474084742793_90_M1_400.png",
+        "member": "90_M1/024474084742793_90_M1_400.png",
+        "bytes": 3475,
+        "sha256": "96e14ed891c2e750d2a3274f9fd4840fb84c7530f847e0c651700493300da393"
+      },
+      "layout": {
+        "path": "subset/90/layout/024474084742793_90_M1_400_gt.png",
+        "member": "90_M1/024474084742793_90_M1_400_gt.png",
+        "bytes": 2067,
+        "sha256": "e894e8d0b50be6764a3a38df8a800ced8b5a03c675f2d509021d2fa953b02f17"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/024474084742793_90_M1_400.png",
+        "bytes": 3603,
+        "sha256": "5b9780501a2a27df3bb275b03fbce455d9506a565d5d74adc835e881923ea642",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/024474084742793_90_M1_400_gt.png",
+        "bytes": 526,
+        "sha256": "806e2c5a6bd966090a30cd3233d2bce82192ecfe7d478deabdbaa1f6a4529181",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "212",
+      "foreground_std": "30",
+      "background_mean": "59",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "04630882678629",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "600",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID04630882678629",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/04630882678629_90_M1_600_10_227_20_58_10_3$2.png",
+        "member": "90_M1/04630882678629_90_M1_600_10_227_20_58_10_3$2.png",
+        "bytes": 58525,
+        "sha256": "5f5c02602a2a92757e1fd4c3f089202f702b8fcefa7e8a83ca9390e5d5c7e4d0"
+      },
+      "mask": {
+        "path": "subset/90/mask/04630882678629_90_M1_600.png",
+        "member": "90_M1/04630882678629_90_M1_600.png",
+        "bytes": 7389,
+        "sha256": "32e51b330fa12647967883bac48e1143dc4979a6f889c2c847f25ccd3e80b9bb"
+      },
+      "layout": {
+        "path": "subset/90/layout/04630882678629_90_M1_600_gt.png",
+        "member": "90_M1/04630882678629_90_M1_600_gt.png",
+        "bytes": 4807,
+        "sha256": "3f082e428c9a2c0391cb5206f1efb40b7e833efcbd1093a497911eae249fb819"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/04630882678629_90_M1_600.png",
+        "bytes": 7806,
+        "sha256": "842b16c713facea52ef7a14fe4ea3679d764bc36e6fb9fcf92505624c5499140",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/04630882678629_90_M1_600_gt.png",
+        "bytes": 888,
+        "sha256": "60339e75118eeadbb7b5dd82c128308818c333c8f8682ab32a344a962306835f",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "227",
+      "foreground_std": "20",
+      "background_mean": "58",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 6.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "7824892253827",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID7824892253827",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/7824892253827_90_M1_100_10_255_30_66_5_3$2.png",
+        "member": "90_M1/7824892253827_90_M1_100_10_255_30_66_5_3$2.png",
+        "bytes": 50852,
+        "sha256": "ab417e4fb8c10d55b9493e32f301cea1c6f005066ca759d2449bb33366ea3053"
+      },
+      "mask": {
+        "path": "subset/90/mask/7824892253827_90_M1_100.png",
+        "member": "90_M1/7824892253827_90_M1_100.png",
+        "bytes": 3100,
+        "sha256": "02beb878d4c1663c609978ec4aa0cfdd9639cca2344b6b818377a06de7bed1ba"
+      },
+      "layout": {
+        "path": "subset/90/layout/7824892253827_90_M1_100_gt.png",
+        "member": "90_M1/7824892253827_90_M1_100_gt.png",
+        "bytes": 2054,
+        "sha256": "c9fbd795d39f50f1f4a71f531b41b93a5919faa08f0b2cd1b459b9ee86c743c8"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/7824892253827_90_M1_100.png",
+        "bytes": 3310,
+        "sha256": "3ae3acef148c5e5fa85dda1700ff8bbbb402b331eff730072137e79d4f1598f4",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/7824892253827_90_M1_100_gt.png",
+        "bytes": 547,
+        "sha256": "a949035fb53039a5911b1b6fa7effaf7e3fac9ea79e252e65a1ef170dd7c396e",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "255",
+      "foreground_std": "30",
+      "background_mean": "66",
+      "background_std": "5",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "9285346398671",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID9285346398671",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/9285346398671_90_M1_200_20_189_5_74_5_10.png",
+        "member": "90_M1/9285346398671_90_M1_200_20_189_5_74_5_10.png",
+        "bytes": 44881,
+        "sha256": "5b4a3eb3e8a92910ba0db671f1b5ed17b0e2078fb704a08be1c4196707008ecb"
+      },
+      "mask": {
+        "path": "subset/90/mask/9285346398671_90_M1_200.png",
+        "member": "90_M1/9285346398671_90_M1_200.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/90/layout/9285346398671_90_M1_200_gt.png",
+        "member": "90_M1/9285346398671_90_M1_200_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/9285346398671_90_M1_200.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/9285346398671_90_M1_200_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "20",
+      "foreground_mean": "189",
+      "foreground_std": "5",
+      "background_mean": "74",
+      "background_std": "5",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "25821833936878",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID25821833936878",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/25821833936878_90_M1_400_20_219_20_53_10_10.png",
+        "member": "90_M1/25821833936878_90_M1_400_20_219_20_53_10_10.png",
+        "bytes": 55408,
+        "sha256": "f7cbb167aa500c48a1d11ef83ce300755c37565bdd76e28f0cb0e76169e31743"
+      },
+      "mask": {
+        "path": "subset/90/mask/25821833936878_90_M1_400.png",
+        "member": "90_M1/25821833936878_90_M1_400.png",
+        "bytes": 2567,
+        "sha256": "8370a4617f8c20f01eb1f618f01d0e77600c77916df5f50a68b2ecf3d0de9b62"
+      },
+      "layout": {
+        "path": "subset/90/layout/25821833936878_90_M1_400_gt.png",
+        "member": "90_M1/25821833936878_90_M1_400_gt.png",
+        "bytes": 1697,
+        "sha256": "d4d60e1078b2fd0e0d31430cd156650665e84e6fa18793a3274edb066f7d3668"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/25821833936878_90_M1_400.png",
+        "bytes": 2773,
+        "sha256": "069be76f8f4296a834ef9d7279446b323a8a6e9077cbf922a4ea636403281659",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/25821833936878_90_M1_400_gt.png",
+        "bytes": 512,
+        "sha256": "11b98d479a95f26dcd9aa63cd32f24ea447c7a18a71ad3c57623fcbd9b0eba92",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "20",
+      "foreground_mean": "219",
+      "foreground_std": "20",
+      "background_mean": "53",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "5682596220888",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "600",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID5682596220888",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/5682596220888_90_M1_600_2_226_30_73_10_3$2.png",
+        "member": "90_M1/5682596220888_90_M1_600_2_226_30_73_10_3$2.png",
+        "bytes": 58396,
+        "sha256": "6180ad47e9299f6069e9d5b7e16d7a2b77132ad462078dc9b0b238e8c2f298c0"
+      },
+      "mask": {
+        "path": "subset/90/mask/5682596220888_90_M1_600.png",
+        "member": "90_M1/5682596220888_90_M1_600.png",
+        "bytes": 7426,
+        "sha256": "4259679a26ef495c49efdfc0df68ebc592d6090d2ca08d52888f27f1026cf027"
+      },
+      "layout": {
+        "path": "subset/90/layout/5682596220888_90_M1_600_gt.png",
+        "member": "90_M1/5682596220888_90_M1_600_gt.png",
+        "bytes": 4775,
+        "sha256": "5a3e08e8dc7b43eabc5be313cd38a131906eb599863c17aaf44dc07c58dd7ce1"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/5682596220888_90_M1_600.png",
+        "bytes": 7816,
+        "sha256": "9d253ff50ee9ebf918ad25abb3e14b6b1a06efdf95e04e01ed70f29f6e40cba2",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/5682596220888_90_M1_600_gt.png",
+        "bytes": 893,
+        "sha256": "c52bfc9c78522fb87f0165f5f87bbaadc91a5553c41393abe2c12afc41ac81e1",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "2",
+      "foreground_mean": "226",
+      "foreground_std": "30",
+      "background_mean": "73",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 6.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "08404094752794",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID08404094752794",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/08404094752794_90_M1_100_10_195_30_67_10_10.png",
+        "member": "90_M1/08404094752794_90_M1_100_10_195_30_67_10_10.png",
+        "bytes": 51331,
+        "sha256": "563fa6e8cc80067adbb411c51529489e68aa3cfdcf1430882e16236e3b95de80"
+      },
+      "mask": {
+        "path": "subset/90/mask/08404094752794_90_M1_100.png",
+        "member": "90_M1/08404094752794_90_M1_100.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/90/layout/08404094752794_90_M1_100_gt.png",
+        "member": "90_M1/08404094752794_90_M1_100_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/08404094752794_90_M1_100.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/08404094752794_90_M1_100_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "195",
+      "foreground_std": "30",
+      "background_mean": "67",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "13218454387416",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID13218454387416",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/13218454387416_90_M1_200_10_233_20_53_20_10.png",
+        "member": "90_M1/13218454387416_90_M1_200_10_233_20_53_20_10.png",
+        "bytes": 58736,
+        "sha256": "9ce9a1386f8e1c172caab3b65cf2db3bea2e9d02124de7f0a1661c4b9f21a7eb"
+      },
+      "mask": {
+        "path": "subset/90/mask/13218454387416_90_M1_200.png",
+        "member": "90_M1/13218454387416_90_M1_200.png",
+        "bytes": 503,
+        "sha256": "4fc71e6b0687d01f10df98f8b4b36bf073312cd85f974fdf3c4555e6642382ce"
+      },
+      "layout": {
+        "path": "subset/90/layout/13218454387416_90_M1_200_gt.png",
+        "member": "90_M1/13218454387416_90_M1_200_gt.png",
+        "bytes": 485,
+        "sha256": "71b0ce6db16c466ba556c300ebc07791929fb10fd4d3e81ec1917ce3dbe6723e"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/13218454387416_90_M1_200.png",
+        "bytes": 236,
+        "sha256": "e0a54c44cbab3f32f04c7c33621cd29ed1e1f8f78e67f9abac86784067b61780",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/13218454387416_90_M1_200_gt.png",
+        "bytes": 191,
+        "sha256": "681455a4a06128c68e554ce312c961fffff11d2ea468080265b13bc7a46f4723",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "233",
+      "foreground_std": "20",
+      "background_mean": "53",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "30769353533124",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID30769353533124",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/30769353533124_90_M1_400_2_223_10_68_10_10.png",
+        "member": "90_M1/30769353533124_90_M1_400_2_223_10_68_10_10.png",
+        "bytes": 49218,
+        "sha256": "fd4da2c57cc9f43d5351332625c8cca363808062ededcfcd4e03e591eb242ecd"
+      },
+      "mask": {
+        "path": "subset/90/mask/30769353533124_90_M1_400.png",
+        "member": "90_M1/30769353533124_90_M1_400.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/90/layout/30769353533124_90_M1_400_gt.png",
+        "member": "90_M1/30769353533124_90_M1_400_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/30769353533124_90_M1_400.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/30769353533124_90_M1_400_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "2",
+      "foreground_mean": "223",
+      "foreground_std": "10",
+      "background_mean": "68",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "6879922804062",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "600",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID6879922804062",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/6879922804062_90_M1_600_15_225_10_48_5_10.png",
+        "member": "90_M1/6879922804062_90_M1_600_15_225_10_48_5_10.png",
+        "bytes": 52121,
+        "sha256": "93281691f87f4ab06125bfb1e42888974867d429404789268241a765a3ed972d"
+      },
+      "mask": {
+        "path": "subset/90/mask/6879922804062_90_M1_600.png",
+        "member": "90_M1/6879922804062_90_M1_600.png",
+        "bytes": 5636,
+        "sha256": "cb775a431ea945d10dc6c8c46b18aa8c5f9c98c2d615bcc435f511683399642f"
+      },
+      "layout": {
+        "path": "subset/90/layout/6879922804062_90_M1_600_gt.png",
+        "member": "90_M1/6879922804062_90_M1_600_gt.png",
+        "bytes": 4316,
+        "sha256": "c480fbf2ec8395dce0f8674429421d6b851df8e9a38ad49aa320c2c6b34b8672"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/6879922804062_90_M1_600.png",
+        "bytes": 5288,
+        "sha256": "06ac6054979efc9763d5e97df200869b0ff4d7fa8ec06a4c562cb3acb3f53b54",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/6879922804062_90_M1_600_gt.png",
+        "bytes": 839,
+        "sha256": "4f26bf882d7cac2148f9553af32a6df61bfb9b36106e51e3c9aec8e7f5b04af1",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "225",
+      "foreground_std": "10",
+      "background_mean": "48",
+      "background_std": "5",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 6.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "9170666459687",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID9170666459687",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/9170666459687_90_M1_100_20_246_30_70_5_3$2.png",
+        "member": "90_M1/9170666459687_90_M1_100_20_246_30_70_5_3$2.png",
+        "bytes": 53996,
+        "sha256": "521da6a3aa371da6f79aad485eb5edd5fa83be55659f061471b1b995691a35e9"
+      },
+      "mask": {
+        "path": "subset/90/mask/9170666459687_90_M1_100.png",
+        "member": "90_M1/9170666459687_90_M1_100.png",
+        "bytes": 3317,
+        "sha256": "2e125526155e582cb54b6df998b12050fb88704dc4afeccda20064a2b91cd2ba"
+      },
+      "layout": {
+        "path": "subset/90/layout/9170666459687_90_M1_100_gt.png",
+        "member": "90_M1/9170666459687_90_M1_100_gt.png",
+        "bytes": 2503,
+        "sha256": "43478c18a5d308f24a8b47b4d69a61e3f6f02bf1baf65fe3a68640a214b48562"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/9170666459687_90_M1_100.png",
+        "bytes": 3023,
+        "sha256": "a43480d6f66582bb64b3ccb0c7785e575fcaa92b007d3651b8f63efde89b282d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/9170666459687_90_M1_100_gt.png",
+        "bytes": 581,
+        "sha256": "6dbc7d569a6e7513d6268f05cede14d8b917997388d0162e06170f9f627e6975",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "20",
+      "foreground_mean": "246",
+      "foreground_std": "30",
+      "background_mean": "70",
+      "background_std": "5",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "13483710259797",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID13483710259797",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/13483710259797_90_M1_200_10_200_10_53_10_3$2.png",
+        "member": "90_M1/13483710259797_90_M1_200_10_200_10_53_10_3$2.png",
+        "bytes": 51524,
+        "sha256": "780f0de6b42c9e09c7d22df82549b2fa7fedfb66d6eba67022c8e135f5586acc"
+      },
+      "mask": {
+        "path": "subset/90/mask/13483710259797_90_M1_200.png",
+        "member": "90_M1/13483710259797_90_M1_200.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/90/layout/13483710259797_90_M1_200_gt.png",
+        "member": "90_M1/13483710259797_90_M1_200_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/13483710259797_90_M1_200.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/13483710259797_90_M1_200_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "200",
+      "foreground_std": "10",
+      "background_mean": "53",
+      "background_std": "10",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "33677617737802",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID33677617737802",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/33677617737802_90_M1_400_5_233_20_71_20_3$2.png",
+        "member": "90_M1/33677617737802_90_M1_400_5_233_20_71_20_3$2.png",
+        "bytes": 58683,
+        "sha256": "5c1122122766b4e84c9ce2e34ad2e98657a6f41fd65ab0ba74374e32eca4c1e6"
+      },
+      "mask": {
+        "path": "subset/90/mask/33677617737802_90_M1_400.png",
+        "member": "90_M1/33677617737802_90_M1_400.png",
+        "bytes": 2463,
+        "sha256": "06638c267431efd542dff6afd40b86f98c4b2ade46a2f797890cb85fe2ae9551"
+      },
+      "layout": {
+        "path": "subset/90/layout/33677617737802_90_M1_400_gt.png",
+        "member": "90_M1/33677617737802_90_M1_400_gt.png",
+        "bytes": 1707,
+        "sha256": "c4c14e0aa146df4d9312f2df86bb17dd2ea027aa17f663f9610feb60e637c668"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/33677617737802_90_M1_400.png",
+        "bytes": 2441,
+        "sha256": "e9cdef71387f32e4c28a9174a2ad2770bb97094dc209a27da53f8ffb7c3b80a1",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/33677617737802_90_M1_400_gt.png",
+        "bytes": 507,
+        "sha256": "dda870b0cdb67d0e50d5f235c6cd61d1c1d18760ab3e5d5d38857dcd50f32f6e",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "5",
+      "foreground_mean": "233",
+      "foreground_std": "20",
+      "background_mean": "71",
+      "background_std": "20",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "7167748195655",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "600",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID7167748195655",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/7167748195655_90_M1_600_10_208_20_62_10_10.png",
+        "member": "90_M1/7167748195655_90_M1_600_10_208_20_62_10_10.png",
+        "bytes": 57989,
+        "sha256": "855338b818686f00ec96bcc1695a8540a3f2442335b24178cde252c84aa3dfe2"
+      },
+      "mask": {
+        "path": "subset/90/mask/7167748195655_90_M1_600.png",
+        "member": "90_M1/7167748195655_90_M1_600.png",
+        "bytes": 5910,
+        "sha256": "ebb6fff3bcc83d4b2baaa17f565f4abe4c698e3304feaf5f326c36a6446bf2f9"
+      },
+      "layout": {
+        "path": "subset/90/layout/7167748195655_90_M1_600_gt.png",
+        "member": "90_M1/7167748195655_90_M1_600_gt.png",
+        "bytes": 3868,
+        "sha256": "5c6d9a1de28b7d53845b530c56fdd083ac83324d1bc82f38aa8a1a156850fed6"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/7167748195655_90_M1_600.png",
+        "bytes": 6313,
+        "sha256": "821719b93fad73a31180f7337b13b7c871446bdb7551ab7329c9a6d13ac15f64",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/7167748195655_90_M1_600_gt.png",
+        "bytes": 796,
+        "sha256": "16af9be0cf031f1622bd12137a077c0521d120238357eeea1929a5355fd7faf9",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "208",
+      "foreground_std": "20",
+      "background_mean": "62",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 6.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "9254981096291",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "100",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID9254981096291",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/9254981096291_90_M1_100_15_216_10_55_30_3$2.png",
+        "member": "90_M1/9254981096291_90_M1_100_15_216_10_55_30_3$2.png",
+        "bytes": 62193,
+        "sha256": "caf107ff0045b13e6704d02a28e998b97ae02f4cb94cf39770b8e0164ba07135"
+      },
+      "mask": {
+        "path": "subset/90/mask/9254981096291_90_M1_100.png",
+        "member": "90_M1/9254981096291_90_M1_100.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "layout": {
+        "path": "subset/90/layout/9254981096291_90_M1_100_gt.png",
+        "member": "90_M1/9254981096291_90_M1_100_gt.png",
+        "bytes": 452,
+        "sha256": "e9986f7ee7a4afd4ae561c3c81b4c1b979debd94b6cbb9b80143ea9ce4c79043"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/9254981096291_90_M1_100.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/9254981096291_90_M1_100_gt.png",
+        "bytes": 141,
+        "sha256": "aa639ddb52b24270ce590e911c86194d4809c20dc462e92b37268944b5755d6d",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "15",
+      "foreground_mean": "216",
+      "foreground_std": "10",
+      "background_mean": "55",
+      "background_std": "30",
+      "dwell_time": "3$2",
+      "dwell_time_us": 3.2
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 1.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "20433295369354",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "200",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID20433295369354",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/20433295369354_90_M1_200_10_196_10_64_30_10.png",
+        "member": "90_M1/20433295369354_90_M1_200_10_196_10_64_30_10.png",
+        "bytes": 59113,
+        "sha256": "805cdc45e277f482ff731644442a90869eaeabdaa0798fb436ccd0b2f5ae8214"
+      },
+      "mask": {
+        "path": "subset/90/mask/20433295369354_90_M1_200.png",
+        "member": "90_M1/20433295369354_90_M1_200.png",
+        "bytes": 3116,
+        "sha256": "f2c5b48c5b50ddd6623b2bb63cc1576dd088cae414858f83965c3a4b4945db77"
+      },
+      "layout": {
+        "path": "subset/90/layout/20433295369354_90_M1_200_gt.png",
+        "member": "90_M1/20433295369354_90_M1_200_gt.png",
+        "bytes": 2410,
+        "sha256": "517125a1419092dbe0dca31364eb42d0c991986bbc27b2cb62cf486e941a2da1"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/20433295369354_90_M1_200.png",
+        "bytes": 2988,
+        "sha256": "95cb1da0b1fd98afa79e6d8fe95c6b950a3f1d47231d1a9f67d5197ea4348d29",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/20433295369354_90_M1_200_gt.png",
+        "bytes": 575,
+        "sha256": "121d18287ba11e73ba803908a1f430360d8a7ee78630d0d6cf1ecd6625bff858",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "196",
+      "foreground_std": "10",
+      "background_mean": "64",
+      "background_std": "30",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 2.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "38374614046404",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "400",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID38374614046404",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/38374614046404_90_M1_400_20_218_5_55_10_10.png",
+        "member": "90_M1/38374614046404_90_M1_400_20_218_5_55_10_10.png",
+        "bytes": 52811,
+        "sha256": "829e640e455ea20c6fb3431ec43bc622ebb6ac24909ed2ef83c0206713537fe9"
+      },
+      "mask": {
+        "path": "subset/90/mask/38374614046404_90_M1_400.png",
+        "member": "90_M1/38374614046404_90_M1_400.png",
+        "bytes": 3106,
+        "sha256": "45a4164e88c84489874616d3abc4ba7e09d0ee852775b997d4a704ef11cace16"
+      },
+      "layout": {
+        "path": "subset/90/layout/38374614046404_90_M1_400_gt.png",
+        "member": "90_M1/38374614046404_90_M1_400_gt.png",
+        "bytes": 2204,
+        "sha256": "7f7435d333be9a7095a51e6f33986fd3f30f3d4572ae9df6a1a36dc7e62e3e50"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/38374614046404_90_M1_400.png",
+        "bytes": 2878,
+        "sha256": "3400579a46f516aacaa96583c179f62e3cbe47b0af5f65bac6597a6fd65bd70e",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/38374614046404_90_M1_400_gt.png",
+        "bytes": 479,
+        "sha256": "997a0baf789f3c40382e7c7d7a1361092d6ef1f89ee4b8a1dd2b94f58c61f870",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "20",
+      "foreground_mean": "218",
+      "foreground_std": "5",
+      "background_mean": "55",
+      "background_std": "10",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 4.0,
+    "physical_pixel_size_nm": null
+  },
+  {
+    "uid": "7293071242596",
+    "node_nm": 90,
+    "layer": "M1",
+    "magnification": "600",
+    "dataset": "REFICS",
+    "modality": "synthetic_SEM",
+    "source_layout_id": "AES_M1_90nm",
+    "layout_group": "REFICS_90_M1_UID7293071242596",
+    "license": "CC-BY-4.0",
+    "archive_url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+    "files": {
+      "sem": {
+        "path": "subset/90/sem/7293071242596_90_M1_600_10_212_30_59_20_10.png",
+        "member": "90_M1/7293071242596_90_M1_600_10_212_30_59_20_10.png",
+        "bytes": 59267,
+        "sha256": "feb0a46c8bf2e6da2b1c6567333a8b8e38e840b097ecfd0ff12f87670c4fc7b1"
+      },
+      "mask": {
+        "path": "subset/90/mask/7293071242596_90_M1_600.png",
+        "member": "90_M1/7293071242596_90_M1_600.png",
+        "bytes": 1279,
+        "sha256": "03a7fd30427f979b2492eb04cb6e15035628c9cf3c294926b4d2bec47e2a254f"
+      },
+      "layout": {
+        "path": "subset/90/layout/7293071242596_90_M1_600_gt.png",
+        "member": "90_M1/7293071242596_90_M1_600_gt.png",
+        "bytes": 1002,
+        "sha256": "f8b1d7331189d1fb082ba39b9d5a818a565cdc9546186095cc49b28ea1883f32"
+      },
+      "mask_binary": {
+        "path": "subset/90/mask_binary/7293071242596_90_M1_600.png",
+        "bytes": 1173,
+        "sha256": "413554c2ff460c6c58dd558fb4ca790a0b99169d7b845efe0e27a3c024bbac10",
+        "derived_from": "mask",
+        "rule": "uint8(original > 0) * 255"
+      },
+      "layout_binary": {
+        "path": "subset/90/layout_binary/7293071242596_90_M1_600_gt.png",
+        "bytes": 389,
+        "sha256": "f4f8521673b17e25c34a5b28fae02e0ab30a872020b6ab5978c0a3edb6713b30",
+        "derived_from": "layout",
+        "rule": "uint8(original > 0) * 255"
+      }
+    },
+    "generation_parameters": {
+      "shot": "10",
+      "foreground_mean": "212",
+      "foreground_std": "30",
+      "background_mean": "59",
+      "background_std": "20",
+      "dwell_time": "10",
+      "dwell_time_us": 10.0
+    },
+    "source_layout_file": "tools_and_doc/layout_files/design_M1_90nm.png",
+    "source_layout_sha256": "6ec4272564cf801964b73066188942716454bf990851ebf5bdedd490c3d5c6d0",
+    "source_layout_pixels": [
+      4020,
+      4020
+    ],
+    "relative_magnification_factor_in_released_tool": 6.0,
+    "physical_pixel_size_nm": null
+  }
+]

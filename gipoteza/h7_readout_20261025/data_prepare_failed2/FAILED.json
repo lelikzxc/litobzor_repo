@@ -1,0 +1,5 @@
+{
+  "status": "FAILED_AT_MANIFEST_JSON",
+  "reason": "NumPy int64 support counter requires explicit int conversion",
+  "data_native_preparation_finished": true
+}

@@ -1,0 +1,759 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/ofy9wn61",
+    "id": "ofy9wn61",
+    "slide": 3,
+    "layoutId": "/ppt/slideLayouts/slideLayout4.xml",
+    "layoutName": "Заголовок + текст",
+    "layoutType": "blank",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster4.xml",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 960,
+      "height": 540
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Simple Light",
+    "colors": {
+      "accent1": "#FFAB40",
+      "accent2": "#212121",
+      "accent3": "#78909C",
+      "accent4": "#FFAB40",
+      "accent5": "#0097A7",
+      "accent6": "#EEFF41",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#595959",
+      "lt2": "#EEEEEE",
+      "hlink": "#0097A7",
+      "folHlink": "#0097A7"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Arial"
+      },
+      "minorFont": {
+        "latinTypeface": "Arial"
+      }
+    },
+    "typefaces": [
+      "Arial"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout4.xml",
+      "name": "Заголовок + текст",
+      "type": "blank",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster4.xml",
+      "backgroundColor": "lt1",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "image",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout4.xml/24",
+          "id": "24",
+          "name": "Shape 55",
+          "bbox": [
+            768,
+            5.44,
+            185.95,
+            60.62
+          ],
+          "contentType": "image/jpeg",
+          "imageCrop": {
+            "left": 0.06032,
+            "top": 0.2025,
+            "right": 0.09,
+            "bottom": 0.17458
+          },
+          "asset": {
+            "assetId": "/ppt/media/image1.jpeg",
+            "contentType": "image/jpeg",
+            "byteLength": 51509
+          },
+          "fillImage": {
+            "assetId": "/ppt/media/image1.jpeg",
+            "contentType": "image/jpeg",
+            "byteLength": 51509
+          }
+        },
+        {
+          "order": 2,
+          "kind": "image",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout4.xml/25",
+          "id": "25",
+          "name": "Рисунок 1",
+          "bbox": [
+            9.22,
+            9.79,
+            155.94,
+            60.62
+          ],
+          "contentType": "image/png",
+          "asset": {
+            "assetId": "/ppt/media/image2.png",
+            "contentType": "image/png",
+            "byteLength": 10418
+          },
+          "fillImage": {
+            "assetId": "/ppt/media/image2.png",
+            "contentType": "image/png",
+            "byteLength": 10418
+          }
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout4.xml/21",
+          "id": "21",
+          "name": "PlaceHolder 1",
+          "bbox": [
+            159.99,
+            33.37,
+            639.87,
+            66.6
+          ],
+          "geometry": "rect",
+          "text": "Click to edit the title text format",
+          "textPreview": "Click to edit the title text format",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.72,
+              "right": 9.45,
+              "bottom": 4.72,
+              "left": 9.45
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit the title text format",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit the title text format",
+                  "fontSize": 32,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout4.xml/22",
+          "id": "22",
+          "name": "PlaceHolder 2",
+          "bbox": [
+            889.51,
+            489.56,
+            57.49,
+            41.2
+          ],
+          "geometry": "rect",
+          "text": "<number>",
+          "textPreview": "<number>",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "autoFit": "none",
+            "insets": {
+              "top": 9.6,
+              "right": 9.6,
+              "bottom": 9.6,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "<number>",
+              "lineSpacingPercent": 100000,
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "<number>",
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout4.xml/23",
+          "id": "23",
+          "name": "PlaceHolder 3",
+          "bbox": [
+            100.08,
+            120.98,
+            759.72,
+            385.51
+          ],
+          "geometry": "rect",
+          "text": "Click to edit the outline text format\nSecond Outline Level\nThird Outline Level\nFourth Outline Level\nFifth Outline Level\nSixth Outline Level\nSeventh Outline Level",
+          "textPreview": "Click to edit the outline text format | Second Outline Level | Third Outline Level | Fourth Outline Level | Fifth Outline Level | Sixth O...",
+          "resolvedTextStyle": {
+            "anchor": 1,
+            "verticalAlignment": "top",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.72,
+              "right": 9.45,
+              "bottom": 4.72,
+              "left": 9.45
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit the outline text format",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit the outline text format",
+                  "fontSize": 18.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Second Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Second Outline Level",
+                  "fontSize": 18.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Third Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Third Outline Level",
+                  "fontSize": 18.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Fourth Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fourth Outline Level",
+                  "fontSize": 18.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Fifth Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fifth Outline Level",
+                  "fontSize": 18.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 6,
+              "text": "Sixth Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Sixth Outline Level",
+                  "fontSize": 18.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            },
+            {
+              "index": 7,
+              "text": "Seventh Outline Level",
+              "lineSpacingPercent": 100000,
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Seventh Outline Level",
+                  "fontSize": 18.67,
+                  "typeface": "Arial",
+                  "color": "#000000"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster4.xml",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/z2d07mh4",
+      "id": "32",
+      "name": "PlaceHolder 1",
+      "bbox": [
+        159.99,
+        33.37,
+        639.87,
+        66.6
+      ],
+      "geometry": "rect",
+      "text": "Цель работы",
+      "textPreview": "Цель работы",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "verticalAlignment": "middle",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.72,
+          "right": 9.45,
+          "bottom": 4.72,
+          "left": 9.45
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Цель работы"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Цель работы",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Цель работы",
+              "fontSize": 32,
+              "typeface": "Arial",
+              "color": "#58519F"
+            }
+          ]
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/y14jehgj",
+      "id": "33",
+      "name": "PlaceHolder 2",
+      "bbox": [
+        100.08,
+        113.39,
+        759.72,
+        79.67
+      ],
+      "geometry": "rect",
+      "text": "Разработка и исследование метода сегментации и классификации дефектов на изображениях кремниевых пластин с использованием глубокого обучения, учитывающего влияние геометрически значимых ошибок сегментации на определение класса.",
+      "textPreview": "Разработка и исследование метода сегментации и классификации дефектов на изображениях кремниевых пластин с использованием глубокого обуче...",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.72,
+          "right": 9.45,
+          "bottom": 4.72,
+          "left": 9.45
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Разработка и исследование метода сегментации и классификации дефектов на"
+          },
+          {
+            "index": 2,
+            "text": "изображениях кремниевых пластин с использованием глубокого обучения,"
+          },
+          {
+            "index": 3,
+            "text": "учитывающего влияние геометрически значимых ошибок сегментации на"
+          },
+          {
+            "index": 4,
+            "text": "определение класса."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Разработка и исследование метода сегментации и классификации дефектов на изображениях кремниевых пластин с использованием глубокого обучения, учитывающего влияние геометрически значимых ошибок сегментации на определение класса.",
+          "lineSpacingPercent": 100000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Разработка и исследование метода сегментации и классификации дефектов на изображениях кремниевых пластин с использованием глубокого обучения, учитывающего влияние геометрически значимых ошибок сегментации на определение класса.",
+              "fontSize": 18.67,
+              "typeface": "Arial",
+              "color": "#000000"
+            }
+          ]
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x0vi5czy",
+      "id": "34",
+      "name": "Заголовок 2",
+      "bbox": [
+        159.99,
+        170.08,
+        639.87,
+        66.6
+      ],
+      "geometry": "rect",
+      "text": "Задачи",
+      "textPreview": "Задачи",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "verticalAlignment": "middle",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.72,
+          "right": 9.45,
+          "bottom": 4.72,
+          "left": 9.45
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Задачи"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Задачи",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Задачи",
+              "fontSize": 32,
+              "typeface": "Arial",
+              "color": "#58519F"
+            }
+          ]
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/czmhc7id",
+      "id": "35",
+      "name": "Текст 3",
+      "bbox": [
+        100.08,
+        219.97,
+        759.72,
+        276
+      ],
+      "geometry": "rect",
+      "text": "Проанализировать существующие методы сегментации и классификации дефектов на изображениях полупроводниковых структур.\nПодготовить набор данных и разметку, сформировать обучающую, валидационную и тестовую выборки.\nРазработать и обучить нейросетевые модели выделения дефектных областей и определения типов дефектов.\nИсследовать влияние детализации изображений на сохранение геометрических признаков и качество классификации.\nРазработать способ выбора участков изображения для дополнительного уточнения при неоднозначном определении класса.\nСравнить разработанный метод с базовыми решениями по качеству сегментации, Macro-F1 классификации и затратам на обработку изображений.",
+      "textPreview": "Проанализировать существующие методы сегментации и классификации дефектов на изображениях полупроводниковых структур. | Подготовить набор...",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.72,
+          "right": 9.45,
+          "bottom": 4.72,
+          "left": 9.45
+        }
+      },
+      "textLayout": {
+        "lineCount": 12,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1. Проанализировать существующие методы сегментации и классификации"
+          },
+          {
+            "index": 2,
+            "text": "дефектов на изображениях полупроводниковых структур."
+          },
+          {
+            "index": 3,
+            "text": "2. Подготовить набор данных и разметку, сформировать обучающую, валидационную"
+          },
+          {
+            "index": 4,
+            "text": "и тестовую выборки."
+          },
+          {
+            "index": 5,
+            "text": "3. Разработать и обучить нейросетевые модели выделения дефектных областей и"
+          },
+          {
+            "index": 6,
+            "text": "определения типов дефектов."
+          },
+          {
+            "index": 7,
+            "text": "4. Исследовать влияние детализации изображений на сохранение геометрических"
+          },
+          {
+            "index": 8,
+            "text": "признаков и качество классификации."
+          },
+          {
+            "index": 9,
+            "text": "5. Разработать способ выбора участков изображения для дополнительного"
+          },
+          {
+            "index": 10,
+            "text": "уточнения при неоднозначном определении класса."
+          },
+          {
+            "index": 11,
+            "text": "6. Сравнить разработанный метод с базовыми решениями по качеству сегментации,"
+          },
+          {
+            "index": 12,
+            "text": "Macro-F1 классификации и затратам на обработку изображений."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Проанализировать существующие методы сегментации и классификации дефектов на изображениях полупроводниковых структур.",
+          "lineSpacingPercent": 100000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Проанализировать существующие методы сегментации и классификации дефектов на изображениях полупроводниковых структур.",
+              "fontSize": 18.67,
+              "typeface": "Arial",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "text": "Подготовить набор данных и разметку, сформировать обучающую, валидационную и тестовую выборки.",
+          "lineSpacingPercent": 100000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Подготовить набор данных и разметку, сформировать обучающую, валидационную и тестовую выборки.",
+              "fontSize": 18.67,
+              "typeface": "Arial",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "text": "Разработать и обучить нейросетевые модели выделения дефектных областей и определения типов дефектов.",
+          "lineSpacingPercent": 100000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Разработать и обучить нейросетевые модели выделения дефектных областей и определения типов дефектов.",
+              "fontSize": 18.67,
+              "typeface": "Arial",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "text": "Исследовать влияние детализации изображений на сохранение геометрических признаков и качество классификации.",
+          "lineSpacingPercent": 100000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Исследовать влияние детализации изображений на сохранение геометрических признаков и качество классификации.",
+              "fontSize": 18.67,
+              "typeface": "Arial",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "text": "Разработать способ выбора участков изображения для дополнительного уточнения при неоднозначном определении класса.",
+          "lineSpacingPercent": 100000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Разработать способ выбора участков изображения для дополнительного уточнения при неоднозначном определении класса.",
+              "fontSize": 18.67,
+              "typeface": "Arial",
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "text": "Сравнить разработанный метод с базовыми решениями по качеству сегментации, Macro-F1 классификации и затратам на обработку изображений.",
+          "lineSpacingPercent": 100000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Сравнить разработанный метод с базовыми решениями по качеству сегментации, Macro-F1 классификации и затратам на обработку изображений.",
+              "fontSize": 18.67,
+              "typeface": "Arial",
+              "color": "#000000"
+            }
+          ]
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/298ryl4v",
+      "id": "4",
+      "name": "PlaceHolder 3",
+      "bbox": [
+        889.51,
+        489.56,
+        57.49,
+        41.2
+      ],
+      "text": "3",
+      "textPreview": "3",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "right",
+        "verticalAlignment": "middle",
+        "autoFit": "none",
+        "insets": {
+          "top": 9.6,
+          "right": 9.6,
+          "bottom": 9.6,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "3"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "3",
+          "runs": [
+            {
+              "index": 1,
+              "text": "3"
+            }
+          ],
+          "bulletCharacter": "",
+          "indent": 0,
+          "lineSpacingPercent": 100000
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

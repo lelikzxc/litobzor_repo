@@ -1,0 +1,31 @@
+{
+  "created_utc": "2026-10-24T17:48:45.569567+00:00",
+  "status": "RESEARCH_PROPOSAL_READY_WITH_EXPLICIT_PREFIT_GATES",
+  "hypothesis": "H6 local critical connectivity constraints under lithography condition shifts",
+  "technical_review": "Independent CV/literature and data reviews; all five material clarifications incorporated",
+  "clarifications": [
+    "raw labels retained for nonmonotone event curves; interval loss only where defined",
+    "missing anchors and permitted corridors defined; candidate coverage gate",
+    "empty constraint sets and equality of global boundaries handled",
+    "oracle substitution identified as implementation sanity check, not independent mechanism proof",
+    "geometry-family evaluation weights and independent positive-group coverage specified"
+  ],
+  "primary_metric": "Two-event multilabel Macro-F1; geometric violations, not validated electrical failures",
+  "novelty": "Scoped search found no direct equivalent of per-pair process thresholds plus typed aggregation and critical-location transfer; general topology/maximin/monotonicity claims explicitly excluded",
+  "data_access_verified": true,
+  "new_model_training_started": false,
+  "device_feasibility": "Small CNN/native crops/context planned for RTX4060 8GB; memory and runtime not yet benchmarked",
+  "remaining_before_fit": [
+    "Validate event definitions and full candidate coverage on more independent TRAIN geometries",
+    "Check semantic monotonicity, source/dose polarity and event coverage",
+    "Freeze final data split and evaluation weighting; hardware smoke benchmark"
+  ],
+  "local_links_passed": true,
+  "artifacts_sha256": {
+    "NEW_HYPOTHESIS.md": "0bf1d0ba347d73d7d0847ee15234413b9d267c578875c66339d7775929d9a638",
+    "hypothesis_search_20261024/SOURCE_REVIEW.md": "4acc1c5927184129cd71e512311182928d95cb48f89419f427882ae5d0619c21",
+    "hypothesis_search_20261024/lithosim_audit/AUDIT_RESULTS.json": "45afbc7d1da55150c7131c230f380ac21d16b12c4027f689e820886fa93ec7a2",
+    "hypothesis_search_20261024/lithosim_audit/audit_train_shard.py": "a1b3c2621aa0524db476f3313ebb634c57a8490d4f7d3d69d9f456a26a3db05f",
+    "hypothesis_search_20261024/lithosim_audit/CHECKSUMS.json": "80a2349c997fed2e2ab0178edf94a11015dacfdf359227c23b25c94c5bb87c3f"
+  }
+}

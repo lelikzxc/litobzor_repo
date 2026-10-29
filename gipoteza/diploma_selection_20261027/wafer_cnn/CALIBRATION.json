@@ -1,0 +1,317 @@
+[
+  {
+    "seed": 3101,
+    "arm": "binary_natural",
+    "calibration_F1": 0.740227335620418,
+    "training_and_cal_seconds": 5.074340709001262,
+    "checkpoint_sha256": "9bf10a10f0114e530cb82a4b5df516135b1b362e227d2778ac84e202aa6acfbd",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.48269447684288025
+      },
+      {
+        "step": 400,
+        "loss": 0.5872060060501099
+      },
+      {
+        "step": 600,
+        "loss": 0.2258976697921753
+      }
+    ]
+  },
+  {
+    "seed": 3101,
+    "arm": "support_natural",
+    "calibration_F1": 0.7283234521548767,
+    "training_and_cal_seconds": 3.0803379169992695,
+    "checkpoint_sha256": "a2c42be20304fa3340cccc4d01a7b83cf8ea4fa8dc3f3d6e007b2ba79a4dbda4",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.5091723203659058
+      },
+      {
+        "step": 400,
+        "loss": 0.5176519155502319
+      },
+      {
+        "step": 600,
+        "loss": 0.27140897512435913
+      }
+    ]
+  },
+  {
+    "seed": 3101,
+    "arm": "support_balanced",
+    "calibration_F1": 0.7830097715311839,
+    "training_and_cal_seconds": 2.9972003330003645,
+    "checkpoint_sha256": "425fc36ea0d5d005f9dcffbb1b832ea940730d0f8b3239ab4dcae19a845c6e86",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.6532927751541138
+      },
+      {
+        "step": 400,
+        "loss": 0.3534795343875885
+      },
+      {
+        "step": 600,
+        "loss": 0.24182265996932983
+      }
+    ]
+  },
+  {
+    "seed": 3101,
+    "arm": "tristate_balanced",
+    "calibration_F1": 0.7784620934164975,
+    "training_and_cal_seconds": 3.0409508340017055,
+    "checkpoint_sha256": "168f4acfa15c789a56d85bc737ee281cb91f2303d01c32acda3cc4bf8e769439",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.6929617524147034
+      },
+      {
+        "step": 400,
+        "loss": 0.43152153491973877
+      },
+      {
+        "step": 600,
+        "loss": 0.3708565831184387
+      }
+    ]
+  },
+  {
+    "seed": 3101,
+    "arm": "support_noaug",
+    "calibration_F1": 0.7240324580926336,
+    "training_and_cal_seconds": 2.7532457080014865,
+    "checkpoint_sha256": "60ce0f425122cdb99bfdb04ea4c20a8c39a14380af88f0e6cc3f1f9c9599c936",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.45697110891342163
+      },
+      {
+        "step": 400,
+        "loss": 0.018258782103657722
+      },
+      {
+        "step": 600,
+        "loss": 0.026828210800886154
+      }
+    ]
+  },
+  {
+    "seed": 3102,
+    "arm": "binary_natural",
+    "calibration_F1": 0.7407054310966905,
+    "training_and_cal_seconds": 3.113263540999469,
+    "checkpoint_sha256": "6222d16bc3412a461f26eb1848f8cb2eee159baef88815d4691279b19757c97c",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.35640788078308105
+      },
+      {
+        "step": 400,
+        "loss": 0.384062796831131
+      },
+      {
+        "step": 600,
+        "loss": 0.41176456212997437
+      }
+    ]
+  },
+  {
+    "seed": 3102,
+    "arm": "support_natural",
+    "calibration_F1": 0.7478623938837692,
+    "training_and_cal_seconds": 3.2006404159983504,
+    "checkpoint_sha256": "0adf3c316512db1d824a66a00bf207d4231550dd8173f89f92954c636267998c",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.4647122621536255
+      },
+      {
+        "step": 400,
+        "loss": 0.35085058212280273
+      },
+      {
+        "step": 600,
+        "loss": 0.3725462853908539
+      }
+    ]
+  },
+  {
+    "seed": 3102,
+    "arm": "support_balanced",
+    "calibration_F1": 0.7538138472418301,
+    "training_and_cal_seconds": 3.0976100000007136,
+    "checkpoint_sha256": "86daed14dbeaef209a578b60b4be844deefd846c672042bb190cc52dd60443df",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.6708269715309143
+      },
+      {
+        "step": 400,
+        "loss": 0.32157421112060547
+      },
+      {
+        "step": 600,
+        "loss": 0.29320549964904785
+      }
+    ]
+  },
+  {
+    "seed": 3102,
+    "arm": "tristate_balanced",
+    "calibration_F1": 0.7677011619901429,
+    "training_and_cal_seconds": 3.1415847909993317,
+    "checkpoint_sha256": "464a59f73ff0279e9b48162476e1a90cfe7f0343dff4ef7e6479047ee1098239",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.5936845541000366
+      },
+      {
+        "step": 400,
+        "loss": 0.39757123589515686
+      },
+      {
+        "step": 600,
+        "loss": 0.3372020423412323
+      }
+    ]
+  },
+  {
+    "seed": 3102,
+    "arm": "support_noaug",
+    "calibration_F1": 0.7388277325147774,
+    "training_and_cal_seconds": 2.724093917000573,
+    "checkpoint_sha256": "013d75021bdbb0ee61b4a1207a6e370364163d7b61254644ce70dba84d6b6592",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.32775524258613586
+      },
+      {
+        "step": 400,
+        "loss": 0.044965002685785294
+      },
+      {
+        "step": 600,
+        "loss": 0.031987570226192474
+      }
+    ]
+  },
+  {
+    "seed": 3103,
+    "arm": "binary_natural",
+    "calibration_F1": 0.7133107989366407,
+    "training_and_cal_seconds": 3.0988917909999145,
+    "checkpoint_sha256": "618a32d8b3b421dfa81e1b3199e1a1cd1cf05efffad2fe96456320d3fa533380",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.41477248072624207
+      },
+      {
+        "step": 400,
+        "loss": 0.2523871064186096
+      },
+      {
+        "step": 600,
+        "loss": 0.47098755836486816
+      }
+    ]
+  },
+  {
+    "seed": 3103,
+    "arm": "support_natural",
+    "calibration_F1": 0.753650727113409,
+    "training_and_cal_seconds": 3.336393624998891,
+    "checkpoint_sha256": "6a1a6af1d2ceac934d9a980eb38f3ee12362128365ebe6ca2ee79b21c939766b",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.4123307466506958
+      },
+      {
+        "step": 400,
+        "loss": 0.37085363268852234
+      },
+      {
+        "step": 600,
+        "loss": 0.3937939703464508
+      }
+    ]
+  },
+  {
+    "seed": 3103,
+    "arm": "support_balanced",
+    "calibration_F1": 0.7637855061768344,
+    "training_and_cal_seconds": 3.072951042002387,
+    "checkpoint_sha256": "fecf994e191376ecae8a366c886244de3fce44217b17a1317e2e08951f374639",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.6778289079666138
+      },
+      {
+        "step": 400,
+        "loss": 0.6194026470184326
+      },
+      {
+        "step": 600,
+        "loss": 0.23347938060760498
+      }
+    ]
+  },
+  {
+    "seed": 3103,
+    "arm": "tristate_balanced",
+    "calibration_F1": 0.7534716229172799,
+    "training_and_cal_seconds": 2.8540917499994976,
+    "checkpoint_sha256": "3740049edf08a15b737c76166583e2ad7bd12620a2e3d3eee63db3faf34df7b0",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.7732058763504028
+      },
+      {
+        "step": 400,
+        "loss": 0.35767483711242676
+      },
+      {
+        "step": 600,
+        "loss": 0.3168833553791046
+      }
+    ]
+  },
+  {
+    "seed": 3103,
+    "arm": "support_noaug",
+    "calibration_F1": 0.6906283208585605,
+    "training_and_cal_seconds": 2.8865137499997218,
+    "checkpoint_sha256": "57660436e25948c074d143b17e8aeb83eff65c0312ebbb652d255951e155ebfb",
+    "history": [
+      {
+        "step": 200,
+        "loss": 0.4344959259033203
+      },
+      {
+        "step": 400,
+        "loss": 0.16166386008262634
+      },
+      {
+        "step": 600,
+        "loss": 0.012202881276607513
+      }
+    ]
+  }
+]

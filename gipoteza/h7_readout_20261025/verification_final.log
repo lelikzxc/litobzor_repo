@@ -1,0 +1,1 @@
+{"status": "PASS", "metric_checks": 32, "certificates": 81639, "ambiguity_cases": 78, "extension": {"exact_labels_checked": 20160, "saving_and_bootstrap_verified": true}}

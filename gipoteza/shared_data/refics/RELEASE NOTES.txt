@@ -1,0 +1,74 @@
+The REFICS dataset for Hardware Assurance and Reverse Engineering,
+Florida Institute for Cybersecurity Research (FICS), 
+University of Florida, Gainesville, FL32611, USA. 
+-----------------------------------------------------------------------------------------------
+LICENSE: Creative Commons Attribution (CC-BY-4.0)
+------------------------------------------------------------------------------------------------
+USAGE:
+------------------------------------------------------------------------------------------------
+Every layer and node technology in REFICS has three distinct files.
+
+1. MASK (Labelled as UID_NODE_LAYER_MAG.png)
+2. LAYOUT (Labelled as UID_NODE_LAYER_MAG_gt.png)
+3. SEM IMAGE (Labelled as UID_NODE_LAYER_MAG_SHOT_FOR-MEAN_FOR-STD_BCK-MEAN_BCK-STD_DT.png)
+
+The mask and the layout images are binarized: 255/1 -> foreground and 0/0 -> background. 
+The mask contains the correct label for each pixel but also contains some noise on the edges.
+The layout image contains the true layout of the IC design. Please refer to the original 
+papers (listed below) for details regarding usage and benchmark values.
+
+Image generation paramters can be extracted from the file names. Use the following expansions:
+UID: Unique ID
+NODE: Node technology. Either 90nm or 32nm.
+LAYER: Layer type. Doping (DO), Polysilicon (PO), Metal (M1) and Contacts (CO).
+MAG: Magnification
+SHOT: Shot noise paramter
+FOR-MEAN/FOR-STD: Foreground mean and standard deviation.
+BCK-MEAN/BCK-STD: Background mean and standard deviation.
+DT: Simulated dwelling time.
+---------------------------------------------
+NOTE: There maybe several SEM images with the same UID. These images will have different image 
+generation paramters but utilize the same layout. These are provided to analyse the robustness
+or make robust image processing algorithms for SEM images.      
+-------------------------------------------------------------------------------------------------
+FOR ADDITIONAL USAGE:
+-------------------------------------------------------------------------------------------------
+The original layout files are given in "layout_files". Additional images can be generated using 
+the provided python scripts.
+1. "refics_dataset_gen_tool.py" -Generates mask, layout and SEM image. Each noise model has been 
+broken down into individual functions. Every paramter can be modified. The original image 
+generation functions are labelled and provided for replicability.
+2. "noise_sim.py" -Simulates noise and generates noise profiles. The original simulation data, 
+both raw and smoothed (moving average), are provided in "simulation_data.zip".
+-------------------------------------------------------------------------------------------------- 
+CREDITS
+-------------------------------------------------------------------------------------------------
+Please cite the following papers when using REFICS or the associated tools:
+
+1. @article{wilson2021refics,
+  title={REFICS: Assimilating Data-Driven Paradigms Into Reverse Engineering and Hardware Assurance on Integrated Circuits},
+  author={Wilson, Ronald and Lu, Hangwei and Zhu, Mengdi and Forte, Domenic and Woodard, Damon L},
+  journal={IEEE Access},
+  volume={9},
+  pages={131955--131976},
+  year={2021},
+  publisher={IEEE}
+}
+
+2. @InProceedings{Wilson_2022_WACV,
+    author    = {Wilson, Ronald and Lu, Hangwei and Zhu, Mengdi and Forte, Domenic and Woodard, Damon L},
+    title     = {REFICS: A Step Towards Linking Vision with Hardware Assurance},
+    booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {January},
+    year      = {2022},
+    pages     = {To be published.}
+}
+--------------------------------------------------------------------------------------------------
+CONTACT
+--------------------------------------------------------------------------------------------------
+1. Ronald Wilson, PhD    -Email:ronaldwilson@ufl.edu
+2. Hangwei Lu, PhD       -Email:qslvhw@ufl.edu
+3. Mengdi Zhu            -Email:zhum@ufl.edu
+4. Domenic J. Forte, PhD -Email:dforte@ece.ufl.edu
+5. Damon L. Woodard, PhD -Email:dwoodard@ece.ufl.edu
+--------------------------------------------------------------------------------------------------

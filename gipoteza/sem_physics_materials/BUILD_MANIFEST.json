@@ -1,0 +1,30 @@
+{
+  "document": "../gipoteza.md",
+  "document_sha256": "4d280863668e808aa3494eef58b8ab99cd6e9b9b96394421ff3645820a3ff60b",
+  "source_hashes_unchanged": true,
+  "numbers_sha256": "0aaca5216f1a26609d7528356e4e9303f6795830458a872c6c3476c23227afd9",
+  "code_sha256": {
+    "build_materials.py": "ce429655644f95f0e0a5405c01b9583560078fe2a855017fbe3138cde06d733e",
+    "physics_loss_example.py": "d82c7e789520f0ddf3207aa2d6dc26fd98cdeff81692f8d2a3bfb70f760264cd"
+  },
+  "outputs_sha256": {
+    "figures/comparison.png": "b8d4e3821cae1f81022ea6a00a5f1b591b9227c3f70c542a2abd8892974b4103",
+    "figures/comparison.svg": "dde9bd3736132977024c16b0361be7f72b077c2ddf76acfa69005c95d8dd8d09",
+    "figures/paired_seed_gain.png": "31084e88f8ae7842d2366cfa44849da5ee10bab320340399a99a4144f3210abb",
+    "figures/paired_seed_gain.svg": "6798924bccb68784e10a205f10644cf25a13dc9f9b0f4808c419fb4172ee0d03",
+    "figures/training_duration.png": "d6188afa77a131475b3bacfd9d25b0efff95c49e3c75013a2d46ca1d38792723",
+    "figures/training_duration.svg": "0fda599b8f4463f01aeb0c74b0a2846d08f90fcb3c07eefaddf9c31430b895f8"
+  },
+  "code_check": {
+    "status": "PASS",
+    "model_parameters": 10681,
+    "uniform_grid_max_error": 6.772360450213455e-15,
+    "binary_bar_approximation_max_error": 8.35320154279895e-06,
+    "archived_loss_absolute_error": 0.0,
+    "archived_gradient_max_error": 1.7585759237714882e-15,
+    "finite_nonzero_gradients": true,
+    "scope": "Synthetic tensors and archived-function equivalence only; no SEM training or empirical performance result."
+  },
+  "template_path": "/Users/lelik/Documents/niime/gipoteza.md",
+  "template_sha256": "c66ed58eacecddec6b48cd3fde8467349b278d37a1cb6f45622ce6cd93393ef8"
+}

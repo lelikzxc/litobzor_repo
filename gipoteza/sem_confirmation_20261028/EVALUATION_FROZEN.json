@@ -1,0 +1,8 @@
+{
+  "script_sha256": "02e43fb72f6f171348bec243b6876f8c01c299dd609f5d4f4f4aad364e03ea75",
+  "selection_sha256": "22e468fe45238f6bd629fa7975583ed7566c2fe62774da7e741f5436aff0ccdf",
+  "training_complete_sha256": "5c2aba5846cb03f0947c7a2765ef76ba634eb6d9c68a44b92f8c93998be6848c",
+  "data_sha256": "cc3d43fbffdbe005239d4796ce695e09132a5800014d28918eed734be1cc8ab6",
+  "bootstrap_repetitions": 4000,
+  "bootstrap_seed": 281028
+}

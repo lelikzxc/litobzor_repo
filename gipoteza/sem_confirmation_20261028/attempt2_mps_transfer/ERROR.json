@@ -1,0 +1,9 @@
+{
+  "status": "EXECUTION_ERROR_BEFORE_FIRST_AUXILIARY_UPDATE",
+  "common_BCE_steps_completed": 400,
+  "validation_results_computed": false,
+  "TEST_opened": false,
+  "error": "TypeError: Cannot convert a MPS Tensor to float64 dtype; combined device/dtype transfer casts on MPS first.",
+  "fix": "Transfer to CPU, then convert to float64, preserving autograd. CPU mathematical loss unchanged.",
+  "restart": "All models restarted deterministically from fixed seeds; no result-based selection."
+}

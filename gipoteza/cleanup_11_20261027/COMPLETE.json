@@ -1,0 +1,11 @@
+{
+  "status": "COMPLETE",
+  "selected_total": 11,
+  "plan_sha256": "477f222143c8fe8e08ed567413cbc3219a7b790874b60214d14aa647de47ad2a",
+  "deleted_files": 2645,
+  "deleted_logical_bytes": 2113416685,
+  "retained_hashes_verified": 4364,
+  "H7_original_files_unchanged": 292,
+  "internal_symlinks_verified": 3,
+  "units": "Logical file bytes, not measured APFS free-space change; git history retained."
+}

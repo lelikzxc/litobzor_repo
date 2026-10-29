@@ -1,0 +1,26 @@
+{
+  "purpose": "NEW_COST_ENDPOINT_ON_FIXED_TEN_OTHER_GEOMETRIES",
+  "policies": [
+    "entropy",
+    "center",
+    "random",
+    "witness"
+  ],
+  "main_control": "center",
+  "budgets": [
+    0,
+    8,
+    32,
+    128,
+    1024
+  ],
+  "workers": 3,
+  "bootstrap_seed": 71403,
+  "bootstrap_draws": 10000,
+  "hashes": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/cost_extension.py": "d494337a23ef4de6b972ebe46bdad8f3a1365df3a87e12f5a6d8b72f71eeef67",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/core.py": "2aa49f2feca069c036262096bce31f07a62fbba810227d9bd62693ec5a4c7047",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/COST_EXTENSION_PROTOCOL.md": "33245f80851d895743d5e4eacfe5a915736b4e32505bd0459fef2ba834d459cd",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/extension_data/MANIFEST.json": "5b0f3196a8aa608ddf9f35712c39c962bc0c86fc9f65717b39c377ef5b4d9f54"
+  }
+}

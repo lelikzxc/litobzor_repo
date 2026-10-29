@@ -1,0 +1,39 @@
+{
+  "status": "COMPLETE_SELECTION_WITH_EXPLICIT_EVIDENCE_LEVELS",
+  "selected_total": 10,
+  "historical_options": 5,
+  "new_mini_options": 5,
+  "selected_new_question_ids": [
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6"
+  ],
+  "screened_new_questions": 7,
+  "new_question_statuses": {
+    "C1": "FAIL_MINI",
+    "C2": "PASS_MINI",
+    "C3": "PASS_MINI",
+    "C4": "PASS_MINI",
+    "C5": "PASS_MINI",
+    "C6": "PASS_MINI",
+    "C7": "FAIL_MINI"
+  },
+  "independent_arithmetic_audit": "PASS_AUDIT",
+  "protected_H7_files_unchanged": 292,
+  "outside_protected_files_unchanged": 2,
+  "document_links_checked": 31,
+  "historical_evidence_hashes_match": true,
+  "document_sha256": "9990afc51fc8ef8f437a149b6233b284dd49cd162c11c6c5c7c7dc7b4180ec34",
+  "code_sha256": {
+    "analyse_wafer_mini.py": "7883d95131fa9aa4377b1dcb8f4639c94d7c9fdf632caa45d453b362ce377c04",
+    "recover_evidence.py": "170cb449b707b94e25b6a1a30be047ddfa2ddf10cee0baa58b7dedbb1de66968",
+    "audit_wafer_results.py": "43fd9552d2d0d545eead0d2692550640823fc7137df563354d0eeae38ba4347a",
+    "prepare_wafer_mini.py": "f3fb9e517dae6da769f766c8dd1277ccd1d4fbc8229ac4a71ce3eb6ad95220fa",
+    "wafer_feature_mini.py": "af5772bf21b7386b5423599be11937a6e40566fee19ef0bf62d5c353d79b2176",
+    "wafer_cnn_mini.py": "d8750a2123fb0224be64e64da5ede238ad672406d5fce8276bf7c8a9d865ce2a"
+  },
+  "protocol_sha256": "775f47690568a47dd9392a36cd5a3ad25b3ebcb881701a43cc4276d279beeb1c",
+  "scope": "Ten diploma options supported at different levels; not ten prospective extended confirmations. H7.1 separate. No failed historical hypothesis relabeled."
+}

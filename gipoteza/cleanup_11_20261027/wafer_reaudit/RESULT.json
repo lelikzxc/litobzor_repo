@@ -1,0 +1,251 @@
+{
+  "protocol_sha256": "775f47690568a47dd9392a36cd5a3ad25b3ebcb881701a43cc4276d279beeb1c",
+  "analysis_script_sha256": "7883d95131fa9aa4377b1dcb8f4639c94d7c9fdf632caa45d453b362ce377c04",
+  "CNN_predictions_sha256": "5ed74498280d3abc4a69ebfc0b91fbf446966883c17feff8e9904bdbf414b6d4",
+  "feature_predictions_sha256": "84f1459c11b6bc24efd02fd126dcbd0b9f60c9dfc8f0d93542bfa931a5874c3d",
+  "questions": {
+    "C1": {
+      "status": "FAIL_MINI",
+      "gates": {
+        "minimum_mean_gain": false,
+        "CI_lower_positive": false,
+        "positive_2_of_3_seeds": false
+      },
+      "mean_difference": -0.0012353116707962686,
+      "per_seed_differences": [
+        -0.0062917576929768515,
+        -0.026156954029472268,
+        0.028742776710060314
+      ],
+      "paired_lot_bootstrap_CI95": [
+        -0.014435694279910653,
+        0.011257336282379644
+      ],
+      "binary_F1": [
+        0.7288684653869173,
+        0.7427696064206539,
+        0.7194719795425435
+      ],
+      "support_F1": [
+        0.7225767076939404,
+        0.7166126523911817,
+        0.7482147562526038
+      ]
+    },
+    "C2": {
+      "status": "PASS_MINI",
+      "gates": {
+        "minimum_mean_gain": true,
+        "CI_lower_positive": true,
+        "positive_2_of_3_seeds": true
+      },
+      "mean_difference": 0.036134030847315333,
+      "per_seed_differences": [
+        0.04004842961232469,
+        0.05919707287571341,
+        0.009156590053907898
+      ],
+      "paired_lot_bootstrap_CI95": [
+        0.016336065931731612,
+        0.054695748435694753
+      ],
+      "natural_F1": [
+        0.7225767076939404,
+        0.7166126523911817,
+        0.7482147562526038
+      ],
+      "balanced_F1": [
+        0.7626251373062651,
+        0.7758097252668951,
+        0.7573713463065117
+      ]
+    },
+    "C3": {
+      "status": "PASS_MINI",
+      "gates": {
+        "stability_gain_2pp": true,
+        "TTA_stability_at_least_999permille": true,
+        "nominal_F1_drop_at_most_1pp": true,
+        "actual_rotated_inference_fixture": true
+      },
+      "single_orientation_agreement": [
+        0.8355359765051396,
+        0.8634361233480177,
+        0.8691000629326621
+      ],
+      "TTA_agreement": 1.0,
+      "stability_gain": 0.14397594573806025,
+      "single_F1": [
+        0.7626251373062651,
+        0.7758097252668951,
+        0.7573713463065117
+      ],
+      "TTA_F1": [
+        0.7890902685717164,
+        0.7828815575933477,
+        0.8032486816941522
+      ],
+      "nominal_F1_difference": 0.026471432993181443,
+      "inference_cost_multiplier": 8,
+      "fixture": {
+        "CPU_vs_saved_MPS_max_probability_error": 1.7881393432617188e-07,
+        "all_fixture_classes_equal": true
+      },
+      "invariance_basis": "The full D4 group average is unchanged under reindexing its group elements; checked by actual rotated inference."
+    },
+    "C4": {
+      "status": "PASS_MINI",
+      "gates": {
+        "coverage_range_all_seeds": true,
+        "risk_reduction_at_least_3pp": true,
+        "CI_lower_positive": true,
+        "positive_2_of_3_seeds": true
+      },
+      "calibration_thresholds": [
+        0.5984245538711548,
+        0.6150074601173401,
+        0.6531772613525391
+      ],
+      "coverage": [
+        0.7929515418502202,
+        0.8091042584434655,
+        0.7900146842878121
+      ],
+      "retained_error_rate": [
+        0.17037037037037037,
+        0.16696914700544466,
+        0.15427509293680297
+      ],
+      "matched_random_retained_error_rate": [
+        0.2502777777777778,
+        0.23021778584392014,
+        0.2429368029739777
+      ],
+      "mean_risk_reduction": 0.07727258542768589,
+      "paired_lot_bootstrap_CI95": [
+        0.06321161904441881,
+        0.09121887620486521
+      ],
+      "full_single_F1": [
+        0.7626251373062651,
+        0.7758097252668951,
+        0.7573713463065117
+      ],
+      "not_a_conformal_or_full_coverage_accuracy_guarantee": true
+    },
+    "C5": {
+      "status": "PASS_MINI",
+      "gates": {
+        "minimum_mean_gain": true,
+        "CI_lower_positive": true,
+        "positive_2_of_3_seeds": true,
+        "nominal_F1_not_lower_over_2pp": true
+      },
+      "mean_difference": 0.09743807645961607,
+      "per_seed_differences": [
+        0.09180035025592859,
+        0.08174813583985863,
+        0.118765743283061
+      ],
+      "paired_lot_bootstrap_CI95": [
+        0.08041163842261205,
+        0.11513079271914838
+      ],
+      "augmented_orbit_F1": [
+        0.7694813118938477,
+        0.7676166308924535,
+        0.776492214839265
+      ],
+      "unaugmented_orbit_F1": [
+        0.6776809616379191,
+        0.6858684950525948,
+        0.657726471556204
+      ]
+    },
+    "C6": {
+      "status": "PASS_MINI",
+      "gates": {
+        "Macro_F1_at_least_70percent": true,
+        "F1_no_more_2pp_below_CNN": true,
+        "three_fits_below_60seconds": true,
+        "RSS_below_1GiB": true
+      },
+      "feature_F1": [
+        0.7673905698429259,
+        0.7650014251742576,
+        0.7753086957001062
+      ],
+      "CNN_F1": [
+        0.7626251373062651,
+        0.7758097252668951,
+        0.7573713463065117
+      ],
+      "mean_feature_minus_CNN": 0.003964827279205996,
+      "fit_seconds": 0.9041640830037068,
+      "features_preparation_seconds": 1.609744541998225,
+      "maxrss_bytes": 247267328,
+      "functional_cost_quality_check_not_a_new_algorithm": true
+    },
+    "C7": {
+      "status": "FAIL_MINI",
+      "gates": {
+        "minimum_mean_gain": false,
+        "CI_lower_positive": false,
+        "positive_2_of_3_seeds": false
+      },
+      "mean_difference": -0.005342703092666379,
+      "per_seed_differences": [
+        -0.0013423597009269983,
+        -0.0009766766895522583,
+        -0.01370907288751988
+      ],
+      "paired_lot_bootstrap_CI95": [
+        -0.014563123404138827,
+        0.0034848850544433544
+      ],
+      "raw_F1": [
+        0.7673905698429259,
+        0.7650014251742576,
+        0.7753086957001062
+      ],
+      "raw_plus_z_F1": [
+        0.7660482101419989,
+        0.7640247484847054,
+        0.7615996228125863
+      ]
+    }
+  },
+  "pass_count": 5,
+  "single_orientation_CNN_F1": {
+    "binary_natural": [
+      0.7288684653869173,
+      0.7427696064206539,
+      0.7194719795425435
+    ],
+    "support_natural": [
+      0.7225767076939404,
+      0.7166126523911817,
+      0.7482147562526038
+    ],
+    "support_balanced": [
+      0.7626251373062651,
+      0.7758097252668951,
+      0.7573713463065117
+    ],
+    "tristate_balanced": [
+      0.7513820176495165,
+      0.7533584266245357,
+      0.752537165375686
+    ],
+    "support_noaug": [
+      0.7015444320722701,
+      0.7068238589631409,
+      0.6696811402298699
+    ]
+  },
+  "test_images": 681,
+  "test_lots": 511,
+  "seconds": 1.9682287499999802,
+  "sklearn_macro_max_error": 0.0,
+  "scope": "Exploratory predeclared mini-screen; seven questions on one grouped public wafer corpus. Not seven independent confirmatory datasets."
+}

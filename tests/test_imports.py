@@ -12,11 +12,8 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 
 PAPER_PACKAGES = [
-    "papers.vit_tiny",
-    "papers.ctm_yolov10",
-    "papers.vmamba",
-    "papers.transformer_segmentation",
-    "papers.semiwafernet",
+    "papers.radon_cnn",
+    "papers.polar_cnn",
 ]
 
 COMMON_MODULES = [
@@ -56,17 +53,14 @@ def test_project_structure() -> None:
         "docs",
         "scripts",
         "tests",
-        "papers/vit_tiny",
-        "papers/ctm_yolov10",
-        "papers/vmamba",
-        "papers/transformer_segmentation",
-        "papers/semiwafernet",
+        "papers/radon_cnn",
+        "papers/polar_cnn",
     ]
     for rel_path in required_dirs:
         assert (ROOT / rel_path).is_dir(), f"Missing directory: {rel_path}"
 
 
-@pytest.mark.parametrize("script", ["train.py", "evaluate.py", "predict.py"])
+@pytest.mark.parametrize("script", ["train.py", "evaluate.py"])
 def test_entrypoint_scripts(script: str) -> None:
     """Root entry points print usage when called with --help."""
     result = subprocess.run(

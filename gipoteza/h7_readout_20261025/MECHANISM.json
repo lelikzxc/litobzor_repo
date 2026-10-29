@@ -1,0 +1,1579 @@
+{
+  "purpose": "INFORMATION_AMBIGUITY_NOT_PHYSICAL_RESIST_SIMULATION",
+  "initial_uncertain_evaluation_events": 200,
+  "fixed_transformations_per_event": 4,
+  "transformations_tested": 800,
+  "class_changes": 196,
+  "events_with_class_change": 78,
+  "records": [
+    {
+      "case_index": 2134,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2134,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2135,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2135,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2135,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2137,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2137,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2137,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2138,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2140,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2140,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2142,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2142,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2142,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2142,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2150,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2150,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2150,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2150,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2303,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2303,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2303,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2310,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2465,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2465,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2469,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2469,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2471,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2471,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2471,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2471,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2473,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2473,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2473,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2474,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2476,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2476,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2477,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2477,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2478,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2478,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2478,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2478,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2484,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2484,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2486,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2486,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2486,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2486,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2487,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2487,
+      "geometry": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2632,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2632,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2633,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2633,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2633,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2633,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2634,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2634,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2634,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2634,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2638,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 2,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2639,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2639,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2639,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2642,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2642,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2642,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2644,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2644,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2649,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2649,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2652,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2652,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2652,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2800,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2800,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2801,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2801,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2801,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2802,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2802,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2802,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2805,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2805,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2806,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 1,
+      "alternative_label": 2,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2814,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2814,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2815,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2815,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2815,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2819,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2819,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2819,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2821,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2821,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2821,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2821,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2968,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2968,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2969,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2969,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2969,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2969,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2970,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2970,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2970,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2970,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2971,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2975,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2975,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2975,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2978,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2978,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2978,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2980,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 2980,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2984,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2984,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2984,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 2988,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 2988,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 2988,
+      "geometry": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3137,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3137,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3145,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3145,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3149,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3149,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3154,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3154,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3481,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3481,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3485,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3485,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3490,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3490,
+      "geometry": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3641,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 3641,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3642,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 3652,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3652,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3656,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3656,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3658,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 3658,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3658,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3658,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3660,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3660,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3661,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3661,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3661,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3662,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3662,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3663,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3663,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3663,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3687,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "forbidden",
+      "original_label": 0,
+      "alternative_label": 2,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3826,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3826,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3826,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3831,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3831,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3976,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3976,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3976,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3977,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 3977,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3977,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3977,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3978,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 3978,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3981,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3981,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3981,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3983,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3983,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3983,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3988,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3988,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3992,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3992,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3992,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3994,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_horizontal_flip"
+    },
+    {
+      "case_index": 3994,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3994,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3994,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3996,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3996,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3997,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3997,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 3997,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_compact"
+    },
+    {
+      "case_index": 3998,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_vertical_flip"
+    },
+    {
+      "case_index": 3998,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "required",
+      "original_label": 0,
+      "alternative_label": 1,
+      "transform": "tile_rotation90"
+    },
+    {
+      "case_index": 4023,
+      "geometry": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "kind": "forbidden",
+      "original_label": 0,
+      "alternative_label": 2,
+      "transform": "tile_vertical_flip"
+    }
+  ],
+  "limitation": "Within-block permutations preserve exact counts but need not be attainable lithographic outcomes. They establish ambiguity only over the declared unconstrained binary-image family."
+}

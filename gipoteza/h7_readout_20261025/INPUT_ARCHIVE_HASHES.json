@@ -1,0 +1,16 @@
+{
+  "purpose": "Local used archive bytes, not hashes of un-downloaded upstream large files",
+  "archives": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/14381_to_15443.complete.tar": "7f961553162ed25699a942801b8db2bbcb742c05262dbfd5a66683fff34049db",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/19787_to_20869.complete.tar": "aab7d82fef71b75b68ca3a056199a0ed9babe8be148300be6872a9c76984d8fc",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/26351_to_27435.complete.tar": "9f9bd4f98d817645d0d693d55f8ba16d47a09d6a423ed50d991c4933b8e243c1",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_revision_1/fresh_expanded/5626_to_6729.complete.tar": "75acc0d2eb20d0e5215cb8dd8ff86d0d6c9df9f3f56e378f9e8de371170b6949",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar": "459d367690c0817349cd78ff7f71c1f0b8b82262a0d77ed53b58d4f9c84adacc",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar": "d45f5dbce77abcca2774b207bc98d26dcada3ac1a25cb321f32c89b6994a5377",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar": "9f5977ad78a85dd521db7644c9018839672661b273060f315fccd253dac7317c",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar": "80e5149260010e42310620ad89da32de9cc0f30d111ebf438c846ecee513e92e",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar": "220b6a3924b8dfaa6db1f4e4504a11cb82a5042fc4f162e979d89f96bdf92ba9",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar": "9b2e5834dfb5bdb97d5052350ce5cc3ef0dd9f93301b0b18629e0bec84044d5d",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/hypothesis_search_20261024/lithosim_audit/9987_to_9998.tar.gz": "249f469433d297eec065b17a40bd6ffbabab0406d881443e11e5713639d638b3"
+  }
+}

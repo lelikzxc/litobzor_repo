@@ -1,0 +1,402 @@
+{
+  "status": "COMBINED_INPUTS_FROZEN_BEFORE_RI",
+  "geometries": [
+    "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+    "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+    "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+    "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+    "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+    "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+    "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+    "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f"
+  ],
+  "records": [
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "target_hash": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8891",
+      "target_hash": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "target_hash": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11094",
+      "target_hash": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "target_hash": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/23041_to_24149.complete.tar",
+      "group": "23045",
+      "target_hash": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "target_hash": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/21954_to_23040.complete.tar",
+      "group": "21964",
+      "target_hash": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "target_hash": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12171",
+      "target_hash": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "target_hash": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11095",
+      "target_hash": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "target_hash": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4559",
+      "target_hash": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "target_hash": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4565",
+      "target_hash": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f"
+    }
+  ],
+  "archives": [
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "sha256": "459d367690c0817349cd78ff7f71c1f0b8b82262a0d77ed53b58d4f9c84adacc",
+      "prefix_sha256": "3d3efefbc4291ee8d47fc89a9ad90fc3ce1d39b4a0e3766a513a13b278dd55d2",
+      "bytes": 16000000,
+      "groups": [
+        "11092",
+        "11093",
+        "11094",
+        "11095",
+        "11096",
+        "11098",
+        "11099",
+        "111",
+        "1110",
+        "11100",
+        "11101",
+        "11102",
+        "11103",
+        "11104",
+        "11105"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/11092_to_12168.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "sha256": "d45f5dbce77abcca2774b207bc98d26dcada3ac1a25cb321f32c89b6994a5377",
+      "prefix_sha256": "a69622188e3927557e0ef98db2de985491735825454b4069a84242798aad4df9",
+      "bytes": 16000000,
+      "groups": [
+        "15444",
+        "15445",
+        "15447",
+        "15448",
+        "15449",
+        "1545",
+        "15450",
+        "15451",
+        "15452",
+        "15453",
+        "15454",
+        "15455"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/15444_to_16546.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "sha256": "9f5977ad78a85dd521db7644c9018839672661b273060f315fccd253dac7317c",
+      "prefix_sha256": "c9351140814287d0966acb65d03acba8fe42239a26ae196a6b0a9949b980fc0b",
+      "bytes": 16000000,
+      "groups": [
+        "1873",
+        "18730",
+        "18731",
+        "18732",
+        "18733",
+        "18734",
+        "18735",
+        "18736",
+        "18737",
+        "18738",
+        "1874",
+        "18741",
+        "18742",
+        "18743"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/1873_to_19786.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/21954_to_23040.complete.tar",
+      "sha256": "193235ab5b0ab037ca71b5ee03846b2ab7b4c2b33ccb8859b07dfff5461c9f39",
+      "prefix_sha256": "73eebff14c7f95e477b2075ab3577e6e4eb5d436c3fe3b6a3b52e1bbcea3129a",
+      "bytes": 16000000,
+      "groups": [
+        "21954",
+        "21955",
+        "21957",
+        "21958",
+        "21959",
+        "2196",
+        "21960",
+        "21962",
+        "21963",
+        "21964",
+        "21967",
+        "21968",
+        "21969"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/21954_to_23040.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/23041_to_24149.complete.tar",
+      "sha256": "26b36dcdccc2850129303a4a019a19106f9e3e291c9f9f9ef05835644e3f06b0",
+      "prefix_sha256": "55a6b75edf7bbea83250eebd04a22d93c674880fe9788a290b6b219c9cb558e3",
+      "bytes": 16000000,
+      "groups": [
+        "23041",
+        "23042",
+        "23043",
+        "23044",
+        "23045",
+        "23047",
+        "2305",
+        "23050",
+        "23051",
+        "23052",
+        "23053",
+        "23054"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/23041_to_24149.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/27436_to_28519.complete.tar",
+      "sha256": "9e5afe086a7167c9d239d3ba4d35c20b3cede865a4d2a6e6083af675e341ca3b",
+      "prefix_sha256": "26fabc354766972d43abb1e5c2ad04baabd0fd75ebf808c8cc96ce22111eb4b3",
+      "bytes": 16000000,
+      "groups": [
+        "27436",
+        "27437",
+        "27439",
+        "2744",
+        "27441",
+        "27442",
+        "27443",
+        "27444",
+        "27445",
+        "27446",
+        "27447",
+        "27448",
+        "27449"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/27436_to_28519.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "sha256": "80e5149260010e42310620ad89da32de9cc0f30d111ebf438c846ecee513e92e",
+      "prefix_sha256": "7e5c32dc0a2f962f036a0c331306ff0393d0a63428ed7b6264944d018f3e5c18",
+      "bytes": 16000000,
+      "groups": [
+        "4557",
+        "4559",
+        "456",
+        "4561",
+        "4562",
+        "4564",
+        "4565",
+        "4566",
+        "4567",
+        "4568",
+        "4569",
+        "457",
+        "4571",
+        "4572",
+        "4573",
+        "4575",
+        "4578",
+        "4579",
+        "458",
+        "4580",
+        "4581",
+        "4582",
+        "4583",
+        "4585",
+        "4586"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/4557_to_5625.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "sha256": "220b6a3924b8dfaa6db1f4e4504a11cb82a5042fc4f162e979d89f96bdf92ba9",
+      "prefix_sha256": "000e6c974f5290e6184f09130c4318de5ae080deca807764c7d8ff3402f94c70",
+      "bytes": 16000000,
+      "groups": [
+        "8888",
+        "8889",
+        "889",
+        "8890",
+        "8891",
+        "8892",
+        "8894",
+        "8895",
+        "8896",
+        "8897",
+        "8898",
+        "8899",
+        "89",
+        "890",
+        "8900",
+        "8901",
+        "8902"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/8888_to_9986.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "sha256": "9b2e5834dfb5bdb97d5052350ce5cc3ef0dd9f93301b0b18629e0bec84044d5d",
+      "prefix_sha256": "7e0a948fac7f71275f79f8106833c480bbc56aba6cb028302d6a2ece462252d6",
+      "bytes": 16000000,
+      "groups": [
+        "1217",
+        "12170",
+        "12171",
+        "12172",
+        "12173",
+        "12174",
+        "12175",
+        "12176",
+        "12177",
+        "12178",
+        "12179"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/1217_to_13281.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1_to_11091.complete.tar",
+      "sha256": "6915bd6f6f56bf62d7ff76c418487a4520e956b7de10903c32676eef89d4b9a7",
+      "prefix_sha256": "37da1360685f51cd415800fef553d402ba8b948b47ac7f0f42a0ffbeac27beaf",
+      "bytes": 16000000,
+      "groups": [
+        "1",
+        "10",
+        "1000",
+        "10000",
+        "10001",
+        "10004",
+        "10005",
+        "10006",
+        "10007",
+        "10008",
+        "10009",
+        "1001",
+        "10010",
+        "10011",
+        "10012",
+        "10013",
+        "10014",
+        "10015",
+        "10017",
+        "10018",
+        "1002",
+        "10021",
+        "10022",
+        "10023",
+        "10024",
+        "10025",
+        "10026",
+        "10027",
+        "10028",
+        "10029",
+        "1003",
+        "10030"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/1_to_11091.tar.gz"
+    },
+    {
+      "path": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/28520_to_3460.complete.tar",
+      "sha256": "b2f5259e61c22232746bd07c71dace795cba3daab43476139e7cdf2f91f89a20",
+      "prefix_sha256": "d6c76bab2d9f9ed4e73dd9ac5397b3dd6780afecedfd1f2b2a8f87cedd3900b9",
+      "bytes": 16000000,
+      "groups": [
+        "28520",
+        "28521",
+        "28522",
+        "28523",
+        "28525",
+        "28526",
+        "28529",
+        "2853",
+        "28531",
+        "28532",
+        "28533",
+        "28534",
+        "28535"
+      ],
+      "source_url": "https://huggingface.co/datasets/grandiflorum/LithoSim/resolve/bd5391aac18b34614f9b4e882c35868e0fe998bb/lithosim/opc_metal/train_val/28520_to_3460.tar.gz"
+    }
+  ],
+  "event_hashes": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7.json": "a776d4e81a33a7fe6e7e215bf49a647c7bc9c23daa9b828a28f1ee685be73b0c",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7.npz": "d5d61806b6dd5a751032243b295fe60a04133f274d6f17f79f4e2e16a809e6fa",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2.json": "cb5ebfbd97cb52cbd1e5415e47618abc1d1f48356cf7760d89ceee564d02fb89",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2.npz": "f00e2cfe259e4a4fc00171391c61edf4d69895a5a05b545145be3c7dd9352765",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf.json": "76fd630d5cd3cf4e72c5b74b7a8feacecf13822a2dfa367fd0bba23a4dbad138",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf.npz": "8a049b901689965837dc9432dc18780fc099958b0490c7ccc4b7919258edcbd3",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145.json": "f56c7c34c585397dc64aea3fe8fb56477cd5e4a9f2cbf7eb86c41ce211a284aa",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145.npz": "f12809bf5364c23876fe987c790d092d1d5914e7dd7bc4d67f5dc1e154c75053",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6.json": "f3a23886c4be656be8f4508bba7420bbc85988be23584fd252bbea80d27934b3",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6.npz": "2cf83e27d604ee52ef954398a5025b2d7c3f130d596ef282d99b51a248437c26",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441.json": "b894e91721e78dca78ba6ccb255ff865d21a34ec83b9dc6270adc8ca2c662061",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441.npz": "d1e916fac1b4ba50040b40d5312b49bcf685c7226ec93b68684727fccff7cdcf",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c.json": "7b9eb27fcdb92ce0738a2e846e38bb37e7deb8d849e03cc81d4538960b6239d0",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c.npz": "c126ce0f0e60e4258b5c84d8b5a592f854aa276e0569a639ca643cd63c71ab47",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f.json": "6cff6903678340d1721035f1cd7faa51b441dff49a83b2631c94c9af4935840a",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f.npz": "428f4264fe5228888cd43181b52d06cd57126c9950122dbeca90f6ca91ae1321"
+  },
+  "rejected_cross_inventory": [],
+  "adequate_geometry_count": true,
+  "ri_pixels_decoded": false,
+  "model_sha256": "ff218c77e89171d553f51e4c59f15777811240d0215ccf5cfa6d88829ef69cd4",
+  "source_inventories": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/INPUTS_FROZEN.json": "ceea848f31ca2389b2e9ea17a4ff80df2db4746756b8f9763a5127f0548de0d9",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/INPUTS_FROZEN.json": "2f8e033fb115a25d7cc98cbf0d482a816c0cb8205ecd9abb71354756d023bc71"
+  },
+  "expansion_amendment_sha256": "e9f99ff07bfc3f5f6dcdc35c64a0d5b8dfa1052002ab5d1b32d1430992fdb4a4",
+  "independent_chip_families_established": false,
+  "script_sha256": "25508ed8519626b2ef0986456be878d2799b5ec47ca11fe7cadd7103f2677cb9"
+}

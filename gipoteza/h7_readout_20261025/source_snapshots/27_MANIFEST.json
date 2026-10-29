@@ -1,0 +1,458 @@
+{
+  "status": "COMPLETE",
+  "benchmark_sha256": "3a4f2bafe9d9224889e86e32f29273ac12bb20b65172a38859364883e7d56b58",
+  "frozen_sha256": "954dd2bb7894081875439ec9d56a4cda8b7740e29b37109b59774799a8f453e6",
+  "states": [
+    {
+      "state_id": 0,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 1,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 2,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 3,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 4,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 5,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 6,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 7,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 8,
+      "geometry": "110c4536cb5d7e1968f4f8ee3b9619019333d31e5e5228d9019b3d5debfc0842",
+      "upstream_state_index": 32
+    },
+    {
+      "state_id": 9,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 10,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 11,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 12,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 13,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 14,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 15,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 16,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 17,
+      "geometry": "35fe51369bebd52537a6cd5d42e20f6189db684bcf067f488b7feae765bf893c",
+      "upstream_state_index": 32
+    },
+    {
+      "state_id": 18,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 19,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 20,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 21,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 22,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 23,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 24,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 25,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 26,
+      "geometry": "38c28ef51845798d3f7f3c4e7a45ba0b11443d963054f7b3897228366736a685",
+      "upstream_state_index": 32
+    },
+    {
+      "state_id": 27,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 28,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 29,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 30,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 31,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 32,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 33,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 34,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 35,
+      "geometry": "4263b407ba833bf3600bafa236c3da7d91f0dba93b741ba1900ed99ccf4c33b9",
+      "upstream_state_index": 32
+    },
+    {
+      "state_id": 36,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 37,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 38,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 39,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 40,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 41,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 42,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 43,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 44,
+      "geometry": "56db4689cc757511afddda60a915c5d9a9a2c71ae1c79464853b37241a6f8dbe",
+      "upstream_state_index": 32
+    },
+    {
+      "state_id": 45,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 46,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 47,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 48,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 49,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 50,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 51,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 52,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 53,
+      "geometry": "74a17309f2cf6f5829a90fdc314a29593ab0b959b24386dcb72b0c8d9ef6337e",
+      "upstream_state_index": 32
+    },
+    {
+      "state_id": 54,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 55,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 56,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 57,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 58,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 59,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 60,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 61,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 62,
+      "geometry": "87a1999c2f233df80d9ccf7fc0810bda6109c50b1060b463b39996be0a5d233a",
+      "upstream_state_index": 32
+    },
+    {
+      "state_id": 63,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 64,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 65,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 66,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 67,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 68,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 69,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 70,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 71,
+      "geometry": "8e5769da96185034123a4e7ea1bfe42c6a20cbf0e3fe71981c91676bbe8e92f1",
+      "upstream_state_index": 32
+    },
+    {
+      "state_id": 72,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 73,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 74,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 75,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 76,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 77,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 78,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 79,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 80,
+      "geometry": "b0f2e7335500d277eb93d8de3fa916e119bde555809221b1bbf5826a20ddb478",
+      "upstream_state_index": 32
+    },
+    {
+      "state_id": 81,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "upstream_state_index": 0
+    },
+    {
+      "state_id": 82,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "upstream_state_index": 5
+    },
+    {
+      "state_id": 83,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "upstream_state_index": 10
+    },
+    {
+      "state_id": 84,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "upstream_state_index": 11
+    },
+    {
+      "state_id": 85,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "upstream_state_index": 16
+    },
+    {
+      "state_id": 86,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "upstream_state_index": 21
+    },
+    {
+      "state_id": 87,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "upstream_state_index": 22
+    },
+    {
+      "state_id": 88,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "upstream_state_index": 27
+    },
+    {
+      "state_id": 89,
+      "geometry": "df17fe02aaa6aadf0aec7bea8475e615b3e0fb68ee5fb32736f473309b053b9c",
+      "upstream_state_index": 32
+    }
+  ],
+  "all_local_and_global_labels_match_old_cache": true
+}

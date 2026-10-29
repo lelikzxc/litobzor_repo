@@ -1,0 +1,81 @@
+{
+  "status": "FROZEN_BEFORE_TEST",
+  "chosen": {
+    "soft": {
+      "family": "soft",
+      "weight": 1.0,
+      "mask_F1": 0.8298528078694476,
+      "IoU": 0.8957690064577521
+    },
+    "head9": {
+      "family": "head9",
+      "weight": 0.1,
+      "mask_F1": 0.7999401054270495,
+      "IoU": 0.8870745723465102
+    },
+    "head4": {
+      "family": "head4",
+      "weight": 0.4,
+      "mask_F1": 0.7974316750249513,
+      "IoU": 0.8869294366561061
+    }
+  },
+  "primary_head": "head9",
+  "all_VAL_configurations": [
+    {
+      "family": "soft",
+      "weight": 0.1,
+      "mask_F1": 0.8232961812838611,
+      "IoU": 0.8928550985416633
+    },
+    {
+      "family": "soft",
+      "weight": 0.4,
+      "mask_F1": 0.829679508821306,
+      "IoU": 0.8952264015799072
+    },
+    {
+      "family": "soft",
+      "weight": 1.0,
+      "mask_F1": 0.8298528078694476,
+      "IoU": 0.8957690064577521
+    },
+    {
+      "family": "head9",
+      "weight": 0.1,
+      "mask_F1": 0.7999401054270495,
+      "IoU": 0.8870745723465102
+    },
+    {
+      "family": "head9",
+      "weight": 0.4,
+      "mask_F1": 0.7866520283518875,
+      "IoU": 0.886064612929834
+    },
+    {
+      "family": "head9",
+      "weight": 1.0,
+      "mask_F1": 0.7952129870866684,
+      "IoU": 0.8878615571218784
+    },
+    {
+      "family": "head4",
+      "weight": 0.1,
+      "mask_F1": 0.7824548713723661,
+      "IoU": 0.8823686758201903
+    },
+    {
+      "family": "head4",
+      "weight": 0.4,
+      "mask_F1": 0.7974316750249513,
+      "IoU": 0.8869294366561061
+    },
+    {
+      "family": "head4",
+      "weight": 1.0,
+      "mask_F1": 0.7855658004967915,
+      "IoU": 0.8862419452805805
+    }
+  ],
+  "rule": "highest VAL mask-F1, then IoU, then lower weight"
+}

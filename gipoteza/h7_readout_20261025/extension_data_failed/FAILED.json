@@ -1,0 +1,5 @@
+{
+  "status": "FAILED_DURING_ARCHIVE_READ",
+  "reason": "Three legacy recipes are in gzip tar archives; explicit uncompressed reader replaced with format auto detection",
+  "scientific_selection_changed": false
+}

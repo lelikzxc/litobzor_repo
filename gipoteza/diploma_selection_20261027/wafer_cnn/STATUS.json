@@ -1,0 +1,8 @@
+{
+  "status": "PREDICTIONS_COMPLETE",
+  "test_evaluated": true,
+  "seconds": 50.161018499999045,
+  "script_unchanged": true,
+  "maxrss_bytes": 372424704,
+  "mps_driver_allocated_bytes": 29638656
+}

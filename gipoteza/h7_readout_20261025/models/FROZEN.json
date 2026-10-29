@@ -1,0 +1,42 @@
+{
+  "purpose": "COMMON_FALLBACK_ONLY_TRAIN_GEOMETRIES",
+  "created_utc": "2026-10-25T16:33:41.037484+00:00",
+  "steps": 1200,
+  "seeds": [
+    17,
+    41
+  ],
+  "batch": 24,
+  "optimizer": "AdamW",
+  "lr": 0.002,
+  "min_lr": 0.0001,
+  "weight_decay": 0.0001,
+  "sample": "Uniform class then uniform TRAIN example; same fallback for all policies",
+  "reveal_training": "Per-example p from0,.03125,.125,1 with probabilities.3,.3,.3,.1, then Bernoulli tile mask",
+  "selection": "Fixed final step1200; no EVALUATION reads during fitting",
+  "device": "mps",
+  "cpu_fallback": false,
+  "train": [
+    "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+    "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+    "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+    "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf"
+  ],
+  "evaluation": [
+    "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+    "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+    "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+    "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2"
+  ],
+  "class_counts": [
+    1957,
+    42,
+    17
+  ],
+  "hashes": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/learning.py": "f91c08881633c117519567f9d0809d81449e9232eefae8b8a17812553bb403f0",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/PROTOCOL.md": "5f838fe58a2b24e6a63a81fa2e773b7496b227e99f36247d40c005c6ccbb9983",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/data/FROZEN.json": "4ca02a26395974c1013ebe5a2bafb9f3f41b77de0972a154d336620911acdf7c",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/data/MANIFEST.json": "7290ea670bfe5a955434f1b35c4053dfff560dc81117bff74ae8efb13ed04ad3"
+  }
+}

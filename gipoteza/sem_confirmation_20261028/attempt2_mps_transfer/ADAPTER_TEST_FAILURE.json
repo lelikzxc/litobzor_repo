@@ -1,0 +1,6 @@
+{
+  "status": "SMOKE_TEST_CAUGHT_BACKWARD_TRANSFER_ERROR",
+  "models_trained_in_restart": false,
+  "reason": "The reverse device/dtype transfer in autograd also needs sequential casting on CPU before moving to MPS.",
+  "fix": "CPU float64 -> CPU float32 -> MPS float32; gradients reverse the same separated operations."
+}

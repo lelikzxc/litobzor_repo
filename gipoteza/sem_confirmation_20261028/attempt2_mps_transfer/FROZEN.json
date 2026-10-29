@@ -1,0 +1,35 @@
+{
+  "protocol_sha256": "26e173270d773efd102a1125724bccf2c95d9a9f77df9b04fcbf72b4924a7033",
+  "data_sha256": "cc3d43fbffdbe005239d4796ce695e09132a5800014d28918eed734be1cc8ab6",
+  "manifest_sha256": "3cc6e59bbc1312365a7cf01db4d15fcf6462a7619f6ed9eedda16cee1506f666",
+  "script_sha256": "7d5123db1997d777571c5f529665f45e0432bc2c66b23059ab4acfadc7d103de",
+  "prepare_sha256": "f9507b803f8a8dc7bd11ae1083eb8e6fc9bd84c8386282c7361fe8b43d4fd3ab",
+  "physics_example_sha256": "d82c7e789520f0ddf3207aa2d6dc26fd98cdeff81692f8d2a3bfb70f760264cd",
+  "torch": "2.10.0",
+  "MPS_available": true,
+  "DEV_SEEDS": [
+    1701,
+    1741
+  ],
+  "FINAL_SEEDS": [
+    2801,
+    2833,
+    2887
+  ],
+  "weights": [
+    0.1,
+    0.4,
+    1.0
+  ],
+  "physics_checks": {
+    "status": "PASS",
+    "model_parameters": 10681,
+    "uniform_grid_max_error": 6.772360450213455e-15,
+    "binary_bar_approximation_max_error": 8.35320154279895e-06,
+    "archived_loss_absolute_error": 0.0,
+    "archived_gradient_max_error": 1.7585759237714882e-15,
+    "finite_nonzero_gradients": true,
+    "scope": "Synthetic tensors and archived-function equivalence only; no SEM training or empirical performance result."
+  },
+  "training_has_no_TEST_tensors": true
+}

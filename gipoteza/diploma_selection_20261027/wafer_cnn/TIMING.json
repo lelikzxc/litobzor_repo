@@ -1,0 +1,92 @@
+[
+  {
+    "seed": 3101,
+    "arm": "binary_natural",
+    "eight_orientations_seconds": 0.23759237500053132,
+    "test_images": 681
+  },
+  {
+    "seed": 3101,
+    "arm": "support_natural",
+    "eight_orientations_seconds": 0.10221404199910467,
+    "test_images": 681
+  },
+  {
+    "seed": 3101,
+    "arm": "support_balanced",
+    "eight_orientations_seconds": 0.11060429200006183,
+    "test_images": 681
+  },
+  {
+    "seed": 3101,
+    "arm": "tristate_balanced",
+    "eight_orientations_seconds": 0.11645245800173143,
+    "test_images": 681
+  },
+  {
+    "seed": 3101,
+    "arm": "support_noaug",
+    "eight_orientations_seconds": 0.17025270799786085,
+    "test_images": 681
+  },
+  {
+    "seed": 3102,
+    "arm": "binary_natural",
+    "eight_orientations_seconds": 0.23002795800130116,
+    "test_images": 681
+  },
+  {
+    "seed": 3102,
+    "arm": "support_natural",
+    "eight_orientations_seconds": 0.11180479100221419,
+    "test_images": 681
+  },
+  {
+    "seed": 3102,
+    "arm": "support_balanced",
+    "eight_orientations_seconds": 0.1211663750000298,
+    "test_images": 681
+  },
+  {
+    "seed": 3102,
+    "arm": "tristate_balanced",
+    "eight_orientations_seconds": 0.1442784999999276,
+    "test_images": 681
+  },
+  {
+    "seed": 3102,
+    "arm": "support_noaug",
+    "eight_orientations_seconds": 0.19921062499997788,
+    "test_images": 681
+  },
+  {
+    "seed": 3103,
+    "arm": "binary_natural",
+    "eight_orientations_seconds": 0.10589454100045259,
+    "test_images": 681
+  },
+  {
+    "seed": 3103,
+    "arm": "support_natural",
+    "eight_orientations_seconds": 0.12006724999810103,
+    "test_images": 681
+  },
+  {
+    "seed": 3103,
+    "arm": "support_balanced",
+    "eight_orientations_seconds": 0.14078191600128775,
+    "test_images": 681
+  },
+  {
+    "seed": 3103,
+    "arm": "tristate_balanced",
+    "eight_orientations_seconds": 0.16340120800305158,
+    "test_images": 681
+  },
+  {
+    "seed": 3103,
+    "arm": "support_noaug",
+    "eight_orientations_seconds": 0.19133674999829964,
+    "test_images": 681
+  }
+]

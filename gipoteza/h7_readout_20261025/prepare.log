@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/prepare.py", line 90, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/prepare.py", line 51, in main
+    assert hashlib.sha256(layout.tobytes()).hexdigest()==g
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

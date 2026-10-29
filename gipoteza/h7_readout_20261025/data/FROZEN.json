@@ -1,0 +1,119 @@
+{
+  "created_utc": "2026-10-25T16:30:35.695952+00:00",
+  "purpose": "DEVELOPMENT_READOUT_FEASIBILITY_NOT_CONFIRMATION",
+  "train": [
+    "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+    "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+    "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+    "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf"
+  ],
+  "evaluation": [
+    "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+    "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+    "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+    "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2"
+  ],
+  "records": [
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/15444_to_16546.complete.tar",
+      "group": "15455",
+      "target_hash": "1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145",
+      "recipe_index": 6,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_006.npz",
+      "sha256": "195c788350e7993906ec6146e2223eb5dc7aafd62d4662271492c03098c70063"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11092",
+      "target_hash": "a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441",
+      "recipe_index": 10,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_010.npz",
+      "sha256": "985b33d1a377eee7e0bb4b2ba69547766c79cc828fde0926280715a8b2567f6a"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/8888_to_9986.complete.tar",
+      "group": "8890",
+      "target_hash": "06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7",
+      "recipe_index": 0,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_000.npz",
+      "sha256": "0cd176cb5b1b781f4cee0709721c039ca452984135b48e5871f3d4b77b0d01dd"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/1873_to_19786.complete.tar",
+      "group": "18730",
+      "target_hash": "10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf",
+      "recipe_index": 4,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_004.npz",
+      "sha256": "93893ed4731ae98bd26ceb504c768b1d033bbb99d079f82923eddc73e1ae3452"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_extra/1217_to_13281.complete.tar",
+      "group": "12170",
+      "target_hash": "46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6",
+      "recipe_index": 8,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_008.npz",
+      "sha256": "1aa667ece5100722d5c7b5ea5fb09680b699b57112f33e16a25d7c60af43cacf"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4557",
+      "target_hash": "b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c",
+      "recipe_index": 12,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_012.npz",
+      "sha256": "bea671237c9994f6b69dff906d64c37f924079664eca940bb7b7172990a5f714"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/4557_to_5625.complete.tar",
+      "group": "4562",
+      "target_hash": "f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f",
+      "recipe_index": 14,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_014.npz",
+      "sha256": "99e03895f774079945e7cfe2a231a54e2b6a36986cd772d822570ccea0262b07"
+    },
+    {
+      "archive": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh/11092_to_12168.complete.tar",
+      "group": "11093",
+      "target_hash": "08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2",
+      "recipe_index": 2,
+      "file": "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/recipe_002.npz",
+      "sha256": "6797e54c72d234027fe84e8fb29201e3143d5661320fa4f9130fb3d3ae39b872"
+    }
+  ],
+  "state_indices": [
+    0,
+    5,
+    10,
+    11,
+    16,
+    21,
+    22,
+    27,
+    32
+  ],
+  "geometry_selection": "Fixed hash rule, one lexically first recipe per target, all56 target-defined events",
+  "old_geometry_separation": "Inherited old fresh_combined D4/shift rejection at IoU0.9; not independent chip families",
+  "hashes": {
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/PROTOCOL.md": "5f838fe58a2b24e6a63a81fa2e773b7496b227e99f36247d40c005c6ccbb9983",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/prepare.py": "3b4eb547e5b8b30ddcde15050cfeeba122a7a12e7f50a4660e009902c0fde751",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h7_readout_20261025/core.py": "2aa49f2feca069c036262096bce31f07a62fbba810227d9bd62693ec5a4c7047",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/INPUTS_FROZEN.json": "edf6175812322a5d19ae7365a84e2c4e2bd524e3492c06649322bca897879863",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/labels/MANIFEST.json": "70b620050061b21cf572b8ca3fb51f6204b86eb56f17b53aadf047ab8e6b73ad",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145.json": "f56c7c34c585397dc64aea3fe8fb56477cd5e4a9f2cbf7eb86c41ce211a284aa",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_1c217adb0e43bc8af1fa793c8b2ef38f0911d7ebc9d54e3376e4196dbe457145.npz": "f12809bf5364c23876fe987c790d092d1d5914e7dd7bc4d67f5dc1e154c75053",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441.json": "b894e91721e78dca78ba6ccb255ff865d21a34ec83b9dc6270adc8ca2c662061",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_a1a0f3d3c07f2f8c9a8df213992a213bba7a7dd5c7bccdf965282298f65e2441.npz": "d1e916fac1b4ba50040b40d5312b49bcf685c7226ec93b68684727fccff7cdcf",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7.json": "a776d4e81a33a7fe6e7e215bf49a647c7bc9c23daa9b828a28f1ee685be73b0c",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_06905c1f2bd94aa8abfe2ec5e4a9aef2b8d5877e158064d0378573c275ad2de7.npz": "d5d61806b6dd5a751032243b295fe60a04133f274d6f17f79f4e2e16a809e6fa",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf.json": "76fd630d5cd3cf4e72c5b74b7a8feacecf13822a2dfa367fd0bba23a4dbad138",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_10bf984c18eccbedd0844ac7bce947960236415943912260491a626c0a8d6abf.npz": "8a049b901689965837dc9432dc18780fc099958b0490c7ccc4b7919258edcbd3",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6.json": "f3a23886c4be656be8f4508bba7420bbc85988be23584fd252bbea80d27934b3",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_46144100ebd18a63cf8fbb155fe58230ded598c00fc2ef5a70fdb369f9f107f6.npz": "2cf83e27d604ee52ef954398a5025b2d7c3f130d596ef282d99b51a248437c26",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c.json": "7b9eb27fcdb92ce0738a2e846e38bb37e7deb8d849e03cc81d4538960b6239d0",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_b56f7ccb246dff9e9843a06b7de622ca806a69caa4cb615494cfac080542197c.npz": "c126ce0f0e60e4258b5c84d8b5a592f854aa276e0569a639ca643cd63c71ab47",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f.json": "6cff6903678340d1721035f1cd7faa51b441dff49a83b2631c94c9af4935840a",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_f27079826ffd6073b1d6f554418b5a7c2953b1673baf834092523f0f55dcd79f.npz": "428f4264fe5228888cd43181b52d06cd57126c9950122dbeca90f6ca91ae1321",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/events_08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2.json": "cb5ebfbd97cb52cbd1e5415e47618abc1d1f48356cf7760d89ceee564d02fb89",
+    "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/h6_selection_audit_20261025/fresh_combined/regions_08b23ab2528fc771b673209af7eac48ecd36802ff3523b91979527bd6a89fca2.npz": "f00e2cfe259e4a4fc00171391c61edf4d69895a5a05b545145be3c7dd9352765"
+  },
+  "published_test_used": false
+}

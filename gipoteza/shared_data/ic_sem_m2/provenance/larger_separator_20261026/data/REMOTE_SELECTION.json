@@ -1,0 +1,1993 @@
+{
+  "source_url": "https://edmond.mpg.de/api/access/datafile/223856",
+  "persistent_id": "doi:10.17617/3.HY5SYN",
+  "license": "CC-BY4.0",
+  "phase": "M2",
+  "available_pair_count": 321,
+  "excluded_frames": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    15,
+    27,
+    43,
+    45,
+    55,
+    57,
+    62,
+    67,
+    112,
+    116,
+    124,
+    133,
+    148,
+    152,
+    153,
+    159,
+    180,
+    184,
+    191,
+    193,
+    198,
+    201,
+    207,
+    211,
+    228,
+    243,
+    266,
+    271,
+    282,
+    284,
+    291,
+    293,
+    295,
+    310,
+    314,
+    317
+  ],
+  "frames": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    44,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    56,
+    58,
+    59,
+    60,
+    61,
+    63,
+    64,
+    65,
+    66,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    113,
+    114,
+    115,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    149,
+    150,
+    151,
+    154,
+    155,
+    156,
+    157,
+    158,
+    160,
+    161,
+    162,
+    163,
+    164,
+    165,
+    166,
+    167,
+    168,
+    169,
+    170,
+    171,
+    172,
+    173,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179,
+    181,
+    182,
+    183,
+    185,
+    186,
+    187,
+    188,
+    189,
+    190,
+    192,
+    194,
+    195,
+    196,
+    197,
+    199,
+    200,
+    202,
+    203,
+    204,
+    205,
+    206,
+    208,
+    209,
+    210,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    219,
+    220,
+    221,
+    222,
+    223,
+    224,
+    225,
+    226,
+    227,
+    229,
+    230,
+    231,
+    232,
+    233,
+    234,
+    235,
+    236,
+    237,
+    238,
+    239,
+    240,
+    241,
+    242,
+    244,
+    245,
+    246,
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261,
+    262,
+    263,
+    264,
+    265,
+    267,
+    268,
+    269,
+    270,
+    272,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    283,
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    292,
+    294,
+    296,
+    297,
+    298,
+    299,
+    300,
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309,
+    311,
+    312,
+    313,
+    315,
+    316,
+    318,
+    319,
+    320
+  ],
+  "rule": "ALLunusedM2SEM/SVGpairs; noselectionbyimagesorstatisticaloutcomes",
+  "download_kind": "SVGlabelsandREADMEonly; SEMPNGsnotdownloaded",
+  "members": [
+    {
+      "name": "dataset/labels/m2/label0010.svg",
+      "size": 137058,
+      "compressed": 137058,
+      "offset": 1429248
+    },
+    {
+      "name": "dataset/labels/m2/label0011.svg",
+      "size": 152031,
+      "compressed": 152031,
+      "offset": 1566423
+    },
+    {
+      "name": "dataset/labels/m2/label0012.svg",
+      "size": 118936,
+      "compressed": 118936,
+      "offset": 1718571
+    },
+    {
+      "name": "dataset/labels/m2/label0013.svg",
+      "size": 174704,
+      "compressed": 174704,
+      "offset": 1837624
+    },
+    {
+      "name": "dataset/labels/m2/label0014.svg",
+      "size": 150223,
+      "compressed": 150223,
+      "offset": 2012445
+    },
+    {
+      "name": "dataset/labels/m2/label0016.svg",
+      "size": 162317,
+      "compressed": 162317,
+      "offset": 2311455
+    },
+    {
+      "name": "dataset/labels/m2/label0017.svg",
+      "size": 164997,
+      "compressed": 164997,
+      "offset": 2473889
+    },
+    {
+      "name": "dataset/labels/m2/label0018.svg",
+      "size": 140810,
+      "compressed": 140810,
+      "offset": 2639003
+    },
+    {
+      "name": "dataset/labels/m2/label0019.svg",
+      "size": 124660,
+      "compressed": 124660,
+      "offset": 2779930
+    },
+    {
+      "name": "dataset/labels/m2/label0020.svg",
+      "size": 149289,
+      "compressed": 149289,
+      "offset": 2904707
+    },
+    {
+      "name": "dataset/labels/m2/label0021.svg",
+      "size": 154398,
+      "compressed": 154398,
+      "offset": 3054113
+    },
+    {
+      "name": "dataset/labels/m2/label0022.svg",
+      "size": 124543,
+      "compressed": 124543,
+      "offset": 3208628
+    },
+    {
+      "name": "dataset/labels/m2/label0023.svg",
+      "size": 132964,
+      "compressed": 132964,
+      "offset": 3333288
+    },
+    {
+      "name": "dataset/labels/m2/label0024.svg",
+      "size": 105461,
+      "compressed": 105461,
+      "offset": 3466369
+    },
+    {
+      "name": "dataset/labels/m2/label0025.svg",
+      "size": 146687,
+      "compressed": 146687,
+      "offset": 3571947
+    },
+    {
+      "name": "dataset/labels/m2/label0026.svg",
+      "size": 157993,
+      "compressed": 157993,
+      "offset": 3718751
+    },
+    {
+      "name": "dataset/labels/m2/label0028.svg",
+      "size": 146338,
+      "compressed": 146338,
+      "offset": 3993112
+    },
+    {
+      "name": "dataset/labels/m2/label0029.svg",
+      "size": 162964,
+      "compressed": 162964,
+      "offset": 4139567
+    },
+    {
+      "name": "dataset/labels/m2/label0030.svg",
+      "size": 124947,
+      "compressed": 124947,
+      "offset": 4302648
+    },
+    {
+      "name": "dataset/labels/m2/label0031.svg",
+      "size": 117474,
+      "compressed": 117474,
+      "offset": 4427712
+    },
+    {
+      "name": "dataset/labels/m2/label0032.svg",
+      "size": 130628,
+      "compressed": 130628,
+      "offset": 4545303
+    },
+    {
+      "name": "dataset/labels/m2/label0033.svg",
+      "size": 144085,
+      "compressed": 144085,
+      "offset": 4676048
+    },
+    {
+      "name": "dataset/labels/m2/label0034.svg",
+      "size": 145640,
+      "compressed": 145640,
+      "offset": 4820250
+    },
+    {
+      "name": "dataset/labels/m2/label0035.svg",
+      "size": 143186,
+      "compressed": 143186,
+      "offset": 4966007
+    },
+    {
+      "name": "dataset/labels/m2/label0036.svg",
+      "size": 168252,
+      "compressed": 168252,
+      "offset": 5109310
+    },
+    {
+      "name": "dataset/labels/m2/label0037.svg",
+      "size": 151084,
+      "compressed": 151084,
+      "offset": 5277679
+    },
+    {
+      "name": "dataset/labels/m2/label0038.svg",
+      "size": 149438,
+      "compressed": 149438,
+      "offset": 5428880
+    },
+    {
+      "name": "dataset/labels/m2/label0039.svg",
+      "size": 119349,
+      "compressed": 119349,
+      "offset": 5578435
+    },
+    {
+      "name": "dataset/labels/m2/label0040.svg",
+      "size": 122617,
+      "compressed": 122617,
+      "offset": 5697901
+    },
+    {
+      "name": "dataset/labels/m2/label0041.svg",
+      "size": 160947,
+      "compressed": 160947,
+      "offset": 5820635
+    },
+    {
+      "name": "dataset/labels/m2/label0042.svg",
+      "size": 126112,
+      "compressed": 126112,
+      "offset": 5981699
+    },
+    {
+      "name": "dataset/labels/m2/label0044.svg",
+      "size": 160447,
+      "compressed": 160447,
+      "offset": 6207481
+    },
+    {
+      "name": "dataset/labels/m2/label0046.svg",
+      "size": 116406,
+      "compressed": 116406,
+      "offset": 6535997
+    },
+    {
+      "name": "dataset/labels/m2/label0047.svg",
+      "size": 145718,
+      "compressed": 145718,
+      "offset": 6652520
+    },
+    {
+      "name": "dataset/labels/m2/label0048.svg",
+      "size": 153941,
+      "compressed": 153941,
+      "offset": 6798355
+    },
+    {
+      "name": "dataset/labels/m2/label0049.svg",
+      "size": 171160,
+      "compressed": 171160,
+      "offset": 6952413
+    },
+    {
+      "name": "dataset/labels/m2/label0050.svg",
+      "size": 152775,
+      "compressed": 152775,
+      "offset": 7123690
+    },
+    {
+      "name": "dataset/labels/m2/label0051.svg",
+      "size": 147520,
+      "compressed": 147520,
+      "offset": 7276582
+    },
+    {
+      "name": "dataset/labels/m2/label0052.svg",
+      "size": 146191,
+      "compressed": 146191,
+      "offset": 7424219
+    },
+    {
+      "name": "dataset/labels/m2/label0053.svg",
+      "size": 148271,
+      "compressed": 148271,
+      "offset": 7570527
+    },
+    {
+      "name": "dataset/labels/m2/label0054.svg",
+      "size": 153313,
+      "compressed": 153313,
+      "offset": 7718915
+    },
+    {
+      "name": "dataset/labels/m2/label0056.svg",
+      "size": 88345,
+      "compressed": 88345,
+      "offset": 8004087
+    },
+    {
+      "name": "dataset/labels/m2/label0058.svg",
+      "size": 136180,
+      "compressed": 136180,
+      "offset": 8210159
+    },
+    {
+      "name": "dataset/labels/m2/label0059.svg",
+      "size": 162507,
+      "compressed": 162507,
+      "offset": 8346456
+    },
+    {
+      "name": "dataset/labels/m2/label0060.svg",
+      "size": 141438,
+      "compressed": 141438,
+      "offset": 8509080
+    },
+    {
+      "name": "dataset/labels/m2/label0061.svg",
+      "size": 130925,
+      "compressed": 130925,
+      "offset": 8650635
+    },
+    {
+      "name": "dataset/labels/m2/label0063.svg",
+      "size": 119267,
+      "compressed": 119267,
+      "offset": 8932666
+    },
+    {
+      "name": "dataset/labels/m2/label0064.svg",
+      "size": 140165,
+      "compressed": 140165,
+      "offset": 9052050
+    },
+    {
+      "name": "dataset/labels/m2/label0065.svg",
+      "size": 155934,
+      "compressed": 155934,
+      "offset": 9192332
+    },
+    {
+      "name": "dataset/labels/m2/label0066.svg",
+      "size": 125097,
+      "compressed": 125097,
+      "offset": 9348383
+    },
+    {
+      "name": "dataset/labels/m2/label0068.svg",
+      "size": 133458,
+      "compressed": 133458,
+      "offset": 9593237
+    },
+    {
+      "name": "dataset/labels/m2/label0069.svg",
+      "size": 130751,
+      "compressed": 130751,
+      "offset": 9726812
+    },
+    {
+      "name": "dataset/labels/m2/label0070.svg",
+      "size": 156230,
+      "compressed": 156230,
+      "offset": 9857680
+    },
+    {
+      "name": "dataset/labels/m2/label0071.svg",
+      "size": 158693,
+      "compressed": 158693,
+      "offset": 10014027
+    },
+    {
+      "name": "dataset/labels/m2/label0072.svg",
+      "size": 113427,
+      "compressed": 113427,
+      "offset": 10172837
+    },
+    {
+      "name": "dataset/labels/m2/label0073.svg",
+      "size": 126151,
+      "compressed": 126151,
+      "offset": 10286381
+    },
+    {
+      "name": "dataset/labels/m2/label0074.svg",
+      "size": 161835,
+      "compressed": 161835,
+      "offset": 10412649
+    },
+    {
+      "name": "dataset/labels/m2/label0075.svg",
+      "size": 152338,
+      "compressed": 152338,
+      "offset": 10574601
+    },
+    {
+      "name": "dataset/labels/m2/label0076.svg",
+      "size": 162344,
+      "compressed": 162344,
+      "offset": 10727056
+    },
+    {
+      "name": "dataset/labels/m2/label0077.svg",
+      "size": 149435,
+      "compressed": 149435,
+      "offset": 10889517
+    },
+    {
+      "name": "dataset/labels/m2/label0078.svg",
+      "size": 170955,
+      "compressed": 170955,
+      "offset": 11039069
+    },
+    {
+      "name": "dataset/labels/m2/label0079.svg",
+      "size": 148530,
+      "compressed": 148530,
+      "offset": 11210141
+    },
+    {
+      "name": "dataset/labels/m2/label0080.svg",
+      "size": 156791,
+      "compressed": 156791,
+      "offset": 11358788
+    },
+    {
+      "name": "dataset/labels/m2/label0081.svg",
+      "size": 150374,
+      "compressed": 150374,
+      "offset": 11515696
+    },
+    {
+      "name": "dataset/labels/m2/label0082.svg",
+      "size": 134778,
+      "compressed": 134778,
+      "offset": 11666187
+    },
+    {
+      "name": "dataset/labels/m2/label0083.svg",
+      "size": 176860,
+      "compressed": 176860,
+      "offset": 11801082
+    },
+    {
+      "name": "dataset/labels/m2/label0084.svg",
+      "size": 178403,
+      "compressed": 178403,
+      "offset": 11978059
+    },
+    {
+      "name": "dataset/labels/m2/label0085.svg",
+      "size": 101812,
+      "compressed": 101812,
+      "offset": 12156579
+    },
+    {
+      "name": "dataset/labels/m2/label0086.svg",
+      "size": 145717,
+      "compressed": 145717,
+      "offset": 12258508
+    },
+    {
+      "name": "dataset/labels/m2/label0087.svg",
+      "size": 141668,
+      "compressed": 141668,
+      "offset": 12404342
+    },
+    {
+      "name": "dataset/labels/m2/label0088.svg",
+      "size": 161824,
+      "compressed": 161824,
+      "offset": 12546127
+    },
+    {
+      "name": "dataset/labels/m2/label0089.svg",
+      "size": 124019,
+      "compressed": 124019,
+      "offset": 12708068
+    },
+    {
+      "name": "dataset/labels/m2/label0090.svg",
+      "size": 137710,
+      "compressed": 137710,
+      "offset": 12832204
+    },
+    {
+      "name": "dataset/labels/m2/label0091.svg",
+      "size": 166449,
+      "compressed": 166449,
+      "offset": 12970031
+    },
+    {
+      "name": "dataset/labels/m2/label0092.svg",
+      "size": 120859,
+      "compressed": 120859,
+      "offset": 13136597
+    },
+    {
+      "name": "dataset/labels/m2/label0093.svg",
+      "size": 160515,
+      "compressed": 160515,
+      "offset": 13257573
+    },
+    {
+      "name": "dataset/labels/m2/label0094.svg",
+      "size": 152436,
+      "compressed": 152436,
+      "offset": 13418205
+    },
+    {
+      "name": "dataset/labels/m2/label0095.svg",
+      "size": 120226,
+      "compressed": 120226,
+      "offset": 13570758
+    },
+    {
+      "name": "dataset/labels/m2/label0096.svg",
+      "size": 119055,
+      "compressed": 119055,
+      "offset": 13691101
+    },
+    {
+      "name": "dataset/labels/m2/label0097.svg",
+      "size": 125023,
+      "compressed": 125023,
+      "offset": 13810273
+    },
+    {
+      "name": "dataset/labels/m2/label0098.svg",
+      "size": 121215,
+      "compressed": 121215,
+      "offset": 13935413
+    },
+    {
+      "name": "dataset/labels/m2/label0099.svg",
+      "size": 157831,
+      "compressed": 157831,
+      "offset": 14056745
+    },
+    {
+      "name": "dataset/labels/m2/label0100.svg",
+      "size": 121589,
+      "compressed": 121589,
+      "offset": 14214693
+    },
+    {
+      "name": "dataset/labels/m2/label0101.svg",
+      "size": 113161,
+      "compressed": 113161,
+      "offset": 14336399
+    },
+    {
+      "name": "dataset/labels/m2/label0102.svg",
+      "size": 101697,
+      "compressed": 101697,
+      "offset": 14449677
+    },
+    {
+      "name": "dataset/labels/m2/label0103.svg",
+      "size": 129147,
+      "compressed": 129147,
+      "offset": 14551491
+    },
+    {
+      "name": "dataset/labels/m2/label0104.svg",
+      "size": 155046,
+      "compressed": 155046,
+      "offset": 14680755
+    },
+    {
+      "name": "dataset/labels/m2/label0105.svg",
+      "size": 144050,
+      "compressed": 144050,
+      "offset": 14835918
+    },
+    {
+      "name": "dataset/labels/m2/label0106.svg",
+      "size": 149855,
+      "compressed": 149855,
+      "offset": 14980085
+    },
+    {
+      "name": "dataset/labels/m2/label0107.svg",
+      "size": 169321,
+      "compressed": 169321,
+      "offset": 15130057
+    },
+    {
+      "name": "dataset/labels/m2/label0108.svg",
+      "size": 131857,
+      "compressed": 131857,
+      "offset": 15299495
+    },
+    {
+      "name": "dataset/labels/m2/label0109.svg",
+      "size": 148037,
+      "compressed": 148037,
+      "offset": 15431469
+    },
+    {
+      "name": "dataset/labels/m2/label0110.svg",
+      "size": 147384,
+      "compressed": 147384,
+      "offset": 15579623
+    },
+    {
+      "name": "dataset/labels/m2/label0111.svg",
+      "size": 114678,
+      "compressed": 114678,
+      "offset": 15727124
+    },
+    {
+      "name": "dataset/labels/m2/label0113.svg",
+      "size": 151600,
+      "compressed": 151600,
+      "offset": 15942003
+    },
+    {
+      "name": "dataset/labels/m2/label0114.svg",
+      "size": 149376,
+      "compressed": 149376,
+      "offset": 16093720
+    },
+    {
+      "name": "dataset/labels/m2/label0115.svg",
+      "size": 144966,
+      "compressed": 144966,
+      "offset": 16243213
+    },
+    {
+      "name": "dataset/labels/m2/label0117.svg",
+      "size": 118060,
+      "compressed": 118060,
+      "offset": 16531046
+    },
+    {
+      "name": "dataset/labels/m2/label0118.svg",
+      "size": 146275,
+      "compressed": 146275,
+      "offset": 16649223
+    },
+    {
+      "name": "dataset/labels/m2/label0119.svg",
+      "size": 140229,
+      "compressed": 140229,
+      "offset": 16795615
+    },
+    {
+      "name": "dataset/labels/m2/label0120.svg",
+      "size": 136381,
+      "compressed": 136381,
+      "offset": 16935961
+    },
+    {
+      "name": "dataset/labels/m2/label0121.svg",
+      "size": 128369,
+      "compressed": 128369,
+      "offset": 17072459
+    },
+    {
+      "name": "dataset/labels/m2/label0122.svg",
+      "size": 152983,
+      "compressed": 152983,
+      "offset": 17200945
+    },
+    {
+      "name": "dataset/labels/m2/label0123.svg",
+      "size": 124770,
+      "compressed": 124770,
+      "offset": 17354045
+    },
+    {
+      "name": "dataset/labels/m2/label0125.svg",
+      "size": 125801,
+      "compressed": 125801,
+      "offset": 17631954
+    },
+    {
+      "name": "dataset/labels/m2/label0126.svg",
+      "size": 112917,
+      "compressed": 112917,
+      "offset": 17757872
+    },
+    {
+      "name": "dataset/labels/m2/label0127.svg",
+      "size": 129577,
+      "compressed": 129577,
+      "offset": 17870906
+    },
+    {
+      "name": "dataset/labels/m2/label0128.svg",
+      "size": 146249,
+      "compressed": 146249,
+      "offset": 18000600
+    },
+    {
+      "name": "dataset/labels/m2/label0129.svg",
+      "size": 120799,
+      "compressed": 120799,
+      "offset": 18146966
+    },
+    {
+      "name": "dataset/labels/m2/label0130.svg",
+      "size": 139122,
+      "compressed": 139122,
+      "offset": 18267882
+    },
+    {
+      "name": "dataset/labels/m2/label0131.svg",
+      "size": 116741,
+      "compressed": 116741,
+      "offset": 18407121
+    },
+    {
+      "name": "dataset/labels/m2/label0132.svg",
+      "size": 144389,
+      "compressed": 144389,
+      "offset": 18523979
+    },
+    {
+      "name": "dataset/labels/m2/label0134.svg",
+      "size": 141136,
+      "compressed": 141136,
+      "offset": 18817432
+    },
+    {
+      "name": "dataset/labels/m2/label0135.svg",
+      "size": 160860,
+      "compressed": 160860,
+      "offset": 18958685
+    },
+    {
+      "name": "dataset/labels/m2/label0136.svg",
+      "size": 105198,
+      "compressed": 105198,
+      "offset": 19119662
+    },
+    {
+      "name": "dataset/labels/m2/label0137.svg",
+      "size": 99213,
+      "compressed": 99213,
+      "offset": 19224977
+    },
+    {
+      "name": "dataset/labels/m2/label0138.svg",
+      "size": 128832,
+      "compressed": 128832,
+      "offset": 19324307
+    },
+    {
+      "name": "dataset/labels/m2/label0139.svg",
+      "size": 155874,
+      "compressed": 155874,
+      "offset": 19453256
+    },
+    {
+      "name": "dataset/labels/m2/label0140.svg",
+      "size": 166894,
+      "compressed": 166894,
+      "offset": 19609247
+    },
+    {
+      "name": "dataset/labels/m2/label0141.svg",
+      "size": 115265,
+      "compressed": 115265,
+      "offset": 19776258
+    },
+    {
+      "name": "dataset/labels/m2/label0142.svg",
+      "size": 125093,
+      "compressed": 125093,
+      "offset": 19891640
+    },
+    {
+      "name": "dataset/labels/m2/label0143.svg",
+      "size": 139283,
+      "compressed": 139283,
+      "offset": 20016850
+    },
+    {
+      "name": "dataset/labels/m2/label0144.svg",
+      "size": 152227,
+      "compressed": 152227,
+      "offset": 20156250
+    },
+    {
+      "name": "dataset/labels/m2/label0145.svg",
+      "size": 133438,
+      "compressed": 133438,
+      "offset": 20308594
+    },
+    {
+      "name": "dataset/labels/m2/label0146.svg",
+      "size": 92913,
+      "compressed": 92913,
+      "offset": 20442149
+    },
+    {
+      "name": "dataset/labels/m2/label0147.svg",
+      "size": 131781,
+      "compressed": 131781,
+      "offset": 20535179
+    },
+    {
+      "name": "dataset/labels/m2/label0149.svg",
+      "size": 124413,
+      "compressed": 124413,
+      "offset": 20809902
+    },
+    {
+      "name": "dataset/labels/m2/label0150.svg",
+      "size": 97897,
+      "compressed": 97897,
+      "offset": 20934432
+    },
+    {
+      "name": "dataset/labels/m2/label0151.svg",
+      "size": 149888,
+      "compressed": 149888,
+      "offset": 21032446
+    },
+    {
+      "name": "dataset/labels/m2/label0154.svg",
+      "size": 147167,
+      "compressed": 147167,
+      "offset": 21423368
+    },
+    {
+      "name": "dataset/labels/m2/label0155.svg",
+      "size": 165047,
+      "compressed": 165047,
+      "offset": 21570652
+    },
+    {
+      "name": "dataset/labels/m2/label0156.svg",
+      "size": 130079,
+      "compressed": 130079,
+      "offset": 21735816
+    },
+    {
+      "name": "dataset/labels/m2/label0157.svg",
+      "size": 166504,
+      "compressed": 166504,
+      "offset": 21866012
+    },
+    {
+      "name": "dataset/labels/m2/label0158.svg",
+      "size": 130898,
+      "compressed": 130898,
+      "offset": 22032633
+    },
+    {
+      "name": "dataset/labels/m2/label0160.svg",
+      "size": 125717,
+      "compressed": 125717,
+      "offset": 22345097
+    },
+    {
+      "name": "dataset/labels/m2/label0161.svg",
+      "size": 154368,
+      "compressed": 154368,
+      "offset": 22470931
+    },
+    {
+      "name": "dataset/labels/m2/label0162.svg",
+      "size": 126558,
+      "compressed": 126558,
+      "offset": 22625416
+    },
+    {
+      "name": "dataset/labels/m2/label0163.svg",
+      "size": 139142,
+      "compressed": 139142,
+      "offset": 22752091
+    },
+    {
+      "name": "dataset/labels/m2/label0164.svg",
+      "size": 115874,
+      "compressed": 115874,
+      "offset": 22891350
+    },
+    {
+      "name": "dataset/labels/m2/label0165.svg",
+      "size": 182904,
+      "compressed": 182904,
+      "offset": 23007341
+    },
+    {
+      "name": "dataset/labels/m2/label0166.svg",
+      "size": 153360,
+      "compressed": 153360,
+      "offset": 23190362
+    },
+    {
+      "name": "dataset/labels/m2/label0167.svg",
+      "size": 147634,
+      "compressed": 147634,
+      "offset": 23343839
+    },
+    {
+      "name": "dataset/labels/m2/label0168.svg",
+      "size": 156515,
+      "compressed": 156515,
+      "offset": 23491590
+    },
+    {
+      "name": "dataset/labels/m2/label0169.svg",
+      "size": 106608,
+      "compressed": 106608,
+      "offset": 23648222
+    },
+    {
+      "name": "dataset/labels/m2/label0170.svg",
+      "size": 132194,
+      "compressed": 132194,
+      "offset": 23754947
+    },
+    {
+      "name": "dataset/labels/m2/label0171.svg",
+      "size": 182172,
+      "compressed": 182172,
+      "offset": 23887258
+    },
+    {
+      "name": "dataset/labels/m2/label0172.svg",
+      "size": 136220,
+      "compressed": 136220,
+      "offset": 24069547
+    },
+    {
+      "name": "dataset/labels/m2/label0173.svg",
+      "size": 159367,
+      "compressed": 159367,
+      "offset": 24205884
+    },
+    {
+      "name": "dataset/labels/m2/label0174.svg",
+      "size": 138798,
+      "compressed": 138798,
+      "offset": 24365368
+    },
+    {
+      "name": "dataset/labels/m2/label0175.svg",
+      "size": 123303,
+      "compressed": 123303,
+      "offset": 24504283
+    },
+    {
+      "name": "dataset/labels/m2/label0176.svg",
+      "size": 146075,
+      "compressed": 146075,
+      "offset": 24627703
+    },
+    {
+      "name": "dataset/labels/m2/label0177.svg",
+      "size": 151730,
+      "compressed": 151730,
+      "offset": 24773895
+    },
+    {
+      "name": "dataset/labels/m2/label0178.svg",
+      "size": 128775,
+      "compressed": 128775,
+      "offset": 24925742
+    },
+    {
+      "name": "dataset/labels/m2/label0179.svg",
+      "size": 112602,
+      "compressed": 112602,
+      "offset": 25054634
+    },
+    {
+      "name": "dataset/labels/m2/label0181.svg",
+      "size": 129559,
+      "compressed": 129559,
+      "offset": 25340744
+    },
+    {
+      "name": "dataset/labels/m2/label0182.svg",
+      "size": 214031,
+      "compressed": 214031,
+      "offset": 25470420
+    },
+    {
+      "name": "dataset/labels/m2/label0183.svg",
+      "size": 144046,
+      "compressed": 144046,
+      "offset": 25684568
+    },
+    {
+      "name": "dataset/labels/m2/label0185.svg",
+      "size": 72315,
+      "compressed": 72315,
+      "offset": 25956941
+    },
+    {
+      "name": "dataset/labels/m2/label0186.svg",
+      "size": 126801,
+      "compressed": 126801,
+      "offset": 26029373
+    },
+    {
+      "name": "dataset/labels/m2/label0187.svg",
+      "size": 115590,
+      "compressed": 115590,
+      "offset": 26156291
+    },
+    {
+      "name": "dataset/labels/m2/label0188.svg",
+      "size": 158640,
+      "compressed": 158640,
+      "offset": 26271998
+    },
+    {
+      "name": "dataset/labels/m2/label0189.svg",
+      "size": 100731,
+      "compressed": 100731,
+      "offset": 26430755
+    },
+    {
+      "name": "dataset/labels/m2/label0190.svg",
+      "size": 171131,
+      "compressed": 171131,
+      "offset": 26531603
+    },
+    {
+      "name": "dataset/labels/m2/label0192.svg",
+      "size": 146527,
+      "compressed": 146527,
+      "offset": 26810999
+    },
+    {
+      "name": "dataset/labels/m2/label0194.svg",
+      "size": 162059,
+      "compressed": 162059,
+      "offset": 27084545
+    },
+    {
+      "name": "dataset/labels/m2/label0195.svg",
+      "size": 108402,
+      "compressed": 108402,
+      "offset": 27246721
+    },
+    {
+      "name": "dataset/labels/m2/label0196.svg",
+      "size": 143260,
+      "compressed": 143260,
+      "offset": 27355240
+    },
+    {
+      "name": "dataset/labels/m2/label0197.svg",
+      "size": 169837,
+      "compressed": 169837,
+      "offset": 27498617
+    },
+    {
+      "name": "dataset/labels/m2/label0199.svg",
+      "size": 150946,
+      "compressed": 150946,
+      "offset": 27806992
+    },
+    {
+      "name": "dataset/labels/m2/label0200.svg",
+      "size": 127643,
+      "compressed": 127643,
+      "offset": 27958055
+    },
+    {
+      "name": "dataset/labels/m2/label0202.svg",
+      "size": 154116,
+      "compressed": 154116,
+      "offset": 28220624
+    },
+    {
+      "name": "dataset/labels/m2/label0203.svg",
+      "size": 131476,
+      "compressed": 131476,
+      "offset": 28374857
+    },
+    {
+      "name": "dataset/labels/m2/label0204.svg",
+      "size": 161535,
+      "compressed": 161535,
+      "offset": 28506450
+    },
+    {
+      "name": "dataset/labels/m2/label0205.svg",
+      "size": 173187,
+      "compressed": 173187,
+      "offset": 28668102
+    },
+    {
+      "name": "dataset/labels/m2/label0206.svg",
+      "size": 95817,
+      "compressed": 95817,
+      "offset": 28841406
+    },
+    {
+      "name": "dataset/labels/m2/label0208.svg",
+      "size": 157969,
+      "compressed": 157969,
+      "offset": 29065651
+    },
+    {
+      "name": "dataset/labels/m2/label0209.svg",
+      "size": 121442,
+      "compressed": 121442,
+      "offset": 29223737
+    },
+    {
+      "name": "dataset/labels/m2/label0210.svg",
+      "size": 144964,
+      "compressed": 144964,
+      "offset": 29345296
+    },
+    {
+      "name": "dataset/labels/m2/label0212.svg",
+      "size": 164057,
+      "compressed": 164057,
+      "offset": 29605656
+    },
+    {
+      "name": "dataset/labels/m2/label0213.svg",
+      "size": 120802,
+      "compressed": 120802,
+      "offset": 29769830
+    },
+    {
+      "name": "dataset/labels/m2/label0214.svg",
+      "size": 145849,
+      "compressed": 145849,
+      "offset": 29890749
+    },
+    {
+      "name": "dataset/labels/m2/label0215.svg",
+      "size": 149900,
+      "compressed": 149900,
+      "offset": 30036715
+    },
+    {
+      "name": "dataset/labels/m2/label0216.svg",
+      "size": 169456,
+      "compressed": 169456,
+      "offset": 30186732
+    },
+    {
+      "name": "dataset/labels/m2/label0217.svg",
+      "size": 136627,
+      "compressed": 136627,
+      "offset": 30356305
+    },
+    {
+      "name": "dataset/labels/m2/label0218.svg",
+      "size": 148907,
+      "compressed": 148907,
+      "offset": 30493049
+    },
+    {
+      "name": "dataset/labels/m2/label0219.svg",
+      "size": 129926,
+      "compressed": 129926,
+      "offset": 30642073
+    },
+    {
+      "name": "dataset/labels/m2/label0220.svg",
+      "size": 133049,
+      "compressed": 133049,
+      "offset": 30772116
+    },
+    {
+      "name": "dataset/labels/m2/label0221.svg",
+      "size": 153927,
+      "compressed": 153927,
+      "offset": 30905282
+    },
+    {
+      "name": "dataset/labels/m2/label0222.svg",
+      "size": 152450,
+      "compressed": 152450,
+      "offset": 31059326
+    },
+    {
+      "name": "dataset/labels/m2/label0223.svg",
+      "size": 155151,
+      "compressed": 155151,
+      "offset": 31211893
+    },
+    {
+      "name": "dataset/labels/m2/label0224.svg",
+      "size": 143108,
+      "compressed": 143108,
+      "offset": 31367161
+    },
+    {
+      "name": "dataset/labels/m2/label0225.svg",
+      "size": 122754,
+      "compressed": 122754,
+      "offset": 31510386
+    },
+    {
+      "name": "dataset/labels/m2/label0226.svg",
+      "size": 129139,
+      "compressed": 129139,
+      "offset": 31633257
+    },
+    {
+      "name": "dataset/labels/m2/label0227.svg",
+      "size": 142683,
+      "compressed": 142683,
+      "offset": 31762513
+    },
+    {
+      "name": "dataset/labels/m2/label0229.svg",
+      "size": 129243,
+      "compressed": 129243,
+      "offset": 32092633
+    },
+    {
+      "name": "dataset/labels/m2/label0230.svg",
+      "size": 120267,
+      "compressed": 120267,
+      "offset": 32221993
+    },
+    {
+      "name": "dataset/labels/m2/label0231.svg",
+      "size": 157897,
+      "compressed": 157897,
+      "offset": 32342377
+    },
+    {
+      "name": "dataset/labels/m2/label0232.svg",
+      "size": 141700,
+      "compressed": 141700,
+      "offset": 32500391
+    },
+    {
+      "name": "dataset/labels/m2/label0233.svg",
+      "size": 181037,
+      "compressed": 181037,
+      "offset": 32642208
+    },
+    {
+      "name": "dataset/labels/m2/label0234.svg",
+      "size": 121126,
+      "compressed": 121126,
+      "offset": 32823362
+    },
+    {
+      "name": "dataset/labels/m2/label0235.svg",
+      "size": 149930,
+      "compressed": 149930,
+      "offset": 32944605
+    },
+    {
+      "name": "dataset/labels/m2/label0236.svg",
+      "size": 144841,
+      "compressed": 144841,
+      "offset": 33094652
+    },
+    {
+      "name": "dataset/labels/m2/label0237.svg",
+      "size": 116714,
+      "compressed": 116714,
+      "offset": 33239610
+    },
+    {
+      "name": "dataset/labels/m2/label0238.svg",
+      "size": 153278,
+      "compressed": 153278,
+      "offset": 33356441
+    },
+    {
+      "name": "dataset/labels/m2/label0239.svg",
+      "size": 86560,
+      "compressed": 86560,
+      "offset": 33509836
+    },
+    {
+      "name": "dataset/labels/m2/label0240.svg",
+      "size": 131010,
+      "compressed": 131010,
+      "offset": 33596513
+    },
+    {
+      "name": "dataset/labels/m2/label0241.svg",
+      "size": 162078,
+      "compressed": 162078,
+      "offset": 33727640
+    },
+    {
+      "name": "dataset/labels/m2/label0242.svg",
+      "size": 172166,
+      "compressed": 172166,
+      "offset": 33889835
+    },
+    {
+      "name": "dataset/labels/m2/label0244.svg",
+      "size": 137320,
+      "compressed": 137320,
+      "offset": 34215215
+    },
+    {
+      "name": "dataset/labels/m2/label0245.svg",
+      "size": 159006,
+      "compressed": 159006,
+      "offset": 34352652
+    },
+    {
+      "name": "dataset/labels/m2/label0246.svg",
+      "size": 152774,
+      "compressed": 152774,
+      "offset": 34511775
+    },
+    {
+      "name": "dataset/labels/m2/label0247.svg",
+      "size": 175574,
+      "compressed": 175574,
+      "offset": 34664666
+    },
+    {
+      "name": "dataset/labels/m2/label0248.svg",
+      "size": 153464,
+      "compressed": 153464,
+      "offset": 34840357
+    },
+    {
+      "name": "dataset/labels/m2/label0249.svg",
+      "size": 121374,
+      "compressed": 121374,
+      "offset": 34993938
+    },
+    {
+      "name": "dataset/labels/m2/label0250.svg",
+      "size": 97000,
+      "compressed": 97000,
+      "offset": 35115429
+    },
+    {
+      "name": "dataset/labels/m2/label0251.svg",
+      "size": 151809,
+      "compressed": 151809,
+      "offset": 35212546
+    },
+    {
+      "name": "dataset/labels/m2/label0252.svg",
+      "size": 160254,
+      "compressed": 160254,
+      "offset": 35364472
+    },
+    {
+      "name": "dataset/labels/m2/label0253.svg",
+      "size": 162347,
+      "compressed": 162347,
+      "offset": 35524843
+    },
+    {
+      "name": "dataset/labels/m2/label0254.svg",
+      "size": 153231,
+      "compressed": 153231,
+      "offset": 35687307
+    },
+    {
+      "name": "dataset/labels/m2/label0255.svg",
+      "size": 120157,
+      "compressed": 120157,
+      "offset": 35840655
+    },
+    {
+      "name": "dataset/labels/m2/label0256.svg",
+      "size": 180011,
+      "compressed": 180011,
+      "offset": 35960929
+    },
+    {
+      "name": "dataset/labels/m2/label0257.svg",
+      "size": 176278,
+      "compressed": 176278,
+      "offset": 36141057
+    },
+    {
+      "name": "dataset/labels/m2/label0258.svg",
+      "size": 154279,
+      "compressed": 154279,
+      "offset": 36317452
+    },
+    {
+      "name": "dataset/labels/m2/label0259.svg",
+      "size": 141034,
+      "compressed": 141034,
+      "offset": 36471848
+    },
+    {
+      "name": "dataset/labels/m2/label0260.svg",
+      "size": 124725,
+      "compressed": 124725,
+      "offset": 36612999
+    },
+    {
+      "name": "dataset/labels/m2/label0261.svg",
+      "size": 184138,
+      "compressed": 184138,
+      "offset": 36737841
+    },
+    {
+      "name": "dataset/labels/m2/label0262.svg",
+      "size": 157387,
+      "compressed": 157387,
+      "offset": 36922096
+    },
+    {
+      "name": "dataset/labels/m2/label0263.svg",
+      "size": 136063,
+      "compressed": 136063,
+      "offset": 37079600
+    },
+    {
+      "name": "dataset/labels/m2/label0264.svg",
+      "size": 132254,
+      "compressed": 132254,
+      "offset": 37215780
+    },
+    {
+      "name": "dataset/labels/m2/label0265.svg",
+      "size": 153348,
+      "compressed": 153348,
+      "offset": 37348151
+    },
+    {
+      "name": "dataset/labels/m2/label0267.svg",
+      "size": 143717,
+      "compressed": 143717,
+      "offset": 37656431
+    },
+    {
+      "name": "dataset/labels/m2/label0268.svg",
+      "size": 180204,
+      "compressed": 180204,
+      "offset": 37800265
+    },
+    {
+      "name": "dataset/labels/m2/label0269.svg",
+      "size": 136550,
+      "compressed": 136550,
+      "offset": 37980586
+    },
+    {
+      "name": "dataset/labels/m2/label0270.svg",
+      "size": 104728,
+      "compressed": 104728,
+      "offset": 38117253
+    },
+    {
+      "name": "dataset/labels/m2/label0272.svg",
+      "size": 152611,
+      "compressed": 152611,
+      "offset": 38381377
+    },
+    {
+      "name": "dataset/labels/m2/label0273.svg",
+      "size": 135258,
+      "compressed": 135258,
+      "offset": 38534105
+    },
+    {
+      "name": "dataset/labels/m2/label0274.svg",
+      "size": 120918,
+      "compressed": 120918,
+      "offset": 38669480
+    },
+    {
+      "name": "dataset/labels/m2/label0275.svg",
+      "size": 131050,
+      "compressed": 131050,
+      "offset": 38790515
+    },
+    {
+      "name": "dataset/labels/m2/label0276.svg",
+      "size": 144873,
+      "compressed": 144873,
+      "offset": 38921682
+    },
+    {
+      "name": "dataset/labels/m2/label0277.svg",
+      "size": 156134,
+      "compressed": 156134,
+      "offset": 39066672
+    },
+    {
+      "name": "dataset/labels/m2/label0278.svg",
+      "size": 134829,
+      "compressed": 134829,
+      "offset": 39222923
+    },
+    {
+      "name": "dataset/labels/m2/label0279.svg",
+      "size": 160938,
+      "compressed": 160938,
+      "offset": 39357869
+    },
+    {
+      "name": "dataset/labels/m2/label0280.svg",
+      "size": 133822,
+      "compressed": 133822,
+      "offset": 39518924
+    },
+    {
+      "name": "dataset/labels/m2/label0281.svg",
+      "size": 122659,
+      "compressed": 122659,
+      "offset": 39652863
+    },
+    {
+      "name": "dataset/labels/m2/label0283.svg",
+      "size": 149881,
+      "compressed": 149881,
+      "offset": 39918935
+    },
+    {
+      "name": "dataset/labels/m2/label0285.svg",
+      "size": 134449,
+      "compressed": 134449,
+      "offset": 40229634
+    },
+    {
+      "name": "dataset/labels/m2/label0286.svg",
+      "size": 152270,
+      "compressed": 152270,
+      "offset": 40364200
+    },
+    {
+      "name": "dataset/labels/m2/label0287.svg",
+      "size": 139256,
+      "compressed": 139256,
+      "offset": 40516587
+    },
+    {
+      "name": "dataset/labels/m2/label0288.svg",
+      "size": 106778,
+      "compressed": 106778,
+      "offset": 40655960
+    },
+    {
+      "name": "dataset/labels/m2/label0289.svg",
+      "size": 156012,
+      "compressed": 156012,
+      "offset": 40762855
+    },
+    {
+      "name": "dataset/labels/m2/label0290.svg",
+      "size": 150260,
+      "compressed": 150260,
+      "offset": 40918984
+    },
+    {
+      "name": "dataset/labels/m2/label0292.svg",
+      "size": 148212,
+      "compressed": 148212,
+      "offset": 41199332
+    },
+    {
+      "name": "dataset/labels/m2/label0294.svg",
+      "size": 134694,
+      "compressed": 134694,
+      "offset": 41505562
+    },
+    {
+      "name": "dataset/labels/m2/label0296.svg",
+      "size": 186229,
+      "compressed": 186229,
+      "offset": 41796779
+    },
+    {
+      "name": "dataset/labels/m2/label0297.svg",
+      "size": 163637,
+      "compressed": 163637,
+      "offset": 41983125
+    },
+    {
+      "name": "dataset/labels/m2/label0298.svg",
+      "size": 172720,
+      "compressed": 172720,
+      "offset": 42146879
+    },
+    {
+      "name": "dataset/labels/m2/label0299.svg",
+      "size": 138168,
+      "compressed": 138168,
+      "offset": 42319716
+    },
+    {
+      "name": "dataset/labels/m2/label0300.svg",
+      "size": 150469,
+      "compressed": 150469,
+      "offset": 42458001
+    },
+    {
+      "name": "dataset/labels/m2/label0301.svg",
+      "size": 142981,
+      "compressed": 142981,
+      "offset": 42608587
+    },
+    {
+      "name": "dataset/labels/m2/label0302.svg",
+      "size": 164566,
+      "compressed": 164566,
+      "offset": 42751685
+    },
+    {
+      "name": "dataset/labels/m2/label0303.svg",
+      "size": 151022,
+      "compressed": 151022,
+      "offset": 42916368
+    },
+    {
+      "name": "dataset/labels/m2/label0304.svg",
+      "size": 148984,
+      "compressed": 148984,
+      "offset": 43067507
+    },
+    {
+      "name": "dataset/labels/m2/label0305.svg",
+      "size": 155504,
+      "compressed": 155504,
+      "offset": 43216608
+    },
+    {
+      "name": "dataset/labels/m2/label0306.svg",
+      "size": 156467,
+      "compressed": 156467,
+      "offset": 43372229
+    },
+    {
+      "name": "dataset/labels/m2/label0307.svg",
+      "size": 131719,
+      "compressed": 131719,
+      "offset": 43528813
+    },
+    {
+      "name": "dataset/labels/m2/label0308.svg",
+      "size": 121929,
+      "compressed": 121929,
+      "offset": 43660649
+    },
+    {
+      "name": "dataset/labels/m2/label0309.svg",
+      "size": 153515,
+      "compressed": 153515,
+      "offset": 43782695
+    },
+    {
+      "name": "dataset/labels/m2/label0311.svg",
+      "size": 108485,
+      "compressed": 108485,
+      "offset": 44071958
+    },
+    {
+      "name": "dataset/labels/m2/label0312.svg",
+      "size": 107678,
+      "compressed": 107678,
+      "offset": 44180560
+    },
+    {
+      "name": "dataset/labels/m2/label0313.svg",
+      "size": 156954,
+      "compressed": 156954,
+      "offset": 44288355
+    },
+    {
+      "name": "dataset/labels/m2/label0315.svg",
+      "size": 134999,
+      "compressed": 134999,
+      "offset": 44588393
+    },
+    {
+      "name": "dataset/labels/m2/label0316.svg",
+      "size": 169239,
+      "compressed": 169239,
+      "offset": 44723509
+    },
+    {
+      "name": "dataset/labels/m2/label0318.svg",
+      "size": 104421,
+      "compressed": 104421,
+      "offset": 45038411
+    },
+    {
+      "name": "dataset/labels/m2/label0319.svg",
+      "size": 167661,
+      "compressed": 167661,
+      "offset": 45142949
+    },
+    {
+      "name": "dataset/labels/m2/label0320.svg",
+      "size": 161572,
+      "compressed": 161572,
+      "offset": 45310727
+    },
+    {
+      "name": "dataset/README",
+      "size": 1348,
+      "compressed": 1348,
+      "offset": 18827
+    }
+  ],
+  "selected_total_bytes": 38969539
+}

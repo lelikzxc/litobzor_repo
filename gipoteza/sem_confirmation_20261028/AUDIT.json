@@ -1,0 +1,20 @@
+{
+  "status": "PASS_AUDIT",
+  "source_hashes": true,
+  "checkpoint_hashes": true,
+  "frozen_inputs": true,
+  "prediction_hash": true,
+  "frame_split_disjoint": true,
+  "exact_D4_unique": true,
+  "independent_sklearn_F1_max_error": 0.0,
+  "independent_IoU_max_error": 0.0,
+  "CPU_MPS_max_probability_error": 6.556510925292969e-06,
+  "independent_head4_decoder": true,
+  "independent_bootstrap_max_error": 0.0,
+  "scientific_gate_consistent": true,
+  "independent_sparse_class_cases": 384,
+  "independent_sparse_classes_match": true,
+  "existing_hypothesis_document_unchanged": true,
+  "VAL_selected_control_respected": true,
+  "scope": "Technical provenance and arithmetic audit. PASS_AUDIT does not mean the scientific hypothesis passed."
+}

@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "sklearn_global_scores_checked": 32,
+  "correct_certificates_checked": 61479,
+  "recorded_observation_replay_cases": 128,
+  "hidden_pixel_leakage_test": "PASS",
+  "cpu_model_replay": [
+    {
+      "seed": 17,
+      "probability_max_cpu_mps_error": 7.152557373046875e-07
+    },
+    {
+      "seed": 41,
+      "probability_max_cpu_mps_error": 6.258487701416016e-07
+    }
+  ],
+  "exact_count_ambiguity_examples_verified": true,
+  "extension": null,
+  "source_sha256": "6fb98a525de41fa131f638922ab4c27c7dc2b8e1654b4aea8828914699b4ff19",
+  "evaluation_summary_sha256": "5a8babe7d3ff8c559d182a5a2f410b67e2f26c25de0721121051d23b4e733791"
+}

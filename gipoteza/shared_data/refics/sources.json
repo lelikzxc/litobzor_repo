@@ -1,0 +1,98 @@
+{
+  "files": [
+    {
+      "file": "trust_hub_index.html",
+      "url": "https://trust-hub.org/",
+      "bytes": 2655,
+      "sha256": "d777c9f74f2e657b4208000a76a8c263d0def845fe99313e1f7174857ff4209c",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "trust_hub_main.js",
+      "url": "https://trust-hub.org/main.8a518c233a9cf84704be.js",
+      "bytes": 2453104,
+      "sha256": "b343adb85fcebaed2ce8197c1b08256de05737bcb015875708b937398ddac4df",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "trust_hub_runtime.js",
+      "url": "https://trust-hub.org/runtime.b2175705264e769e2e1d.js",
+      "bytes": 1485,
+      "sha256": "6c5acbb82a46a4971660f65131241dffcc28828f4dbd76b8ec7bab0b468250f8",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "trust_hub_published_data.json",
+      "url": "https://trust-hub.org/assets/json/published_data.json",
+      "bytes": 34754,
+      "sha256": "b2216d5d38ebfd5168af698f0bb284ad39d77ec389e42b22950958f50d66168d",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "RELEASE NOTES.txt",
+      "url": "https://trust-hub.org/downloads/resource/data/refics/RELEASE%20NOTES.txt",
+      "bytes": 4306,
+      "sha256": "0078cfe3d59f78a7521d54dffe2c70f3cb1260a95f3319dc2549360384f5bc12",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "tools.zip",
+      "url": "https://trust-hub.org/downloads/resource/data/refics/tools.zip",
+      "bytes": 4117985,
+      "sha256": "371ba05dd7681be204b3340c34ba1aeead6f16878b6ee64eee2026dadfcff0eb",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "simulation_data.zip",
+      "url": "https://trust-hub.org/downloads/resource/data/refics/simulation_data.zip",
+      "bytes": 6858193,
+      "sha256": "8290537b191e7815d66141d944a4a5fc74d537b04b26a4dc03939ee65e350587",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "samsem_readme.md",
+      "url": "https://zenodo.org/records/21721262/files/README.md?download=1",
+      "bytes": 26979,
+      "sha256": "33f3c4670ae353da657234b34d1fd2ddffae9c8eaa4240b0084dc509687d526e",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "carinthia_api.json",
+      "url": "https://zenodo.org/api/records/16895427",
+      "bytes": 5150,
+      "sha256": "7b8ef49e728b730fe9387a659c4b602df61713e096bf4b65a5b38aeda348aeef",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "physicaldb_datasets.html",
+      "url": "https://physicaldb.ece.ufl.edu/index.php/datasets-2/",
+      "bytes": 78553,
+      "sha256": "4c4a9dda37a16d232cb108a86ab175d2034814b8efdb27a9827b05b5b44e17f6",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "github_refics_search.json",
+      "url": "https://api.github.com/search/repositories?q=REFICS",
+      "bytes": 166736,
+      "sha256": "154068abb9a5245597fafa3f0c971b7569dbb45a55f1903ba1869337de00db5c",
+      "fetched_utc_date": "2026-10-26"
+    },
+    {
+      "file": "32_M1.zip.tail",
+      "url": "https://trust-hub.org/downloads/resource/data/refics/32_M1.zip",
+      "request_range": "bytes=-65536",
+      "bytes": 65536,
+      "sha256": "7a86fb8de921e03fbf8134f12c490ee53ac8dd53ff4b925ebb7e0be71065942e"
+    },
+    {
+      "file": "90_M1.zip.tail",
+      "url": "https://trust-hub.org/downloads/resource/data/refics/90_M1.zip",
+      "request_range": "bytes=-65536",
+      "bytes": 65536,
+      "sha256": "fb2665b953f85ee0d539dc30630fe15cac69e5c33fa92cb2f263ed0fb50b1c89"
+    }
+  ],
+  "range_cache_records": 119,
+  "cached_range_bytes": 55218853,
+  "notes": "Archive subsets are verified member-by-member by zipfile CRC and additionally recorded with SHA256. Full archive SHA256 is intentionally unavailable: multi-GB archives were not downloaded."
+}

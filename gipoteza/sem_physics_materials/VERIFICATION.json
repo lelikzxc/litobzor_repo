@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "local_links_checked": 20,
+  "figure_files": 6,
+  "main_sections": 11,
+  "template_unchanged": true,
+  "protected_historical_files_unchanged": 4364,
+  "embedded_example_forward_and_backward": "PASS_SYNTHETIC_ONLY_NO_OPTIMIZER_UPDATE",
+  "loss_value_not_performance_metric": 2.230107307434082,
+  "scope": "Document content, local links, outputs, code and immutable source preservation; no hypothesis training or new empirical result.",
+  "document_sha256": "4d280863668e808aa3494eef58b8ab99cd6e9b9b96394421ff3645820a3ff60b",
+  "build_manifest_sha256": "e71cb793c1f02476cd13e81b2afe1d4fde49e8e2e0de9de09fbf19fe925149e7",
+  "math_and_code_fences_balanced": true,
+  "plot_formats": [
+    "PNG",
+    "SVG"
+  ],
+  "figures_visually_inspected": 3
+}

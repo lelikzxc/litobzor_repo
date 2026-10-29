@@ -1,0 +1,23 @@
+{
+  "status": "COMPLETE",
+  "cases": 4032,
+  "elapsed_seconds": 76.36272062499847,
+  "budgets": {
+    "0": {
+      "certified": 3616,
+      "mean_queries": 0.0
+    },
+    "8": {
+      "certified": 3749,
+      "mean_queries": 0.8253968253968254
+    },
+    "32": {
+      "certified": 3869,
+      "mean_queries": 2.1842757936507935
+    },
+    "128": {
+      "certified": 4032,
+      "mean_queries": 3.175595238095238
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "url": "https://edmond.mpg.de/api/access/datafile/223856",
+  "persistent_id": "doi:10.17617/3.HY5SYN",
+  "license": "CC BY 4.0",
+  "frames": [
+    198,
+    159,
+    191,
+    228,
+    112,
+    207,
+    211,
+    133,
+    45,
+    62,
+    310,
+    124
+  ],
+  "files": [
+    {
+      "name": "dataset/labels/m2/label0045.svg",
+      "bytes": 167835,
+      "crc32": 1311567270,
+      "sha256": "22b99f881a24fc579c823debadf9b2ed85c2c33c5097d756c380c6f8be383c59"
+    },
+    {
+      "name": "dataset/labels/m2/label0062.svg",
+      "bytes": 150872,
+      "crc32": 434432470,
+      "sha256": "89236ea800f63a6946eb3508c840786fb25254c1fb525324abbd00b925ac28d7"
+    },
+    {
+      "name": "dataset/labels/m2/label0112.svg",
+      "bytes": 99967,
+      "crc32": 425817952,
+      "sha256": "b2c5619f3e68307b643e35fd910294d9a946a080482cd64c4001d51d599c43a4"
+    },
+    {
+      "name": "dataset/labels/m2/label0124.svg",
+      "bytes": 152905,
+      "crc32": 428674956,
+      "sha256": "71b46e9cec7532fed5ab17b42f0cdd1d75e8433cb7b5c30c3d17dae249e33697"
+    },
+    {
+      "name": "dataset/labels/m2/label0133.svg",
+      "bytes": 148830,
+      "crc32": 3741052596,
+      "sha256": "2c05d187f5303bddb177fcdcd0e17b424494573aaff3a6045644d17aefd9cbf6"
+    },
+    {
+      "name": "dataset/labels/m2/label0159.svg",
+      "bytes": 181332,
+      "crc32": 1368655134,
+      "sha256": "c0dcc83a1e2368297264edfd07b5d2362d69c43528b2a1bbe63d14e58a10f84e"
+    },
+    {
+      "name": "dataset/labels/m2/label0191.svg",
+      "bytes": 108031,
+      "crc32": 2203805074,
+      "sha256": "6e795d9dd58379f81dc3409fc9cd860500c15854706eca81540dd1b0e8192ad4"
+    },
+    {
+      "name": "dataset/labels/m2/label0198.svg",
+      "bytes": 138304,
+      "crc32": 2470250477,
+      "sha256": "40725ed8d1ae22c9f0d08b9c141a90fb0225d0c941e237d33c3d4764627bd2ac"
+    },
+    {
+      "name": "dataset/labels/m2/label0207.svg",
+      "bytes": 128194,
+      "crc32": 462746476,
+      "sha256": "d35ab7e473ff5ac46b3e3dfdb277b355734b8384e51d7f5ed55e0f0c7e35ef22"
+    },
+    {
+      "name": "dataset/labels/m2/label0211.svg",
+      "bytes": 115162,
+      "crc32": 1122396519,
+      "sha256": "5a42b97f4fce75efcb627ab6f6ac82926c1e0a72f82a9261e3de27e69297515e"
+    },
+    {
+      "name": "dataset/labels/m2/label0228.svg",
+      "bytes": 187203,
+      "crc32": 3205253,
+      "sha256": "dd86166776094ec12fbaa2d25374cd4d9869b2a28873d708cf525c4c96a699b1"
+    },
+    {
+      "name": "dataset/labels/m2/label0310.svg",
+      "bytes": 135514,
+      "crc32": 3983414712,
+      "sha256": "a8e57cc4e660f2dadafd74085fe8a5e43c658c8b9845ea9d6de20d1d417992d4"
+    },
+    {
+      "name": "dataset/sems/m2/sem0045.png",
+      "bytes": 9647028,
+      "crc32": 1411459581,
+      "sha256": "b073ee69bb900ddd7b0529eb6467158096f09894749e658a7e307d0b997f7392"
+    },
+    {
+      "name": "dataset/sems/m2/sem0062.png",
+      "bytes": 9631843,
+      "crc32": 4062978045,
+      "sha256": "e48db83e06b55b96f6923e5c6fe5e4549e6a6cbcef35cb887029f9d2249b2a20"
+    },
+    {
+      "name": "dataset/sems/m2/sem0112.png",
+      "bytes": 9593092,
+      "crc32": 3536004356,
+      "sha256": "958cb84284fc88c20dbf66ecfe7e1ed66ac6af8d619b7a8d6ed8bd21784386dd"
+    },
+    {
+      "name": "dataset/sems/m2/sem0124.png",
+      "bytes": 9647478,
+      "crc32": 492922617,
+      "sha256": "72ee76a2fbcc2efefcd1e65dc2d2942902e1ba02c0fe735276b14c41b05a10e7"
+    },
+    {
+      "name": "dataset/sems/m2/sem0133.png",
+      "bytes": 9629455,
+      "crc32": 3423203577,
+      "sha256": "1e08378579685b6782263cd2133e47fb4291015f2b8ef669ad5a58a0dfdb6ce3"
+    },
+    {
+      "name": "dataset/sems/m2/sem0159.png",
+      "bytes": 9634606,
+      "crc32": 399510893,
+      "sha256": "c0e772d31a2a7d38dcdda126a31eaaaa006e5bd1236a6aff27d136dcb55d3457"
+    },
+    {
+      "name": "dataset/sems/m2/sem0191.png",
+      "bytes": 9595997,
+      "crc32": 1565622061,
+      "sha256": "d0768c31a451fb7119f515a0d47a5d7308d34d248c4651b32310b5fefd98a94a"
+    },
+    {
+      "name": "dataset/sems/m2/sem0198.png",
+      "bytes": 9649404,
+      "crc32": 4150150713,
+      "sha256": "cdee08030a0cefb574ea3538f83f5e7a56b6927e27be08453c8e93567cb79855"
+    },
+    {
+      "name": "dataset/sems/m2/sem0207.png",
+      "bytes": 9618410,
+      "crc32": 1607719756,
+      "sha256": "dd7efe388264a6f97df5fa46903670111d31642f308f660263cc432f601b117a"
+    },
+    {
+      "name": "dataset/sems/m2/sem0211.png",
+      "bytes": 9622521,
+      "crc32": 1992699787,
+      "sha256": "b70560a0d669da455735f3ae055a721b93d6c5c5f2adc58eb200abcc357f39d5"
+    },
+    {
+      "name": "dataset/sems/m2/sem0228.png",
+      "bytes": 9645178,
+      "crc32": 1683767060,
+      "sha256": "b05a6d0510148f8d88f7d9950164ed744f8d55e3093465bd8509884168b649e4"
+    },
+    {
+      "name": "dataset/sems/m2/sem0310.png",
+      "bytes": 9640590,
+      "crc32": 376655020,
+      "sha256": "fce6eb03c49bfc4f60363119993779b3e5e95354cf149fae485f0abf30c7d7a2"
+    }
+  ],
+  "total_bytes": 117269751,
+  "seconds": 29.69370191600001
+}

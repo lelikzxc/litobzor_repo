@@ -1,83 +1,28 @@
-# Litobzor
+# Исследование сегментации и классификации для микроэлектроники
 
-Research repository for reproducing computer vision models from scientific papers focused on semiconductor wafer defect detection.
+Текущий [список из 11 гипотез для ВКР](gipoteza/11_gipotez_dlya_vkr.md) включает H7.1 и ранжирован по пригодности, экспериментальным результатам и ограниченному учёту новизны.
 
-Each paper lives in `papers/<name>/` with its own model, config, data utilities, and tests. Shared training/inference code is in `common/`.
+Основные материалы находятся в [gipoteza/](gipoteza/README.md):
 
-## Project Structure
+- H7.1: [постановка](gipoteza/H7_1.md), [код, данные и веса](gipoteza/h7_readout_20261025/README.md).
+- Wafer maps: [протокол](gipoteza/diploma_selection_20261027/NEW_MINI_PROTOCOL.md), [результаты](gipoteza/diploma_selection_20261027/wafer_analysis/RESULT.json), [аудит](gipoteza/diploma_selection_20261027/wafer_analysis/INDEPENDENT_AUDIT.json).
+- SEM и EP2-Core: [исторические отчёты, протоколы и код](gipoteza/retained_evidence_20261027/README.md). Данные и веса ранних опытов были удалены до нынешнего отбора; полный повтор требует их восстановления.
+- [Исследовательский контекст](full_wafer_research_context_updated.md), [литературный разбор](gipoteza/literatura_20261019.md), исходная литературная таблица `litobzor_corrected.xlsx`.
+- [Журнал очистки и сохранённые зависимости](gipoteza/cleanup_11_20261027/README.md).
 
-```text
-litobzor_repo/
-├── common/                         # Shared engine, training, metrics, datasets
-├── papers/                         # Paper-specific implementations
-│   ├── vit_tiny/
-│   ├── ctm_yolov10/
-│   ├── vmamba/
-│   ├── transformer_segmentation/
-│   ├── semiwafernet/
-│   ├── radon_cnn/
-│   ├── polar_cnn/
-│   └── wafer_defect_classifier/
-├── datasets/                       # Local data (gitignored)
-├── configs/                        # Global defaults
-├── scripts/                        # Dataset prep utilities
-├── tests/                          # Shared smoke tests
-├── train.py                        # Dispatcher → papers/<name>/train.py
-├── evaluate.py                     # Dispatcher → papers/<name>/evaluate.py
-└── predict.py                      # Dispatcher → papers/<name>/predict.py (if present)
-```
+## Базовые методы сравнения
 
-## Implemented Papers
+Сохранены [RadonCNN](papers/radon_cnn/README.md) и [PolarCNN](papers/polar_cnn/README.md), общая библиотека `common/` и их принятые веса. Они нужны как готовые внешние сравнения для wafer-гипотез, а не дополнительные гипотезы списка.
 
-| Paper | Directory | Task |
-|-------|-----------|------|
-| RadonCNN | [`papers/radon_cnn/`](papers/radon_cnn/) | Classification |
-| Polar CNN | [`papers/polar_cnn/`](papers/polar_cnn/) | Polar-sector classification, CPU/MPS/CUDA |
-| Wafer Defect Classifier | [`papers/wafer_defect_classifier/`](papers/wafer_defect_classifier/) | Segmentation + classification |
-| SemiWaferNet | [`papers/semiwafernet/`](papers/semiwafernet/) | HybridCNN-ViT SSL + ConvoFormer-UNet |
-| FCS-VMamba | [`papers/vmamba/`](papers/vmamba/) | Classification |
-| CTM-YOLOv10 | [`papers/ctm_yolov10/`](papers/ctm_yolov10/) | Detection |
-| Transformer + Atrous | [`papers/transformer_segmentation/`](papers/transformer_segmentation/) | Segmentation |
-| Tiny ViT | [`papers/vit_tiny/`](papers/vit_tiny/) | Classification |
+- [Принятый RadonCNN](papers/radon_cnn/results/accepted_mps_20261008.json): веса и протоколы в `checkpoints/radon_cnn_mps_full_20261008/`.
+- [Принятый PolarCNN](papers/polar_cnn/results/accepted_mps_20261011.json): пакет в `checkpoints/polar_cnn_accepted_mps_20261011/`.
+- [Историческая таблица воспроизведения](docs/reproduction_results.md) сохранена. Числа прежних разбиений и разных наборов классов нельзя непосредственно сравнивать с новым групповым тестом.
 
-## Accepted experimental results
-
-The user accepted the full RadonCNN MPS result on 2026-10-08 as sufficient for
-this project: **87.10% accuracy +/- 0.65 percentage points** and **87.05%
-macro-F1 +/- 0.80 percentage points**, mean and sample standard deviation over
-seeds 42, 43 and 44. This is an accepted project result, with the paper
-comparison limitations retained in the [RadonCNN documentation](papers/radon_cnn/README.md#completed-full-balanced-mps-runs).
-The [acceptance record](papers/radon_cnn/results/accepted_mps_20261008.json)
-stores the exact metrics, protocol, checkpoint locations and checksums.
-
-The user accepted the Polar CNN MPS result on 2026-10-11: **88.66% accuracy**
-and **0.83598 macro F1** on 7,656 test wafers, seed 42. Further Polar CNN tuning
-is not required in the current scope. This is an accepted project result;
-exact author reproduction and the paper's rounded F1 of 0.87 are not claimed.
-The [acceptance record](papers/polar_cnn/results/accepted_mps_20261011.json)
-records an archived checkpoint, metrics, split, config, source snapshot and
-SHA-256 checksums.
-
-## Getting Started
+Для доступных базовых методов используются `train.py` и `evaluate.py`:
 
 ```bash
-pip install -r requirements.txt
-
-# Prefer paper entry points
-python papers/semiwafernet/train.py --config papers/semiwafernet/configs/config.yaml
-python papers/vmamba/train.py --config papers/vmamba/configs/config.yaml
-
-# Or via root dispatchers
-python train.py semiwafernet --config papers/semiwafernet/configs/config.yaml
-python evaluate.py semiwafernet --help
+.venv/bin/python train.py --help
+.venv/bin/python evaluate.py --help
 ```
 
-See each paper's README for dataset layout and hyperparameters.
-
-## Common Modules
-
-- [`common/training/`](common/training/) — Trainer, checkpoints, metrics, losses, schedulers
-- [`common/engine/`](common/engine/) — Config-driven Engine
-- [`common/inference/`](common/inference/) — Predictor / export helpers
-- [`common/datasets/`](common/datasets/) — Shared dataset utilities
-- [`common/utils/`](common/utils/) — Config, logger, seed, paths
+Исходный WM-811K сохранён целиком в `datasets/`. Рабочее окружение `.venv` и Git-история сохранены. Новые обучения при ранжировании и очистке не выполнялись.

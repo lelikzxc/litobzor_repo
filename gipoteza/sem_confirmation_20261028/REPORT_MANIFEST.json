@@ -1,0 +1,12 @@
+{
+  "report_sha256": "13ed996cfc472f2f1b2e51bffcbd2d7643dd0eb150d29cafba012ef254ac0ff6",
+  "result_sha256": "668e146e7575b529aa28c5f27d6ce76170e7f9d6e20e9144eb5ae30787d79540",
+  "audit_sha256": "8172315a49cfd4dc10c176a3ed51ac3a3eea94cb170b5ab96adc99e37ab6fc51",
+  "figures_sha256": {
+    "figures/comparison.svg": "389adb47eabc1717f6fbf95cc80b4154838bc7a0380cb7fee6faf0253c117ead",
+    "figures/comparison.png": "347ebf7bd39bb6226db0d0e5f6c71089f566196569b7b9eaaa6ae601f76604dc",
+    "figures/paired_effects.png": "4519cd0f806d5ed48d07b976f87fe8b4e4935df4a3f163e0196a69dd9e193be6",
+    "figures/paired_effects.svg": "8a0f9c49cc6daed6c05e314af7764342cd082915f70758da07e3850d99ec4988"
+  },
+  "scope": "Report and plots from fixed outputs; no refitting or selection changes."
+}
