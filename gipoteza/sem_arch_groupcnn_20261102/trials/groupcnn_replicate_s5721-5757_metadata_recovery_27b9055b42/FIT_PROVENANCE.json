@@ -1,0 +1,86 @@
+[
+  {
+    "architecture": "group6",
+    "budget": 18,
+    "seed": 5721,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "plain12_C4pooled",
+    "budget": 18,
+    "seed": 5721,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "plain24_C4pooled",
+    "budget": 18,
+    "seed": 5721,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "group6",
+    "budget": 18,
+    "seed": 5757,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "plain12_C4pooled",
+    "budget": 18,
+    "seed": 5757,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "plain24_C4pooled",
+    "budget": 18,
+    "seed": 5757,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "group6",
+    "budget": 27,
+    "seed": 5721,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "plain12_C4pooled",
+    "budget": 27,
+    "seed": 5721,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "plain24_C4pooled",
+    "budget": 27,
+    "seed": 5721,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "group6",
+    "budget": 27,
+    "seed": 5757,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "plain12_C4pooled",
+    "budget": 27,
+    "seed": 5757,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  },
+  {
+    "architecture": "plain24_C4pooled",
+    "budget": 27,
+    "seed": 5757,
+    "origin": "new_fit",
+    "source_trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42"
+  }
+]

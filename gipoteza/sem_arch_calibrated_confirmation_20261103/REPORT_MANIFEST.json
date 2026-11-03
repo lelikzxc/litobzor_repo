@@ -1,0 +1,38 @@
+{
+  "scientific_inputs_sha256": {
+    "RESULT.json": "34ff5f5ea84f504b60ca50ea3782a3f5d2a61c4d2fb38524bee109a68903434c",
+    "AUDIT.json": "a099ed050651db1f7e0b3033fc504d246607b53fce5e290711e5db26a90499b3",
+    "SELECTION.json": "44c278b3198f91f3d2a73d64e12872dc660d1fddaeb4942fd90780e2c138f5ec",
+    "MODEL_LOCK.json": "2235fbb7572950813fbf40864c82cf9dba918f8c39873babe78fc3468fcd6553",
+    "SOURCE_PLAN.json": "882fbe60f430ce91eea0928edda9eab8bd04f88c68f2e26f3184c329ce3373dd",
+    "FINAL_CALIBRATION.json": "6c522c3f095746ce049e519f7ea565e7a80bf3e685552eec66ea35152fecdb1b",
+    "FINAL_CALIBRATION.npz": "076129e3767ba94ad725087e2503173bc8ff17d56991470ecea14cd435d31993",
+    "CONFIG.json": "4c8805dedbb62455f1ba1c6f10494096e2d0899faded07d123ec434abbaec109",
+    "PROTOCOL.md": "79ae4f5ffdd9f20f4bbddc06e9e820c71743ccf8ebf29fea5af9e9e08650936d",
+    "DATA_AUDIT.json": "0098e8af9d6468ad8e2f6e2b038f46bab3c2369426c8b880d6cb412ddaa3016d",
+    "DATA_MANIFEST.json": "719a8f8f5f5fab79f93693b09b610968f66cc566c8ea6649e9a5c3066c63def7",
+    "EVAL_INDEX.json": "e56ef1c61e8107cbdb7470996ca3e672297b2b70f8a6281ab9d62d6a0c30b60e",
+    "EVAL.npz": "d35b81e4f51b099f83da71316e50f24896567958f45b7de05c48f251dd58e4f3",
+    "PREDICTIONS.npz": "1915360d4712d62a3fe91e19efd4105e8a54895d23870ec519c1b1abcda294a7",
+    "BOOTSTRAP.npz": "adebdbbf806fc4843f0c7f9714e540b9522e2edeabcd9af5075259e46357e5fe",
+    "EVALUATION_FROZEN.json": "45b866bb8a65bd747a9464cdbb506488f9af9fb57ada2905e74960bfa4c71340",
+    "OLD_VAL_PREFLIGHT.json": "83d367caf334e8ef4526125bef1969c12441549aa4a78189c05e1e6d7a8f2f17",
+    "OLD_VAL_PREFLIGHT.npz": "cd5cb81f2626f11970f236618ecab147ce716790ff755c52d3ed32ed91b96c49",
+    "common.py": "9061f668a96b6debce2176f0103577fd29a4b890e3f2c6309be5c238593f2571",
+    "selection.py": "0024e174633ac25dc934492ca9f93c6b2b77f509415d7e368b90a77eb0c7b3bb",
+    "evaluate.py": "612789398d91c0abbf2ec3ffefb0ee20d20858d9bfcdb4016e8bf59b1a56794a",
+    "prepare.py": "15fd5f5e310225f6e7e165923dedbc03d2a1e9a958d9598d366caf7b8f7203b5",
+    "stats.py": "ef5e5c75acdb9e4f69b878c93a7cdd47fa691919474557069dbf19569ca736bf",
+    "audit.py": "3641e5270daffae6964ccd2d3bee45d6530da6695239d3a3474af0c8811c2caa",
+    "report.py": "c82468bc7d0f601c089d46d15cbc46c2aabd874486c73542138f85a3400251f3",
+    "PRE_LOCK_AUDIT.json": "3f83b42b5b4cabea86ca7853071c3175fc23e37530bfb883ac224b1037cefa1b",
+    "PRE_DOWNLOAD_AUDIT.json": "50cc5bf0e47a8db8c56f00ed4fcbb40df337a99096cf387d2e669452d484b6ac"
+  },
+  "outputs_sha256": {
+    "REPORT.md": "f4d56f44ac240a3e20dd87b45ce4f11a2f8719dfd0d72a8ae5058b6d75a98dac",
+    "README.md": "5b2e6bb850ce84428d2d497ef61ece25c1912222dc05188eb2f0e612267215fe",
+    "figures/final_calibration_intervals.png": "4c2169b3054966e25f63d2bb64ece7ee8e68bce81214afb6df396bc91ef51e32",
+    "figures/final_calibration_quality.png": "d2aa7ac71ed198c62dcf79f81d7058d018d6c87c859e5fe9f703ad2ab7817d6c"
+  },
+  "scope": "LOCKED_FINAL_CALIBRATION_NEW_FRAME_CONFIRMATION_NO_FIT"
+}

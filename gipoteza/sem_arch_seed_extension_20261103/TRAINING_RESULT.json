@@ -1,0 +1,145 @@
+{
+  "status": "COMPLETE_FOUR_SEED_REPLICATION_FITS",
+  "fits": [
+    {
+      "architecture": "group6",
+      "seed": 5801,
+      "budget": 27,
+      "optimizer_updates": 2000,
+      "warmup_steps": 400,
+      "joint_steps": 1600,
+      "initial_state_sha256": "4c65e71707445b4f9395818b14d3318c03a6df5118b4a86ac499559175f4b907",
+      "final_state_sha256": "488716d431b87713b9b4b64aa3e77f066db087721ecbfa5cf18a67a521097589",
+      "batch_sequence_sha256": "e3b1ad3d8bc391abd546094be60528311f6785a0aac021ea0a9a8692aaaf8018",
+      "free_parameters": 2671,
+      "MACs_per_image": 1527552,
+      "weak_masks_loaded": false,
+      "training_seconds": 27.39779237499988,
+      "gradient_probes": [
+        {
+          "file": "gipoteza/sem_arch_seed_extension_20261103/trial/gradient_probes/group6_b27_s5801_step1.pt",
+          "sha256": "dfa8f1e006b928661244c9682556457a2fb4550ab9f7cd95e20a874c28b52b58",
+          "step": 1
+        },
+        {
+          "file": "gipoteza/sem_arch_seed_extension_20261103/trial/gradient_probes/group6_b27_s5801_step401.pt",
+          "sha256": "aedcab1905bc0b31d18624df8f2eeb49e4a7ddc63087824ba95c82b823a99d30",
+          "step": 401
+        }
+      ],
+      "final_tie_residual": null,
+      "initial_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/group6_b27_s5801_initial.pt",
+      "initial_sha256": "3c7a6128d0794f2db306156ffbbfc402eba4408507121b11fcb7b2e9a6a9f9c2",
+      "model_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/group6_b27_s5801.pt",
+      "model_sha256": "eeeac4157bb8f825f895a93ecc5cb4da1344ed19cb9164e94cd7353e580b38d1",
+      "prediction_model_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/group6_b27_s5801_deployed.pt",
+      "prediction_model_sha256": "c4f9a6a22aacbf65b24d5b0f1840c713b6d16706912e50db66a8ce16d02bc3f3"
+    },
+    {
+      "architecture": "untied24_single",
+      "seed": 5801,
+      "budget": 27,
+      "optimizer_updates": 2000,
+      "warmup_steps": 400,
+      "joint_steps": 1600,
+      "initial_state_sha256": "930cab768e1145ad19fbb0d9d2650f6e4845af26093bee669d505c73b3eba4ff",
+      "final_state_sha256": "fdeab1d2371b5f634a69a398a9e81d8f10744fc2a3f2837601e0f80b2f174e7d",
+      "batch_sequence_sha256": "e3b1ad3d8bc391abd546094be60528311f6785a0aac021ea0a9a8692aaaf8018",
+      "free_parameters": 10681,
+      "MACs_per_image": 1527552,
+      "weak_masks_loaded": false,
+      "training_seconds": 16.036973875000058,
+      "gradient_probes": [
+        {
+          "file": "gipoteza/sem_arch_seed_extension_20261103/trial/gradient_probes/untied24_single_b27_s5801_step1.pt",
+          "sha256": "86faa8092dcd6b7e30b101bd6408bf5d94a07f40a75ad64f4d8992975d2504aa",
+          "step": 1
+        },
+        {
+          "file": "gipoteza/sem_arch_seed_extension_20261103/trial/gradient_probes/untied24_single_b27_s5801_step401.pt",
+          "sha256": "29ca53e8ac78baab94e9bc4348871b58044d740e607273687d10343b67726e60",
+          "step": 401
+        }
+      ],
+      "final_tie_residual": 0.45334261655807495,
+      "initial_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/untied24_single_b27_s5801_initial.pt",
+      "initial_sha256": "9ddfb3f4c5ad5ff6e9e6c1147e3aa7714d77e45f22d8367c35a24246061df1c8",
+      "model_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/untied24_single_b27_s5801.pt",
+      "model_sha256": "da043bca2c74ab5f186cc74460cc3ef7a83db665e9789497b2b06cdae3e52425",
+      "prediction_model_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/untied24_single_b27_s5801.pt",
+      "prediction_model_sha256": "da043bca2c74ab5f186cc74460cc3ef7a83db665e9789497b2b06cdae3e52425"
+    },
+    {
+      "architecture": "group6",
+      "seed": 5821,
+      "budget": 27,
+      "optimizer_updates": 2000,
+      "warmup_steps": 400,
+      "joint_steps": 1600,
+      "initial_state_sha256": "8a10486c184cac01324efbfda61c35c6b99f153424399a915140810eabdb9d4a",
+      "final_state_sha256": "24fb8787d19f73ef229219032901d3b84be7d25b7722d3bfa2a807039b558e6f",
+      "batch_sequence_sha256": "524e09c8d942800a8c58acde2df9ac6e26888753361d42214295bcbbed1c5283",
+      "free_parameters": 2671,
+      "MACs_per_image": 1527552,
+      "weak_masks_loaded": false,
+      "training_seconds": 26.370197250000274,
+      "gradient_probes": [
+        {
+          "file": "gipoteza/sem_arch_seed_extension_20261103/trial/gradient_probes/group6_b27_s5821_step1.pt",
+          "sha256": "07f3aea7938d6991c49c578b886277e43ff30aff25481f2c6f08ae2980b2fc97",
+          "step": 1
+        },
+        {
+          "file": "gipoteza/sem_arch_seed_extension_20261103/trial/gradient_probes/group6_b27_s5821_step401.pt",
+          "sha256": "52512026f0705f3964085430a00e800ccad645901540b180a5be88307c8cb8f0",
+          "step": 401
+        }
+      ],
+      "final_tie_residual": null,
+      "initial_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/group6_b27_s5821_initial.pt",
+      "initial_sha256": "d4bb7e3281a93afb8788d78d2ea558e6742146526fb16d84f3aabca82d58612c",
+      "model_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/group6_b27_s5821.pt",
+      "model_sha256": "f7c2cb6635da929b3a36e07ef18169b59b5764e6229707d1e541c7f63590b53e",
+      "prediction_model_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/group6_b27_s5821_deployed.pt",
+      "prediction_model_sha256": "559ef10d815006786c6cfad421434eba6a5f555dae2373f75d1fbcda14c44646"
+    },
+    {
+      "architecture": "untied24_single",
+      "seed": 5821,
+      "budget": 27,
+      "optimizer_updates": 2000,
+      "warmup_steps": 400,
+      "joint_steps": 1600,
+      "initial_state_sha256": "adf434ca337bcbeeb0db112c8b15b7847186e8fd342337d611d9fdd555b479ed",
+      "final_state_sha256": "963afd825cd548b6f2cc35e0851fd1f549c398b613b29b3c4f533fb1e02c3b66",
+      "batch_sequence_sha256": "524e09c8d942800a8c58acde2df9ac6e26888753361d42214295bcbbed1c5283",
+      "free_parameters": 10681,
+      "MACs_per_image": 1527552,
+      "weak_masks_loaded": false,
+      "training_seconds": 15.547170207999898,
+      "gradient_probes": [
+        {
+          "file": "gipoteza/sem_arch_seed_extension_20261103/trial/gradient_probes/untied24_single_b27_s5821_step1.pt",
+          "sha256": "a944eb1f1d83ad2af1440dcbf21f7678d6f4d322eb5748ae178024377f2fef83",
+          "step": 1
+        },
+        {
+          "file": "gipoteza/sem_arch_seed_extension_20261103/trial/gradient_probes/untied24_single_b27_s5821_step401.pt",
+          "sha256": "a20a2807a8328be57cc453597bc48570c1601581af70a3b66f2b89fec28d0dc0",
+          "step": 401
+        }
+      ],
+      "final_tie_residual": 0.35267239809036255,
+      "initial_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/untied24_single_b27_s5821_initial.pt",
+      "initial_sha256": "d5e4005f4fa58c9402832b98d2bad0fc1af57ab87cda9672e623e94f28fb0ff9",
+      "model_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/untied24_single_b27_s5821.pt",
+      "model_sha256": "34e5f3da9e4a09c2cfc1c66c7147ef6de31b270657d909a46b2f36af0e067936",
+      "prediction_model_file": "gipoteza/sem_arch_seed_extension_20261103/trial/models/untied24_single_b27_s5821.pt",
+      "prediction_model_sha256": "34e5f3da9e4a09c2cfc1c66c7147ef6de31b270657d909a46b2f36af0e067936"
+    }
+  ],
+  "new_fits": 4,
+  "optimizer_updates": 8000,
+  "lock_sha256": "91ab064ba6dcb0d2515cce311f476e2d5ac93a47ab634aaf7695d725e37628d0",
+  "seconds": 85.9257042080003
+}

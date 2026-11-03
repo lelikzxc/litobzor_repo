@@ -1,0 +1,118 @@
+[
+  {
+    "budget": 18,
+    "seed": 5701,
+    "routes": {
+      "group6_single": {
+        "median_seconds": 0.0005685,
+        "p10_seconds": 0.0005419536,
+        "p90_seconds": 0.00070435,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain12_identity": {
+        "median_seconds": 0.000400604,
+        "p10_seconds": 0.0003645542,
+        "p90_seconds": 0.0005554083000000001,
+        "images_per_batch": 32,
+        "MACs_per_image": 390528
+      },
+      "plain12_C4": {
+        "median_seconds": 0.000767354,
+        "p10_seconds": 0.0007452205,
+        "p90_seconds": 0.0009413077,
+        "images_per_batch": 32,
+        "MACs_per_image": 1562112
+      },
+      "plain24_identity": {
+        "median_seconds": 0.000574021,
+        "p10_seconds": 0.0005336503000000001,
+        "p90_seconds": 0.0006295584,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain24_C4": {
+        "median_seconds": 0.0012873125,
+        "p10_seconds": 0.001145467,
+        "p90_seconds": 0.0015655,
+        "images_per_batch": 32,
+        "MACs_per_image": 6110208
+      }
+    },
+    "batch_size": 32,
+    "warmup_batches_per_route": 10,
+    "warmup_images_per_route": 320,
+    "repeats": 50,
+    "random_seed": 11432,
+    "raw_file": "benchmarks/b18_s5701.npz",
+    "raw_sha256": "4b01cefad356c7c7b6a0e8e45c899399bc8dc69e551383e3966738169c7ff47d",
+    "materialization_setup_seconds": 0.14352291700015485,
+    "MPS_sync_before_and_after_every_measurement": true,
+    "materialization_excluded": true,
+    "CNN_batch_calls_per_route": 1,
+    "plain_C4_internal_batch_multiplier": 4,
+    "CPU_geometry_readout_excluded": true,
+    "data_and_host_transfer_excluded": true,
+    "end_to_end_measured": false,
+    "paired_group_over_narrow_C4_median": 0.7427538145339834,
+    "paired_group_over_full_C4_median": 0.4466641125547234
+  },
+  {
+    "budget": 27,
+    "seed": 5701,
+    "routes": {
+      "group6_single": {
+        "median_seconds": 0.000442271,
+        "p10_seconds": 0.000437792,
+        "p90_seconds": 0.00048329590000000005,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain12_identity": {
+        "median_seconds": 0.000327375,
+        "p10_seconds": 0.0002912044,
+        "p90_seconds": 0.00037235379999999997,
+        "images_per_batch": 32,
+        "MACs_per_image": 390528
+      },
+      "plain12_C4": {
+        "median_seconds": 0.000609208,
+        "p10_seconds": 0.0005873076999999999,
+        "p90_seconds": 0.0006460416,
+        "images_per_batch": 32,
+        "MACs_per_image": 1562112
+      },
+      "plain24_identity": {
+        "median_seconds": 0.0004412085,
+        "p10_seconds": 0.0004361542,
+        "p90_seconds": 0.0004580375,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain24_C4": {
+        "median_seconds": 0.0009445205,
+        "p10_seconds": 0.0008914464,
+        "p90_seconds": 0.0009583122,
+        "images_per_batch": 32,
+        "MACs_per_image": 6110208
+      }
+    },
+    "batch_size": 32,
+    "warmup_batches_per_route": 10,
+    "warmup_images_per_route": 320,
+    "repeats": 50,
+    "random_seed": 11441,
+    "raw_file": "benchmarks/b27_s5701.npz",
+    "raw_sha256": "924ead2daff9d1f9b181768ab202bbd156578620db798d5124705792e3ba1924",
+    "materialization_setup_seconds": 0.004301584000131697,
+    "MPS_sync_before_and_after_every_measurement": true,
+    "materialization_excluded": true,
+    "CNN_batch_calls_per_route": 1,
+    "plain_C4_internal_batch_multiplier": 4,
+    "CPU_geometry_readout_excluded": true,
+    "data_and_host_transfer_excluded": true,
+    "end_to_end_measured": false,
+    "paired_group_over_narrow_C4_median": 0.7252215993145121,
+    "paired_group_over_full_C4_median": 0.48342805866124583
+  }
+]

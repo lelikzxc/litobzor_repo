@@ -1,0 +1,10 @@
+{
+  "status": "PASS_FINAL_CLEANUP",
+  "preserved_scientific_files": 1024,
+  "removed_files": 2503,
+  "restored_runtime_dependencies": 1,
+  "runtime_checks": 11,
+  "runtime_checks_total": 11,
+  "net_reclaimed_bytes": 1928773321,
+  "scientific_files_changed": 0
+}

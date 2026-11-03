@@ -1,0 +1,151 @@
+[
+  {
+    "stage": "CENTRAL_DIRECTORY",
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 149,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 177,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 11,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 283,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 297,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 98,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 269,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 91,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 60,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 176,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 121,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 103,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 83,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 119,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 161,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 307,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 257,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 72,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 22,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 298,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 224,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 108,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 311,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 66,
+    "attempt": 1,
+    "status": "COMPLETE"
+  }
+]

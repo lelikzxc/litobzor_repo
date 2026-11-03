@@ -1,0 +1,446 @@
+[
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "7fdc3c1905c8344d257adb8757e5396d2eceae34c02582706be61c3da9297772",
+    "final_state_sha256": "45af226531728431c8ebee0cf36065deb2e5c94133f0176b0e77544b49aa172d",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "3fd3566f953d4f9f1b3e3e1907c66dbf002f7929ea0b43ec5fbe42ece136bf29",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/group6_b18_s5701_step1.pt",
+        "sha256": "7c71c58c85f545e3693fe453e3107d6d5a7d3c740a5a16a4b4d701c7dee83dc7",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/group6_b18_s5701_step401.pt",
+        "sha256": "e5a1438d70d891a3267244c500bffe0ab77842036ce5d757de6a63ba8e86befd",
+        "step": 401
+      }
+    ],
+    "training_seconds": 21.784267291999868,
+    "architecture": "group6",
+    "budget": 18,
+    "seed": 5701,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b18_s5701.pt",
+    "model_sha256": "9e81ac825f0dd08e60f306e0652ce514b723527e0ef08bfbde153c4f9f14843c",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b18_s5701_initial.pt",
+    "initial_sha256": "e50117ed3a218916706351cae029b494b75ac312d3022b2b27b31905059928ee"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "5ec52213bea9278ea30ff55ca32ce5facfa729e47aa3985d64c27e279b7acf9a",
+    "final_state_sha256": "b28229905da9e40c0841c6ce16676e44673995a903a51a6346efd5cbcc15c8d9",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "3fd3566f953d4f9f1b3e3e1907c66dbf002f7929ea0b43ec5fbe42ece136bf29",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain12_C4pooled_b18_s5701_step1.pt",
+        "sha256": "e21c11e450ac18304c2ce40b2d9a23bd7cc178293f522b54a41003b27ef08915",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain12_C4pooled_b18_s5701_step401.pt",
+        "sha256": "3adc04ce32bf752211ead40823ad60ca6f7144cf57f9ccd8d2a59b3c39e36a1c",
+        "step": 401
+      }
+    ],
+    "training_seconds": 20.915761042000213,
+    "architecture": "plain12_C4pooled",
+    "budget": 18,
+    "seed": 5701,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b18_s5701.pt",
+    "model_sha256": "a654476d9d095109b514c38725be30eb1da85b73c1a0b474d171983f7d845f28",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b18_s5701_initial.pt",
+    "initial_sha256": "e6a60a20708f5e6db181c5aca54b52d21f058607034b1cb1313ab1b01c896493"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "0ddf40d58bf11eb6fe84989a83db02aa201f46a74fcc999abcfee6427e572120",
+    "final_state_sha256": "75dc3ff5751b5dffddc1d1c82c4adfcf5db12ed3a8938a8b8cbec52749d60519",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "aa63af880624c0c34b48880cdca8f699131109376632a4994a9d641b69ef4a98",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/group6_b18_s5721_step1.pt",
+        "sha256": "d6d126fbf620230050ec868ab7f66897f1a7aea7b90f70046a2699ff0a06f28b",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/group6_b18_s5721_step401.pt",
+        "sha256": "f54ab8a4d99bf6baf0e7489d89b880a37620676ac63fd00356bacd8f9c7180d9",
+        "step": 401
+      }
+    ],
+    "training_seconds": 21.228548624999803,
+    "architecture": "group6",
+    "budget": 18,
+    "seed": 5721,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b18_s5721.pt",
+    "model_sha256": "0a9fe46d7703075e974d28471062c237826180cd59a1427d56711cb904baf3ff",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b18_s5721_initial.pt",
+    "initial_sha256": "4d22753860e803135c84d864238aec5fb08fdb7cd96e5a8bd7fe685f6d00258b"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "ef282e57049af242ddf320d1f9568e31b4c529a955253bb6c30910df78ee392b",
+    "final_state_sha256": "44a26af54239253bf5b9bdef0182a4f98aa9850e00432c01f59090a3c3a00f51",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "aa63af880624c0c34b48880cdca8f699131109376632a4994a9d641b69ef4a98",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain12_C4pooled_b18_s5721_step1.pt",
+        "sha256": "244aa76acdfb440d5864e98b2ed8ba1fa7cfc5894fba9d97fddb7e0d0df8e6ed",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain12_C4pooled_b18_s5721_step401.pt",
+        "sha256": "50a80482e3390673fd7e83f96b74b0bc8a5a5761cb45e2d3e39210d0e7db5dec",
+        "step": 401
+      }
+    ],
+    "training_seconds": 20.92163533300004,
+    "architecture": "plain12_C4pooled",
+    "budget": 18,
+    "seed": 5721,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b18_s5721.pt",
+    "model_sha256": "ef17313a16f06f22cf85f8c6658951b0731a1bfe3808373de901b471a9902be6",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b18_s5721_initial.pt",
+    "initial_sha256": "9875fad730a062e6f3e63ef76197a805337cd42e98baf2687bce05059d9b371d"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "d6b9366911cf0523f6c2d18655065bddd1a36348760ef28f51a111fcb5765576",
+    "final_state_sha256": "06a4aa5d6460c4aa484504be2473c70b304f95ca2aba15c1843bd43d27447586",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "a0fb75d8ac7e0ab0ea0a0186e189a3c7e346bb2e874e3b98361815607e11cba5",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/group6_b18_s5757_step1.pt",
+        "sha256": "2680652c32f4b73f6c39cc9c285f234fd4066af235616e8b43326e6c51ad549e",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/group6_b18_s5757_step401.pt",
+        "sha256": "efb959d5e1d0ec150f06b754356c6e5612f15e8d3ed5c674ba63a6f8ae735eca",
+        "step": 401
+      }
+    ],
+    "training_seconds": 20.83942412500005,
+    "architecture": "group6",
+    "budget": 18,
+    "seed": 5757,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b18_s5757.pt",
+    "model_sha256": "311b4cf4c6a42cff333479b27dab86a2e0f304e289b42190debb17114d0af7dc",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b18_s5757_initial.pt",
+    "initial_sha256": "8e31e7a7fcb8be6db0b9dda01c4b0f4f5b974aea5468a129dc3d1b54f95d9e35"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "dc44060d8bcb0a2a1853b20c9653d779318546b132a2d8feab9a680d8c4479db",
+    "final_state_sha256": "b04343d811089cb46fe4f8e80386b508e9e42bbd6b0604826d125c612b23037f",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "a0fb75d8ac7e0ab0ea0a0186e189a3c7e346bb2e874e3b98361815607e11cba5",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain12_C4pooled_b18_s5757_step1.pt",
+        "sha256": "df9f55f3d1329de1bef6665f2dc20b39572a0f0f967110632684a4eddaeabdf1",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain12_C4pooled_b18_s5757_step401.pt",
+        "sha256": "e681ab99829b890de6d5f38db9a0a30709b1a8e91de2af2f7a94bfb59741c0f1",
+        "step": 401
+      }
+    ],
+    "training_seconds": 22.6423669589999,
+    "architecture": "plain12_C4pooled",
+    "budget": 18,
+    "seed": 5757,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b18_s5757.pt",
+    "model_sha256": "e9376bd57ddfd5a17213837a048ae6fc68b537505f80f212f3458a19a2d5547e",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b18_s5757_initial.pt",
+    "initial_sha256": "039a257a59deec7b7f74a23fbf99a7a97ca76de415ec5f360ae6ff8a37832a19"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "7fdc3c1905c8344d257adb8757e5396d2eceae34c02582706be61c3da9297772",
+    "final_state_sha256": "77e3de33c44b0eec1ce3f77bfddb92e7a867623a54fdbf857b1e2966141119ff",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "3573a603afdc0a94fa84de12aa58636a4db1e414c94176cccc3ac7ea52dfdab1",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/group6_b27_s5701_step1.pt",
+        "sha256": "5724ade39b01575dacf185fa4f3e2677f046853cf917dbf087a8f81eacb60ed5",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/group6_b27_s5701_step401.pt",
+        "sha256": "7ad29822fbda8153ddc8f1b2e7b4a2b0d2327aba9bd1ea17c65c5742618bf89f",
+        "step": 401
+      }
+    ],
+    "training_seconds": 21.462927750000063,
+    "architecture": "group6",
+    "budget": 27,
+    "seed": 5701,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b27_s5701.pt",
+    "model_sha256": "e1bc579ecebcb46288b99430fe891496fbf22d62457ce5c5ef1d01c7abbd4d30",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b27_s5701_initial.pt",
+    "initial_sha256": "308ccb6dc30de5803970d7a657221de8031a4b9659f1692d9b9370abd277128d"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "5ec52213bea9278ea30ff55ca32ce5facfa729e47aa3985d64c27e279b7acf9a",
+    "final_state_sha256": "baf09539a450d0599a302f5c9031915df706247454f2fa19b22056963b88b7c8",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "3573a603afdc0a94fa84de12aa58636a4db1e414c94176cccc3ac7ea52dfdab1",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain12_C4pooled_b27_s5701_step1.pt",
+        "sha256": "bd0e632adaedf914fa383feb11f8799e89e6b63d204eb3eae3c6501e340296c9",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain12_C4pooled_b27_s5701_step401.pt",
+        "sha256": "954173ec3ca416bbc9f73845452045354d3e4a2f2b5d8a8492a63e5b89a6adb1",
+        "step": 401
+      }
+    ],
+    "training_seconds": 19.029960040999867,
+    "architecture": "plain12_C4pooled",
+    "budget": 27,
+    "seed": 5701,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b27_s5701.pt",
+    "model_sha256": "c2877bdfdfd3a4d32fa219aa2412459204139c9148b7334a9de5a49f0eb86619",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b27_s5701_initial.pt",
+    "initial_sha256": "fc2c171cd4b761bb360e106bda963dc058f1d9b617b16c2657bd10c5e93916d8"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "0ddf40d58bf11eb6fe84989a83db02aa201f46a74fcc999abcfee6427e572120",
+    "final_state_sha256": "8a502cc9a7ae6ca391d039b683cbddf056acf9305dd4c1988355810ef0ca08de",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "55559788f740e30dab82d701de9d5a2fa4c6de535fb88c1a2ec4ec2fede7fbc3",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/group6_b27_s5721_step1.pt",
+        "sha256": "2008a88d25519dbd4905d12da304fd2c240bea56db493da692e6ca7550e02c4c",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/group6_b27_s5721_step401.pt",
+        "sha256": "961aea773c6e82d05317b21e1ecd3b040a503a4334c84bb0c3014485d4fae870",
+        "step": 401
+      }
+    ],
+    "training_seconds": 21.04263558399998,
+    "architecture": "group6",
+    "budget": 27,
+    "seed": 5721,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b27_s5721.pt",
+    "model_sha256": "2682f91d2feb4cfde43ea094b35d730223915235f3901e7aebc90accef341fcc",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b27_s5721_initial.pt",
+    "initial_sha256": "3fdc8a0d8c57cb2c6be05f841a698d7740a86ef18ce4c9da87b3e8a1bd82b671"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "ef282e57049af242ddf320d1f9568e31b4c529a955253bb6c30910df78ee392b",
+    "final_state_sha256": "99f63aebfaa8f07439ccefb6d061fb49c8fc4e91091f2a8f64bf8ceaf5c4dc0c",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "55559788f740e30dab82d701de9d5a2fa4c6de535fb88c1a2ec4ec2fede7fbc3",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain12_C4pooled_b27_s5721_step1.pt",
+        "sha256": "27f810da7b801c251934a8b87aec865a7a3b39ad62816bb08d723708aaf53b9d",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain12_C4pooled_b27_s5721_step401.pt",
+        "sha256": "a20f66b8177243d45c9a2f6128de4df59c80bdd970aa16aee15a319f30d1bb53",
+        "step": 401
+      }
+    ],
+    "training_seconds": 18.243680999999924,
+    "architecture": "plain12_C4pooled",
+    "budget": 27,
+    "seed": 5721,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b27_s5721.pt",
+    "model_sha256": "15f4e4d1d2120ae406f0a265dfc6729990a4cd479e881a4b3b482b0d9e2c7638",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b27_s5721_initial.pt",
+    "initial_sha256": "9bd5faf3c453172aeb43dc94340de50cfadbd1365b787f720dcc763ddb3b4e30"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "d6b9366911cf0523f6c2d18655065bddd1a36348760ef28f51a111fcb5765576",
+    "final_state_sha256": "87f0ca2245e5afc54dd7c78898ab8083a86aebd8f329bc201ec224c92683fc3e",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "c96ee5cd1918741433096e04c5c00526e50c273f997852b24fdb6efd2cd684cd",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/group6_b27_s5757_step1.pt",
+        "sha256": "a6db3565b6cecf2df73f6bb64aa45a67e9271285e716406b8e1cd219d3caafd9",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/group6_b27_s5757_step401.pt",
+        "sha256": "54f60d3a8c4fe128696b81c1cc845b263e7bec433825eeaddf862f4c03d24a5e",
+        "step": 401
+      }
+    ],
+    "training_seconds": 20.854114457999913,
+    "architecture": "group6",
+    "budget": 27,
+    "seed": 5757,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b27_s5757.pt",
+    "model_sha256": "f6541e6549fc374d9f496954e8b4dc2635f53b3f3241e4e70eb279f5596665d3",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/group6_b27_s5757_initial.pt",
+    "initial_sha256": "b79cd617c1baa39163247dcb457aefce0591ac98d7090592d2b8090f9d25f616"
+  },
+  {
+    "optimizer_updates": 2000,
+    "steps": 2000,
+    "warmup_shape_steps": 400,
+    "joint_shape_steps": 1600,
+    "dense_BCE_steps": 2000,
+    "weak_loss_steps": 0,
+    "weak_labels_used": false,
+    "weak_masks_loaded": false,
+    "fresh_initialization": true,
+    "initial_state_sha256": "dc44060d8bcb0a2a1853b20c9653d779318546b132a2d8feab9a680d8c4479db",
+    "final_state_sha256": "7225c03e9e1ab74e30284086eda4f6f884cc742d088eab66b6d6bcab4896dbe9",
+    "paired_auxiliary_initialization_match": true,
+    "batch_sequence_sha256": "c96ee5cd1918741433096e04c5c00526e50c273f997852b24fdb6efd2cd684cd",
+    "paired_auxiliary_batch_sequence_match": true,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain12_C4pooled_b27_s5757_step1.pt",
+        "sha256": "668dd4a31457d7e8a88f5be24911ea2b21031968d8b4980cc3652df2574abd01",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain12_C4pooled_b27_s5757_step401.pt",
+        "sha256": "595448cd7fb9abf4f10f5258a07fc852018628ac55b5b2372b6f7ccefff3e99f",
+        "step": 401
+      }
+    ],
+    "training_seconds": 20.119109665999986,
+    "architecture": "plain12_C4pooled",
+    "budget": 27,
+    "seed": 5757,
+    "objective": "BCE",
+    "model_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b27_s5757.pt",
+    "model_sha256": "12dcee20da8b8591c37097156187aa615a59c0dec50f2c248abacd0eb76c6f76",
+    "initial_file": "gipoteza/sem_arch_loss_factorial_20261103/trial/models/plain12_C4pooled_b27_s5757_initial.pt",
+    "initial_sha256": "fedee3d71b7924cbf939e5fcd7ec096e57c8abe253e42feba8493ce69e76c511"
+  }
+]

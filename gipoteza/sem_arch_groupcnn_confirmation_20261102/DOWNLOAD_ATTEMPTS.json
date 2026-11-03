@@ -1,0 +1,103 @@
+[
+  {
+    "stage": "CENTRAL_DIRECTORY",
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 212,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 87,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 81,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 61,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 16,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 183,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 100,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 252,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 150,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 32,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 157,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 192,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 200,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 70,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 123,
+    "attempt": 1,
+    "status": "COMPLETE"
+  },
+  {
+    "stage": "PNG",
+    "frame": 254,
+    "attempt": 1,
+    "status": "COMPLETE"
+  }
+]

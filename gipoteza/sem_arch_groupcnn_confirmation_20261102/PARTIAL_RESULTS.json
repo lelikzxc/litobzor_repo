@@ -1,0 +1,362 @@
+[
+  {
+    "route": "group6_single",
+    "budget": 18,
+    "seed": 5701,
+    "prediction_model_sha256": "c322a72be495bab71666176acc1db0d590b22d955de6b6b968b3e1d30ab20771",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.28,
+        "mask_F1": 0.7748097185079633,
+        "IoU": 0.8701616235819079
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7771665853083992,
+        "IoU": 0.8713427605265932
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.32567708299939113
+  },
+  {
+    "route": "group6_single",
+    "budget": 18,
+    "seed": 5721,
+    "prediction_model_sha256": "48cdf97c01f3eb01fba376121f2f4a6519a52fc98dc5ed0a2c2c4f6f87480ce7",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.3,
+        "mask_F1": 0.7160985964447666,
+        "IoU": 0.8515788438093208
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7160985964447666,
+        "IoU": 0.8515788438093208
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.11978370900033042
+  },
+  {
+    "route": "group6_single",
+    "budget": 18,
+    "seed": 5757,
+    "prediction_model_sha256": "6b1b1ccb6def95198ca8c82a0d76f9d8f937c09c7012f0a2a27b9a0e7206717c",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.42,
+        "mask_F1": 0.7793532648365177,
+        "IoU": 0.8740365412368507
+      },
+      "secondary_seven": {
+        "threshold": 0.45,
+        "mask_F1": 0.7849323948204833,
+        "IoU": 0.8746918101828882
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.12843304099988018
+  },
+  {
+    "route": "group6_single",
+    "budget": 27,
+    "seed": 5701,
+    "prediction_model_sha256": "385d0d1592273c4bf763b3dd914e65bc4008f0a53714b043cb9de31d61ea3e23",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.31,
+        "mask_F1": 0.7693983599597564,
+        "IoU": 0.8677013930415367
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7690946460777818,
+        "IoU": 0.8670478591394393
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.20996779199958837
+  },
+  {
+    "route": "group6_single",
+    "budget": 27,
+    "seed": 5721,
+    "prediction_model_sha256": "265dbb553422cf4c5819c23afa4404a4ab47a102091c031df83b657635b8cd9a",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.3,
+        "mask_F1": 0.7284239024115224,
+        "IoU": 0.85636764787114
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7284239024115224,
+        "IoU": 0.85636764787114
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.12028908399952343
+  },
+  {
+    "route": "group6_single",
+    "budget": 27,
+    "seed": 5757,
+    "prediction_model_sha256": "1067a385982aa04c916bfc5aec07516876c3aab31c4a75a31e08d64b0b1e3fa2",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.38,
+        "mask_F1": 0.7856650923251166,
+        "IoU": 0.872914882634252
+      },
+      "secondary_seven": {
+        "threshold": 0.4,
+        "mask_F1": 0.7858821930282375,
+        "IoU": 0.8734924332766535
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.1154285839984368
+  },
+  {
+    "route": "plain12_C4",
+    "budget": 18,
+    "seed": 5701,
+    "prediction_model_sha256": "044320c1f162cb9445d772f2aad5300cf8ab91228d1e233869b9ce1202f0fa07",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.34,
+        "mask_F1": 0.7704560092139174,
+        "IoU": 0.8638285121626295
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7623343951412357,
+        "IoU": 0.8597569050013207
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.2607314580000093
+  },
+  {
+    "route": "plain12_C4",
+    "budget": 18,
+    "seed": 5721,
+    "prediction_model_sha256": "685b557b1c0021a756c2c3d3834efafc8dd3e75e59b1b83827f445a624160d48",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.3,
+        "mask_F1": 0.7059801761387399,
+        "IoU": 0.8379062881090537
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7059801761387399,
+        "IoU": 0.8379062881090537
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.17658512500020151
+  },
+  {
+    "route": "plain12_C4",
+    "budget": 18,
+    "seed": 5757,
+    "prediction_model_sha256": "62300f56401f4c56d7fd6c2dda1bd85ef33c042f0bdf97b73f7d2a2c04fc07de",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.34,
+        "mask_F1": 0.7477672072766712,
+        "IoU": 0.8595460576670821
+      },
+      "secondary_seven": {
+        "threshold": 0.45,
+        "mask_F1": 0.7661952688872115,
+        "IoU": 0.8684104387979975
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.1853009580008802
+  },
+  {
+    "route": "plain12_C4",
+    "budget": 27,
+    "seed": 5701,
+    "prediction_model_sha256": "16710a49c09e621d4b938f21724627cd8d3f7b08633dce11ead8485ea34c40f9",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.3,
+        "mask_F1": 0.7524050425171911,
+        "IoU": 0.8579684294048333
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7524050425171911,
+        "IoU": 0.8579684294048333
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.22841150000022026
+  },
+  {
+    "route": "plain12_C4",
+    "budget": 27,
+    "seed": 5721,
+    "prediction_model_sha256": "6d6164e386b8c4e8327305b1910ffd40fcb95344e11db87da02e56fe22f29fc1",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.35,
+        "mask_F1": 0.7143156082769149,
+        "IoU": 0.8421454071796274
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.6959400814357115,
+        "IoU": 0.8331046672350167
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.18729454100139264
+  },
+  {
+    "route": "plain12_C4",
+    "budget": 27,
+    "seed": 5757,
+    "prediction_model_sha256": "6cf8f975fd90e1279db5e9936791ff8276d30f7873212ad7f7a85fca98f158c3",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.37,
+        "mask_F1": 0.751562918527305,
+        "IoU": 0.8599565511314713
+      },
+      "secondary_seven": {
+        "threshold": 0.4,
+        "mask_F1": 0.7574212053570142,
+        "IoU": 0.8625621628136231
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.1614994999999908
+  },
+  {
+    "route": "plain24_C4",
+    "budget": 18,
+    "seed": 5701,
+    "prediction_model_sha256": "86b969e6e4be20eed2ddb4e61d6eec8e7d6b60869cd16914a18869da6227e3ee",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.27,
+        "mask_F1": 0.7586894719525169,
+        "IoU": 0.8568870740839751
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7685693175707744,
+        "IoU": 0.8611729107730905
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.2908557500013558
+  },
+  {
+    "route": "plain24_C4",
+    "budget": 18,
+    "seed": 5721,
+    "prediction_model_sha256": "a746cabdd1d544536c51e18a53c37126e6d7070beec4c0fff0aa5ebf5b7a8c98",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.31,
+        "mask_F1": 0.7399256808438879,
+        "IoU": 0.8545164461203019
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7367290022008931,
+        "IoU": 0.8526715109106384
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.19764608399964345
+  },
+  {
+    "route": "plain24_C4",
+    "budget": 18,
+    "seed": 5757,
+    "prediction_model_sha256": "a50d2d85b17e9f0fa315b34763fef9f676ef9b01780904f924e15b18b932bdd9",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.38,
+        "mask_F1": 0.7517121019883836,
+        "IoU": 0.8700826816859006
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7221378195123047,
+        "IoU": 0.8612263575287893
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.22902000000067346
+  },
+  {
+    "route": "plain24_C4",
+    "budget": 27,
+    "seed": 5701,
+    "prediction_model_sha256": "769120063e3e4cbacf38931d628857052ad8c683c1741b122315764df6a31a0f",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.34,
+        "mask_F1": 0.7740341810042131,
+        "IoU": 0.8674906270501538
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7610881501767538,
+        "IoU": 0.8628058241195523
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.26026458399974217
+  },
+  {
+    "route": "plain24_C4",
+    "budget": 27,
+    "seed": 5721,
+    "prediction_model_sha256": "21e3d9a4eac30a3b523c2984e9b8f446b81e227dfbe2af0c3b17709c5cdec1fc",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.34,
+        "mask_F1": 0.7254733696272431,
+        "IoU": 0.8543002795177315
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7175186705265942,
+        "IoU": 0.8473536583178276
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.26537787499910337
+  },
+  {
+    "route": "plain24_C4",
+    "budget": 27,
+    "seed": 5757,
+    "prediction_model_sha256": "1951854cfb3a339895ed37daa6ec2957d4c3db894d3a8f45adab61ea77b85e11",
+    "metrics": {
+      "primary_fine": {
+        "threshold": 0.33,
+        "mask_F1": 0.7449254765660602,
+        "IoU": 0.8637437643241155
+      },
+      "secondary_seven": {
+        "threshold": 0.3,
+        "mask_F1": 0.7330927943046888,
+        "IoU": 0.8596818902914065
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.259037833999173
+  }
+]

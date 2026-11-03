@@ -1,0 +1,251 @@
+{
+  "scope": "OLD_TRAIN_VAL_SAME_WIDTH_SAME_MAC_UNTIED_CONTROL",
+  "UTC": "2026-11-03T09:55:29.845761+00:00",
+  "inputs": {
+    "gipoteza/retained_evidence_20261027/SELECTED_SOURCES.zip": {
+      "sha256": "a6888dce510f39a0e3aaeac654f2aa0d7d795402a19f39d71047e29479ab10fd",
+      "bytes": 192680
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/CONFIG.json": {
+      "sha256": "7a1ac19d80f99d00ec85784076f356152a2c331431d0a5a7b027feb12f731c29",
+      "bytes": 2501
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/PROTOCOL.md": {
+      "sha256": "e11c864512b40caad13a4e6becf6ea242c51b588cad75c8e7078103a99028097",
+      "bytes": 11366
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/model.py": {
+      "sha256": "8b04a0a70486d631e00237765fa0930984be806fd658415d7896fd8a4caf332b",
+      "bytes": 7154
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/recovery.py": {
+      "sha256": "27b9055b4267c57be0ff97cb684d0f2c4f8c0e0041ed5834d17da536155efe2d",
+      "bytes": 18875
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/runner.py": {
+      "sha256": "f00886c4ea34661688014680d049c51ad181933ab7a5d69bd8517463914fde0d",
+      "bytes": 30234
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/AGGREGATE_RESULT.json": {
+      "sha256": "ba738cb2e97f07f65a7630a69e09660e33e6b25980697e3eff0807804f65cfcb",
+      "bytes": 436533
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/AUDIT.json": {
+      "sha256": "00cbb20ebdb831e5a22020a9035dd26bbbd9edd4e261b40742655615a5b889b5",
+      "bytes": 27962
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/CONFIG_SNAPSHOT.json": {
+      "sha256": "7a1ac19d80f99d00ec85784076f356152a2c331431d0a5a7b027feb12f731c29",
+      "bytes": 2501
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/FROZEN.json": {
+      "sha256": "531e8c3dc4e6651c49ed22f8e380e5b6b8350e3b7e338f08048f6c183c6ed700",
+      "bytes": 65139
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/PROTOCOL.md": {
+      "sha256": "e11c864512b40caad13a4e6becf6ea242c51b588cad75c8e7078103a99028097",
+      "bytes": 11366
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/RESULT.json": {
+      "sha256": "f73c438c7b5667fd36ccc064bf5c68c99d28566fc460a52bb9cd93224d7d908c",
+      "bytes": 300596
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/gradient_probes/group6_b27_s5721_step1.pt": {
+      "sha256": "91947d9a3cb86e6180bd4567f042351103c56d8a6fcef3a22177914257ac8d6b",
+      "bytes": 52957
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/gradient_probes/group6_b27_s5721_step401.pt": {
+      "sha256": "2115d54eea65871a10c65fc5d2aa0f87e9d7a6a33a40194c799bf60d6d69e35b",
+      "bytes": 62773
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/gradient_probes/group6_b27_s5757_step1.pt": {
+      "sha256": "046127b1e7ea5b41bb321c0c176e86dfe2989cb8da2870dd656009599c940e7f",
+      "bytes": 52957
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/gradient_probes/group6_b27_s5757_step401.pt": {
+      "sha256": "eda5db71cf1202444c7999242f2c629d1f836fa7793a73c83d38398b9fae9fa4",
+      "bytes": 62773
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/gradient_probes/plain12_C4pooled_b27_s5721_step1.pt": {
+      "sha256": "735b9f8100863220c77c9971cd56cd734c4e18b03a89bf84a90f709af4a8b9e6",
+      "bytes": 72927
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/gradient_probes/plain12_C4pooled_b27_s5721_step401.pt": {
+      "sha256": "dc7eec64321db3aeebfdab35e32a5cbbcb61ae49ceb8ccd866d170d06d3f1c11",
+      "bytes": 101197
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/gradient_probes/plain12_C4pooled_b27_s5757_step1.pt": {
+      "sha256": "be23fb6e4499c258fe2866919159062e4b71a53282e4687892350737a3f48a22",
+      "bytes": 72927
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/gradient_probes/plain12_C4pooled_b27_s5757_step401.pt": {
+      "sha256": "951942659547f0c4393ca4dc9b704e9093210f186df567a36d1ce7a722dade38",
+      "bytes": 101197
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5721.pt": {
+      "sha256": "42b54a218c6080e823549ce8c502f8a88dba1c2e2c5c8be5cc611d9dbef883f4",
+      "bytes": 15115
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5721_deployed.pt": {
+      "sha256": "265dbb553422cf4c5819c23afa4404a4ab47a102091c031df83b657635b8cd9a",
+      "bytes": 46473
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5721_initial.pt": {
+      "sha256": "80d1cef729cd6681dafb4780deb52aa8a4782db5d8b17acfc5bd10451befe983",
+      "bytes": 14395
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5757.pt": {
+      "sha256": "c0452c74e2e94c9663cbb31b60965b0fa7c943d2cf722f43a6bc18db2ff0f4ad",
+      "bytes": 15115
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5757_deployed.pt": {
+      "sha256": "1067a385982aa04c916bfc5aec07516876c3aab31c4a75a31e08d64b0b1e3fa2",
+      "bytes": 46473
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5757_initial.pt": {
+      "sha256": "5998f58e1c8fedc52fc73563d32f0ff67ce9068d3c40d3788b00f38f5edd191f",
+      "bytes": 14395
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5721.pt": {
+      "sha256": "6d6164e386b8c4e8327305b1910ffd40fcb95344e11db87da02e56fe22f29fc1",
+      "bytes": 15831
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5721_initial.pt": {
+      "sha256": "a55c103937bf3cf2233c879c78e705f2a962c33ab2bda005f53e54036d7b0836",
+      "bytes": 15047
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5757.pt": {
+      "sha256": "6cf8f975fd90e1279db5e9936791ff8276d30f7873212ad7f7a85fca98f158c3",
+      "bytes": 15831
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5757_initial.pt": {
+      "sha256": "3771b9ffef78b10fff0ad807d01cb60761f3804b46c0db20425c378790ff9b55",
+      "bytes": 15047
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/group6_single_b27_s5721.npz": {
+      "sha256": "c77a9958c445a863d23d0a3ec66e393de8a829db21b6ced252ec50956f1e0a14",
+      "bytes": 451191
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/group6_single_b27_s5757.npz": {
+      "sha256": "ea03c38c5f676efd8f10eea24f979f923aea9c37f12bee2829033deadf7e5115",
+      "bytes": 454918
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/plain12_C4_b27_s5721.npz": {
+      "sha256": "d51e2036d5a26cd802471afaabdc3db0250bd074e64a4ae58e464f2c9975053e",
+      "bytes": 422570
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/plain12_C4_b27_s5757.npz": {
+      "sha256": "928444e7068f4f9f35dd48109e433bf13fc091f40cbbd1ac5c9afb1669405951",
+      "bytes": 446058
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/AUDIT.json": {
+      "sha256": "b91905c81e640d1fe1bafabbddb21ba72f5445891bbe45cb03df6d010212190e",
+      "bytes": 16327
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/CONFIG_SNAPSHOT.json": {
+      "sha256": "7a1ac19d80f99d00ec85784076f356152a2c331431d0a5a7b027feb12f731c29",
+      "bytes": 2501
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/FROZEN.json": {
+      "sha256": "405a1d990dd7477287ec2a821fce169e5d2cf78da0ef40b09883d4e831676078",
+      "bytes": 67262
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/PROTOCOL.md": {
+      "sha256": "e11c864512b40caad13a4e6becf6ea242c51b588cad75c8e7078103a99028097",
+      "bytes": 11366
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/RESULT.json": {
+      "sha256": "481442ee0480420c26f684dc27b94fd1b77c8bc008708ed5a90854647cebaf09",
+      "bytes": 156025
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/gradient_probes/group6_b27_s5701_step1.pt": {
+      "sha256": "094c69da5b9f366c5c5a72ee9970e4cb457969ce6c5303df7d0f539f941c8aa6",
+      "bytes": 52957
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/gradient_probes/group6_b27_s5701_step401.pt": {
+      "sha256": "2c096cdfeb6f8d0d0fc6767caee45f666709220a532cbe1d4e85a9f330f47049",
+      "bytes": 62773
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/gradient_probes/plain12_C4pooled_b27_s5701_step1.pt": {
+      "sha256": "b5a68c031413e917996c281468533e8da012abbd82f3f35ebe4e4fdf6390a9cc",
+      "bytes": 72927
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/gradient_probes/plain12_C4pooled_b27_s5701_step401.pt": {
+      "sha256": "995ba12982f08368e835bce96f1bf5725aaabd9dc385b7204f63f41e6b0b1700",
+      "bytes": 101197
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/group6_b27_s5701.pt": {
+      "sha256": "5471faa6230bd7c9e437aa1097321ebde199f9e9adefc5be34e9e3531863f118",
+      "bytes": 15115
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/group6_b27_s5701_deployed.pt": {
+      "sha256": "385d0d1592273c4bf763b3dd914e65bc4008f0a53714b043cb9de31d61ea3e23",
+      "bytes": 46473
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/group6_b27_s5701_initial.pt": {
+      "sha256": "1db11b3d9abbff57fa670793698a69d2727bd31a5304096bc0e73cb39f9ffebd",
+      "bytes": 14395
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5701.pt": {
+      "sha256": "16710a49c09e621d4b938f21724627cd8d3f7b08633dce11ead8485ea34c40f9",
+      "bytes": 15831
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5701_initial.pt": {
+      "sha256": "9c41a302896a518ac8bce7893473b996346cc60ada17524954601e4d1301c554",
+      "bytes": 15047
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/val_probs/group6_single_b27_s5701.npz": {
+      "sha256": "2c0840cad2df2fa636f754215de0cdf97727528194f4e07797d53afe0e3f0c62",
+      "bytes": 426226
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/val_probs/plain12_C4_b27_s5701.npz": {
+      "sha256": "3e70bd01206431f5fd4c3b6a05f1127c8644d221ed37f1d9244c638f6c0a75f1",
+      "bytes": 440690
+    },
+    "gipoteza/sem_arch_untied_control_20261103/CONFIG.json": {
+      "sha256": "189cf6ecd81c9c9f8e274c9b430e8d433758d705be1367bca2fa7f79777a92c9",
+      "bytes": 1705
+    },
+    "gipoteza/sem_arch_untied_control_20261103/PROTOCOL.md": {
+      "sha256": "d59e72948d9883f51aded42cbfd901b1cfa92ebb1c5a518d4bab1342e4512bf7",
+      "bytes": 8477
+    },
+    "gipoteza/sem_arch_untied_control_20261103/common.py": {
+      "sha256": "d49cd0ebfe3f67cdd409d1d8ffb5b7c9c3a4c511f9f3944b6d783b870479bbb9",
+      "bytes": 6355
+    },
+    "gipoteza/sem_arch_untied_control_20261103/runner.py": {
+      "sha256": "01efb2bbf980e31507ec19c1a644e98e9477ba11e2577412ddc8a9841a354229",
+      "bytes": 16737
+    },
+    "gipoteza/sem_architecture_pilot_20261102/SUBSETS.json": {
+      "sha256": "0236b16c3f79530c0567757ba8957157ef818676635a050e53bd715f2873b09d",
+      "bytes": 766
+    },
+    "gipoteza/sem_architecture_pilot_20261102/TRAIN_VAL.npz": {
+      "sha256": "119cf2f5286067ad06c7e83034516abb0bd2a946383fe4c0987ba7a16fa15ade",
+      "bytes": 570507
+    },
+    "gipoteza/sem_architecture_pilot_20261102/physics_adapter.py": {
+      "sha256": "4419a21d7c9e5883880ed58565254e82000161e70ced3e7406ec9a7f71be2b4f",
+      "bytes": 2023
+    },
+    "gipoteza/sem_architecture_pilot_20261102/prepare.py": {
+      "sha256": "3d9d096f6fdf5a49a90c2655a50e4a6f4f97e273cc983b90904aadde678320de",
+      "bytes": 27330
+    },
+    "gipoteza/sem_confirmation_20261028/prepare.py": {
+      "sha256": "f9507b803f8a8dc7bd11ae1083eb8e6fc9bd84c8386282c7361fe8b43d4fd3ab",
+      "bytes": 13217
+    },
+    "gipoteza/sem_physics_materials/physics_loss_example.py": {
+      "sha256": "d82c7e789520f0ddf3207aa2d6dc26fd98cdeff81692f8d2a3bfb70f760264cd",
+      "bytes": 6868
+    }
+  },
+  "preflight_sha256": "342a61e286fbb23e9294da928ef8f7580e41ff6f2134bc31edb7ae83e40e3fe7",
+  "new_fits": 3,
+  "reused_fits": 6,
+  "optimizer_updates_planned": 6000,
+  "fresh_test_access": false
+}

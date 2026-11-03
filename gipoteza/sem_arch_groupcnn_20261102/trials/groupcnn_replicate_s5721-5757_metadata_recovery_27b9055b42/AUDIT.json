@@ -1,0 +1,757 @@
+{
+  "status": "PASS_AUDIT",
+  "trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42",
+  "scope": "INDEPENDENT_CPU_FRESH_GROUPCNN_OLD_TRAIN_VAL_ONLY",
+  "audit_source_sha256": "477ef6b375cdc1550b6cad787fdcc96ace95a4ed72ec2cfadea9ba07db61794d",
+  "result_sha256": "f73c438c7b5667fd36ccc064bf5c68c99d28566fc460a52bb9cd93224d7d908c",
+  "checks": {
+    "frozen_sources_config_protocol_and_old_TRAIN_VAL_only_scope": true,
+    "fixed_fresh_2000step_400warmup_legacy_loss_design_and_both_separate_goals": true,
+    "source_training_schedule_all_weights_canonical_targets_and_weak_mask_exclusion": true,
+    "source_fresh_seed_and_batched_four_view_shared_CNN_without_augmentation": true,
+    "source_benchmark_synchronizes_raw_forward_timing_and_excludes_setup_readout": true,
+    "saved_CPU_preflight_current_sources_no_updates": true,
+    "exact_original_archive_subsets_role_frame_exclusion_and_balanced_dense_training": true,
+    "independent_binary_graph_truth_and_odd_rotation_class_swap": true,
+    "independent_C4_relative_orientation_indexing_and_channel_layout": true,
+    "direct_relative_orientation_sum_and_full_network_VJP": true,
+    "group_feature_action_roll_and_output_spatial_covariance": true,
+    "exact_materialized_kernels_biases_and_orientation_mean_head": true,
+    "effective2671_materialized10681_near_parameter2749_full10681": true,
+    "exact_operation_accounting": true,
+    "stable_logit_of_mean_four_view_probability_training_before_legacy_loss": true,
+    "independent_common_BCE_geometry_loss_parameter_gradients": true,
+    "legacy_transfer_adapter_and_original_loss_gradient_equal": true,
+    "fresh_uniform_fanin_bounds_all_layers_and_parameter_counts": true,
+    "exact_six_fits_ten_routes_twelve_thousand_updates_per_seed": true,
+    "all_initial_final_and_materialized_checkpoint_file_hashes": true,
+    "all_fresh_seed_initial_states_fanin_bounds_and_same_seed_across_budgets": true,
+    "all_2000steps400plus1600_metadata_final_states_and_paired_dense_weak_batches": true,
+    "all_step1_and401_actual_MPS_metadata_legacy_loss_and_independent_parameter_VJPs": true,
+    "all_trained_deployed_kernels_biases_and_repeated_head_coefficients_exact": true,
+    "all_route_parameter_materialized_storage_operation_and_pass_accounting": true,
+    "independent_all_81_hard_graph_classes_packed_masks_primary_and_seven_grid_metrics_rank": true,
+    "independent_full_VAL_group_and_plain_single_four_view_probability_forward": true,
+    "trained_operating_MPS_required_C4_and_deployment_probability_tolerances": true,
+    "all_actual_latency_samples_randomized_orders_warmups_summaries_and_CNN_only_scope": true,
+    "both_goals_primary81_grid_gains_budget_IoU_and_compute_gates_recomputed": true,
+    "valid_screen_all3_new2_exact_aggregation_and_same_goal_robust_conjunction": true,
+    "failed_metadata_trial_entire_inventory_and_original_scientific_sources_preserved": true,
+    "metadata_only_equal_overlap_merge_all_five_variants_and_unchanged_scientific_functions": true,
+    "exact_distinct_fit_origins_one_plus_five_screen_or_twelve_new_replication": true,
+    "inherited_free_initial_final_materialized_and_both_gradient_probe_artifacts_exact": true,
+    "all_sources_protocol_config_models_and_TRAIN_VAL_unchanged_during_CPU_audit": true
+  },
+  "checks_passed": 36,
+  "checks_total": 36,
+  "maximum_errors": {
+    "full_probability": 1.9073486328125e-06,
+    "metrics": 0.0,
+    "canonical_pool_probability": 1.1920928955078125e-07,
+    "fixture_probability": 0.0,
+    "group_features_relative": 8.716543243642686e-07,
+    "covariance": 1.2516975402832031e-06,
+    "deployment": 3.5762786865234375e-07
+  },
+  "mathematical_proof": {
+    "errors": {
+      "functional_logit": 0.0,
+      "functional_features": 0.0,
+      "direct_group_layer": 1.887379141862766e-15,
+      "group_layer_gradient": 4.973799150320701e-14,
+      "feature_covariance": 1.1102230246251565e-16,
+      "output_covariance": 1.3877787807814457e-17,
+      "deploy": 6.938893903907228e-17,
+      "full_parameter_gradient": 2.7755575615628914e-17
+    },
+    "parameters": {
+      "group": 2671,
+      "deployed": 10681,
+      "narrow": 2749,
+      "full": 10681
+    },
+    "multiply_accumulate_operations": {
+      "group_deployed": 1527552,
+      "narrow_C4": 1562112,
+      "full_C4": 6110208
+    }
+  },
+  "training_operator_proof": {
+    "errors": {
+      "logits": 3.3306690738754696e-16,
+      "probability": 1.6653345369377348e-16,
+      "total_loss": 0.0,
+      "common_loss_gradient": 7.549516567451064e-15,
+      "adapter_original_loss": 0.0,
+      "adapter_original_gradient": 0.0
+    },
+    "fresh_parameter_counts": {
+      "group6": 2671,
+      "plain12_C4pooled": 2749,
+      "plain24_C4pooled": 10681
+    }
+  },
+  "actual_MPS_gradient_proofs": [
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 18,
+      "seed": 5721,
+      "step": 1,
+      "dense_logit": 2.9802322387695312e-08,
+      "weak_logit": 0.0,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 2.0489096641540527e-08,
+      "parameter_gradient_scaled": 2.0489096641540527e-08,
+      "parameter_gradient_relative_L2": 3.393821404616147e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.1641532182693481e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 18,
+      "seed": 5721,
+      "step": 401,
+      "dense_logit": 8.58306884765625e-06,
+      "weak_logit": 9.5367431640625e-06,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 1.1920928955078125e-07,
+      "parameter_gradient_scaled": 1.0635345998116055e-07,
+      "parameter_gradient_relative_L2": 3.185694472560331e-07,
+      "BCE": 1.4901161193847656e-08,
+      "BCE_upstream": 1.0550138540565968e-10,
+      "geometry_relative": 7.450580596923828e-09,
+      "geometry_upstream_CPU_MPS_diagnostic": 3.725290298461914e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 18,
+      "seed": 5721,
+      "step": 1,
+      "dense_logit": 2.384185791015625e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 7.450580596923828e-08,
+      "parameter_gradient_absolute": 1.4901161193847656e-08,
+      "parameter_gradient_scaled": 1.4901161193847656e-08,
+      "parameter_gradient_relative_L2": 2.595928164238109e-07,
+      "BCE": 5.960464477539063e-08,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 18,
+      "seed": 5721,
+      "step": 401,
+      "dense_logit": 7.62939453125e-06,
+      "weak_logit": 7.62939453125e-06,
+      "aligned_logits": 1.2874603271484375e-05,
+      "parameter_gradient_absolute": 8.940696716308594e-08,
+      "parameter_gradient_scaled": 8.940696716308594e-08,
+      "parameter_gradient_relative_L2": 4.332413464953425e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.1641532182693481e-10,
+      "geometry_relative": 2.9802322387695312e-08,
+      "geometry_upstream_CPU_MPS_diagnostic": 2.3283064365386963e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 18,
+      "seed": 5721,
+      "step": 1,
+      "dense_logit": 2.980232238769531e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 6.332993507385254e-08,
+      "parameter_gradient_absolute": 1.862645149230957e-08,
+      "parameter_gradient_scaled": 1.862645149230957e-08,
+      "parameter_gradient_relative_L2": 5.777238268060458e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.1641532182693481e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 18,
+      "seed": 5721,
+      "step": 401,
+      "dense_logit": 1.0967254638671875e-05,
+      "weak_logit": 7.62939453125e-06,
+      "aligned_logits": 1.52587890625e-05,
+      "parameter_gradient_absolute": 8.195638656616211e-08,
+      "parameter_gradient_scaled": 8.195638656616211e-08,
+      "parameter_gradient_relative_L2": 9.192295788831752e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.0186340659856796e-10,
+      "geometry_relative": 7.450580596923828e-09,
+      "geometry_upstream_CPU_MPS_diagnostic": 9.313225746154785e-10
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 18,
+      "seed": 5757,
+      "step": 1,
+      "dense_logit": 1.4901161193847656e-08,
+      "weak_logit": 0.0,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 1.4901161193847656e-08,
+      "parameter_gradient_scaled": 1.4901161193847656e-08,
+      "parameter_gradient_relative_L2": 2.576053603672534e-07,
+      "BCE": 5.960464477539063e-08,
+      "BCE_upstream": 1.1641532182693481e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 18,
+      "seed": 5757,
+      "step": 401,
+      "dense_logit": 7.62939453125e-06,
+      "weak_logit": 8.58306884765625e-06,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 3.5762786865234375e-07,
+      "parameter_gradient_scaled": 3.5762786865234375e-07,
+      "parameter_gradient_relative_L2": 8.780706780859044e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.0368239600211382e-10,
+      "geometry_relative": 7.450580596923828e-09,
+      "geometry_upstream_CPU_MPS_diagnostic": 1.1641532182693481e-10
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 18,
+      "seed": 5757,
+      "step": 1,
+      "dense_logit": 3.5762786865234375e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 5.960464477539063e-08,
+      "parameter_gradient_absolute": 2.7939677238464355e-09,
+      "parameter_gradient_scaled": 2.7939677238464355e-09,
+      "parameter_gradient_relative_L2": 3.2463825646310415e-07,
+      "BCE": 5.960464477539063e-08,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 18,
+      "seed": 5757,
+      "step": 401,
+      "dense_logit": 7.62939453125e-06,
+      "weak_logit": 3.814697265625e-06,
+      "aligned_logits": 1.1444091796875e-05,
+      "parameter_gradient_absolute": 4.237517714500427e-08,
+      "parameter_gradient_scaled": 4.237517714500427e-08,
+      "parameter_gradient_relative_L2": 4.7996925422084965e-06,
+      "BCE": 0.0,
+      "BCE_upstream": 1.0368239600211382e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 1.862645149230957e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 18,
+      "seed": 5757,
+      "step": 1,
+      "dense_logit": 2.980232238769531e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 5.21540641784668e-08,
+      "parameter_gradient_absolute": 6.51925802230835e-09,
+      "parameter_gradient_scaled": 6.51925802230835e-09,
+      "parameter_gradient_relative_L2": 5.918513084361195e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 18,
+      "seed": 5757,
+      "step": 401,
+      "dense_logit": 1.1444091796875e-05,
+      "weak_logit": 9.5367431640625e-06,
+      "aligned_logits": 1.8835067749023438e-05,
+      "parameter_gradient_absolute": 6.332993507385254e-08,
+      "parameter_gradient_scaled": 6.332993507385254e-08,
+      "parameter_gradient_relative_L2": 3.966742828128967e-06,
+      "BCE": 1.4901161193847656e-08,
+      "BCE_upstream": 1.0368239600211382e-10,
+      "geometry_relative": 1.1175870895385742e-08,
+      "geometry_upstream_CPU_MPS_diagnostic": 1.3969838619232178e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 27,
+      "seed": 5721,
+      "step": 1,
+      "dense_logit": 2.9802322387695312e-08,
+      "weak_logit": 0.0,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 1.30385160446167e-08,
+      "parameter_gradient_scaled": 1.30385160446167e-08,
+      "parameter_gradient_relative_L2": 2.9090754849928463e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.1641532182693481e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 27,
+      "seed": 5721,
+      "step": 401,
+      "dense_logit": 9.5367431640625e-06,
+      "weak_logit": 6.67572021484375e-06,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 4.470348358154297e-08,
+      "parameter_gradient_scaled": 4.470348358154297e-08,
+      "parameter_gradient_relative_L2": 3.5927500704608057e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 1.862645149230957e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 27,
+      "seed": 5721,
+      "step": 1,
+      "dense_logit": 2.384185791015625e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 7.450580596923828e-08,
+      "parameter_gradient_absolute": 1.4901161193847656e-08,
+      "parameter_gradient_scaled": 1.4901161193847656e-08,
+      "parameter_gradient_relative_L2": 3.129492905200815e-07,
+      "BCE": 5.960464477539063e-08,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 27,
+      "seed": 5721,
+      "step": 401,
+      "dense_logit": 7.62939453125e-06,
+      "weak_logit": 7.62939453125e-06,
+      "aligned_logits": 1.2874603271484375e-05,
+      "parameter_gradient_absolute": 3.725290298461914e-08,
+      "parameter_gradient_scaled": 3.725290298461914e-08,
+      "parameter_gradient_relative_L2": 3.272695133629736e-07,
+      "BCE": 7.450580596923828e-09,
+      "BCE_upstream": 1.0186340659856796e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 5.238689482212067e-10
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 27,
+      "seed": 5721,
+      "step": 1,
+      "dense_logit": 2.980232238769531e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 6.332993507385254e-08,
+      "parameter_gradient_absolute": 2.9802322387695312e-08,
+      "parameter_gradient_scaled": 2.9802322387695312e-08,
+      "parameter_gradient_relative_L2": 5.96775116707582e-07,
+      "BCE": 5.960464477539063e-08,
+      "BCE_upstream": 1.1641532182693481e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 27,
+      "seed": 5721,
+      "step": 401,
+      "dense_logit": 9.5367431640625e-06,
+      "weak_logit": 8.106231689453125e-06,
+      "aligned_logits": 1.475214958190918e-05,
+      "parameter_gradient_absolute": 4.190951585769653e-08,
+      "parameter_gradient_scaled": 4.190951585769653e-08,
+      "parameter_gradient_relative_L2": 8.762551295425285e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.0186340659856796e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 2.3283064365386963e-10
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 27,
+      "seed": 5757,
+      "step": 1,
+      "dense_logit": 1.4901161193847656e-08,
+      "weak_logit": 0.0,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 2.9802322387695312e-08,
+      "parameter_gradient_scaled": 2.9802322387695312e-08,
+      "parameter_gradient_relative_L2": 2.737812050062966e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.1641532182693481e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 27,
+      "seed": 5757,
+      "step": 401,
+      "dense_logit": 7.62939453125e-06,
+      "weak_logit": 7.62939453125e-06,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 5.960464477539063e-08,
+      "parameter_gradient_scaled": 5.960464477539063e-08,
+      "parameter_gradient_relative_L2": 8.298032511580623e-07,
+      "BCE": 2.9802322387695312e-08,
+      "BCE_upstream": 1.0550138540565968e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 2.3283064365386963e-10
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 27,
+      "seed": 5757,
+      "step": 1,
+      "dense_logit": 3.5762786865234375e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 2.9802322387695312e-08,
+      "parameter_gradient_absolute": 7.450580596923828e-09,
+      "parameter_gradient_scaled": 7.450580596923828e-09,
+      "parameter_gradient_relative_L2": 2.714696872286081e-07,
+      "BCE": 1.1920928955078125e-07,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 27,
+      "seed": 5757,
+      "step": 401,
+      "dense_logit": 5.7220458984375e-06,
+      "weak_logit": 5.0067901611328125e-06,
+      "aligned_logits": 1.239776611328125e-05,
+      "parameter_gradient_absolute": 2.6775524020195007e-08,
+      "parameter_gradient_scaled": 2.6775524020195007e-08,
+      "parameter_gradient_relative_L2": 1.6727010123082454e-06,
+      "BCE": 7.450580596923828e-09,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 3.725290298461914e-09,
+      "geometry_upstream_CPU_MPS_diagnostic": 1.862645149230957e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 27,
+      "seed": 5757,
+      "step": 1,
+      "dense_logit": 2.980232238769531e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 5.960464477539063e-08,
+      "parameter_gradient_absolute": 1.4901161193847656e-08,
+      "parameter_gradient_scaled": 1.4901161193847656e-08,
+      "parameter_gradient_relative_L2": 5.983159801852256e-07,
+      "BCE": 5.960464477539063e-08,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 27,
+      "seed": 5757,
+      "step": 401,
+      "dense_logit": 7.62939453125e-06,
+      "weak_logit": 7.62939453125e-06,
+      "aligned_logits": 1.430511474609375e-05,
+      "parameter_gradient_absolute": 4.470348358154297e-08,
+      "parameter_gradient_scaled": 4.470348358154297e-08,
+      "parameter_gradient_relative_L2": 1.260285858967277e-06,
+      "BCE": 0.0,
+      "BCE_upstream": 1.0186340659856796e-10,
+      "geometry_relative": 7.450580596923828e-09,
+      "geometry_upstream_CPU_MPS_diagnostic": 4.656612873077393e-10
+    }
+  ],
+  "independent_gates": {
+    "A_matched_quality": {
+      "delta": 0.016379725878017948,
+      "budget_deltas": [
+        0.010257526478237189,
+        0.022501925277798707
+      ],
+      "IoU_delta": 0.005981462558078909,
+      "checks": {
+        "mean_F1_gain": true,
+        "budget_F1_guard": true,
+        "mean_IoU_guard": true,
+        "parameter_budget_match": true,
+        "MAC_budget_match": true
+      },
+      "free_parameter_ratio": 0.971626045834849,
+      "MAC_ratio": 0.9778761061946902,
+      "passed": true
+    },
+    "B_full_efficiency": {
+      "delta": 0.013322127413144147,
+      "budget_deltas": [
+        0.007117830744481468,
+        0.019526424081806826
+      ],
+      "IoU_delta": 0.0011378293200967615,
+      "checks": {
+        "mean_F1_gain": true,
+        "budget_F1_guard": true,
+        "mean_IoU_guard": true,
+        "MAC_efficiency_guard": true
+      },
+      "MAC_ratio": 0.25,
+      "passed": true
+    },
+    "ANY_GOAL_PASS": true
+  },
+  "replication": {
+    "all_three": {
+      "A_matched_quality": {
+        "delta": 0.014628858970822556,
+        "budget_deltas": [
+          0.009052527462155124,
+          0.020205190479489987
+        ],
+        "IoU_delta": 0.004910778043866915,
+        "checks": {
+          "mean_F1_gain": true,
+          "budget_F1_guard": true,
+          "mean_IoU_guard": true,
+          "parameter_budget_match": true,
+          "MAC_budget_match": true
+        },
+        "free_parameter_ratio": 0.971626045834849,
+        "MAC_ratio": 0.9778761061946902,
+        "passed": true
+      },
+      "B_full_efficiency": {
+        "delta": 0.00934637051612619,
+        "budget_deltas": [
+          0.005646468766525192,
+          0.013046272265727188
+        ],
+        "IoU_delta": 0.0010650956540232404,
+        "checks": {
+          "mean_F1_gain": true,
+          "budget_F1_guard": true,
+          "mean_IoU_guard": true,
+          "MAC_efficiency_guard": true
+        },
+        "MAC_ratio": 0.25,
+        "passed": true
+      },
+      "ANY_GOAL_PASS": true
+    },
+    "new_two": {
+      "A_matched_quality": {
+        "delta": 0.016379725878017948,
+        "budget_deltas": [
+          0.010257526478237189,
+          0.022501925277798707
+        ],
+        "IoU_delta": 0.005981462558078909,
+        "checks": {
+          "mean_F1_gain": true,
+          "budget_F1_guard": true,
+          "mean_IoU_guard": true,
+          "parameter_budget_match": true,
+          "MAC_budget_match": true
+        },
+        "free_parameter_ratio": 0.971626045834849,
+        "MAC_ratio": 0.9778761061946902,
+        "passed": true
+      },
+      "B_full_efficiency": {
+        "delta": 0.013322127413144147,
+        "budget_deltas": [
+          0.007117830744481468,
+          0.019526424081806826
+        ],
+        "IoU_delta": 0.0011378293200967615,
+        "checks": {
+          "mean_F1_gain": true,
+          "budget_F1_guard": true,
+          "mean_IoU_guard": true,
+          "MAC_efficiency_guard": true
+        },
+        "MAC_ratio": 0.25,
+        "passed": true
+      },
+      "ANY_GOAL_PASS": true
+    }
+  },
+  "recovery": {
+    "original_failed_trial": "trials/groupcnn_screen_s5701_a571c57fcf",
+    "failed_inventory_sha256": "fd7365126b8daf636b40093dd3e412b9453cc5c940f96f692c9a8c0b3e767b17",
+    "inherited_fits": 0,
+    "new_fits": 12,
+    "total_distinct_fits": 12,
+    "inherited_updates": 0,
+    "new_updates": 24000,
+    "correction": "Equal-overlap metadata dictionary merge only; original fit/evaluation/threshold/benchmark/gate functions unchanged."
+  },
+  "seconds": 46.12437716699969,
+  "numerical_tolerances": {
+    "CPU_MPS_probability": 0.0001,
+    "operator_logits": 0.001,
+    "saved_MPS_trained_probability": 1e-05,
+    "parameter_VJP_scaled": 0.0002,
+    "parameter_VJP_relative_L2": 0.002
+  },
+  "gradient_note": "Independent CPU operator VJPs use the recorded actual MPS loss upstreams. Legacy CPU/MPS geometry upstream difference is separately disclosed; no altered loss or solver is used.",
+  "caveat": "Known C4 weight sharing; reused VAL development only, no independent TEST, no originality claim. Materialized group storage is10681 repeated coefficients despite2671 free training parameters. Latency is descriptive CNN-only, not end-to-end."
+}

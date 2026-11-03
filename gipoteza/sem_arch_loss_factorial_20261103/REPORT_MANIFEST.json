@@ -1,0 +1,22 @@
+{
+  "scientific_inputs_sha256": {
+    "RESULT.json": "7f4faf18c02e23efc542c8bbddec6344320501cb6a4cb69c5ec5ad6d5ddc0cd2",
+    "AUDIT.json": "fcfa0939e6ba53eddbf4439cff7986dd737692760c477ed05c199ccbc356a894",
+    "LOCK.json": "68b52101b5bda5d85dfdbb85848e5138e9027d2024b260abfa18098cd488c24e",
+    "PREFLIGHT.json": "fd573c293ee6baf5116c3b14a98ec41ba266291617f349917c576f82ac3723ab",
+    "PREFLIGHT_AUDIT.json": "73627f5c022102273ca6c95cea63797f0cccacfab83809f3f3b1ce489edd8a2c",
+    "audit.py": "3dadb11096a300bc7757dc560c8f7c23bf5b7b250cf474a540c72000e7871757",
+    "PROTOCOL.md": "7cd9158d3157d6c3c0145354913b6a33c2e4180af576c96b532723b834b6bcb6",
+    "CONFIG.json": "482fcf9c6f25a02a2da2615617b9291384ee2921985f5f1b0721529d4f3b4616",
+    "common.py": "67c0ba2e3d3517164f8422d2e32cf3299393636c070ad3fb94509497ff1d2326",
+    "runner.py": "ee3e039bfb3ec944e1946ae75b0af971928c60a6c0557281d3a9b4f3fadc0e0c",
+    "report.py": "9ab67544f0e51505b028715cd27c318f00b70e6f4bb71fc77aab18f879b72949"
+  },
+  "outputs_sha256": {
+    "REPORT.md": "04f7ae9e41e33d65fddc5709c4707e852f4c4a2b6d9faf54c71360f356aa1dfe",
+    "README.md": "f2732fd9d2e78cb8f34b3c6559f66f6787becd653aee97931b479bbe4ddd3de8",
+    "figures/factorial_quality.png": "39681459d7612aac29d0d7f1516377268ec872562d94da8d9fdb22315d7bb162",
+    "figures/factorial_effects.png": "4e2f1cb541d41537f970741c1a041126c6cc56172a8ec55ecef767c1053b31cb"
+  },
+  "scope": "DESCRIPTIVE_OLD_VAL_FACTORIAL_REPORT_NO_FITTING"
+}

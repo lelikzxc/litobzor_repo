@@ -1,0 +1,28 @@
+{
+  "scientific_inputs_sha256": {
+    "RESULT.json": "3e01b7ca024af415c3c1484a9059784f312b7c8684a3a61fb893d2064a39f6c8",
+    "AUDIT.json": "f3623649bf258014f45ebd31b439d0e4ac65aa2bc979f1f20f05d53d2d67072d",
+    "PRAUC.npz": "76749f9a23382625e4f94d3ec0c5b79aeabec277f9a6e33c25980902336ff762",
+    "CALIBRATION.npz": "d65243c4c758098905e6aa9e8946dba4f3c0d6c7b35e93258b309241c495a095",
+    "PREDICTIONS.npz": "36e0aa44c43088f63f2e4f639ee99306d5ba37bb77c2815c70605d59661ef02b",
+    "DATA.npz": "2a76209ac1adbbfdd4112fa097ae6cb43fdac7d84d89f36652a9d0869b7eec0a",
+    "SOURCES.json": "ef5a6520feadb9b659ebc33925771a5f709ba89dbf0b8a09cb65e05bccd0f53e",
+    "LOCK.json": "e45bd3f6779b72ba2d10ccc5cc9afcfbaa2c01cfe000269e5cd0c7aef6d35e78",
+    "INFERENCE.json": "f243745b6748c304a6f36458c185d02c923ffbe7ddb137cc998700465214628f",
+    "ANALYSIS_FROZEN.json": "76e88339ffae7ff1c811564cf30b28cde8f6bdc92eb9d116cf933e10a64d28eb",
+    "CONFIG.json": "a69f21bf4aa8c481ed14643704ca4af420b15de42429a19adc1d98027bad4468",
+    "PROTOCOL.md": "b3009066b317beab85cc1b11358996239dfac57d9d998c8ab62d2edc5c5f1063",
+    "common.py": "91bfdeb8b81fb73b81164a356b122bba9a4e6902a9bdfb2fe32c55ec86ce5611",
+    "predict.py": "b23a32034949e83eba3ae8c080cec9823573cdde1758970df42778f4621c0dfa",
+    "analysis.py": "b2e0031f1e3c1bb75899417a4e9d4f129c68f82ce78358737d3ac82a6670f8e8",
+    "audit.py": "4fb6f61bce337caf9af572320d4ffbf41a6bdd2634cb3336459a3c8089357282",
+    "report.py": "220f54411ddc2623331d872b045ff5b4333a3f8f266aeae8938e5cc5c3c78bff"
+  },
+  "outputs_sha256": {
+    "REPORT.md": "4664061f42f4e2dac510f76f484394ebfb63df2b57973597ce1c4a6c489a573c",
+    "README.md": "01f35d6e4695d4987792b795d1ac0d1f84c1c285bccb4b25ce519650cb9745a1",
+    "figures/calibration_dev_average_precision.png": "581e0df19af630c2d7d6d3a2cd5a995f92c988a006235b59a0dc7064a941e896",
+    "figures/calibration_dev_quality.png": "bc293c9a8f5e86659d6e37009b18926ec2e68d4c3583fb47130620975562458d"
+  },
+  "scope": "REUSED_DEVELOPMENT_AP_CALIBRATION_REPORT_NO_NEW_CONFIRMATION_OR_FIT"
+}

@@ -1,0 +1,18 @@
+{
+  "status": "PRESERVED_PRE_GUARD_OLD_VAL_PROOF",
+  "reason": "Guard-only binding of passing independent DATA_AUDIT input hashes before fresh predictions; no model, statistics or data-selection changes",
+  "files": {
+    "OLD_VAL_PREFLIGHT.json": "8a8429cc3243902811c73c92175476936919a55cb7f35e26fba021fba0c78472",
+    "OLD_VAL_PREFLIGHT.npz": "cdbf2dabe0594035c82321d0ad2028e14094feeb620bba8b1d3834a594c7ae79",
+    "PROTOCOL.md": "89dfcbe8c5bb77d698ec3a7818101f1aba2d643b231b0e2056501d68cbc04039",
+    "CONFIG.json": "bf8e6648703d8e21be880f0a292ea9664c2905a307e3cb62cfe73391eb7cb2ac",
+    "confirmation_common.py": "f561423f1908eb2b9bc4bc711bda9851be5033bc44532b5328db0812a4d78a42",
+    "confirmation_stats.py": "995a1802ad3013aa8dc0a261a1f29265f7068a63e02477ac9b9ffb7eb095cba4",
+    "selection.py": "f3d522e1c9ebf8c5e1b71dd74cf5f7933e184ca3657ea1cf556086d732de2cef",
+    "prepare.py": "1aeb2b2a09dcf23ea0f536b9d22a3f8c489aae31a49e66abe22b380ce297c44b",
+    "evaluate.py": "4f549b22928378c8d6ee5f787a32ad6065e481ce2d6f1071a68db409a9db3c49",
+    "preflight.log": "fb4a0fb9656e38fd2bba648183c5e65388abe92e24f8ff858fbf917741df4687"
+  },
+  "source_proof_sha256": "8a8429cc3243902811c73c92175476936919a55cb7f35e26fba021fba0c78472",
+  "original_proof_status": "PASS_OLD_VAL_PREFLIGHT"
+}

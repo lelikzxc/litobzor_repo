@@ -1,0 +1,15 @@
+{
+  "stage": "FRESH_GROUP_CNN_TRAIN_VAL",
+  "trial": "groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42",
+  "architecture": "plain24_C4pooled",
+  "budget": 27,
+  "seed": 5757,
+  "step": 2000,
+  "target_steps": 2000,
+  "completed_updates": 24000,
+  "phase": "BCE_PLUS_OLD_GEOMETRY",
+  "BCE": 0.09703763574361801,
+  "geometry_loss": 0.06749475002288818,
+  "total_loss": 0.1645323932170868,
+  "seconds": 367.25904666600036
+}

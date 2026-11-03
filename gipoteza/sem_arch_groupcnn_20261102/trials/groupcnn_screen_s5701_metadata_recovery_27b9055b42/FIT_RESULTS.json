@@ -1,0 +1,200 @@
+[
+  {
+    "architecture": "group6",
+    "budget": 18,
+    "seed": 5701,
+    "steps": 2000,
+    "warmup_steps": 400,
+    "joint_steps": 1600,
+    "optimizer_updates": 2000,
+    "fit_count": 1,
+    "fresh_initialization": true,
+    "initial_state_sha256": "7fdc3c1905c8344d257adb8757e5396d2eceae34c02582706be61c3da9297772",
+    "final_state_sha256": "88a119fe2c9c9da52ea574401b5409f358cbef936538418f350a5b167e05f4fc",
+    "free_parameters": 2671,
+    "training_route": "single_group_equivariant",
+    "batch_sequence_sha256": "3fd3566f953d4f9f1b3e3e1907c66dbf002f7929ea0b43ec5fbe42ece136bf29",
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/group6_b18_s5701_step1.pt",
+        "sha256": "9fd5f0c503ceb646ee70f7cf8d8a21320875107005db0f229d95b33b8d061c6c",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/group6_b18_s5701_step401.pt",
+        "sha256": "edac9d5e0267bf9a1d5e98d984a32e5872643627b8b923f5f55e8b3f720b3bc5",
+        "step": 401
+      }
+    ],
+    "training_seconds": 31.453586040999653,
+    "model_file": "models/group6_b18_s5701.pt",
+    "model_sha256": "40f971a4985a8f1d7c6f7cf99635c18689b0aab057dcf1fc6268ea0c9214376c",
+    "initial_model_file": "models/group6_b18_s5701_initial.pt",
+    "initial_model_sha256": "aa1ffc0fcb1223b07f07249db0e58ab1e1ce958af6ec3b346912447c78a7102c"
+  },
+  {
+    "architecture": "plain12_C4pooled",
+    "budget": 18,
+    "seed": 5701,
+    "steps": 2000,
+    "warmup_steps": 400,
+    "joint_steps": 1600,
+    "optimizer_updates": 2000,
+    "fit_count": 1,
+    "fresh_initialization": true,
+    "initial_state_sha256": "5ec52213bea9278ea30ff55ca32ce5facfa729e47aa3985d64c27e279b7acf9a",
+    "final_state_sha256": "c23345746dc0b14a82ef93d1f573e089caa2cc2a3867fa962d43ae1c07fc6ce6",
+    "free_parameters": 2749,
+    "training_route": "four_view_probability_pool",
+    "batch_sequence_sha256": "3fd3566f953d4f9f1b3e3e1907c66dbf002f7929ea0b43ec5fbe42ece136bf29",
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain12_C4pooled_b18_s5701_step1.pt",
+        "sha256": "be48d691d2b34f7af21a8fb409ccd8421778a8b537f45f10943235ceebcb142b",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain12_C4pooled_b18_s5701_step401.pt",
+        "sha256": "3da85f60d6d8cc73b57fa2253ef532883f94ae6e852e4bbf9e05d48905a6e1a2",
+        "step": 401
+      }
+    ],
+    "training_seconds": 24.159730999999738,
+    "model_file": "models/plain12_C4pooled_b18_s5701.pt",
+    "model_sha256": "044320c1f162cb9445d772f2aad5300cf8ab91228d1e233869b9ce1202f0fa07",
+    "initial_model_file": "models/plain12_C4pooled_b18_s5701_initial.pt",
+    "initial_model_sha256": "c94279061934b95b04c2e14bef053b525b6175258f5c388a0f8c434d4e22ce42"
+  },
+  {
+    "architecture": "plain24_C4pooled",
+    "budget": 18,
+    "seed": 5701,
+    "steps": 2000,
+    "warmup_steps": 400,
+    "joint_steps": 1600,
+    "optimizer_updates": 2000,
+    "fit_count": 1,
+    "fresh_initialization": true,
+    "initial_state_sha256": "0abcdca1058fd395a09da70f9ff46928fa7342b5a26a8547dcc5ef5227f020f5",
+    "final_state_sha256": "40ba5caabd3e77de646afce8143c61e317e7ee17f274c64c6fab4ba1e98391b4",
+    "free_parameters": 10681,
+    "training_route": "four_view_probability_pool",
+    "batch_sequence_sha256": "3fd3566f953d4f9f1b3e3e1907c66dbf002f7929ea0b43ec5fbe42ece136bf29",
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain24_C4pooled_b18_s5701_step1.pt",
+        "sha256": "e3bcd0e9fafce0531ab8fb855b269638100412f417789bd70c795115a535bb89",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain24_C4pooled_b18_s5701_step401.pt",
+        "sha256": "111ebfe31cb37f67ada9477f54ad1941ecc9db67ff02a3902a1248e08fa9a637",
+        "step": 401
+      }
+    ],
+    "training_seconds": 40.25331904199993,
+    "model_file": "models/plain24_C4pooled_b18_s5701.pt",
+    "model_sha256": "86b969e6e4be20eed2ddb4e61d6eec8e7d6b60869cd16914a18869da6227e3ee",
+    "initial_model_file": "models/plain24_C4pooled_b18_s5701_initial.pt",
+    "initial_model_sha256": "944b15e0342f1213d71136ea5408e71ad62bb66f63b20668e7bde29f47a1c5ac"
+  },
+  {
+    "architecture": "group6",
+    "budget": 27,
+    "seed": 5701,
+    "steps": 2000,
+    "warmup_steps": 400,
+    "joint_steps": 1600,
+    "optimizer_updates": 2000,
+    "fit_count": 1,
+    "fresh_initialization": true,
+    "initial_state_sha256": "7fdc3c1905c8344d257adb8757e5396d2eceae34c02582706be61c3da9297772",
+    "final_state_sha256": "bc0985ae2c91838dd242757954406f40d4365135cdb27f615cd81aafa4d76620",
+    "free_parameters": 2671,
+    "training_route": "single_group_equivariant",
+    "batch_sequence_sha256": "3573a603afdc0a94fa84de12aa58636a4db1e414c94176cccc3ac7ea52dfdab1",
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/group6_b27_s5701_step1.pt",
+        "sha256": "094c69da5b9f366c5c5a72ee9970e4cb457969ce6c5303df7d0f539f941c8aa6",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/group6_b27_s5701_step401.pt",
+        "sha256": "2c096cdfeb6f8d0d0fc6767caee45f666709220a532cbe1d4e85a9f330f47049",
+        "step": 401
+      }
+    ],
+    "training_seconds": 31.181205584000054,
+    "model_file": "models/group6_b27_s5701.pt",
+    "model_sha256": "5471faa6230bd7c9e437aa1097321ebde199f9e9adefc5be34e9e3531863f118",
+    "initial_model_file": "models/group6_b27_s5701_initial.pt",
+    "initial_model_sha256": "1db11b3d9abbff57fa670793698a69d2727bd31a5304096bc0e73cb39f9ffebd"
+  },
+  {
+    "architecture": "plain12_C4pooled",
+    "budget": 27,
+    "seed": 5701,
+    "steps": 2000,
+    "warmup_steps": 400,
+    "joint_steps": 1600,
+    "optimizer_updates": 2000,
+    "fit_count": 1,
+    "fresh_initialization": true,
+    "initial_state_sha256": "5ec52213bea9278ea30ff55ca32ce5facfa729e47aa3985d64c27e279b7acf9a",
+    "final_state_sha256": "b64ea97d8ab696910404a2c9026cce10b3acd372b18250d1d9fa286698c7847a",
+    "free_parameters": 2749,
+    "training_route": "four_view_probability_pool",
+    "batch_sequence_sha256": "3573a603afdc0a94fa84de12aa58636a4db1e414c94176cccc3ac7ea52dfdab1",
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain12_C4pooled_b27_s5701_step1.pt",
+        "sha256": "b5a68c031413e917996c281468533e8da012abbd82f3f35ebe4e4fdf6390a9cc",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain12_C4pooled_b27_s5701_step401.pt",
+        "sha256": "995ba12982f08368e835bce96f1bf5725aaabd9dc385b7204f63f41e6b0b1700",
+        "step": 401
+      }
+    ],
+    "training_seconds": 22.992506000000503,
+    "model_file": "models/plain12_C4pooled_b27_s5701.pt",
+    "model_sha256": "16710a49c09e621d4b938f21724627cd8d3f7b08633dce11ead8485ea34c40f9",
+    "initial_model_file": "models/plain12_C4pooled_b27_s5701_initial.pt",
+    "initial_model_sha256": "9c41a302896a518ac8bce7893473b996346cc60ada17524954601e4d1301c554"
+  },
+  {
+    "architecture": "plain24_C4pooled",
+    "budget": 27,
+    "seed": 5701,
+    "steps": 2000,
+    "warmup_steps": 400,
+    "joint_steps": 1600,
+    "optimizer_updates": 2000,
+    "fit_count": 1,
+    "fresh_initialization": true,
+    "initial_state_sha256": "0abcdca1058fd395a09da70f9ff46928fa7342b5a26a8547dcc5ef5227f020f5",
+    "final_state_sha256": "b83e497b472bc59c5f4f005141c5018ea2d49c88dd91515637d508dee8464f0b",
+    "free_parameters": 10681,
+    "training_route": "four_view_probability_pool",
+    "batch_sequence_sha256": "3573a603afdc0a94fa84de12aa58636a4db1e414c94176cccc3ac7ea52dfdab1",
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/plain24_C4pooled_b27_s5701_step1.pt",
+        "sha256": "2de7806942c34a4bdff1f961d12390f05511ece9885e7ba1e69448575957979b",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/plain24_C4pooled_b27_s5701_step401.pt",
+        "sha256": "911c61ba4423468bd43cd4ebdf7cb806b0dd42472529b334560f5b4e356118de",
+        "step": 401
+      }
+    ],
+    "training_seconds": 28.423423500000354,
+    "model_file": "models/plain24_C4pooled_b27_s5701.pt",
+    "model_sha256": "769120063e3e4cbacf38931d628857052ad8c683c1741b122315764df6a31a0f",
+    "initial_model_file": "models/plain24_C4pooled_b27_s5701_initial.pt",
+    "initial_model_sha256": "dce63c05be8a3a04d91cf2a82093ed5d8725d367953ca72cf12a36190bc8b59c"
+  }
+]

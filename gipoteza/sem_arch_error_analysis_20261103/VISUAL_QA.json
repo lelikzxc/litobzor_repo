@@ -1,0 +1,7 @@
+{
+  "status": "PASS_PRESENTATION_QA",
+  "scientific_results_unchanged_after_layout_only_edit": true,
+  "all_four_figures_visually_inspected": true,
+  "fullsize_display_artifact_resolved_by_preview": true,
+  "notes": "Initial PNGs also contained all labels; current panels have explicit margins."
+}

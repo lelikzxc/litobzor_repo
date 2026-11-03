@@ -1,0 +1,22 @@
+{
+  "reference": "pipeline.ipynb",
+  "reference_sha256": "00b99b01714a015f8595a664ea42e8d9bd3059406fd3e6403d748e014de2c238",
+  "reference_eda_cells": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "dataset": "IC SEM M2",
+  "corpus": "gipoteza/sem_architecture_pilot_20261102/DATA.npz",
+  "output": "gipoteza/EDA_IC_SEM_M2.ipynb"
+}

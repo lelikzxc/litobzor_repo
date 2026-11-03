@@ -1,0 +1,25 @@
+{"data_audit_frame": 106, "completed": 1, "total": 24, "independent_retained": 1707}
+{"data_audit_frame": 294, "completed": 2, "total": 24, "independent_retained": 3128}
+{"data_audit_frame": 268, "completed": 3, "total": 24, "independent_retained": 4724}
+{"data_audit_frame": 306, "completed": 4, "total": 24, "independent_retained": 6386}
+{"data_audit_frame": 279, "completed": 5, "total": 24, "independent_retained": 8260}
+{"data_audit_frame": 174, "completed": 6, "total": 24, "independent_retained": 9694}
+{"data_audit_frame": 267, "completed": 7, "total": 24, "independent_retained": 11305}
+{"data_audit_frame": 288, "completed": 8, "total": 24, "independent_retained": 12233}
+{"data_audit_frame": 305, "completed": 9, "total": 24, "independent_retained": 13887}
+{"data_audit_frame": 54, "completed": 10, "total": 24, "independent_retained": 15525}
+{"data_audit_frame": 187, "completed": 11, "total": 24, "independent_retained": 16709}
+{"data_audit_frame": 80, "completed": 12, "total": 24, "independent_retained": 18316}
+{"data_audit_frame": 94, "completed": 13, "total": 24, "independent_retained": 19858}
+{"data_audit_frame": 309, "completed": 14, "total": 24, "independent_retained": 21467}
+{"data_audit_frame": 34, "completed": 15, "total": 24, "independent_retained": 22862}
+{"data_audit_frame": 258, "completed": 16, "total": 24, "independent_retained": 24610}
+{"data_audit_frame": 79, "completed": 17, "total": 24, "independent_retained": 26403}
+{"data_audit_frame": 190, "completed": 18, "total": 24, "independent_retained": 28206}
+{"data_audit_frame": 172, "completed": 19, "total": 24, "independent_retained": 29590}
+{"data_audit_frame": 169, "completed": 20, "total": 24, "independent_retained": 30670}
+{"data_audit_frame": 251, "completed": 21, "total": 24, "independent_retained": 32019}
+{"data_audit_frame": 23, "completed": 22, "total": 24, "independent_retained": 33311}
+{"data_audit_frame": 259, "completed": 23, "total": 24, "independent_retained": 34379}
+{"data_audit_frame": 75, "completed": 24, "total": 24, "independent_retained": 35908}
+{"status": "PASS_DATA_AUDIT", "checks_passed": 16, "checks_total": 16, "failed": [], "seconds": 11.132785583999976}

@@ -1,0 +1,20 @@
+{
+  "change": "removed Markdown/HTML bold from text cells",
+  "changed_cells": [
+    1,
+    2,
+    4,
+    6,
+    9,
+    11,
+    13,
+    16,
+    18,
+    24,
+    31,
+    33
+  ],
+  "code_and_outputs_unchanged": true,
+  "notebook_sha256": "38a845657e8d4b08164a7d5d09e91ef1964d7c680290221290fa626cfdfb4a1b",
+  "heading_font_weight": "normal; heading sizes retained"
+}

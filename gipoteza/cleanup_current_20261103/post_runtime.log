@@ -1,0 +1,11 @@
+{"check": "freeze", "passed": true, "details": "PASS freeze\n"}
+{"check": "seed", "passed": true, "details": "PASS seed\n"}
+{"check": "calibrated", "passed": true, "details": "PASS calibrated\n"}
+{"check": "dev", "passed": true, "details": "PASS dev\n"}
+{"check": "untied", "passed": true, "details": "PASS untied\n"}
+{"check": "group_confirmation", "passed": true, "details": "PASS group_confirmation\n"}
+{"check": "bce", "passed": true, "details": "PASS bce\n"}
+{"check": "factorial", "passed": true, "details": "PASS factorial\n"}
+{"check": "timing", "passed": true, "details": "PASS timing\n"}
+{"check": "EDA", "passed": true, "details": "PASS EDA\n"}
+{"check": "inference", "passed": true, "details": "{\"models\": 10, \"examples\": 17, \"maximum_probability_error\": 1.2814998626708984e-06}\nPASS inference\n"}

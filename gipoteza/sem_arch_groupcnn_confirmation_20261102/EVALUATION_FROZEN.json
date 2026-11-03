@@ -1,0 +1,33 @@
+{
+  "status": "FROZEN_BEFORE_FIRST_FRESH_PREDICTION",
+  "input_sha256": {
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/SELECTION.json": "5369a202a2e4d27aef3fb09aa873a6b81aca98ae70485e55c5ec07ae9e754b21",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/MODEL_LOCK.json": "02de22158e2302de90ef077a63b9dc2d8086b134b953630ac5126a5092f6af43",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/PROTOCOL.md": "89dfcbe8c5bb77d698ec3a7818101f1aba2d643b231b0e2056501d68cbc04039",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/CONFIG.json": "bf8e6648703d8e21be880f0a292ea9664c2905a307e3cb62cfe73391eb7cb2ac",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/SOURCE_PLAN.json": "1b24124effc19ba2bca720e61a674da1e760b4e5e42a5b6bbf676441b8098d65",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/DATA_AUDIT.json": "2666eb764e7d601e290da304dc7c5a028230deaeceb665064a08376e02074d22",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/DATA_MANIFEST.json": "0536bebbb8fd198d3c9329ce4c27f6ee2b60252792db7894faf251824b697a55",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/EVAL_INDEX.json": "e9a982ab8e2512002f067a106831451c53e44008a09e15091d015998e1da2c74",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/EVAL.npz": "bae45c0d85e52d43a63b02a458e912a46d69ce83f298fdecd31d2f52e9c9a0c3"
+  },
+  "code_sha256": {
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/confirmation_common.py": "f561423f1908eb2b9bc4bc711bda9851be5033bc44532b5328db0812a4d78a42",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/confirmation_stats.py": "995a1802ad3013aa8dc0a261a1f29265f7068a63e02477ac9b9ffb7eb095cba4",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/selection.py": "f3d522e1c9ebf8c5e1b71dd74cf5f7933e184ca3657ea1cf556086d732de2cef",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/prepare.py": "1aeb2b2a09dcf23ea0f536b9d22a3f8c489aae31a49e66abe22b380ce297c44b",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/evaluate.py": "b5f5f8b9f5121cf3e9081ed446bfd8aac38c4899b2fe091903af4870d0f07b17",
+    "gipoteza/sem_arch_groupcnn_20261102/model.py": "8b04a0a70486d631e00237765fa0930984be806fd658415d7896fd8a4caf332b",
+    "gipoteza/sem_architecture_pilot_20261102/prepare.py": "3d9d096f6fdf5a49a90c2655a50e4a6f4f97e273cc983b90904aadde678320de",
+    "gipoteza/sem_arch_orbit_confirmation_20261102/prepare.py": "c3003106ad31642e6515e984c6f17b35bf78dfa18d05b6de80543550b4ca1e5d",
+    "gipoteza/sem_arch_orbit_confirmation_20261102/evaluate.py": "3c30eb15816aaaaef50c7e50fe650e146642e2584b2645dca148cb8e74bbb171",
+    "gipoteza/sem_confirmation_20261028/prepare.py": "f9507b803f8a8dc7bd11ae1083eb8e6fc9bd84c8386282c7361fe8b43d4fd3ab",
+    "gipoteza/retained_evidence_20261027/SELECTED_SOURCES.zip": "a6888dce510f39a0e3aaeac654f2aa0d7d795402a19f39d71047e29479ab10fd",
+    "gipoteza/shared_data/ic_sem_m2/sem_remote_zip.py": "e2a8f90962b252a23e91cc8773888343a5c6011bf732dcfab38b9f5c52d2bb62"
+  },
+  "bootstrap_repeats": 10000,
+  "bootstrap_seed": 202611027,
+  "fit_count": 0,
+  "selection_sha256": "5369a202a2e4d27aef3fb09aa873a6b81aca98ae70485e55c5ec07ae9e754b21",
+  "device": "mps"
+}

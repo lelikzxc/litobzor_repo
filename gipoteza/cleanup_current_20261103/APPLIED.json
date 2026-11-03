@@ -1,0 +1,14 @@
+{
+  "status": "CLEANUP_APPLIED",
+  "removed_files": 2504,
+  "removed_bytes": 1938966634,
+  "archive_bytes": 10155118,
+  "net_reclaimed_bytes": 1928811516,
+  "archived_evidence_files": 995,
+  "empty_directories_removed": 225,
+  "archive_sha256": "256f38d26fbe855cfcd463661c09494fca5bac1175e34d59b4d8690e533e0fea",
+  "plan_sha256": "9802486b019815c0a2855ba8adeec8f6c460b7cf01ed2f26ce87312e8ba7181e",
+  "protected_files": 1024,
+  "destructive_scope": "Only explicitly inventoried unused files under gipoteza",
+  "note": "Old unused checkpoints/data/predictions are removed; compact archive retains code/reports/results, not full rerun data for discarded branches."
+}

@@ -1,0 +1,173 @@
+{"stage": "AP_DEVELOPMENT", "architecture": "group6", "seed": 5701, "completed_models": 1, "target_models": 9, "seconds": 0.7092756250003731}
+{"stage": "AP_DEVELOPMENT", "architecture": "group6", "seed": 5721, "completed_models": 2, "target_models": 9, "seconds": 1.0276448750009877}
+{"stage": "AP_DEVELOPMENT", "architecture": "group6", "seed": 5757, "completed_models": 3, "target_models": 9, "seconds": 1.3430579169998964}
+{"stage": "AP_DEVELOPMENT", "architecture": "untied24_single", "seed": 5701, "completed_models": 4, "target_models": 9, "seconds": 1.6499414999998407}
+{"stage": "AP_DEVELOPMENT", "architecture": "untied24_single", "seed": 5721, "completed_models": 5, "target_models": 9, "seconds": 1.955363209001007}
+{"stage": "AP_DEVELOPMENT", "architecture": "untied24_single", "seed": 5757, "completed_models": 6, "target_models": 9, "seconds": 2.2664840840006946}
+{"stage": "AP_DEVELOPMENT", "architecture": "plain12_C4pooled", "seed": 5701, "completed_models": 7, "target_models": 9, "seconds": 2.5725916669998696}
+{"stage": "AP_DEVELOPMENT", "architecture": "plain12_C4pooled", "seed": 5721, "completed_models": 8, "target_models": 9, "seconds": 2.8751793339997676}
+{"stage": "AP_DEVELOPMENT", "architecture": "plain12_C4pooled", "seed": 5757, "completed_models": 9, "target_models": 9, "seconds": 3.185808000000179}
+{"stage": "AP_DEVELOPMENT_COMPLETE", "models": 9, "frames": 40, "seconds": 3.1869715840002755}
+{"stage": "AP_OLD_VAL", "architecture": "group6", "seed": 5701, "completed_models": 1, "target_models": 9, "seconds": 3.225387583999691}
+{"stage": "AP_OLD_VAL", "architecture": "group6", "seed": 5721, "completed_models": 2, "target_models": 9, "seconds": 3.2441203340003995}
+{"stage": "AP_OLD_VAL", "architecture": "group6", "seed": 5757, "completed_models": 3, "target_models": 9, "seconds": 3.2643575000001874}
+{"stage": "AP_OLD_VAL", "architecture": "untied24_single", "seed": 5701, "completed_models": 4, "target_models": 9, "seconds": 3.2828362090003793}
+{"stage": "AP_OLD_VAL", "architecture": "untied24_single", "seed": 5721, "completed_models": 5, "target_models": 9, "seconds": 3.301500917001249}
+{"stage": "AP_OLD_VAL", "architecture": "untied24_single", "seed": 5757, "completed_models": 6, "target_models": 9, "seconds": 3.3206569169997238}
+{"stage": "AP_OLD_VAL", "architecture": "plain12_C4pooled", "seed": 5701, "completed_models": 7, "target_models": 9, "seconds": 3.3398112089998904}
+{"stage": "AP_OLD_VAL", "architecture": "plain12_C4pooled", "seed": 5721, "completed_models": 8, "target_models": 9, "seconds": 3.3581188340012886}
+{"stage": "AP_OLD_VAL", "architecture": "plain12_C4pooled", "seed": 5757, "completed_models": 9, "target_models": 9, "seconds": 3.376301375001276}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5701, "completed_thresholds": 10, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5701, "completed_thresholds": 20, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5701, "completed_thresholds": 30, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5701, "completed_thresholds": 40, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5701, "completed_thresholds": 50, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5701, "completed_thresholds": 60, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5701, "completed_thresholds": 70, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5701, "completed_thresholds": 80, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5701, "completed_thresholds": 81, "target_thresholds": 81}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5701, "fold": 0, "completed_units": 1, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5701, "fold": 1, "completed_units": 2, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5701, "fold": 2, "completed_units": 3, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5701, "fold": 3, "completed_units": 4, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5701, "fold": 4, "completed_units": 5, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5701, "completed_models": 1, "target_models": 9}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5721, "completed_thresholds": 10, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5721, "completed_thresholds": 20, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5721, "completed_thresholds": 30, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5721, "completed_thresholds": 40, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5721, "completed_thresholds": 50, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5721, "completed_thresholds": 60, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5721, "completed_thresholds": 70, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5721, "completed_thresholds": 80, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5721, "completed_thresholds": 81, "target_thresholds": 81}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5721, "fold": 0, "completed_units": 6, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5721, "fold": 1, "completed_units": 7, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5721, "fold": 2, "completed_units": 8, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5721, "fold": 3, "completed_units": 9, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5721, "fold": 4, "completed_units": 10, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5721, "completed_models": 2, "target_models": 9}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5757, "completed_thresholds": 10, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5757, "completed_thresholds": 20, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5757, "completed_thresholds": 30, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5757, "completed_thresholds": 40, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5757, "completed_thresholds": 50, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5757, "completed_thresholds": 60, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5757, "completed_thresholds": 70, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5757, "completed_thresholds": 80, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "group6", "seed": 5757, "completed_thresholds": 81, "target_thresholds": 81}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5757, "fold": 0, "completed_units": 11, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5757, "fold": 1, "completed_units": 12, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5757, "fold": 2, "completed_units": 13, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5757, "fold": 3, "completed_units": 14, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5757, "fold": 4, "completed_units": 15, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "group6", "seed": 5757, "completed_models": 3, "target_models": 9}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5701, "completed_thresholds": 10, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5701, "completed_thresholds": 20, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5701, "completed_thresholds": 30, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5701, "completed_thresholds": 40, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5701, "completed_thresholds": 50, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5701, "completed_thresholds": 60, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5701, "completed_thresholds": 70, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5701, "completed_thresholds": 80, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5701, "completed_thresholds": 81, "target_thresholds": 81}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5701, "fold": 0, "completed_units": 16, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5701, "fold": 1, "completed_units": 17, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5701, "fold": 2, "completed_units": 18, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5701, "fold": 3, "completed_units": 19, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5701, "fold": 4, "completed_units": 20, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5701, "completed_models": 4, "target_models": 9}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5721, "completed_thresholds": 10, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5721, "completed_thresholds": 20, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5721, "completed_thresholds": 30, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5721, "completed_thresholds": 40, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5721, "completed_thresholds": 50, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5721, "completed_thresholds": 60, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5721, "completed_thresholds": 70, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5721, "completed_thresholds": 80, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5721, "completed_thresholds": 81, "target_thresholds": 81}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5721, "fold": 0, "completed_units": 21, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5721, "fold": 1, "completed_units": 22, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5721, "fold": 2, "completed_units": 23, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5721, "fold": 3, "completed_units": 24, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5721, "fold": 4, "completed_units": 25, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5721, "completed_models": 5, "target_models": 9}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5757, "completed_thresholds": 10, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5757, "completed_thresholds": 20, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5757, "completed_thresholds": 30, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5757, "completed_thresholds": 40, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5757, "completed_thresholds": 50, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5757, "completed_thresholds": 60, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5757, "completed_thresholds": 70, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5757, "completed_thresholds": 80, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "untied24_single", "seed": 5757, "completed_thresholds": 81, "target_thresholds": 81}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5757, "fold": 0, "completed_units": 26, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5757, "fold": 1, "completed_units": 27, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5757, "fold": 2, "completed_units": 28, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5757, "fold": 3, "completed_units": 29, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5757, "fold": 4, "completed_units": 30, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "untied24_single", "seed": 5757, "completed_models": 6, "target_models": 9}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5701, "completed_thresholds": 10, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5701, "completed_thresholds": 20, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5701, "completed_thresholds": 30, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5701, "completed_thresholds": 40, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5701, "completed_thresholds": 50, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5701, "completed_thresholds": 60, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5701, "completed_thresholds": 70, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5701, "completed_thresholds": 80, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5701, "completed_thresholds": 81, "target_thresholds": 81}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5701, "fold": 0, "completed_units": 31, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5701, "fold": 1, "completed_units": 32, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5701, "fold": 2, "completed_units": 33, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5701, "fold": 3, "completed_units": 34, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5701, "fold": 4, "completed_units": 35, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5701, "completed_models": 7, "target_models": 9}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5721, "completed_thresholds": 10, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5721, "completed_thresholds": 20, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5721, "completed_thresholds": 30, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5721, "completed_thresholds": 40, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5721, "completed_thresholds": 50, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5721, "completed_thresholds": 60, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5721, "completed_thresholds": 70, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5721, "completed_thresholds": 80, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5721, "completed_thresholds": 81, "target_thresholds": 81}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5721, "fold": 0, "completed_units": 36, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5721, "fold": 1, "completed_units": 37, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5721, "fold": 2, "completed_units": 38, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5721, "fold": 3, "completed_units": 39, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5721, "fold": 4, "completed_units": 40, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5721, "completed_models": 8, "target_models": 9}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5757, "completed_thresholds": 10, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5757, "completed_thresholds": 20, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5757, "completed_thresholds": 30, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5757, "completed_thresholds": 40, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5757, "completed_thresholds": 50, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5757, "completed_thresholds": 60, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5757, "completed_thresholds": 70, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5757, "completed_thresholds": 80, "target_thresholds": 81}
+{"stage": "CALIBRATION_POOL_CLASSES", "architecture": "plain12_C4pooled", "seed": 5757, "completed_thresholds": 81, "target_thresholds": 81}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5757, "fold": 0, "completed_units": 41, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5757, "fold": 1, "completed_units": 42, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5757, "fold": 2, "completed_units": 43, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5757, "fold": 3, "completed_units": 44, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5757, "fold": 4, "completed_units": 45, "target_units": 45}
+{"stage": "FRAME_HELD_OUT_CALIBRATION", "architecture": "plain12_C4pooled", "seed": 5757, "completed_models": 9, "target_models": 9}
+{"stage": "FIXED05_DIAGNOSTIC", "architecture": "group6", "seed": 5701, "completed_models": 1, "target_models": 9, "seconds": 22.513310917000126}
+{"stage": "FIXED05_DIAGNOSTIC", "architecture": "group6", "seed": 5721, "completed_models": 2, "target_models": 9, "seconds": 22.776146625001275}
+{"stage": "FIXED05_DIAGNOSTIC", "architecture": "group6", "seed": 5757, "completed_models": 3, "target_models": 9, "seconds": 23.015712500000518}
+{"stage": "FIXED05_DIAGNOSTIC", "architecture": "untied24_single", "seed": 5701, "completed_models": 4, "target_models": 9, "seconds": 23.261817542001154}
+{"stage": "FIXED05_DIAGNOSTIC", "architecture": "untied24_single", "seed": 5721, "completed_models": 5, "target_models": 9, "seconds": 23.61495741700128}
+{"stage": "FIXED05_DIAGNOSTIC", "architecture": "untied24_single", "seed": 5757, "completed_models": 6, "target_models": 9, "seconds": 23.891570916999626}
+{"stage": "FIXED05_DIAGNOSTIC", "architecture": "plain12_C4pooled", "seed": 5701, "completed_models": 7, "target_models": 9, "seconds": 24.271999792001225}
+{"stage": "FIXED05_DIAGNOSTIC", "architecture": "plain12_C4pooled", "seed": 5721, "completed_models": 8, "target_models": 9, "seconds": 24.58083183400049}
+{"stage": "FIXED05_DIAGNOSTIC", "architecture": "plain12_C4pooled", "seed": 5757, "completed_models": 9, "target_models": 9, "seconds": 24.92605570900014}
+{"stage": "OLD_VAL_THRESHOLD_DIAGNOSTIC", "architecture": "group6", "seed": 5701, "completed_models": 1, "target_models": 9, "seconds": 25.333838542001104}
+{"stage": "OLD_VAL_THRESHOLD_DIAGNOSTIC", "architecture": "group6", "seed": 5721, "completed_models": 2, "target_models": 9, "seconds": 26.02166650000072}
+{"stage": "OLD_VAL_THRESHOLD_DIAGNOSTIC", "architecture": "group6", "seed": 5757, "completed_models": 3, "target_models": 9, "seconds": 26.368766584000696}
+{"stage": "OLD_VAL_THRESHOLD_DIAGNOSTIC", "architecture": "untied24_single", "seed": 5701, "completed_models": 4, "target_models": 9, "seconds": 27.081216167000093}
+{"stage": "OLD_VAL_THRESHOLD_DIAGNOSTIC", "architecture": "untied24_single", "seed": 5721, "completed_models": 5, "target_models": 9, "seconds": 27.78411758400034}
+{"stage": "OLD_VAL_THRESHOLD_DIAGNOSTIC", "architecture": "untied24_single", "seed": 5757, "completed_models": 6, "target_models": 9, "seconds": 28.136295125001197}
+{"stage": "OLD_VAL_THRESHOLD_DIAGNOSTIC", "architecture": "plain12_C4pooled", "seed": 5701, "completed_models": 7, "target_models": 9, "seconds": 28.614458542000648}
+{"stage": "OLD_VAL_THRESHOLD_DIAGNOSTIC", "architecture": "plain12_C4pooled", "seed": 5721, "completed_models": 8, "target_models": 9, "seconds": 29.217329084000085}
+{"stage": "OLD_VAL_THRESHOLD_DIAGNOSTIC", "architecture": "plain12_C4pooled", "seed": 5757, "completed_models": 9, "target_models": 9, "seconds": 29.555535542000143}
+{"stage": "COMPLETE_CALIBRATION_DEVELOPMENT_ANALYSIS", "next_study_eligibility": {"passed": true, "guards": {"mean_frame_AP": true, "OOF_F1": true, "OOF_IoU": true, "each_fold_F1": true}, "failed": [], "scope": "descriptive_development_eligibility_only_not_independent_confirmation"}, "seconds": 30.07287187499969}

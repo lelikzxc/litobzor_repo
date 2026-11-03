@@ -1,0 +1,234 @@
+[
+  {
+    "budget": 18,
+    "seed": 5721,
+    "routes": {
+      "group6_single": {
+        "median_seconds": 0.0006071465,
+        "p10_seconds": 0.0004589962,
+        "p90_seconds": 0.0008107631000000001,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain12_identity": {
+        "median_seconds": 0.000409208,
+        "p10_seconds": 0.0003359875,
+        "p90_seconds": 0.0006735089,
+        "images_per_batch": 32,
+        "MACs_per_image": 390528
+      },
+      "plain12_C4": {
+        "median_seconds": 0.0008525205,
+        "p10_seconds": 0.0006354375,
+        "p90_seconds": 0.0013042836,
+        "images_per_batch": 32,
+        "MACs_per_image": 1562112
+      },
+      "plain24_identity": {
+        "median_seconds": 0.000578521,
+        "p10_seconds": 0.0004613164,
+        "p90_seconds": 0.0007740125,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain24_C4": {
+        "median_seconds": 0.001284646,
+        "p10_seconds": 0.0009902708,
+        "p90_seconds": 0.0016564122000000002,
+        "images_per_batch": 32,
+        "MACs_per_image": 6110208
+      }
+    },
+    "batch_size": 32,
+    "warmup_batches_per_route": 10,
+    "warmup_images_per_route": 320,
+    "repeats": 50,
+    "random_seed": 11452,
+    "raw_file": "benchmarks/b18_s5721.npz",
+    "raw_sha256": "658db38afbb3c9a6d7051734a7e939f0a1c577b0d90a2158e6e96bec5cce7fd2",
+    "materialization_setup_seconds": 0.017802207999920938,
+    "MPS_sync_before_and_after_every_measurement": true,
+    "materialization_excluded": true,
+    "CNN_batch_calls_per_route": 1,
+    "plain_C4_internal_batch_multiplier": 4,
+    "CPU_geometry_readout_excluded": true,
+    "data_and_host_transfer_excluded": true,
+    "end_to_end_measured": false,
+    "paired_group_over_narrow_C4_median": 0.7230124063903065,
+    "paired_group_over_full_C4_median": 0.4710886755297945
+  },
+  {
+    "budget": 18,
+    "seed": 5757,
+    "routes": {
+      "group6_single": {
+        "median_seconds": 0.000464771,
+        "p10_seconds": 0.0004536208,
+        "p90_seconds": 0.000652667,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain12_identity": {
+        "median_seconds": 0.0003385625,
+        "p10_seconds": 0.0003069247,
+        "p90_seconds": 0.0005473256,
+        "images_per_batch": 32,
+        "MACs_per_image": 390528
+      },
+      "plain12_C4": {
+        "median_seconds": 0.000636041,
+        "p10_seconds": 0.0006086214,
+        "p90_seconds": 0.0008125664,
+        "images_per_batch": 32,
+        "MACs_per_image": 1562112
+      },
+      "plain24_identity": {
+        "median_seconds": 0.000466,
+        "p10_seconds": 0.00045203720000000004,
+        "p90_seconds": 0.0006031747000000001,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain24_C4": {
+        "median_seconds": 0.000982354,
+        "p10_seconds": 0.0009366416,
+        "p90_seconds": 0.001184425,
+        "images_per_batch": 32,
+        "MACs_per_image": 6110208
+      }
+    },
+    "batch_size": 32,
+    "warmup_batches_per_route": 10,
+    "warmup_images_per_route": 320,
+    "repeats": 50,
+    "random_seed": 11488,
+    "raw_file": "benchmarks/b18_s5757.npz",
+    "raw_sha256": "a9d6bd7592e70227a256a7506e15905b0b708cc3c1d8be983c9b7cedc5e8ab4e",
+    "materialization_setup_seconds": 0.006141208001281484,
+    "MPS_sync_before_and_after_every_measurement": true,
+    "materialization_excluded": true,
+    "CNN_batch_calls_per_route": 1,
+    "plain_C4_internal_batch_multiplier": 4,
+    "CPU_geometry_readout_excluded": true,
+    "data_and_host_transfer_excluded": true,
+    "end_to_end_measured": false,
+    "paired_group_over_narrow_C4_median": 0.7388555213694767,
+    "paired_group_over_full_C4_median": 0.476788248824333
+  },
+  {
+    "budget": 27,
+    "seed": 5721,
+    "routes": {
+      "group6_single": {
+        "median_seconds": 0.000464104,
+        "p10_seconds": 0.00045264620000000003,
+        "p90_seconds": 0.0005068006000000001,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain12_identity": {
+        "median_seconds": 0.0003370625,
+        "p10_seconds": 0.0003041167,
+        "p90_seconds": 0.0003757,
+        "images_per_batch": 32,
+        "MACs_per_image": 390528
+      },
+      "plain12_C4": {
+        "median_seconds": 0.000630312,
+        "p10_seconds": 0.0006055542,
+        "p90_seconds": 0.000668158,
+        "images_per_batch": 32,
+        "MACs_per_image": 1562112
+      },
+      "plain24_identity": {
+        "median_seconds": 0.0004582495,
+        "p10_seconds": 0.0004499916,
+        "p90_seconds": 0.0004949289,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain24_C4": {
+        "median_seconds": 0.000978562,
+        "p10_seconds": 0.0009278962,
+        "p90_seconds": 0.0009958706,
+        "images_per_batch": 32,
+        "MACs_per_image": 6110208
+      }
+    },
+    "batch_size": 32,
+    "warmup_batches_per_route": 10,
+    "warmup_images_per_route": 320,
+    "repeats": 50,
+    "random_seed": 11461,
+    "raw_file": "benchmarks/b27_s5721.npz",
+    "raw_sha256": "8dca33408726082a6e126f196ef251692d00bcc57ce6cf108dc53cdea722bf0e",
+    "materialization_setup_seconds": 0.004130499999519088,
+    "MPS_sync_before_and_after_every_measurement": true,
+    "materialization_excluded": true,
+    "CNN_batch_calls_per_route": 1,
+    "plain_C4_internal_batch_multiplier": 4,
+    "CPU_geometry_readout_excluded": true,
+    "data_and_host_transfer_excluded": true,
+    "end_to_end_measured": false,
+    "paired_group_over_narrow_C4_median": 0.7434748605543264,
+    "paired_group_over_full_C4_median": 0.4879874079837174
+  },
+  {
+    "budget": 27,
+    "seed": 5757,
+    "routes": {
+      "group6_single": {
+        "median_seconds": 0.000462479,
+        "p10_seconds": 0.0004526628,
+        "p90_seconds": 0.0004957872,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain12_identity": {
+        "median_seconds": 0.000340417,
+        "p10_seconds": 0.0003029625,
+        "p90_seconds": 0.0004323545,
+        "images_per_batch": 32,
+        "MACs_per_image": 390528
+      },
+      "plain12_C4": {
+        "median_seconds": 0.0006312295,
+        "p10_seconds": 0.0006133291,
+        "p90_seconds": 0.0007592833,
+        "images_per_batch": 32,
+        "MACs_per_image": 1562112
+      },
+      "plain24_identity": {
+        "median_seconds": 0.000461646,
+        "p10_seconds": 0.0004515834,
+        "p90_seconds": 0.0004806128,
+        "images_per_batch": 32,
+        "MACs_per_image": 1527552
+      },
+      "plain24_C4": {
+        "median_seconds": 0.000978104,
+        "p10_seconds": 0.0009252081,
+        "p90_seconds": 0.0010034917,
+        "images_per_batch": 32,
+        "MACs_per_image": 6110208
+      }
+    },
+    "batch_size": 32,
+    "warmup_batches_per_route": 10,
+    "warmup_images_per_route": 320,
+    "repeats": 50,
+    "random_seed": 11497,
+    "raw_file": "benchmarks/b27_s5757.npz",
+    "raw_sha256": "dd765b6cb5cbc80c85442ddbdff2e369ecc3215302cbf4ba21b4e43d0399cfcd",
+    "materialization_setup_seconds": 0.0036608749996958068,
+    "MPS_sync_before_and_after_every_measurement": true,
+    "materialization_excluded": true,
+    "CNN_batch_calls_per_route": 1,
+    "plain_C4_internal_batch_multiplier": 4,
+    "CPU_geometry_readout_excluded": true,
+    "data_and_host_transfer_excluded": true,
+    "end_to_end_measured": false,
+    "paired_group_over_narrow_C4_median": 0.73404336740185,
+    "paired_group_over_full_C4_median": 0.48532280351110557
+  }
+]

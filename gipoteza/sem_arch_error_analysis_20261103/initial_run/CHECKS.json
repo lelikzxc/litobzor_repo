@@ -1,0 +1,66 @@
+{
+  "status": "PASS_ERROR_ANALYSIS_CHECKS",
+  "checks": {
+    "source_closed_confirmation_and_audit_pass": true,
+    "probability_threshold_masks_reconstructed": true,
+    "truth_frames_records_match": true,
+    "classwise_means_match_original_scores": true,
+    "paired_partition_exact": true,
+    "native48_to12_reconstruction": true,
+    "all_four_example_categories_present": true,
+    "no_new_fit_or_threshold": true,
+    "source_bindings_unchanged": true
+  },
+  "checks_passed": 9,
+  "native_reconstruction": [
+    {
+      "index": 1909,
+      "frame": 269,
+      "maximum_meanpool_error": 1.4608981580011005e-08
+    },
+    {
+      "index": 4134,
+      "frame": 257,
+      "maximum_meanpool_error": 2.9685450542160652e-08
+    },
+    {
+      "index": 743,
+      "frame": 149,
+      "maximum_meanpool_error": 2.8984219468952688e-08
+    },
+    {
+      "index": 4813,
+      "frame": 22,
+      "maximum_meanpool_error": 2.781550090258378e-08
+    },
+    {
+      "index": 2029,
+      "frame": 269,
+      "maximum_meanpool_error": 1.414149414236121e-08
+    },
+    {
+      "index": 1006,
+      "frame": 283,
+      "maximum_meanpool_error": 2.6179294954076227e-08
+    },
+    {
+      "index": 338,
+      "frame": 177,
+      "maximum_meanpool_error": 1.4842725271080326e-08
+    },
+    {
+      "index": 3913,
+      "frame": 307,
+      "maximum_meanpool_error": 2.524432018979894e-08
+    }
+  ],
+  "outputs_sha256": {
+    "gipoteza/sem_arch_error_analysis_20261103/RESULT.json": "9e3c60be40bdedbf5668ae40264ef926b14740376af6d4cdefe3a52d970b8e34",
+    "gipoteza/sem_arch_error_analysis_20261103/EXAMPLES.json": "a2462054ea24c2f92c7b34fb3b9ae8d891c84fc75fcab188c35d1f449908f75d",
+    "gipoteza/sem_arch_error_analysis_20261103/REPORT.md": "af16d6a44997f52722c093b3022232b0040cd6615b0819f9d4f1d649b5388a74",
+    "gipoteza/sem_arch_error_analysis_20261103/figures/classwise_F1_support.png": "48e41681908f0a65240df954841b92f958d5775db66ee1df792d5d38d651d08d",
+    "gipoteza/sem_arch_error_analysis_20261103/figures/confusion_matrices.png": "4b408ad84a776bed49e3e63bb8687b854f593e18bb00859e303d9cf3d6249fa5",
+    "gipoteza/sem_arch_error_analysis_20261103/figures/examples_paired_changes.png": "a7d6aabf8f629173d0fdf0e038068ccac6046ec12c07837800dd9feeec678623",
+    "gipoteza/sem_arch_error_analysis_20261103/figures/examples_shared_outcomes.png": "29be8da8fdf5607a9e86d857bbf2f1907c9c6e1dcb2ffb6d365e6c59bb27c117"
+  }
+}

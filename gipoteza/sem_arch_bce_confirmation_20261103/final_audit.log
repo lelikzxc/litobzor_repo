@@ -1,0 +1,25 @@
+{"final_audit_cell": "BCE_group", "budget": 18, "seed": 5701, "both_modes": true}
+{"final_audit_cell": "BCE_group", "budget": 18, "seed": 5721, "both_modes": true}
+{"final_audit_cell": "BCE_group", "budget": 18, "seed": 5757, "both_modes": true}
+{"final_audit_cell": "BCE_group", "budget": 27, "seed": 5701, "both_modes": true}
+{"final_audit_cell": "BCE_group", "budget": 27, "seed": 5721, "both_modes": true}
+{"final_audit_cell": "BCE_group", "budget": 27, "seed": 5757, "both_modes": true}
+{"final_audit_cell": "BCE_plain", "budget": 18, "seed": 5701, "both_modes": true}
+{"final_audit_cell": "BCE_plain", "budget": 18, "seed": 5721, "both_modes": true}
+{"final_audit_cell": "BCE_plain", "budget": 18, "seed": 5757, "both_modes": true}
+{"final_audit_cell": "BCE_plain", "budget": 27, "seed": 5701, "both_modes": true}
+{"final_audit_cell": "BCE_plain", "budget": 27, "seed": 5721, "both_modes": true}
+{"final_audit_cell": "BCE_plain", "budget": 27, "seed": 5757, "both_modes": true}
+{"final_audit_cell": "aux_group", "budget": 18, "seed": 5701, "both_modes": true}
+{"final_audit_cell": "aux_group", "budget": 18, "seed": 5721, "both_modes": true}
+{"final_audit_cell": "aux_group", "budget": 18, "seed": 5757, "both_modes": true}
+{"final_audit_cell": "aux_group", "budget": 27, "seed": 5701, "both_modes": true}
+{"final_audit_cell": "aux_group", "budget": 27, "seed": 5721, "both_modes": true}
+{"final_audit_cell": "aux_group", "budget": 27, "seed": 5757, "both_modes": true}
+{"final_audit_cell": "aux_plain", "budget": 18, "seed": 5701, "both_modes": true}
+{"final_audit_cell": "aux_plain", "budget": 18, "seed": 5721, "both_modes": true}
+{"final_audit_cell": "aux_plain", "budget": 18, "seed": 5757, "both_modes": true}
+{"final_audit_cell": "aux_plain", "budget": 27, "seed": 5701, "both_modes": true}
+{"final_audit_cell": "aux_plain", "budget": 27, "seed": 5721, "both_modes": true}
+{"final_audit_cell": "aux_plain", "budget": 27, "seed": 5757, "both_modes": true}
+{"status": "PASS_AUDIT", "checks_passed": 12, "checks_total": 12, "failed": [], "seconds": 31.32324541700018}

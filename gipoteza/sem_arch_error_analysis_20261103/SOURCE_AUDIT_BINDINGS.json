@@ -1,0 +1,5 @@
+{
+  "status": "PASS_ORIGINAL_AUDIT_BINDINGS",
+  "source_files_verified_against_original_audit": 31,
+  "source_audit_sha256": "a099ed050651db1f7e0b3033fc504d246607b53fce5e290711e5db26a90499b3"
+}

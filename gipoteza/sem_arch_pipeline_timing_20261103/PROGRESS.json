@@ -1,0 +1,7 @@
+{
+  "stage": "TIMING",
+  "batch": 16,
+  "repeat": 3,
+  "requests": 3672,
+  "seconds": 5.9648967499997525
+}

@@ -1,0 +1,368 @@
+{
+  "status": "FROZEN_ALREADY_SEEN_DEVELOPMENT_ANALYSIS",
+  "UTC": "2026-11-03T10:23:08.943731+00:00",
+  "inputs": {
+    "gipoteza/retained_evidence_20261027/SELECTED_SOURCES.zip": {
+      "sha256": "a6888dce510f39a0e3aaeac654f2aa0d7d795402a19f39d71047e29479ab10fd",
+      "bytes": 192680
+    },
+    "gipoteza/sem_arch_bce_confirmation_20261103/AUDIT.json": {
+      "sha256": "0c90feca23014f2f7032ecafb93b15c1aab6d099228852325231321954bdf07b",
+      "bytes": 50708
+    },
+    "gipoteza/sem_arch_bce_confirmation_20261103/DATA_AUDIT.json": {
+      "sha256": "30452e17e989c919718de72d086825d49e8493b980dcbebb3e2ca294673e88c7",
+      "bytes": 33350
+    },
+    "gipoteza/sem_arch_bce_confirmation_20261103/DATA_MANIFEST.json": {
+      "sha256": "05be8c4120b8f02abe2ef7c61b3772a4ee752eca3db1194d3097e43505ce5303",
+      "bytes": 9286235
+    },
+    "gipoteza/sem_arch_bce_confirmation_20261103/EVAL.npz": {
+      "sha256": "7c4f0315a0d8f2aadbe3dd4643a293e89252f4e0bed5f51aa8333944db774fc0",
+      "bytes": 1717526
+    },
+    "gipoteza/sem_arch_bce_confirmation_20261103/EVAL_INDEX.json": {
+      "sha256": "33b10a99ecb54e7499f9cce50ae694e3bea657da61729dc06e70ed64c88fdc44",
+      "bytes": 1657210
+    },
+    "gipoteza/sem_arch_bce_confirmation_20261103/MODEL_LOCK.json": {
+      "sha256": "0a7481c2e11b7a80c07c35b223330552c4287cd4de531d5b89fc741b3808a33c",
+      "bytes": 54634
+    },
+    "gipoteza/sem_arch_bce_confirmation_20261103/PREDICTIONS.npz": {
+      "sha256": "0d79bb004cd29356e58bed3e85d445ac5797de880607de1ccf90ea0f5b50d228",
+      "bytes": 74997185
+    },
+    "gipoteza/sem_arch_bce_confirmation_20261103/RESULT.json": {
+      "sha256": "0f123eb6e3e4bd531cbbcd0488100b1939167789da1f06844f4c6408e85b5c08",
+      "bytes": 41852
+    },
+    "gipoteza/sem_arch_bce_confirmation_20261103/SELECTION.json": {
+      "sha256": "36bd94e9d676b2c43c36f41f1fd6a0b66339d01d198f95e12af6bc6c20c5e035",
+      "bytes": 56958
+    },
+    "gipoteza/sem_arch_calibration_dev_20261103/CONFIG.json": {
+      "sha256": "a69f21bf4aa8c481ed14643704ca4af420b15de42429a19adc1d98027bad4468",
+      "bytes": 1795
+    },
+    "gipoteza/sem_arch_calibration_dev_20261103/PROTOCOL.md": {
+      "sha256": "b3009066b317beab85cc1b11358996239dfac57d9d998c8ab62d2edc5c5f1063",
+      "bytes": 10513
+    },
+    "gipoteza/sem_arch_calibration_dev_20261103/analysis.py": {
+      "sha256": "b2e0031f1e3c1bb75899417a4e9d4f129c68f82ce78358737d3ac82a6670f8e8",
+      "bytes": 21857
+    },
+    "gipoteza/sem_arch_calibration_dev_20261103/common.py": {
+      "sha256": "91bfdeb8b81fb73b81164a356b122bba9a4e6902a9bdfb2fe32c55ec86ce5611",
+      "bytes": 9564
+    },
+    "gipoteza/sem_arch_calibration_dev_20261103/predict.py": {
+      "sha256": "b23a32034949e83eba3ae8c080cec9823573cdde1758970df42778f4621c0dfa",
+      "bytes": 9542
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/model.py": {
+      "sha256": "8b04a0a70486d631e00237765fa0930984be806fd658415d7896fd8a4caf332b",
+      "bytes": 7154
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5721.pt": {
+      "sha256": "42b54a218c6080e823549ce8c502f8a88dba1c2e2c5c8be5cc611d9dbef883f4",
+      "bytes": 15115
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5721_deployed.pt": {
+      "sha256": "265dbb553422cf4c5819c23afa4404a4ab47a102091c031df83b657635b8cd9a",
+      "bytes": 46473
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5757.pt": {
+      "sha256": "c0452c74e2e94c9663cbb31b60965b0fa7c943d2cf722f43a6bc18db2ff0f4ad",
+      "bytes": 15115
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5757_deployed.pt": {
+      "sha256": "1067a385982aa04c916bfc5aec07516876c3aab31c4a75a31e08d64b0b1e3fa2",
+      "bytes": 46473
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5721.pt": {
+      "sha256": "6d6164e386b8c4e8327305b1910ffd40fcb95344e11db87da02e56fe22f29fc1",
+      "bytes": 15831
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5757.pt": {
+      "sha256": "6cf8f975fd90e1279db5e9936791ff8276d30f7873212ad7f7a85fca98f158c3",
+      "bytes": 15831
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/group6_single_b27_s5721.npz": {
+      "sha256": "c77a9958c445a863d23d0a3ec66e393de8a829db21b6ced252ec50956f1e0a14",
+      "bytes": 451191
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/group6_single_b27_s5757.npz": {
+      "sha256": "ea03c38c5f676efd8f10eea24f979f923aea9c37f12bee2829033deadf7e5115",
+      "bytes": 454918
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/plain12_C4_b27_s5721.npz": {
+      "sha256": "d51e2036d5a26cd802471afaabdc3db0250bd074e64a4ae58e464f2c9975053e",
+      "bytes": 422570
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/plain12_C4_b27_s5757.npz": {
+      "sha256": "928444e7068f4f9f35dd48109e433bf13fc091f40cbbd1ac5c9afb1669405951",
+      "bytes": 446058
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/group6_b27_s5701.pt": {
+      "sha256": "5471faa6230bd7c9e437aa1097321ebde199f9e9adefc5be34e9e3531863f118",
+      "bytes": 15115
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/group6_b27_s5701_deployed.pt": {
+      "sha256": "385d0d1592273c4bf763b3dd914e65bc4008f0a53714b043cb9de31d61ea3e23",
+      "bytes": 46473
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5701.pt": {
+      "sha256": "16710a49c09e621d4b938f21724627cd8d3f7b08633dce11ead8485ea34c40f9",
+      "bytes": 15831
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/val_probs/group6_single_b27_s5701.npz": {
+      "sha256": "2c0840cad2df2fa636f754215de0cdf97727528194f4e07797d53afe0e3f0c62",
+      "bytes": 426226
+    },
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/val_probs/plain12_C4_b27_s5701.npz": {
+      "sha256": "3e70bd01206431f5fd4c3b6a05f1127c8644d221ed37f1d9244c638f6c0a75f1",
+      "bytes": 440690
+    },
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/AUDIT.json": {
+      "sha256": "a098f0247fea6c55c90df36e8af280c701b0b768fb5317c9afcdf31c1d89556f",
+      "bytes": 26261
+    },
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/DATA_AUDIT.json": {
+      "sha256": "2666eb764e7d601e290da304dc7c5a028230deaeceb665064a08376e02074d22",
+      "bytes": 26238
+    },
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/DATA_MANIFEST.json": {
+      "sha256": "0536bebbb8fd198d3c9329ce4c27f6ee2b60252792db7894faf251824b697a55",
+      "bytes": 6397991
+    },
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/EVAL.npz": {
+      "sha256": "bae45c0d85e52d43a63b02a458e912a46d69ce83f298fdecd31d2f52e9c9a0c3",
+      "bytes": 1144161
+    },
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/EVAL_INDEX.json": {
+      "sha256": "e9a982ab8e2512002f067a106831451c53e44008a09e15091d015998e1da2c74",
+      "bytes": 1104310
+    },
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/MODEL_LOCK.json": {
+      "sha256": "02de22158e2302de90ef077a63b9dc2d8086b134b953630ac5126a5092f6af43",
+      "bytes": 43024
+    },
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/PREDICTIONS.npz": {
+      "sha256": "523c3f4da54cb2d221212cf66f842a864a63942be4177c9e0ffaada8004b89ba",
+      "bytes": 38201828
+    },
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/RESULT.json": {
+      "sha256": "77c89760c50118f0965f28e4a1d42800400f5ed39c0bb37b8612f5bbf7b4f920",
+      "bytes": 16528
+    },
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/SELECTION.json": {
+      "sha256": "5369a202a2e4d27aef3fb09aa873a6b81aca98ae70485e55c5ec07ae9e754b21",
+      "bytes": 45856
+    },
+    "gipoteza/sem_arch_untied_control_20261103/AUDIT.json": {
+      "sha256": "51a041dc4a42bcc7675c3f4aca688686e00640ac8dd833a5078d337d537d7fcd",
+      "bytes": 22052
+    },
+    "gipoteza/sem_arch_untied_control_20261103/CONFIG.json": {
+      "sha256": "189cf6ecd81c9c9f8e274c9b430e8d433758d705be1367bca2fa7f79777a92c9",
+      "bytes": 1705
+    },
+    "gipoteza/sem_arch_untied_control_20261103/LOCK.json": {
+      "sha256": "8dd556f4c5f429cceeff25a62c380df7412b0fe95ba179b60053d9faa35d1a9f",
+      "bytes": 14265
+    },
+    "gipoteza/sem_arch_untied_control_20261103/PROTOCOL.md": {
+      "sha256": "d59e72948d9883f51aded42cbfd901b1cfa92ebb1c5a518d4bab1342e4512bf7",
+      "bytes": 8477
+    },
+    "gipoteza/sem_arch_untied_control_20261103/RESULT.json": {
+      "sha256": "0bb8a5f01f66b3439bf43dedc36b3a0c308831f0070f7ed7c28382c202724534",
+      "bytes": 213759
+    },
+    "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5701.pt": {
+      "sha256": "aad700f8ace6de3fb3194366e12b0c323c2e0d35030e44410394578e6f5e2334",
+      "bytes": 47625
+    },
+    "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5721.pt": {
+      "sha256": "af04e667cf195e053d644f6e4bc4be2db4c135b0b29f47543bdb759570678837",
+      "bytes": 47689
+    },
+    "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5757.pt": {
+      "sha256": "902b99c3ad848aa4312aabec41d90b5ddac5de7c9dd8f2ce65c4b21329394167",
+      "bytes": 47689
+    },
+    "gipoteza/sem_arch_untied_control_20261103/trial/val_probs/untied24_single_b27_s5701.npz": {
+      "sha256": "0e915c9265428a2c3143a032c2058ec193f7e14cc85a46a9da6a760681cd16ab",
+      "bytes": 402163
+    },
+    "gipoteza/sem_arch_untied_control_20261103/trial/val_probs/untied24_single_b27_s5721.npz": {
+      "sha256": "e9941d6800c2359b9f529f196d39e939f85a0b3188bc19d2c0fcad7c2795c686",
+      "bytes": 415244
+    },
+    "gipoteza/sem_arch_untied_control_20261103/trial/val_probs/untied24_single_b27_s5757.npz": {
+      "sha256": "513da5c2f77a72aa17273999a831d60e43c5e0b638a6320b1150b694e1e02cd0",
+      "bytes": 416693
+    },
+    "gipoteza/sem_architecture_pilot_20261102/TRAIN_VAL.npz": {
+      "sha256": "119cf2f5286067ad06c7e83034516abb0bd2a946383fe4c0987ba7a16fa15ade",
+      "bytes": 570507
+    },
+    "gipoteza/sem_architecture_pilot_20261102/prepare.py": {
+      "sha256": "3d9d096f6fdf5a49a90c2655a50e4a6f4f97e273cc983b90904aadde678320de",
+      "bytes": 27330
+    },
+    "gipoteza/sem_confirmation_20261028/prepare.py": {
+      "sha256": "f9507b803f8a8dc7bd11ae1083eb8e6fc9bd84c8386282c7361fe8b43d4fd3ab",
+      "bytes": 13217
+    }
+  },
+  "models": [
+    {
+      "architecture": "group6",
+      "seed": 5701,
+      "budget": 27,
+      "free_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/group6_b27_s5701.pt",
+      "free_model_sha256": "5471faa6230bd7c9e437aa1097321ebde199f9e9adefc5be34e9e3531863f118",
+      "prediction_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/group6_b27_s5701_deployed.pt",
+      "prediction_model_sha256": "385d0d1592273c4bf763b3dd914e65bc4008f0a53714b043cb9de31d61ea3e23",
+      "prediction_width": 24,
+      "prediction_mode": "single",
+      "source_VAL_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/val_probs/group6_single_b27_s5701.npz",
+      "source_VAL_sha256": "2c0840cad2df2fa636f754215de0cdf97727528194f4e07797d53afe0e3f0c62",
+      "primary_fine_threshold": 0.31,
+      "source_VAL_tau": 0.31
+    },
+    {
+      "architecture": "group6",
+      "seed": 5721,
+      "budget": 27,
+      "free_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5721.pt",
+      "free_model_sha256": "42b54a218c6080e823549ce8c502f8a88dba1c2e2c5c8be5cc611d9dbef883f4",
+      "prediction_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5721_deployed.pt",
+      "prediction_model_sha256": "265dbb553422cf4c5819c23afa4404a4ab47a102091c031df83b657635b8cd9a",
+      "prediction_width": 24,
+      "prediction_mode": "single",
+      "source_VAL_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/group6_single_b27_s5721.npz",
+      "source_VAL_sha256": "c77a9958c445a863d23d0a3ec66e393de8a829db21b6ced252ec50956f1e0a14",
+      "primary_fine_threshold": 0.3,
+      "source_VAL_tau": 0.3
+    },
+    {
+      "architecture": "group6",
+      "seed": 5757,
+      "budget": 27,
+      "free_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5757.pt",
+      "free_model_sha256": "c0452c74e2e94c9663cbb31b60965b0fa7c943d2cf722f43a6bc18db2ff0f4ad",
+      "prediction_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5757_deployed.pt",
+      "prediction_model_sha256": "1067a385982aa04c916bfc5aec07516876c3aab31c4a75a31e08d64b0b1e3fa2",
+      "prediction_width": 24,
+      "prediction_mode": "single",
+      "source_VAL_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/group6_single_b27_s5757.npz",
+      "source_VAL_sha256": "ea03c38c5f676efd8f10eea24f979f923aea9c37f12bee2829033deadf7e5115",
+      "primary_fine_threshold": 0.38,
+      "source_VAL_tau": 0.38
+    },
+    {
+      "architecture": "untied24_single",
+      "seed": 5701,
+      "budget": 27,
+      "free_model_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5701.pt",
+      "free_model_sha256": "aad700f8ace6de3fb3194366e12b0c323c2e0d35030e44410394578e6f5e2334",
+      "prediction_model_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5701.pt",
+      "prediction_model_sha256": "aad700f8ace6de3fb3194366e12b0c323c2e0d35030e44410394578e6f5e2334",
+      "prediction_width": 24,
+      "prediction_mode": "single",
+      "source_VAL_file": "gipoteza/sem_arch_untied_control_20261103/trial/val_probs/untied24_single_b27_s5701.npz",
+      "source_VAL_sha256": "0e915c9265428a2c3143a032c2058ec193f7e14cc85a46a9da6a760681cd16ab",
+      "primary_fine_threshold": 0.3,
+      "source_VAL_tau": 0.3
+    },
+    {
+      "architecture": "untied24_single",
+      "seed": 5721,
+      "budget": 27,
+      "free_model_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5721.pt",
+      "free_model_sha256": "af04e667cf195e053d644f6e4bc4be2db4c135b0b29f47543bdb759570678837",
+      "prediction_model_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5721.pt",
+      "prediction_model_sha256": "af04e667cf195e053d644f6e4bc4be2db4c135b0b29f47543bdb759570678837",
+      "prediction_width": 24,
+      "prediction_mode": "single",
+      "source_VAL_file": "gipoteza/sem_arch_untied_control_20261103/trial/val_probs/untied24_single_b27_s5721.npz",
+      "source_VAL_sha256": "e9941d6800c2359b9f529f196d39e939f85a0b3188bc19d2c0fcad7c2795c686",
+      "primary_fine_threshold": 0.31,
+      "source_VAL_tau": 0.31
+    },
+    {
+      "architecture": "untied24_single",
+      "seed": 5757,
+      "budget": 27,
+      "free_model_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5757.pt",
+      "free_model_sha256": "902b99c3ad848aa4312aabec41d90b5ddac5de7c9dd8f2ce65c4b21329394167",
+      "prediction_model_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5757.pt",
+      "prediction_model_sha256": "902b99c3ad848aa4312aabec41d90b5ddac5de7c9dd8f2ce65c4b21329394167",
+      "prediction_width": 24,
+      "prediction_mode": "single",
+      "source_VAL_file": "gipoteza/sem_arch_untied_control_20261103/trial/val_probs/untied24_single_b27_s5757.npz",
+      "source_VAL_sha256": "513da5c2f77a72aa17273999a831d60e43c5e0b638a6320b1150b694e1e02cd0",
+      "primary_fine_threshold": 0.45,
+      "source_VAL_tau": 0.45
+    },
+    {
+      "architecture": "plain12_C4pooled",
+      "seed": 5701,
+      "budget": 27,
+      "free_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5701.pt",
+      "free_model_sha256": "16710a49c09e621d4b938f21724627cd8d3f7b08633dce11ead8485ea34c40f9",
+      "prediction_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5701.pt",
+      "prediction_model_sha256": "16710a49c09e621d4b938f21724627cd8d3f7b08633dce11ead8485ea34c40f9",
+      "prediction_width": 12,
+      "prediction_mode": "C4",
+      "source_VAL_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/val_probs/plain12_C4_b27_s5701.npz",
+      "source_VAL_sha256": "3e70bd01206431f5fd4c3b6a05f1127c8644d221ed37f1d9244c638f6c0a75f1",
+      "primary_fine_threshold": 0.3,
+      "source_VAL_tau": 0.3
+    },
+    {
+      "architecture": "plain12_C4pooled",
+      "seed": 5721,
+      "budget": 27,
+      "free_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5721.pt",
+      "free_model_sha256": "6d6164e386b8c4e8327305b1910ffd40fcb95344e11db87da02e56fe22f29fc1",
+      "prediction_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5721.pt",
+      "prediction_model_sha256": "6d6164e386b8c4e8327305b1910ffd40fcb95344e11db87da02e56fe22f29fc1",
+      "prediction_width": 12,
+      "prediction_mode": "C4",
+      "source_VAL_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/plain12_C4_b27_s5721.npz",
+      "source_VAL_sha256": "d51e2036d5a26cd802471afaabdc3db0250bd074e64a4ae58e464f2c9975053e",
+      "primary_fine_threshold": 0.35,
+      "source_VAL_tau": 0.35
+    },
+    {
+      "architecture": "plain12_C4pooled",
+      "seed": 5757,
+      "budget": 27,
+      "free_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5757.pt",
+      "free_model_sha256": "6cf8f975fd90e1279db5e9936791ff8276d30f7873212ad7f7a85fca98f158c3",
+      "prediction_model_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/plain12_C4pooled_b27_s5757.pt",
+      "prediction_model_sha256": "6cf8f975fd90e1279db5e9936791ff8276d30f7873212ad7f7a85fca98f158c3",
+      "prediction_width": 12,
+      "prediction_mode": "C4",
+      "source_VAL_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/val_probs/plain12_C4_b27_s5757.npz",
+      "source_VAL_sha256": "928444e7068f4f9f35dd48109e433bf13fc091f40cbbd1ac5c9afb1669405951",
+      "primary_fine_threshold": 0.37,
+      "source_VAL_tau": 0.37
+    }
+  ],
+  "DATA_sha256": "2a76209ac1adbbfdd4112fa097ae6cb43fdac7d84d89f36652a9d0869b7eec0a",
+  "SOURCES_sha256": "ef5a6520feadb9b659ebc33925771a5f709ba89dbf0b8a09cb65e05bccd0f53e",
+  "PREFLIGHT_sha256": "795c6daeac4bbda7573bce64ddbb6695d9b4b67499ee219124ab4a220f6959ff",
+  "PREFLIGHT_ARRAYS_sha256": "5438e54b7a3b70cb48ec5467b0ac64804c32ab8afbdabc64062dec7157ce7cec",
+  "examples": 10240,
+  "frames": 40,
+  "fit_count": 0,
+  "optimizer_updates": 0,
+  "independent_confirmation": false
+}

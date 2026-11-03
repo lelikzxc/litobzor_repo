@@ -1,0 +1,9 @@
+{
+  "stage": "Final audit JSON serialization after all numerical checks passed",
+  "exception": "TypeError: Object of type bool is not JSON serializable",
+  "cause": "NumPy bool values in independent audit checks",
+  "fix": "Convert each check value explicitly with bool(v) before JSON serialization",
+  "scientific_sources_modified": false,
+  "training_or_prediction_rerun": false,
+  "original_audit_source_preserved_in_this_directory": true
+}

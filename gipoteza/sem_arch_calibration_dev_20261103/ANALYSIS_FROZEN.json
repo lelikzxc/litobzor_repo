@@ -1,0 +1,14 @@
+{
+  "input_sha256": {
+    "gipoteza/sem_arch_calibration_dev_20261103/DATA.npz": "2a76209ac1adbbfdd4112fa097ae6cb43fdac7d84d89f36652a9d0869b7eec0a",
+    "gipoteza/sem_arch_calibration_dev_20261103/PREDICTIONS.npz": "36e0aa44c43088f63f2e4f639ee99306d5ba37bb77c2815c70605d59661ef02b",
+    "gipoteza/sem_arch_calibration_dev_20261103/INFERENCE.json": "f243745b6748c304a6f36458c185d02c923ffbe7ddb137cc998700465214628f",
+    "gipoteza/sem_arch_calibration_dev_20261103/LOCK.json": "e45bd3f6779b72ba2d10ccc5cc9afcfbaa2c01cfe000269e5cd0c7aef6d35e78",
+    "gipoteza/sem_arch_calibration_dev_20261103/CONFIG.json": "a69f21bf4aa8c481ed14643704ca4af420b15de42429a19adc1d98027bad4468",
+    "gipoteza/sem_arch_calibration_dev_20261103/PROTOCOL.md": "b3009066b317beab85cc1b11358996239dfac57d9d998c8ab62d2edc5c5f1063",
+    "gipoteza/sem_arch_calibration_dev_20261103/analysis.py": "b2e0031f1e3c1bb75899417a4e9d4f129c68f82ce78358737d3ac82a6670f8e8"
+  },
+  "optimizer_updates": 0,
+  "scope": "PREVIOUSLY_EVALUATED_FRAMES_REUSED_FOR_DEVELOPMENT",
+  "new_confirmation": false
+}

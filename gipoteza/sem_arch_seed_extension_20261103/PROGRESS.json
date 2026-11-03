@@ -1,0 +1,14 @@
+{
+  "status": "PASS_SEED_REPLICATION",
+  "completed_fits": 4,
+  "target_fits": 4,
+  "completed_updates": 8000,
+  "total_updates": 8000,
+  "calibration_complete": true,
+  "evaluation_complete": true,
+  "independent_audit_pending": false,
+  "new_independent_cohort": false,
+  "audit_status": "PASS_SEED_EXTENSION_AUDIT",
+  "audit_checks_passed": 77,
+  "audit_checks_total": 77
+}

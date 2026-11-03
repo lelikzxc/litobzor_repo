@@ -1,0 +1,20 @@
+{
+  "status": "PASS_ANALYSIS_PREFLIGHT",
+  "checks": {
+    "threshold_tie_uses_nearest_half": true,
+    "symmetric_threshold_tie_uses_lower": true,
+    "symmetric_0_3_0_7_tie_uses_lower_despite_float_roundoff": true,
+    "macro_F1_fixed_nine_classes": true,
+    "AP_perfect_and_constant_ties": true,
+    "AP_invariant_to_strictly_increasing_transform_with_gaps_and_ties": true,
+    "five_frame_disjoint_folds_and_exact_512_shared_labels": true,
+    "all_examples_held_out_exactly_once": true,
+    "calibration_candidate_rows_do_not_accept_labels_or_masks": true
+  },
+  "checks_passed": 9,
+  "checks_total": 9,
+  "optimizer_updates": 0,
+  "model_inference": false,
+  "analysis_source_sha256": "b2e0031f1e3c1bb75899417a4e9d4f129c68f82ce78358737d3ac82a6670f8e8",
+  "config_sha256": "a69f21bf4aa8c481ed14643704ca4af420b15de42429a19adc1d98027bad4468"
+}

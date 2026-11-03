@@ -1,0 +1,36 @@
+{
+  "scientific_inputs_sha256": {
+    "RESULT.json": "0f123eb6e3e4bd531cbbcd0488100b1939167789da1f06844f4c6408e85b5c08",
+    "AUDIT.json": "0c90feca23014f2f7032ecafb93b15c1aab6d099228852325231321954bdf07b",
+    "SELECTION.json": "36bd94e9d676b2c43c36f41f1fd6a0b66339d01d198f95e12af6bc6c20c5e035",
+    "MODEL_LOCK.json": "0a7481c2e11b7a80c07c35b223330552c4287cd4de531d5b89fc741b3808a33c",
+    "SOURCE_PLAN.json": "140325967c3cbfe19a43e59fe64718cbdf67277db67d1d74537d7e8e12bda839",
+    "CONFIG.json": "0b7a09fe4b25b1b8ae8020ebec44eaf535cbf64f8b1ab6ac1f9103dc998d3d54",
+    "PROTOCOL.md": "db78eae7902f2672feafff3b9ae4333bd4265cbc5625db76ca19b0e1eac24150",
+    "DATA_AUDIT.json": "30452e17e989c919718de72d086825d49e8493b980dcbebb3e2ca294673e88c7",
+    "DATA_MANIFEST.json": "05be8c4120b8f02abe2ef7c61b3772a4ee752eca3db1194d3097e43505ce5303",
+    "EVAL_INDEX.json": "33b10a99ecb54e7499f9cce50ae694e3bea657da61729dc06e70ed64c88fdc44",
+    "EVAL.npz": "7c4f0315a0d8f2aadbe3dd4643a293e89252f4e0bed5f51aa8333944db774fc0",
+    "PREDICTIONS.npz": "0d79bb004cd29356e58bed3e85d445ac5797de880607de1ccf90ea0f5b50d228",
+    "BOOTSTRAP.npz": "9fbbd785496e46d117f12a0c69d0ef96f536e92aff971489c65113cda0dc5c2c",
+    "EVALUATION_FROZEN.json": "b27a9b67e6f902c00bdb39b2c5a46e0d594aeab459573cf5932742ec2dcb75d8",
+    "OLD_VAL_PREFLIGHT.json": "925c2706c5c0730162f6434e1e5180c91107864007a81f9ea4ef59353f386a40",
+    "OLD_VAL_PREFLIGHT.npz": "bff49a62f9de21b82fe533d8aafc1d7f1870936aad823ff023236f879603a9e0",
+    "common.py": "1f4e923c0fe1b9630e5b974390a33c458642f484ba73fea1098e1371377dedec",
+    "selection.py": "f6bf714dd71e8758dcd6afbe0427aee714128a11efbd445c2536a1a0a5f5ba9c",
+    "evaluate.py": "1718fcb0a3f6cf1cb99c8d022848ed0e0e5ea673427dc91949c7d8f59869a4e6",
+    "prepare.py": "bcbbaf090a65e8f7b2151ca189f7d1e0d20521e863e786c7f40f0320aee9790f",
+    "stats.py": "20a7f94d344a3ec1b4acfca3f0d989fb5fe271abbd7061f2c3ee7f0b4631f60e",
+    "audit.py": "2db7b853d19a74429e0c5a04103014ee765f2391de233f2411a1e97e7d6bb42d",
+    "report.py": "bf49d49c2707f062bb6ebc282a4fdd9a4a364d23d7dff2d2b370f781e97c02dc",
+    "PRE_LOCK_AUDIT.json": "30e27893c8644b24f7c2740100b327db7bba5826be06ff8dae88ef1ee5fa09c6",
+    "PRE_DOWNLOAD_AUDIT.json": "5206690699b4d6351d11e8c306aa2b4de5260f6f0ae5725c14bbc64e7000a355"
+  },
+  "outputs_sha256": {
+    "REPORT.md": "6d00f873b4ad9667e221013d2b77ff5ccd0bfb294311313e8bb46c4c2cf98c7d",
+    "README.md": "b011940ec3fdbeff284f6b9767043b639bcb24d3c614c5ee4f45f94f9ea223ec",
+    "figures/confirmation_primary_interval.png": "3622350d3b472cdf7281c885569d143c4b091b6a15766633854700e017fd52d4",
+    "figures/confirmation_factorial_quality.png": "0a8ae62625485e7678ccd522527de6777aee16d2956a55d7430610cfeacd18b4"
+  },
+  "scope": "LOCKED_NEW_FRAME_BCE_ARCHITECTURE_CONFIRMATION_REPORT_NO_FIT_OR_INFERENCE"
+}

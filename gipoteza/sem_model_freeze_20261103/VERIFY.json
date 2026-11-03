@@ -1,0 +1,11 @@
+{
+  "status": "PASS_FROZEN_MODEL_HASH_VERIFICATION",
+  "files_checked": 275,
+  "learned_final_checkpoints": 18,
+  "initial_checkpoints": 18,
+  "materialized_checkpoints": 6,
+  "frozen_manifest_sha256": "bd42f3b2572dd0b1d1b6560a15c5a2cf838a3055fc42d4f54e86cc42dc6fe2f1",
+  "mismatches": [],
+  "historical_files_modified": false,
+  "model_inference_or_training_performed": false
+}

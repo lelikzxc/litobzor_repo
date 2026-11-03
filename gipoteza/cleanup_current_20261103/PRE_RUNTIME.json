@@ -1,0 +1,35 @@
+{
+  "status": "FAIL_CLEANUP_RUNTIME",
+  "planned_deletions_denied": true,
+  "checks": {
+    "freeze": true,
+    "seed": true,
+    "calibrated": true,
+    "dev": true,
+    "untied": true,
+    "group_confirmation": false,
+    "bce": true,
+    "factorial": true,
+    "timing": true,
+    "EDA": true,
+    "inference": true
+  },
+  "checks_passed": 10,
+  "checks_total": 11,
+  "new_training_fits": 0,
+  "scientific_records_changed": false,
+  "outputs": {
+    "freeze": "PASS freeze\n",
+    "seed": "PASS seed\n",
+    "calibrated": "PASS calibrated\n",
+    "dev": "PASS dev\n",
+    "untied": "PASS untied\n",
+    "group_confirmation": "Traceback (most recent call last):\n  File \"/Users/lelik/Documents/niime/litobzor_repo/gipoteza/cleanup_current_20261103/validate_runtime.py\", line 100, in <module>\n    if __name__ == '__main__': main()\n                               ~~~~^^\n  File \"/Users/lelik/Documents/niime/litobzor_repo/gipoteza/cleanup_current_20261103/validate_runtime.py\", line 86, in main\n    if a.child: child(a.child, a.planned); return\n                ~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/lelik/Documents/niime/litobzor_repo/gipoteza/cleanup_current_20261103/validate_runtime.py\", line 44, in child\n    c.verify_lock()\n    ~~~~~~~~~~~~~^^\n  File \"/Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_groupcnn_confirmation_20261102/confirmation_common.py\", line 169, in verify_lock\n    assert plan == build_source_plan()\n                   ~~~~~~~~~~~~~~~~~^^\n  File \"/Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_groupcnn_confirmation_20261102/confirmation_common.py\", line 122, in build_source_plan\n    c = configuration(); previous = read(OLD_CONFIRM / 'SOURCE_PLAN.json'); previous_selection = read(OLD_CONFIRM / 'SELECTION.json')\n                                                                                                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_groupcnn_confirmation_20261102/confirmation_common.py\", line 30, in read\n    def read(path): return json.loads(Path(path).read_text())\n                                      ~~~~~~~~~~~~~~~~~~~~^^\n  File \"/Users/lelik/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py\", line 546, in read_text\n    return PathBase.read_text(self, encoding, errors, newline)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/lelik/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/pathlib/_abc.py\", line 632, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/lelik/.local/share/uv/python/cpython-3.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py\", line 537, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/lelik/Documents/niime/litobzor_repo/gipoteza/cleanup_current_20261103/validate_runtime.py\", line 31, in hook\n    if p in deny: raise FileNotFoundError('Planned deletion is unavailable: ' + p)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: Planned deletion is unavailable: /Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_orbit_confirmation_20261102/SELECTION.json\n",
+    "bce": "PASS bce\n",
+    "factorial": "PASS factorial\n",
+    "timing": "PASS timing\n",
+    "EDA": "PASS EDA\n",
+    "inference": "{\"models\": 10, \"examples\": 17, \"maximum_probability_error\": 1.2814998626708984e-06}\nPASS inference\n"
+  },
+  "source_sha256": "2559d19b744f249c3cc5510c05cc31c4c334bdc46409048426b36dda0eec31aa"
+}

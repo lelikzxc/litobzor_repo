@@ -1,0 +1,8 @@
+{
+  "status": "FAILED",
+  "trial": "groupcnn_screen_s5701_a571c57fcf",
+  "phase": "screen",
+  "error": "dict() got multiple values for keyword argument 'free_parameters'",
+  "error_type": "TypeError",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_groupcnn_20261102/runner.py\", line 371, in run\n    row = dict(architecture=arch, route=route, budget=budget, seed=seed, **evaluation, **technical,\n        free_parameters=FREE_PARAMETERS[arch], materialized_coefficients=parameters(network), MACs_per_image=MACS[route],\n        CNN_passes_per_image=4 if mode == 'C4' else 1, CNN_batch_calls=1,\n        internal_batch_multiplier=4 if mode == 'C4' else 1,\n        model_file=fit_row['model_file'], model_sha256=fit_row['model_sha256'])\nTypeError: dict() got multiple values for keyword argument 'free_parameters'\n"
+}

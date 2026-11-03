@@ -1,0 +1,182 @@
+[
+  {
+    "architecture": "group6",
+    "seed": 5701,
+    "budget": 27,
+    "prediction_model_sha256": "385d0d1592273c4bf763b3dd914e65bc4008f0a53714b043cb9de31d61ea3e23",
+    "metrics": {
+      "final_calibrated": {
+        "threshold": 0.37,
+        "mask_F1": 0.7573714666120437,
+        "IoU": 0.8715571861891522
+      },
+      "fixed05": {
+        "threshold": 0.5,
+        "mask_F1": 0.7099567159210128,
+        "IoU": 0.8698389027528494
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.39173099999970873
+  },
+  {
+    "architecture": "group6",
+    "seed": 5721,
+    "budget": 27,
+    "prediction_model_sha256": "265dbb553422cf4c5819c23afa4404a4ab47a102091c031df83b657635b8cd9a",
+    "metrics": {
+      "final_calibrated": {
+        "threshold": 0.47,
+        "mask_F1": 0.7575068035581992,
+        "IoU": 0.8694777808907762
+      },
+      "fixed05": {
+        "threshold": 0.5,
+        "mask_F1": 0.7502377301308925,
+        "IoU": 0.8701002587125289
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.15012429099988367
+  },
+  {
+    "architecture": "group6",
+    "seed": 5757,
+    "budget": 27,
+    "prediction_model_sha256": "1067a385982aa04c916bfc5aec07516876c3aab31c4a75a31e08d64b0b1e3fa2",
+    "metrics": {
+      "final_calibrated": {
+        "threshold": 0.4,
+        "mask_F1": 0.7737519461494821,
+        "IoU": 0.8739638663656114
+      },
+      "fixed05": {
+        "threshold": 0.5,
+        "mask_F1": 0.7606506137233839,
+        "IoU": 0.874223849283505
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.15078654200078745
+  },
+  {
+    "architecture": "untied24_single",
+    "seed": 5701,
+    "budget": 27,
+    "prediction_model_sha256": "aad700f8ace6de3fb3194366e12b0c323c2e0d35030e44410394578e6f5e2334",
+    "metrics": {
+      "final_calibrated": {
+        "threshold": 0.48,
+        "mask_F1": 0.7276828066905101,
+        "IoU": 0.8603488326920283
+      },
+      "fixed05": {
+        "threshold": 0.5,
+        "mask_F1": 0.7338788875982787,
+        "IoU": 0.8603608280156628
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.1496122500011552
+  },
+  {
+    "architecture": "untied24_single",
+    "seed": 5721,
+    "budget": 27,
+    "prediction_model_sha256": "af04e667cf195e053d644f6e4bc4be2db4c135b0b29f47543bdb759570678837",
+    "metrics": {
+      "final_calibrated": {
+        "threshold": 0.51,
+        "mask_F1": 0.7204216356333987,
+        "IoU": 0.858331663391246
+      },
+      "fixed05": {
+        "threshold": 0.5,
+        "mask_F1": 0.7209731125198744,
+        "IoU": 0.8582689413416715
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.1545246669993503
+  },
+  {
+    "architecture": "untied24_single",
+    "seed": 5757,
+    "budget": 27,
+    "prediction_model_sha256": "902b99c3ad848aa4312aabec41d90b5ddac5de7c9dd8f2ce65c4b21329394167",
+    "metrics": {
+      "final_calibrated": {
+        "threshold": 0.54,
+        "mask_F1": 0.7523352441074181,
+        "IoU": 0.8668330894693718
+      },
+      "fixed05": {
+        "threshold": 0.5,
+        "mask_F1": 0.7521996794439355,
+        "IoU": 0.8668649520306925
+      }
+    },
+    "CNN_passes_per_image": 1,
+    "inference_and_transfer_seconds": 0.16257991600105015
+  },
+  {
+    "architecture": "plain12_C4pooled",
+    "seed": 5701,
+    "budget": 27,
+    "prediction_model_sha256": "16710a49c09e621d4b938f21724627cd8d3f7b08633dce11ead8485ea34c40f9",
+    "metrics": {
+      "final_calibrated": {
+        "threshold": 0.41,
+        "mask_F1": 0.7483048850128438,
+        "IoU": 0.8673889632188372
+      },
+      "fixed05": {
+        "threshold": 0.5,
+        "mask_F1": 0.7268685903518042,
+        "IoU": 0.8679643187196463
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.26123766700038686
+  },
+  {
+    "architecture": "plain12_C4pooled",
+    "seed": 5721,
+    "budget": 27,
+    "prediction_model_sha256": "6d6164e386b8c4e8327305b1910ffd40fcb95344e11db87da02e56fe22f29fc1",
+    "metrics": {
+      "final_calibrated": {
+        "threshold": 0.53,
+        "mask_F1": 0.7358439659397701,
+        "IoU": 0.8620087926971417
+      },
+      "fixed05": {
+        "threshold": 0.5,
+        "mask_F1": 0.7356867799169584,
+        "IoU": 0.8601111776373692
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.23623395899994648
+  },
+  {
+    "architecture": "plain12_C4pooled",
+    "seed": 5757,
+    "budget": 27,
+    "prediction_model_sha256": "6cf8f975fd90e1279db5e9936791ff8276d30f7873212ad7f7a85fca98f158c3",
+    "metrics": {
+      "final_calibrated": {
+        "threshold": 0.41,
+        "mask_F1": 0.7573605896423677,
+        "IoU": 0.8637200249327867
+      },
+      "fixed05": {
+        "threshold": 0.5,
+        "mask_F1": 0.7433253753992043,
+        "IoU": 0.8675224855949883
+      }
+    },
+    "CNN_passes_per_image": 4,
+    "inference_and_transfer_seconds": 0.22161141600008705
+  }
+]

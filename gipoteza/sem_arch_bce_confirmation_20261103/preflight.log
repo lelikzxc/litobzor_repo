@@ -1,0 +1,1 @@
+{"status": "PASS_OLD_VAL_PREFLIGHT", "checks": {"all24_final_cells": true, "nonmultiple_batch": true, "source_probability_agreement": true, "source_selected_class_agreement": true, "source_selected_mask_agreement": true, "synthetic_primary_goal_eligibility_and_secondary_no_rescue": true, "prediction_serialization_roundtrip": true}, "examples": 17, "source_model_count": 24}

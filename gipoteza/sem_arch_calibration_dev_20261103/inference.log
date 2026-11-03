@@ -1,0 +1,10 @@
+{"stage": "FIXED_DEVELOPMENT_INFERENCE", "completed": 1, "total": 9, "architecture": "group6", "seed": 5701, "seconds": 0.8122575410015997}
+{"stage": "FIXED_DEVELOPMENT_INFERENCE", "completed": 2, "total": 9, "architecture": "group6", "seed": 5721, "seconds": 1.0695902910010773}
+{"stage": "FIXED_DEVELOPMENT_INFERENCE", "completed": 3, "total": 9, "architecture": "group6", "seed": 5757, "seconds": 1.329228458000216}
+{"stage": "FIXED_DEVELOPMENT_INFERENCE", "completed": 4, "total": 9, "architecture": "untied24_single", "seed": 5701, "seconds": 1.5889904579998984}
+{"stage": "FIXED_DEVELOPMENT_INFERENCE", "completed": 5, "total": 9, "architecture": "untied24_single", "seed": 5721, "seconds": 1.86027945800015}
+{"stage": "FIXED_DEVELOPMENT_INFERENCE", "completed": 6, "total": 9, "architecture": "untied24_single", "seed": 5757, "seconds": 2.1291192500011675}
+{"stage": "FIXED_DEVELOPMENT_INFERENCE", "completed": 7, "total": 9, "architecture": "plain12_C4pooled", "seed": 5701, "seconds": 2.5833131250001315}
+{"stage": "FIXED_DEVELOPMENT_INFERENCE", "completed": 8, "total": 9, "architecture": "plain12_C4pooled", "seed": 5721, "seconds": 2.972310416000255}
+{"stage": "FIXED_DEVELOPMENT_INFERENCE", "completed": 9, "total": 9, "architecture": "plain12_C4pooled", "seed": 5757, "seconds": 3.377026833000855}
+{"status": "COMPLETE_FROZEN_DEVELOPMENT_INFERENCE", "models": 9, "examples": 10240, "seconds": 5.953965833001348}

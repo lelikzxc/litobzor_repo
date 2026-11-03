@@ -1,0 +1,10 @@
+{"final_audit_architecture": "group6", "seed": 5701, "both_modes": true}
+{"final_audit_architecture": "group6", "seed": 5721, "both_modes": true}
+{"final_audit_architecture": "group6", "seed": 5757, "both_modes": true}
+{"final_audit_architecture": "untied24_single", "seed": 5701, "both_modes": true}
+{"final_audit_architecture": "untied24_single", "seed": 5721, "both_modes": true}
+{"final_audit_architecture": "untied24_single", "seed": 5757, "both_modes": true}
+{"final_audit_architecture": "plain12_C4pooled", "seed": 5701, "both_modes": true}
+{"final_audit_architecture": "plain12_C4pooled", "seed": 5721, "both_modes": true}
+{"final_audit_architecture": "plain12_C4pooled", "seed": 5757, "both_modes": true}
+{"status": "PASS_AUDIT", "checks_passed": 12, "checks_total": 12, "failed": [], "seconds": 13.078447875001075}

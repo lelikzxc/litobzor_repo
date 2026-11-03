@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_calibrated_confirmation_20261103/audit.py", line 553, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_calibrated_confirmation_20261103/audit.py", line 547, in main
+    snapshot_and_save(name,result)
+    ^^^^^^^^^^^^^^^^^
+NameError: name 'snapshot_and_save' is not defined

@@ -1,0 +1,19 @@
+{
+  "input_sha256": {
+    "sem_arch_seed_extension_20261103/RESULT.json": "eea4d9ec54edfc8fdd9867f96232d4e490ae5b61b85c6a9e2b322a06f1648b5b",
+    "sem_arch_seed_extension_20261103/AUDIT.json": "ed3b118b8a39a61e60934cb24a02e4a150ad5c24788bf18db3d8db2d35b05ff7",
+    "sem_arch_seed_extension_20261103/LOCK.json": "91ab064ba6dcb0d2515cce311f476e2d5ac93a47ab634aaf7695d725e37628d0",
+    "sem_arch_seed_extension_20261103/REPORT.md": "d66d53ef6c6cbae72097b53bc998045def7d8723824bb992780068a6773b0451",
+    "sem_arch_error_analysis_20261103/RESULT.json": "abdf6b0007c0109af08aa5da43497041b274a8e715578d9f12fe9762e9b60c1b",
+    "sem_arch_error_analysis_20261103/CHECKS.json": "c56c6fd787dd57529a200b80301db5b15d1b486d4015e19b5871954ed659bb01",
+    "sem_arch_error_analysis_20261103/REPORT.md": "af16d6a44997f52722c093b3022232b0040cd6615b0819f9d4f1d649b5388a74",
+    "sem_arch_pipeline_timing_20261103/TIMING.json": "654bbee19e091837124dd4f2532fddd0e5ec263136e4ef128e3f3979e3320ea2",
+    "sem_arch_pipeline_timing_20261103/CHECKS.json": "6328c7f8b33fc9ff7e39ee69ede8ee925feb9107e59b6681d8d066facafab426",
+    "sem_arch_pipeline_timing_20261103/REPORT.md": "e217b5099b244bd685bba124a72024932892a94b56c87cbb3a8717f1ced0dd86",
+    "sem_arch_final_validation_20261103/summarize.py": "fcd4121de1b09053af8846b61c44749988cbf739d313b855663942c582db9000"
+  },
+  "output_sha256": {
+    "REPORT.md": "8b4b62aa92f1db23976456af0028bb84129f318b458ec35c9c1fd046d1c8c898",
+    "figures/five_seed_effects.png": "cc3108bada82674fc10ac286a4f0034b46a8dcc6a09ba59e46899146e9fa2145"
+  }
+}

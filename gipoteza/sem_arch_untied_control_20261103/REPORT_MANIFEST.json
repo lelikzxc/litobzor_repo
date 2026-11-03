@@ -1,0 +1,22 @@
+{
+  "scientific_inputs_sha256": {
+    "RESULT.json": "0bb8a5f01f66b3439bf43dedc36b3a0c308831f0070f7ed7c28382c202724534",
+    "AUDIT.json": "51a041dc4a42bcc7675c3f4aca688686e00640ac8dd833a5078d337d537d7fcd",
+    "LOCK.json": "8dd556f4c5f429cceeff25a62c380df7412b0fe95ba179b60053d9faa35d1a9f",
+    "PREFLIGHT.json": "342a61e286fbb23e9294da928ef8f7580e41ff6f2134bc31edb7ae83e40e3fe7",
+    "PREFLIGHT_AUDIT.json": "340eccec895c4bb750953ce209d0941f15290a2bc6dafed9f4f0f82e7516d151",
+    "CONFIG.json": "189cf6ecd81c9c9f8e274c9b430e8d433758d705be1367bca2fa7f79777a92c9",
+    "PROTOCOL.md": "d59e72948d9883f51aded42cbfd901b1cfa92ebb1c5a518d4bab1342e4512bf7",
+    "common.py": "d49cd0ebfe3f67cdd409d1d8ffb5b7c9c3a4c511f9f3944b6d783b870479bbb9",
+    "runner.py": "01efb2bbf980e31507ec19c1a644e98e9477ba11e2577412ddc8a9841a354229",
+    "audit.py": "62b3299d14b314534f19de4497d12f820942a1f9164d4d77f3a8ef5a570e72c7",
+    "report.py": "4936cbbe4523fa1fd0fe8f8c92660c5975792e4fe4e4a1076233ed0b5973196c"
+  },
+  "outputs_sha256": {
+    "REPORT.md": "3b5d5ff4a8861ab119876f00aac380a229f4d1598130283ecbb0de3416d61465",
+    "README.md": "3e0334a1249c8b5b5cc897a4a068c41e3c9b8f39367b5737001d26d66c330a74",
+    "figures/untied_control_quality.png": "abc9aeb7f51599f65777ca29db9cf065873b49c79771836e72f79e26e62d763f",
+    "figures/untied_control_thresholds.png": "02f6a54046b102e1da4c9563a0596ca3f69ff62b694558c62f5bc831c934d94f"
+  },
+  "scope": "DESCRIPTIVE_OLD_VAL_WEIGHT_SHARING_CONTROL_NO_FIT_OR_NEW_TEST"
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "standalone_initial_EDA_text_revision",
+  "changed_markdown_cells": [
+    1,
+    2,
+    4,
+    6,
+    8,
+    9,
+    11,
+    13,
+    16,
+    18,
+    20,
+    22,
+    24,
+    27,
+    29,
+    31,
+    33
+  ],
+  "cells": 35,
+  "code_cells_and_outputs_unchanged": true,
+  "code_cells_sha256": "88748f5db1b0776c2850b19de4f2bf0d8c37e71efaea4ef68c54807b224a330f",
+  "cell_ids_unchanged": true,
+  "before_notebook_sha256": "aade20ed246886bc0c2524d7aa58fc40e0373e48d4b5b07f4d35eacce024263c",
+  "after_notebook_sha256": "5354bcf745a700d52491650cf27d66437ba5917b1593f1a5b445f9aa63522fcb",
+  "metadata_reference_removed": true
+}

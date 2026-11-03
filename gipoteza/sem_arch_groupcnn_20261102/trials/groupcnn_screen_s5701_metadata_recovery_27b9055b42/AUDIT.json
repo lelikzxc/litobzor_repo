@@ -1,0 +1,417 @@
+{
+  "status": "PASS_AUDIT",
+  "trial": "trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42",
+  "scope": "INDEPENDENT_CPU_FRESH_GROUPCNN_OLD_TRAIN_VAL_ONLY",
+  "audit_source_sha256": "477ef6b375cdc1550b6cad787fdcc96ace95a4ed72ec2cfadea9ba07db61794d",
+  "result_sha256": "481442ee0480420c26f684dc27b94fd1b77c8bc008708ed5a90854647cebaf09",
+  "checks": {
+    "frozen_sources_config_protocol_and_old_TRAIN_VAL_only_scope": true,
+    "fixed_fresh_2000step_400warmup_legacy_loss_design_and_both_separate_goals": true,
+    "source_training_schedule_all_weights_canonical_targets_and_weak_mask_exclusion": true,
+    "source_fresh_seed_and_batched_four_view_shared_CNN_without_augmentation": true,
+    "source_benchmark_synchronizes_raw_forward_timing_and_excludes_setup_readout": true,
+    "saved_CPU_preflight_current_sources_no_updates": true,
+    "exact_original_archive_subsets_role_frame_exclusion_and_balanced_dense_training": true,
+    "independent_binary_graph_truth_and_odd_rotation_class_swap": true,
+    "independent_C4_relative_orientation_indexing_and_channel_layout": true,
+    "direct_relative_orientation_sum_and_full_network_VJP": true,
+    "group_feature_action_roll_and_output_spatial_covariance": true,
+    "exact_materialized_kernels_biases_and_orientation_mean_head": true,
+    "effective2671_materialized10681_near_parameter2749_full10681": true,
+    "exact_operation_accounting": true,
+    "stable_logit_of_mean_four_view_probability_training_before_legacy_loss": true,
+    "independent_common_BCE_geometry_loss_parameter_gradients": true,
+    "legacy_transfer_adapter_and_original_loss_gradient_equal": true,
+    "fresh_uniform_fanin_bounds_all_layers_and_parameter_counts": true,
+    "exact_six_fits_ten_routes_twelve_thousand_updates_per_seed": true,
+    "all_initial_final_and_materialized_checkpoint_file_hashes": true,
+    "all_fresh_seed_initial_states_fanin_bounds_and_same_seed_across_budgets": true,
+    "all_2000steps400plus1600_metadata_final_states_and_paired_dense_weak_batches": true,
+    "all_step1_and401_actual_MPS_metadata_legacy_loss_and_independent_parameter_VJPs": true,
+    "all_trained_deployed_kernels_biases_and_repeated_head_coefficients_exact": true,
+    "all_route_parameter_materialized_storage_operation_and_pass_accounting": true,
+    "independent_all_81_hard_graph_classes_packed_masks_primary_and_seven_grid_metrics_rank": true,
+    "independent_full_VAL_group_and_plain_single_four_view_probability_forward": true,
+    "trained_operating_MPS_required_C4_and_deployment_probability_tolerances": true,
+    "all_actual_latency_samples_randomized_orders_warmups_summaries_and_CNN_only_scope": true,
+    "both_goals_primary81_grid_gains_budget_IoU_and_compute_gates_recomputed": true,
+    "failed_metadata_trial_entire_inventory_and_original_scientific_sources_preserved": true,
+    "metadata_only_equal_overlap_merge_all_five_variants_and_unchanged_scientific_functions": true,
+    "exact_distinct_fit_origins_one_plus_five_screen_or_twelve_new_replication": true,
+    "inherited_free_initial_final_materialized_and_both_gradient_probe_artifacts_exact": true,
+    "all_sources_protocol_config_models_and_TRAIN_VAL_unchanged_during_CPU_audit": true
+  },
+  "checks_passed": 35,
+  "checks_total": 35,
+  "maximum_errors": {
+    "full_probability": 2.1457672119140625e-06,
+    "metrics": 0.0,
+    "canonical_pool_probability": 1.1920928955078125e-07,
+    "fixture_probability": 0.0,
+    "group_features_relative": 6.481193755758688e-07,
+    "covariance": 1.0132789611816406e-06,
+    "deployment": 2.384185791015625e-07
+  },
+  "mathematical_proof": {
+    "errors": {
+      "functional_logit": 0.0,
+      "functional_features": 0.0,
+      "direct_group_layer": 1.887379141862766e-15,
+      "group_layer_gradient": 4.973799150320701e-14,
+      "feature_covariance": 1.1102230246251565e-16,
+      "output_covariance": 1.3877787807814457e-17,
+      "deploy": 6.938893903907228e-17,
+      "full_parameter_gradient": 2.7755575615628914e-17
+    },
+    "parameters": {
+      "group": 2671,
+      "deployed": 10681,
+      "narrow": 2749,
+      "full": 10681
+    },
+    "multiply_accumulate_operations": {
+      "group_deployed": 1527552,
+      "narrow_C4": 1562112,
+      "full_C4": 6110208
+    }
+  },
+  "training_operator_proof": {
+    "errors": {
+      "logits": 3.3306690738754696e-16,
+      "probability": 1.6653345369377348e-16,
+      "total_loss": 0.0,
+      "common_loss_gradient": 7.549516567451064e-15,
+      "adapter_original_loss": 0.0,
+      "adapter_original_gradient": 0.0
+    },
+    "fresh_parameter_counts": {
+      "group6": 2671,
+      "plain12_C4pooled": 2749,
+      "plain24_C4pooled": 10681
+    }
+  },
+  "actual_MPS_gradient_proofs": [
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 18,
+      "seed": 5701,
+      "step": 1,
+      "dense_logit": 2.9802322387695312e-08,
+      "weak_logit": 0.0,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 2.561137080192566e-09,
+      "parameter_gradient_scaled": 2.561137080192566e-09,
+      "parameter_gradient_relative_L2": 3.5535954026881136e-07,
+      "BCE": 5.960464477539063e-08,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 18,
+      "seed": 5701,
+      "step": 401,
+      "dense_logit": 1.811981201171875e-05,
+      "weak_logit": 1.0728836059570312e-05,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 4.172325134277344e-07,
+      "parameter_gradient_scaled": 4.172325134277344e-07,
+      "parameter_gradient_relative_L2": 3.7031056009536644e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.0186340659856796e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 6.332993507385254e-08
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 18,
+      "seed": 5701,
+      "step": 1,
+      "dense_logit": 2.980232238769531e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 2.9802322387695312e-08,
+      "parameter_gradient_absolute": 1.4901161193847656e-08,
+      "parameter_gradient_scaled": 1.4901161193847656e-08,
+      "parameter_gradient_relative_L2": 2.7126748968589273e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 18,
+      "seed": 5701,
+      "step": 401,
+      "dense_logit": 7.152557373046875e-06,
+      "weak_logit": 7.62939453125e-06,
+      "aligned_logits": 1.5974044799804688e-05,
+      "parameter_gradient_absolute": 2.086162567138672e-07,
+      "parameter_gradient_scaled": 2.086162567138672e-07,
+      "parameter_gradient_relative_L2": 7.146495370927484e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.0550138540565968e-10,
+      "geometry_relative": 1.0435453744486037e-07,
+      "geometry_upstream_CPU_MPS_diagnostic": 4.773028194904327e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 18,
+      "seed": 5701,
+      "step": 1,
+      "dense_logit": 2.980232238769531e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 3.91155481338501e-08,
+      "parameter_gradient_absolute": 1.3504177331924438e-08,
+      "parameter_gradient_scaled": 1.3504177331924438e-08,
+      "parameter_gradient_relative_L2": 5.848994986966728e-07,
+      "BCE": 1.1920928955078125e-07,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 18,
+      "seed": 5701,
+      "step": 401,
+      "dense_logit": 1.52587890625e-05,
+      "weak_logit": 8.58306884765625e-06,
+      "aligned_logits": 2.1219253540039062e-05,
+      "parameter_gradient_absolute": 4.172325134277344e-07,
+      "parameter_gradient_scaled": 4.172325134277344e-07,
+      "parameter_gradient_relative_L2": 7.507293357048151e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 1.1641532182693481e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 3.725290298461914e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 27,
+      "seed": 5701,
+      "step": 1,
+      "dense_logit": 2.9802322387695312e-08,
+      "weak_logit": 0.0,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 3.725290298461914e-09,
+      "parameter_gradient_scaled": 3.725290298461914e-09,
+      "parameter_gradient_relative_L2": 3.4874597956896873e-07,
+      "BCE": 1.1920928955078125e-07,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "group6",
+      "budget": 27,
+      "seed": 5701,
+      "step": 401,
+      "dense_logit": 7.62939453125e-06,
+      "weak_logit": 7.62939453125e-06,
+      "aligned_logits": 0.0,
+      "parameter_gradient_absolute": 2.086162567138672e-07,
+      "parameter_gradient_scaled": 2.086162567138672e-07,
+      "parameter_gradient_relative_L2": 4.204426647829831e-07,
+      "BCE": 1.4901161193847656e-08,
+      "BCE_upstream": 1.0550138540565968e-10,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 3.725290298461914e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 27,
+      "seed": 5701,
+      "step": 1,
+      "dense_logit": 2.384185791015625e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 2.9802322387695312e-08,
+      "parameter_gradient_absolute": 1.4901161193847656e-08,
+      "parameter_gradient_scaled": 1.4901161193847656e-08,
+      "parameter_gradient_relative_L2": 3.0820821457479673e-07,
+      "BCE": 0.0,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain12_C4pooled",
+      "budget": 27,
+      "seed": 5701,
+      "step": 401,
+      "dense_logit": 7.62939453125e-06,
+      "weak_logit": 1.049041748046875e-05,
+      "aligned_logits": 1.9073486328125e-05,
+      "parameter_gradient_absolute": 2.980232238769531e-07,
+      "parameter_gradient_scaled": 2.980232238769531e-07,
+      "parameter_gradient_relative_L2": 9.125277748827433e-07,
+      "BCE": 1.4901161193847656e-08,
+      "BCE_upstream": 1.1641532182693481e-10,
+      "geometry_relative": 1.0496798791272625e-07,
+      "geometry_upstream_CPU_MPS_diagnostic": 1.862645149230957e-09
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 27,
+      "seed": 5701,
+      "step": 1,
+      "dense_logit": 2.980232238769531e-07,
+      "weak_logit": 0.0,
+      "aligned_logits": 4.470348358154297e-08,
+      "parameter_gradient_absolute": 7.450580596923828e-09,
+      "parameter_gradient_scaled": 7.450580596923828e-09,
+      "parameter_gradient_relative_L2": 6.160617926134636e-07,
+      "BCE": 5.960464477539063e-08,
+      "BCE_upstream": 5.820766091346741e-11,
+      "geometry_relative": 0.0,
+      "geometry_upstream_CPU_MPS_diagnostic": 0.0
+    },
+    {
+      "checks": {
+        "metadata": true,
+        "operator_forward": true,
+        "actual_MPS_upstream_independent_CPU_parameter_VJP": true,
+        "legacy_components_and_dense_BCE_upstream": true
+      },
+      "architecture": "plain24_C4pooled",
+      "budget": 27,
+      "seed": 5701,
+      "step": 401,
+      "dense_logit": 1.1205673217773438e-05,
+      "weak_logit": 1.049041748046875e-05,
+      "aligned_logits": 1.71661376953125e-05,
+      "parameter_gradient_absolute": 2.0489096641540527e-07,
+      "parameter_gradient_scaled": 2.0489096641540527e-07,
+      "parameter_gradient_relative_L2": 1.15322963739279e-06,
+      "BCE": 0.0,
+      "BCE_upstream": 1.0550138540565968e-10,
+      "geometry_relative": 5.960464477539063e-08,
+      "geometry_upstream_CPU_MPS_diagnostic": 5.122274160385132e-09
+    }
+  ],
+  "independent_gates": {
+    "A_matched_quality": {
+      "delta": 0.011127125156431605,
+      "budget_deltas": [
+        0.00664252942999044,
+        0.01561172088287277
+      ],
+      "IoU_delta": 0.002769409015442703,
+      "checks": {
+        "mean_F1_gain": true,
+        "budget_F1_guard": true,
+        "mean_IoU_guard": true,
+        "parameter_budget_match": true,
+        "MAC_budget_match": true
+      },
+      "free_parameter_ratio": 0.971626045834849,
+      "MAC_ratio": 0.9778761061946902,
+      "passed": true
+    },
+    "B_full_efficiency": {
+      "delta": 0.0013948567220901098,
+      "budget_deltas": [
+        0.0027037448106123074,
+        8.596863356791218e-05
+      ],
+      "IoU_delta": 0.000919628321876087,
+      "checks": {
+        "mean_F1_gain": true,
+        "budget_F1_guard": true,
+        "mean_IoU_guard": true,
+        "MAC_efficiency_guard": true
+      },
+      "MAC_ratio": 0.25,
+      "passed": true
+    },
+    "ANY_GOAL_PASS": true
+  },
+  "replication": {},
+  "recovery": {
+    "original_failed_trial": "trials/groupcnn_screen_s5701_a571c57fcf",
+    "failed_inventory_sha256": "fd7365126b8daf636b40093dd3e412b9453cc5c940f96f692c9a8c0b3e767b17",
+    "inherited_fits": 1,
+    "new_fits": 5,
+    "total_distinct_fits": 6,
+    "inherited_updates": 2000,
+    "new_updates": 10000,
+    "correction": "Equal-overlap metadata dictionary merge only; original fit/evaluation/threshold/benchmark/gate functions unchanged."
+  },
+  "seconds": 26.205644624998968,
+  "numerical_tolerances": {
+    "CPU_MPS_probability": 0.0001,
+    "operator_logits": 0.001,
+    "saved_MPS_trained_probability": 1e-05,
+    "parameter_VJP_scaled": 0.0002,
+    "parameter_VJP_relative_L2": 0.002
+  },
+  "gradient_note": "Independent CPU operator VJPs use the recorded actual MPS loss upstreams. Legacy CPU/MPS geometry upstream difference is separately disclosed; no altered loss or solver is used.",
+  "caveat": "Known C4 weight sharing; reused VAL development only, no independent TEST, no originality claim. Materialized group storage is10681 repeated coefficients despite2671 free training parameters. Latency is descriptive CNN-only, not end-to-end."
+}

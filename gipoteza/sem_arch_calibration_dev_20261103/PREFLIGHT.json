@@ -1,0 +1,86 @@
+{
+  "status": "PASS_PREDICTION_PREFLIGHT",
+  "checks": {
+    "all_nine_models": true,
+    "nonmultiple_batch": true,
+    "probability_parity": true,
+    "mask_and_class_parity": true,
+    "serialization_roundtrip": true,
+    "reused_40_frame_cohort": true,
+    "raw_and_mask_D4_disjoint": true
+  },
+  "checks_passed": 7,
+  "checks_total": 7,
+  "agreements": [
+    {
+      "architecture": "group6",
+      "seed": 5701,
+      "maximum_probability_error": 0.0,
+      "mask_parity": true,
+      "class_parity": true
+    },
+    {
+      "architecture": "group6",
+      "seed": 5721,
+      "maximum_probability_error": 0.0,
+      "mask_parity": true,
+      "class_parity": true
+    },
+    {
+      "architecture": "group6",
+      "seed": 5757,
+      "maximum_probability_error": 0.0,
+      "mask_parity": true,
+      "class_parity": true
+    },
+    {
+      "architecture": "untied24_single",
+      "seed": 5701,
+      "maximum_probability_error": 0.0,
+      "mask_parity": true,
+      "class_parity": true
+    },
+    {
+      "architecture": "untied24_single",
+      "seed": 5721,
+      "maximum_probability_error": 0.0,
+      "mask_parity": true,
+      "class_parity": true
+    },
+    {
+      "architecture": "untied24_single",
+      "seed": 5757,
+      "maximum_probability_error": 0.0,
+      "mask_parity": true,
+      "class_parity": true
+    },
+    {
+      "architecture": "plain12_C4pooled",
+      "seed": 5701,
+      "maximum_probability_error": 0.0,
+      "mask_parity": true,
+      "class_parity": true
+    },
+    {
+      "architecture": "plain12_C4pooled",
+      "seed": 5721,
+      "maximum_probability_error": 0.0,
+      "mask_parity": true,
+      "class_parity": true
+    },
+    {
+      "architecture": "plain12_C4pooled",
+      "seed": 5757,
+      "maximum_probability_error": 0.0,
+      "mask_parity": true,
+      "class_parity": true
+    }
+  ],
+  "input_digest": "e94285e0208fa106c9bee3c574f1dce3bc896ec2b8aaeca53e9cf6c8995f6c27",
+  "arrays_sha256": "5438e54b7a3b70cb48ec5467b0ac64804c32ab8afbdabc64062dec7157ce7cec",
+  "device": "mps",
+  "optimizer_updates": 0,
+  "fit_count": 0,
+  "development_pool_inference_performed": false,
+  "scope": "OLD_VAL_17_TECHNICAL_PARITY_AND_ALREADY_SEEN_COHORT_METADATA"
+}

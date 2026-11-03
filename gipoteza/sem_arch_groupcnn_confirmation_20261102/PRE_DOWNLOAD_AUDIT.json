@@ -1,0 +1,272 @@
+{
+  "status": "PASS_PRE_DOWNLOAD_AUDIT",
+  "scope": "METADATA_LOCK_AND_OLD_VAL_ONLY_NO_FRESH_PIXELS",
+  "audit_source_sha256": "841bb9ed381fca8fc2a9ee6d76f2dca054e78fc26ceba7c512e60a5d906c9b63",
+  "checks": {
+    "no_prospective_target_download_pixels_arrays_or_predictions_present": true,
+    "exact_predeclared_routes_seeds_frame_sample_bootstrap_and_goal_limits": true,
+    "same_goal_development_eligibility_all3_and_new2": true,
+    "both_immutable_development_audits_results_and_unique18_primary_routes": true,
+    "all18_final_free_states_six_exact_deployments_and_frozen81_and7_thresholds": true,
+    "independent94_frame_chain_all_six_manifest_frames_excluded": true,
+    "independent321_listing_and_fixed16_hash_rank": true,
+    "locked_source_plan_exact_frames_six_manifests_raw_only_rank_and_coverage": true,
+    "real_old_VAL_proof18_routes17_examples_nonmultiple_batch_and_current_code": true,
+    "all18_both_threshold_formats_independent_masks_classes_IoU_and_serialized_axes": true,
+    "all18_locked_state_independent_CPU_inference_and_archived_VAL_class_agreement": true,
+    "independent_heterogeneous_seed_frame_confusions": true,
+    "shared_seed_first_frame_second_draws": true,
+    "independent_brute_crossed_per_seed_macroF1_before_mean": true,
+    "wrong_pooled_seed_estimator_sensitive_fixture": true,
+    "Bonferroni97_5_quantiles_both_goal_predicates_and_secondary_no_rescue": true,
+    "download_and_prepare_verify_model_code_threshold_lock_before_target_access": true,
+    "raw_D4_only_256_per_frame_rank_and_no_coverage_resampling": true,
+    "all_six_prior_raw_and_mask_D4_motifs_and_new_cohort_duplicates_excluded": true,
+    "evaluation_requires_passing_current_cohort_hash_bound_independent_data_audit": true,
+    "same_inference_path_real_preflight_and_fresh_evaluation_no_fitting_or_threshold_search": true,
+    "code_hashes_bind_every_executed_workflow_model_and_class_rule_source": true,
+    "actual_pre_download_lock_model_states_thresholds_code_and_old_VAL_proof_hashes": true,
+    "all_protected_development_and_workflow_sources_unchanged_during_audit": true
+  },
+  "checks_passed": 24,
+  "checks_total": 24,
+  "development_selection_digest": "9bc0dd9f28cc9757ccd9d84a2a9967f17265f97b93f9e240bb625d6585c9e6bd",
+  "old_VAL_preflight_sha256": "c808835a16bcb73ba71a81cf31e70e14eb11b5ce098fb80b5c9bb62360bf647e",
+  "old_VAL_proof": {
+    "device": "cpu",
+    "examples": 17,
+    "models": 18,
+    "errors": {
+      "independent_CPU_probability": 0.0,
+      "source_VAL_probability": 1.3113021850585938e-06,
+      "metrics": 0.0,
+      "source_mask_bit_differences": 0
+    }
+  },
+  "independent_source_plan": {
+    "frames": [
+      61,
+      87,
+      81,
+      212,
+      100,
+      16,
+      183,
+      252,
+      32,
+      150,
+      157,
+      192,
+      254,
+      200,
+      70,
+      123
+    ],
+    "excluded_frames": 94,
+    "prior_manifest_count": 6,
+    "prior_record_frame_count": 56,
+    "prior_unique_D4_mask_count": 95120,
+    "prior_unique_D4_raw_count": 95120,
+    "prior_manifests_sha256": {
+      "sem_confirmation_20261028/DATA_MANIFEST.json": "3cc6e59bbc1312365a7cf01db4d15fcf6462a7619f6ed9eedda16cee1506f666",
+      "sem_cldice_confirmation_20261030/DATA_MANIFEST.json": "01ef8e6c54242428423c25ee1e4c2c4fbf8578b6ddfdfd17631b5cc0fe468182",
+      "sem_cldice_expansion_20261102/DATA_MANIFEST.json": "e46940496fd02c618711bdcf39984603f5a85381ca264f2ce6d9e80cc973910b",
+      "sem_scarcity_20261102/DATA_MANIFEST.json": "da851e6c251aa52f5f9a7f2566a15dad9e55a1348470e2827b7d0dba3ae82a72",
+      "sem_architecture_pilot_20261102/DATA_MANIFEST.json": "0c2c0107bdb541ec6610230a841725716338acf5bb7a649bfd36e58a60634630",
+      "sem_arch_orbit_confirmation_20261102/DATA_MANIFEST.json": "03b32774288cb260dab9cacdae2c5a01b5c132a7aa8b5b30b22585f51e19928e"
+    }
+  },
+  "independent_bootstrap_fixture": {
+    "repeats": 7,
+    "maximum_correct_estimator_error": 0.0,
+    "incorrect_pooled_seed_estimator_difference": 0.0036154986582613846,
+    "seed_ids": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "frame_ids": [
+      [
+        0,
+        8,
+        2,
+        13,
+        7,
+        3,
+        5,
+        7,
+        10,
+        7,
+        12,
+        1,
+        11,
+        12,
+        15,
+        13
+      ],
+      [
+        0,
+        11,
+        0,
+        10,
+        5,
+        8,
+        11,
+        1,
+        10,
+        10,
+        2,
+        15,
+        1,
+        15,
+        5,
+        2
+      ],
+      [
+        8,
+        13,
+        14,
+        14,
+        15,
+        6,
+        13,
+        1,
+        10,
+        12,
+        2,
+        2,
+        4,
+        12,
+        5,
+        13
+      ],
+      [
+        12,
+        5,
+        1,
+        8,
+        9,
+        13,
+        4,
+        0,
+        7,
+        2,
+        5,
+        9,
+        9,
+        9,
+        13,
+        8
+      ],
+      [
+        5,
+        9,
+        9,
+        5,
+        6,
+        6,
+        5,
+        9,
+        6,
+        7,
+        13,
+        8,
+        2,
+        6,
+        10,
+        13
+      ],
+      [
+        5,
+        0,
+        5,
+        6,
+        4,
+        9,
+        8,
+        0,
+        5,
+        15,
+        10,
+        8,
+        10,
+        0,
+        14,
+        11
+      ],
+      [
+        15,
+        15,
+        5,
+        3,
+        3,
+        11,
+        5,
+        0,
+        0,
+        1,
+        10,
+        0,
+        5,
+        6,
+        2,
+        0
+      ]
+    ]
+  },
+  "code_sha256": {
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/confirmation_common.py": "f561423f1908eb2b9bc4bc711bda9851be5033bc44532b5328db0812a4d78a42",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/confirmation_stats.py": "995a1802ad3013aa8dc0a261a1f29265f7068a63e02477ac9b9ffb7eb095cba4",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/selection.py": "f3d522e1c9ebf8c5e1b71dd74cf5f7933e184ca3657ea1cf556086d732de2cef",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/prepare.py": "1aeb2b2a09dcf23ea0f536b9d22a3f8c489aae31a49e66abe22b380ce297c44b",
+    "gipoteza/sem_arch_groupcnn_confirmation_20261102/evaluate.py": "b5f5f8b9f5121cf3e9081ed446bfd8aac38c4899b2fe091903af4870d0f07b17",
+    "gipoteza/sem_arch_groupcnn_20261102/model.py": "8b04a0a70486d631e00237765fa0930984be806fd658415d7896fd8a4caf332b",
+    "gipoteza/sem_architecture_pilot_20261102/prepare.py": "3d9d096f6fdf5a49a90c2655a50e4a6f4f97e273cc983b90904aadde678320de",
+    "gipoteza/sem_arch_orbit_confirmation_20261102/prepare.py": "c3003106ad31642e6515e984c6f17b35bf78dfa18d05b6de80543550b4ca1e5d",
+    "gipoteza/sem_arch_orbit_confirmation_20261102/evaluate.py": "3c30eb15816aaaaef50c7e50fe650e146642e2584b2645dca148cb8e74bbb171",
+    "gipoteza/sem_confirmation_20261028/prepare.py": "f9507b803f8a8dc7bd11ae1083eb8e6fc9bd84c8386282c7361fe8b43d4fd3ab",
+    "gipoteza/retained_evidence_20261027/SELECTED_SOURCES.zip": "a6888dce510f39a0e3aaeac654f2aa0d7d795402a19f39d71047e29479ab10fd",
+    "gipoteza/shared_data/ic_sem_m2/sem_remote_zip.py": "e2a8f90962b252a23e91cc8773888343a5c6011bf732dcfab38b9f5c52d2bb62"
+  },
+  "lock": {
+    "selection_sha256": "5369a202a2e4d27aef3fb09aa873a6b81aca98ae70485e55c5ec07ae9e754b21",
+    "model_lock_sha256": "02de22158e2302de90ef077a63b9dc2d8086b134b953630ac5126a5092f6af43",
+    "source_plan_sha256": "1b24124effc19ba2bca720e61a674da1e760b4e5e42a5b6bbf676441b8098d65"
+  },
+  "fit_count": 0,
+  "optimizer_updates": 0,
+  "new_target_access": false,
+  "seconds": 0.37986545899912016
+}

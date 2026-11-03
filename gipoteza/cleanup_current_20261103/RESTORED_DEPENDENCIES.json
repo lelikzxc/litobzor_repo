@@ -1,0 +1,7 @@
+{
+  "gipoteza/sem_arch_orbit_confirmation_20261102/SELECTION.json": {
+    "sha256": "4ea6b3b867d97ac4363c08ebb394ac057a0c36e13e8886132b7644b2660612e0",
+    "bytes": 38195,
+    "reason": "required by historical group-confirmation verify_lock source-plan check"
+  }
+}

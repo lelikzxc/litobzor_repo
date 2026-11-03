@@ -1,0 +1,24 @@
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 200, "target_steps": 2000, "completed_updates": 200, "phase": "BCE_WARMUP", "BCE": 0.22045612335205078, "geometry_loss": null, "total_loss": 0.22045612335205078, "seconds": 3.271260292000079}
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 400, "target_steps": 2000, "completed_updates": 400, "phase": "BCE_WARMUP", "BCE": 0.1305142194032669, "geometry_loss": null, "total_loss": 0.1305142194032669, "seconds": 5.334700917001101}
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 600, "target_steps": 2000, "completed_updates": 600, "phase": "BCE_PLUS_OLD_GEOMETRY", "BCE": 0.13198994100093842, "geometry_loss": 0.714322566986084, "total_loss": 0.8463125228881836, "seconds": 8.376964000000953}
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 800, "target_steps": 2000, "completed_updates": 800, "phase": "BCE_PLUS_OLD_GEOMETRY", "BCE": 0.13502298295497894, "geometry_loss": 0.1549869179725647, "total_loss": 0.29000991582870483, "seconds": 11.267796083000576}
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 1000, "target_steps": 2000, "completed_updates": 1000, "phase": "BCE_PLUS_OLD_GEOMETRY", "BCE": 0.16278786957263947, "geometry_loss": 0.12433677166700363, "total_loss": 0.2871246337890625, "seconds": 14.499238417000015}
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 1200, "target_steps": 2000, "completed_updates": 1200, "phase": "BCE_PLUS_OLD_GEOMETRY", "BCE": 0.10409078747034073, "geometry_loss": 0.11614389717578888, "total_loss": 0.2202346920967102, "seconds": 17.784364875000392}
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 1400, "target_steps": 2000, "completed_updates": 1400, "phase": "BCE_PLUS_OLD_GEOMETRY", "BCE": 0.10035202652215958, "geometry_loss": 0.13757702708244324, "total_loss": 0.23792904615402222, "seconds": 20.946036082999854}
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 1600, "target_steps": 2000, "completed_updates": 1600, "phase": "BCE_PLUS_OLD_GEOMETRY", "BCE": 0.1428995430469513, "geometry_loss": 0.060394663363695145, "total_loss": 0.20329420268535614, "seconds": 24.38275195800088}
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 1800, "target_steps": 2000, "completed_updates": 1800, "phase": "BCE_PLUS_OLD_GEOMETRY", "BCE": 0.09828922897577286, "geometry_loss": 0.0490654855966568, "total_loss": 0.14735472202301025, "seconds": 27.924991333000435}
+{"stage": "FRESH_GROUP_CNN_TRAIN_VAL", "trial": "groupcnn_screen_s5701_a571c57fcf", "architecture": "group6", "budget": 18, "seed": 5701, "step": 2000, "target_steps": 2000, "completed_updates": 2000, "phase": "BCE_PLUS_OLD_GEOMETRY", "BCE": 0.08673025667667389, "geometry_loss": 0.053956400603055954, "total_loss": 0.14068666100502014, "seconds": 31.49843900000087}
+Traceback (most recent call last):
+  File "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_groupcnn_20261102/runner.py", line 419, in <module>
+    with threadpool_limits(limits=2): main()
+                                      ~~~~^^
+  File "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_groupcnn_20261102/runner.py", line 415, in main
+    else: run(c, args.phase, args.config)
+          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lelik/Documents/niime/litobzor_repo/gipoteza/sem_arch_groupcnn_20261102/runner.py", line 371, in run
+    row = dict(architecture=arch, route=route, budget=budget, seed=seed, **evaluation, **technical,
+        free_parameters=FREE_PARAMETERS[arch], materialized_coefficients=parameters(network), MACs_per_image=MACS[route],
+        CNN_passes_per_image=4 if mode == 'C4' else 1, CNN_batch_calls=1,
+        internal_batch_multiplier=4 if mode == 'C4' else 1,
+        model_file=fit_row['model_file'], model_sha256=fit_row['model_sha256'])
+TypeError: dict() got multiple values for keyword argument 'free_parameters'

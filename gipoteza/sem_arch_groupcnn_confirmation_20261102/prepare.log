@@ -1,0 +1,17 @@
+{"stage": "PREPARE_FRESH_TEST", "frame": 61, "completed_frames": 1, "total_frames": 16, "unique_patches": 1388, "seconds": 0.2867182089994458}
+{"stage": "PREPARE_FRESH_TEST", "frame": 87, "completed_frames": 2, "total_frames": 16, "unique_patches": 3074, "seconds": 0.5928818339998543}
+{"stage": "PREPARE_FRESH_TEST", "frame": 81, "completed_frames": 3, "total_frames": 16, "unique_patches": 4762, "seconds": 0.891675041999406}
+{"stage": "PREPARE_FRESH_TEST", "frame": 212, "completed_frames": 4, "total_frames": 16, "unique_patches": 6596, "seconds": 1.2051757919998636}
+{"stage": "PREPARE_FRESH_TEST", "frame": 100, "completed_frames": 5, "total_frames": 16, "unique_patches": 7922, "seconds": 1.4536634590003814}
+{"stage": "PREPARE_FRESH_TEST", "frame": 16, "completed_frames": 6, "total_frames": 16, "unique_patches": 9736, "seconds": 1.7601713749991177}
+{"stage": "PREPARE_FRESH_TEST", "frame": 183, "completed_frames": 7, "total_frames": 16, "unique_patches": 11005, "seconds": 2.015435166998941}
+{"stage": "PREPARE_FRESH_TEST", "frame": 252, "completed_frames": 8, "total_frames": 16, "unique_patches": 12961, "seconds": 2.340927291999833}
+{"stage": "PREPARE_FRESH_TEST", "frame": 32, "completed_frames": 9, "total_frames": 16, "unique_patches": 14370, "seconds": 2.6095673750005517}
+{"stage": "PREPARE_FRESH_TEST", "frame": 150, "completed_frames": 10, "total_frames": 16, "unique_patches": 15308, "seconds": 2.8308952919996955}
+{"stage": "PREPARE_FRESH_TEST", "frame": 157, "completed_frames": 11, "total_frames": 16, "unique_patches": 17225, "seconds": 3.149138999999195}
+{"stage": "PREPARE_FRESH_TEST", "frame": 192, "completed_frames": 12, "total_frames": 16, "unique_patches": 18876, "seconds": 3.4496689589996095}
+{"stage": "PREPARE_FRESH_TEST", "frame": 254, "completed_frames": 13, "total_frames": 16, "unique_patches": 20640, "seconds": 3.7418637089995173}
+{"stage": "PREPARE_FRESH_TEST", "frame": 200, "completed_frames": 14, "total_frames": 16, "unique_patches": 22033, "seconds": 4.012318334000156}
+{"stage": "PREPARE_FRESH_TEST", "frame": 70, "completed_frames": 15, "total_frames": 16, "unique_patches": 23450, "seconds": 4.27338674999919}
+{"stage": "PREPARE_FRESH_TEST", "frame": 123, "completed_frames": 16, "total_frames": 16, "unique_patches": 24748, "seconds": 4.526376792000519}
+{"status": "PASS_EVAL_DATA_GATE", "frames": [61, 87, 81, 212, 100, 16, 183, 252, 32, 150, 157, 192, 254, 200, 70, 123], "TEST_examples": 24748, "EVAL_examples": 4096, "gates": {"exactly_4096": true, "exactly_256_each_frame": true, "min_8_each_class": true, "min_3_frames_each_class": true}, "seconds": 5.109201708999535}

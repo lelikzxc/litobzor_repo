@@ -1,0 +1,59 @@
+{
+  "status": "PASS_METADATA_ONLY_RECOVERY_PROOF",
+  "failed_inventory_unchanged": true,
+  "original_model_runner_config_protocol_unchanged": true,
+  "fit_provenance": [
+    {
+      "architecture": "group6",
+      "budget": 18,
+      "seed": 5701,
+      "origin": "inherited_completed_fit",
+      "source_trial": "trials/groupcnn_screen_s5701_a571c57fcf",
+      "fitting_metadata_sha256": "21686685e0392dadc935df47408a96bc4cfff8710be01d9c696c7c4de15b3aa0"
+    },
+    {
+      "architecture": "plain12_C4pooled",
+      "budget": 18,
+      "seed": 5701,
+      "origin": "new_fit",
+      "source_trial": "trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42"
+    },
+    {
+      "architecture": "plain24_C4pooled",
+      "budget": 18,
+      "seed": 5701,
+      "origin": "new_fit",
+      "source_trial": "trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42"
+    },
+    {
+      "architecture": "group6",
+      "budget": 27,
+      "seed": 5701,
+      "origin": "new_fit",
+      "source_trial": "trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42"
+    },
+    {
+      "architecture": "plain12_C4pooled",
+      "budget": 27,
+      "seed": 5701,
+      "origin": "new_fit",
+      "source_trial": "trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42"
+    },
+    {
+      "architecture": "plain24_C4pooled",
+      "budget": 27,
+      "seed": 5701,
+      "origin": "new_fit",
+      "source_trial": "trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42"
+    }
+  ],
+  "inherited_fits": 1,
+  "actual_new_fits": 5,
+  "inherited_updates": 2000,
+  "actual_new_updates": 10000,
+  "total_distinct_fits": 6,
+  "total_unique_updates": 12000,
+  "scientific_functions_reused_unchanged": true,
+  "metadata_merge_equal_overlap_asserted": true,
+  "no_inherited_fit_retrained": true
+}

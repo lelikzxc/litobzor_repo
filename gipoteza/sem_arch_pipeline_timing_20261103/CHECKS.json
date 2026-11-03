@@ -1,0 +1,25 @@
+{
+  "status": "PASS_PIPELINE_TIMING_CHECKS",
+  "checks": {
+    "locked_inputs_unchanged": true,
+    "measurement_binds_lock": true,
+    "measurement_input_bindings": true,
+    "CPU_preflight_bound": true,
+    "same_96_selected_rows": true,
+    "MPS_without_fallback": true,
+    "all_correctness_assertions_completed": true,
+    "positive_finite_durations": true,
+    "no_new_fits": true,
+    "exact_request_coverage": true,
+    "all_summaries_reconstructed": true,
+    "archived_probability_tolerance": true,
+    "separate_profile_coverage": true
+  },
+  "checks_passed": 13,
+  "checks_total": 13,
+  "source_inputs_checked": 46,
+  "timing_sha256": "654bbee19e091837124dd4f2532fddd0e5ec263136e4ef128e3f3979e3320ea2",
+  "lock_sha256": "20583bc1b49d9e1580295917f837b00e9c6a0f742204b12ea841b0038b397ea1",
+  "audit_source_sha256": "bffd0eb54202d9c8f767b724e001ca1323c327148c42f690dfd1af9d58de97f9",
+  "scope": "Artifact/coverage/statistic checks; root-authored. Separate read-only code review found no blocker; not an independent rerun of hardware timing."
+}

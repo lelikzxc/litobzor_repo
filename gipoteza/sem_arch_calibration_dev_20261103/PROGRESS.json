@@ -1,0 +1,15 @@
+{
+  "stage": "COMPLETE_CALIBRATION_DEVELOPMENT_ANALYSIS",
+  "next_study_eligibility": {
+    "passed": true,
+    "guards": {
+      "mean_frame_AP": true,
+      "OOF_F1": true,
+      "OOF_IoU": true,
+      "each_fold_F1": true
+    },
+    "failed": [],
+    "scope": "descriptive_development_eligibility_only_not_independent_confirmation"
+  },
+  "seconds": 30.07287187499969
+}

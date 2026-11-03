@@ -1,0 +1,46 @@
+{
+  "routes": [
+    "group6_single",
+    "plain12_C4",
+    "plain24_C4"
+  ],
+  "budgets": [
+    18,
+    27
+  ],
+  "seeds": [
+    5701,
+    5721,
+    5757
+  ],
+  "frames": 16,
+  "evaluation_per_frame": 256,
+  "evaluation_examples": 4096,
+  "minimum_examples_each_class": 8,
+  "minimum_frames_each_class": 3,
+  "frame_prefix": "SEM-GROUP-CNN-CONFIRM-20261102/",
+  "evaluation_prefix": "SEM-GROUP-CNN-EVAL-20261102/",
+  "bootstrap_repeats": 10000,
+  "bootstrap_seed": 202611027,
+  "CI_quantiles": [
+    0.0125,
+    0.9875
+  ],
+  "inference_batch_size": 16,
+  "old_VAL_probability_tolerance": 1e-05,
+  "goals": {
+    "A_matched_quality": {
+      "minimum_mean_F1_delta": 0.005,
+      "CI_lower_strictly_above": 0.0,
+      "minimum_budget_F1_delta": -0.0025,
+      "minimum_mean_IoU_delta": -0.002
+    },
+    "B_full_efficiency": {
+      "minimum_mean_F1_delta": -0.005,
+      "CI_lower_strictly_above": -0.005,
+      "minimum_budget_F1_delta": -0.01,
+      "minimum_mean_IoU_delta": -0.002
+    }
+  },
+  "protocol_sha256": "89dfcbe8c5bb77d698ec3a7818101f1aba2d643b231b0e2056501d68cbc04039"
+}

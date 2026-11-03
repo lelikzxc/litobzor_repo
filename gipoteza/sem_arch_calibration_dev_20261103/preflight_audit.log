@@ -1,0 +1,3 @@
+/Users/lelik/Documents/niime/litobzor_repo/.venv/lib/python3.13/site-packages/sklearn/metrics/_ranking.py:1192: UserWarning: No positive class found in y_true, recall is set to one for all thresholds.
+  warnings.warn(
+{"status": "PASS_CALIBRATION_PREFLIGHT_AUDIT", "checks_passed": 18, "checks_total": 18, "seconds": 1.4045475420007278}

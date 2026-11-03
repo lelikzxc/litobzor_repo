@@ -1,0 +1,1 @@
+{"status": "LOCKED_BEFORE_FRESH_DOWNLOAD", "test_frames": [61, 87, 81, 212, 100, 16, 183, 252, 32, 150, 157, 192, 254, 200, 70, 123], "models": 18, "threshold_rows": 18, "selection_sha256": "5369a202a2e4d27aef3fb09aa873a6b81aca98ae70485e55c5ec07ae9e754b21", "eligible_by_goal": {"A_matched_quality": true, "B_full_efficiency": true}}

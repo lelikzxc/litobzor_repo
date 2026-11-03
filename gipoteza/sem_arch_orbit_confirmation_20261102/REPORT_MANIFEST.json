@@ -1,0 +1,31 @@
+{
+  "status": "REPORT_GENERATED",
+  "UTC": "2026-11-02T17:50:36.883251+00:00",
+  "scope": "FIXED_NEW_FIELDS_SAME_IC_PILOT",
+  "report_script_sha256": "4e4017e59ba57fd0c643d481964f3cbfcb8f92f57771023a2d89dbe73f7a14b3",
+  "primary_status": "FAIL_PILOT",
+  "new_training_fits": 0,
+  "historical_unique_training_fits": 56,
+  "scientific_inputs_sha256": {
+    "CONFIG.json": "6994777c4bd2b996c95ec73bc6ac998f7a8cc0eb053b6e4051f865ee62d75509",
+    "PROTOCOL.md": "5ec381db33bb242d6b00a17f80b83473de697a5cc7f2c210cd2e152192301611",
+    "MODEL_LOCK.json": "f691726336dff5fb3fa10da85ce2c52704657a7812ca1b3bc14054b911ecadd1",
+    "SOURCE_PLAN.json": "43b95888a832f363bb8896a70f671497c7d9bc59e03f385153bcca4352fc16c0",
+    "SELECTION.json": "4ea6b3b867d97ac4363c08ebb394ac057a0c36e13e8886132b7644b2660612e0",
+    "EVALUATION_FROZEN.json": "7fc5f5f7dabfc341f948d65b8db4546ca0fbe1d0346c71144a3835fa1f663d00",
+    "DATA_MANIFEST.json": "03b32774288cb260dab9cacdae2c5a01b5c132a7aa8b5b30b22585f51e19928e",
+    "EVAL_INDEX.json": "39784264ab339bf2dc48072b24065147c144047ff0b8612eb83f35b15b1259db",
+    "DATA_AUDIT.json": "028a744657d999d32b1138537733790e171eebfbedd96172485daf4906d49204",
+    "AUDIT.json": "fbd6959a6a5ff4c312660cddf91c3efec0819a691df90b7f9f6c8bcb5de7d07e",
+    "RESULT.json": "af56b19143909e3d340448e2ae8d89a413cc15dfe2f9e92d54a7c11524d1f442",
+    "BOOTSTRAP.npz": "ef1c5143ae0bf839e2b0e6d5d44c39d467ff81b2d4a1bf250cc850c4145a3da1",
+    "PREDICTIONS.npz": "5dbb9a00eb00e06d31ff0ff204dcbabb25c6da143de2c188874a16951b013c46",
+    "BOOTSTRAP_SYNTHETIC_CHECK.json": "3732fd0feb6f42c88513d057ae93038bbbb31fa4e7d113ae78d1ea666ce6c904",
+    "evaluate.py": "3c30eb15816aaaaef50c7e50fe650e146642e2584b2645dca148cb8e74bbb171"
+  },
+  "outputs_sha256": {
+    "REPORT.md": "5e79ab716f65d056ee3d095e301d5641930dbed24c8d4629f95e00b2aaf95400",
+    "README.md": "fbb98eef1edb7b0343b6f56b3cc6519a0a28feac24c2fbc3226bf08ef47a0663",
+    "figures/fresh_confirmation.png": "a38f7dfd4c6ac6a68be670e9e0294325828afb1b75de15dddac16dc8ff9a54dc"
+  }
+}

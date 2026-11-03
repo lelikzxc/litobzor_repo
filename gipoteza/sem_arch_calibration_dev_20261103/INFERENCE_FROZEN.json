@@ -1,0 +1,12 @@
+{
+  "status": "FROZEN_BEFORE_DEVELOPMENT_POOL_INFERENCE",
+  "input_sha256": {
+    "gipoteza/sem_arch_calibration_dev_20261103/LOCK.json": "e45bd3f6779b72ba2d10ccc5cc9afcfbaa2c01cfe000269e5cd0c7aef6d35e78",
+    "gipoteza/sem_arch_calibration_dev_20261103/DATA.npz": "2a76209ac1adbbfdd4112fa097ae6cb43fdac7d84d89f36652a9d0869b7eec0a",
+    "gipoteza/sem_arch_calibration_dev_20261103/SOURCES.json": "ef5a6520feadb9b659ebc33925771a5f709ba89dbf0b8a09cb65e05bccd0f53e",
+    "gipoteza/sem_arch_calibration_dev_20261103/PREFLIGHT_AUDIT.json": "68fae1f3e81bb1a8ef0b249d912ed1d9651b8fbba7ef45675244f90c84992870"
+  },
+  "device": "mps",
+  "fit_count": 0,
+  "optimizer_updates": 0
+}

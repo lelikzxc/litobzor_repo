@@ -1,0 +1,68 @@
+{
+  "status": "COMPLETE_UNTIED_CONTROL_DEVELOPMENT",
+  "fit_index": 3,
+  "target_fits": 3,
+  "completed_updates": 6000,
+  "total_updates": 6000,
+  "primary_development_gate": {
+    "passed": true,
+    "guards": {
+      "mean_F1": true,
+      "seed_F1": true,
+      "mean_IoU": true,
+      "matched_MACs": true,
+      "initial_function_match": true
+    },
+    "failed": [],
+    "interpretation": "descriptive_reused_VAL_mechanism_gate_not_independent_confirmation"
+  },
+  "contrasts": {
+    "group_minus_untied": {
+      "mean": {
+        "mask_F1": 0.00972827831548051,
+        "IoU": 0.006172431225001514
+      },
+      "per_seed": [
+        {
+          "seed": 5701,
+          "mask_F1": 0.013726065937289866,
+          "IoU": 0.010015354700459222
+        },
+        {
+          "seed": 5721,
+          "mask_F1": 0.001965923982609308,
+          "IoU": 0.004436105879565999
+        },
+        {
+          "seed": 5757,
+          "mask_F1": 0.013492845026542355,
+          "IoU": 0.004065833094979321
+        }
+      ]
+    },
+    "group_minus_narrow": {
+      "mean": {
+        "mask_F1": 0.0202051904794901,
+        "IoU": 0.0050500108313091445
+      },
+      "per_seed": [
+        {
+          "seed": 5701,
+          "mask_F1": 0.01561172088287277,
+          "IoU": 0.003222510139671897
+        },
+        {
+          "seed": 5721,
+          "mask_F1": 0.01924985647138877,
+          "IoU": 0.00718781162797677
+        },
+        {
+          "seed": 5757,
+          "mask_F1": 0.025753994084208753,
+          "IoU": 0.0047397107262787674
+        }
+      ]
+    }
+  },
+  "seconds": 81.47369749999962
+}

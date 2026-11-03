@@ -1,0 +1,264 @@
+{
+  "status": "REPORT_GENERATED",
+  "scope": "ADAPTIVE_REUSED_TRAIN_VAL_ONLY",
+  "UTC": "2026-11-02T17:07:12.971616+00:00",
+  "report_script_sha256": "46694922a0fa2d2067c222e6c343f016c6a645cb99d0200e672030df4dac0b1b",
+  "trial_count": 4,
+  "completed_trials": 4,
+  "failed_trials": 0,
+  "pending_trials": 0,
+  "fit_count_scope": "LOCAL_EXECUTIONS_ONLY; linked shared-control fits excluded from local totals",
+  "actual_completed_fits": 22,
+  "refiner_completed_fits": 16,
+  "control_completed_fits": 6,
+  "referenced_control_fits": 0,
+  "completed_updates": 11000,
+  "ledger_events": 8,
+  "linked_stage_total_attempts": 4,
+  "linked_stage_completed_attempts": 4,
+  "linked_stage_refiner_completed_fits": 16,
+  "linked_stage_unique_completed_fits": 22,
+  "continued_control_source": {
+    "result_path": "baseline_control/RESULT.json",
+    "result_sha256": "51772b1444ca376d4e89b406e45e6350910dbb232fd05cfcc9f5443913e571ee",
+    "frozen_path": "baseline_control/FROZEN.json",
+    "frozen_sha256": "d305a1c89ce36f7ba46edb16c02c80c7be33673bc790158ca73f1e87052386a7",
+    "local_execution": true,
+    "matching_unit": [
+      "budget",
+      "seed"
+    ],
+    "matched_fields": [
+      "backbone_before_sha256",
+      "batch_sequence_sha256",
+      "steps"
+    ],
+    "descriptive_comparisons": {
+      "direct:seeds=[5501]": {
+        "plain": {
+          "delta": -0.002865342286625605,
+          "IoU_delta": 0.0015646232218143874,
+          "budget_deltas": [
+            -0.0027840658465017043,
+            -0.002946618726749506
+          ],
+          "matched_units": 2,
+          "pairs": [
+            {
+              "budget": 18,
+              "seed": 5501,
+              "F1_delta": -0.0027840658465017043,
+              "IoU_delta": 0.0014994266655775634
+            },
+            {
+              "budget": 27,
+              "seed": 5501,
+              "F1_delta": -0.002946618726749506,
+              "IoU_delta": 0.0016298197780512114
+            }
+          ]
+        },
+        "joint": {
+          "delta": -0.002027382462455707,
+          "IoU_delta": 0.0022636569884373903,
+          "budget_deltas": [
+            -0.0064676910571273005,
+            0.002412926132215887
+          ],
+          "matched_units": 2,
+          "pairs": [
+            {
+              "budget": 18,
+              "seed": 5501,
+              "F1_delta": -0.0064676910571273005,
+              "IoU_delta": 0.0024176612120918595
+            },
+            {
+              "budget": 27,
+              "seed": 5501,
+              "F1_delta": 0.002412926132215887,
+              "IoU_delta": 0.002109652764782921
+            }
+          ]
+        }
+      },
+      "split:seeds=[5501]": {
+        "plain": {
+          "delta": -0.004041300479810994,
+          "IoU_delta": 0.002132836282913053,
+          "budget_deltas": [
+            -0.0042487119879016655,
+            -0.003833888971720323
+          ],
+          "matched_units": 2,
+          "pairs": [
+            {
+              "budget": 18,
+              "seed": 5501,
+              "F1_delta": -0.0042487119879016655,
+              "IoU_delta": 0.002643165555760829
+            },
+            {
+              "budget": 27,
+              "seed": 5501,
+              "F1_delta": -0.003833888971720323,
+              "IoU_delta": 0.0016225070100652772
+            }
+          ]
+        },
+        "joint": {
+          "delta": -0.0024098449303630587,
+          "IoU_delta": 0.002183153002716598,
+          "budget_deltas": [
+            -0.0009858008890057945,
+            -0.003833888971720323
+          ],
+          "matched_units": 2,
+          "pairs": [
+            {
+              "budget": 18,
+              "seed": 5501,
+              "F1_delta": -0.0009858008890057945,
+              "IoU_delta": 0.0026701100870045735
+            },
+            {
+              "budget": 27,
+              "seed": 5501,
+              "F1_delta": -0.003833888971720323,
+              "IoU_delta": 0.0016961959184286224
+            }
+          ]
+        }
+      },
+      "film:seeds=[5501]": {
+        "plain": {
+          "delta": -0.0020699050578394385,
+          "IoU_delta": 0.0018075173253147003,
+          "budget_deltas": [
+            -0.005672155764253617,
+            0.00153234564857474
+          ],
+          "matched_units": 2,
+          "pairs": [
+            {
+              "budget": 18,
+              "seed": 5501,
+              "F1_delta": -0.005672155764253617,
+              "IoU_delta": 0.001821959599281553
+            },
+            {
+              "budget": 27,
+              "seed": 5501,
+              "F1_delta": 0.00153234564857474,
+              "IoU_delta": 0.0017930750513478477
+            }
+          ]
+        },
+        "joint": {
+          "delta": -0.000882183300001449,
+          "IoU_delta": 0.001272713742210163,
+          "budget_deltas": [
+            -0.0030979035723714965,
+            0.0013335369723685986
+          ],
+          "matched_units": 2,
+          "pairs": [
+            {
+              "budget": 18,
+              "seed": 5501,
+              "F1_delta": -0.0030979035723714965,
+              "IoU_delta": 0.0013760172356521716
+            },
+            {
+              "budget": 27,
+              "seed": 5501,
+              "F1_delta": 0.0013335369723685986,
+              "IoU_delta": 0.0011694102487681546
+            }
+          ]
+        }
+      },
+      "gated:seeds=[5501]": {
+        "plain": {
+          "delta": -0.005286739321060274,
+          "IoU_delta": 0.0018325820362012912,
+          "budget_deltas": [
+            -0.007376169542493316,
+            -0.0031973090996272324
+          ],
+          "matched_units": 2,
+          "pairs": [
+            {
+              "budget": 18,
+              "seed": 5501,
+              "F1_delta": -0.007376169542493316,
+              "IoU_delta": 0.0019404243636252927
+            },
+            {
+              "budget": 27,
+              "seed": 5501,
+              "F1_delta": -0.0031973090996272324,
+              "IoU_delta": 0.0017247397087772898
+            }
+          ]
+        },
+        "joint": {
+          "delta": -0.006386410560096756,
+          "IoU_delta": 0.0023621842396356896,
+          "budget_deltas": [
+            -0.011998812272383197,
+            -0.0007740088478103146
+          ],
+          "matched_units": 2,
+          "pairs": [
+            {
+              "budget": 18,
+              "seed": 5501,
+              "F1_delta": -0.011998812272383197,
+              "IoU_delta": 0.002929417279471047
+            },
+            {
+              "budget": 27,
+              "seed": 5501,
+              "F1_delta": -0.0007740088478103146,
+              "IoU_delta": 0.001794951199800332
+            }
+          ]
+        }
+      }
+    },
+    "original_A_B_gates_modified": false
+  },
+  "scientific_inputs_sha256": {
+    "PROTOCOL.md": "b353b8a1b0aeb3aa9438630b948155b65ab8369009f43ab00718b6062103e09d",
+    "QUEUE.json": "66c5d970b6b164303ece417386e4a4b1c262c38a30e92a996dbb7632c096da23",
+    "LEDGER.json": "c3f6a9ef9e3ed10405f36f9b6bfd15f7a7ca23cffbfe66c433b4b96a9dacd113",
+    "baseline_control/RESULT.json": "51772b1444ca376d4e89b406e45e6350910dbb232fd05cfcc9f5443913e571ee",
+    "baseline_control/FROZEN.json": "d305a1c89ce36f7ba46edb16c02c80c7be33673bc790158ca73f1e87052386a7",
+    "trials/direct_screen_s5501_fc50a59fc2/FROZEN.json": "d3e56cdd33d1fd301411ac9d69a5bcfb31e67e02d3bd4f6c9d0d70cbcaab0256",
+    "trials/direct_screen_s5501_fc50a59fc2/RESULT.json": "acf3216a050e9ed49f605537ff963afa5d3f1fa5c70f344d7a201e35871c2d1a",
+    "trials/direct_screen_s5501_fc50a59fc2/PARTIAL_RESULTS.json": "f55a1e67f843b5dcadc917deca65b7c0f298699187b15b0877e041c111d799b7",
+    "trials/direct_screen_s5501_fc50a59fc2/AUDIT.json": "b8ce1cd1e95ce7a55ef14c3314245169f853d839b78ff72995c645c4b254f71c",
+    "trials/direct_screen_s5501_fc50a59fc2/AUDIT_PREVIOUS_78992ef52adc.json": "b2cbf85895a8c9cdcbc053d30c48e5bade3172239e209c73b8608b55481bd0e3",
+    "trials/split_screen_s5501_fc50a59fc2/FROZEN.json": "03a234f9736bf2587e4305429b71182b15a7c58409753414d06f30874abb1eb4",
+    "trials/split_screen_s5501_fc50a59fc2/RESULT.json": "984277e107f3326aa70a2eab9580726a87c6f7cf335329b4ec26d6cb31c5d11d",
+    "trials/split_screen_s5501_fc50a59fc2/PARTIAL_RESULTS.json": "8e4b3506706fcf246ada2971e2389ba58ff29b9d2216fb4da0187d052484049a",
+    "trials/split_screen_s5501_fc50a59fc2/AUDIT.json": "0ff56be6ac5e77c8dc1747136820cf2c15ced24c244004a470a074430bb8b728",
+    "trials/film_screen_s5501_fc50a59fc2/FROZEN.json": "7fef53630f663d5475d14b64bb825bb0995f1a22dd7222a08d832f7a78f722df",
+    "trials/film_screen_s5501_fc50a59fc2/RESULT.json": "f3bf76906d8c7b6582d3c3002caf66098262f54c13a35f6390db686900cd6582",
+    "trials/film_screen_s5501_fc50a59fc2/PARTIAL_RESULTS.json": "38de5b831a3504017ab405f561944a7a3d3755fd24fa524ac9bbc2ef7935f874",
+    "trials/film_screen_s5501_fc50a59fc2/AUDIT.json": "b6b719e5d8cc1651e3cbd700205e06e9f98e5af63d617cf1af40eb3e83f949d0",
+    "trials/gated_screen_s5501_fc50a59fc2/FROZEN.json": "f20fd3cd18584134a314c7e80392e112b098ea67de1e5b547ba02bf9f8208dd9",
+    "trials/gated_screen_s5501_fc50a59fc2/RESULT.json": "433bcbf03df3c520dbf11ddf14b0326c3fa99401fa1f9bd6e1479c948fa916e2",
+    "trials/gated_screen_s5501_fc50a59fc2/PARTIAL_RESULTS.json": "d28161dfde09a02f4ea742b24651fd2e757794497df3b26599996376c9de0551",
+    "trials/gated_screen_s5501_fc50a59fc2/AUDIT.json": "fda013e79b5784c2e398d9b029d9a2b39d2a0fdf6bc9810738a3ca87e21c922d",
+    "../sem_arch_amplitude4_20261102/STAGE_LINK.json": "f19ae52c9d9f647b76ea83a09f4922896ff0b51518437e275ad485e61c88772e",
+    "../sem_arch_amplitude4_20261102/trials/film_replicate_s5521-5557_0939dc15b2/RESULT.json": "c8b97450d7999fac7a78ff8afc943e7a442e7a895140fb39f022b06a2cb9b5cd",
+    "../sem_arch_amplitude4_20261102/trials/film_screen_s5501_0939dc15b2/RESULT.json": "007421ca8a53d1a1a80c5cba0e0c95cd9096088ff56fbb617841d3bda1f2e73f"
+  },
+  "outputs_sha256": {
+    "REPORT.md": "1172ff0246625f37e3d7f48873efb203dea8ed5bc97b2b8e314cc80b353245d3",
+    "README.md": "222587226057fb283d3ca1ad1f9972c9a834911bcfed5446999c3c94d9438350",
+    "figures/architecture_validation.png": "3241b30b443f6fd290b27db28419f7658cc427d84ac6e4c364dd36b4384ab563"
+  }
+}

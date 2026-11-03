@@ -1,0 +1,119 @@
+[
+  {
+    "steps": 2000,
+    "optimizer_updates": 2000,
+    "warmup_steps": 400,
+    "joint_steps": 1600,
+    "fit_count": 1,
+    "initial_state_sha256": "c5af112738158b4d34e78fac93401bdd6ae1ef98df86331c0038e16a51db52fe",
+    "final_state_sha256": "6a34f8ec9d4e5349b589c6e09235e5c398a53abd8d2b6fcba73d1e60ed7b7c5b",
+    "batch_sequence_sha256": "3573a603afdc0a94fa84de12aa58636a4db1e414c94176cccc3ac7ea52dfdab1",
+    "group_initial_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/models/group6_b27_s5701_initial.pt",
+    "group_initial_sha256": "1db11b3d9abbff57fa670793698a69d2727bd31a5304096bc0e73cb39f9ffebd",
+    "fresh_initialization": true,
+    "pretrained_weights_loaded": false,
+    "weak_masks_loaded": false,
+    "free_parameters": 10681,
+    "MACs_per_image": 1527552,
+    "training_route": "single_untied24",
+    "final_tie_residual": 0.3362756669521332,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/untied24_single_b27_s5701_step1.pt",
+        "sha256": "ccad3397f8c07c9167de9566a09b6ef6d2ef6ac208d73b978d6dd64b16bb6cc4",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/untied24_single_b27_s5701_step401.pt",
+        "sha256": "922540afedddae76605006d21aa2f0ef90a664281d4192eb9704e064f92ae3a6",
+        "step": 401
+      }
+    ],
+    "training_seconds": 25.791130957999485,
+    "architecture": "untied24_single",
+    "budget": 27,
+    "seed": 5701,
+    "model_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5701.pt",
+    "model_sha256": "aad700f8ace6de3fb3194366e12b0c323c2e0d35030e44410394578e6f5e2334",
+    "initial_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5701_initial.pt",
+    "initial_sha256": "ed6cee4007a61d7e082dfa4876fee6870bfd80dc8e780ed465af6d6d7ed6fc41"
+  },
+  {
+    "steps": 2000,
+    "optimizer_updates": 2000,
+    "warmup_steps": 400,
+    "joint_steps": 1600,
+    "fit_count": 1,
+    "initial_state_sha256": "14f17b16a4848935d397a9901d5327f6b38945bc64bb001c17ce08835c4089a7",
+    "final_state_sha256": "06df1c09b64f3fd8e1806e2c9ba949501d87fbe3f55d60afd398a32b7edda690",
+    "batch_sequence_sha256": "55559788f740e30dab82d701de9d5a2fa4c6de535fb88c1a2ec4ec2fede7fbc3",
+    "group_initial_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5721_initial.pt",
+    "group_initial_sha256": "80d1cef729cd6681dafb4780deb52aa8a4782db5d8b17acfc5bd10451befe983",
+    "fresh_initialization": true,
+    "pretrained_weights_loaded": false,
+    "weak_masks_loaded": false,
+    "free_parameters": 10681,
+    "MACs_per_image": 1527552,
+    "training_route": "single_untied24",
+    "final_tie_residual": 0.4350891709327698,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/untied24_single_b27_s5721_step1.pt",
+        "sha256": "10623f13f4831d14878f99757cabbe15ff99474745ef81c276c370d68411f1da",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/untied24_single_b27_s5721_step401.pt",
+        "sha256": "29bb7acbbf137500da6afc32138d6bbcc7b0d0fd9896750931b44bacd41c4edd",
+        "step": 401
+      }
+    ],
+    "training_seconds": 24.451879416999873,
+    "architecture": "untied24_single",
+    "budget": 27,
+    "seed": 5721,
+    "model_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5721.pt",
+    "model_sha256": "af04e667cf195e053d644f6e4bc4be2db4c135b0b29f47543bdb759570678837",
+    "initial_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5721_initial.pt",
+    "initial_sha256": "f125bb7ad9c4b75a7db31f00de3841af10b9d228c2cc15e9b2eec380d9e83075"
+  },
+  {
+    "steps": 2000,
+    "optimizer_updates": 2000,
+    "warmup_steps": 400,
+    "joint_steps": 1600,
+    "fit_count": 1,
+    "initial_state_sha256": "4cd84b0010a8306c1fdd5c083ea0544511d2b2db70810d2a96673de1ec1e0584",
+    "final_state_sha256": "95eea7b158b079c22f3760a560b5d4eafe135bdaaa5660523869490427ef8ac6",
+    "batch_sequence_sha256": "c96ee5cd1918741433096e04c5c00526e50c273f997852b24fdb6efd2cd684cd",
+    "group_initial_file": "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/models/group6_b27_s5757_initial.pt",
+    "group_initial_sha256": "5998f58e1c8fedc52fc73563d32f0ff67ce9068d3c40d3788b00f38f5edd191f",
+    "fresh_initialization": true,
+    "pretrained_weights_loaded": false,
+    "weak_masks_loaded": false,
+    "free_parameters": 10681,
+    "MACs_per_image": 1527552,
+    "training_route": "single_untied24",
+    "final_tie_residual": 0.5224679112434387,
+    "gradient_probes": [
+      {
+        "file": "gradient_probes/untied24_single_b27_s5757_step1.pt",
+        "sha256": "b42d12b506e718a478fbb9e289f375299328623e94be6d66e07a8c6773a27496",
+        "step": 1
+      },
+      {
+        "file": "gradient_probes/untied24_single_b27_s5757_step401.pt",
+        "sha256": "339458ec1631b44c3e3851b795b558125feb6d9864527022320f7e6c2b39b1dd",
+        "step": 401
+      }
+    ],
+    "training_seconds": 24.252797459001158,
+    "architecture": "untied24_single",
+    "budget": 27,
+    "seed": 5757,
+    "model_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5757.pt",
+    "model_sha256": "902b99c3ad848aa4312aabec41d90b5ddac5de7c9dd8f2ce65c4b21329394167",
+    "initial_file": "gipoteza/sem_arch_untied_control_20261103/trial/models/untied24_single_b27_s5757_initial.pt",
+    "initial_sha256": "7cf296b56e966db657b4ce8f00451534163b602f90eff909fe887aa63888f9ac"
+  }
+]

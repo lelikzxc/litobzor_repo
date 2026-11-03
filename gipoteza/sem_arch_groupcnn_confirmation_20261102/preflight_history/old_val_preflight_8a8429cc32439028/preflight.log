@@ -1,0 +1,1 @@
+{"status": "PASS_OLD_VAL_PREFLIGHT", "checks": {"all18_final_routes": true, "nonmultiple_batch": true, "source_probability_agreement": true, "source_selected_class_agreement": true, "prediction_serialization_roundtrip": true, "synthetic_estimator_and_goals": true}, "examples": 17, "source_model_count": 18}

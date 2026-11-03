@@ -1,0 +1,93 @@
+{
+  "status": "COMPLETE_GROUPCNN_DEVELOPMENT",
+  "trial": "trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42",
+  "phase": "replicate",
+  "result_sha256": "f73c438c7b5667fd36ccc064bf5c68c99d28566fc460a52bb9cd93224d7d908c",
+  "gates": {
+    "A_matched_quality": {
+      "delta": 0.014628858970822556,
+      "budget_deltas": [
+        0.009052527462155124,
+        0.020205190479489987
+      ],
+      "IoU_delta": 0.004910778043866915,
+      "checks": {
+        "mean_F1_gain": true,
+        "budget_F1_guard": true,
+        "mean_IoU_guard": true,
+        "parameter_budget_match": true,
+        "MAC_budget_match": true
+      },
+      "free_parameter_ratio": 0.971626045834849,
+      "MAC_ratio": 0.9778761061946902,
+      "passed": true
+    },
+    "B_full_efficiency": {
+      "delta": 0.00934637051612619,
+      "budget_deltas": [
+        0.005646468766525192,
+        0.013046272265727188
+      ],
+      "IoU_delta": 0.0010650956540232404,
+      "checks": {
+        "mean_F1_gain": true,
+        "budget_F1_guard": true,
+        "mean_IoU_guard": true,
+        "MAC_efficiency_guard": true
+      },
+      "MAC_ratio": 0.25,
+      "passed": true
+    },
+    "ANY_GOAL_PASS": true,
+    "interpretation": "Separate reused-VAL development goals; secondary does not replace primary; latency is descriptive"
+  },
+  "means": {
+    "18": {
+      "group6_single": {
+        "mask_F1": 0.8347036774671753,
+        "IoU": 0.897671779078657
+      },
+      "plain12_identity": {
+        "mask_F1": 0.7907621362449951,
+        "IoU": 0.8815330013227158
+      },
+      "plain12_C4": {
+        "mask_F1": 0.8256511500050202,
+        "IoU": 0.8929002338222324
+      },
+      "plain24_identity": {
+        "mask_F1": 0.7982419436719225,
+        "IoU": 0.8827815491801818
+      },
+      "plain24_C4": {
+        "mask_F1": 0.8290572087006501,
+        "IoU": 0.896776477914762
+      }
+    },
+    "27": {
+      "group6_single": {
+        "mask_F1": 0.8403333533189908,
+        "IoU": 0.8982522843305681
+      },
+      "plain12_identity": {
+        "mask_F1": 0.7839796318319,
+        "IoU": 0.8792256339418277
+      },
+      "plain12_C4": {
+        "mask_F1": 0.8201281628395009,
+        "IoU": 0.893202273499259
+      },
+      "plain24_identity": {
+        "mask_F1": 0.7942464355820963,
+        "IoU": 0.8831154124047296
+      },
+      "plain24_C4": {
+        "mask_F1": 0.8272870810532637,
+        "IoU": 0.8970173941864167
+      }
+    }
+  },
+  "actual_new_fits": 12,
+  "inherited_fits": 0,
+  "total_distinct_fits": 12
+}

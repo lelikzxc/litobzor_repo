@@ -1,0 +1,35 @@
+{
+  "status": "PASS_CLEANUP_RUNTIME",
+  "planned_deletions_denied": false,
+  "checks": {
+    "freeze": true,
+    "seed": true,
+    "calibrated": true,
+    "dev": true,
+    "untied": true,
+    "group_confirmation": true,
+    "bce": true,
+    "factorial": true,
+    "timing": true,
+    "EDA": true,
+    "inference": true
+  },
+  "checks_passed": 11,
+  "checks_total": 11,
+  "new_training_fits": 0,
+  "scientific_records_changed": false,
+  "outputs": {
+    "freeze": "PASS freeze\n",
+    "seed": "PASS seed\n",
+    "calibrated": "PASS calibrated\n",
+    "dev": "PASS dev\n",
+    "untied": "PASS untied\n",
+    "group_confirmation": "PASS group_confirmation\n",
+    "bce": "PASS bce\n",
+    "factorial": "PASS factorial\n",
+    "timing": "PASS timing\n",
+    "EDA": "PASS EDA\n",
+    "inference": "{\"models\": 10, \"examples\": 17, \"maximum_probability_error\": 1.2814998626708984e-06}\nPASS inference\n"
+  },
+  "source_sha256": "2559d19b744f249c3cc5510c05cc31c4c334bdc46409048426b36dda0eec31aa"
+}

@@ -1,0 +1,111 @@
+{
+  "status": "PASS_METADATA_RECOVERY_PREFLIGHT",
+  "row_construction_variants": [
+    {
+      "route": "group6_single",
+      "row_constructs": true,
+      "JSON_serializes": true,
+      "overlapping_fields_checked": [
+        "free_parameters",
+        "materialized_coefficients"
+      ]
+    },
+    {
+      "route": "plain12_identity",
+      "row_constructs": true,
+      "JSON_serializes": true,
+      "overlapping_fields_checked": []
+    },
+    {
+      "route": "plain12_C4",
+      "row_constructs": true,
+      "JSON_serializes": true,
+      "overlapping_fields_checked": []
+    },
+    {
+      "route": "plain24_identity",
+      "row_constructs": true,
+      "JSON_serializes": true,
+      "overlapping_fields_checked": []
+    },
+    {
+      "route": "plain24_C4",
+      "row_constructs": true,
+      "JSON_serializes": true,
+      "overlapping_fields_checked": []
+    }
+  ],
+  "conflicting_overlap_rejected": true,
+  "inherited_fit_valid": true,
+  "inherited_fit_count": 1,
+  "inherited_updates": 2000,
+  "actual_new_screen_fits_planned": 5,
+  "actual_new_screen_updates_planned": 10000,
+  "failed_inventory_sha256": "fd7365126b8daf636b40093dd3e412b9453cc5c940f96f692c9a8c0b3e767b17",
+  "original_source_sha256": {
+    "model.py": "8b04a0a70486d631e00237765fa0930984be806fd658415d7896fd8a4caf332b",
+    "runner.py": "f00886c4ea34661688014680d049c51ad181933ab7a5d69bd8517463914fde0d",
+    "../sem_architecture_pilot_20261102/physics_adapter.py": "4419a21d7c9e5883880ed58565254e82000161e70ced3e7406ec9a7f71be2b4f",
+    "../sem_physics_materials/physics_loss_example.py": "d82c7e789520f0ddf3207aa2d6dc26fd98cdeff81692f8d2a3bfb70f760264cd",
+    "../sem_architecture_pilot_20261102/prepare.py": "3d9d096f6fdf5a49a90c2655a50e4a6f4f97e273cc983b90904aadde678320de",
+    "../sem_confirmation_20261028/prepare.py": "f9507b803f8a8dc7bd11ae1083eb8e6fc9bd84c8386282c7361fe8b43d4fd3ab",
+    "../retained_evidence_20261027/SELECTED_SOURCES.zip": "a6888dce510f39a0e3aaeac654f2aa0d7d795402a19f39d71047e29479ab10fd"
+  },
+  "executed_recovery_sha256": "27b9055b4267c57be0ff97cb684d0f2c4f8c0e0041ed5834d17da536155efe2d",
+  "no_optimizer_steps": true,
+  "same_entrypoint_supports_replication": true,
+  "inherited": {
+    "architecture": "group6",
+    "budget": 18,
+    "seed": 5701,
+    "fitting_metadata": {
+      "steps": 2000,
+      "warmup_steps": 400,
+      "joint_steps": 1600,
+      "optimizer_updates": 2000,
+      "fit_count": 1,
+      "fresh_initialization": true,
+      "initial_state_sha256": "7fdc3c1905c8344d257adb8757e5396d2eceae34c02582706be61c3da9297772",
+      "final_state_sha256": "88a119fe2c9c9da52ea574401b5409f358cbef936538418f350a5b167e05f4fc",
+      "free_parameters": 2671,
+      "training_route": "single_group_equivariant",
+      "batch_sequence_sha256": "3fd3566f953d4f9f1b3e3e1907c66dbf002f7929ea0b43ec5fbe42ece136bf29",
+      "gradient_probes": [
+        {
+          "file": "gradient_probes/group6_b18_s5701_step1.pt",
+          "sha256": "9fd5f0c503ceb646ee70f7cf8d8a21320875107005db0f229d95b33b8d061c6c",
+          "step": 1
+        },
+        {
+          "file": "gradient_probes/group6_b18_s5701_step401.pt",
+          "sha256": "edac9d5e0267bf9a1d5e98d984a32e5872643627b8b923f5f55e8b3f720b3bc5",
+          "step": 401
+        }
+      ],
+      "training_seconds": 31.453586040999653
+    },
+    "fitting_metadata_sha256": "21686685e0392dadc935df47408a96bc4cfff8710be01d9c696c7c4de15b3aa0",
+    "artifacts": [
+      {
+        "file": "trials/groupcnn_screen_s5701_a571c57fcf/models/group6_b18_s5701.pt",
+        "sha256": "40f971a4985a8f1d7c6f7cf99635c18689b0aab057dcf1fc6268ea0c9214376c"
+      },
+      {
+        "file": "trials/groupcnn_screen_s5701_a571c57fcf/models/group6_b18_s5701_initial.pt",
+        "sha256": "aa1ffc0fcb1223b07f07249db0e58ab1e1ce958af6ec3b346912447c78a7102c"
+      },
+      {
+        "file": "trials/groupcnn_screen_s5701_a571c57fcf/models/group6_b18_s5701_deployed.pt",
+        "sha256": "c322a72be495bab71666176acc1db0d590b22d955de6b6b968b3e1d30ab20771"
+      },
+      {
+        "file": "trials/groupcnn_screen_s5701_a571c57fcf/gradient_probes/group6_b18_s5701_step1.pt",
+        "sha256": "9fd5f0c503ceb646ee70f7cf8d8a21320875107005db0f229d95b33b8d061c6c"
+      },
+      {
+        "file": "trials/groupcnn_screen_s5701_a571c57fcf/gradient_probes/group6_b18_s5701_step401.pt",
+        "sha256": "edac9d5e0267bf9a1d5e98d984a32e5872643627b8b923f5f55e8b3f720b3bc5"
+      }
+    ]
+  }
+}
