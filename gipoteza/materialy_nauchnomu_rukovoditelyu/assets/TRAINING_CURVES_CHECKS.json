@@ -1,0 +1,141 @@
+{
+  "records": 100,
+  "seeds": [
+    5701,
+    5721,
+    5757,
+    5801,
+    5821
+  ],
+  "training_runs": 10,
+  "steps": [
+    200,
+    400,
+    600,
+    800,
+    1000,
+    1200,
+    1400,
+    1600,
+    1800,
+    2000
+  ],
+  "dense_masks": 27,
+  "weak_labels": 1152,
+  "warmup_steps": 400,
+  "first_geometry_update": 401,
+  "first_logged_geometry_step": 600,
+  "values": "current training minibatch loss before optimizer update",
+  "validation_time_series": false,
+  "smoothing": false,
+  "thick_lines": "arithmetic mean of five runs at matching logged steps",
+  "thin_lines": "individual runs; no confidence interval",
+  "source_sha256": {
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_screen_s5701_metadata_recovery_27b9055b42/progress.jsonl": "627873cd417338fe765b321b835547cdd2fbfad54c4e415fa24a01b2234adc17",
+    "gipoteza/sem_arch_groupcnn_20261102/trials/groupcnn_replicate_s5721-5757_metadata_recovery_27b9055b42/progress.jsonl": "e2ad6d4e831e08ce2b1dab576e06cf9d512e436e07b63ca18ce48a78133722bd",
+    "gipoteza/sem_arch_untied_control_20261103/trial/progress.jsonl": "841f2aab95b76f0e494ece807671d28b0fb7ad745f7d3669c0df3ff97e3af3ff",
+    "gipoteza/sem_arch_seed_extension_20261103/progress.jsonl": "9a5c6208b4c31891d6cdb8d35aff14e4e8fc678ed13ce144b64c709f498386f4"
+  },
+  "means": {
+    "group6/BCE": {
+      "steps": [
+        200,
+        400,
+        600,
+        800,
+        1000,
+        1200,
+        1400,
+        1600,
+        1800,
+        2000
+      ],
+      "values": [
+        0.19880693554878234,
+        0.14222277998924254,
+        0.130977301299572,
+        0.12250829935073852,
+        0.13229160159826278,
+        0.11937912553548813,
+        0.1073719322681427,
+        0.11109415739774704,
+        0.11093939542770385,
+        0.11505591422319413
+      ]
+    },
+    "untied24_single/BCE": {
+      "steps": [
+        200,
+        400,
+        600,
+        800,
+        1000,
+        1200,
+        1400,
+        1600,
+        1800,
+        2000
+      ],
+      "values": [
+        0.16011195182800292,
+        0.11169791966676712,
+        0.12465932369232177,
+        0.11703484952449798,
+        0.123518206179142,
+        0.10263950228691102,
+        0.09899609833955765,
+        0.10429949462413787,
+        0.10300276726484299,
+        0.09898570775985718
+      ]
+    },
+    "group6/geometry_loss": {
+      "steps": [
+        600,
+        800,
+        1000,
+        1200,
+        1400,
+        1600,
+        1800,
+        2000
+      ],
+      "values": [
+        0.3423800438642502,
+        0.17382162138819696,
+        0.07070076391100884,
+        0.4244086086750031,
+        0.09377298913896084,
+        0.11342296227812768,
+        0.18694953322410585,
+        0.15060819387435914
+      ]
+    },
+    "untied24_single/geometry_loss": {
+      "steps": [
+        600,
+        800,
+        1000,
+        1200,
+        1400,
+        1600,
+        1800,
+        2000
+      ],
+      "values": [
+        0.4221402660012245,
+        0.17018910720944405,
+        0.05368325784802437,
+        0.4487509071826935,
+        0.08567353636026383,
+        0.10336259896866977,
+        0.3254157297313213,
+        0.16630516052246094
+      ]
+    }
+  },
+  "output_sha256": {
+    "training_curves.png": "ffe3c9998e73621e70debf0531046a1f78bd555149ed953a3d33f5cc869a073e",
+    "training_curves.csv": "7ef8876d481de47fdd0df9b3ab4fb412a2847d87e590170c2b0e82b68f7f2c96"
+  }
+}

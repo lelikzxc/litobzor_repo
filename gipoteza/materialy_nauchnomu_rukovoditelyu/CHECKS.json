@@ -1,0 +1,32 @@
+{
+  "pages": 8,
+  "visual_review_all_pages": true,
+  "key_results_verified": true,
+  "loss_CNN_text_independent_code_review": true,
+  "no_preparation_dates_or_advice_in_body": true,
+  "hashes": {
+    "issledovanie_metallizatsii.md": "4c6d6b5efbe7d376a252b394d1d6a7f76effc7f753fd40feee36d8152a321b3a",
+    "build_pdf.py": "f6c0d9877c95be4d8a9d1dfc6b5f35dc3501ab608c1b7e8b94a428d87f39bc45",
+    "plot_mask_pairs.py": "5a3d901d7d8f56bc814655d1d84ff93a33ad7bf05517475e5fd1473d0d172389",
+    "assets/mask_pairs.png": "04d701c7475f7b9f2c5832d4c8ca7d0e716047b52eaf22877f6564eefe9af3db",
+    "assets/FIGURE_CHECKS.json": "783d44ee571a274ff1ee0ac638b41617ddbc86cde3ade05f06a8fbf275787a1e",
+    "output/pdf/issledovanie_metallizatsii.pdf": "418cf15a04dcac4f2c967a20a2b07eed232d1f0144794031e0573eb1f95ed452",
+    "plot_training_curves.py": "7079628f69ca316aea24cd83bda2ea0debf09b6887cebc8151151cd3034dfadd",
+    "assets/training_curves.png": "ffe3c9998e73621e70debf0531046a1f78bd555149ed953a3d33f5cc869a073e",
+    "assets/training_curves.csv": "7ef8876d481de47fdd0df9b3ab4fb412a2847d87e590170c2b0e82b68f7f2c96",
+    "assets/TRAINING_CURVES_CHECKS.json": "a61c0038e3ebf1aeb4344daa38a67797b067414ff08cebbc5c552acae1914ae2"
+  },
+  "scientific_sources_sha256": {
+    "gipoteza/sem_physics_materials/physics_loss_example.py": "d82c7e789520f0ddf3207aa2d6dc26fd98cdeff81692f8d2a3bfb70f760264cd",
+    "gipoteza/sem_architecture_pilot_20261102/physics_adapter.py": "4419a21d7c9e5883880ed58565254e82000161e70ced3e7406ec9a7f71be2b4f",
+    "gipoteza/sem_arch_groupcnn_20261102/model.py": "8b04a0a70486d631e00237765fa0930984be806fd658415d7896fd8a4caf332b",
+    "gipoteza/sem_arch_seed_extension_20261103/common.py": "4779d7e44ea6dee5c1ccee0e0158ad3cad2b8aaf1ae0d33df36ad1faff58ff97",
+    "gipoteza/sem_arch_loss_factorial_20261103/REPORT.md": "04f7ae9e41e33d65fddc5709c4707e852f4c4a2b6d9faf54c71360f356aa1dfe"
+  },
+  "training_curves_source_records": 100,
+  "training_curves_runs": 10,
+  "training_curves_missing_values_preserved": true,
+  "training_curves_no_smoothing": true,
+  "training_curves_page": 6,
+  "training_curves_independent_source_review": true
+}

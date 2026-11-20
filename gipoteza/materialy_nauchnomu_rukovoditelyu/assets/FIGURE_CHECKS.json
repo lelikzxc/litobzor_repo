@@ -1,0 +1,41 @@
+{
+  "status": "PASS_MASK_PAIR_RECONSTRUCTION",
+  "frame": 11,
+  "selection": "First, middle and last EVAL rows of frame11; no model/error-based selection",
+  "checks": [
+    {
+      "EVAL_index": 0,
+      "frame": 11,
+      "x": 2024,
+      "y": 512,
+      "input_max_error": 0.0,
+      "majority_target_exact": true,
+      "class_label": 3
+    },
+    {
+      "EVAL_index": 128,
+      "frame": 11,
+      "x": 2144,
+      "y": 1712,
+      "input_max_error": 0.0,
+      "majority_target_exact": true,
+      "class_label": 6
+    },
+    {
+      "EVAL_index": 255,
+      "frame": 11,
+      "x": 2456,
+      "y": 2936,
+      "input_max_error": 0.0,
+      "majority_target_exact": true,
+      "class_label": 0
+    }
+  ],
+  "source_sha256": {
+    "sem_arch_calibrated_confirmation_20261103/sources/sem0011.png": "309fbd043ef37abc883a8d1e27f416a15cb3a6c4ed6fead0f0ded72a41654bfc",
+    "sem_arch_calibrated_confirmation_20261103/sources/label0011.svg": "70dd8301c748024d3425ba375b7b85a75ad45b892116c03d26ddeb1e1768a1e5",
+    "sem_arch_calibrated_confirmation_20261103/EVAL.npz": "d35b81e4f51b099f83da71316e50f24896567958f45b7de05c48f251dd58e4f3",
+    "sem_arch_calibrated_confirmation_20261103/EVAL_INDEX.json": "e56ef1c61e8107cbdb7470996ca3e672297b2b70f8a6281ab9d62d6a0c30b60e"
+  },
+  "figure_sha256": "04d701c7475f7b9f2c5832d4c8ca7d0e716047b52eaf22877f6564eefe9af3db"
+}
